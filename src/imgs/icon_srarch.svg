@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon_srarch" width="61.057" height="62.223" viewBox="0 0 61.057 62.223">
+    <defs>
+        <clipPath id="clip-path">
+            <path fill="none" d="M-1 -1H60.057V61.223H-1z"/>
+        </clipPath>
+        <style>
+            .cls-3{fill:none;stroke:#666;stroke-linecap:round;stroke-linejoin:round;stroke-width:4.5px}
+        </style>
+    </defs>
+    <g id="스크롤_그룹_292" transform="translate(1 1)" style="isolation:isolate" clip-path="url(#clip-path)">
+        <g id="그룹_2529" transform="translate(-166.156 228.347)">
+            <circle id="타원_73" cx="23.464" cy="23.464" r="23.464" class="cls-3" transform="translate(168.406 -226.097)"/>
+            <path id="선_129" d="M0 0L13.229 13.229" class="cls-3" transform="translate(209.802 -183.535)"/>
+        </g>
+    </g>
+</svg>
