@@ -5,7 +5,7 @@ import {StyleSheet, ScrollView} from 'react-native';
 import Loading from './components/Loading';
 import Initial2 from './components/Initial2';
 import Initial3 from './components/Initial3';
-import Login from './components/Login';
+import Login from './components/login/Login';
 import Signup from './components/Signup';
 import ResearchForm from './components/research/ResearchForm';
 
