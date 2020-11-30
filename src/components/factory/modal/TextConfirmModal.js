@@ -64,7 +64,7 @@ class TextConfirmModal extends Component {
               this.setState({modalVisible: !modalVisible});
               this.props.setModalVisible(!modalVisible);
             }}>
-            <Text style={styles.closeButtonText2}>확인</Text>
+            <Text style={styles.closeButtonText2}>{this.props.confirm}</Text>
           </TouchableHighlight>
         </View>
       </Modal>
