@@ -68,7 +68,9 @@ class Login extends Component {
     });
   };
 
-  handleLoginCheck = () => {};
+  handleLoginCheck = () => {
+    // if(this.state.Id)
+  };
 
   render() {
     const {modalVisible} = this.state;
