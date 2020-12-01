@@ -17,7 +17,8 @@ import {
 } from 'react-native';
 
 import TextConfirmModal from '../factory/modal/TextConfirmModal';
-import walletPassword from './walletPassword';
+import WalletPassword from './WalletPassword';
+import WalletMasterKey from './WalletMasterKey';
 
 // import RNPickerSelect from 'react-native-picker-select';
 
@@ -133,7 +134,9 @@ class Login extends Component {
             style={styles.loginButton}
             activeOpacity={0.75}
             onPress={() => {
-              this.setModalVisible(true);
+              // this.setModalVisible(true);
+              // this.props.navigation.navigate('WalletPassword');
+              this.props.navigation.navigate('WalletMasterKey');
             }}>
             <Text style={styles.loginButtonText}>LOGIN</Text>
           </TouchableHighlight>
