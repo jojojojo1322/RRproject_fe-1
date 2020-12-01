@@ -10,6 +10,8 @@ import Login from './components/login/Login';
 import WalletPassword from './components/login/WalletPassword';
 import WalletMasterKey from './components/login/WalletMasterKey';
 
+import Kyc from './components/kyc/Kyc';
+
 import SignUp from './components/signup/SignUp';
 import ResearchForm from './components/research/ResearchForm';
 const Stack = createStackNavigator();
@@ -40,6 +42,9 @@ class App extends Component {
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="WalletPassword" component={WalletPassword} />
           <Stack.Screen name="WalletMasterKey" component={WalletMasterKey} />
+
+          <Stack.Screen name="Kyc" component={Kyc} />
+
           <Stack.Screen
             name="SignUp"
             component={SignUp}
