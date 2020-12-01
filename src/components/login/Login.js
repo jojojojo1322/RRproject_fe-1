@@ -135,8 +135,8 @@ class Login extends Component {
             activeOpacity={0.75}
             onPress={() => {
               // this.setModalVisible(true);
-              // this.props.navigation.navigate('WalletPassword');
-              this.props.navigation.navigate('WalletMasterKey');
+              this.props.navigation.navigate('WalletPassword');
+              // this.props.navigation.navigate('WalletMasterKey');
             }}>
             <Text style={styles.loginButtonText}>LOGIN</Text>
           </TouchableHighlight>
