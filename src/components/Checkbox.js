@@ -76,10 +76,12 @@ export class Checkbox extends Component {
           flexDirection: 'row', 
           alignItems: 'center' }}>
             <View style={{
-              padding: 1, 
+              // padding: 1, 
               width: this.props.size, 
-              height: this.props.size, 
-              backgroundColor: this.props.color
+              height: this.props.size,
+              borderWidth: this.props.borderWidth,
+              borderColor: this.props.borderColor,
+              // backgroundColor: this.props.color
             }}>
               {
                 (this.state.checked)
@@ -102,20 +104,24 @@ export class Checkbox extends Component {
 }
  
 Checkbox.propTypes = {
-    keyValue: PropTypes.number.isRequired,
-    size: PropTypes.number,
-    color: PropTypes.string,
-    label: PropTypes.string,
-    value: PropTypes.string,
-    checked: PropTypes.bool,
-    labelColor: PropTypes.string,
-    checkedObjArr: PropTypes.object.isRequired
+  keyValue: PropTypes.number.isRequired,
+  size: PropTypes.number,
+  color: PropTypes.string,
+  borderWidth: PropTypes.number,
+  borderColor: PropTypes.string,
+  label: PropTypes.string,
+  value: PropTypes.string,
+  checked: PropTypes.bool,
+  labelColor: PropTypes.string,
+  checkedObjArr: PropTypes.object.isRequired
 }
 
 Checkbox.defaultProps = {
     size: 32,
     checked: false,
     value: 'Default',
+    borderWidth: 1,
+    borderColor: '#ddd',
     label: 'Default',
     color: '#164895',
     labelColor: '000000',    
@@ -148,18 +154,23 @@ const styles = StyleSheet.create(
     selectedUI: {
       flex: 1,
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
+      backgroundColor: '#164895',
+      borderWidth: 0,
+      borderColor: 'transparent'
     },
 
     checkboxTickImg: {
       width: '85%',
       height: '85%',
-      tintColor: '#ffffff',
+      // tintColor: '#ffffff',
       resizeMode: 'contain'
     },
 
     uncheckedCheckbox: {
       flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
       backgroundColor: '#ffffff'
     },
 

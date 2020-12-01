@@ -158,6 +158,7 @@ class ListModal extends Component {
     super(props);
     this.state = {
       modalVisible: false,
+      searchText: ''
     };
     // this.setModalVisible = this.setModalVisible.bind(this);
   }
@@ -173,6 +174,13 @@ class ListModal extends Component {
     this.setState({modalVisible: visible});
     console.log('MODAL>>> ', visible);
   };
+
+  handleInputChange = (searchText) => {
+    this.setState({
+      searchText
+    });
+  }
+
   render() {
     const {modalVisible} = this.state;
     console.log(modalVisible);
@@ -220,6 +228,8 @@ class ListModal extends Component {
               <View style={styles.modalInputBox}>
                 <TextInput
                   style={styles.searchInputText}
+                  onChangeText={this.handleInputChange}
+                  value={this.state.searchText}
                   placeholder="search"></TextInput>
                 <TouchableHighlight style={styles.closeButton}>
                   <Image
