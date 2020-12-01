@@ -13,6 +13,9 @@ import {
   Dimensions,
 } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
+import ko from './language/ko';
+import lang from './language/lang';
+import en from './language/en';
 
 const images = new Array('', '', '');
 const window = Dimensions.get('window');
@@ -26,6 +29,7 @@ class Initial2 extends Component {
     dimensions: {
       window,
     },
+    userLang: 'ko',
   };
   setModalVisible = (visible) => {
     this.setState({modalVisible: visible});
@@ -50,7 +54,25 @@ class Initial2 extends Component {
     Dimensions.removeEventListener('change', this.onDimensionsChange);
   }
   render() {
+    const userLang = this.state.userLang;
     const windowWidth = this.state.dimensions.window.width;
+    // console.log([ko]);
+    // console.log([lang.ko.initial1]);
+    // console.log([ko.initial1]);
+    // console.log([en.initial1]);
+    // console.log([lang]);
+    // console.log('1', userLang);
+    // console.log('2', {userLang});
+    // console.log('3', [userLang]);
+    // console.log('4', `${userLang}`);
+    // console.log('>>>>', [`${lang}.${userLang}.${initial1}`]);
+    // console.log('>>>>', [lang.{userLang}]);
+    // const arr = lang + `.${userLang}`;
+    // console.log('arr>>>>', arr);
+    // console.log(userLang);
+    // console.log({userLang});
+    // console.log(`${userLang}`);
+    // console.log('aaa>>>', arr.initial1);
     return (
       <View style={styles.container}>
         <SafeAreaView>
@@ -97,10 +119,10 @@ class Initial2 extends Component {
                     </Text>
                     <Text style={styles.infoText}>
                       {imageIndex == 0
-                        ? '나의 생각이 전세계에\n반영되는 설문조사'
+                        ? [lang.en.initial1]
                         : imageIndex == 1
-                        ? '쉽고 안전하고 빠른 지갑 송금\nReal Research에서 가능합니다.'
-                        : 'Real Research 만의\n놀라운 리워드 지금 시작하세요!'}
+                        ? [lang.en.initial2]
+                        : [lang.en.initial3]}
                     </Text>
                   </View>
                 );
@@ -129,7 +151,6 @@ class Initial2 extends Component {
         </SafeAreaView>
 
         <View style={styles.buttonBox}>
-
           <TouchableOpacity
             style={styles.button}
             activeOpacity={0.75}
@@ -165,7 +186,6 @@ class Initial2 extends Component {
             }}>
             <Text style={styles.buttonText}>Test page</Text>
           </TouchableOpacity>
-
         </View>
       </View>
     );
