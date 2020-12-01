@@ -186,6 +186,14 @@ class Initial2 extends Component {
             }}>
             <Text style={styles.buttonText}>Test page</Text>
           </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.buttonLogin}
+            activeOpacity={0.75}
+            onPress={() => {
+              this.props.navigation.navigate('Kyc');
+            }}>
+            <Text style={styles.buttonText}>Kyc</Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
