@@ -134,7 +134,7 @@ class Initial2 extends Component {
             style={styles.button}
             activeOpacity={0.75}
             onPress={() => {
-              this.props.navigation.navigate('Signup');
+              this.props.navigation.navigate('SignUp');
             }}>
             <Text style={styles.buttonText}>SIGN UP</Text>
           </TouchableOpacity>

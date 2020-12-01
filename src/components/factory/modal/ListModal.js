@@ -75,8 +75,8 @@ const Item = ({item, onPress, style}) => {
     <TouchableOpacity onPress={onPress} style={[styles.item, style]}>
       <Image style={styles.listImg} source={item.img} />
       <Text style={styles.title}>{item.title}</Text>
-      {/* <Text style={styles.cd}>{item.cd}</Text> */}
-      <RoundCheckbox
+      <Text style={styles.cd}>{item.cd}</Text>
+      {/* <RoundCheckbox
         size={25}
         keyValue={Number(item.id)}
         checked={false}
@@ -85,7 +85,7 @@ const Item = ({item, onPress, style}) => {
         label="Birds of Prey"
         value="birds_of_prey"
         checkedObjArr={CheckedArrObject}
-      />
+      /> */}
     </TouchableOpacity>
   );
 };
