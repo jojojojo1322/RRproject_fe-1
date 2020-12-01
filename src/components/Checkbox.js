@@ -11,7 +11,7 @@ import {
 import PropTypes from 'prop-types';
 
 
-class SelectedCheckboxes {
+export class SelectedCheckboxes {
   constructor() {
     selectedCheckboxes = [];
   }
@@ -25,7 +25,7 @@ class SelectedCheckboxes {
   }
 }
 
-class Checkbox extends Component {
+export class Checkbox extends Component {
 
   constructor() {
     super();
@@ -38,9 +38,9 @@ class Checkbox extends Component {
     if (this.props.checked) {
       this.setState({ checked: true }, () => {
         this.props.checkedObjArr.addItem({
-          'key': this.props.keyValue,
-          'value': this.props.value,
-          'label': this.props.label
+          key: this.props.keyValue,
+          value: this.props.value,
+          label: this.props.label
         });
       });
     } else {
@@ -54,9 +54,9 @@ class Checkbox extends Component {
     this.setState({ checked: !this.state.checked }, () => {
       if (this.state.checked) {
         this.props.checkedObjArr.addItem({ 
-          'key': key,
-          'value': value,
-          'label': label
+          key: key,
+          value: value,
+          label: label
         });
       } else {
         this.props.checkedObjArr.fetchArray().splice(
@@ -70,14 +70,13 @@ class Checkbox extends Component {
     return (
       <TouchableHighlight
         onPress={this.stateSwitcher.bind(this, this.props.keyValue, this.props.label, this.props.value)} 
-        underlayColor="transparent"
-        style={{ marginVertical: 20 }}>
+        underlayColor="transparent">
 
         <View style={{ 
           flexDirection: 'row', 
           alignItems: 'center' }}>
             <View style={{
-              padding: 2, 
+              padding: 1, 
               width: this.props.size, 
               height: this.props.size, 
               backgroundColor: this.props.color
@@ -86,86 +85,18 @@ class Checkbox extends Component {
                 (this.state.checked)
                   ?
                   (<View style={styles.selectedUI}>
-                    <Image source={require('../imgs/icon_close.png')} style={styles.checkboxTickImg} />
+                    <Image source={require('../imgs/roundcheck.png')} style={styles.checkboxTickImg} />
                   </View>)
                   :
                   (<View style={styles.uncheckedCheckbox} />)
               }
           </View>
-          <Text style={[styles.checkboxLabel, { color: this.props.labelColor }]}>
+          {/* <Text style={[styles.checkboxLabel, { color: this.props.labelColor }]}>
             {this.props.label}
-          </Text>
+          </Text> */}
         </View>
 
       </TouchableHighlight>
-    );
-  }
-}
-
-export default class Initial3 extends Component {
- 
-  constructor() {
-    super();
-    CheckedArrObject = new SelectedCheckboxes();
-    this.state = { pickedElements: '' }
-  }
- 
-  renderSelectedElements = () => {
-    if (CheckedArrObject.fetchArray().length == 0) {
-      Alert.alert('No Item Selected');
-    } else {
-      this.setState(() => {
-        return {
-          pickedElements: CheckedArrObject.fetchArray().map(res => res.value).join()
-        }
-      });
-    }
-  }
-
-  render() {
-    return (
-      <View style={styles.CheckboxContainer}>
-        <Checkbox size={25}
-          keyValue={1}
-          checked={true}
-          color="#E81E63"
-          labelColor="#000000"
-          label="Birds of Prey"
-          value="birds_of_prey" 
-          checkedObjArr={CheckedArrObject} />
-
-        <Checkbox size={25}
-          keyValue={2}
-          checked={false}
-          color="#3F50B5"
-          labelColor="#000000"
-          label="Little Women"
-          value="little_women" 
-          checkedObjArr={CheckedArrObject} />
-
-        <Checkbox size={25}
-          keyValue={3}
-          checked={true}
-          color="#009688"
-          labelColor="#000000"
-          label="Doctor Sleep"
-          value="doctor_sleep"
-          checkedObjArr={CheckedArrObject} />
-
-        <Checkbox size={25}
-          keyValue={4}
-          checked={false}
-          color="#FF9800"
-          labelColor="#000000"
-          label="Ford v Ferrari"
-          value="ford_v_ferrari"
-          checkedObjArr={CheckedArrObject} />        
-
-        {/* <TouchableHighlight style={styles.showSelectedButton} onPress={this.renderSelectedElements}>
-          <Text style={styles.buttonText}>Checked Items</Text>
-        </TouchableHighlight> */}
-        {/* <Text style={{ fontSize: 22, color: "#000", marginTop: 25 }}> {this.state.pickedElements} </Text> */}
-      </View>
     );
   }
 }
@@ -186,7 +117,7 @@ Checkbox.defaultProps = {
     checked: false,
     value: 'Default',
     label: 'Default',
-    color: '#cecece',
+    color: '#164895',
     labelColor: '000000',    
 }
 

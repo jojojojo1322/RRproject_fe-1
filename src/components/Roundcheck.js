@@ -74,7 +74,7 @@ export class RoundCheckbox extends Component {
           this.props.value,
         )}
         underlayColor="transparent"
-        style={{marginVertical: 20}}>
+        style={{marginVertical: 0}}>
         <View
           style={{
             flexDirection: 'row',
