@@ -255,7 +255,7 @@ class Initial3 extends Component {
         <TouchableHighlight
           // activeOpacity={0.50}
           onPress={() => {
-            this.setModal6Visible(true);
+            this.setModal7Visible(true);
           }}>
           <Text style={styles.TextSize}>거주도시</Text>
         </TouchableHighlight>
@@ -499,8 +499,8 @@ class Initial3 extends Component {
         </Modal> */}
 
         <ListCheckModal
-          modalVisible={modal6Visible}
-          setModalVisible={this.setModal6Visible}
+          modalVisible={modal7Visible}
+          setModalVisible={this.setModal7Visible}
           text={`정말 로그아웃 하시겠습니까?`}
         />
         {/* <Modal

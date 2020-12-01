@@ -41,12 +41,174 @@ const DATA = [
     title: 'Argentina',
     cd: '+54',
   },
+  {
+    id: '1',
+    img: require('../../../imgs/drawable-xhdpi/flag_afghanistan.png'),
+    title: 'Afghanistan(AF)',
+    cd: '+93',
+  },
+  {
+    id: '2',
+    img: require('../../../imgs/drawable-xhdpi/flag_albania.png'),
+    title: 'Albania',
+    cd: '+355',
+  },
+  {
+    id: '3',
+    img: require('../../../imgs/drawable-xhdpi/flag_argentina.png'),
+    title: 'Argentina',
+    cd: '+54',
+  },
+  {
+    id: '1',
+    img: require('../../../imgs/drawable-xhdpi/flag_afghanistan.png'),
+    title: 'Afghanistan(AF)',
+    cd: '+93',
+  },
+  {
+    id: '2',
+    img: require('../../../imgs/drawable-xhdpi/flag_albania.png'),
+    title: 'Albania',
+    cd: '+355',
+  },
+  {
+    id: '3',
+    img: require('../../../imgs/drawable-xhdpi/flag_argentina.png'),
+    title: 'Argentina',
+    cd: '+54',
+  },
+  {
+    id: '1',
+    img: require('../../../imgs/drawable-xhdpi/flag_afghanistan.png'),
+    title: 'Afghanistan(AF)',
+    cd: '+93',
+  },
+  {
+    id: '2',
+    img: require('../../../imgs/drawable-xhdpi/flag_albania.png'),
+    title: 'Albania',
+    cd: '+355',
+  },
+  {
+    id: '3',
+    img: require('../../../imgs/drawable-xhdpi/flag_argentina.png'),
+    title: 'Argentina',
+    cd: '+54',
+  },
+  {
+    id: '1',
+    img: require('../../../imgs/drawable-xhdpi/flag_afghanistan.png'),
+    title: 'Afghanistan(AF)',
+    cd: '+93',
+  },
+  {
+    id: '2',
+    img: require('../../../imgs/drawable-xhdpi/flag_albania.png'),
+    title: 'Albania',
+    cd: '+355',
+  },
+  {
+    id: '3',
+    img: require('../../../imgs/drawable-xhdpi/flag_argentina.png'),
+    title: 'Argentina',
+    cd: '+54',
+  },
+  {
+    id: '1',
+    img: require('../../../imgs/drawable-xhdpi/flag_afghanistan.png'),
+    title: 'Afghanistan(AF)',
+    cd: '+93',
+  },
+  {
+    id: '2',
+    img: require('../../../imgs/drawable-xhdpi/flag_albania.png'),
+    title: 'Albania',
+    cd: '+355',
+  },
+  {
+    id: '3',
+    img: require('../../../imgs/drawable-xhdpi/flag_argentina.png'),
+    title: 'Argentina',
+    cd: '+54',
+  },
+  {
+    id: '1',
+    img: require('../../../imgs/drawable-xhdpi/flag_afghanistan.png'),
+    title: 'Afghanistan(AF)',
+    cd: '+93',
+  },
+  {
+    id: '2',
+    img: require('../../../imgs/drawable-xhdpi/flag_albania.png'),
+    title: 'Albania',
+    cd: '+355',
+  },
+  {
+    id: '3',
+    img: require('../../../imgs/drawable-xhdpi/flag_argentina.png'),
+    title: 'Argentina',
+    cd: '+54',
+  },
+  {
+    id: '1',
+    img: require('../../../imgs/drawable-xhdpi/flag_afghanistan.png'),
+    title: 'Afghanistan(AF)',
+    cd: '+93',
+  },
+  {
+    id: '2',
+    img: require('../../../imgs/drawable-xhdpi/flag_albania.png'),
+    title: 'Albania',
+    cd: '+355',
+  },
+  {
+    id: '3',
+    img: require('../../../imgs/drawable-xhdpi/flag_argentina.png'),
+    title: 'Argentina',
+    cd: '+54',
+  },
+  {
+    id: '1',
+    img: require('../../../imgs/drawable-xhdpi/flag_afghanistan.png'),
+    title: 'Afghanistan(AF)',
+    cd: '+93',
+  },
+  {
+    id: '2',
+    img: require('../../../imgs/drawable-xhdpi/flag_albania.png'),
+    title: 'Albania',
+    cd: '+355',
+  },
+  {
+    id: '3',
+    img: require('../../../imgs/drawable-xhdpi/flag_argentina.png'),
+    title: 'Argentina',
+    cd: '+54',
+  },
+  {
+    id: '1',
+    img: require('../../../imgs/drawable-xhdpi/flag_afghanistan.png'),
+    title: 'Afghanistan(AF)',
+    cd: '+93',
+  },
+  {
+    id: '2',
+    img: require('../../../imgs/drawable-xhdpi/flag_albania.png'),
+    title: 'Albania',
+    cd: '+355',
+  },
+  {
+    id: '3',
+    img: require('../../../imgs/drawable-xhdpi/flag_argentina.png'),
+    title: 'Argentina',
+    cd: '+54',
+  },
 ];
 const CountryList = () => {
   const [selectedId, setSelectedId] = useState(null);
 
   const renderItem = ({item}) => {
-    const backgroundColor = item.id === selectedId ? '#efefef' : '#FFF';
+    const backgroundColor = item.id === selectedId ? '#FFF' : '#FFF';
 
     return (
       <Item
@@ -73,7 +235,6 @@ const Item = ({item, onPress, style}) => {
   CheckedArrObject = new SelectedCheckboxes();
   return (
     <TouchableOpacity onPress={onPress} style={[styles.item, style]}>
-      <Image style={styles.listImg} source={item.img} />
       <Text style={styles.title}>{item.title}</Text>
       {/* <Text style={styles.cd}>{item.cd}</Text> */}
       <RoundCheckbox
@@ -90,45 +251,45 @@ const Item = ({item, onPress, style}) => {
   );
 };
 
-class ModalCountry extends Component {
-  render() {
-    return (
-      <>
-        <View style={styles.modalView}>
-          <View style={styles.modalBox}>
-            <Text style={styles.modalText}>국적선택</Text>
-            <TouchableHighlight
-              style={styles.closeButton}
-              setModalVisible={this.props.setModalVisible}
-              modalVisible={this.props.modalVisible}
-              onPress={() => {
-                this.props.setModalVisible(!modalVisible);
-              }}>
-              <Image
-                style={styles.closeButton}
-                source={require('../../../imgs/icon_close.png')}
-              />
-            </TouchableHighlight>
-          </View>
+// class ModalCountry extends Component {
+//   render() {
+//     return (
+//       <>
+//         <View style={styles.modalView}>
+//           <View style={styles.modalBox}>
+//             <Text style={styles.modalText}>거주도시 선택</Text>
+//             <TouchableHighlight
+//               style={styles.closeButton}
+//               setModalVisible={this.props.setModalVisible}
+//               modalVisible={this.props.modalVisible}
+//               onPress={() => {
+//                 this.props.setModalVisible(!modalVisible);
+//               }}>
+//               <Image
+//                 style={styles.closeButton}
+//                 source={require('../../../imgs/icon_close.png')}
+//               />
+//             </TouchableHighlight>
+//           </View>
 
-          <View style={styles.modalInputBox}>
-            <TextInput
-              style={styles.searchInputText}
-              placeholder="search"></TextInput>
-            <TouchableHighlight style={styles.closeButton}>
-              <Image
-                style={styles.closeButton}
-                source={require('../../../imgs/icon_search.png')}
-              />
-            </TouchableHighlight>
-          </View>
+//           <View style={styles.modalInputBox}>
+//             <TextInput
+//               style={styles.searchInputText}
+//               placeholder="search"></TextInput>
+//             <TouchableHighlight style={styles.closeButton}>
+//               <Image
+//                 style={styles.closeButton}
+//                 source={require('../../../imgs/icon_search.png')}
+//               />
+//             </TouchableHighlight>
+//           </View>
 
-          <CountryList />
-        </View>
-      </>
-    );
-  }
-}
+//           <CountryList />
+//         </View>
+//       </>
+//     );
+//   }
+// }
 
 class ListCheckModal extends Component {
   constructor(props) {
@@ -161,19 +322,59 @@ class ListCheckModal extends Component {
         onRequestClose={() => {
           Alert.alert('Modal has been closed.');
         }}>
-        <TouchableWithoutFeedback
+
+        <View style={{flex: 1, position: 'relative'}}>
+          {/* modal background */}
+          <TouchableWithoutFeedback
+          // style={styles.centeredView}
           activeOpacity={0.55}
           onPress={() => {
             this.setState({modalVisible: !modalVisible});
             this.props.setModalVisible(!modalVisible);
           }}>
-          <View style={styles.centeredView}>
-            <ModalCountry
-              data={this.state}
+            <View style={styles.centeredView}>
+            </View>
+          </TouchableWithoutFeedback>
+        </View>
+        
+        {/* <ModalCountry
+          data={this.state}
+          setModalVisible={this.props.setModalVisible}
+        /> */}
+
+        {/* modal view */}
+        <View style={styles.modalView}>
+          <View style={styles.modalBox}>
+            <Text style={styles.modalText}>거주도시 선택</Text>
+            <TouchableWithoutFeedback
+              style={styles.closeButton}
               setModalVisible={this.props.setModalVisible}
-            />
+              modalVisible={this.props.modalVisible}
+              onPress={() => {
+                this.props.setModalVisible(!modalVisible);
+              }}>
+              <Image
+                style={styles.closeButton}
+                source={require('../../../imgs/icon_close.png')}
+              />
+            </TouchableWithoutFeedback>
           </View>
-        </TouchableWithoutFeedback>
+
+          <View style={styles.modalInputBox}>
+            <TextInput
+              style={styles.searchInputText}
+              placeholder="search"></TextInput>
+            <TouchableHighlight style={styles.closeButton}>
+              <Image
+                style={styles.closeButton}
+                source={require('../../../imgs/icon_search.png')}
+              />
+            </TouchableHighlight>
+          </View>
+
+          <CountryList />
+        </View>
+
       </Modal>
     );
   }
@@ -190,12 +391,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
   },
   centeredView: {
-    flex: 1,
+    position: 'absolute',
+    top: 0,
+    left: 0,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  centeredView: {
+    flex: 1,
     backgroundColor: 'hsla(0, 0%, 20%, 0.6)',
   },
   modalView: {
+    position: 'absolute',
+    top: '17.5%',
+    left: '5%',
+    width: '90%',
     width: '90%',
     height: '65%',
     backgroundColor: 'white',
@@ -256,7 +466,7 @@ const styles = StyleSheet.create({
   },
   countryList: {
     width: '100%',
-    height: '70%',
+    height: '80%',
     overflow: 'scroll',
     flexDirection: 'column',
     marginTop: 10,
@@ -390,7 +600,6 @@ const styles = StyleSheet.create({
   KycModalView2bottom2Button1: {
     position: 'absolute',
     right: 0,
-    backgroundColor: 'grey',
   },
   KycModalView2: {
     width: '90%',
@@ -471,7 +680,6 @@ const styles = StyleSheet.create({
     // alignSelf: 'flex-end',
     position: 'absolute',
     right: 0,
-    backgroundColor: 'grey',
   },
   AudienceTop2: {
     textAlign: 'center',

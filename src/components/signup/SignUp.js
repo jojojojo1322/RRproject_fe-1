@@ -1,11 +1,16 @@
 import React, {Component} from 'react';
 import {StyleSheet, ScrollView, View, Text, TextInput, TouchableHighlight, SafeAreaView, Image} from 'react-native';
 import ListModal from '../../components/factory/modal/ListModal';
+import ListRoundCheckModal from '../../components/factory/modal/ListRoundCheckModal';
 import CountDown from '../../components/factory/CountDown';
+
 class SignUp extends Component {
   state = {
     passWord: '',
     modalVisible: false,
+    // confirmCancelModalVisible: false,
+    // confirmModalVisible: false,
+    listRoundCheckModalVisible: false,
     phoneNum: ''
   };
 
@@ -17,6 +22,18 @@ class SignUp extends Component {
 
   setModalVisible = (visible) => {
     this.setState({ modalVisible: visible });
+  };
+
+  // setConfirmCancelModalVisible = (visible) => {
+  //   this.setState({ confirmCancelModalVisible: visible });
+  // };
+
+  // setConfirmModalVisible = (visible) => {
+  //   this.setState({ confirmModalVisible: visible });
+  // };
+
+  setListRoundCheckModalVisible = (visible) => {
+    this.setState({ listRoundCheckModalVisible: visible });
   };
 
   // only number
@@ -69,7 +86,7 @@ class SignUp extends Component {
 
               <TouchableHighlight
               onPress={() => {
-
+                this.setListRoundCheckModalVisible(true);
               }}
               underlayColor={'#164895'}
               style={[styles.button, {marginTop: 25}]}
