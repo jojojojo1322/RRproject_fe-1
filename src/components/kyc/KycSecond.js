@@ -27,9 +27,9 @@ export default class KycSecond extends Component {
   };
   render() {
     return (
-      <>
+      <View style={{marginBottom: 200}}>
         <View>
-          <Text>생년월일 입력</Text>
+          <Text style={styles.subText}>생년월일 입력</Text>
         </View>
         <View>
           <TextInput
@@ -37,9 +37,9 @@ export default class KycSecond extends Component {
             keyboardType={'numeric'}
             onChangeText={this.handleBirth}
             value={this.props.birth}
-            style={[styles.textInputStyle, {marginTop: 10}]}></TextInput>
+            style={[styles.textInputStyle]}></TextInput>
         </View>
-      </>
+      </View>
     );
   }
 }
@@ -68,11 +68,11 @@ const styles = StyleSheet.create({
     lineHeight: 36,
   },
   subText: {
-    marginBottom: 58,
-    textAlign: 'center',
+    // marginBottom: 58,
+    // textAlign: 'center',
     fontSize: 16,
-    fontWeight: '200',
-    lineHeight: 36,
+    fontWeight: '500',
+    lineHeight: 18,
   },
   passGrayAll: {
     width: '100%',

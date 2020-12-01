@@ -21,14 +21,59 @@ import {
 } from 'react-native';
 import KycFirst from './KycFirst';
 import KycSecond from './KycSecond';
-import {Keyboard} from './KycSecond';
+import KycThird from './KycThird';
+
+function isBirthday(dateStr) {
+  if (dateStr === undefined) {
+    return false;
+  } else {
+    var year = Number(dateStr.substr(0, 4));
+    // 입력한 값의 0~4자리까지 (연)
+    var month = Number(dateStr.substr(4, 2));
+    // 입력한 값의 4번째 자리부터 2자리 숫자 (월)
+    var day = Number(dateStr.substr(6, 2));
+    // 입력한 값 6번째 자리부터 2자리 숫자 (일)
+    var today = new Date();
+    // 날짜 변수 선언
+    var yearNow = today.getFullYear();
+    // 올해 연도 가져옴
+    if (dateStr.length <= 8) {
+      // 연도의 경우 1900 보다 작거나 yearNow 보다 크다면 false를 반환합니다.
+      if (1900 > year || year > yearNow) {
+        return false;
+      } else if (month < 1 || month > 12) {
+        return false;
+      } else if (day < 1 || day > 31) {
+        return false;
+      } else if (
+        (month == 4 || month == 6 || month == 9 || month == 11) &&
+        day == 31
+      ) {
+        return false;
+      } else if (month == 2) {
+        var isleap = year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
+        if (day > 29 || (day == 29 && !isleap)) {
+          return false;
+        } else {
+          return true;
+        }
+        //end of if (day>29 || (day==29 && !isleap))
+      } else {
+        return true;
+      } //end of if
+    } else {
+      //1.입력된 생년월일이 8자 초과할때 : auth:false
+      return false;
+    }
+  }
+}
 
 export default class Kyc extends Component {
   state = {
     gender: '',
-    maritalStatus: '',
+    maritalStatus: this.props.route.params?.maritalStatus,
     step: this.props.route.params?.step,
-    birth: '',
+    birth: this.props.route.params?.birth,
   };
   handleBirth = (value) => {
     console.log(value);
@@ -69,40 +114,41 @@ export default class Kyc extends Component {
       <SafeAreaView style={styles.container}>
         <View style={styles.container2}>
           <View style={styles.topAll}>
-            <Text style={styles.topText}>KYC 정보입력</Text>
-          </View>
+            <Text style={[styles.topText, {marginBottom: 20}]}>
+              KYC 정보입력
+            </Text>
 
-          <View style={styles.ktitAll}>
-            <Image
-              style={{marginRight: 4}}
-              source={require('../../imgs/drawable-mdpi/icon_ktit_on.png')}
-            />
-            <View style={styles.ktilMiddle}></View>
-            {this.state.step == undefined ? (
+            <View style={styles.ktitAll}>
               <Image
-                style={{marginRight: 4, marginLeft: 4}}
-                source={require('../../imgs/drawable-mdpi/icon_ktit_off.png')}
-              />
-            ) : (
-              <Image
-                style={{marginRight: 4, marginLeft: 4}}
+                style={{marginRight: 4}}
                 source={require('../../imgs/drawable-mdpi/icon_ktit_on.png')}
               />
-            )}
-            <View style={styles.ktilMiddle}></View>
-            {this.state.step == 2 || this.state.step == undefined ? (
-              <Image
-                style={{marginRight: 4, marginLeft: 4}}
-                source={require('../../imgs/drawable-mdpi/icon_ktit_off.png')}
-              />
-            ) : (
-              <Image
-                style={{marginRight: 4, marginLeft: 4}}
-                source={require('../../imgs/drawable-mdpi/icon_ktit_on.png')}
-              />
-            )}
+              <View style={styles.ktilMiddle}></View>
+              {this.state.step == undefined ? (
+                <Image
+                  style={{marginRight: 4, marginLeft: 4}}
+                  source={require('../../imgs/drawable-mdpi/icon_ktit_off.png')}
+                />
+              ) : (
+                <Image
+                  style={{marginRight: 4, marginLeft: 4}}
+                  source={require('../../imgs/drawable-mdpi/icon_ktit_on.png')}
+                />
+              )}
+              <View style={styles.ktilMiddle}></View>
+              {this.state.step == 2 || this.state.step == undefined ? (
+                <Image
+                  style={{marginRight: 4, marginLeft: 4}}
+                  source={require('../../imgs/drawable-mdpi/icon_ktit_off.png')}
+                />
+              ) : (
+                <Image
+                  style={{marginRight: 4, marginLeft: 4}}
+                  source={require('../../imgs/drawable-mdpi/icon_ktit_on.png')}
+                />
+              )}
+            </View>
           </View>
-
           {this.state.step == undefined && (
             <KycFirst
               handleMarital={this.handleMarital}
@@ -117,19 +163,45 @@ export default class Kyc extends Component {
               handleBirth={this.handleBirth}
             />
           )}
+          {this.state.step == 3 && (
+            <KycThird birth={this.state.birth} handleBirth={this.handleBirth} />
+          )}
           <View style={styles.bottomButtonAll}>
             <TouchableHighlight
               style={
-                this.state.gender != '' && this.state.maritalStatus != ''
+                this.state.step == undefined &&
+                this.state.gender != '' &&
+                this.state.maritalStatus != ''
+                  ? styles.buttonChoice
+                  : this.state.step == 2 && isBirthday(this.state.birth)
                   ? styles.buttonChoice
                   : styles.button
+                // this.state.gender != '' && this.state.maritalStatus != ''
+                //   ? styles.buttonChoice
+                //   : styles.button
               }
-              onPress={() =>
-                this.props.navigation.push('Kyc', {
-                  step: this.state.step == undefined ? 2 : 3,
-                })
-              }>
-              <Text style={styles.buttonTexts}>다음</Text>
+              onPress={() => {
+                if (this.state.step == undefined) {
+                  this.state.gender != '' &&
+                    this.state.maritalStatus != '' &&
+                    this.props.navigation.push('Kyc', {
+                      step: this.state.step == undefined ? 2 : 3,
+                      gender: this.state.gender,
+                      maritalStatus: this.state.maritalStatus,
+                    });
+                } else if (this.state.step == 2) {
+                  isBirthday(this.state.birth) &&
+                    this.props.navigation.push('Kyc', {
+                      step: this.state.step == undefined ? 2 : 3,
+                      gender: this.state.gender,
+                      maritalStatus: this.state.maritalStatus,
+                      birth: this.state.birth,
+                    });
+                }
+              }}>
+              <Text style={styles.buttonTexts}>
+                {this.state.step == 3 ? '확인' : '다음'}
+              </Text>
             </TouchableHighlight>
           </View>
         </View>
@@ -163,7 +235,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     alignContent: 'stretch',
-    marginBottom: '-60%',
+    // marginBottom: '-60%',
   },
   ktilMiddle: {
     width: 20,
@@ -173,7 +245,7 @@ const styles = StyleSheet.create({
   },
   topAll: {
     marginTop: 16,
-    marginBottom: '-70%',
+    // marginBottom: -250,
   },
   topText: {
     fontSize: 23,

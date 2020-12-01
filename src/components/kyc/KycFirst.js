@@ -23,7 +23,7 @@ import {
 export default class KycFirst extends Component {
   render() {
     return (
-      <View>
+      <View style={{marginBottom: 150}}>
         <Text style={styles.choiceText}>성별 선택</Text>
         <View style={[styles.genderAll, {marginBottom: 50}]}>
           <TouchableHighlight
