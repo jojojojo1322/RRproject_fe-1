@@ -13,6 +13,9 @@ import WalletMasterKey from './components/login/WalletMasterKey';
 import Kyc from './components/kyc/Kyc';
 
 import SignUp from './components/signup/SignUp';
+import AgreementTermsConditions from './components/signup/AgreementTermsConditions';
+import TermsConditions from './components/signup/TermsConditions';
+
 import ResearchForm from './components/research/ResearchForm';
 const Stack = createStackNavigator();
 class App extends Component {
@@ -83,8 +86,35 @@ class App extends Component {
               // ),
             }}
           />
+          <Stack.Screen name="AgreementTermsConditions" component={AgreementTermsConditions} 
+          options={{
+            title: '',
+            headerStyle: {
+              backgroundColor: 'none',
+              shadowColor: 'none',
+              shadowOffset: {width: 0, height: 0},
+              shadowOpacity: 0,
+              shadowRadius: 0,
+              elevation: 0,
+            },
+            headerTintColor: '#000',
+          }}/>
+          <Stack.Screen name="TermsConditions" component={TermsConditions} 
+          options={{
+            title: '',
+            headerStyle: {
+              backgroundColor: 'none',
+              shadowColor: 'none',
+              shadowOffset: {width: 0, height: 0},
+              shadowOpacity: 0,
+              shadowRadius: 0,
+              elevation: 0,
+            },
+            headerTintColor: '#000',
+          }}/>
           <Stack.Screen name="ResearchForm" component={ResearchForm} />
           <Stack.Screen name="Initial3" component={Initial3} />
+          
         </Stack.Navigator>
       </NavigationContainer>
     );

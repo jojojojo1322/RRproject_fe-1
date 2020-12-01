@@ -82,11 +82,13 @@ export class RoundCheckbox extends Component {
           }}>
           <View
             style={{
-              padding: 1.5,
+              // padding: 1.5,
               borderRadius: 50,
               width: this.props.size,
               height: this.props.size,
-              backgroundColor: this.props.color,
+              borderWidth: this.props.borderWidth,
+              borderColor: this.props.borderColor,
+              // backgroundColor: this.props.color,
             }}>
             {this.state.checked ? (
               <View style={styles.selectedUI}>
@@ -96,91 +98,19 @@ export class RoundCheckbox extends Component {
                 />
               </View>
             ) : (
-              <View style={styles.uncheckedCheckbox} />
+              <View style={styles.uncheckedCheckbox}>
+                <Image
+                  source={require('../imgs/roundcheck_gray.png')}
+                  style={styles.checkboxTickImg}
+                />
+              </View>
             )}
           </View>
-          <Text style={[styles.checkboxLabel, {color: this.props.labelColor}]}>
+          {/* <Text style={[styles.checkboxLabel, {color: this.props.labelColor}]}>
             {this.props.label}
-          </Text>
+          </Text> */}
         </View>
       </TouchableHighlight>
-    );
-  }
-}
-
-export class Initial3 extends Component {
-  constructor() {
-    super();
-    CheckedArrObject = new SelectedCheckboxes();
-    this.state = {pickedElements: ''};
-  }
-
-  renderSelectedElements = () => {
-    if (CheckedArrObject.fetchArray().length == 0) {
-      Alert.alert('No Item Selected');
-    } else {
-      this.setState(() => {
-        return {
-          pickedElements: CheckedArrObject.fetchArray()
-            .map((res) => res.value)
-            .join(),
-        };
-      });
-    }
-  };
-
-  render() {
-    return (
-      <View style={styles.CheckboxContainer}>
-        <RoundCheckbox
-          size={30}
-          keyValue={1}
-          checked={true}
-          color="#164895"
-          labelColor="#000000"
-          label="Birds of Prey"
-          value="birds_of_prey"
-          checkedObjArr={CheckedArrObject}
-        />
-
-        <RoundCheckbox
-          size={30}
-          keyValue={2}
-          checked={false}
-          color="#3F50B5"
-          labelColor="#164895"
-          label="Little Women"
-          value="little_women"
-          checkedObjArr={CheckedArrObject}
-        />
-
-        <RoundCheckbox
-          size={30}
-          keyValue={3}
-          checked={true}
-          color="#164895"
-          labelColor="#000000"
-          label="Doctor Sleep"
-          value="doctor_sleep"
-          checkedObjArr={CheckedArrObject}
-        />
-
-        <RoundCheckbox
-          size={30}
-          keyValue={4}
-          checked={false}
-          color="#164895"
-          labelColor="#000000"
-          label="Ford v Ferrari"
-          value="ford_v_ferrari"
-          checkedObjArr={CheckedArrObject}
-        />
-
-        {/* <TouchableHighlight style={styles.showSelectedButton} onPress={this.renderSelectedElements}>
-          <Text style={styles.buttonText}>Checked Items</Text>
-        </TouchableHighlight> */}
-        {/* <Text style={{ fontSize: 22, color: "#000", marginTop: 25 }}> {this.state.pickedElements} </Text> */}
-      </View>
     );
   }
 }
@@ -189,6 +119,8 @@ RoundCheckbox.propTypes = {
   keyValue: PropTypes.number.isRequired,
   size: PropTypes.number,
   color: PropTypes.string,
+  borderWidth: PropTypes.number,
+  borderColor: PropTypes.string,
   label: PropTypes.string,
   value: PropTypes.string,
   checked: PropTypes.bool,
@@ -200,6 +132,8 @@ RoundCheckbox.defaultProps = {
   size: 30,
   checked: false,
   value: 'Default',
+  borderWidth: 1,
+  borderColor: '#ddd',
   label: 'Default',
   color: '#164895',
   labelColor: '000000',
@@ -232,19 +166,25 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    borderRadius: 50,
+    backgroundColor: '#164895',
+    borderWidth: 0,
+    borderColor: 'transparent'
   },
 
   checkboxTickImg: {
     width: '75%',
     height: '75%',
-    tintColor: '#ffffff',
+    // tintColor: '#ffffff',
     resizeMode: 'contain',
   },
 
   uncheckedCheckbox: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 50,
-    backgroundColor: '#ffffff',
+    // backgroundColor: '#FFF',
   },
 
   checkboxLabel: {

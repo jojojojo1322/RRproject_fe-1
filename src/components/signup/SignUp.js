@@ -8,9 +8,6 @@ class SignUp extends Component {
   state = {
     passWord: '',
     modalVisible: false,
-    // confirmCancelModalVisible: false,
-    // confirmModalVisible: false,
-    listRoundCheckModalVisible: false,
     phoneNum: ''
   };
 
@@ -22,18 +19,6 @@ class SignUp extends Component {
 
   setModalVisible = (visible) => {
     this.setState({ modalVisible: visible });
-  };
-
-  // setConfirmCancelModalVisible = (visible) => {
-  //   this.setState({ confirmCancelModalVisible: visible });
-  // };
-
-  // setConfirmModalVisible = (visible) => {
-  //   this.setState({ confirmModalVisible: visible });
-  // };
-
-  setListRoundCheckModalVisible = (visible) => {
-    this.setState({ listRoundCheckModalVisible: visible });
   };
 
   // only number
@@ -86,7 +71,7 @@ class SignUp extends Component {
 
               <TouchableHighlight
               onPress={() => {
-                this.setListRoundCheckModalVisible(true);
+                
               }}
               underlayColor={'#164895'}
               style={[styles.button, {marginTop: 25}]}
@@ -130,7 +115,12 @@ class SignUp extends Component {
 
             </View>
 
-            <TouchableHighlight style={[styles.button, {backgroundColor:'#c6c9cf'}]}>
+            <TouchableHighlight
+            style={[styles.button, {backgroundColor:'#c6c9cf'}]}
+            onPress={() => {
+              this.props.navigation.navigate('AgreementTermsConditions');
+            }}
+            >
               <Text style={styles.buttonTexts}>다음</Text>
             </TouchableHighlight>
 
