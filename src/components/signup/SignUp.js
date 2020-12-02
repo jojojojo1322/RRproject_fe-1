@@ -43,28 +43,27 @@ class SignUp extends Component {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.containerInner}>
-          <View>
-            <Text style={styles.headerText}>
-              원활한 서비스 제공을 위해{'\n'}휴대폰 번호를 입력해주세요
-            </Text>
-          </View>
 
-          <View style={styles.signUpBox}>
-            <Text style={styles.signUpBoxTitle}>휴대폰 번호</Text>
+            <View>
+              <Text style={[styles.headerText, {marginTop: 50}]}>원활한 서비스 제공을 위해{'\n'}휴대폰 번호를 입력해주세요</Text>
+            </View>
 
-            <TouchableHighlight
-              onPress={() => {
-                this.setModalVisible(true);
-              }}
-              underlayColor={'transparent'}>
-              <View style={[styles.textInputStyle2, {marginTop: 10}]}>
-                <Text>South Korea (+82)</Text>
-                <Image
-                  source={require('../../imgs/drawable-xhdpi/icon_sarr.png')}
-                  style={styles.sarrImg}
-                />
-              </View>
-            </TouchableHighlight>
+            <View style={styles.signUpBox}>
+              <Text style={styles.signUpBoxTitle}>휴대폰 번호</Text>
+
+              <TouchableHighlight 
+                onPress={() => {
+                  this.setModalVisible(true);
+                }}
+                underlayColor={'transparent'}
+              >
+                <View style={[styles.textInputStyle2, {marginTop: 10}]}>
+                  <Text>South Korea (+82)</Text>
+                  <Image
+                  style={{width: 20, height: 20}}
+                  source={require('../../imgs/drawable-xhdpi/icon_more_b.png')}/>
+                </View>
+              </TouchableHighlight>
 
             <ListModal
               modalVisible={this.state.modalVisible}
@@ -138,102 +137,106 @@ class SignUp extends Component {
             </View>
           </View>
 
-          <TouchableHighlight
-            style={[styles.button, {backgroundColor: '#c6c9cf'}]}
+            <TouchableHighlight
+            style={[styles.button, {backgroundColor:'#e6e6e6'}]}
             onPress={() => {
               this.props.navigation.navigate('AgreementTermsConditions');
-            }}>
-            <Text style={styles.buttonTexts}>다음</Text>
-          </TouchableHighlight>
-        </View>
+              this.props.navigation.setOptions({ title: '약관동의' });
+            }}
+            >
+              <Text style={styles.buttonTexts}>다음</Text>
+            </TouchableHighlight>
+
+          </View>
+        
       </SafeAreaView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#fff',
-  },
-  containerInner: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    marginLeft: '5%',
-    marginRight: '5%',
-    backgroundColor: '#fff',
-  },
-  headerText: {
-    fontSize: 16,
-    color: '#164895',
-    textAlign: 'center',
-    fontWeight: '400',
-    marginTop: 20,
-    lineHeight: 24,
-  },
-  signUpBox: {
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  },
-  signUpBoxTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  textInputStyle: {
-    position: 'relative',
-    width: '100%',
-    fontSize: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: '#4696ff',
-    paddingTop: 15,
-    paddingBottom: 15,
-  },
-  textInputStyle2: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    fontSize: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: '#4696ff',
-    paddingTop: 15,
-    paddingBottom: 15,
-  },
-  textInputStyle2Inner: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  textInputStyle3: {
-    flexDirection: 'row',
-    fontSize: 15,
-  },
-  button: {
-    width: '100%',
-    borderRadius: 50,
-    backgroundColor: '#0b95c9',
-    padding: 15,
-  },
-  buttonTexts: {
-    color: '#FFF',
-    fontWeight: '600',
-    textAlign: 'center',
-    fontSize: 16,
-  },
-  sarrImg: {
-    width: 12,
-    height: 12,
-    resizeMode: 'contain',
-  },
-  timeImg: {
-    width: 16,
-    height: 16,
-    resizeMode: 'contain',
-  },
-  pointImg: {
-    width: 20,
-    height: 20,
-    resizeMode: 'contain',
-  },
+    container: {
+      width: '100%',
+      height: '100%',
+      backgroundColor: '#fff'
+    },
+    containerInner: {
+      flex: 1,
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      marginLeft: '5%',
+      marginRight: '5%',
+      backgroundColor: '#fff'
+    },
+    headerText: {
+      fontSize: 16,
+      // color: '#164895',
+      textAlign: 'center',
+      fontWeight: '400',
+      marginTop: 20,
+      lineHeight: 24
+    },
+    signUpBox: {
+      flexDirection: 'column',
+      justifyContent: 'space-between'
+    },
+    signUpBoxTitle: {
+      fontSize: 16,
+      fontWeight: '600'
+    },
+    textInputStyle: {
+      position: 'relative',
+      width: '100%',
+      fontSize: 15,
+      borderBottomWidth: 1,
+      borderBottomColor: '#dddddd',
+      paddingTop: 15,
+      paddingBottom: 15,
+    },
+    textInputStyle2: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      fontSize: 15,
+      borderBottomWidth: 1,
+      borderBottomColor: '#dddddd',
+      paddingTop: 15,
+      paddingBottom: 15,
+    },
+    textInputStyle2Inner: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+    textInputStyle3: {
+      flexDirection: 'row',
+      fontSize: 15,
+    },
+    button: {
+      width: '100%',
+      borderRadius: 50,
+      backgroundColor: '#4696ff',
+      padding: 15
+    },
+    buttonTexts: {
+      color: '#FFF',
+      fontWeight: '600',
+      textAlign: 'center',
+      fontSize: 16
+    },
+    sarrImg: {
+      width: 12,
+      height: 12,
+      resizeMode: 'contain'
+    },
+    timeImg: {
+      width: 16,
+      height: 16,
+      resizeMode: 'contain'
+    },
+    pointImg: {
+      width: 20,
+      height: 20,
+      resizeMode: 'contain'
+    }
 });
 
 export default SignUp;

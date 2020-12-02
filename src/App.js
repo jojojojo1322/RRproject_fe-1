@@ -15,9 +15,13 @@ import Kyc from './components/kyc/Kyc';
 import SignUp from './components/signup/SignUp';
 import AgreementTermsConditions from './components/signup/AgreementTermsConditions';
 import TermsConditions from './components/signup/TermsConditions';
+import SignUpPersonal from './components/signup/SignUpPersonal';
+import EmailAuthentication from './components/signup/EmailAuthentication';
 
 import ResearchForm from './components/research/ResearchForm';
+
 const Stack = createStackNavigator();
+
 class App extends Component {
   state = {
     isLoading: true,
@@ -30,6 +34,8 @@ class App extends Component {
             name="Initial2"
             component={Initial2}
             options={{
+              // title: this.props.route.params?.step,
+              // title: route.params?.name,
               title: '',
               headerStyle: {
                 backgroundColor: 'none',
@@ -100,6 +106,32 @@ class App extends Component {
             headerTintColor: '#000',
           }}/>
           <Stack.Screen name="TermsConditions" component={TermsConditions} 
+          options={{
+            title: '',
+            headerStyle: {
+              backgroundColor: 'none',
+              shadowColor: 'none',
+              shadowOffset: {width: 0, height: 0},
+              shadowOpacity: 0,
+              shadowRadius: 0,
+              elevation: 0,
+            },
+            headerTintColor: '#000',
+          }}/>
+          <Stack.Screen name="SignUpPersonal" component={SignUpPersonal} 
+          options={{
+            title: '',
+            headerStyle: {
+              backgroundColor: 'none',
+              shadowColor: 'none',
+              shadowOffset: {width: 0, height: 0},
+              shadowOpacity: 0,
+              shadowRadius: 0,
+              elevation: 0,
+            },
+            headerTintColor: '#000',
+          }}/>
+          <Stack.Screen name="EmailAuthentication" component={EmailAuthentication} 
           options={{
             title: '',
             headerStyle: {

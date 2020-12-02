@@ -74,8 +74,7 @@ class Initial2 extends Component {
     // console.log(`${userLang}`);
     // console.log('aaa>>>', arr.initial1);
     return (
-      <View style={styles.container}>
-        <SafeAreaView>
+      <SafeAreaView style={styles.container}>
           <View style={styles.scrollContainer}>
             <ScrollView
               horizontal={true}
@@ -103,10 +102,10 @@ class Initial2 extends Component {
                     <Image
                       source={
                         imageIndex == 0
-                          ? require('../imgs/icon_intro_01.png')
+                          ? require('../imgs/drawable-xhdpi/icon_intro_research.png')
                           : imageIndex == 1
-                          ? require('../imgs/icon_intro_02.png')
-                          : require('../imgs/icon_intro_03.png')
+                          ? require('../imgs/drawable-xhdpi/icon_intro_wallet.png')
+                          : require('../imgs/drawable-xhdpi/icon_intro_reward.png')
                       }
                       style={styles.Image}
                     />
@@ -136,7 +135,7 @@ class Initial2 extends Component {
                     windowWidth * imageIndex,
                     windowWidth * (imageIndex + 1),
                   ],
-                  outputRange: ['#e7e8e9', '#164895', '#e7e8e9'],
+                  outputRange: ['#e7e8e9', '#4696ff', '#e7e8e9'],
                   extrapolate: 'clamp',
                 });
                 return (
@@ -148,7 +147,6 @@ class Initial2 extends Component {
               })}
             </View>
           </View>
-        </SafeAreaView>
 
         <View style={styles.buttonBox}>
           <TouchableOpacity
@@ -156,6 +154,7 @@ class Initial2 extends Component {
             activeOpacity={0.75}
             onPress={() => {
               this.props.navigation.navigate('SignUp');
+              this.props.navigation.setOptions({ title: '휴대폰 인증' });
             }}>
             <Text style={styles.buttonText}>SIGN UP</Text>
           </TouchableOpacity>
@@ -166,7 +165,7 @@ class Initial2 extends Component {
             onPress={() => {
               this.props.navigation.navigate('Login');
             }}>
-            <Text style={styles.buttonText}>LOGIN</Text>
+            <Text style={[styles.buttonText, {color: '#4696ff'}]}>LOGIN</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -175,7 +174,7 @@ class Initial2 extends Component {
             onPress={() => {
               this.props.navigation.navigate('ResearchForm');
             }}>
-            <Text style={styles.buttonText}>ResearchForm</Text>
+            <Text style={[styles.buttonText, {color: '#4696ff'}]}>ResearchForm</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -184,7 +183,7 @@ class Initial2 extends Component {
             onPress={() => {
               this.props.navigation.navigate('Initial3');
             }}>
-            <Text style={styles.buttonText}>Test page</Text>
+            <Text style={[styles.buttonText, {color: '#4696ff'}]}>Test page</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.buttonLogin}
@@ -192,10 +191,10 @@ class Initial2 extends Component {
             onPress={() => {
               this.props.navigation.navigate('Kyc');
             }}>
-            <Text style={styles.buttonText}>Kyc</Text>
+            <Text style={[styles.buttonText, {color: '#4696ff'}]}>Kyc</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </SafeAreaView>
     );
   }
 }
@@ -207,40 +206,40 @@ const styles = StyleSheet.create({
     height: '100%',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     backgroundColor: '#FFF',
   },
   Image: {
     resizeMode: 'contain',
-    width: 160,
-    height: 140,
+    width: 100 ,
+    height: 90,
     alignSelf: 'center',
   },
   scrollContainer: {
-    height: 350,
+    height: '40%',
     alignItems: 'center',
     justifyContent: 'center',
   },
   TextTitle: {
     marginTop: 40,
     textAlign: 'center',
-    fontSize: 40,
+    fontSize: 32,
+    color: '#4696ff',
     fontWeight: 'bold',
   },
   infoText: {
     marginTop: 20,
     textAlign: 'center',
-    color: 'black',
-    color: '#222',
+    color: '#222222',
     fontSize: 17,
     lineHeight: 25,
-    fontWeight: 'normal',
+    fontWeight: '300',
   },
   normalDot: {
     height: 12,
     width: 12,
     borderRadius: 6,
-    backgroundColor: '#e7e8e9',
+    backgroundColor: '#4696ff',
     marginHorizontal: 6,
   },
   indicatorContainer: {
@@ -256,7 +255,7 @@ const styles = StyleSheet.create({
     width: '90%',
     height: 56,
     borderRadius: 30,
-    backgroundColor: '#164895',
+    backgroundColor: '#4696ff',
     color: '#FFF',
     marginTop: 40,
   },
@@ -264,15 +263,17 @@ const styles = StyleSheet.create({
     width: '90%',
     height: 56,
     borderRadius: 30,
-    backgroundColor: '#0b95c9',
-    color: '#FFF',
+    // backgroundColor: '#4696ff',
+    borderWidth: 1,
+    borderColor: '#4696ff',
     marginTop: 10,
   },
   buttonText: {
     color: '#FFF',
     textAlign: 'center',
-    fontSize: 17,
+    fontSize: 20,
     lineHeight: 56,
+    fontWeight: '400'
   },
 });
 

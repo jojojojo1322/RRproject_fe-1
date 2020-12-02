@@ -8,6 +8,7 @@ class AgreementTermsConditions extends Component {
   };
   
   render() {
+    CheckedArrObject = new SelectedCheckboxes();
     return (
       <SafeAreaView
         style={styles.container}>
@@ -26,7 +27,7 @@ class AgreementTermsConditions extends Component {
                 />
                 <Text style={[styles.textStyle, {marginLeft: 10}]}>서비스 이용약관 관련 전체동의</Text>
               </View>
-              <View style={[styles.viewBox, {padding: 17, backgroundColor: '#eeeeee', marginTop: 10, borderRadius: 5}]}>
+              <View style={[styles.viewBox, {padding: 17, backgroundColor: '#f9f9f9', marginTop: 10, borderRadius: 5}]}>
                 <View style={styles.viewBox}>
                 <RoundCheckbox
                   size={20}
@@ -36,15 +37,26 @@ class AgreementTermsConditions extends Component {
                   labelColor="#000000"
                   checkedObjArr={CheckedArrObject}
                 />
-                  <TouchableWithoutFeedback>
+                  <TouchableWithoutFeedback
+                  onPress={() => {
+                    this.props.navigation.navigate('TermsConditions');
+                    this.props.navigation.setOptions({ title: '이용약관 및 개인정보처리방침' });
+                  }}
+                  >
                     <Text style={[styles.textStyle, {marginLeft: 10}]}>이용약관 동의(필수)</Text>
                   </TouchableWithoutFeedback>
                 </View>
-                <TouchableWithoutFeedback>
-                  <Image source={require('../../imgs/drawable-xhdpi/icon_sarr.png')}></Image>
+                <TouchableWithoutFeedback
+                onPress={() => {
+                  this.props.navigation.navigate('TermsConditions');
+                  this.props.navigation.setOptions({ title: '이용약관 및 개인정보처리방침' });
+                }}>
+                  <Image
+                  style={{width: 20, height:20}}
+                  source={require('../../imgs/drawable-xhdpi/icon_more_b.png')}/>
                 </TouchableWithoutFeedback>
               </View>
-              <View style={[styles.viewBox, {padding: 17, backgroundColor: '#eeeeee', marginTop: 10, borderRadius: 5}]}>
+              <View style={[styles.viewBox, {padding: 17, backgroundColor: '#f9f9f9', marginTop: 10, borderRadius: 5}]}>
                 <View style={styles.viewBox}>
                 <RoundCheckbox
                   size={20}
@@ -54,20 +66,31 @@ class AgreementTermsConditions extends Component {
                   labelColor="#000000"
                   checkedObjArr={CheckedArrObject}
                 />
-                  <TouchableWithoutFeedback>
+                  <TouchableWithoutFeedback
+                  onPress={() => {
+                    this.props.navigation.navigate('TermsConditions');
+                    this.props.navigation.setOptions({ title: '이용약관 및 개인정보처리방침' });
+                  }}>
                     <Text style={[styles.textStyle, {marginLeft: 10}]}>개인정보처리방침 동의(필수)</Text>
                   </TouchableWithoutFeedback>
                 </View>
-                <TouchableWithoutFeedback>
-                  <Image source={require('../../imgs/drawable-xhdpi/icon_sarr.png')}></Image>
+                <TouchableWithoutFeedback
+                onPress={() => {
+                  this.props.navigation.navigate('TermsConditions');
+                  this.props.navigation.setOptions({ title: '이용약관 및 개인정보처리방침' });
+                }}>
+                  <Image
+                  style={{width: 20, height:20}}
+                  source={require('../../imgs/drawable-xhdpi/icon_more_b.png')}/>
                 </TouchableWithoutFeedback>
               </View>
             </View>
 
             <TouchableHighlight
-            style={[styles.button, {backgroundColor:'#c6c9cf'}]}
+            style={[styles.button, {backgroundColor:'#e6e6e6'}]}
             onPress={() => {
-              this.props.navigation.navigate('AgreementTermsConditions');
+              this.props.navigation.navigate('SignUpPersonal');
+              this.props.navigation.setOptions({ title: '회원정보 입력' });
             }}
             >
               <Text style={styles.buttonTexts}>다음</Text>
