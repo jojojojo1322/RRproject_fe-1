@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, ScrollView, View, Text, TextInput, TouchableHighlight, SafeAreaView, Image} from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import CountDown from '../../components/factory/CountDown';
 import {RoundCheckbox, SelectedCheckboxes} from '../Roundcheck';
 
 class EmailAuthentication extends Component {
@@ -35,51 +37,66 @@ class EmailAuthentication extends Component {
         style={styles.container}>
           <View style={styles.containerInner}>
 
-          
-            {/* 이메일 */}
-            <View style={{marginTop: 40}}>
+          <View>
+            <Text style={[styles.headerText, {marginTop: 50}]}>tnc1234@tnc.com 으로{'\n'}6자리 인증 코드를 발송했습니다</Text>
+          </View>
 
-              <View>
-                <Text style={styles.subText}>인증번호</Text>
+          <View style={styles.signUpBox}>
+            <Text style={styles.signUpBoxTitle}>인증 번호</Text>
+
+            <View>
+              <View style={[styles.textInputStyle2, {marginTop: 10}]}>
+                <TextInput
+                  placeholder="인증번호 입력"
+                  value={this.state.passWord}
+                  keyboardType={'numeric'}
+                  secureTextEntry={true}
+                  onChangeText={(text) => this.handlePassword(text)}
+                  style={[
+                    styles.textInputStyle,
+                    {borderBottomWidth: 0, paddingTop: 0, paddingBottom: 0},
+                  ]}></TextInput>
+                <View
+                  style={[
+                    styles.textInputStyle2Inner,
+                    {position: 'absolute', right: 0, top: 15, flexDirection: 'row', alignItems: 'center'},
+                  ]}>
+                  <Image
+                    source={require('../../imgs/drawable-xhdpi/icon_time.png')}
+                    style={styles.timeImg}
+                  />
+                  {/* <Text style={{fontSize: 15, color: '#0b95c9', fontWeight: '500', marginLeft: 5}}>00:00</Text> */}
+                  <CountDown />
+                </View>
               </View>
 
-              <TouchableHighlight>
-                <View style={styles.InputImageAll}>
-                  <TextInput
-                    placeholder="6자리 인증번호 입력"
-                    // keyboardType={'numeric'}
-                    onChangeText={this.handleBirth}
-                    // value={this.props.birth}
-                    style={[styles.textInputStyle]}></TextInput>
-                  <Image
-                    style={{width: 19, height: 19}}
-                    source={require('../../imgs/drawable-xhdpi/icon_x_gray.png')}
-                  />
-                </View>
-              </TouchableHighlight>
-
               {/* alert */}
-              <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 8}}>
+              <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 8, justifyContent: 'space-between'}}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
 
                 <Image
                 style={{width: 19, height: 19}}
                 source={require('../../imgs/drawable-xhdpi/icon_x_red.png')}
                 />
                 <Text style={{color: '#F00', fontSize: 14, marginLeft: 10}}>인증번호가 올바르지 않습니다.</Text>
-              
+
+                </View>
+                {/* <View></View> */}
+                <TouchableWithoutFeedback>
+                <Text style={{color: '#4696ff', fontSize: 15, fontWeight: '500'}}>재전송</Text>
+                </TouchableWithoutFeedback>
               </View>
-
             </View>
+          </View>
 
-            <TouchableHighlight
+            <TouchableWithoutFeedback
             style={[styles.button, {backgroundColor:'#e6e6e6'}]}
             onPress={() => {
-              // this.props.navigation.navigate('AgreementTermsConditions');
-              // this.props.navigation.setOptions({ title: '약관동의' });
+              this.props.navigation.navigate('CompleteAuth');
             }}
             >
-              <Text style={styles.buttonTexts}>다음</Text>
-            </TouchableHighlight>
+              <Text style={styles.buttonTexts}>회원가입</Text>
+            </TouchableWithoutFeedback>
 
           </View>
         
@@ -114,30 +131,75 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       fontSize: 16
     },
-    InputImageAll: {
-      // flex: 1,
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      borderBottomWidth: 1,
-      borderBottomColor: '#ddd',
-      alignItems: 'center',
-      // alignContent: 'stretch',
-      // borderBottomWidth: 1,
-      // borderBottomColor: '#ddd',
+    headerText: {
+      fontSize: 16,
+      // color: '#164895',
+      textAlign: 'center',
+      fontWeight: '400',
+      marginTop: 20,
+      lineHeight: 24
     },
-    InputImage: {
-      // position: 'absolute',
-      // alignItems: 'center',2
+    signUpBox: {
+      flexDirection: 'column',
+      justifyContent: 'space-between'
+    },
+    signUpBoxTitle: {
+      fontSize: 16,
+      fontWeight: '600'
     },
     textInputStyle: {
-      // position: 'relative',
-      // width: '100%',
+      position: 'relative',
+      width: '100%',
       fontSize: 15,
-      // borderBottomWidth: 1,
-      // borderBottomColor: '#dddddd',
+      borderBottomWidth: 1,
+      borderBottomColor: '#dddddd',
       paddingTop: 15,
       paddingBottom: 15,
     },
+    textInputStyle2: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      fontSize: 15,
+      borderBottomWidth: 1,
+      borderBottomColor: '#dddddd',
+      paddingTop: 15,
+      paddingBottom: 15,
+    },
+    textInputStyle2Inner: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+    textInputStyle3: {
+      flexDirection: 'row',
+      fontSize: 15,
+    },
+    button: {
+      width: '100%',
+      borderRadius: 50,
+      backgroundColor: '#4696ff',
+      padding: 15
+    },
+    buttonTexts: {
+      color: '#FFF',
+      fontWeight: '600',
+      textAlign: 'center',
+      fontSize: 16
+    },
+    sarrImg: {
+      width: 12,
+      height: 12,
+      resizeMode: 'contain'
+    },
+    timeImg: {
+      width: 16,
+      height: 16,
+      resizeMode: 'contain'
+    },
+    pointImg: {
+      width: 20,
+      height: 20,
+      resizeMode: 'contain'
+    }
 });
 
 export default EmailAuthentication;

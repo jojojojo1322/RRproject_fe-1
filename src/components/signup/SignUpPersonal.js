@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, ScrollView, View, Text, TextInput, TouchableHighlight, SafeAreaView, Image} from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import {RoundCheckbox, SelectedCheckboxes} from '../Roundcheck';
 
 class SignUpPersonal extends Component {
@@ -37,7 +38,7 @@ class SignUpPersonal extends Component {
 
           
             {/* 이메일 */}
-            <View style={{marginTop: 40}}>
+            <View style={{marginTop: 80}}>
 
               <View>
                 <Text style={styles.subText}>이메일</Text>
@@ -91,9 +92,13 @@ class SignUpPersonal extends Component {
                     onChangeText={this.handleBirth}
                     // value={this.props.birth}
                     style={[styles.textInputStyle]}></TextInput>
-                  <Image
+                  {/* <Image
                     style={{width: 19, height: 19}}
                     source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
+                  /> */}
+                  <Image
+                    style={{width: 19, height: 19}}
+                    source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
                   />
                 </View>
               </TouchableHighlight>
@@ -172,9 +177,13 @@ class SignUpPersonal extends Component {
                     onChangeText={this.handleBirth}
                     // value={this.props.birth}
                     style={[styles.textInputStyle]}></TextInput>
-                  <Image
+                  {/* <Image
                     style={{width: 19, height: 19}}
                     source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
+                  /> */}
+                  <Image
+                    style={{width: 19, height: 19}}
+                    source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
                   />
                 </View>
               </TouchableHighlight>
@@ -231,15 +240,15 @@ class SignUpPersonal extends Component {
 
             </View>
 
-            <TouchableHighlight
-            style={[styles.button, {backgroundColor:'#e6e6e6'}]}
+            <TouchableWithoutFeedback
+            style={[styles.button, {backgroundColor:'#e6e6e6', marginTop: 80}]}
             onPress={() => {
               this.props.navigation.navigate('EmailAuthentication');
               this.props.navigation.setOptions({ title: '약관동의' });
             }}
             >
               <Text style={styles.buttonTexts}>다음</Text>
-            </TouchableHighlight>
+            </TouchableWithoutFeedback>
 
           </View>
         

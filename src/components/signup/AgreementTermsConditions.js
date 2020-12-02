@@ -86,7 +86,7 @@ class AgreementTermsConditions extends Component {
               </View>
             </View>
 
-            <TouchableHighlight
+            <TouchableWithoutFeedback
             style={[styles.button, {backgroundColor:'#e6e6e6'}]}
             onPress={() => {
               this.props.navigation.navigate('SignUpPersonal');
@@ -94,7 +94,7 @@ class AgreementTermsConditions extends Component {
             }}
             >
               <Text style={styles.buttonTexts}>다음</Text>
-            </TouchableHighlight>
+            </TouchableWithoutFeedback>
 
           </View>
         
