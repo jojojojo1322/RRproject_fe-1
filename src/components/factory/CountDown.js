@@ -72,7 +72,7 @@ class CountDown extends Component {
         const {time} = this.state;
         return (
             <View>
-                <Text style={{fontSize: 15, color: '#0b95c9', fontWeight: '500', marginLeft: 5}}>{this.format(time)}</Text>
+                <Text style={{fontSize: 15, color: '#4696ff', fontWeight: '500', marginLeft: 5}}>{this.format(time)}</Text>
             </View>
         )
     }
