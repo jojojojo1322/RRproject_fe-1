@@ -99,35 +99,53 @@ export default class WalletPassword extends Component {
               : `비밀번호 확인을 위해${'\n'}한번 더 입력해 주세요`}
           </Text>
           <View style={styles.passGrayAll}>
-            <View style={[styles.passGray, {marginLeft: 0}]}>
-              <Text style={styles.passGrayText}>
-                {passArr[0] == undefined ? '' : '*'}
-              </Text>
+            <View
+              style={[
+                styles.passGray,
+                {marginLeft: 0},
+                passArr[0] == undefined ? '' : {backgroundColor: '#4696ff'},
+              ]}>
+              {passArr[0] != undefined && <View style={styles.circle}></View>}
             </View>
-            <View style={styles.passGray}>
-              <Text style={styles.passGrayText}>
-                {passArr[1] == undefined ? '' : '*'}
-              </Text>
+            <View
+              style={[
+                styles.passGray,
+                {marginLeft: 0},
+                passArr[1] == undefined ? '' : {backgroundColor: '#4696ff'},
+              ]}>
+              {passArr[1] != undefined && <View style={styles.circle}></View>}
             </View>
-            <View style={styles.passGray}>
-              <Text style={styles.passGrayText}>
-                {passArr[2] == undefined ? '' : '*'}
-              </Text>
+            <View
+              style={[
+                styles.passGray,
+                {marginLeft: 0},
+                passArr[2] == undefined ? '' : {backgroundColor: '#4696ff'},
+              ]}>
+              {passArr[2] != undefined && <View style={styles.circle}></View>}
             </View>
-            <View style={styles.passGray}>
-              <Text style={styles.passGrayText}>
-                {passArr[3] == undefined ? '' : '*'}
-              </Text>
+            <View
+              style={[
+                styles.passGray,
+                {marginLeft: 0},
+                passArr[3] == undefined ? '' : {backgroundColor: '#4696ff'},
+              ]}>
+              {passArr[3] != undefined && <View style={styles.circle}></View>}
             </View>
-            <View style={styles.passGray}>
-              <Text style={styles.passGrayText}>
-                {passArr[4] == undefined ? '' : '*'}
-              </Text>
+            <View
+              style={[
+                styles.passGray,
+                {marginLeft: 0},
+                passArr[4] == undefined ? '' : {backgroundColor: '#4696ff'},
+              ]}>
+              {passArr[4] != undefined && <View style={styles.circle}></View>}
             </View>
-            <View style={styles.passGray}>
-              <Text style={styles.passGrayText}>
-                {passArr[5] == undefined ? '' : '*'}
-              </Text>
+            <View
+              style={[
+                styles.passGray,
+                {marginLeft: 0},
+                passArr[5] == undefined ? '' : {backgroundColor: '#4696ff'},
+              ]}>
+              {passArr[5] != undefined && <View style={styles.circle}></View>}
             </View>
           </View>
         </View>
@@ -259,10 +277,12 @@ const styles = StyleSheet.create({
   passGray: {
     backgroundColor: '#f9f9f9',
     textAlign: 'center',
-    flex: 1,
+    // flex: 1,
     marginLeft: '3%',
-    // width: '14%',
-    height: 53,
+    width: '14%',
+    height: 50,
+    // height: 30,
+    // width: 10,
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
@@ -309,5 +329,11 @@ const styles = StyleSheet.create({
   keyboardCancelButton: {
     // color: '#fff',
     resizeMode: 'center',
+  },
+  circle: {
+    height: 8,
+    width: 8,
+    backgroundColor: '#ffffff',
+    borderRadius: 50,
   },
 });

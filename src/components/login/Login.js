@@ -107,11 +107,22 @@ class Login extends Component {
     return (
       <View style={styles.container}>
         {/* <Button title="back" onPress={this.handleBack}></Button> */}
-        <Text style={styles.title}>Real Research</Text>
-        <Text style={styles.sub}>Hello there,{'\n'}Login to your account</Text>
-        <View style={styles.loginBox}>
+
+        <View>
+          <View style={[styles.title, {marginTop: 80}]}>
+            <Text style={styles.titleText}>Real Research</Text>
+          </View>
+
+          <View style={styles.sub}>
+            <Text style={styles.subText}>
+              Hello there, Login to your account
+            </Text>
+          </View>
+        </View>
+
+        <View style={[styles.loginBox]}>
           <TextInput
-            style={[styles.loginInput]}
+            style={[styles.loginInput, {marginBottom: 10}]}
             placeholder="Email Address"
             value={this.state.ID}
             // onBlur={ () => this.onBlur() }
@@ -150,37 +161,28 @@ class Login extends Component {
           /> */}
           <TouchableOpacity
             style={styles.fotgotPasswordBox}
-            activeOpacity={0.75}>
+            activeOpacity={0.75}
+            onPress={() => {
+              this.props.navigation.navigate('Reset');
+            }}>
             <Text style={styles.fotgotPassword}>Forgot Password?</Text>
+          </TouchableOpacity>
+
+          <View
+            style={[styles.middleBorder, {marginTop: 30, marginBottom: 30}]}
+          />
+
+          <Text style={styles.buttonBoxText}>Don't have an account? </Text>
+
+          <TouchableOpacity
+            activeOpacity={0.75}
+            onPress={() => {
+              this.props.navigation.navigate('SignUp');
+            }}>
+            <Text style={styles.buttonBoxSignupText}>SIGNUP</Text>
           </TouchableOpacity>
         </View>
 
-        {/* <Modal
-          animationType="fade"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
-          }}>
-          <View
-            style={styles.centeredView}
-            onPress={() => {
-              this.setModalVisible(!modalVisible);
-            }}>
-            <View style={styles.modalView}>
-              <Text style={styles.modalText}>
-                현재 지갑이 생성되어 있지 않습니다{'\n'}지갑을 만들어주세요
-              </Text>
-            </View>
-            <TouchableHighlight
-              style={{...styles.closeButton, backgroundColor: '#164895'}}
-              onPress={() => {
-                this.setModalVisible(!modalVisible);
-              }}>
-              <Text style={styles.closeButtonText}>확인</Text>
-            </TouchableHighlight>
-          </View>
-        </Modal> */}
         <TextConfirmModal
           modalVisible={modalVisible}
           setModalVisible={this.setModalVisible}
@@ -220,13 +222,7 @@ class Login extends Component {
           </View>
         </Modal> */}
 
-        <View style={styles.bottomTextBox}>
-          <View style={styles.bottomSignupBox}>
-            <Text style={styles.buttonBoxText}>Don't have an account? </Text>
-            <TouchableOpacity activeOpacity={0.75}>
-              <Text style={styles.buttonBoxSignupText}>Sign up here</Text>
-            </TouchableOpacity>
-          </View>
+        <View style={[styles.bottomTextBox, {marginTop: 160}]}>
           <Text style={styles.bottomTextInner}>
             POWERED BY REAL RESEARCH INC.
           </Text>
@@ -246,18 +242,25 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
   },
   title: {
-    marginTop: '20%',
+    // marginTop: '20%',
+  },
+  titleText: {
     textAlign: 'center',
     fontSize: 30,
     fontWeight: '500',
+    color: '#4696ff',
   },
   sub: {
+    // marginTop: '-10%',
+  },
+  subText: {
     textAlign: 'center',
-    color: '#888',
+    color: '#a9a9a9',
     lineHeight: 25,
     fontSize: 18,
   },
   loginBox: {
+    // marginTop: '-40%',
     width: '100%',
     alignItems: 'center',
   },
@@ -265,7 +268,7 @@ const styles = StyleSheet.create({
     width: '90%',
     height: 56,
     borderWidth: 1,
-    borderColor: '#164895',
+    borderColor: '#4696ff',
     borderRadius: 50,
     paddingLeft: 31,
     fontSize: 16,
@@ -277,7 +280,7 @@ const styles = StyleSheet.create({
     width: '90%',
     height: 56,
     borderRadius: 30,
-    backgroundColor: '#164895',
+    backgroundColor: '#4696ff',
     color: '#FFF',
     marginBottom: '5%',
   },
@@ -290,82 +293,57 @@ const styles = StyleSheet.create({
     letterSpacing: 0.9,
   },
   fotgotPasswordBox: {
-    borderBottomWidth: 1,
-    borderBottomColor: '#164895',
+    // borderBottomWidth: 1,
+    // borderBottomColor: '#164895',
+    // marginBottom: -40
   },
   fotgotPassword: {
     fontSize: 14,
     lineHeight: 20,
-    color: '#164895',
+    color: '#4696ff',
+  },
+
+  middleBorder: {
+    // marginBottom: '-30%',
+    height: 0,
+    width: '90%',
+    // borderStyle: 'solid',
+    borderBottomColor: '#787878',
+    borderBottomWidth: 0.5,
   },
   bottomTextBox: {
     width: '100%',
-    marginBottom: '8%',
+    // marginBottom: '8%',
     padding: '5%',
+    alignItems: 'center',
   },
   bottomSignupBox: {
-    marginTop: '20%',
-    flexDirection: 'row',
-    alignSelf: 'flex-end',
+    // marginTop: '20%',
+    flexDirection: 'column',
+    alignSelf: 'center',
   },
   buttonBoxText: {
-    color: '#164895',
-    fontWeight: '200',
-    color: '#49658f',
+    color: '#a9a9a9',
+    fontWeight: '300',
+    fontSize: 17,
+    // color: '#49658f',
+  },
+  bottomSignup: {
+    // marginTop: '20%',
+    // flexDirection: 'column',
+    alignSelf: 'center',
   },
   buttonBoxSignupText: {
-    color: '#164895',
-    fontWeight: '500',
-    color: '#49658f',
+    fontWeight: '600',
+    color: '#4696ff',
+    fontSize: 18,
   },
   bottomTextInner: {
     marginTop: 10,
     textAlign: 'right',
     fontSize: 12,
-    color: '#49658f',
-  },
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'hsla(0, 0%, 20%, 0.6)',
-  },
-  modalView: {
-    width: '90%',
-    backgroundColor: 'white',
-    padding: 30,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    borderTopLeftRadius: 5,
-    borderTopRightRadius: 5,
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  modalText: {
-    textAlign: 'center',
-    fontSize: 16,
-    lineHeight: 24,
-    marginTop: '5%',
-    marginBottom: '5%',
-  },
-  closeButton: {
-    width: '90%',
-    backgroundColor: '#F194FF',
-    elevation: 2,
-    borderBottomLeftRadius: 5,
-    borderBottomRightRadius: 5,
-  },
-  closeButtonText: {
-    color: '#FFF',
-    fontWeight: '500',
-    fontSize: 16,
-    textAlign: 'center',
-    padding: 17,
+    fontWeight: '400',
+    color: '#4696ff',
   },
 });
 export default Login;
