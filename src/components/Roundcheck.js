@@ -93,14 +93,14 @@ export class RoundCheckbox extends Component {
             {this.state.checked ? (
               <View style={styles.selectedUI}>
                 <Image
-                  source={require('../imgs/roundcheck.png')}
+                  source={require('../imgs/drawable-xhdpi/icon_w_check_2_on_m.png')}
                   style={styles.checkboxTickImg}
                 />
               </View>
             ) : (
               <View style={styles.uncheckedCheckbox}>
                 <Image
-                  source={require('../imgs/roundcheck_gray.png')}
+                  source={require('../imgs/drawable-xhdpi/icon_w_check2_off_m.png')}
                   style={styles.checkboxTickImg}
                 />
               </View>
@@ -133,7 +133,7 @@ RoundCheckbox.defaultProps = {
   checked: false,
   value: 'Default',
   borderWidth: 1,
-  borderColor: '#4696ff',
+  borderColor: '#787878',
   label: 'Default',
   color: '#164895',
   labelColor: '000000',
@@ -168,13 +168,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 50,
     backgroundColor: '#2B97FB',
-    borderWidth: 0,
-    borderColor: 'transparent',
+    borderWidth: 1,
+    borderColor: '#2B97FB',
   },
 
   checkboxTickImg: {
-    width: '75%',
-    height: '75%',
+    width: '70%',
+    height: '70%',
     // tintColor: '#ffffff',
     resizeMode: 'contain',
   },
@@ -184,7 +184,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 50,
-    // backgroundColor: '#FFF',
   },
 
   checkboxLabel: {

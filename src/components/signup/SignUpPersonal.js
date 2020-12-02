@@ -1,14 +1,7 @@
 import React, {Component} from 'react';
-import {
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  TextInput,
-  TouchableHighlight,
-  SafeAreaView,
-  Image,
-} from 'react-native';
+import {StyleSheet, ScrollView, View, Text, TextInput, TouchableHighlight, SafeAreaView, Image} from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+
 import {RoundCheckbox, SelectedCheckboxes} from '../Roundcheck';
 
 class SignUpPersonal extends Component {
@@ -47,6 +40,7 @@ class SignUpPersonal extends Component {
             <View>
               <Text style={styles.subText}>이메일</Text>
             </View>
+
 
             <TouchableHighlight>
               <View style={styles.InputImageAll}>
@@ -94,20 +88,25 @@ class SignUpPersonal extends Component {
               <Text style={styles.subText}>비밀번호</Text>
             </View>
 
-            <TouchableHighlight>
-              <View style={styles.InputImageAll}>
-                <TextInput
-                  placeholder="아래 조합으로 입력"
-                  // keyboardType={'numeric'}
-                  onChangeText={this.handleBirth}
-                  // value={this.props.birth}
-                  style={[styles.textInputStyle]}></TextInput>
-                <Image
-                  style={{width: 19, height: 19}}
-                  source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
-                />
-              </View>
-            </TouchableHighlight>
+              <TouchableHighlight>
+                <View style={styles.InputImageAll}>
+                  <TextInput
+                    placeholder="아래 조합으로 입력"
+                    // keyboardType={'numeric'}
+                    onChangeText={this.handleBirth}
+                    // value={this.props.birth}
+                    style={[styles.textInputStyle]}></TextInput>
+                  {/* <Image
+                    style={{width: 19, height: 19}}
+                    source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
+                  /> */}
+                  <Image
+                    style={{width: 19, height: 19}}
+                    source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
+                  />
+                </View>
+              </TouchableHighlight>
+
 
             <View
               style={{
@@ -211,8 +210,33 @@ class SignUpPersonal extends Component {
           {/* 비밀번호 확인 */}
           <View>
             <View>
-              <Text style={styles.subText}>비밀번호 확인</Text>
-            </View>
+
+              <View>
+                <Text style={styles.subText}>비밀번호 확인</Text>
+              </View>
+
+              <TouchableHighlight>
+                <View style={styles.InputImageAll}>
+                  <TextInput
+                    placeholder="비밀번호 다시 입력"
+                    // keyboardType={'numeric'}
+                    onChangeText={this.handleBirth}
+                    // value={this.props.birth}
+                    style={[styles.textInputStyle]}></TextInput>
+                  {/* <Image
+                    style={{width: 19, height: 19}}
+                    source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
+                  /> */}
+                  <Image
+                    style={{width: 19, height: 19}}
+                    source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
+                  />
+                </View>
+              </TouchableHighlight>
+
+              {/* alert */}
+              <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 8}}>
+
 
             <TouchableHighlight>
               <View style={styles.InputImageAll}>
@@ -301,6 +325,7 @@ class SignUpPersonal extends Component {
             <Text style={styles.buttonTexts}>다음</Text>
           </TouchableHighlight>
         </View>
+
       </SafeAreaView>
     );
   }

@@ -17,6 +17,7 @@ import AgreementTermsConditions from './components/signup/AgreementTermsConditio
 import TermsConditions from './components/signup/TermsConditions';
 import SignUpPersonal from './components/signup/SignUpPersonal';
 import EmailAuthentication from './components/signup/EmailAuthentication';
+import CompleteAuth from './components/signup/CompleteAuth';
 
 import ResearchForm from './components/research/ResearchForm';
 import Reset from './components/resetPassword/Reset';
@@ -99,6 +100,7 @@ class App extends Component {
               // ),
             }}
           />
+
           <Stack.Screen
             name="AgreementTermsConditions"
             component={AgreementTermsConditions}
@@ -163,6 +165,7 @@ class App extends Component {
               headerTintColor: '#000',
             }}
           />
+
           <Stack.Screen name="ResearchForm" component={ResearchForm} />
           <Stack.Screen name="Initial3" component={Initial3} />
         </Stack.Navigator>

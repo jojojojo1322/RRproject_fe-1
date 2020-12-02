@@ -9,9 +9,11 @@ import {
   SafeAreaView,
   Image,
 } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import ListModal from '../../components/factory/modal/ListModal';
 import ListRoundCheckModal from '../../components/factory/modal/ListRoundCheckModal';
 import CountDown from '../../components/factory/CountDown';
+
 
 class SignUp extends Component {
   state = {
@@ -78,12 +80,12 @@ class SignUp extends Component {
               value={this.state.phoneNum}
               style={[styles.textInputStyle, {marginTop: 10}]}></TextInput>
 
-            <TouchableHighlight
+            <TouchableWithoutFeedback
               onPress={() => {}}
               underlayColor={'#164895'}
               style={[styles.button, {marginTop: 25}]}>
               <Text style={styles.buttonTexts}>인증요청</Text>
-            </TouchableHighlight>
+            </TouchableWithoutFeedback>
           </View>
 
           <View style={styles.signUpBox}>
@@ -104,7 +106,7 @@ class SignUp extends Component {
                 <View
                   style={[
                     styles.textInputStyle2Inner,
-                    {position: 'absolute', right: 0, top: 15},
+                    {position: 'absolute', right: 0, top: 15, flexDirection: 'row', alignItems: 'center'},
                   ]}>
                   <Image
                     source={require('../../imgs/drawable-xhdpi/icon_time.png')}
@@ -137,7 +139,7 @@ class SignUp extends Component {
             </View>
           </View>
 
-            <TouchableHighlight
+            <TouchableWithoutFeedback
             style={[styles.button, {backgroundColor:'#e6e6e6'}]}
             onPress={() => {
               this.props.navigation.navigate('AgreementTermsConditions');
@@ -145,7 +147,7 @@ class SignUp extends Component {
             }}
             >
               <Text style={styles.buttonTexts}>다음</Text>
-            </TouchableHighlight>
+            </TouchableWithoutFeedback>
 
           </View>
         
