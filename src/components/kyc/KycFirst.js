@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
     lineHeight: 22,
   },
   clickAreaChoice: {
-    backgroundColor: '#164895',
+    backgroundColor: '#4696ff',
     height: 50,
     width: '48%',
     borderRadius: 5,

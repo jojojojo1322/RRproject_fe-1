@@ -23,7 +23,7 @@ import {RoundCheckbox, SelectedCheckboxes} from '../../Roundcheck';
 
 const window = Dimensions.get('window');
 
-const DATA = [
+let DATA = [
   {
     id: '1',
     img: require('../../../imgs/drawable-xhdpi/flag_afghanistan.png'),
@@ -115,20 +115,25 @@ const DATA = [
     cd: '+54',
   },
 ];
-const CountryList = () => {
+const CountryList = (props) => {
   const [selectedId, setSelectedId] = useState(null);
 
   const renderItem = ({item}) => {
     const backgroundColor = item.id === selectedId ? '#efefef' : '#FFF';
-
     return (
       <Item
         item={item}
         onPress={() => setSelectedId(item.id)}
         style={{backgroundColor}}
+        handlePick={props.handlePick}
+        searchText={props.searchText}
       />
     );
   };
+
+  if (props.searchText != '') {
+    DATA = DATA.filter((data) => data.title == props.searchText);
+  }
 
   return (
     <View style={styles.countryList}>
@@ -142,10 +147,14 @@ const CountryList = () => {
   );
 };
 
-const Item = ({item, onPress, style}) => {
+const Item = ({item, onPress, style, handlePick}) => {
   CheckedArrObject = new SelectedCheckboxes();
   return (
-    <TouchableOpacity onPress={onPress} style={[styles.item, style]}>
+    <TouchableOpacity
+      onPress={() => {
+        handlePick(item.title, item.cd);
+      }}
+      style={[styles.item, style]}>
       <Image style={styles.listImg} source={item.img} />
       <Text style={styles.title}>{item.title}</Text>
       <Text style={styles.cd}>{item.cd}</Text>
@@ -158,7 +167,8 @@ class ListModal extends Component {
     super(props);
     this.state = {
       modalVisible: false,
-      searchText: ''
+      searchText: '',
+      pick: '',
     };
     // this.setModalVisible = this.setModalVisible.bind(this);
   }
@@ -172,18 +182,20 @@ class ListModal extends Component {
   }
   setModalVisible = (visible) => {
     this.setState({modalVisible: visible});
-    console.log('MODAL>>> ', visible);
   };
 
   handleInputChange = (searchText) => {
     this.setState({
-      searchText
+      searchText: searchText,
     });
-  }
+  };
+  handlePick = (country, cd) => {
+    this.props.setCountry(country, cd);
+    this.props.setModalVisible(!this.state.modalVisible);
+  };
 
   render() {
     const {modalVisible} = this.state;
-    console.log(modalVisible);
     return (
       <Modal
         animationType="fade"
@@ -192,57 +204,56 @@ class ListModal extends Component {
         onRequestClose={() => {
           Alert.alert('Modal has been closed.');
         }}>
-          <View style={{flex: 1, position: 'relative'}}>
-
-            {/* modal background */}
-            <TouchableWithoutFeedback
+        <View style={{flex: 1, position: 'relative'}}>
+          {/* modal background */}
+          <TouchableWithoutFeedback
             // style={styles.centeredView}
             activeOpacity={0.55}
             onPress={() => {
               this.setState({modalVisible: !modalVisible});
               this.props.setModalVisible(!modalVisible);
             }}>
-              <View style={styles.centeredView}>
-              </View>
-            </TouchableWithoutFeedback>
+            <View style={styles.centeredView}></View>
+          </TouchableWithoutFeedback>
 
-            {/* modal view */}
-            <View style={styles.modalView}>
-
-              <View style={styles.modalBox}>
-                <Text style={styles.modalText}>국적선택</Text>
-                <TouchableWithoutFeedback
+          {/* modal view */}
+          <View style={styles.modalView}>
+            <View style={styles.modalBox}>
+              <Text style={styles.modalText}>국적선택</Text>
+              <TouchableWithoutFeedback
+                style={styles.closeButton}
+                setModalVisible={this.props.setModalVisible}
+                modalVisible={this.props.modalVisible}
+                onPress={() => {
+                  this.props.setModalVisible(!modalVisible);
+                }}>
+                <Image
                   style={styles.closeButton}
-                  setModalVisible={this.props.setModalVisible}
-                  modalVisible={this.props.modalVisible}
-                  onPress={() => {
-                    this.props.setModalVisible(!modalVisible);
-                  }}>
-                  <Image
-                    style={styles.closeButton}
-                    source={require('../../../imgs/icon_close.png')}
-                  />
-                </TouchableWithoutFeedback>
-              </View>
-              
-              <View style={styles.modalInputBox}>
-                <TextInput
-                  style={styles.searchInputText}
-                  onChangeText={this.handleInputChange}
-                  value={this.state.searchText}
-                  placeholder="search"></TextInput>
-                <TouchableHighlight style={styles.closeButton}>
-                  <Image
-                    style={styles.closeButton}
-                    source={require('../../../imgs/icon_search.png')}
-                  />
-                </TouchableHighlight>
-              </View>
-                  
-              <CountryList />
-
+                  source={require('../../../imgs/icon_close.png')}
+                />
+              </TouchableWithoutFeedback>
             </View>
+
+            <View style={styles.modalInputBox}>
+              <TextInput
+                style={styles.searchInputText}
+                onChangeText={this.handleInputChange}
+                value={this.state.searchText}
+                placeholder="search"></TextInput>
+              <TouchableHighlight style={styles.closeButton}>
+                <Image
+                  style={styles.closeButton}
+                  source={require('../../../imgs/icon_search.png')}
+                />
+              </TouchableHighlight>
+            </View>
+
+            <CountryList
+              handlePick={this.handlePick}
+              searchText={this.state.searchText}
+            />
           </View>
+        </View>
       </Modal>
     );
   }
@@ -308,7 +319,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: '#dddddd',
     borderRadius: 5,
     padding: 15,
     marginTop: 20,

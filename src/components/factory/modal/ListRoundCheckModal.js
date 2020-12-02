@@ -19,7 +19,7 @@ import {
   Animated,
   Dimensions,
 } from 'react-native';
-import {Checkbox, SelectedCheckboxes} from '../../Checkbox';
+import {RoundCheckbox, SelectedCheckboxes} from '../../Roundcheck';
 const window = Dimensions.get('window');
 
 const DATA = [
@@ -149,8 +149,62 @@ const DATA = [
     title: 'Argentina',
     cd: '+54',
   },
+  {
+    id: '1',
+    img: require('../../../imgs/drawable-xhdpi/flag_afghanistan.png'),
+    title: 'Afghanistan(AF)',
+    cd: '+93',
+  },
+  {
+    id: '2',
+    img: require('../../../imgs/drawable-xhdpi/flag_albania.png'),
+    title: 'Albania',
+    cd: '+355',
+  },
+  {
+    id: '3',
+    img: require('../../../imgs/drawable-xhdpi/flag_argentina.png'),
+    title: 'Argentina',
+    cd: '+54',
+  },
+  {
+    id: '1',
+    img: require('../../../imgs/drawable-xhdpi/flag_afghanistan.png'),
+    title: 'Afghanistan(AF)',
+    cd: '+93',
+  },
+  {
+    id: '2',
+    img: require('../../../imgs/drawable-xhdpi/flag_albania.png'),
+    title: 'Albania',
+    cd: '+355',
+  },
+  {
+    id: '3',
+    img: require('../../../imgs/drawable-xhdpi/flag_argentina.png'),
+    title: 'Argentina',
+    cd: '+54',
+  },
+  {
+    id: '1',
+    img: require('../../../imgs/drawable-xhdpi/flag_afghanistan.png'),
+    title: 'Afghanistan(AF)',
+    cd: '+93',
+  },
+  {
+    id: '2',
+    img: require('../../../imgs/drawable-xhdpi/flag_albania.png'),
+    title: 'Albania',
+    cd: '+355',
+  },
+  {
+    id: '3',
+    img: require('../../../imgs/drawable-xhdpi/flag_argentina.png'),
+    title: 'Argentina',
+    cd: '+54',
+  },
 ];
-const CountryList = () => {
+const CountryList = (props) => {
   const [selectedId, setSelectedId] = useState(null);
 
   const renderItem = ({item}) => {
@@ -161,6 +215,7 @@ const CountryList = () => {
         item={item}
         onPress={() => setSelectedId(item.id)}
         style={{backgroundColor}}
+        setResidenceCity={props.setResidenceCity}
       />
     );
   };
@@ -177,15 +232,22 @@ const CountryList = () => {
   );
 };
 
-const Item = ({item, onPress, style}) => {
+const Item = ({item, onPress, style, setResidenceCity}) => {
   CheckedArrObject = new SelectedCheckboxes();
+  let checkPick = false;
   return (
-    <TouchableOpacity onPress={onPress} style={[styles.item, style]}>
+    <TouchableOpacity
+      onPress={() => {
+        setResidenceCity(item.title);
+        checkpick = true;
+      }}
+      style={[styles.item, style]}>
       <Text style={styles.title}>{item.title}</Text>
-      <Checkbox
+      {/* <Text style={styles.cd}>{item.cd}</Text> */}
+      <RoundCheckbox
         size={25}
         keyValue={Number(item.id)}
-        checked={false}
+        checked={checkPick}
         color="#164895"
         labelColor="#000000"
         label="Birds of Prey"
@@ -202,7 +264,7 @@ const Item = ({item, onPress, style}) => {
 //       <>
 //         <View style={styles.modalView}>
 //           <View style={styles.modalBox}>
-//             <Text style={styles.modalText}>사용가능언어 선택</Text>
+//             <Text style={styles.modalText}>거주도시 선택</Text>
 //             <TouchableHighlight
 //               style={styles.closeButton}
 //               setModalVisible={this.props.setModalVisible}
@@ -253,11 +315,10 @@ class ListRoundCheckModal extends Component {
     }
   }
   setModalVisible = (visible) => {
-    this.setState({ modalVisible: visible });
+    this.setState({modalVisible: visible});
   };
   render() {
     const {modalVisible} = this.state;
-    console.log(modalVisible);
     return (
       <Modal
         animationType="fade"
@@ -266,38 +327,33 @@ class ListRoundCheckModal extends Component {
         onRequestClose={() => {
           Alert.alert('Modal has been closed.');
         }}>
-
-        {/* modal background */}
-        <TouchableWithoutFeedback
-        // style={styles.centeredView}
-        activeOpacity={0.55}
-        onPress={() => {
-          this.setState({modalVisible: !modalVisible});
-          this.props.setModalVisible(!modalVisible);
-        }}>
-          <View style={styles.centeredView}>
-          </View>
-        </TouchableWithoutFeedback>
+        <View style={{flex: 1, position: 'relative'}}>
+          {/* modal background */}
+          <TouchableWithoutFeedback
+            // style={styles.centeredView}
+            activeOpacity={0.55}
+            onPress={() => {
+              this.setState({modalVisible: !modalVisible});
+              this.props.setModalVisible(!modalVisible);
+            }}>
+            <View style={styles.centeredView}></View>
+          </TouchableWithoutFeedback>
+        </View>
 
         {/* <ModalCountry
           data={this.state}
-          listRoundCheckModalVisible={this.props.listRoundCheckModalVisible}
+          setModalVisible={this.props.setModalVisible}
         /> */}
 
         {/* modal view */}
         <View style={styles.modalView}>
-
           <View style={styles.modalBox}>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={styles.modalText}>사용가능언어 선택</Text>
-              <Text style={[styles.modalText, {fontSize: 13, marginLeft: 5}]}>(다중 선택 가능)</Text>
-            </View>
+            <Text style={styles.modalText}>거주도시 선택</Text>
             <TouchableWithoutFeedback
               style={styles.closeButton}
-              setModalVisible={this.props.modalVisible}
+              setModalVisible={this.props.setModalVisible}
               modalVisible={this.props.modalVisible}
               onPress={() => {
-                this.setState({modalVisible: !modalVisible});
                 this.props.setModalVisible(!modalVisible);
               }}>
               <Image
@@ -319,14 +375,8 @@ class ListRoundCheckModal extends Component {
             </TouchableHighlight>
           </View>
 
-          <CountryList />
-
-          <TouchableHighlight style={[styles.button, {backgroundColor:'#c6c9cf', marginTop: 15}]}>
-            <Text style={styles.buttonTexts}>CONFIRM</Text>
-          </TouchableHighlight>
-
+          <CountryList setResidenceCity={this.props.setResidenceCity} />
         </View>
-
       </Modal>
     );
   }
@@ -358,6 +408,7 @@ const styles = StyleSheet.create({
     top: '17.5%',
     left: '5%',
     width: '90%',
+    width: '90%',
     height: '65%',
     backgroundColor: 'white',
     padding: 20,
@@ -374,6 +425,13 @@ const styles = StyleSheet.create({
   },
   TextSize: {
     fontSize: 20,
+  },
+  centeredView: {
+    flex: 1,
+    height: '60%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'hsla(0, 0%, 20%, 0.6)',
   },
   modalText: {
     textAlign: 'center',
@@ -392,7 +450,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: '#dddddd',
     borderRadius: 5,
     padding: 15,
     marginTop: 20,
@@ -410,7 +468,7 @@ const styles = StyleSheet.create({
   },
   countryList: {
     width: '100%',
-    height: '70%',
+    height: '80%',
     overflow: 'scroll',
     flexDirection: 'column',
     marginTop: 10,
@@ -518,17 +576,170 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 5,
     backgroundColor: '#164895',
   },
-  button: {
-    width: '100%',
-    borderRadius: 50,
-    backgroundColor: '#0b95c9',
-    padding: 15
+  KycModalTopView2: {
+    width: '90%',
+    backgroundColor: 'white',
+    padding: 5,
+    alignItems: 'baseline',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    // flex: 1,
+    flexDirection: 'row',
+    // justifyContent: 'space-between',
+    // padding: '5%',
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
+    borderColor: '#4696ff',
   },
-  buttonTexts: {
-    color: '#FFF',
-    fontWeight: '600',
+  KycModalView2bottom2Button1: {
+    position: 'absolute',
+    right: 0,
+  },
+  KycModalView2: {
+    width: '90%',
+    backgroundColor: 'white',
+    padding: 30,
+    alignItems: 'baseline',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    borderBottomLeftRadius: 5,
+    borderBottomRightRadius: 5,
+    elevation: 5,
+  },
+  KycModalTopText2: {
+    textAlign: 'left',
+    marginLeft: 20,
+    fontSize: 20,
+    fontWeight: 'bold',
+    lineHeight: 24,
+    marginTop: '5%',
+    marginBottom: '5%',
+  },
+  KycModalText2: {
+    textAlign: 'left',
+    fontSize: 15,
+    lineHeight: 20,
+    marginTop: '1%',
+    marginBottom: '5%',
+  },
+  KycCloseButtonText2: {
+    // color: '#FFF',
+    // fontWeight: '500',
+    // zIndex: 0,
+    elevation: 4,
+    // position: 'absolute',
+    // top: 20,
+    // right: 30,
+    fontSize: 50,
+    // textAlign: 'center',
+    // padding: 17,
+  },
+  AudienceAllView: {
+    width: '90%',
+
+    backgroundColor: 'white',
+    paddingTop: 23,
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingBottom: 30,
+    // padding: 30,
+    // alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+    borderBottomLeftRadius: 5,
+    borderBottomRightRadius: 5,
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  AudienceTop: {
+    // flex: 5,
+    flexDirection: 'row',
+  },
+  AudienceTopLeft: {
+    textAlign: 'left',
+    fontSize: 20,
+    lineHeight: 24,
+    fontWeight: 'bold',
+  },
+  AudienceTopRight: {
+    // alignSelf: 'flex-end',
+    position: 'absolute',
+    right: 0,
+  },
+  AudienceTop2: {
     textAlign: 'center',
-    fontSize: 16
+    fontSize: 18,
+    backgroundColor: '#f5f5f5',
+    marginTop: 21,
+    marginBottom: 19,
+    paddingTop: 16,
+    paddingBottom: 16,
+  },
+  AudienceDetail: {
+    // flex: 1,
+    flexDirection: 'row',
+    paddingBottom: 10,
+  },
+  AudienceDetailLast: {
+    // flex: 1,
+    flexDirection: 'row',
+    // paddingBottom: 10,
+  },
+
+  AudienceDetailLeft: {
+    width: '30%',
+    backgroundColor: '#1e4683',
+    borderTopLeftRadius: 5,
+    // borderTopRightRadius: 5,
+    borderBottomLeftRadius: 5,
+    // borderBottomRightRadius: 5,
+  },
+  AudienceDetailRight: {
+    // backgroundColor: '#1e4683',
+    width: '70%',
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: '#4696ff',
+    // borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+    // borderBottomLeftRadius: 5,
+    borderBottomRightRadius: 5,
+  },
+  AudienceDetailLeftText: {
+    // position: 'absolute',
+    // width: '30%',
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 15,
+    paddingTop: 15,
+    textAlign: 'center',
+    // paddingBottom: 10,
+    // paddingLeft: 36,
+    // paddingRight: 36,
+  },
+  AudienceDetailRightText: {
+    fontSize: 15,
+    paddingTop: 13,
+    paddingBottom: 13,
+    paddingLeft: 20,
+    // paddingRight: 195,
   },
 });
 export default ListRoundCheckModal;

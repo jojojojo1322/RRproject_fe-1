@@ -45,25 +45,22 @@ class AudienceModal extends Component {
     console.log(modalVisible);
     return (
       <Modal
-      animationType="fade"
-      transparent={true}
-      visible={modalVisible}
-      onRequestClose={() => {
-        Alert.alert('Modal has been closed.');
-      }}>
-        
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+        }}>
         <View style={{flex: 1, position: 'relative'}}>
-
           {/* modal background */}
           <TouchableWithoutFeedback
-          // style={styles.centeredView}
-          activeOpacity={0.55}
-          onPress={() => {
-            this.setState({modalVisible: !modalVisible});
-            this.props.setModalVisible(!modalVisible);
-          }}>
-            <View style={styles.centeredView}>
-            </View>
+            // style={styles.centeredView}
+            activeOpacity={0.55}
+            onPress={() => {
+              this.setState({modalVisible: !modalVisible});
+              this.props.setModalVisible(!modalVisible);
+            }}>
+            <View style={styles.centeredView}></View>
           </TouchableWithoutFeedback>
 
           {/* modal view */}
@@ -249,7 +246,7 @@ const styles = StyleSheet.create({
     width: '70%',
     borderWidth: 1,
     borderStyle: 'solid',
-    borderColor: '#dddddd',
+    borderColor: '#4696ff',
     // borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
     // borderBottomLeftRadius: 5,

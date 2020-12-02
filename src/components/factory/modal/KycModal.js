@@ -52,21 +52,18 @@ class KycModal extends Component {
           Alert.alert('Modal has been closed.');
         }}>
         <View style={{flex: 1, position: 'relative'}}>
-          
           {/* modal background */}
           <TouchableWithoutFeedback
-          // style={styles.centeredView}
-          activeOpacity={0.55}
-          onPress={() => {
-            this.setState({modalVisible: !modalVisible});
-            this.props.setModalVisible(!modalVisible);
-          }}>
-            <View style={styles.centeredView}>
-            </View>
+            // style={styles.centeredView}
+            activeOpacity={0.55}
+            onPress={() => {
+              this.setState({modalVisible: !modalVisible});
+              this.props.setModalVisible(!modalVisible);
+            }}>
+            <View style={styles.centeredView}></View>
           </TouchableWithoutFeedback>
-
         </View>
-        
+
         <View style={styles.modalView}>
           <View style={styles.KycModalTopView}>
             <Text style={styles.KycModalTopText}>KYC LEVEL이란?</Text>
@@ -99,7 +96,6 @@ class KycModal extends Component {
             </Text>
           </View>
         </View>
-          
       </Modal>
     );
   }
@@ -151,7 +147,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     // padding: '5%',
     borderBottomWidth: 1,
-    borderColor: '#dddddd',
+    borderColor: '#4696ff',
     paddingLeft: 20,
     paddingRight: 20,
   },
