@@ -1,112 +1,67 @@
 import React, {Component} from 'react';
-import {StyleSheet, ScrollView, View, Text, TextInput, TouchableHighlight, SafeAreaView, Image} from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
+import {
+  StyleSheet,
+  ScrollView,
+  View,
+  Text,
+  Alert,
+  Modal,
+  Button,
+  Image,
+  TextInput,
+  FlatList,
+  SafeAreaView,
+  StatusBar,
+  TouchableOpacity,
+  TouchableHighlight,
+} from 'react-native';
 import {RoundCheckbox, SelectedCheckboxes} from '../Roundcheck';
 
-class SignUpPersonal extends Component {
+export default class ResetPassword extends Component {
   state = {
-    passWord: '',
-    modalVisible: false,
-    phoneNum: '',
+    firstPassword: '',
+    secondPassword: '',
+    firstBlur: true,
+    secondBlur: true,
   };
-
-  handlePassword = (text) => {
+  handleFirst = (e) => {
     this.setState({
-      passWord: text,
+      firstPassword: e,
     });
   };
-
-  setModalVisible = (visible) => {
-    this.setState({modalVisible: visible});
-  };
-
-  // only number
-  handleInputChange = (phoneNum) => {
-    if (/^\d+$/.test(phoneNum) || phoneNum === '') {
-      this.setState({
-        phoneNum,
-      });
-    }
+  handleSecond = (e) => {
+    this.setState({
+      secondPassword: e,
+    });
   };
 
   render() {
     CheckedArrObject = new SelectedCheckboxes();
     return (
       <SafeAreaView style={styles.container}>
-        <View style={styles.containerInner}>
-          {/* 이메일 */}
-          <View style={{marginTop: 40}}>
-            <View>
-              <Text style={styles.subText}>이메일</Text>
-            </View>
-
-
-            <TouchableHighlight>
-              <View style={styles.InputImageAll}>
-                <TextInput
-                  placeholder="이메일 주소 입력"
-                  // keyboardType={'numeric'}
-                  onChangeText={this.handleBirth}
-                  // value={this.props.birth}
-                  style={[styles.textInputStyle]}></TextInput>
-                <Image
-                  style={{width: 19, height: 19}}
-                  source={require('../../imgs/drawable-xhdpi/icon_x_gray.png')}
-                />
-              </View>
-            </TouchableHighlight>
-
-            {/* alert */}
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginTop: 8,
-              }}>
-              <Image
-                style={{width: 19, height: 19}}
-                source={require('../../imgs/drawable-xhdpi/icon_x_red.png')}
-              />
-              <Text style={{color: '#F00', fontSize: 14, marginLeft: 10}}>
-                이미 사용 중인 이메일입니다.
-              </Text>
-
-              <Image
-                style={{width: 19, height: 19}}
-                source={require('../../imgs/drawable-xhdpi/icon_m_check.png')}
-              />
-              <Text style={{color: '#0080ff', fontSize: 14, marginLeft: 10}}>
-                등록 가능한 이메일 입니다.
-              </Text>
-            </View>
-          </View>
-
-          {/* 비밀번호 */}
-          <View>
+        <View style={styles.container2}>
+          <View style={styles.firstPass}>
+            {/* 비밀번호 */}
             <View>
               <Text style={styles.subText}>비밀번호</Text>
             </View>
 
-              <TouchableHighlight>
-                <View style={styles.InputImageAll}>
-                  <TextInput
-                    placeholder="아래 조합으로 입력"
-                    // keyboardType={'numeric'}
-                    onChangeText={this.handleBirth}
-                    // value={this.props.birth}
-                    style={[styles.textInputStyle]}></TextInput>
-                  {/* <Image
-                    style={{width: 19, height: 19}}
-                    source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
-                  /> */}
-                  <Image
-                    style={{width: 19, height: 19}}
-                    source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
-                  />
-                </View>
-              </TouchableHighlight>
-
+            <TouchableHighlight>
+              <View style={styles.InputImageAll}>
+                <TextInput
+                  //   secureTextEntry={true}
+                  placeholder="아래 조합으로 입력"
+                  // keyboardType={'numeric'}
+                  onChangeText={this.handleFirst}
+                  value={this.state.firstPassword}
+                  style={[styles.textInputStyle]}></TextInput>
+                <Image
+                  style={{width: 19, height: 19}}
+                  source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
+                />
+              </View>
+            </TouchableHighlight>
 
             <View
               style={{
@@ -206,45 +161,20 @@ class SignUpPersonal extends Component {
               </View>
             </View>
           </View>
-
           {/* 비밀번호 확인 */}
-          <View>
+          <View style={styles.secondPass}>
             <View>
-
-              <View>
-                <Text style={styles.subText}>비밀번호 확인</Text>
-              </View>
-
-              <TouchableHighlight>
-                <View style={styles.InputImageAll}>
-                  <TextInput
-                    placeholder="비밀번호 다시 입력"
-                    // keyboardType={'numeric'}
-                    onChangeText={this.handleBirth}
-                    // value={this.props.birth}
-                    style={[styles.textInputStyle]}></TextInput>
-                  {/* <Image
-                    style={{width: 19, height: 19}}
-                    source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
-                  /> */}
-                  <Image
-                    style={{width: 19, height: 19}}
-                    source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
-                  />
-                </View>
-              </TouchableHighlight>
-
-              {/* alert */}
-              <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 8}}>
-
+              <Text style={styles.subText}>비밀번호 확인</Text>
+            </View>
 
             <TouchableHighlight>
               <View style={styles.InputImageAll}>
                 <TextInput
+                  //   secureTextEntry={true}
                   placeholder="비밀번호 다시 입력"
                   // keyboardType={'numeric'}
-                  onChangeText={this.handleBirth}
-                  // value={this.props.birth}
+                  onChangeText={this.handleSecond}
+                  value={this.state.secondPassword}
                   style={[styles.textInputStyle]}></TextInput>
                 <Image
                   style={{width: 19, height: 19}}
@@ -278,54 +208,22 @@ class SignUpPersonal extends Component {
             </View>
           </View>
 
-          {/* 초대코드 */}
-          <View>
-            <View>
-              <Text style={styles.subText}>초대코드 (선택사항)</Text>
-            </View>
-
-            <TouchableHighlight>
-              <View style={styles.InputImageAll}>
-                <TextInput
-                  placeholder="비밀번호 다시 입력"
-                  // keyboardType={'numeric'}
-                  onChangeText={this.handleBirth}
-                  // value={this.props.birth}
-                  style={[styles.textInputStyle]}></TextInput>
-                <Image
-                  style={{width: 19, height: 19}}
-                  source={require('../../imgs/drawable-xhdpi/icon_x_gray.png')}
-                />
-              </View>
-            </TouchableHighlight>
-
-            {/* alert */}
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginTop: 8,
-              }}>
-              <Image
-                style={{width: 19, height: 19}}
-                source={require('../../imgs/drawable-xhdpi/icon_x_red.png')}
-              />
-              <Text style={{color: '#F00', fontSize: 14, marginLeft: 10}}>
-                이미 사용 중인 이메일입니다.
-              </Text>
-            </View>
-          </View>
-
+          {/* 확인버튼 */}
           <TouchableHighlight
-            style={[styles.button, {backgroundColor: '#e6e6e6'}]}
+            // style={[styles.button, {backgroundColor: '#4696ff'}]}
+            style={
+              this.state.firstPassword.length == 6
+                ? [styles.button, {backgroundColor: '#4696ff'}]
+                : [styles.button]
+            }
             onPress={() => {
-              this.props.navigation.navigate('EmailAuthentication');
-              this.props.navigation.setOptions({title: '약관동의'});
+              if (this.state.firstPassword.length == 6) {
+                this.props.navigation.navigate('ResetPassword');
+              }
             }}>
             <Text style={styles.buttonTexts}>다음</Text>
           </TouchableHighlight>
         </View>
-
       </SafeAreaView>
     );
   }
@@ -333,18 +231,26 @@ class SignUpPersonal extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    position: 'relative',
     width: '100%',
     height: '100%',
-    backgroundColor: '#fff',
+    // flex: 1,
+    // flexDirection: 'column',
+    // justifyContent: 'space-between',
+    // alignItems: 'center',
+    backgroundColor: '#FFF',
   },
-  containerInner: {
+  container2: {
     flex: 1,
     flexDirection: 'column',
+    flexWrap: 'nowrap',
     justifyContent: 'space-between',
     marginLeft: '5%',
     marginRight: '5%',
-    backgroundColor: '#fff',
+    // alignItems: 'center',
   },
+  firstPass: {marginTop: 40},
+  secondPass: {marginBottom: 300},
   button: {
     width: '100%',
     borderRadius: 50,
@@ -381,6 +287,17 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     paddingBottom: 15,
   },
+  button: {
+    width: '100%',
+    borderRadius: 50,
+    backgroundColor: '#c6c9cf',
+    padding: 15,
+    marginTop: 100,
+  },
+  buttonTexts: {
+    color: '#FFF',
+    fontWeight: '600',
+    textAlign: 'center',
+    fontSize: 16,
+  },
 });
-
-export default SignUpPersonal;

@@ -20,6 +20,9 @@ import EmailAuthentication from './components/signup/EmailAuthentication';
 import CompleteAuth from './components/signup/CompleteAuth';
 
 import ResearchForm from './components/research/ResearchForm';
+import Reset from './components/resetPassword/Reset';
+import ResetEmail from './components/resetPassword/ResetEmail';
+import ResetPassword from './components/resetPassword/ResetPassword';
 
 const Stack = createStackNavigator();
 
@@ -54,6 +57,10 @@ class App extends Component {
           <Stack.Screen name="WalletMasterKey" component={WalletMasterKey} />
 
           <Stack.Screen name="Kyc" component={Kyc} />
+
+          <Stack.Screen name="Reset" component={Reset} />
+          <Stack.Screen name="ResetEmail" component={ResetEmail} />
+          <Stack.Screen name="ResetPassword" component={ResetPassword} />
 
           <Stack.Screen
             name="SignUp"
@@ -93,74 +100,74 @@ class App extends Component {
               // ),
             }}
           />
-          <Stack.Screen name="AgreementTermsConditions" component={AgreementTermsConditions} 
-          options={{
-            title: '',
-            headerStyle: {
-              backgroundColor: 'none',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
-          }}/>
-          <Stack.Screen name="TermsConditions" component={TermsConditions} 
-          options={{
-            title: '',
-            headerStyle: {
-              backgroundColor: 'none',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
-          }}/>
-          <Stack.Screen name="SignUpPersonal" component={SignUpPersonal} 
-          options={{
-            title: '',
-            headerStyle: {
-              backgroundColor: 'none',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
-          }}/>
-          <Stack.Screen name="EmailAuthentication" component={EmailAuthentication} 
-          options={{
-            title: '',
-            headerStyle: {
-              backgroundColor: 'none',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
-          }}/>
-          <Stack.Screen name="CompleteAuth" component={CompleteAuth} 
-          options={{
-            title: '',
-            headerStyle: {
-              backgroundColor: 'none',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
-          }}/>
+
+          <Stack.Screen
+            name="AgreementTermsConditions"
+            component={AgreementTermsConditions}
+            options={{
+              title: '',
+              headerStyle: {
+                backgroundColor: 'none',
+                shadowColor: 'none',
+                shadowOffset: {width: 0, height: 0},
+                shadowOpacity: 0,
+                shadowRadius: 0,
+                elevation: 0,
+              },
+              headerTintColor: '#000',
+            }}
+          />
+          <Stack.Screen
+            name="TermsConditions"
+            component={TermsConditions}
+            options={{
+              title: '',
+              headerStyle: {
+                backgroundColor: 'none',
+                shadowColor: 'none',
+                shadowOffset: {width: 0, height: 0},
+                shadowOpacity: 0,
+                shadowRadius: 0,
+                elevation: 0,
+              },
+              headerTintColor: '#000',
+            }}
+          />
+          <Stack.Screen
+            name="SignUpPersonal"
+            component={SignUpPersonal}
+            options={{
+              title: '',
+              headerStyle: {
+                backgroundColor: 'none',
+                shadowColor: 'none',
+                shadowOffset: {width: 0, height: 0},
+                shadowOpacity: 0,
+                shadowRadius: 0,
+                elevation: 0,
+              },
+              headerTintColor: '#000',
+            }}
+          />
+          <Stack.Screen
+            name="EmailAuthentication"
+            component={EmailAuthentication}
+            options={{
+              title: '',
+              headerStyle: {
+                backgroundColor: 'none',
+                shadowColor: 'none',
+                shadowOffset: {width: 0, height: 0},
+                shadowOpacity: 0,
+                shadowRadius: 0,
+                elevation: 0,
+              },
+              headerTintColor: '#000',
+            }}
+          />
+
           <Stack.Screen name="ResearchForm" component={ResearchForm} />
           <Stack.Screen name="Initial3" component={Initial3} />
-          
         </Stack.Navigator>
       </NavigationContainer>
     );

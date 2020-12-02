@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   TopText: {
     color: '#4696ff',
     textAlign: 'center',
-    fontSize: 26,
+    fontSize: 25,
     fontWeight: '700',
     lineHeight: 27,
   },
