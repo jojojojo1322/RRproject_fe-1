@@ -17,6 +17,7 @@ import AgreementTermsConditions from './components/signup/AgreementTermsConditio
 import TermsConditions from './components/signup/TermsConditions';
 import SignUpPersonal from './components/signup/SignUpPersonal';
 import EmailAuthentication from './components/signup/EmailAuthentication';
+import CompleteAuth from './components/signup/CompleteAuth';
 
 import ResearchForm from './components/research/ResearchForm';
 
@@ -132,6 +133,19 @@ class App extends Component {
             headerTintColor: '#000',
           }}/>
           <Stack.Screen name="EmailAuthentication" component={EmailAuthentication} 
+          options={{
+            title: '',
+            headerStyle: {
+              backgroundColor: 'none',
+              shadowColor: 'none',
+              shadowOffset: {width: 0, height: 0},
+              shadowOpacity: 0,
+              shadowRadius: 0,
+              elevation: 0,
+            },
+            headerTintColor: '#000',
+          }}/>
+          <Stack.Screen name="CompleteAuth" component={CompleteAuth} 
           options={{
             title: '',
             headerStyle: {

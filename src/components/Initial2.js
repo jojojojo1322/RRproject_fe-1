@@ -216,6 +216,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   scrollContainer: {
+    marginTop: 100,
     height: '40%',
     alignItems: 'center',
     justifyContent: 'center',
