@@ -24,7 +24,7 @@ class TextConfirmModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalVisible: false
+      modalVisible: false,
     };
     // this.setModalVisible = this.setModalVisible.bind(this);
   }
@@ -51,21 +51,19 @@ class TextConfirmModal extends Component {
         onRequestClose={() => {
           Alert.alert('Modal has been closed.');
         }}>
-
         <View style={{flex: 1, position: 'relative'}}>
-
           {/* modal background */}
           <TouchableWithoutFeedback
-          // style={styles.centeredView}
-          activeOpacity={0.55}
-          onPress={() => {
-            this.setState({modalVisible: !modalVisible});
-            this.props.setModalVisible(!modalVisible);
-          }}>
-            <View style={styles.centeredView2}>
-            </View>
+            // style={styles.centeredView}
+            activeOpacity={0.55}
+            onPress={() => {
+              this.setState({modalVisible: !modalVisible});
+              this.props.setModalVisible(!modalVisible);
+              this.props.handleNextPage();
+            }}>
+            <View style={styles.centeredView2}></View>
           </TouchableWithoutFeedback>
-          
+
           {/* modal view */}
           <View style={styles.modalView2}>
             <Text style={styles.modalText2}>{this.props.text}</Text>
@@ -77,11 +75,11 @@ class TextConfirmModal extends Component {
               onPress={() => {
                 this.setState({modalVisible: !modalVisible});
                 this.props.setModalVisible(!modalVisible);
+                this.props.handleNextPage();
               }}>
               <Text style={styles.closeButtonText2}>{this.props.confirm}</Text>
             </TouchableHighlight>
           </View>
-        
         </View>
       </Modal>
     );

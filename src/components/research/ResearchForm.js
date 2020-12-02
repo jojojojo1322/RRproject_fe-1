@@ -503,7 +503,7 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
     padding: '5%',
     borderBottomWidth: 1,
-    borderColor: '#dddddd',
+    borderColor: '#4696ff',
   },
   checkListFirst: {
     flex: 1,
@@ -512,7 +512,7 @@ const styles = StyleSheet.create({
     padding: '5%',
     borderBottomWidth: 1,
     borderTopWidth: 1,
-    borderColor: '#dddddd',
+    borderColor: '#4696ff',
   },
   checkListText: {
     fontSize: 15,

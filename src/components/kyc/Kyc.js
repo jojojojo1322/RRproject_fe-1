@@ -70,8 +70,14 @@ function isBirthday(dateStr) {
 
 export default class Kyc extends Component {
   state = {
-    gender: '',
-    maritalStatus: this.props.route.params?.maritalStatus,
+    gender:
+      this.props.route.params?.gender == undefined
+        ? ''
+        : this.props.route.params?.gender,
+    maritalStatus:
+      this.props.route.params?.maritalStatus == undefined
+        ? ''
+        : this.props.route.params?.maritalStatus,
     step: this.props.route.params?.step,
     birth: this.props.route.params?.birth,
   };
@@ -170,8 +176,8 @@ export default class Kyc extends Component {
             <TouchableHighlight
               style={
                 this.state.step == undefined &&
-                this.state.gender != '' &&
-                this.state.maritalStatus != ''
+                this.state.maritalStatus != '' &&
+                this.state.gender != ''
                   ? styles.buttonChoice
                   : this.state.step == 2 && isBirthday(this.state.birth)
                   ? styles.buttonChoice
@@ -273,7 +279,7 @@ const styles = StyleSheet.create({
   buttonChoice: {
     width: '100%',
     borderRadius: 50,
-    backgroundColor: '#164895',
+    backgroundColor: '#4696ff',
     padding: 15,
   },
 });

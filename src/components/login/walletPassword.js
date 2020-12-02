@@ -83,6 +83,10 @@ export default class WalletPassword extends Component {
   setModal2Visible = (visible) => {
     this.setState({modal2Visible: visible});
   };
+  handleNextPage = () => {
+    this.props.navigation.navigate('WalletMasterKey');
+  };
+
   render() {
     const passArr = this.state.passArr;
     return (
@@ -196,7 +200,7 @@ export default class WalletPassword extends Component {
               onPress={this.handlePassErase}>
               <Image
                 style={styles.keyboardCancelButton}
-                source={require('../../imgs/drawable-mdpi/icon_w_delete.png')}
+                source={require('../../imgs/drawable-mdpi/icon_delete.png')}
               />
             </TouchableHighlight>
           </View>
@@ -211,6 +215,7 @@ export default class WalletPassword extends Component {
           setModalVisible={this.setModal2Visible}
           text={`비밀번호가 설정되었습니다.`}
           confirm={`확인`}
+          handleNextPage={this.handleNextPage}
         />
       </SafeAreaView>
     );
@@ -252,7 +257,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   passGray: {
-    backgroundColor: '#dddddd',
+    backgroundColor: '#f9f9f9',
     textAlign: 'center',
     flex: 1,
     marginLeft: '3%',
@@ -284,7 +289,7 @@ const styles = StyleSheet.create({
     height: 70,
     borderWidth: 0.3,
     borderStyle: 'solid',
-    borderColor: '#dddddd',
+    borderColor: '#ddd',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -294,12 +299,12 @@ const styles = StyleSheet.create({
   keyboardCancelButtonDetail: {
     flex: 1,
     height: 80,
-    // borderWidth: 1,
+    borderWidth: 0.4,
     // borderStyle: 'solid',
-    // borderColor: '#dddddd',
+    borderColor: '#ddd',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#164895',
+    backgroundColor: '#fff',
   },
   keyboardCancelButton: {
     // color: '#fff',

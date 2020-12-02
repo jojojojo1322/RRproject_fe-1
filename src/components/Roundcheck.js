@@ -133,7 +133,7 @@ RoundCheckbox.defaultProps = {
   checked: false,
   value: 'Default',
   borderWidth: 1,
-  borderColor: '#ddd',
+  borderColor: '#4696ff',
   label: 'Default',
   color: '#164895',
   labelColor: '000000',
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     backgroundColor: '#164895',
     borderWidth: 0,
-    borderColor: 'transparent'
+    borderColor: 'transparent',
   },
 
   checkboxTickImg: {

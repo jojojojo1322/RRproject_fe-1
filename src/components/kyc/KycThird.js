@@ -26,11 +26,13 @@ import ListRoundCheckModal from '../factory/modal/ListRoundCheckModal';
 export default class kycThird extends Component {
   state = {
     country: '',
+    countryCd: '',
     language: '',
     residenceCountry: '',
+    residenceCountryCd: '',
     residenceCity: '',
     countryModal: false,
-    languagModal: false,
+    languageModal: false,
     residenceCountryModal: false,
     residenceCityModal: false,
   };
@@ -39,6 +41,38 @@ export default class kycThird extends Component {
       [value]: boolean,
     });
   };
+
+  setCountryModal = (visible) => {
+    this.setState({countryModal: visible});
+  };
+  setLanguageModal = (visible) => {
+    this.setState({languageModal: visible});
+  };
+  setResidenceCountryModal = (visible) => {
+    this.setState({residenceCountryModal: visible});
+  };
+  setResidenceCityModal = (visible) => {
+    this.setState({residenceCityModal: visible});
+  };
+
+  setCountry = (country, cd) => {
+    this.setState({country: country, countryCd: cd});
+  };
+  setLanguage = (visible) => {
+    console.log(visible);
+    this.setState({language: visible});
+  };
+  setResidenceCountry = (residenceCountry, residenceCountryCd) => {
+    this.setState({
+      residenceCountry: residenceCountry,
+      residenceCountryCd: residenceCountryCd,
+    });
+  };
+  setResidenceCity = (visible) => {
+    console.log(visible);
+    this.setState({residenceCity: visible});
+  };
+
   handleBirth = (e) => {
     console.log(e);
     this.props.handleBirth(e);
@@ -50,13 +84,21 @@ export default class kycThird extends Component {
           <Text style={styles.subText}>국적 선택</Text>
         </View>
 
-        <TouchableHighlight>
+        <TouchableHighlight
+          onPress={() => {
+            this.setCountryModal(!this.state.countryModal);
+          }}>
           <View style={styles.InputImageAll}>
             <TextInput
-              placeholder="선택해 주세요"
+              placeholder={'선택해 주세요.'}
               // keyboardType={'numeric'}
               onChangeText={this.handleBirth}
-              // value={this.props.birth}
+              value={
+                this.state.country == ''
+                  ? ''
+                  : `${this.state.country} (${this.state.countryCd})`
+              }
+              editable={false}
               style={[styles.textInputStyle]}></TextInput>
             <Image
               style={styles.InputImage}
@@ -66,13 +108,20 @@ export default class kycThird extends Component {
         </TouchableHighlight>
 
         {/* 국적 */}
-        <ListModal />
+        <ListModal
+          modalVisible={this.state.countryModal}
+          setModalVisible={this.setCountryModal}
+          setCountry={this.setCountry}
+        />
 
         <View style={{marginTop: 40}}>
           <Text style={styles.subText}>사용가능언어 선택 (다중 선택 가능)</Text>
         </View>
 
-        <TouchableHighlight>
+        <TouchableHighlight
+          onPress={() => {
+            this.setLanguageModal(!this.state.language);
+          }}>
           <View style={styles.InputImageAll}>
             <TextInput
               placeholder="선택해 주세요"
@@ -88,18 +137,29 @@ export default class kycThird extends Component {
         </TouchableHighlight>
 
         {/* 사용가능언어 */}
-        <ListCheckModal />
+        <ListCheckModal
+          modalVisible={this.state.languageModal}
+          setModalVisible={this.setLanguageModal}
+          setLanguage={this.setLanguage}
+        />
 
         <View style={{marginTop: 40}}>
           <Text style={styles.subText}>거주국가 선택</Text>
         </View>
-        <TouchableHighlight>
+        <TouchableHighlight
+          onPress={() => {
+            this.setResidenceCountryModal(!this.state.residenceCountryModal);
+          }}>
           <View style={styles.InputImageAll}>
             <TextInput
               placeholder="선택해 주세요"
               // keyboardType={'numeric'}
               onChangeText={this.handleBirth}
-              // value={this.props.birth}
+              value={
+                this.state.residenceCountry == ''
+                  ? ''
+                  : `${this.state.residenceCountry} (${this.state.residenceCountryCd})`
+              }
               style={[styles.textInputStyle]}></TextInput>
             <Image
               style={styles.InputImage}
@@ -109,18 +169,28 @@ export default class kycThird extends Component {
         </TouchableHighlight>
 
         {/* 거주국가선택 */}
-        <ListModal />
+
+        <ListModal
+          modalVisible={this.state.residenceCountryModal}
+          setModalVisible={this.setResidenceCountryModal}
+          setCountry={this.setResidenceCountry}
+        />
 
         <View style={{marginTop: 40}}>
           <Text style={styles.subText}>거주도시 선택</Text>
         </View>
-        <TouchableHighlight>
+        <TouchableHighlight
+          onPress={() => {
+            this.setResidenceCityModal(!this.state.setResidenceCityModal);
+          }}>
           <View style={styles.InputImageAll}>
             <TextInput
               placeholder="선택해 주세요"
               // keyboardType={'numeric'}
               onChangeText={this.handleBirth}
-              // value={this.props.birth}
+              value={
+                this.state.residenceCity == '' ? '' : this.state.residenceCity
+              }
               style={[styles.textInputStyle]}></TextInput>
             <Image
               style={styles.InputImage}
@@ -130,7 +200,11 @@ export default class kycThird extends Component {
         </TouchableHighlight>
 
         {/* 거주도시 선택 */}
-        <ListRoundCheckModal />
+        <ListRoundCheckModal
+          modalVisible={this.state.residenceCityModal}
+          setModalVisible={this.setResidenceCityModal}
+          setResidenceCity={this.setResidenceCity}
+        />
       </View>
     );
   }
@@ -170,11 +244,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+    borderBottomColor: '#dddddd',
     alignItems: 'center',
     // alignContent: 'stretch',
     // borderBottomWidth: 1,
-    // borderBottomColor: '#ddd',
+    // borderBottomColor: '#4696ff',
   },
   InputImage: {
     // position: 'absolute',
@@ -186,7 +260,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   passGray: {
-    backgroundColor: '#dddddd',
+    backgroundColor: '#4696ff',
     textAlign: 'center',
     flex: 1,
     marginLeft: '3%',
@@ -218,7 +292,7 @@ const styles = StyleSheet.create({
     height: 70,
     borderWidth: 0.3,
     borderStyle: 'solid',
-    borderColor: '#dddddd',
+    borderColor: '#4696ff',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -230,7 +304,7 @@ const styles = StyleSheet.create({
     height: 80,
     // borderWidth: 1,
     // borderStyle: 'solid',
-    // borderColor: '#dddddd',
+    // borderColor: '#4696ff',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#164895',
@@ -244,7 +318,7 @@ const styles = StyleSheet.create({
     // width: '100%',
     fontSize: 15,
     // borderBottomWidth: 1,
-    // borderBottomColor: '#dddddd',
+    // borderBottomColor: '#4696ff',
     paddingTop: 15,
     paddingBottom: 15,
   },
@@ -253,7 +327,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     fontSize: 15,
     borderBottomWidth: 1,
-    borderBottomColor: '#dddddd',
+    borderBottomColor: '#4696ff',
     paddingTop: 15,
     paddingBottom: 15,
   },
