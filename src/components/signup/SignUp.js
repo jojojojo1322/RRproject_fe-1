@@ -53,13 +53,25 @@ class SignUp extends Component {
       <SafeAreaView style={ResetStyle.container}>
         <View style={ResetStyle.containerInner}>
           <View>
-            <Text style={[styles.headerText, {marginTop: 50}]}>
+            <Text
+              style={[
+                ResetStyle.fontRegularK,
+                ResetStyle.fontDG,
+                {marginTop: 50},
+              ]}>
               원활한 서비스 제공을 위해{'\n'}휴대폰 번호를 입력해주세요
             </Text>
           </View>
 
           <View style={styles.signUpBox}>
-            <Text style={styles.signUpBoxTitle}>휴대폰 번호</Text>
+            <Text
+              style={[
+                ResetStyle.fontRegularK,
+                ResetStyle.fontDG,
+                {textAlign: 'left'},
+              ]}>
+              휴대폰 번호
+            </Text>
 
             <TouchableHighlight
               onPress={() => {
@@ -67,7 +79,12 @@ class SignUp extends Component {
               }}
               underlayColor={'transparent'}>
               <View style={[styles.textInputStyle2, {marginTop: 10}]}>
-                <Text>
+                <Text
+                  style={[
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontG,
+                    {textAlign: 'left'},
+                  ]}>
                   {this.state.country == ''
                     ? '초기나라설정'
                     : `${this.state.country} (${this.state.countryCd})`}
@@ -92,18 +109,43 @@ class SignUp extends Component {
               returnKeyType={'done'}
               onChangeText={this.handleInputChange}
               value={this.state.phoneNum}
-              style={[styles.textInputStyle, {marginTop: 10}]}></TextInput>
+              style={[
+                ResetStyle.fontRegularK,
+                // ResetStyle.fontG,
+                {
+                  textAlign: 'left',
+                  marginTop: 10,
+                  paddingTop: 10,
+                  paddingBottom: 10,
+                  borderBottomWidth: 1,
+                  borderBottomColor: '#dedede',
+                },
+              ]}></TextInput>
 
             <TouchableWithoutFeedback
               onPress={() => {}}
               underlayColor={'#164895'}
               style={[ResetStyle.button, {marginTop: 25}]}>
-              <Text style={ResetStyle.buttonTexts}>인증요청</Text>
+              <Text
+                style={[
+                  ResetStyle.fontMediumK,
+                  ResetStyle.fontWhite,
+                  {fontWeight: '600'},
+                ]}>
+                인증요청
+              </Text>
             </TouchableWithoutFeedback>
           </View>
 
           <View style={styles.signUpBox}>
-            <Text style={styles.signUpBoxTitle}>인증 번호</Text>
+            <Text
+              style={[
+                ResetStyle.fontRegularK,
+                ResetStyle.fontDG,
+                {textAlign: 'left'},
+              ]}>
+              인증 번호
+            </Text>
 
             <View>
               <View style={[styles.textInputStyle2, {marginTop: 10}]}>
@@ -115,8 +157,9 @@ class SignUp extends Component {
                   secureTextEntry={true}
                   onChangeText={(text) => this.handlePassword(text)}
                   style={[
-                    styles.textInputStyle,
-                    {borderBottomWidth: 0, paddingTop: 0, paddingBottom: 0},
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontG,
+                    {textAlign: 'left'},
                   ]}></TextInput>
                 <View
                   style={[
@@ -143,7 +186,12 @@ class SignUp extends Component {
                   source={require('../../imgs/drawable-xhdpi/icon_w_point_1.png')}
                   style={styles.pointImg}
                 />
-                <Text style={{fontSize: 15, color: '#555555', marginLeft: 10}}>
+                <Text
+                  style={[
+                    ResetStyle.fontLightK,
+                    ResetStyle.fontG,
+                    {textAlign: 'left', marginLeft: 5},
+                  ]}>
                   3분 이내에 인증번호를 입력해 주세요.
                 </Text>
               </View>
@@ -153,7 +201,12 @@ class SignUp extends Component {
                   source={require('../../imgs/drawable-xhdpi/icon_w_point_1.png')}
                   style={styles.pointImg}
                 />
-                <Text style={{fontSize: 15, color: '#555555', marginLeft: 10}}>
+                <Text
+                  style={[
+                    ResetStyle.fontLightK,
+                    ResetStyle.fontG,
+                    {textAlign: 'left', marginLeft: 5},
+                  ]}>
                   입력시간 초과 시 ‘재요청’ 버튼을 눌려주세요.
                 </Text>
               </View>
@@ -166,7 +219,14 @@ class SignUp extends Component {
               this.props.navigation.navigate('AgreementTermsConditions');
               this.props.navigation.setOptions({title: '약관동의'});
             }}>
-            <Text style={ResetStyle.buttonTexts}>다음</Text>
+            <Text
+              style={[
+                ResetStyle.fontMediumK,
+                ResetStyle.fontWhite,
+                {fontWeight: '600'},
+              ]}>
+              다음
+            </Text>
           </TouchableWithoutFeedback>
         </View>
       </SafeAreaView>

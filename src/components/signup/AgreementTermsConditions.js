@@ -31,7 +31,12 @@ class AgreementTermsConditions extends Component {
                 labelColor="#000000"
                 checkedObjArr={CheckedArrObject}
               />
-              <Text style={[styles.textStyle, {marginLeft: 10}]}>
+              <Text
+                style={[
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontDG,
+                  {marginLeft: 10},
+                ]}>
                 서비스 이용약관 관련 전체동의
               </Text>
             </View>
@@ -61,7 +66,12 @@ class AgreementTermsConditions extends Component {
                       title: '이용약관 및 개인정보처리방침',
                     });
                   }}>
-                  <Text style={[styles.textStyle, {marginLeft: 10}]}>
+                  <Text
+                    style={[
+                      ResetStyle.fontRegularK,
+                      ResetStyle.fontDG,
+                      {marginLeft: 10},
+                    ]}>
                     이용약관 동의(필수)
                   </Text>
                 </TouchableWithoutFeedback>
@@ -105,7 +115,12 @@ class AgreementTermsConditions extends Component {
                       title: '이용약관 및 개인정보처리방침',
                     });
                   }}>
-                  <Text style={[styles.textStyle, {marginLeft: 10}]}>
+                  <Text
+                    style={[
+                      ResetStyle.fontRegularK,
+                      ResetStyle.fontDG,
+                      {marginLeft: 10},
+                    ]}>
                     개인정보처리방침 동의(필수)
                   </Text>
                 </TouchableWithoutFeedback>
@@ -131,7 +146,14 @@ class AgreementTermsConditions extends Component {
               this.props.navigation.navigate('SignUpPersonal');
               this.props.navigation.setOptions({title: '회원정보 입력'});
             }}>
-            <Text style={ResetStyle.buttonTexts}>다음</Text>
+            <Text
+              style={[
+                ResetStyle.fontMediumK,
+                ResetStyle.fontWhite,
+                {fontWeight: '600'},
+              ]}>
+              다음
+            </Text>
           </TouchableWithoutFeedback>
         </View>
       </SafeAreaView>

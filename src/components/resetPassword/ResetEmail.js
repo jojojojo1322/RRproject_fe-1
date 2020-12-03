@@ -16,6 +16,7 @@ import {
   TouchableOpacity,
   TouchableHighlight,
 } from 'react-native';
+import ResetStyle from '../../style/ResetStyle.js';
 
 export default class ResetEmail extends Component {
   state = {
@@ -38,44 +39,73 @@ export default class ResetEmail extends Component {
       <SafeAreaView style={styles.container}>
         <View style={styles.container2}>
           <View style={styles.Top}>
-            <Text style={styles.TopText}>{`${
+            <Text
+              style={[
+                ResetStyle.fontRegularK,
+                ResetStyle.fontG,
+                {marginTop: 20},
+              ]}>{`${
               this.state.email
             }으로 ${'\n'}6자리 인증 코드를 발송했습니다.`}</Text>
             {/* <Text style={styles.TopText2}>
               비밀번호 재설정을 위해{'\n'}아이디(이메일)을 입력해 주세요.
             </Text> */}
           </View>
-          <Text style={styles.secText}>인증번호</Text>
-          <View style={styles.third}>
-            <TextInput
-              style={styles.thirdText}
-              placeholder="6자리 인증번호 입력"
-              value={this.state.emailCode}
-              onChangeText={this.handleEmail}
-            />
-            <TouchableHighlight>
-              <Image
-                style={styles.thirdImag}
-                source={require('../../imgs/drawable-hdpi/icon_time.png')}
+          <View>
+            <Text
+              style={[
+                ResetStyle.fontRegularK,
+                ResetStyle.fontDG,
+                {textAlign: 'left'},
+              ]}>
+              인증번호
+            </Text>
+            <View style={styles.third}>
+              <TextInput
+                style={[
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontG,
+                  {textAlign: 'left', paddingTop: 20, paddingBottom: 10},
+                ]}
+                placeholder="6자리 인증번호 입력"
+                value={this.state.emailCode}
+                onChangeText={this.handleEmail}
+                keyboardType="number-pad"
               />
+              <TouchableHighlight>
+                <Image
+                  style={styles.thirdImag}
+                  source={require('../../imgs/drawable-hdpi/icon_time.png')}
+                />
+              </TouchableHighlight>
+            </View>
+            <TouchableHighlight style={styles.reSend}>
+              <Text
+                style={[
+                  ResetStyle.fontLightK,
+                  ResetStyle.fontB,
+                  {textAlign: 'left', marginTop: 10},
+                ]}>
+                재전송
+              </Text>
             </TouchableHighlight>
           </View>
-          <TouchableHighlight style={styles.reSend}>
-            <Text style={styles.reSendText}>재전송</Text>
-          </TouchableHighlight>
+
           <TouchableHighlight
             // style={[styles.button, {backgroundColor: '#4696ff'}]}
             style={
               this.state.emailCode.length == 6
-                ? [styles.button, {backgroundColor: '#4696ff'}]
-                : [styles.button]
+                ? [ResetStyle.button]
+                : [ResetStyle.button, {backgroundColor: '#e6e6e6'}]
             }
             onPress={() => {
               if (this.state.emailCode.length == 6) {
                 this.props.navigation.navigate('ResetPassword');
               }
             }}>
-            <Text style={styles.buttonTexts}>다음</Text>
+            <Text style={[ResetStyle.fontMediumK, ResetStyle.fontWhite]}>
+              다음
+            </Text>
           </TouchableHighlight>
         </View>
       </SafeAreaView>

@@ -80,9 +80,16 @@ export default class kycThird extends Component {
   };
   render() {
     return (
-      <View style={{marginBottom: 160, marginTop: 40}}>
+      <View>
         <View>
-          <Text style={styles.subText}>국적 선택</Text>
+          <Text
+            style={[
+              ResetStyle.fontRegularK,
+              ResetStyle.fontDG,
+              {textAlign: 'left'},
+            ]}>
+            국적 선택
+          </Text>
         </View>
 
         <TouchableHighlight
@@ -100,7 +107,17 @@ export default class kycThird extends Component {
                   : `${this.state.country} (${this.state.countryCd})`
               }
               editable={false}
-              style={[styles.textInputStyle]}></TextInput>
+              style={[
+                ResetStyle.fontRegularK,
+                ResetStyle.fontG,
+                {
+                  textAlign: 'left',
+                  borderBottomWidth: 1,
+                  borderBottomColor: '#dddddd',
+                  paddingTop: 20,
+                  paddingBottom: 10,
+                },
+              ]}></TextInput>
             <Image
               style={styles.InputImage}
               source={require('../../imgs/drawable-mdpi/icon_srarch.png')}
@@ -116,7 +133,14 @@ export default class kycThird extends Component {
         />
 
         <View style={{marginTop: 40}}>
-          <Text style={styles.subText}>사용가능언어 선택 (다중 선택 가능)</Text>
+          <Text
+            style={[
+              ResetStyle.fontRegularK,
+              ResetStyle.fontDG,
+              {textAlign: 'left'},
+            ]}>
+            사용가능언어 선택 (다중 선택 가능)
+          </Text>
         </View>
 
         <TouchableHighlight
@@ -129,7 +153,17 @@ export default class kycThird extends Component {
               // keyboardType={'numeric'}
               onChangeText={this.handleBirth}
               // value={this.props.birth}
-              style={[styles.textInputStyle]}></TextInput>
+              style={[
+                ResetStyle.fontRegularK,
+                ResetStyle.fontG,
+                {
+                  textAlign: 'left',
+                  borderBottomWidth: 1,
+                  borderBottomColor: '#dddddd',
+                  paddingTop: 20,
+                  paddingBottom: 10,
+                },
+              ]}></TextInput>
             <Image
               style={styles.InputImage}
               source={require('../../imgs/drawable-mdpi/icon_srarch.png')}
@@ -145,7 +179,14 @@ export default class kycThird extends Component {
         />
 
         <View style={{marginTop: 40}}>
-          <Text style={styles.subText}>거주국가 선택</Text>
+          <Text
+            style={[
+              ResetStyle.fontRegularK,
+              ResetStyle.fontDG,
+              {textAlign: 'left'},
+            ]}>
+            거주국가 선택
+          </Text>
         </View>
         <TouchableHighlight
           onPress={() => {
@@ -161,7 +202,17 @@ export default class kycThird extends Component {
                   ? ''
                   : `${this.state.residenceCountry} (${this.state.residenceCountryCd})`
               }
-              style={[styles.textInputStyle]}></TextInput>
+              style={[
+                ResetStyle.fontRegularK,
+                ResetStyle.fontG,
+                {
+                  textAlign: 'left',
+                  borderBottomWidth: 1,
+                  borderBottomColor: '#dddddd',
+                  paddingTop: 20,
+                  paddingBottom: 10,
+                },
+              ]}></TextInput>
             <Image
               style={styles.InputImage}
               source={require('../../imgs/drawable-mdpi/icon_srarch.png')}
@@ -178,7 +229,14 @@ export default class kycThird extends Component {
         />
 
         <View style={{marginTop: 40}}>
-          <Text style={styles.subText}>거주도시 선택</Text>
+          <Text
+            style={[
+              ResetStyle.fontRegularK,
+              ResetStyle.fontDG,
+              {textAlign: 'left'},
+            ]}>
+            거주도시 선택
+          </Text>
         </View>
         <TouchableHighlight
           onPress={() => {
@@ -192,7 +250,17 @@ export default class kycThird extends Component {
               value={
                 this.state.residenceCity == '' ? '' : this.state.residenceCity
               }
-              style={[styles.textInputStyle]}></TextInput>
+              style={[
+                ResetStyle.fontRegularK,
+                ResetStyle.fontG,
+                {
+                  textAlign: 'left',
+                  borderBottomWidth: 1,
+                  borderBottomColor: '#dddddd',
+                  paddingTop: 20,
+                  paddingBottom: 10,
+                },
+              ]}></TextInput>
             <Image
               style={styles.InputImage}
               source={require('../../imgs/drawable-mdpi/icon_srarch.png')}
