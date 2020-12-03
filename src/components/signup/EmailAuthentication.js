@@ -19,6 +19,7 @@ class EmailAuthentication extends Component {
     passWord: '',
     modalVisible: false,
     phoneNum: '',
+    email: this.props.route.params?.email,
   };
 
   handlePassword = (text) => {
@@ -47,8 +48,7 @@ class EmailAuthentication extends Component {
         <View style={ResetStyle.containerInner}>
           <View>
             <Text style={[styles.headerText, {marginTop: 50}]}>
-              tnc1234@tnc.com 으로{'\n'}6자리 인증 코드를 발송했습니다
-            </Text>
+              {this.state.email} 으로{'\n'}6자리 인증 코드를 발송했습니다</Text>
           </View>
 
           <View style={styles.signUpBox}>

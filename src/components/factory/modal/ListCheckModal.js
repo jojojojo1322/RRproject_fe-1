@@ -161,6 +161,7 @@ const CountryList = (props) => {
         item={item}
         onPress={() => setSelectedId(item.id)}
         style={{backgroundColor}}
+        CheckedArrObject={props.CheckedArrObject}
       />
     );
   };
@@ -177,8 +178,8 @@ const CountryList = (props) => {
   );
 };
 
-const Item = ({item, onPress, style}) => {
-  CheckedArrObject = new SelectedCheckboxes();
+const Item = ({item, onPress, style, CheckedArrObject}) => {
+  // CheckedArrObject = new SelectedCheckboxes();
   return (
     <TouchableOpacity onPress={onPress} style={[styles.item, style]}>
       <Text style={styles.title}>{item.title}</Text>
@@ -256,7 +257,9 @@ class ListCheckModal extends Component {
     this.setState({modalVisible: visible});
   };
   render() {
+    let CheckedArrObject = new SelectedCheckboxes();
     const {modalVisible} = this.state;
+    console.log(CheckedArrObject.fetchArray());
     return (
       <Modal
         animationType="fade"
@@ -317,14 +320,19 @@ class ListCheckModal extends Component {
             </TouchableHighlight>
           </View>
 
-          <CountryList setLanguage={this.props.setLanguage} />
+          <CountryList
+            setLanguage={this.props.setLanguage}
+            CheckedArrObject={CheckedArrObject}
+          />
 
           <TouchableHighlight
             style={[
               styles.button,
-              {backgroundColor: '#c6c9cf', marginTop: 15},
+              // {backgroundColor: '#c6c9cf', marginTop: 15},
             ]}>
-            <Text style={styles.buttonTexts}>CONFIRM</Text>
+            <Text style={[styles.buttonTexts, {backgroundColor: '#4696ff'}]}>
+              CONFIRM
+            </Text>
           </TouchableHighlight>
         </View>
       </Modal>
@@ -521,7 +529,7 @@ const styles = StyleSheet.create({
   button: {
     width: '100%',
     borderRadius: 50,
-    backgroundColor: '#0b95c9',
+    backgroundColor: '#4696ff',
     padding: 15,
   },
   buttonTexts: {

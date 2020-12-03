@@ -18,10 +18,56 @@ import {
 } from 'react-native';
 import {RoundCheckbox, SelectedCheckboxes} from '../Roundcheck';
 
+function chkPW(password) {
+  var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+  var regHigh = /^(?=.*?[A-Z])/;
+  var regRow = /^(?=.*?[a-z])/;
+  var regNumber = /^(?=.*?[0-9])/;
+  var regCharacters = /^(?=.*?[~!@#$%^&*()_+|<>?:{}])/;
+  var pw = password;
+
+  // if (false === regHigh.test(pw)) {
+  //   console.log('대문자');
+  // } else if (false === regRow.test(pw)) {
+  //   console.log('소문자');
+  // } else if (false === regNumber.test(pw)) {
+  //   console.log('숫자');
+  // } else if (false === regCharacters.test(pw)) {
+  //   console.log('특수문자');
+  // } else {
+  //   console.log('통과');
+  // }
+  return reg.test(pw);
+}
+function chkPWHigh(password) {
+  var regHigh = /^(?=.*?[A-Z])/;
+  var pw = password;
+
+  return regHigh.test(pw);
+}
+function chkPWRow(password) {
+  var regRow = /^(?=.*?[a-z])/;
+  var pw = password;
+
+  return regRow.test(pw);
+}
+function chkPWNumber(password) {
+  var regNumber = /^(?=.*?[0-9])/;
+  var pw = password;
+
+  return regNumber.test(pw);
+}
+function chkPWCharacter(password) {
+  var regCharacters = /^(?=.*?[~!@#$%^&*()_+|<>?:{}])/;
+  var pw = password;
+  return regCharacters.test(pw);
+}
+
 export default class ResetPassword extends Component {
   state = {
-    firstPassword: '',
-    secondPassword: '',
+    password: '',
+    checkPassword: '',
+    checkBoolean: '',
     firstBlur: true,
     secondBlur: true,
   };
@@ -35,14 +81,27 @@ export default class ResetPassword extends Component {
       secondPassword: e,
     });
   };
+  handlePassword = async (e) => {
+    await this.setState({
+      password: e,
+    });
+    // console.log(chkPWHigh(this.state.password));
+    // chkPWHigh(this.state.password);
+  };
+  handleCheckPassword = (e) => {
+    this.setState({
+      checkPassword: e,
+      checkBoolean: '',
+    });
+  };
 
   render() {
     CheckedArrObject = new SelectedCheckboxes();
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.container2}>
+          {/* 비밀번호 */}
           <View style={styles.firstPass}>
-            {/* 비밀번호 */}
             <View>
               <Text style={styles.subText}>비밀번호</Text>
             </View>
@@ -50,15 +109,18 @@ export default class ResetPassword extends Component {
             <TouchableHighlight>
               <View style={styles.InputImageAll}>
                 <TextInput
-                  //   secureTextEntry={true}
                   placeholder="아래 조합으로 입력"
                   // keyboardType={'numeric'}
-                  onChangeText={this.handleFirst}
-                  value={this.state.firstPassword}
+                  onChangeText={this.handlePassword}
+                  value={this.state.password}
                   style={[styles.textInputStyle]}></TextInput>
+                {/* <Image
+                    style={{width: 19, height: 19}}
+                    source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
+                  /> */}
                 <Image
                   style={{width: 19, height: 19}}
-                  source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
+                  source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
                 />
               </View>
             </TouchableHighlight>
@@ -75,14 +137,17 @@ export default class ResetPassword extends Component {
                   alignItems: 'center',
                   marginTop: 8,
                 }}>
-                <RoundCheckbox
-                  size={15}
-                  // keyValue={Number(item.id)}
-                  checked={false}
-                  color="#164895"
-                  labelColor="#000000"
-                  checkedObjArr={CheckedArrObject}
-                />
+                {!chkPWRow(this.state.password) ? (
+                  <Image
+                    style={{width: 15, height: 15}}
+                    source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
+                  />
+                ) : (
+                  <Image
+                    style={{width: 15, height: 15}}
+                    source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
+                  />
+                )}
                 <Text style={{color: '#999999', fontSize: 12, marginLeft: 5}}>
                   영문
                 </Text>
@@ -93,14 +158,17 @@ export default class ResetPassword extends Component {
                   alignItems: 'center',
                   marginTop: 8,
                 }}>
-                <RoundCheckbox
-                  size={15}
-                  // keyValue={Number(item.id)}
-                  checked={false}
-                  color="#164895"
-                  labelColor="#000000"
-                  checkedObjArr={CheckedArrObject}
-                />
+                {!chkPWNumber(this.state.password) ? (
+                  <Image
+                    style={{width: 15, height: 15}}
+                    source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
+                  />
+                ) : (
+                  <Image
+                    style={{width: 15, height: 15}}
+                    source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
+                  />
+                )}
                 <Text style={{color: '#999999', fontSize: 12, marginLeft: 5}}>
                   숫자
                 </Text>
@@ -111,14 +179,17 @@ export default class ResetPassword extends Component {
                   alignItems: 'center',
                   marginTop: 8,
                 }}>
-                <RoundCheckbox
-                  size={15}
-                  // keyValue={Number(item.id)}
-                  checked={false}
-                  color="#164895"
-                  labelColor="#000000"
-                  checkedObjArr={CheckedArrObject}
-                />
+                {!chkPWHigh(this.state.password) ? (
+                  <Image
+                    style={{width: 15, height: 15}}
+                    source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
+                  />
+                ) : (
+                  <Image
+                    style={{width: 15, height: 15}}
+                    source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
+                  />
+                )}
                 <Text style={{color: '#999999', fontSize: 12, marginLeft: 5}}>
                   대문자
                 </Text>
@@ -129,14 +200,17 @@ export default class ResetPassword extends Component {
                   alignItems: 'center',
                   marginTop: 8,
                 }}>
-                <RoundCheckbox
-                  size={15}
-                  // keyValue={Number(item.id)}
-                  checked={false}
-                  color="#164895"
-                  labelColor="#000000"
-                  checkedObjArr={CheckedArrObject}
-                />
+                {!chkPWCharacter(this.state.password) ? (
+                  <Image
+                    style={{width: 15, height: 15}}
+                    source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
+                  />
+                ) : (
+                  <Image
+                    style={{width: 15, height: 15}}
+                    source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
+                  />
+                )}
                 <Text style={{color: '#999999', fontSize: 12, marginLeft: 5}}>
                   특수문자
                 </Text>
@@ -147,20 +221,24 @@ export default class ResetPassword extends Component {
                   alignItems: 'center',
                   marginTop: 8,
                 }}>
-                <RoundCheckbox
-                  size={15}
-                  // keyValue={Number(item.id)}
-                  checked={false}
-                  color="#164895"
-                  labelColor="#000000"
-                  checkedObjArr={CheckedArrObject}
-                />
+                {this.state.password.length < 8 ? (
+                  <Image
+                    style={{width: 15, height: 15}}
+                    source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
+                  />
+                ) : (
+                  <Image
+                    style={{width: 15, height: 15}}
+                    source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
+                  />
+                )}
                 <Text style={{color: '#999999', fontSize: 12, marginLeft: 5}}>
                   8자리 이상
                 </Text>
               </View>
             </View>
           </View>
+
           {/* 비밀번호 확인 */}
           <View style={styles.secondPass}>
             <View>
@@ -170,54 +248,55 @@ export default class ResetPassword extends Component {
             <TouchableHighlight>
               <View style={styles.InputImageAll}>
                 <TextInput
-                  //   secureTextEntry={true}
                   placeholder="비밀번호 다시 입력"
                   // keyboardType={'numeric'}
-                  onChangeText={this.handleSecond}
-                  value={this.state.secondPassword}
+                  onBlur={() => {
+                    if (
+                      this.state.checkPassword == '' ||
+                      this.state.password == ''
+                    ) {
+                      this.setState({
+                        checkBoolean: '',
+                      });
+                    } else if (
+                      this.state.checkPassword == this.state.password
+                    ) {
+                      this.setState({
+                        checkBoolean: true,
+                      });
+                    } else if (
+                      this.state.checkPassword != this.state.password
+                    ) {
+                      this.setState({
+                        checkBoolean: false,
+                      });
+                    }
+                  }}
+                  onChangeText={this.handleCheckPassword}
+                  value={this.state.checkPassword}
                   style={[styles.textInputStyle]}></TextInput>
+                {/* <Image
+                    style={{width: 19, height: 19}}
+                    source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
+                  /> */}
                 <Image
                   style={{width: 19, height: 19}}
-                  source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
+                  source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
                 />
               </View>
             </TouchableHighlight>
-
-            {/* alert */}
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginTop: 8,
-              }}>
-              <Image
-                style={{width: 19, height: 19}}
-                source={require('../../imgs/drawable-xhdpi/icon_x_red.png')}
-              />
-              <Text style={{color: '#F00', fontSize: 14, marginLeft: 10}}>
-                비밀번호가 일치하지 않습니다.
-              </Text>
-
-              <Image
-                style={{width: 19, height: 19}}
-                source={require('../../imgs/drawable-xhdpi/icon_m_check.png')}
-              />
-              <Text style={{color: '#0080ff', fontSize: 14, marginLeft: 10}}>
-                비밀번호가 일치합니다.
-              </Text>
-            </View>
           </View>
 
           {/* 확인버튼 */}
           <TouchableHighlight
             // style={[styles.button, {backgroundColor: '#4696ff'}]}
             style={
-              this.state.firstPassword.length == 6
+              true
                 ? [styles.button, {backgroundColor: '#4696ff'}]
                 : [styles.button]
             }
             onPress={() => {
-              if (this.state.firstPassword.length == 6) {
+              if (true) {
                 this.props.navigation.navigate('ResetPassword');
               }
             }}>

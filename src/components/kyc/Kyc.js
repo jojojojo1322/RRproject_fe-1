@@ -186,7 +186,7 @@ export default class Kyc extends Component {
                     });
                 } else if (this.state.step == 2) {
                   isBirthday(this.state.birth) &&
-                    this.props.navigation.push('ResetEmail', {
+                    this.props.navigation.push('Kyc', {
                       step: this.state.step == undefined ? 2 : 3,
                       gender: this.state.gender,
                       maritalStatus: this.state.maritalStatus,

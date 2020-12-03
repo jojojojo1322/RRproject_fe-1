@@ -83,7 +83,7 @@ class CompleteAuth extends Component {
               {backgroundColor: '#4696ff', marginBottom: 150},
             ]}
             onPress={() => {
-              // this.props.navigation.navigate('AgreementTermsConditions');
+              this.props.navigation.navigate('Kyc');
               // this.props.navigation.setOptions({ title: '약관동의' });
             }}>
             <Text style={ResetStyle.buttonTexts}>시작하기</Text>
