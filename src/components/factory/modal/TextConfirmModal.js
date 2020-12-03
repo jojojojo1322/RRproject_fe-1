@@ -68,7 +68,7 @@ class TextConfirmModal extends Component {
           <View style={styles.modalView2}>
             <Text style={styles.modalText2}>{this.props.text}</Text>
             <TouchableHighlight
-              style={{...styles.closeButton2, backgroundColor: '#164895'}}
+              style={{...styles.closeButton2, backgroundColor: '#ffffff'}}
               // onPress={() => {
               //   this.setmodalVisible(!modalVisible).bind(this);
               // }}>
@@ -126,13 +126,15 @@ const styles = StyleSheet.create({
   },
   closeButton2: {
     width: '100%',
-    backgroundColor: '#F194FF',
+    backgroundColor: '#ffffff',
     elevation: 2,
+    borderTopColor: '#707070',
+    borderTopWidth: 0.3,
     borderBottomLeftRadius: 5,
     borderBottomRightRadius: 5,
   },
   closeButtonText2: {
-    color: '#FFF',
+    color: '#4696ff',
     fontWeight: '500',
     fontSize: 16,
     textAlign: 'center',

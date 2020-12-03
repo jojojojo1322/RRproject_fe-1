@@ -200,10 +200,10 @@ export default class kycThird extends Component {
         </TouchableHighlight>
 
         {/* 거주도시 선택 */}
-        <ListRoundCheckModal
+        <ListModal
           modalVisible={this.state.residenceCityModal}
           setModalVisible={this.setResidenceCityModal}
-          setResidenceCity={this.setResidenceCity}
+          setCountry={this.setResidenceCity}
         />
       </View>
     );
