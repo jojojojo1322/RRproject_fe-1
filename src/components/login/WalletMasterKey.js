@@ -1,30 +1,19 @@
 import React, {useState, Component} from 'react';
 import {
   StyleSheet,
-  ScrollView,
   View,
   Text,
-  Alert,
-  Modal,
-  Button,
   Image,
-  TextInput,
   SafeAreaView,
-  TouchableOpacity,
   TouchableHighlight,
-  TouchableWithoutFeedback,
-  FlatList,
-  StatusBar,
-  Linking,
-  Animated,
-  Dimensions,
 } from 'react-native';
+import ResetStyle from '../../style/ResetStyle.js';
 
 export default class WalletMasterKey extends Component {
   render() {
     return (
-      <SafeAreaView style={styles.container}>
-        <View style={styles.container2}>
+      <SafeAreaView style={ResetStyle.container}>
+        <View style={ResetStyle.containerInner}>
           <View style={styles.Top}>
             <Text style={styles.TopText}>
               지갑 생성 완료{'\n'}Master Key 저장하기
@@ -60,11 +49,11 @@ export default class WalletMasterKey extends Component {
           </View>
 
           <TouchableHighlight
-            style={[styles.button, {backgroundColor: '#4696ff'}]}
+            style={[ResetStyle.button, {backgroundColor: '#4696ff'}]}
             onPress={() => {
               this.props.navigation.navigate('Initial2');
             }}>
-            <Text style={styles.buttonTexts}>확인</Text>
+            <Text style={ResetStyle.buttonTexts}>확인</Text>
           </TouchableHighlight>
         </View>
       </SafeAreaView>
@@ -73,21 +62,6 @@ export default class WalletMasterKey extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    position: 'relative',
-    // flex: 1,
-    width: '100%',
-    height: '100%',
-    // flexDirection: 'column',
-    // alignItems: 'center',
-    // justifyContent: 'space-between',
-    backgroundColor: '#FFF',
-  },
-  container2: {
-    marginLeft: '5%',
-    marginRight: '5%',
-    // alignItems: 'center',
-  },
   Top: {
     marginTop: 70,
     alignItems: 'center',
@@ -140,18 +114,4 @@ const styles = StyleSheet.create({
     marginBottom: 100,
   },
   fifthText: {fontSize: 12, lineHeight: 17, color: '#a9a9a9'},
-  gray: {},
-  grayText: {},
-  button: {
-    width: '100%',
-    borderRadius: 50,
-    backgroundColor: '#0b95c9',
-    padding: 15,
-  },
-  buttonTexts: {
-    color: '#FFF',
-    fontWeight: '600',
-    textAlign: 'center',
-    fontSize: 16,
-  },
 });

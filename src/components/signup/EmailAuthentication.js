@@ -12,6 +12,7 @@ import {
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import CountDown from '../../components/factory/CountDown';
 import {RoundCheckbox, SelectedCheckboxes} from '../Roundcheck';
+import ResetStyle from '../../style/ResetStyle.js';
 
 class EmailAuthentication extends Component {
   state = {
@@ -43,12 +44,11 @@ class EmailAuthentication extends Component {
   render() {
     CheckedArrObject = new SelectedCheckboxes();
     return (
-      <SafeAreaView style={styles.container}>
-        <View style={styles.containerInner}>
+      <SafeAreaView style={ResetStyle.container}>
+        <View style={ResetStyle.containerInner}>
           <View>
             <Text style={[styles.headerText, {marginTop: 50}]}>
-              {this.state.email} 으로{'\n'}6자리 인증 코드를 발송했습니다
-            </Text>
+              {this.state.email} 으로{'\n'}6자리 인증 코드를 발송했습니다</Text>
           </View>
 
           <View style={styles.signUpBox}>
@@ -115,11 +115,11 @@ class EmailAuthentication extends Component {
           </View>
 
           <TouchableWithoutFeedback
-            style={[styles.button, {backgroundColor: '#e6e6e6'}]}
+            style={[ResetStyle.button, {backgroundColor: '#e6e6e6'}]}
             onPress={() => {
               this.props.navigation.navigate('CompleteAuth');
             }}>
-            <Text style={styles.buttonTexts}>회원가입</Text>
+            <Text style={ResetStyle.buttonTexts}>회원가입</Text>
           </TouchableWithoutFeedback>
         </View>
       </SafeAreaView>
@@ -128,31 +128,31 @@ class EmailAuthentication extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#fff',
-  },
-  containerInner: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    marginLeft: '5%',
-    marginRight: '5%',
-    backgroundColor: '#fff',
-  },
-  button: {
-    width: '100%',
-    borderRadius: 50,
-    backgroundColor: '#0b95c9',
-    padding: 15,
-  },
-  buttonTexts: {
-    color: '#FFF',
-    fontWeight: '600',
-    textAlign: 'center',
-    fontSize: 16,
-  },
+  // container: {
+  //   width: '100%',
+  //   height: '100%',
+  //   backgroundColor: '#fff',
+  // },
+  // containerInner: {
+  //   flex: 1,
+  //   flexDirection: 'column',
+  //   justifyContent: 'space-between',
+  //   marginLeft: '5%',
+  //   marginRight: '5%',
+  //   backgroundColor: '#fff',
+  // },
+  // button: {
+  //   width: '100%',
+  //   borderRadius: 50,
+  //   backgroundColor: '#0b95c9',
+  //   padding: 15,
+  // },
+  // buttonTexts: {
+  //   color: '#FFF',
+  //   fontWeight: '600',
+  //   textAlign: 'center',
+  //   fontSize: 16,
+  // },
   headerText: {
     fontSize: 16,
     // color: '#164895',

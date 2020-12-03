@@ -19,14 +19,22 @@ export default StyleSheet.create({
   // button
   button: {
     width: '100%',
+    backgroundColor: '#4696ff',
+    alignItems: 'center',
     borderRadius: 50,
-    backgroundColor: '#0b95c9',
+    padding: 15,
+  },
+  buttonWhite: {
+    width: '100%',
+    borderColor: '#4696ff',
+    alignItems: 'center',
+    borderRadius: 50,
+    borderWidth: 1,
     padding: 15,
   },
   buttonTexts: {
     color: '#FFF',
     fontWeight: '600',
-    textAlign: 'center',
     fontSize: 16,
   },
 });

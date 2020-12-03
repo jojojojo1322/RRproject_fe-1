@@ -10,14 +10,15 @@ import {
   Image,
 } from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
+import ResetStyle from '../../style/ResetStyle.js';
 
 class CompleteAuth extends Component {
   state = {};
 
   render() {
     return (
-      <SafeAreaView style={styles.container}>
-        <View style={styles.containerInner}>
+      <SafeAreaView style={ResetStyle.container}>
+        <View style={ResetStyle.containerInner}>
           <View
             style={{
               flexDirection: 'column',
@@ -78,47 +79,19 @@ class CompleteAuth extends Component {
 
           <TouchableWithoutFeedback
             style={[
-              styles.button,
+              ResetStyle.button,
               {backgroundColor: '#4696ff', marginBottom: 150},
             ]}
             onPress={() => {
               this.props.navigation.navigate('Kyc');
               // this.props.navigation.setOptions({ title: '약관동의' });
             }}>
-            <Text style={styles.buttonTexts}>시작하기</Text>
+            <Text style={ResetStyle.buttonTexts}>시작하기</Text>
           </TouchableWithoutFeedback>
         </View>
       </SafeAreaView>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#fff',
-  },
-  containerInner: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    marginLeft: '5%',
-    marginRight: '5%',
-    backgroundColor: '#fff',
-  },
-  button: {
-    width: '100%',
-    borderRadius: 50,
-    backgroundColor: '#0b95c9',
-    padding: 15,
-  },
-  buttonTexts: {
-    color: '#FFF',
-    fontWeight: '600',
-    textAlign: 'center',
-    fontSize: 16,
-  },
-});
 
 export default CompleteAuth;
