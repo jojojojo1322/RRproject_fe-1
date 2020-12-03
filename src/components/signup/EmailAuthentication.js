@@ -48,7 +48,8 @@ class EmailAuthentication extends Component {
         <View style={ResetStyle.containerInner}>
           <View>
             <Text style={[styles.headerText, {marginTop: 50}]}>
-              {this.state.email} 으로{'\n'}6자리 인증 코드를 발송했습니다</Text>
+              {this.state.email} 으로{'\n'}6자리 인증 코드를 발송했습니다
+            </Text>
           </View>
 
           <View style={styles.signUpBox}>
@@ -60,6 +61,7 @@ class EmailAuthentication extends Component {
                   placeholder="인증번호 입력"
                   value={this.state.passWord}
                   keyboardType={'numeric'}
+                  returnKeyType={'done'}
                   secureTextEntry={true}
                   onChangeText={(text) => this.handlePassword(text)}
                   style={[

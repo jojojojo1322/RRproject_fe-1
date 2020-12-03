@@ -36,7 +36,6 @@ export default class Reset extends Component {
     // console.log(this.validate(this.state.email));
   };
   emailAuth = (email) => {
-    console.log(server);
     axios
       .post(`${server}/email/auth`, {
         mailId: email,

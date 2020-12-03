@@ -111,6 +111,7 @@ export default class ResetPassword extends Component {
                 <TextInput
                   placeholder="아래 조합으로 입력"
                   // keyboardType={'numeric'}
+                  secureTextEntry={true}
                   onChangeText={this.handlePassword}
                   value={this.state.password}
                   style={[styles.textInputStyle]}></TextInput>
@@ -248,6 +249,7 @@ export default class ResetPassword extends Component {
             <TouchableHighlight>
               <View style={styles.InputImageAll}>
                 <TextInput
+                  // secureTextEntry={true}
                   placeholder="비밀번호 다시 입력"
                   // keyboardType={'numeric'}
                   onBlur={() => {

@@ -12,7 +12,8 @@ import {
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {RoundCheckbox, SelectedCheckboxes} from '../Roundcheck';
 import ResetStyle from '../../style/ResetStyle.js';
-
+import axios from 'axios';
+import {server} from '../defined/server';
 function chkPW(password) {
   var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
   var regHigh = /^(?=.*?[A-Z])/;
@@ -63,10 +64,13 @@ class SignUpPersonal extends Component {
     modalVisible: false,
     phoneNum: '',
     email: '',
+    emailCheck: '',
     password: '',
     checkPassword: '',
     checkBoolean: '',
     inviteCode: '',
+    passwordBlur: true,
+    checkPasswordBlur: true,
   };
   handleEmail = (e) => {
     this.setState({
@@ -104,7 +108,19 @@ class SignUpPersonal extends Component {
       });
     }
   };
-
+  emailCheckApi = (email) => {
+    console.log('email', email);
+    axios
+      .post(`${server}/user/login`, {
+        emailId: email,
+      })
+      .then(({data}) => {
+        console.log('then', data.status);
+      })
+      .catch(({error}) => {
+        console.log(error);
+      });
+  };
   render() {
     CheckedArrObject = new SelectedCheckboxes();
 
@@ -123,6 +139,7 @@ class SignUpPersonal extends Component {
                   placeholder="이메일 주소 입력"
                   onBlur={() => {
                     console.log('>>>>>>>>>>>>>>>>>>>>aaa>>>>>>>>');
+                    this.emailCheckApi(this.state.email);
                   }}
                   // keyboardType={'numeric'}
                   onChangeText={this.handleEmail}
@@ -177,18 +194,29 @@ class SignUpPersonal extends Component {
               <View style={styles.InputImageAll}>
                 <TextInput
                   placeholder="아래 조합으로 입력"
+                  secureTextEntry={this.state.passwordBlur}
                   // keyboardType={'numeric'}
                   onChangeText={this.handlePassword}
                   value={this.state.password}
                   style={[styles.textInputStyle]}></TextInput>
-                {/* <Image
-                    style={{width: 19, height: 19}}
-                    source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
-                  /> */}
-                <Image
-                  style={{width: 19, height: 19}}
-                  source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
-                />
+                <TouchableHighlight
+                  onPress={() => {
+                    this.setState({
+                      passwordBlur: !this.state.passwordBlur,
+                    });
+                  }}>
+                  {this.state.passwordBlur ? (
+                    <Image
+                      style={{width: 19, height: 19}}
+                      source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
+                    />
+                  ) : (
+                    <Image
+                      style={{width: 19, height: 19}}
+                      source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
+                    />
+                  )}
+                </TouchableHighlight>
               </View>
             </TouchableHighlight>
 
@@ -316,6 +344,7 @@ class SignUpPersonal extends Component {
               <View style={styles.InputImageAll}>
                 <TextInput
                   placeholder="비밀번호 다시 입력"
+                  secureTextEntry={this.state.checkPasswordBlur}
                   // keyboardType={'numeric'}
                   onBlur={() => {
                     if (
@@ -346,10 +375,24 @@ class SignUpPersonal extends Component {
                     style={{width: 19, height: 19}}
                     source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
                   /> */}
-                <Image
-                  style={{width: 19, height: 19}}
-                  source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
-                />
+                <TouchableHighlight
+                  onPress={() => {
+                    this.setState({
+                      checkPasswordBlur: !this.state.checkPasswordBlur,
+                    });
+                  }}>
+                  {this.state.checkPasswordBlur ? (
+                    <Image
+                      style={{width: 19, height: 19}}
+                      source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
+                    />
+                  ) : (
+                    <Image
+                      style={{width: 19, height: 19}}
+                      source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
+                    />
+                  )}
+                </TouchableHighlight>
               </View>
             </TouchableHighlight>
 

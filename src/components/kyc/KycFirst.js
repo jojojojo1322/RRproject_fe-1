@@ -10,16 +10,16 @@ export default class KycFirst extends Component {
         <View style={[styles.genderAll, {marginBottom: 50}]}>
           <TouchableHighlight
             style={
-              this.props.gender == 'mail'
+              this.props.gender == 'male'
                 ? styles.clickAreaChoice
                 : styles.clickArea
             }
             onPress={() => {
-              this.props.handleGender('mail');
+              this.props.handleGender('male');
             }}>
             <Text
               style={
-                this.props.gender == 'mail'
+                this.props.gender == 'male'
                   ? styles.clickAreaTextChoice
                   : styles.clickAreaText
               }>
@@ -28,16 +28,16 @@ export default class KycFirst extends Component {
           </TouchableHighlight>
           <TouchableHighlight
             style={
-              this.props.gender == 'femail'
+              this.props.gender == 'female'
                 ? styles.clickAreaChoice
                 : styles.clickArea
             }
             onPress={() => {
-              this.props.handleGender('femail');
+              this.props.handleGender('female');
             }}>
             <Text
               style={
-                this.props.gender == 'femail'
+                this.props.gender == 'female'
                   ? styles.clickAreaTextChoice
                   : styles.clickAreaText
               }>

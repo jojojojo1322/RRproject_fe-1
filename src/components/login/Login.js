@@ -162,6 +162,9 @@ class Login extends Component {
               activeOpacity={0.75}
               onPress={() => {
                 // this.setModalVisible(true);
+                console.log('id', this.state.ID);
+                console.log('pass', this.state.passWord);
+                this.loginApi(this.state.ID, this.state.passWord);
                 this.props.navigation.navigate('WalletPassword');
                 // this.props.navigation.navigate('WalletMasterKey');
               }}>

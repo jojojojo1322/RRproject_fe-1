@@ -89,6 +89,7 @@ class SignUp extends Component {
             <TextInput
               placeholder="-없이 휴대폰 번호 입력"
               keyboardType={'numeric'}
+              returnKeyType={'done'}
               onChangeText={this.handleInputChange}
               value={this.state.phoneNum}
               style={[styles.textInputStyle, {marginTop: 10}]}></TextInput>
@@ -110,6 +111,7 @@ class SignUp extends Component {
                   placeholder="인증번호 입력"
                   value={this.state.passWord}
                   keyboardType={'numeric'}
+                  returnKeyType={'done'}
                   secureTextEntry={true}
                   onChangeText={(text) => this.handlePassword(text)}
                   style={[
