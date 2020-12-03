@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {
   StyleSheet,
-  ScrollView,
   View,
   Text,
   TextInput,
@@ -9,17 +8,18 @@ import {
   SafeAreaView,
   Image,
 } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import ListModal from '../../components/factory/modal/ListModal';
-import ListRoundCheckModal from '../../components/factory/modal/ListRoundCheckModal';
 import CountDown from '../../components/factory/CountDown';
-
+import ResetStyle from '../../style/ResetStyle.js';
 
 class SignUp extends Component {
   state = {
     passWord: '',
     modalVisible: false,
     phoneNum: '',
+    country: '',
+    countryCd: '',
   };
 
   handlePassword = (text) => {
@@ -40,36 +40,49 @@ class SignUp extends Component {
       });
     }
   };
-
+  setCountry = (a, b) => {
+    console.log('a>>', a);
+    console.log('b>>', b);
+    this.setState({
+      country: a,
+      countryCd: b,
+    });
+  };
   render() {
     return (
-      <SafeAreaView style={styles.container}>
-        <View style={styles.containerInner}>
+      <SafeAreaView style={ResetStyle.container}>
+        <View style={ResetStyle.containerInner}>
+          <View>
+            <Text style={[styles.headerText, {marginTop: 50}]}>
+              원활한 서비스 제공을 위해{'\n'}휴대폰 번호를 입력해주세요
+            </Text>
+          </View>
 
-            <View>
-              <Text style={[styles.headerText, {marginTop: 50}]}>원활한 서비스 제공을 위해{'\n'}휴대폰 번호를 입력해주세요</Text>
-            </View>
+          <View style={styles.signUpBox}>
+            <Text style={styles.signUpBoxTitle}>휴대폰 번호</Text>
 
-            <View style={styles.signUpBox}>
-              <Text style={styles.signUpBoxTitle}>휴대폰 번호</Text>
-
-              <TouchableHighlight 
-                onPress={() => {
-                  this.setModalVisible(true);
-                }}
-                underlayColor={'transparent'}
-              >
-                <View style={[styles.textInputStyle2, {marginTop: 10}]}>
-                  <Text>South Korea (+82)</Text>
-                  <Image
+            <TouchableHighlight
+              onPress={() => {
+                this.setModalVisible(true);
+              }}
+              underlayColor={'transparent'}>
+              <View style={[styles.textInputStyle2, {marginTop: 10}]}>
+                <Text>
+                  {this.state.country == ''
+                    ? '초기나라설정'
+                    : `${this.state.country} (${this.state.countryCd})`}
+                </Text>
+                <Image
                   style={{width: 20, height: 20}}
-                  source={require('../../imgs/drawable-xhdpi/icon_more_b.png')}/>
-                </View>
-              </TouchableHighlight>
+                  source={require('../../imgs/drawable-xhdpi/icon_more_b.png')}
+                />
+              </View>
+            </TouchableHighlight>
 
             <ListModal
               modalVisible={this.state.modalVisible}
               setModalVisible={this.setModalVisible}
+              setCountry={this.setCountry}
               text={`인증번호를 발송하였습니다.`}
             />
 
@@ -106,7 +119,13 @@ class SignUp extends Component {
                 <View
                   style={[
                     styles.textInputStyle2Inner,
-                    {position: 'absolute', right: 0, top: 15, flexDirection: 'row', alignItems: 'center'},
+                    {
+                      position: 'absolute',
+                      right: 0,
+                      top: 15,
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                    },
                   ]}>
                   <Image
                     source={require('../../imgs/drawable-xhdpi/icon_time.png')}
@@ -139,106 +158,77 @@ class SignUp extends Component {
             </View>
           </View>
 
-            <TouchableWithoutFeedback
-            style={[styles.button, {backgroundColor:'#e6e6e6'}]}
+          <TouchableWithoutFeedback
+            style={[ResetStyle.button, {backgroundColor: '#e6e6e6'}]}
             onPress={() => {
               this.props.navigation.navigate('AgreementTermsConditions');
-              this.props.navigation.setOptions({ title: '약관동의' });
-            }}
-            >
-              <Text style={styles.buttonTexts}>다음</Text>
-            </TouchableWithoutFeedback>
-
-          </View>
-        
+              this.props.navigation.setOptions({title: '약관동의'});
+            }}>
+            <Text style={ResetStyle.buttonTexts}>다음</Text>
+          </TouchableWithoutFeedback>
+        </View>
       </SafeAreaView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-    container: {
-      width: '100%',
-      height: '100%',
-      backgroundColor: '#fff'
-    },
-    containerInner: {
-      flex: 1,
-      flexDirection: 'column',
-      justifyContent: 'space-between',
-      marginLeft: '5%',
-      marginRight: '5%',
-      backgroundColor: '#fff'
-    },
-    headerText: {
-      fontSize: 16,
-      // color: '#164895',
-      textAlign: 'center',
-      fontWeight: '400',
-      marginTop: 20,
-      lineHeight: 24
-    },
-    signUpBox: {
-      flexDirection: 'column',
-      justifyContent: 'space-between'
-    },
-    signUpBoxTitle: {
-      fontSize: 16,
-      fontWeight: '600'
-    },
-    textInputStyle: {
-      position: 'relative',
-      width: '100%',
-      fontSize: 15,
-      borderBottomWidth: 1,
-      borderBottomColor: '#dddddd',
-      paddingTop: 15,
-      paddingBottom: 15,
-    },
-    textInputStyle2: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      fontSize: 15,
-      borderBottomWidth: 1,
-      borderBottomColor: '#dddddd',
-      paddingTop: 15,
-      paddingBottom: 15,
-    },
-    textInputStyle2Inner: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-    },
-    textInputStyle3: {
-      flexDirection: 'row',
-      fontSize: 15,
-    },
-    button: {
-      width: '100%',
-      borderRadius: 50,
-      backgroundColor: '#4696ff',
-      padding: 15
-    },
-    buttonTexts: {
-      color: '#FFF',
-      fontWeight: '600',
-      textAlign: 'center',
-      fontSize: 16
-    },
-    sarrImg: {
-      width: 12,
-      height: 12,
-      resizeMode: 'contain'
-    },
-    timeImg: {
-      width: 16,
-      height: 16,
-      resizeMode: 'contain'
-    },
-    pointImg: {
-      width: 20,
-      height: 20,
-      resizeMode: 'contain'
-    }
+  headerText: {
+    fontSize: 16,
+    textAlign: 'center',
+    fontWeight: '400',
+    marginTop: 20,
+    lineHeight: 24,
+  },
+  signUpBox: {
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+  signUpBoxTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  textInputStyle: {
+    position: 'relative',
+    width: '100%',
+    fontSize: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#dddddd',
+    paddingTop: 15,
+    paddingBottom: 15,
+  },
+  textInputStyle2: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    fontSize: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#dddddd',
+    paddingTop: 15,
+    paddingBottom: 15,
+  },
+  textInputStyle2Inner: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  textInputStyle3: {
+    flexDirection: 'row',
+    fontSize: 15,
+  },
+  sarrImg: {
+    width: 12,
+    height: 12,
+    resizeMode: 'contain',
+  },
+  timeImg: {
+    width: 16,
+    height: 16,
+    resizeMode: 'contain',
+  },
+  pointImg: {
+    width: 20,
+    height: 20,
+    resizeMode: 'contain',
+  },
 });
 
 export default SignUp;

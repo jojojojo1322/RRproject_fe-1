@@ -1,8 +1,17 @@
 import React, {Component} from 'react';
-import {StyleSheet, ScrollView, View, Text, TextInput, TouchableHighlight, SafeAreaView, Image} from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-
+import {
+  StyleSheet,
+  ScrollView,
+  View,
+  Text,
+  TextInput,
+  TouchableHighlight,
+  SafeAreaView,
+  Image,
+} from 'react-native';
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {RoundCheckbox, SelectedCheckboxes} from '../Roundcheck';
+import ResetStyle from '../../style/ResetStyle.js';
 
 class SignUpPersonal extends Component {
   state = {
@@ -33,19 +42,21 @@ class SignUpPersonal extends Component {
   render() {
     CheckedArrObject = new SelectedCheckboxes();
     return (
-      <SafeAreaView style={styles.container}>
-        <View style={styles.containerInner}>
+      <SafeAreaView style={ResetStyle.container}>
+        <View style={ResetStyle.containerInner}>
           {/* 이메일 */}
-          <View style={{marginTop: 40}}>
+          <View style={{marginTop: 80}}>
             <View>
               <Text style={styles.subText}>이메일</Text>
             </View>
-
 
             <TouchableHighlight>
               <View style={styles.InputImageAll}>
                 <TextInput
                   placeholder="이메일 주소 입력"
+                  onBlur={() => {
+                    console.log('>>>>>>>>>>>>>>>>>>>>aaa>>>>>>>>');
+                  }}
                   // keyboardType={'numeric'}
                   onChangeText={this.handleBirth}
                   // value={this.props.birth}
@@ -88,25 +99,24 @@ class SignUpPersonal extends Component {
               <Text style={styles.subText}>비밀번호</Text>
             </View>
 
-              <TouchableHighlight>
-                <View style={styles.InputImageAll}>
-                  <TextInput
-                    placeholder="아래 조합으로 입력"
-                    // keyboardType={'numeric'}
-                    onChangeText={this.handleBirth}
-                    // value={this.props.birth}
-                    style={[styles.textInputStyle]}></TextInput>
-                  {/* <Image
+            <TouchableHighlight>
+              <View style={styles.InputImageAll}>
+                <TextInput
+                  placeholder="아래 조합으로 입력"
+                  // keyboardType={'numeric'}
+                  onChangeText={this.handleBirth}
+                  // value={this.props.birth}
+                  style={[styles.textInputStyle]}></TextInput>
+                {/* <Image
                     style={{width: 19, height: 19}}
                     source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
                   /> */}
-                  <Image
-                    style={{width: 19, height: 19}}
-                    source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
-                  />
-                </View>
-              </TouchableHighlight>
-
+                <Image
+                  style={{width: 19, height: 19}}
+                  source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
+                />
+              </View>
+            </TouchableHighlight>
 
             <View
               style={{
@@ -210,33 +220,8 @@ class SignUpPersonal extends Component {
           {/* 비밀번호 확인 */}
           <View>
             <View>
-
-              <View>
-                <Text style={styles.subText}>비밀번호 확인</Text>
-              </View>
-
-              <TouchableHighlight>
-                <View style={styles.InputImageAll}>
-                  <TextInput
-                    placeholder="비밀번호 다시 입력"
-                    // keyboardType={'numeric'}
-                    onChangeText={this.handleBirth}
-                    // value={this.props.birth}
-                    style={[styles.textInputStyle]}></TextInput>
-                  {/* <Image
-                    style={{width: 19, height: 19}}
-                    source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
-                  /> */}
-                  <Image
-                    style={{width: 19, height: 19}}
-                    source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
-                  />
-                </View>
-              </TouchableHighlight>
-
-              {/* alert */}
-              <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 8}}>
-
+              <Text style={styles.subText}>비밀번호 확인</Text>
+            </View>
 
             <TouchableHighlight>
               <View style={styles.InputImageAll}>
@@ -246,9 +231,13 @@ class SignUpPersonal extends Component {
                   onChangeText={this.handleBirth}
                   // value={this.props.birth}
                   style={[styles.textInputStyle]}></TextInput>
+                {/* <Image
+                    style={{width: 19, height: 19}}
+                    source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
+                  /> */}
                 <Image
                   style={{width: 19, height: 19}}
-                  source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
+                  source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
                 />
               </View>
             </TouchableHighlight>
@@ -316,68 +305,33 @@ class SignUpPersonal extends Component {
             </View>
           </View>
 
-          <TouchableHighlight
-            style={[styles.button, {backgroundColor: '#e6e6e6'}]}
+          <TouchableWithoutFeedback
+            style={[
+              ResetStyle.button,
+              {backgroundColor: '#e6e6e6', marginTop: 80},
+            ]}
             onPress={() => {
               this.props.navigation.navigate('EmailAuthentication');
               this.props.navigation.setOptions({title: '약관동의'});
             }}>
-            <Text style={styles.buttonTexts}>다음</Text>
-          </TouchableHighlight>
+            <Text style={ResetStyle.buttonTexts}>다음</Text>
+          </TouchableWithoutFeedback>
         </View>
-
       </SafeAreaView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#fff',
-  },
-  containerInner: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    marginLeft: '5%',
-    marginRight: '5%',
-    backgroundColor: '#fff',
-  },
-  button: {
-    width: '100%',
-    borderRadius: 50,
-    backgroundColor: '#0b95c9',
-    padding: 15,
-  },
-  buttonTexts: {
-    color: '#FFF',
-    fontWeight: '600',
-    textAlign: 'center',
-    fontSize: 16,
-  },
   InputImageAll: {
-    // flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
     alignItems: 'center',
-    // alignContent: 'stretch',
-    // borderBottomWidth: 1,
-    // borderBottomColor: '#ddd',
-  },
-  InputImage: {
-    // position: 'absolute',
-    // alignItems: 'center',2
   },
   textInputStyle: {
-    // position: 'relative',
-    // width: '100%',
     fontSize: 15,
-    // borderBottomWidth: 1,
-    // borderBottomColor: '#dddddd',
     paddingTop: 15,
     paddingBottom: 15,
   },

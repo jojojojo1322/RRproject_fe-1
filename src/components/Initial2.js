@@ -154,6 +154,7 @@ class Initial2 extends Component {
             activeOpacity={0.75}
             onPress={() => {
               this.props.navigation.navigate('SignUp');
+              
               this.props.navigation.setOptions({ title: '휴대폰 인증' });
             }}>
             <Text style={styles.buttonText}>SIGN UP</Text>
