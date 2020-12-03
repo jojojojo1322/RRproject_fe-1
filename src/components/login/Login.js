@@ -22,6 +22,7 @@ import axios from 'axios';
 import WalletPassword from './WalletPassword';
 import WalletMasterKey from './WalletMasterKey';
 import ResetStyle from '../../style/ResetStyle.js';
+import AuthStyle from '../../style/AuthStyle.js';
 
 // import RNPickerSelect from 'react-native-picker-select';
 
@@ -41,8 +42,8 @@ const DATA = [
 ];
 
 const Item = ({item, onPress, style}) => (
-  <TouchableOpacity onPress={onPress} style={[styles.item, style]}>
-    <Text style={styles.title}>{item.title}</Text>
+  <TouchableOpacity onPress={onPress} style={[AuthStyle.item, style]}>
+    <Text style={AuthStyle.title}>{item.title}</Text>
   </TouchableOpacity>
 );
 
@@ -125,38 +126,58 @@ class Login extends Component {
           {/* <Button title="back" onPress={this.handleBack}></Button> */}
 
           <View>
-            <View style={[styles.title, {marginTop: 80}]}>
-              <Text style={styles.titleText}>Real Research</Text>
+            <View style={[{marginTop: 80}]}>
+              <Text
+                style={[
+                  ResetStyle.fontBoldE,
+                  ResetStyle.fontB,
+                  {textAlign: 'center'},
+                ]}>
+                Real Research
+              </Text>
             </View>
 
-            <View style={styles.sub}>
-              <Text style={styles.subText}>
+            <View>
+              <Text
+                style={[
+                  ResetStyle.fontRegularE,
+                  ResetStyle.fontG,
+                  {textAlign: 'center', marginTop: 5},
+                ]}>
                 Hello there, Login to your account
               </Text>
             </View>
           </View>
 
-          <View style={[styles.loginBox]}>
+          <View style={[AuthStyle.loginBox]}>
             <TextInput
-              style={[ResetStyle.buttonWhite, {marginBottom: 10}]}
+              style={[
+                ResetStyle.buttonWhite,
+                ResetStyle.fontLightE,
+                {marginBottom: 10, marginTop: 40, textAlign: 'left'},
+              ]}
               placeholder="Email Address"
               value={this.state.ID}
               // onBlur={ () => this.onBlur() }
               onChangeText={(text) => this.handleID(text)}></TextInput>
             <TextInput
-              style={[ResetStyle.buttonWhite, {marginBottom: 20}]}
+              style={[
+                ResetStyle.buttonWhite,
+                ResetStyle.fontLightE,
+                {marginBottom: 20, textAlign: 'left'},
+              ]}
               placeholder="Password"
               secureTextEntry={true}
               value={this.state.passWord}
               // onBlur={ () => this.onBlur() }
               onChangeText={(text) => this.handlePassword(text)}></TextInput>
-            <View style={styles.container}>
-              {/* <TextInput //use the color style to change the text color
+            {/* <View style={AuthStyle.loginContainer}>
+              <TextInput //use the color style to change the text color
            style={{height: 40,backgroundColor: 'white',width:300,color: 'red'}}
            onChangeText={(text) => this.setState({text})}
            value={this.state.text}
-         /> */}
-            </View>
+         />
+            </View> */}
             <TouchableHighlight
               style={ResetStyle.button}
               activeOpacity={0.75}
@@ -165,7 +186,9 @@ class Login extends Component {
                 this.props.navigation.navigate('WalletPassword');
                 // this.props.navigation.navigate('WalletMasterKey');
               }}>
-              <Text style={ResetStyle.buttonTexts}>LOGIN</Text>
+              <Text style={[ResetStyle.fontRegularE, ResetStyle.fontWhite]}>
+                LOGIN
+              </Text>
             </TouchableHighlight>
             {/* <RNPickerSelect
             onValueChange={(value) => console.log(value)}
@@ -176,26 +199,44 @@ class Login extends Component {
             ]}
           /> */}
             <TouchableOpacity
-              style={styles.fotgotPasswordBox}
               activeOpacity={0.75}
               onPress={() => {
                 this.props.navigation.navigate('Reset');
               }}>
-              <Text style={styles.fotgotPassword}>Forgot Password?</Text>
+              <Text
+                style={[
+                  ResetStyle.fontRegularE,
+                  ResetStyle.fontB,
+                  {marginTop: 20, marginBottom: 30},
+                ]}>
+                Forgot Password?
+              </Text>
             </TouchableOpacity>
 
             <View
-              style={[styles.middleBorder, {marginTop: 30, marginBottom: 30}]}
+              style={[
+                AuthStyle.loginMiddleBorder,
+                {marginTop: 30, marginBottom: 30},
+              ]}
             />
 
-            <Text style={styles.buttonBoxText}>Don't have an account? </Text>
+            <Text
+              style={[
+                ResetStyle.fontLightE,
+                ResetStyle.fontG,
+                {marginBottom: 10},
+              ]}>
+              Don't have an account?{' '}
+            </Text>
 
             <TouchableOpacity
               activeOpacity={0.75}
               onPress={() => {
                 this.props.navigation.navigate('SignUp');
               }}>
-              <Text style={styles.buttonBoxSignupText}>SIGNUP</Text>
+              <Text style={[ResetStyle.fontMediumE, ResetStyle.fontB]}>
+                SIGNUP
+              </Text>
             </TouchableOpacity>
           </View>
 
@@ -238,9 +279,14 @@ class Login extends Component {
           </View>
         </Modal> */}
 
-          <View style={[styles.bottomTextBox, {marginTop: 160}]}>
-            <Text style={styles.bottomTextInner}>
-              POWERED BY REAL RESEARCH INC.
+          <View style={[AuthStyle.loginBottomTextBox, {marginTop: 50}]}>
+            <Text
+              style={[
+                ResetStyle.fontRegularE,
+                ResetStyle.fontB,
+                {marginTop: 20},
+              ]}>
+              Powered by Real Research Inc.
             </Text>
           </View>
         </View>
@@ -249,95 +295,94 @@ class Login extends Component {
   }
 }
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: '#FFF',
-  },
-  title: {
-    // marginTop: '20%',
-  },
-  titleText: {
-    textAlign: 'center',
-    fontSize: 30,
-    fontWeight: '500',
-    color: '#4696ff',
-  },
-  sub: {
-    // marginTop: '-10%',
-  },
-  subText: {
-    textAlign: 'center',
-    color: '#a9a9a9',
-    lineHeight: 25,
-    fontSize: 18,
-  },
-  loginBox: {
-    // marginTop: '-40%',
-    width: '100%',
-    alignItems: 'center',
-  },
-  loginInput: {
-    width: '100%',
-    height: 56,
-    borderWidth: 1,
-    borderColor: '#4696ff',
-    borderRadius: 50,
-    paddingLeft: 31,
-    fontSize: 16,
-    letterSpacing: 0.9,
-    marginBottom: '5%',
-    // color: '#999999'
-  },
-  fotgotPassword: {
-    fontSize: 14,
-    lineHeight: 20,
-    color: '#4696ff',
-  },
-
-  middleBorder: {
-    // marginBottom: '-30%',
-    height: 0,
-    width: '100%',
-    // borderStyle: 'solid',
-    borderBottomColor: '#787878',
-    borderBottomWidth: 0.5,
-  },
-  bottomTextBox: {
-    width: '100%',
-    // marginBottom: '8%',
-    padding: '5%',
-    alignItems: 'center',
-  },
-  bottomSignupBox: {
-    // marginTop: '20%',
-    flexDirection: 'column',
-    alignSelf: 'center',
-  },
-  buttonBoxText: {
-    color: '#a9a9a9',
-    fontWeight: '300',
-    fontSize: 17,
-    // color: '#49658f',
-  },
-  bottomSignup: {
-    alignSelf: 'center',
-  },
-  buttonBoxSignupText: {
-    fontWeight: '600',
-    color: '#4696ff',
-    fontSize: 18,
-  },
-  bottomTextInner: {
-    marginTop: 10,
-    textAlign: 'right',
-    fontSize: 12,
-    fontWeight: '400',
-    color: '#4696ff',
-  },
+  // container: {
+  //   flex: 1,
+  //   width: '100%',
+  //   height: '100%',
+  //   flexDirection: 'column',
+  //   alignItems: 'center',
+  //   justifyContent: 'space-between',
+  //   backgroundColor: '#FFF',
+  // },
+  // title: {
+  //   // marginTop: '20%',
+  // },
+  // titleText: {
+  //   textAlign: 'center',
+  //   fontSize: 30,
+  //   fontWeight: '500',
+  //   color: '#4696ff',
+  // },
+  // sub: {
+  //   // marginTop: '-10%',
+  // },
+  // subText: {
+  //   textAlign: 'center',
+  //   color: '#a9a9a9',
+  //   lineHeight: 25,
+  //   fontSize: 18,
+  // },
+  // loginBox: {
+  //   // marginTop: '-40%',
+  //   width: '100%',
+  //   alignItems: 'center',
+  // },
+  // loginInput: {
+  //   width: '100%',
+  //   height: 56,
+  //   borderWidth: 1,
+  //   borderColor: '#4696ff',
+  //   borderRadius: 50,
+  //   paddingLeft: 31,
+  //   fontSize: 16,
+  //   letterSpacing: 0.9,
+  //   marginBottom: '5%',
+  //   // color: '#999999'
+  // },
+  // fotgotPassword: {
+  //   fontSize: 14,
+  //   lineHeight: 20,
+  //   color: '#4696ff',
+  // },
+  // middleBorder: {
+  //   // marginBottom: '-30%',
+  //   height: 0,
+  //   width: '100%',
+  //   // borderStyle: 'solid',
+  //   borderBottomColor: '#787878',
+  //   borderBottomWidth: 0.5,
+  // },
+  // bottomTextBox: {
+  //   width: '100%',
+  //   // marginBottom: '8%',
+  //   padding: '5%',
+  //   alignItems: 'center',
+  // },
+  // bottomSignupBox: {
+  //   // marginTop: '20%',
+  //   flexDirection: 'column',
+  //   alignSelf: 'center',
+  // },
+  // buttonBoxText: {
+  //   color: '#a9a9a9',
+  //   fontWeight: '300',
+  //   fontSize: 17,
+  //   // color: '#49658f',
+  // },
+  // bottomSignup: {
+  //   alignSelf: 'center',
+  // },
+  // buttonBoxSignupText: {
+  //   fontWeight: '600',
+  //   color: '#4696ff',
+  //   fontSize: 18,
+  // },
+  // bottomTextInner: {
+  //   marginTop: 10,
+  //   textAlign: 'right',
+  //   fontSize: 12,
+  //   fontWeight: '400',
+  //   color: '#4696ff',
+  // },
 });
 export default Login;

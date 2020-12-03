@@ -114,7 +114,14 @@ class SignUpPersonal extends Component {
           {/* 이메일 */}
           <View style={{marginTop: 80}}>
             <View>
-              <Text style={styles.subText}>이메일</Text>
+              <Text
+                style={[
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontDG,
+                  {textAlign: 'left'},
+                ]}>
+                이메일
+              </Text>
             </View>
 
             <TouchableHighlight>
@@ -127,7 +134,11 @@ class SignUpPersonal extends Component {
                   // keyboardType={'numeric'}
                   onChangeText={this.handleEmail}
                   value={this.state.email}
-                  style={[styles.textInputStyle]}></TextInput>
+                  style={[
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontG,
+                    {textAlign: 'left', paddingTop: 20, paddingBottom: 10},
+                  ]}></TextInput>
                 <TouchableHighlight
                   onPress={() => {
                     this.setState({
