@@ -165,6 +165,22 @@ class App extends Component {
               headerTintColor: '#000',
             }}
           />
+          <Stack.Screen
+            name="CompleteAuth"
+            component={CompleteAuth}
+            options={{
+              title: '',
+              headerStyle: {
+                backgroundColor: 'none',
+                shadowColor: 'none',
+                shadowOffset: {width: 0, height: 0},
+                shadowOpacity: 0,
+                shadowRadius: 0,
+                elevation: 0,
+              },
+              headerTintColor: '#000',
+            }}
+          />
 
           <Stack.Screen name="ResearchForm" component={ResearchForm} />
           <Stack.Screen name="Initial3" component={Initial3} />

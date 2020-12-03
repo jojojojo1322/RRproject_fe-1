@@ -1,24 +1,6 @@
 import React, {useState, Component} from 'react';
-import {
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  Alert,
-  Modal,
-  Button,
-  Image,
-  TextInput,
-  SafeAreaView,
-  TouchableOpacity,
-  TouchableHighlight,
-  TouchableWithoutFeedback,
-  FlatList,
-  StatusBar,
-  Linking,
-  Animated,
-  Dimensions,
-} from 'react-native';
+import {StyleSheet, View, Text, TouchableHighlight} from 'react-native';
+import ResetStyle from '../../style/ResetStyle.js';
 
 export default class KycFirst extends Component {
   render() {
@@ -146,34 +128,6 @@ export default class KycFirst extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    position: 'relative',
-    // flex: 1,
-    width: '100%',
-    height: '100%',
-    // flexDirection: 'column',
-    // alignItems: 'center',
-    // justifyContent: 'space-between',
-    backgroundColor: '#FFF',
-  },
-  container2: {
-    marginLeft: '5%',
-    marginRight: '5%',
-    // alignItems: 'center',
-  },
-
-  button: {
-    width: '100%',
-    borderRadius: 50,
-    backgroundColor: '#0b95c9',
-    padding: 15,
-  },
-  buttonTexts: {
-    color: '#FFF',
-    fontWeight: '600',
-    textAlign: 'center',
-    fontSize: 16,
-  },
   topText: {
     fontSize: 20,
     textAlign: 'center',

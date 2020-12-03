@@ -96,8 +96,8 @@ class SignUp extends Component {
             <TouchableWithoutFeedback
               onPress={() => {}}
               underlayColor={'#164895'}
-              style={[styles.button, {marginTop: 25}]}>
-              <Text style={styles.buttonTexts}>인증요청</Text>
+              style={[ResetStyle.button, {marginTop: 25}]}>
+              <Text style={ResetStyle.buttonTexts}>인증요청</Text>
             </TouchableWithoutFeedback>
           </View>
 

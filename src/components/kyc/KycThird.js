@@ -22,6 +22,7 @@ import {
 import ListModal from '../factory/modal/ListModal';
 import ListCheckModal from '../factory/modal/ListCheckModal';
 import ListRoundCheckModal from '../factory/modal/ListRoundCheckModal';
+import ResetStyle from '../../style/ResetStyle.js';
 
 export default class kycThird extends Component {
   state = {
@@ -211,21 +212,6 @@ export default class kycThird extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    position: 'relative',
-    // flex: 1,
-    width: '100%',
-    height: '100%',
-    // flexDirection: 'column',
-    // alignItems: 'center',
-    // justifyContent: 'space-between',
-    backgroundColor: '#FFF',
-  },
-  container2: {
-    marginLeft: '5%',
-    marginRight: '5%',
-    alignItems: 'center',
-  },
   titleText: {
     marginTop: 71,
     marginBottom: 30,

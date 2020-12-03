@@ -1,27 +1,16 @@
 import React, {useState, Component} from 'react';
 import {
   StyleSheet,
-  ScrollView,
   View,
   Text,
-  Alert,
-  Modal,
-  Button,
   Image,
-  TextInput,
   SafeAreaView,
-  TouchableOpacity,
   TouchableHighlight,
-  TouchableWithoutFeedback,
-  FlatList,
-  StatusBar,
-  Linking,
-  Animated,
-  Dimensions,
 } from 'react-native';
 import KycFirst from './KycFirst';
 import KycSecond from './KycSecond';
 import KycThird from './KycThird';
+import ResetStyle from '../../style/ResetStyle.js';
 
 function isBirthday(dateStr) {
   if (dateStr === undefined) {
@@ -117,8 +106,8 @@ export default class Kyc extends Component {
     console.log('maritalStatus>>', this.state.maritalStatus);
     // console.log(itemId);
     return (
-      <SafeAreaView style={styles.container}>
-        <View style={styles.container2}>
+      <SafeAreaView style={ResetStyle.container}>
+        <View style={ResetStyle.containerInner}>
           <View style={styles.topAll}>
             <Text style={[styles.topText, {marginBottom: 20}]}>
               KYC 정보입력
@@ -178,10 +167,10 @@ export default class Kyc extends Component {
                 this.state.step == undefined &&
                 this.state.maritalStatus != '' &&
                 this.state.gender != ''
-                  ? styles.buttonChoice
+                  ? ResetStyle.button
                   : this.state.step == 2 && isBirthday(this.state.birth)
-                  ? styles.buttonChoice
-                  : styles.button
+                  ? ResetStyle.button
+                  : [ResetStyle.button, {backgroundColor: '#e6e6e6'}]
                 // this.state.gender != '' && this.state.maritalStatus != ''
                 //   ? styles.buttonChoice
                 //   : styles.button
@@ -205,7 +194,7 @@ export default class Kyc extends Component {
                     });
                 }
               }}>
-              <Text style={styles.buttonTexts}>
+              <Text style={ResetStyle.buttonTexts}>
                 {this.state.step == 3 ? '확인' : '다음'}
               </Text>
             </TouchableHighlight>
@@ -217,25 +206,6 @@ export default class Kyc extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    position: 'relative',
-    // flex: 1,
-    width: '100%',
-    height: '100%',
-    // flexDirection: 'column',
-    // alignItems: 'center',
-    // justifyContent: 'space-between',
-    backgroundColor: '#FFF',
-  },
-  container2: {
-    flex: 1,
-    marginLeft: '5%',
-    marginRight: '5%',
-    // alignItems: 'center',
-    flexDirection: 'column',
-    flexWrap: 'nowrap',
-    justifyContent: 'space-between',
-  },
   ktitAll: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -263,23 +233,5 @@ const styles = StyleSheet.create({
     // position: 'absolute',
     // bottom: 20,
     // alignContent: '',
-  },
-  button: {
-    width: '100%',
-    borderRadius: 50,
-    backgroundColor: '#c6c9cf',
-    padding: 15,
-  },
-  buttonTexts: {
-    color: '#FFF',
-    fontWeight: '600',
-    textAlign: 'center',
-    fontSize: 16,
-  },
-  buttonChoice: {
-    width: '100%',
-    borderRadius: 50,
-    backgroundColor: '#4696ff',
-    padding: 15,
   },
 });
