@@ -109,7 +109,7 @@ export default class Kyc extends Component {
       <SafeAreaView style={ResetStyle.container}>
         <View style={ResetStyle.containerInner}>
           <View style={styles.topAll}>
-            <Text style={[styles.topText, {marginBottom: 20}]}>
+            <Text style={[ResetStyle.fontMediumK, {marginBottom: 30}]}>
               KYC 정보입력
             </Text>
 
@@ -194,7 +194,12 @@ export default class Kyc extends Component {
                     });
                 }
               }}>
-              <Text style={ResetStyle.buttonTexts}>
+              <Text
+                style={[
+                  ResetStyle.fontMediumK,
+                  ResetStyle.fontWhite,
+                  {fontWeight: '600'},
+                ]}>
                 {this.state.step == 3 ? '확인' : '다음'}
               </Text>
             </TouchableHighlight>

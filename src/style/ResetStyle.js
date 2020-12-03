@@ -103,4 +103,7 @@ export default StyleSheet.create({
   fontWhite: {
     color: '#FFF',
   },
+  fontR: {
+    color: '#F00',
+  },
 });

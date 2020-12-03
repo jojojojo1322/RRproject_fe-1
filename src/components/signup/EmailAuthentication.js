@@ -47,12 +47,25 @@ class EmailAuthentication extends Component {
       <SafeAreaView style={ResetStyle.container}>
         <View style={ResetStyle.containerInner}>
           <View>
-            <Text style={[styles.headerText, {marginTop: 50}]}>
-              {this.state.email} 으로{'\n'}6자리 인증 코드를 발송했습니다</Text>
+            <Text
+              style={[
+                ResetStyle.fontRegularK,
+                ResetStyle.fontDG,
+                {marginTop: 50},
+              ]}>
+              {this.state.email} 으로{'\n'}6자리 인증 코드를 발송했습니다
+            </Text>
           </View>
 
           <View style={styles.signUpBox}>
-            <Text style={styles.signUpBoxTitle}>인증 번호</Text>
+            <Text
+              style={[
+                ResetStyle.fontRegularK,
+                ResetStyle.fontDG,
+                {textAlign: 'left'},
+              ]}>
+              인증 번호
+            </Text>
 
             <View>
               <View style={[styles.textInputStyle2, {marginTop: 10}]}>
@@ -63,8 +76,9 @@ class EmailAuthentication extends Component {
                   secureTextEntry={true}
                   onChangeText={(text) => this.handlePassword(text)}
                   style={[
-                    styles.textInputStyle,
-                    {borderBottomWidth: 0, paddingTop: 0, paddingBottom: 0},
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontG,
+                    {textAlign: 'left'},
                   ]}></TextInput>
                 <View
                   style={[
@@ -72,7 +86,7 @@ class EmailAuthentication extends Component {
                     {
                       position: 'absolute',
                       right: 0,
-                      top: 15,
+                      top: 20,
                       flexDirection: 'row',
                       alignItems: 'center',
                     },
@@ -99,14 +113,23 @@ class EmailAuthentication extends Component {
                     style={{width: 19, height: 19}}
                     source={require('../../imgs/drawable-xhdpi/icon_x_red.png')}
                   />
-                  <Text style={{color: '#F00', fontSize: 14, marginLeft: 10}}>
+                  <Text
+                    style={[
+                      ResetStyle.fontLightK,
+                      ResetStyle.fontR,
+                      {marginLeft: 5},
+                    ]}>
                     인증번호가 올바르지 않습니다.
                   </Text>
                 </View>
                 {/* <View></View> */}
                 <TouchableWithoutFeedback>
                   <Text
-                    style={{color: '#4696ff', fontSize: 15, fontWeight: '500'}}>
+                    style={[
+                      ResetStyle.fontLightK,
+                      ResetStyle.fontB,
+                      {marginLeft: 5},
+                    ]}>
                     재전송
                   </Text>
                 </TouchableWithoutFeedback>
@@ -119,7 +142,14 @@ class EmailAuthentication extends Component {
             onPress={() => {
               this.props.navigation.navigate('CompleteAuth');
             }}>
-            <Text style={ResetStyle.buttonTexts}>회원가입</Text>
+            <Text
+              style={[
+                ResetStyle.fontMediumK,
+                ResetStyle.fontWhite,
+                {fontWeight: '600'},
+              ]}>
+              회원가입
+            </Text>
           </TouchableWithoutFeedback>
         </View>
       </SafeAreaView>

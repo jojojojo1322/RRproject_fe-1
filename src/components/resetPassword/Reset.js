@@ -19,6 +19,7 @@ import {
 import axios from 'axios';
 import {server} from '../defined/server';
 import DeviceInfo from 'react-native-device-info';
+import ResetStyle from '../../style/ResetStyle.js';
 
 export default class Reset extends Component {
   state = {
@@ -74,37 +75,57 @@ export default class Reset extends Component {
       <SafeAreaView style={styles.container}>
         <View style={styles.container2}>
           <View style={styles.Top}>
-            <Text style={styles.TopText}>비밀번호를 잊으셨나요?</Text>
-            <Text style={styles.TopText2}>
+            <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>
+              비밀번호를 잊으셨나요?
+            </Text>
+            <Text
+              style={[
+                ResetStyle.fontRegularK,
+                ResetStyle.fontG,
+                {marginTop: 20},
+              ]}>
               비밀번호 재설정을 위해{'\n'}아이디(이메일)을 입력해 주세요.
             </Text>
           </View>
-          <Text style={styles.secText}>이메일</Text>
-          <View style={styles.third}>
-            <TextInput
-              style={styles.thirdText}
-              placeholder="이메일 주소 입력"
-              value={this.state.email}
-              onChangeText={this.handleEmail}
-            />
-            <TouchableHighlight
-              onPress={() => {
-                this.setState({
-                  email: '',
-                });
-              }}>
-              <Image
-                style={styles.thirdImag}
-                source={require('../../imgs/iconXGray.png')}
+          <View>
+            <Text
+              style={[
+                ResetStyle.fontRegularK,
+                ResetStyle.fontDG,
+                {textAlign: 'left'},
+              ]}>
+              이메일
+            </Text>
+            <View style={styles.third}>
+              <TextInput
+                style={[
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontG,
+                  {textAlign: 'left'},
+                ]}
+                placeholder="이메일 주소 입력"
+                value={this.state.email}
+                onChangeText={this.handleEmail}
               />
-            </TouchableHighlight>
+              <TouchableHighlight
+                onPress={() => {
+                  this.setState({
+                    email: '',
+                  });
+                }}>
+                <Image
+                  style={styles.thirdImag}
+                  source={require('../../imgs/iconXGray.png')}
+                />
+              </TouchableHighlight>
+            </View>
           </View>
           <TouchableHighlight
             // style={[styles.button, {backgroundColor: '#4696ff'}]}
             style={
               this.validateEmail(this.state.email)
-                ? [styles.button, {backgroundColor: '#4696ff'}]
-                : [styles.button]
+                ? [ResetStyle.button]
+                : [ResetStyle.button, {backgroundColor: '#e6e6e6'}]
             }
             onPress={() => {
               if (this.validateEmail(this.state.email)) {
@@ -114,7 +135,9 @@ export default class Reset extends Component {
                 });
               }
             }}>
-            <Text style={styles.buttonTexts}>다음</Text>
+            <Text style={[ResetStyle.fontMediumK, ResetStyle.fontWhite]}>
+              다음
+            </Text>
           </TouchableHighlight>
         </View>
       </SafeAreaView>

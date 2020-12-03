@@ -125,7 +125,12 @@ class SignUp extends Component {
               onPress={() => {}}
               underlayColor={'#164895'}
               style={[ResetStyle.button, {marginTop: 25}]}>
-              <Text style={[ResetStyle.fontRegularK, ResetStyle.fontWhite]}>
+              <Text
+                style={[
+                  ResetStyle.fontMediumK,
+                  ResetStyle.fontWhite,
+                  {fontWeight: '600'},
+                ]}>
                 인증요청
               </Text>
             </TouchableWithoutFeedback>
@@ -212,7 +217,12 @@ class SignUp extends Component {
               this.props.navigation.navigate('AgreementTermsConditions');
               this.props.navigation.setOptions({title: '약관동의'});
             }}>
-            <Text style={[ResetStyle.fontRegularK, ResetStyle.fontWhite]}>
+            <Text
+              style={[
+                ResetStyle.fontMediumK,
+                ResetStyle.fontWhite,
+                {fontWeight: '600'},
+              ]}>
               다음
             </Text>
           </TouchableWithoutFeedback>
