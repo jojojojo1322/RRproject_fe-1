@@ -13,9 +13,7 @@ import {
   Dimensions,
 } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import ko from './language/ko';
-import lang from './language/lang';
-import en from './language/en';
+import lang from './defined/lang';
 import ResetStyle from '../style/ResetStyle.js';
 
 const images = new Array('', '', '');

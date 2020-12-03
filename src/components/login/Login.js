@@ -17,6 +17,8 @@ import {
 } from 'react-native';
 
 import TextConfirmModal from '../factory/modal/TextConfirmModal';
+import {server} from '../defined/server';
+import axios from 'axios';
 import WalletPassword from './WalletPassword';
 import WalletMasterKey from './WalletMasterKey';
 import ResetStyle from '../../style/ResetStyle.js';
@@ -73,7 +75,19 @@ class Login extends Component {
   handleLoginCheck = () => {
     // if(this.state.Id)
   };
-
+  loginApi = (id, pass) => {
+    axios
+      .post(`${server}/user/login`, {
+        email: id,
+        passowrd: pass,
+      })
+      .then(({data}) => {
+        console.log('then', data);
+      })
+      .catch(({error}) => {
+        console.log(error);
+      });
+  };
   render() {
     const {modalVisible} = this.state;
 

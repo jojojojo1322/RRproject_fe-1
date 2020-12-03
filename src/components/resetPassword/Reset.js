@@ -16,6 +16,9 @@ import {
   TouchableOpacity,
   TouchableHighlight,
 } from 'react-native';
+import axios from 'axios';
+import {server} from '../defined/server';
+import DeviceInfo from 'react-native-device-info';
 
 export default class Reset extends Component {
   state = {
@@ -32,7 +35,41 @@ export default class Reset extends Component {
     });
     // console.log(this.validate(this.state.email));
   };
+  emailAuth = (email) => {
+    console.log(server);
+    axios
+      .post(`${server}/email/auth`, {
+        mailId: email,
+      })
+      .then(({data}) => {
+        console.log(data);
+      })
+      .catch(({e}) => {
+        console.log('error', e);
+      });
+  };
+  // emailAuth = (email) => {
+  //   fetch('http://3.34.5.60:8091/v1/api/email/auth', {
+  //     method: 'POST',
+  //     headers: {
+  //       Accept: 'application/json',
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+  //       email: email,
+  //     }),
+  //   })
+  //     .then((response) => {
+  //       console.log(response);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // };
   render() {
+    console.log(DeviceInfo.getUniqueId());
+    // console.log(DeviceInfo.getDeviceToken());
+    // console.log(DeviceInfo.getDeviceName());
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.container2}>
@@ -71,6 +108,7 @@ export default class Reset extends Component {
             }
             onPress={() => {
               if (this.validateEmail(this.state.email)) {
+                this.emailAuth(this.state.email);
                 this.props.navigation.push('ResetEmail', {
                   email: this.state.email,
                 });
