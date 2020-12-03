@@ -42,46 +42,41 @@ class TextConfirmCancelModal extends Component {
         onRequestClose={() => {
           Alert.alert('Modal has been closed.');
         }}>
-          <View style={{flex: 1, position: 'relative'}}>
-
-            {/* modal background */}
-            <TouchableWithoutFeedback
+        <View style={{flex: 1, position: 'relative'}}>
+          {/* modal background */}
+          <TouchableWithoutFeedback
             // style={styles.centeredView}
             activeOpacity={0.55}
             onPress={() => {
               this.setState({modalVisible: !modalVisible});
               this.props.setModalVisible(!modalVisible);
             }}>
-              <View style={styles.centeredView2}>
-              </View>
-            </TouchableWithoutFeedback>
+            <View style={styles.centeredView2}></View>
+          </TouchableWithoutFeedback>
 
-            {/* modal view */}
-            <View style={styles.modalView2}>
-              <Text style={styles.modalText2}>정말 로그아웃 하시겠습니까?</Text>
-              <View style={styles.modalView2bottom2Button}>
-                <TouchableOpacity
-                  style={styles.modalView2bottom2Button1}
-                  onPress={() => {
-                    this.setState({modalVisible: !modalVisible});
-                    this.props.setModalVisible(!modalVisible);
-                  }}>
-                  <Text style={styles.closeButtonText2}>취소</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.modalView2bottom2Button2}
-                  onPress={() => {
-                    this.setState({modalVisible: !modalVisible});
-                    this.props.setModalVisible(!modalVisible);
-                  }}>
-                  <Text style={styles.closeButtonText2}>확인</Text>
-                </TouchableOpacity>
-              </View>
+          {/* modal view */}
+          <View style={styles.modalView2}>
+            <Text style={styles.modalText2}>정말 로그아웃 하시겠습니까?</Text>
+            <View style={styles.modalView2bottom2Button}>
+              <TouchableOpacity
+                style={styles.modalView2bottom2Button1}
+                onPress={() => {
+                  this.setState({modalVisible: !modalVisible});
+                  this.props.setModalVisible(!modalVisible);
+                }}>
+                <Text style={styles.closeButtonText2}>취소</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.modalView2bottom2Button2}
+                onPress={() => {
+                  this.setState({modalVisible: !modalVisible});
+                  this.props.setModalVisible(!modalVisible);
+                }}>
+                <Text style={styles.closeButtonText2}>확인</Text>
+              </TouchableOpacity>
             </View>
-            
-
           </View>
-        
+        </View>
       </Modal>
     );
   }
@@ -142,7 +137,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 5,
   },
   closeButtonText2: {
-    color: '#FFF',
+    color: '#4696ff',
     fontWeight: '500',
     fontSize: 16,
     textAlign: 'center',
@@ -157,12 +152,18 @@ const styles = StyleSheet.create({
   modalView2bottom2Button1: {
     width: '50%',
     borderBottomLeftRadius: 5,
-    backgroundColor: '#c6c9cf',
+    backgroundColor: '#ffffff',
+    borderTopWidth: 0.3,
+    borderTopColor: '#707070',
+    borderRightWidth: 0.3,
+    borderRightColor: '#707070',
   },
   modalView2bottom2Button2: {
     width: '50%',
     borderBottomRightRadius: 5,
-    backgroundColor: '#164895',
-  }
+    backgroundColor: '#ffffff',
+    borderTopWidth: 0.3,
+    borderTopColor: '#707070',
+  },
 });
 export default TextConfirmCancelModal;
