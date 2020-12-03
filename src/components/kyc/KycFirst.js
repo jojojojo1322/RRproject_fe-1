@@ -6,7 +6,14 @@ export default class KycFirst extends Component {
   render() {
     return (
       <View style={{marginBottom: 150}}>
-        <Text style={styles.choiceText}>성별 선택</Text>
+        <Text
+          style={[
+            ResetStyle.fontRegularK,
+            ResetStyle.fontDG,
+            {textAlign: 'left', marginBottom: 10},
+          ]}>
+          성별 선택
+        </Text>
         <View style={[styles.genderAll, {marginBottom: 50}]}>
           <TouchableHighlight
             style={
@@ -20,8 +27,8 @@ export default class KycFirst extends Component {
             <Text
               style={
                 this.props.gender == 'mail'
-                  ? styles.clickAreaTextChoice
-                  : styles.clickAreaText
+                  ? [ResetStyle.fontRegularK, ResetStyle.fontWhite]
+                  : [ResetStyle.fontRegularK, ResetStyle.fontDG]
               }>
               남성
             </Text>
@@ -38,14 +45,21 @@ export default class KycFirst extends Component {
             <Text
               style={
                 this.props.gender == 'femail'
-                  ? styles.clickAreaTextChoice
-                  : styles.clickAreaText
+                  ? [ResetStyle.fontRegularK, ResetStyle.fontWhite]
+                  : [ResetStyle.fontRegularK, ResetStyle.fontDG]
               }>
               여성
             </Text>
           </TouchableHighlight>
         </View>
-        <Text style={styles.choiceText}>결혼 여부 선택</Text>
+        <Text
+          style={[
+            ResetStyle.fontRegularK,
+            ResetStyle.fontDG,
+            {textAlign: 'left', marginBottom: 10},
+          ]}>
+          결혼 여부 선택
+        </Text>
         <View style={styles.genderAll}>
           <TouchableHighlight
             style={
@@ -59,8 +73,8 @@ export default class KycFirst extends Component {
             <Text
               style={
                 this.props.maritalStatus == 'single'
-                  ? styles.clickAreaTextChoice
-                  : styles.clickAreaText
+                  ? [ResetStyle.fontRegularK, ResetStyle.fontWhite]
+                  : [ResetStyle.fontRegularK, ResetStyle.fontDG]
               }>
               미혼
             </Text>
@@ -77,8 +91,8 @@ export default class KycFirst extends Component {
             <Text
               style={
                 this.props.maritalStatus == 'marriage'
-                  ? styles.clickAreaTextChoice
-                  : styles.clickAreaText
+                  ? [ResetStyle.fontRegularK, ResetStyle.fontWhite]
+                  : [ResetStyle.fontRegularK, ResetStyle.fontDG]
               }>
               결혼
             </Text>
@@ -97,8 +111,8 @@ export default class KycFirst extends Component {
             <Text
               style={
                 this.props.maritalStatus == 'liveTogether'
-                  ? styles.clickAreaTextChoice
-                  : styles.clickAreaText
+                  ? [ResetStyle.fontRegularK, ResetStyle.fontWhite]
+                  : [ResetStyle.fontRegularK, ResetStyle.fontDG]
               }>
               동거
             </Text>
@@ -115,8 +129,8 @@ export default class KycFirst extends Component {
             <Text
               style={
                 this.props.maritalStatus == 'divorce'
-                  ? styles.clickAreaTextChoice
-                  : styles.clickAreaText
+                  ? [ResetStyle.fontRegularK, ResetStyle.fontWhite]
+                  : [ResetStyle.fontRegularK, ResetStyle.fontDG]
               }>
               이혼
             </Text>

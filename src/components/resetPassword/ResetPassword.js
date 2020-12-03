@@ -17,6 +17,7 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import {RoundCheckbox, SelectedCheckboxes} from '../Roundcheck';
+import ResetStyle from '../../style/ResetStyle.js';
 
 function chkPW(password) {
   var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
@@ -103,7 +104,14 @@ export default class ResetPassword extends Component {
           {/* 비밀번호 */}
           <View style={styles.firstPass}>
             <View>
-              <Text style={styles.subText}>비밀번호</Text>
+              <Text
+                style={[
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontDG,
+                  {textAlign: 'left'},
+                ]}>
+                비밀번호
+              </Text>
             </View>
 
             <TouchableHighlight>
@@ -113,7 +121,11 @@ export default class ResetPassword extends Component {
                   // keyboardType={'numeric'}
                   onChangeText={this.handlePassword}
                   value={this.state.password}
-                  style={[styles.textInputStyle]}></TextInput>
+                  style={[
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontG,
+                    {textAlign: 'left', paddingTop: 20, paddingBottom: 10},
+                  ]}></TextInput>
                 {/* <Image
                     style={{width: 19, height: 19}}
                     source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
@@ -148,7 +160,12 @@ export default class ResetPassword extends Component {
                     source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
                   />
                 )}
-                <Text style={{color: '#999999', fontSize: 12, marginLeft: 5}}>
+                <Text
+                  style={[
+                    ResetStyle.fontLightK,
+                    ResetStyle.fontG,
+                    {marginLeft: 5},
+                  ]}>
                   영문
                 </Text>
               </View>
@@ -169,7 +186,12 @@ export default class ResetPassword extends Component {
                     source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
                   />
                 )}
-                <Text style={{color: '#999999', fontSize: 12, marginLeft: 5}}>
+                <Text
+                  style={[
+                    ResetStyle.fontLightK,
+                    ResetStyle.fontG,
+                    {marginLeft: 5},
+                  ]}>
                   숫자
                 </Text>
               </View>
@@ -190,7 +212,12 @@ export default class ResetPassword extends Component {
                     source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
                   />
                 )}
-                <Text style={{color: '#999999', fontSize: 12, marginLeft: 5}}>
+                <Text
+                  style={[
+                    ResetStyle.fontLightK,
+                    ResetStyle.fontG,
+                    {marginLeft: 5},
+                  ]}>
                   대문자
                 </Text>
               </View>
@@ -211,7 +238,12 @@ export default class ResetPassword extends Component {
                     source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
                   />
                 )}
-                <Text style={{color: '#999999', fontSize: 12, marginLeft: 5}}>
+                <Text
+                  style={[
+                    ResetStyle.fontLightK,
+                    ResetStyle.fontG,
+                    {marginLeft: 5},
+                  ]}>
                   특수문자
                 </Text>
               </View>
@@ -232,7 +264,12 @@ export default class ResetPassword extends Component {
                     source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
                   />
                 )}
-                <Text style={{color: '#999999', fontSize: 12, marginLeft: 5}}>
+                <Text
+                  style={[
+                    ResetStyle.fontLightK,
+                    ResetStyle.fontG,
+                    {marginLeft: 5},
+                  ]}>
                   8자리 이상
                 </Text>
               </View>
@@ -242,7 +279,14 @@ export default class ResetPassword extends Component {
           {/* 비밀번호 확인 */}
           <View style={styles.secondPass}>
             <View>
-              <Text style={styles.subText}>비밀번호 확인</Text>
+              <Text
+                style={[
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontDG,
+                  {textAlign: 'left'},
+                ]}>
+                비밀번호 확인
+              </Text>
             </View>
 
             <TouchableHighlight>
@@ -274,7 +318,11 @@ export default class ResetPassword extends Component {
                   }}
                   onChangeText={this.handleCheckPassword}
                   value={this.state.checkPassword}
-                  style={[styles.textInputStyle]}></TextInput>
+                  style={[
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontG,
+                    {textAlign: 'left', paddingTop: 20, paddingBottom: 10},
+                  ]}></TextInput>
                 {/* <Image
                     style={{width: 19, height: 19}}
                     source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
@@ -292,15 +340,17 @@ export default class ResetPassword extends Component {
             // style={[styles.button, {backgroundColor: '#4696ff'}]}
             style={
               true
-                ? [styles.button, {backgroundColor: '#4696ff'}]
-                : [styles.button]
+                ? [ResetStyle.button]
+                : [ResetStyle.button, {backgroundColor: '#e6e6e6'}]
             }
             onPress={() => {
               if (true) {
                 this.props.navigation.navigate('ResetPassword');
               }
             }}>
-            <Text style={styles.buttonTexts}>다음</Text>
+            <Text style={[ResetStyle.fontMediumK, ResetStyle.fontWhite]}>
+              다음
+            </Text>
           </TouchableHighlight>
         </View>
       </SafeAreaView>

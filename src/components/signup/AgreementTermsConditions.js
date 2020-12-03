@@ -146,7 +146,12 @@ class AgreementTermsConditions extends Component {
               this.props.navigation.navigate('SignUpPersonal');
               this.props.navigation.setOptions({title: '회원정보 입력'});
             }}>
-            <Text style={[ResetStyle.fontRegularK, ResetStyle.fontWhite]}>
+            <Text
+              style={[
+                ResetStyle.fontMediumK,
+                ResetStyle.fontWhite,
+                {fontWeight: '600'},
+              ]}>
               다음
             </Text>
           </TouchableWithoutFeedback>

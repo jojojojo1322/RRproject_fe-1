@@ -169,7 +169,12 @@ class Initial2 extends Component {
 
                 this.props.navigation.setOptions({title: '휴대폰 인증'});
               }}>
-              <Text style={[ResetStyle.fontRegularE, ResetStyle.fontWhite]}>
+              <Text
+                style={[
+                  ResetStyle.fontMediumK,
+                  ResetStyle.fontWhite,
+                  {fontWeight: '600'},
+                ]}>
                 SIGN UP
               </Text>
             </TouchableOpacity>
@@ -180,7 +185,12 @@ class Initial2 extends Component {
               onPress={() => {
                 this.props.navigation.navigate('Login');
               }}>
-              <Text style={[ResetStyle.fontRegularE, ResetStyle.fontB]}>
+              <Text
+                style={[
+                  ResetStyle.fontMediumK,
+                  ResetStyle.fontB,
+                  {fontWeight: '600'},
+                ]}>
                 LOGIN
               </Text>
             </TouchableOpacity>
@@ -191,7 +201,12 @@ class Initial2 extends Component {
               onPress={() => {
                 this.props.navigation.navigate('ResearchForm');
               }}>
-              <Text style={[ResetStyle.fontRegularE, ResetStyle.fontB]}>
+              <Text
+                style={[
+                  ResetStyle.fontMediumK,
+                  ResetStyle.fontB,
+                  {fontWeight: '600'},
+                ]}>
                 ResearchForm
               </Text>
             </TouchableOpacity>
@@ -202,20 +217,29 @@ class Initial2 extends Component {
               onPress={() => {
                 this.props.navigation.navigate('Initial3');
               }}>
-              <Text style={[ResetStyle.fontRegularE, ResetStyle.fontB]}>
+              <Text
+                style={[
+                  ResetStyle.fontMediumK,
+                  ResetStyle.fontB,
+                  {fontWeight: '600'},
+                ]}>
                 Test page
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={[ResetStyle.buttonWhite, {marginTop: 10}]}
               activeOpacity={0.75}
               onPress={() => {
                 this.props.navigation.navigate('Kyc');
               }}>
-              <Text style={[ResetStyle.fontRegularE, ResetStyle.fontB]}>
+              <Text style={[
+                  ResetStyle.fontMediumK,
+                  ResetStyle.fontB,
+                  {fontWeight: '600'},
+                ]}>
                 Kyc
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </View>
       </SafeAreaView>

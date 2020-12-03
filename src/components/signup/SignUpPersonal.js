@@ -164,7 +164,12 @@ class SignUpPersonal extends Component {
                 style={{width: 19, height: 19}}
                 source={require('../../imgs/drawable-xhdpi/icon_x_red.png')}
               />
-              <Text style={{color: '#F00', fontSize: 14, marginLeft: 10}}>
+              <Text
+                style={[
+                  ResetStyle.fontLightK,
+                  ResetStyle.fontR,
+                  {marginLeft: 5},
+                ]}>
                 이미 사용 중인 이메일입니다.
               </Text>
 
@@ -172,7 +177,12 @@ class SignUpPersonal extends Component {
                 style={{width: 19, height: 19}}
                 source={require('../../imgs/drawable-xhdpi/icon_m_check.png')}
               />
-              <Text style={{color: '#0080ff', fontSize: 14, marginLeft: 10}}>
+              <Text
+                style={[
+                  ResetStyle.fontLightK,
+                  ResetStyle.fontB,
+                  {marginLeft: 5},
+                ]}>
                 등록 가능한 이메일 입니다.
               </Text>
             </View>
@@ -181,7 +191,14 @@ class SignUpPersonal extends Component {
           {/* 비밀번호 */}
           <View>
             <View>
-              <Text style={styles.subText}>비밀번호</Text>
+              <Text
+                style={[
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontDG,
+                  {textAlign: 'left'},
+                ]}>
+                비밀번호
+              </Text>
             </View>
 
             <TouchableHighlight>
@@ -191,7 +208,11 @@ class SignUpPersonal extends Component {
                   // keyboardType={'numeric'}
                   onChangeText={this.handlePassword}
                   value={this.state.password}
-                  style={[styles.textInputStyle]}></TextInput>
+                  style={[
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontG,
+                    {textAlign: 'left', paddingTop: 20, paddingBottom: 10},
+                  ]}></TextInput>
                 {/* <Image
                     style={{width: 19, height: 19}}
                     source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
@@ -226,7 +247,12 @@ class SignUpPersonal extends Component {
                     source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
                   />
                 )}
-                <Text style={{color: '#999999', fontSize: 12, marginLeft: 5}}>
+                <Text
+                  style={[
+                    ResetStyle.fontLightK,
+                    ResetStyle.fontG,
+                    {marginLeft: 5},
+                  ]}>
                   영문
                 </Text>
               </View>
@@ -247,7 +273,12 @@ class SignUpPersonal extends Component {
                     source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
                   />
                 )}
-                <Text style={{color: '#999999', fontSize: 12, marginLeft: 5}}>
+                <Text
+                  style={[
+                    ResetStyle.fontLightK,
+                    ResetStyle.fontG,
+                    {marginLeft: 5},
+                  ]}>
                   숫자
                 </Text>
               </View>
@@ -268,7 +299,12 @@ class SignUpPersonal extends Component {
                     source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
                   />
                 )}
-                <Text style={{color: '#999999', fontSize: 12, marginLeft: 5}}>
+                <Text
+                  style={[
+                    ResetStyle.fontLightK,
+                    ResetStyle.fontG,
+                    {marginLeft: 5},
+                  ]}>
                   대문자
                 </Text>
               </View>
@@ -289,7 +325,12 @@ class SignUpPersonal extends Component {
                     source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
                   />
                 )}
-                <Text style={{color: '#999999', fontSize: 12, marginLeft: 5}}>
+                <Text
+                  style={[
+                    ResetStyle.fontLightK,
+                    ResetStyle.fontG,
+                    {marginLeft: 5},
+                  ]}>
                   특수문자
                 </Text>
               </View>
@@ -310,7 +351,12 @@ class SignUpPersonal extends Component {
                     source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
                   />
                 )}
-                <Text style={{color: '#999999', fontSize: 12, marginLeft: 5}}>
+                <Text
+                  style={[
+                    ResetStyle.fontLightK,
+                    ResetStyle.fontG,
+                    {marginLeft: 5},
+                  ]}>
                   8자리 이상
                 </Text>
               </View>
@@ -320,7 +366,14 @@ class SignUpPersonal extends Component {
           {/* 비밀번호 확인 */}
           <View>
             <View>
-              <Text style={styles.subText}>비밀번호 확인</Text>
+              <Text
+                style={[
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontDG,
+                  {textAlign: 'left'},
+                ]}>
+                비밀번호 확인
+              </Text>
             </View>
 
             <TouchableHighlight>
@@ -352,7 +405,11 @@ class SignUpPersonal extends Component {
                   }}
                   onChangeText={this.handleCheckPassword}
                   value={this.state.checkPassword}
-                  style={[styles.textInputStyle]}></TextInput>
+                  style={[
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontG,
+                    {textAlign: 'left', paddingTop: 20, paddingBottom: 10},
+                  ]}></TextInput>
                 {/* <Image
                     style={{width: 19, height: 19}}
                     source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
@@ -379,7 +436,12 @@ class SignUpPersonal extends Component {
                       source={require('../../imgs/drawable-xhdpi/icon_x_red.png')}
                     />
 
-                    <Text style={{color: '#F00', fontSize: 14, marginLeft: 10}}>
+                    <Text
+                      style={[
+                        ResetStyle.fontLightK,
+                        ResetStyle.fontR,
+                        {marginLeft: 5},
+                      ]}>
                       비밀번호가 일치하지 않습니다.
                     </Text>
                   </>
@@ -402,7 +464,14 @@ class SignUpPersonal extends Component {
           {/* 초대코드 */}
           <View>
             <View>
-              <Text style={styles.subText}>초대코드 (선택사항)</Text>
+              <Text
+                style={[
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontDG,
+                  {textAlign: 'left'},
+                ]}>
+                초대코드 (선택사항)
+              </Text>
             </View>
 
             <TouchableHighlight>
@@ -412,7 +481,11 @@ class SignUpPersonal extends Component {
                   // keyboardType={'numeric'}
                   onChangeText={this.handleInviteCode}
                   value={this.state.inviteCode}
-                  style={[styles.textInputStyle]}></TextInput>
+                  style={[
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontG,
+                    {textAlign: 'left', paddingTop: 20, paddingBottom: 10},
+                  ]}></TextInput>
                 <TouchableHighlight
                   onPress={() => {
                     this.setState({
@@ -438,7 +511,12 @@ class SignUpPersonal extends Component {
                 style={{width: 19, height: 19}}
                 source={require('../../imgs/drawable-xhdpi/icon_x_red.png')}
               />
-              <Text style={{color: '#F00', fontSize: 14, marginLeft: 10}}>
+              <Text
+                style={[
+                  ResetStyle.fontLightK,
+                  ResetStyle.fontR,
+                  {marginLeft: 5},
+                ]}>
                 초대코드가 올바르지 않습니다.
               </Text>
             </View>
@@ -455,7 +533,14 @@ class SignUpPersonal extends Component {
               });
               this.props.navigation.setOptions({title: '약관동의'});
             }}>
-            <Text style={ResetStyle.buttonTexts}>다음</Text>
+            <Text
+              style={[
+                ResetStyle.fontMediumK,
+                ResetStyle.fontWhite,
+                {fontWeight: '600'},
+              ]}>
+              다음
+            </Text>
           </TouchableWithoutFeedback>
         </View>
       </SafeAreaView>
