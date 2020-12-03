@@ -17,6 +17,7 @@ import ko from './language/ko';
 import lang from './language/lang';
 import en from './language/en';
 import ResetStyle from '../style/ResetStyle.js';
+import AuthStyle from '../style/AuthStyle.js';
 
 const images = new Array('', '', '');
 const window = Dimensions.get('window');
@@ -76,10 +77,10 @@ class Initial2 extends Component {
     // console.log('aaa>>>', arr.initial1);
     return (
       <SafeAreaView style={ResetStyle.container}>
-        <View style={styles.scrollContainer}>
+        <View style={AuthStyle.initial2ScrollContainer}>
           <ScrollView
             horizontal={true}
-            style={styles.scrollViewStyle}
+            style={AuthStyle.initial2scrollViewStyle}
             pagingEnabled
             showsHorizontalScrollIndicator={false}
             onScroll={Animated.event(
@@ -98,7 +99,7 @@ class Initial2 extends Component {
             {images.map((image, imageIndex) => {
               return (
                 <View
-                  style={(styles.imgBox, {width: windowWidth})}
+                  style={(AuthStyle.initial2ImgBox, {width: windowWidth})}
                   key={imageIndex}>
                   <Image
                     source={
@@ -108,16 +109,27 @@ class Initial2 extends Component {
                         ? require('../imgs/drawable-xhdpi/icon_intro_wallet.png')
                         : require('../imgs/drawable-xhdpi/icon_intro_reward.png')
                     }
-                    style={styles.Image}
+                    style={AuthStyle.initial2Image}
                   />
-                  <Text style={[styles.TextTitle]}>
+                  {/* <Text style={[AuthStyle.initial2TextTitle]}> */}
+                  <Text
+                    style={[
+                      ResetStyle.fontBoldK,
+                      ResetStyle.fontB,
+                      {textAlign: 'center', marginTop: 20},
+                    ]}>
                     {imageIndex == 0
                       ? 'RESEARCH'
                       : imageIndex == 1
                       ? 'WALLET'
                       : 'REWARD'}
                   </Text>
-                  <Text style={styles.infoText}>
+                  <Text
+                    style={[
+                      ResetStyle.fontLightE,
+                      ResetStyle.fontDG,
+                      {textAlign: 'center'},
+                    ]}>
                     {imageIndex == 0
                       ? [lang.en.initial1]
                       : imageIndex == 1
@@ -128,7 +140,7 @@ class Initial2 extends Component {
               );
             })}
           </ScrollView>
-          <View style={styles.indicatorContainer}>
+          <View style={AuthStyle.initial2IndicatorContainer}>
             {images.map((image, imageIndex) => {
               const backgroundColor = this.scrollX.interpolate({
                 inputRange: [
@@ -142,7 +154,7 @@ class Initial2 extends Component {
               return (
                 <Animated.View
                   key={imageIndex}
-                  style={[styles.normalDot, {backgroundColor}]}
+                  style={[AuthStyle.initial2NormalDot, {backgroundColor}]}
                 />
               );
             })}
@@ -150,7 +162,7 @@ class Initial2 extends Component {
         </View>
 
         <View style={ResetStyle.containerInner}>
-          <View style={styles.buttonBox}>
+          <View style={AuthStyle.initial2ButtonBox}>
             <TouchableOpacity
               style={[ResetStyle.button, {marginTop: 30}]}
               activeOpacity={0.75}
@@ -159,7 +171,9 @@ class Initial2 extends Component {
 
                 this.props.navigation.setOptions({title: '휴대폰 인증'});
               }}>
-              <Text style={ResetStyle.buttonTexts}>SIGN UP</Text>
+              <Text style={[ResetStyle.fontRegularE, ResetStyle.fontWhite]}>
+                SIGN UP
+              </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -168,7 +182,7 @@ class Initial2 extends Component {
               onPress={() => {
                 this.props.navigation.navigate('Login');
               }}>
-              <Text style={[ResetStyle.buttonTexts, {color: '#4696ff'}]}>
+              <Text style={[ResetStyle.fontRegularE, ResetStyle.fontB]}>
                 LOGIN
               </Text>
             </TouchableOpacity>
@@ -179,7 +193,7 @@ class Initial2 extends Component {
               onPress={() => {
                 this.props.navigation.navigate('ResearchForm');
               }}>
-              <Text style={[ResetStyle.buttonTexts, {color: '#4696ff'}]}>
+              <Text style={[ResetStyle.fontRegularE, ResetStyle.fontB]}>
                 ResearchForm
               </Text>
             </TouchableOpacity>
@@ -190,7 +204,7 @@ class Initial2 extends Component {
               onPress={() => {
                 this.props.navigation.navigate('Initial3');
               }}>
-              <Text style={[ResetStyle.buttonTexts, {color: '#4696ff'}]}>
+              <Text style={[ResetStyle.fontRegularE, ResetStyle.fontB]}>
                 Test page
               </Text>
             </TouchableOpacity>
@@ -200,7 +214,7 @@ class Initial2 extends Component {
               onPress={() => {
                 this.props.navigation.navigate('Kyc');
               }}>
-              <Text style={[ResetStyle.buttonTexts, {color: '#4696ff'}]}>
+              <Text style={[ResetStyle.fontRegularE, ResetStyle.fontB]}>
                 Kyc
               </Text>
             </TouchableOpacity>
@@ -210,51 +224,5 @@ class Initial2 extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  scrollContainer: {
-    marginTop: 100,
-    height: '40%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  Image: {
-    resizeMode: 'contain',
-    width: 100,
-    height: 90,
-    alignSelf: 'center',
-  },
-  TextTitle: {
-    marginTop: 40,
-    textAlign: 'center',
-    fontSize: 32,
-    color: '#4696ff',
-    fontWeight: 'bold',
-  },
-  infoText: {
-    marginTop: 20,
-    textAlign: 'center',
-    color: '#222222',
-    fontSize: 17,
-    lineHeight: 25,
-    fontWeight: '300',
-  },
-  normalDot: {
-    height: 12,
-    width: 12,
-    borderRadius: 6,
-    backgroundColor: '#4696ff',
-    marginHorizontal: 6,
-  },
-  indicatorContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  buttonBox: {
-    width: '100%',
-    alignItems: 'center',
-  },
-});
 
 export default Initial2;

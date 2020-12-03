@@ -17,6 +17,7 @@ import {
 } from 'react-native';
 import BottomModal from '../factory/modal/BottomModal';
 import TextConfirmModal from '../factory/modal/TextConfirmModal';
+import ResetStyle from '../../style/ResetStyle.js';
 
 export default class WalletPassword extends Component {
   state = {
@@ -92,8 +93,8 @@ export default class WalletPassword extends Component {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.container2}>
-          <Text style={styles.titleText}>지갑 비밀번호</Text>
-          <Text style={styles.subText}>
+          <Text style={ResetStyle.fontBoldK}>지갑 비밀번호</Text>
+          <Text style={ResetStyle.fontRegularK}>
             {this.state.pass == ''
               ? `지갑 전송 시 사용할 ${'\n'}6자리 비밀번호를 입력해 주세요`
               : `비밀번호 확인을 위해${'\n'}한번 더 입력해 주세요`}
