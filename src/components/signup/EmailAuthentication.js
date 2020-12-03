@@ -73,6 +73,7 @@ class EmailAuthentication extends Component {
                   placeholder="인증번호 입력"
                   value={this.state.passWord}
                   keyboardType={'numeric'}
+                  returnKeyType={'done'}
                   secureTextEntry={true}
                   onChangeText={(text) => this.handlePassword(text)}
                   style={[

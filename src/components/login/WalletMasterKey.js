@@ -8,8 +8,12 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import ResetStyle from '../../style/ResetStyle.js';
+import Clipboard from '@react-native-community/clipboard';
 
 export default class WalletMasterKey extends Component {
+  copyToClipboard = (value) => {
+    Clipboard.setString(value);
+  };
   render() {
     return (
       <SafeAreaView style={ResetStyle.container}>
@@ -36,7 +40,11 @@ export default class WalletMasterKey extends Component {
               두세요!
             </Text>
           </View>
-          <TouchableHighlight style={styles.fourth}>
+          <TouchableHighlight
+            style={styles.fourth}
+            onPress={this.copyToClipboard(
+              '0x6565232c6565ed6565659desds6565c565c565c565659desds6565c565c565c5',
+            )}>
             <View>
               <Text style={styles.fourthText}>
                 0x6565232c6565ed6565659desds6565c5 65c565c565659desds6565c5

@@ -43,6 +43,7 @@ export default class KycSecond extends Component {
           <TextInput
             placeholder="생일을 입력해주세요.(ex.19920101)"
             keyboardType={'numeric'}
+            returnKeyType={'done'}
             onChangeText={this.handleBirth}
             value={this.props.birth}
             style={[
