@@ -17,13 +17,21 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import ResetStyle from '../../style/ResetStyle.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import BottomModal from '../factory/modal/BottomModal';
 
 export default class ResetEmail extends Component {
   state = {
     email: this.props.route.params?.email,
     emailCode: '',
+    authKey: this.props.route.params?.authKey,
+    modalVisible: false,
   };
-
+  setModalVisible = (visible) => {
+    this.setState({
+      modalVisible: visible,
+    });
+  };
   validateEmail = (email) => {
     var re = /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
@@ -96,15 +104,30 @@ export default class ResetEmail extends Component {
                 ? [ResetStyle.button]
                 : [ResetStyle.button, {backgroundColor: '#e6e6e6'}]
             }
-            onPress={() => {
+            onPress={async () => {
               if (this.state.emailCode.length == 6) {
-                this.props.navigation.navigate('ResetPassword');
+                if (
+                  this.state.emailCode ==
+                  (await AsyncStorage.getItem('authKey'))
+                ) {
+                  this.props.navigation.navigate('ResetPassword', {
+                    email: this.props.route.param?.email,
+                  });
+                } else {
+                  console.log('ssssssssssssss');
+                  this.setModalVisible(true);
+                }
               }
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontWhite]}>
               다음
             </Text>
           </TouchableHighlight>
+          <BottomModal
+            setModalVisible={this.setModalVisible}
+            modalVisible={this.state.modalVisible}
+            text={`인증번호가 틀렸습니다`}
+          />
         </View>
       </SafeAreaView>
     );

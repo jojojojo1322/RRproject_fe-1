@@ -23,6 +23,8 @@ import WalletPassword from './WalletPassword';
 import WalletMasterKey from './WalletMasterKey';
 import ResetStyle from '../../style/ResetStyle.js';
 import AuthStyle from '../../style/AuthStyle.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import BottomModal from '../factory/modal/BottomModal';
 
 // import RNPickerSelect from 'react-native-picker-select';
 
@@ -52,12 +54,16 @@ class Login extends Component {
     ID: '',
     passWord: '',
     modalVisible: false,
+    modal2Visible: false,
     selectedId: null,
     text: '',
   };
 
   setModalVisible = (visible) => {
     this.setState({modalVisible: visible});
+  };
+  setModal2Visible = (visible) => {
+    this.setState({modal2Visible: visible});
   };
   handleBack = () => {
     this.props.history.goBack();
@@ -80,13 +86,24 @@ class Login extends Component {
     axios
       .post(`${server}/user/login`, {
         email: id,
-        passowrd: pass,
+        password: pass,
       })
-      .then(({data}) => {
-        console.log('then', data);
+      .then(async (response) => {
+        console.log('then', response.data.status);
+        console.log('then', response.data.userNo);
+        console.log(
+          'then header>>>>' +
+            response.headers.authorization.slice(7, undefined),
+        );
+        await AsyncStorage.setItem(
+          'authToken',
+          response.headers.authorization.slice(7, undefined),
+        );
+        await AsyncStorage.setItem('userNo', response.data.userNo);
+        return response.data.status;
       })
-      .catch(({error}) => {
-        console.log(error);
+      .catch((error) => {
+        console.log('erro', error);
       });
   };
   render() {
@@ -187,10 +204,11 @@ class Login extends Component {
               activeOpacity={0.75}
               onPress={() => {
                 // this.setModalVisible(true);
-                console.log('id', this.state.ID);
-                console.log('pass', this.state.passWord);
-                this.loginApi(this.state.ID, this.state.passWord);
-                this.props.navigation.navigate('WalletPassword');
+                if (this.loginApi(this.state.ID, this.state.passWord)) {
+                  this.props.navigation.navigate('WalletPassword');
+                } else {
+                  this.setModal2Visible(true);
+                }
                 // this.props.navigation.navigate('WalletMasterKey');
               }}>
               <Text style={[ResetStyle.fontRegularE, ResetStyle.fontWhite]}>
@@ -242,6 +260,11 @@ class Login extends Component {
             setModalVisible={this.setModalVisible}
             text={`현재 지갑이 생성되어 있지 않습니다${'\n'}지갑을 만들어주세요`}
             confirm={`확인`}
+          />
+          <BottomModal
+            modalVisible={this.state.modal2Visible}
+            setModalVisible={this.setModal2Visible}
+            text={`정보가 정확하지 않습니다`}
           />
 
           {/* <Modal

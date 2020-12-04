@@ -15,6 +15,7 @@ import ResetStyle from '../../style/ResetStyle.js';
 import AuthStyle from '../../style/AuthStyle.js';
 import axios from 'axios';
 import {server} from '../defined/server';
+
 function chkPW(password) {
   var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
   var regHigh = /^(?=.*?[A-Z])/;
@@ -112,11 +113,11 @@ class SignUpPersonal extends Component {
   emailCheckApi = (email) => {
     console.log('email', email);
     axios
-      .post(`${server}/user/login`, {
-        emailId: email,
+      .post(`${server}/user/duplicate/MailId`, {
+        email,
       })
-      .then(({data}) => {
-        console.log('then', data.status);
+      .then((data) => {
+        console.log('then', data);
       })
       .catch(({error}) => {
         console.log(error);
