@@ -12,6 +12,7 @@ import {
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {RoundCheckbox, SelectedCheckboxes} from '../Roundcheck';
 import ResetStyle from '../../style/ResetStyle.js';
+import AuthStyle from '../../style/AuthStyle.js';
 import axios from 'axios';
 import {server} from '../defined/server';
 function chkPW(password) {
@@ -126,9 +127,10 @@ class SignUpPersonal extends Component {
 
     return (
       <SafeAreaView style={ResetStyle.container}>
-        <View style={ResetStyle.containerInner}>
+        <View style={[ResetStyle.containerInner]}>
           {/* 이메일 */}
-          <View style={{marginTop: 80}}>
+          <View style={{marginTop: '10%'}}>
+            {/* <View> */}
             <View>
               <Text
                 style={[
@@ -141,9 +143,10 @@ class SignUpPersonal extends Component {
             </View>
 
             <TouchableHighlight>
-              <View style={styles.InputImageAll}>
+              <View style={AuthStyle.signupInputImageAll}>
                 <TextInput
                   placeholder="이메일 주소 입력"
+                  placeholderTextColor="#a9a9a9"
                   onBlur={() => {
                     console.log('>>>>>>>>>>>>>>>>>>>>aaa>>>>>>>>');
                     this.emailCheckApi(this.state.email);
@@ -154,7 +157,7 @@ class SignUpPersonal extends Component {
                   style={[
                     ResetStyle.fontRegularK,
                     ResetStyle.fontG,
-                    {textAlign: 'left', paddingTop: 20, paddingBottom: 10},
+                    {textAlign: 'left', paddingTop: '6%', paddingBottom: '3%'},
                   ]}></TextInput>
                 <TouchableHighlight
                   onPress={() => {
@@ -163,7 +166,7 @@ class SignUpPersonal extends Component {
                     });
                   }}>
                   <Image
-                    style={{width: 19, height: 19}}
+                    style={ResetStyle.smallImg}
                     source={require('../../imgs/drawable-xhdpi/icon_x_gray.png')}
                   />
                 </TouchableHighlight>
@@ -175,10 +178,10 @@ class SignUpPersonal extends Component {
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
-                marginTop: 8,
+                marginTop: '3%',
               }}>
               <Image
-                style={{width: 19, height: 19}}
+                style={ResetStyle.smallImg}
                 source={require('../../imgs/drawable-xhdpi/icon_x_red.png')}
               />
               <Text
@@ -191,7 +194,7 @@ class SignUpPersonal extends Component {
               </Text>
 
               <Image
-                style={{width: 19, height: 19}}
+                style={ResetStyle.smallImg}
                 source={require('../../imgs/drawable-xhdpi/icon_m_check.png')}
               />
               <Text
@@ -219,9 +222,10 @@ class SignUpPersonal extends Component {
             </View>
 
             <TouchableHighlight>
-              <View style={styles.InputImageAll}>
+              <View style={AuthStyle.signupInputImageAll}>
                 <TextInput
                   placeholder="아래 조합으로 입력"
+                  placeholderTextColor="#a9a9a9"
                   secureTextEntry={this.state.passwordBlur}
                   // keyboardType={'numeric'}
                   onChangeText={this.handlePassword}
@@ -229,7 +233,7 @@ class SignUpPersonal extends Component {
                   style={[
                     ResetStyle.fontRegularK,
                     ResetStyle.fontG,
-                    {textAlign: 'left', paddingTop: 20, paddingBottom: 10},
+                    {textAlign: 'left', paddingTop: '6%', paddingBottom: '3%'},
                   ]}></TextInput>
                 <TouchableHighlight
                   onPress={() => {
@@ -239,12 +243,12 @@ class SignUpPersonal extends Component {
                   }}>
                   {this.state.passwordBlur ? (
                     <Image
-                      style={{width: 19, height: 19}}
+                      style={ResetStyle.smallImg}
                       source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
                     />
                   ) : (
                     <Image
-                      style={{width: 19, height: 19}}
+                      style={ResetStyle.smallImg}
                       source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
                     />
                   )}
@@ -262,16 +266,16 @@ class SignUpPersonal extends Component {
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',
-                  marginTop: 8,
+                  marginTop: '3%',
                 }}>
                 {!chkPWRow(this.state.password) ? (
                   <Image
-                    style={{width: 15, height: 15}}
+                    style={ResetStyle.xsmallImg}
                     source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
                   />
                 ) : (
                   <Image
-                    style={{width: 15, height: 15}}
+                    style={ResetStyle.xsmallImg}
                     source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
                   />
                 )}
@@ -288,16 +292,16 @@ class SignUpPersonal extends Component {
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',
-                  marginTop: 8,
+                  marginTop: '3%',
                 }}>
                 {!chkPWNumber(this.state.password) ? (
                   <Image
-                    style={{width: 15, height: 15}}
+                    style={ResetStyle.xsmallImg}
                     source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
                   />
                 ) : (
                   <Image
-                    style={{width: 15, height: 15}}
+                    style={ResetStyle.xsmallImg}
                     source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
                   />
                 )}
@@ -314,16 +318,16 @@ class SignUpPersonal extends Component {
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',
-                  marginTop: 8,
+                  marginTop: '3%',
                 }}>
                 {!chkPWHigh(this.state.password) ? (
                   <Image
-                    style={{width: 15, height: 15}}
+                    style={ResetStyle.xsmallImg}
                     source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
                   />
                 ) : (
                   <Image
-                    style={{width: 15, height: 15}}
+                    style={ResetStyle.xsmallImg}
                     source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
                   />
                 )}
@@ -344,12 +348,12 @@ class SignUpPersonal extends Component {
                 }}>
                 {!chkPWCharacter(this.state.password) ? (
                   <Image
-                    style={{width: 15, height: 15}}
+                    style={ResetStyle.xsmallImg}
                     source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
                   />
                 ) : (
                   <Image
-                    style={{width: 15, height: 15}}
+                    style={ResetStyle.xsmallImg}
                     source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
                   />
                 )}
@@ -366,16 +370,16 @@ class SignUpPersonal extends Component {
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',
-                  marginTop: 8,
+                  marginTop: '3%',
                 }}>
                 {this.state.password.length < 8 ? (
                   <Image
-                    style={{width: 15, height: 15}}
+                    style={ResetStyle.xsmallImg}
                     source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
                   />
                 ) : (
                   <Image
-                    style={{width: 15, height: 15}}
+                    style={ResetStyle.xsmallImg}
                     source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
                   />
                 )}
@@ -405,9 +409,10 @@ class SignUpPersonal extends Component {
             </View>
 
             <TouchableHighlight>
-              <View style={styles.InputImageAll}>
+              <View style={AuthStyle.signupInputImageAll}>
                 <TextInput
                   placeholder="비밀번호 다시 입력"
+                  placeholderTextColor="#a9a9a9"
                   secureTextEntry={this.state.checkPasswordBlur}
                   // keyboardType={'numeric'}
                   onBlur={() => {
@@ -437,10 +442,10 @@ class SignUpPersonal extends Component {
                   style={[
                     ResetStyle.fontRegularK,
                     ResetStyle.fontG,
-                    {textAlign: 'left', paddingTop: 20, paddingBottom: 10},
+                    {textAlign: 'left', paddingTop: '6%', paddingBottom: '3%'},
                   ]}></TextInput>
                 {/* <Image
-                    style={{width: 19, height: 19}}
+                    style={ResetStyle.smallImg}
                     source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
                   /> */}
                 <TouchableHighlight
@@ -451,12 +456,12 @@ class SignUpPersonal extends Component {
                   }}>
                   {this.state.checkPasswordBlur ? (
                     <Image
-                      style={{width: 19, height: 19}}
+                      style={ResetStyle.smallImg}
                       source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
                     />
                   ) : (
                     <Image
-                      style={{width: 19, height: 19}}
+                      style={ResetStyle.smallImg}
                       source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
                     />
                   )}
@@ -469,13 +474,13 @@ class SignUpPersonal extends Component {
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
-                marginTop: 8,
+                marginTop: '3%',
               }}>
               {this.state.checkBoolean !== '' &&
                 this.state.checkBoolean == false && (
                   <>
                     <Image
-                      style={{width: 19, height: 19}}
+                      style={ResetStyle.smallImg}
                       source={require('../../imgs/drawable-xhdpi/icon_x_red.png')}
                     />
 
@@ -492,7 +497,7 @@ class SignUpPersonal extends Component {
               {this.state.checkBoolean == true && (
                 <>
                   <Image
-                    style={{width: 19, height: 19}}
+                    style={ResetStyle.smallImg}
                     source={require('../../imgs/drawable-xhdpi/icon_m_check.png')}
                   />
                   <Text
@@ -518,16 +523,17 @@ class SignUpPersonal extends Component {
             </View>
 
             <TouchableHighlight>
-              <View style={styles.InputImageAll}>
+              <View style={AuthStyle.signupInputImageAll}>
                 <TextInput
                   placeholder="비밀번호 다시 입력"
+                  placeholderTextColor="#a9a9a9"
                   // keyboardType={'numeric'}
                   onChangeText={this.handleInviteCode}
                   value={this.state.inviteCode}
                   style={[
                     ResetStyle.fontRegularK,
                     ResetStyle.fontG,
-                    {textAlign: 'left', paddingTop: 20, paddingBottom: 10},
+                    {textAlign: 'left', paddingTop: '6%', paddingBottom: '3%'},
                   ]}></TextInput>
                 <TouchableHighlight
                   onPress={() => {
@@ -536,7 +542,7 @@ class SignUpPersonal extends Component {
                     });
                   }}>
                   <Image
-                    style={{width: 19, height: 19}}
+                    style={ResetStyle.smallImg}
                     source={require('../../imgs/drawable-xhdpi/icon_x_gray.png')}
                   />
                 </TouchableHighlight>
@@ -548,10 +554,10 @@ class SignUpPersonal extends Component {
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
-                marginTop: 8,
+                marginTop: '3%',
               }}>
               <Image
-                style={{width: 19, height: 19}}
+                style={ResetStyle.smallImg}
                 source={require('../../imgs/drawable-xhdpi/icon_x_red.png')}
               />
               <Text
@@ -566,10 +572,7 @@ class SignUpPersonal extends Component {
           </View>
 
           <TouchableWithoutFeedback
-            style={[
-              ResetStyle.button,
-              {backgroundColor: '#e6e6e6', marginTop: 80},
-            ]}
+            style={[ResetStyle.button, {backgroundColor: '#e6e6e6'}]}
             onPress={() => {
               this.props.navigation.navigate('EmailAuthentication', {
                 email: this.state.email,
@@ -590,20 +593,5 @@ class SignUpPersonal extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  InputImageAll: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
-    alignItems: 'center',
-  },
-  textInputStyle: {
-    fontSize: 15,
-    paddingTop: 15,
-    paddingBottom: 15,
-  },
-});
 
 export default SignUpPersonal;

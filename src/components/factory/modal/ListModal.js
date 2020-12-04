@@ -20,6 +20,7 @@ import {
   Dimensions,
 } from 'react-native';
 import {RoundCheckbox, SelectedCheckboxes} from '../../Roundcheck';
+import ResetStyle from '../../../style/ResetStyle';
 
 const window = Dimensions.get('window');
 
@@ -156,8 +157,12 @@ const Item = ({item, onPress, style, handlePick}) => {
       }}
       style={[styles.item, style]}>
       <Image style={styles.listImg} source={item.img} />
-      <Text style={styles.title}>{item.title}</Text>
-      <Text style={styles.cd}>{item.cd}</Text>
+      <Text style={[ResetStyle.fontRegularK, ResetStyle.fontDG]}>
+        {item.title}
+      </Text>
+      <Text style={[ResetStyle.fontRegularK, ResetStyle.fontDG]}>
+        {item.cd}
+      </Text>
     </TouchableOpacity>
   );
 };
@@ -219,7 +224,9 @@ class ListModal extends Component {
           {/* modal view */}
           <View style={styles.modalView}>
             <View style={styles.modalBox}>
-              <Text style={styles.modalText}>국적선택</Text>
+              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>
+                국적선택
+              </Text>
               <TouchableWithoutFeedback
                 style={styles.closeButton}
                 setModalVisible={this.props.setModalVisible}
@@ -236,22 +243,29 @@ class ListModal extends Component {
 
             <View style={styles.modalInputBox}>
               <TextInput
-                style={styles.searchInputText}
+                style={[
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontG,
+                  {padding: 10},
+                ]}
                 onChangeText={this.handleInputChange}
                 value={this.state.searchText}
-                placeholder="search"></TextInput>
-              <TouchableHighlight style={styles.closeButton}>
+                placeholder="search"
+              />
+              <TouchableHighlight
+                style={{position: 'absolute', right: '5%', top: '35%'}}>
                 <Image
                   style={styles.closeButton}
                   source={require('../../../imgs/icon_search.png')}
                 />
               </TouchableHighlight>
             </View>
-
-            <CountryList
-              handlePick={this.handlePick}
-              searchText={this.state.searchText}
-            />
+            <View style={{height: Platform.OS === 'ios' ? '98%' : '95%'}}>
+              <CountryList
+                handlePick={this.handlePick}
+                searchText={this.state.searchText}
+              />
+            </View>
           </View>
         </View>
       </Modal>
@@ -285,7 +299,7 @@ const styles = StyleSheet.create({
     top: '17.5%',
     left: '5%',
     width: '90%',
-    height: '65%',
+    height: Platform.OS === 'ios' ? '65%' : '65%',
     backgroundColor: 'white',
     padding: 20,
     alignItems: 'center',
@@ -299,16 +313,6 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-  TextSize: {
-    fontSize: 20,
-  },
-  modalText: {
-    textAlign: 'center',
-    fontSize: 16,
-    lineHeight: 24,
-    marginTop: '5%',
-    marginBottom: '5%',
-  },
   modalBox: {
     width: '100%',
     flexDirection: 'row',
@@ -321,19 +325,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#dddddd',
     borderRadius: 5,
-    padding: 15,
     marginTop: 20,
-  },
-  modalText: {
-    fontSize: 20,
-    lineHeight: 24,
   },
   closeButton: {
     width: 20,
     height: 20,
-  },
-  searchInputText: {
-    fontSize: 15,
   },
   countryList: {
     width: '100%',
@@ -347,9 +343,6 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
-  },
-  title: {
-    fontSize: 16,
   },
   listImg: {
     width: 25,

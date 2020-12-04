@@ -91,81 +91,96 @@ export default class WalletPassword extends Component {
   render() {
     const passArr = this.state.passArr;
     return (
-      <SafeAreaView style={styles.container}>
-        <View style={styles.container2}>
-          <Text style={ResetStyle.fontBoldK}>지갑 비밀번호</Text>
-          <Text style={ResetStyle.fontRegularK}>
-            {this.state.pass == ''
-              ? `지갑 전송 시 사용할 ${'\n'}6자리 비밀번호를 입력해 주세요`
-              : `비밀번호 확인을 위해${'\n'}한번 더 입력해 주세요`}
-          </Text>
-          <View style={styles.passGrayAll}>
-            <View
+      <SafeAreaView style={[ResetStyle.container]}>
+        <View style={ResetStyle.containerInner}>
+          <View>
+            <Text
               style={[
-                styles.passGray,
-                {marginLeft: 0},
-                passArr[0] == undefined ? '' : {backgroundColor: '#4696ff'},
+                ResetStyle.fontBoldK,
+                ResetStyle.fontDG,
+                {marginTop: '20%'},
               ]}>
-              {passArr[0] != undefined && <View style={styles.circle}></View>}
-            </View>
-            <View
+              지갑 비밀번호
+            </Text>
+            <Text
               style={[
-                styles.passGray,
-                {marginLeft: 0},
-                passArr[1] == undefined ? '' : {backgroundColor: '#4696ff'},
+                ResetStyle.fontMediumK,
+                ResetStyle.fontG,
+                {marginTop: '10%', marginBottom: '20%'},
               ]}>
-              {passArr[1] != undefined && <View style={styles.circle}></View>}
-            </View>
-            <View
-              style={[
-                styles.passGray,
-                {marginLeft: 0},
-                passArr[2] == undefined ? '' : {backgroundColor: '#4696ff'},
-              ]}>
-              {passArr[2] != undefined && <View style={styles.circle}></View>}
-            </View>
-            <View
-              style={[
-                styles.passGray,
-                {marginLeft: 0},
-                passArr[3] == undefined ? '' : {backgroundColor: '#4696ff'},
-              ]}>
-              {passArr[3] != undefined && <View style={styles.circle}></View>}
-            </View>
-            <View
-              style={[
-                styles.passGray,
-                {marginLeft: 0},
-                passArr[4] == undefined ? '' : {backgroundColor: '#4696ff'},
-              ]}>
-              {passArr[4] != undefined && <View style={styles.circle}></View>}
-            </View>
-            <View
-              style={[
-                styles.passGray,
-                {marginLeft: 0},
-                passArr[5] == undefined ? '' : {backgroundColor: '#4696ff'},
-              ]}>
-              {passArr[5] != undefined && <View style={styles.circle}></View>}
+              {this.state.pass == ''
+                ? `지갑 전송 시 사용할 ${'\n'}6자리 비밀번호를 입력해 주세요`
+                : `비밀번호 확인을 위해${'\n'}한번 더 입력해 주세요`}
+            </Text>
+            <View style={styles.passGrayAll}>
+              <View
+                style={[
+                  styles.passGray,
+                  {marginLeft: 0},
+                  passArr[0] == undefined ? '' : {backgroundColor: '#4696ff'},
+                ]}>
+                {passArr[0] != undefined && <View style={styles.circle}></View>}
+              </View>
+              <View
+                style={[
+                  styles.passGray,
+                  {marginLeft: 0},
+                  passArr[1] == undefined ? '' : {backgroundColor: '#4696ff'},
+                ]}>
+                {passArr[1] != undefined && <View style={styles.circle}></View>}
+              </View>
+              <View
+                style={[
+                  styles.passGray,
+                  {marginLeft: 0},
+                  passArr[2] == undefined ? '' : {backgroundColor: '#4696ff'},
+                ]}>
+                {passArr[2] != undefined && <View style={styles.circle}></View>}
+              </View>
+              <View
+                style={[
+                  styles.passGray,
+                  {marginLeft: 0},
+                  passArr[3] == undefined ? '' : {backgroundColor: '#4696ff'},
+                ]}>
+                {passArr[3] != undefined && <View style={styles.circle}></View>}
+              </View>
+              <View
+                style={[
+                  styles.passGray,
+                  {marginLeft: 0},
+                  passArr[4] == undefined ? '' : {backgroundColor: '#4696ff'},
+                ]}>
+                {passArr[4] != undefined && <View style={styles.circle}></View>}
+              </View>
+              <View
+                style={[
+                  styles.passGray,
+                  {marginLeft: 0},
+                  passArr[5] == undefined ? '' : {backgroundColor: '#4696ff'},
+                ]}>
+                {passArr[5] != undefined && <View style={styles.circle}></View>}
+              </View>
             </View>
           </View>
         </View>
+
         <View style={styles.keyboard}>
           <View style={styles.keyboardView}>
             <TouchableHighlight
               style={styles.keyboardDetail}
               onPress={this.handlePass.bind(this, '1')}>
-              <Text style={styles.keyboardDetailText}>1</Text>
+              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>1</Text>
             </TouchableHighlight>
             <TouchableHighlight
               style={styles.keyboardDetail}
               onPress={this.handlePass.bind(this, '2')}>
-              <Text style={styles.keyboardDetailText}>2</Text>
+              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>2</Text>
             </TouchableHighlight>
             <TouchableHighlight
               style={styles.keyboardDetail}
               onPress={this.handlePass.bind(this, '3')}>
-              <Text style={styles.keyboardDetailText}>3</Text>
+              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>3</Text>
             </TouchableHighlight>
           </View>
 
@@ -173,17 +188,17 @@ export default class WalletPassword extends Component {
             <TouchableHighlight
               style={styles.keyboardDetail}
               onPress={this.handlePass.bind(this, '4')}>
-              <Text style={styles.keyboardDetailText}>4</Text>
+              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>4</Text>
             </TouchableHighlight>
             <TouchableHighlight
               style={styles.keyboardDetail}
               onPress={this.handlePass.bind(this, '5')}>
-              <Text style={styles.keyboardDetailText}>5</Text>
+              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>5</Text>
             </TouchableHighlight>
             <TouchableHighlight
               style={styles.keyboardDetail}
               onPress={this.handlePass.bind(this, '6')}>
-              <Text style={styles.keyboardDetailText}>6</Text>
+              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>6</Text>
             </TouchableHighlight>
           </View>
 
@@ -191,31 +206,31 @@ export default class WalletPassword extends Component {
             <TouchableHighlight
               style={styles.keyboardDetail}
               onPress={this.handlePass.bind(this, '7')}>
-              <Text style={styles.keyboardDetailText}>7</Text>
+              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>7</Text>
             </TouchableHighlight>
             <TouchableHighlight
               style={styles.keyboardDetail}
               onPress={this.handlePass.bind(this, '8')}>
-              <Text style={styles.keyboardDetailText}>8</Text>
+              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>8</Text>
             </TouchableHighlight>
             <TouchableHighlight
               style={styles.keyboardDetail}
               onPress={this.handlePass.bind(this, '9')}>
-              <Text style={styles.keyboardDetailText}>9</Text>
+              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>9</Text>
             </TouchableHighlight>
           </View>
           <View style={styles.keyboardView}>
             <TouchableHighlight
               style={[styles.keyboardDetail, {backgroundColor: '#f5f5f6'}]}>
-              <Text style={styles.keyboardDetailText}></Text>
+              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}></Text>
             </TouchableHighlight>
             <TouchableHighlight
               style={styles.keyboardDetail}
               onPress={this.handlePass.bind(this, '0')}>
-              <Text style={styles.keyboardDetailText}>0</Text>
+              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>0</Text>
             </TouchableHighlight>
             <TouchableHighlight
-              style={styles.keyboardCancelButtonDetail}
+              style={styles.keyboardDetail}
               onPress={this.handlePassErase}>
               <Image
                 style={styles.keyboardCancelButton}
@@ -241,21 +256,6 @@ export default class WalletPassword extends Component {
   }
 }
 const styles = StyleSheet.create({
-  container: {
-    position: 'relative',
-    // flex: 1,
-    width: '100%',
-    height: '100%',
-    // flexDirection: 'column',
-    // alignItems: 'center',
-    // justifyContent: 'space-between',
-    backgroundColor: '#FFF',
-  },
-  container2: {
-    marginLeft: '5%',
-    marginRight: '5%',
-    alignItems: 'center',
-  },
   titleText: {
     marginTop: 71,
     marginBottom: 30,
@@ -328,8 +328,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   keyboardCancelButton: {
+    width: '40%',
+    height: '30%',
+    resizeMode: 'contain',
     // color: '#fff',
-    resizeMode: 'center',
   },
   circle: {
     height: 8,

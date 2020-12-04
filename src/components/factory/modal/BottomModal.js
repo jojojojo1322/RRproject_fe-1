@@ -19,6 +19,7 @@ import {
   Animated,
   Dimensions,
 } from 'react-native';
+import ResetStyle from '../../../style/ResetStyle';
 
 class BottomModal extends Component {
   constructor(props) {
@@ -59,7 +60,9 @@ class BottomModal extends Component {
           }}>
           <View style={styles.modalFooterBg}>
             <View style={styles.modalFooter}>
-              <Text style={styles.modalFooterText}>{this.props.text}</Text>
+              <Text style={[ResetStyle.fontRegularK, ResetStyle.fontDG]}>
+                {this.props.text}
+              </Text>
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -100,22 +103,12 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-  TextSize: {
-    fontSize: 20,
-  },
   centeredView: {
     flex: 1,
     height: '60%',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'hsla(0, 0%, 20%, 0.6)',
-  },
-  modalText: {
-    textAlign: 'center',
-    fontSize: 16,
-    lineHeight: 24,
-    marginTop: '5%',
-    marginBottom: '5%',
   },
   modalBox: {
     width: '100%',
@@ -155,9 +148,6 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
-  },
-  title: {
-    fontSize: 16,
   },
   listImg: {
     width: 25,
@@ -241,7 +231,6 @@ const styles = StyleSheet.create({
     width: '90%',
     alignItems: 'center',
     flexDirection: 'row',
-    // justifyContent: 'space-between'
   },
   modalView2bottom2Button1: {
     width: '50%',
@@ -268,10 +257,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    // flex: 1,
     flexDirection: 'row',
-    // justifyContent: 'space-between',
-    // padding: '5%',
     borderBottomWidth: 1,
     borderTopWidth: 1,
     borderColor: '#4696ff',
@@ -312,16 +298,8 @@ const styles = StyleSheet.create({
     marginBottom: '5%',
   },
   KycCloseButtonText2: {
-    // color: '#FFF',
-    // fontWeight: '500',
-    // zIndex: 0,
     elevation: 4,
-    // position: 'absolute',
-    // top: 20,
-    // right: 30,
     fontSize: 50,
-    // textAlign: 'center',
-    // padding: 17,
   },
   AudienceAllView: {
     width: '90%',
@@ -331,8 +309,6 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     paddingBottom: 30,
-    // padding: 30,
-    // alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -347,7 +323,6 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   AudienceTop: {
-    // flex: 5,
     flexDirection: 'row',
   },
   AudienceTopLeft: {
@@ -357,7 +332,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   AudienceTopRight: {
-    // alignSelf: 'flex-end',
     position: 'absolute',
     right: 0,
     backgroundColor: 'grey',
@@ -372,53 +346,39 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
   },
   AudienceDetail: {
-    // flex: 1,
     flexDirection: 'row',
     paddingBottom: 10,
   },
   AudienceDetailLast: {
-    // flex: 1,
     flexDirection: 'row',
-    // paddingBottom: 10,
   },
 
   AudienceDetailLeft: {
     width: '30%',
     backgroundColor: '#1e4683',
     borderTopLeftRadius: 5,
-    // borderTopRightRadius: 5,
     borderBottomLeftRadius: 5,
-    // borderBottomRightRadius: 5,
   },
   AudienceDetailRight: {
-    // backgroundColor: '#1e4683',
     width: '70%',
     borderWidth: 1,
     borderStyle: 'solid',
     borderColor: '#4696ff',
-    // borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
-    // borderBottomLeftRadius: 5,
     borderBottomRightRadius: 5,
   },
   AudienceDetailLeftText: {
-    // position: 'absolute',
-    // width: '30%',
     color: 'white',
     fontWeight: 'bold',
     fontSize: 15,
     paddingTop: 15,
     textAlign: 'center',
-    // paddingBottom: 10,
-    // paddingLeft: 36,
-    // paddingRight: 36,
   },
   AudienceDetailRightText: {
     fontSize: 15,
     paddingTop: 13,
     paddingBottom: 13,
     paddingLeft: 20,
-    // paddingRight: 195,
   },
 });
 export default BottomModal;

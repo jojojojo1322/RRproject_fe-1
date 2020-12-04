@@ -13,6 +13,7 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     marginLeft: '5%',
     marginRight: '5%',
+    marginBottom: Platform.OS === 'ios' ? 0 : '5%',
     backgroundColor: '#fff',
   },
 
@@ -22,7 +23,7 @@ export default StyleSheet.create({
     backgroundColor: '#4696ff',
     alignItems: 'center',
     borderRadius: 50,
-    padding: 19,
+    padding: Platform.OS === 'ios' ? '5%' : '4%',
   },
   buttonWhite: {
     width: '100%',
@@ -30,7 +31,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     borderRadius: 50,
     borderWidth: 1,
-    padding: 15,
+    padding: Platform.OS === 'ios' ? '5%' : '4%',
   },
   buttonTexts: {
     color: '#FFF',
@@ -38,27 +39,71 @@ export default StyleSheet.create({
     fontSize: 16,
   },
 
+  // textInputStyle
+  textInputStyle: {
+    position: 'relative',
+    flexDirection: 'column',
+    flexWrap: 'nowrap',
+  },
+  textInputTitle: {
+    textAlign: 'left',
+  },
+  textInputText: {
+    textAlign: 'left',
+    paddingTop: '6%',
+    paddingBottom: '3%',
+    borderBottomWidth: 1,
+    borderBottomColor: '#e6e6e6',
+  },
+  textInputBottomBox: {
+    flexDirection: 'row',
+    flexWrap: 'nowrap',
+    justifyContent: 'space-between',
+  },
+  textInputAlert: {
+    flexDirection: 'row',
+    flexWrap: 'nowrap',
+  },
+  textInputRe: {
+    alignSelf: 'flex-end',
+  },
+  textInputTextButton: {
+    position: 'absolute',
+    top: '60%',
+    right: 0,
+  },
+
+  //small img
+  smallImg: {
+    width: 18,
+    height: 18,
+  },
+  xsmallImg: {
+    width: 15,
+    height: 15,
+  },
+
   // font
 
   // english
   fontBoldE: {
-    fontSize: 34,
+    fontSize: Platform.OS === 'ios' ? 34 : 30,
     fontWeight: '700',
     textAlign: 'center',
   },
   fontMediumE: {
-    fontSize: 26,
+    fontSize: Platform.OS === 'ios' ? 26 : 23,
     fontWeight: '600',
     letterSpacing: -1,
     textAlign: 'center',
   },
   fontRegularE: {
-    fontSize: 20,
+    fontSize: Platform.OS === 'ios' ? 20 : 18,
     fontWeight: '400',
     textAlign: 'center',
   },
   fontLightE: {
-    fontSize: 20,
+    fontSize: Platform.OS === 'ios' ? 20 : 18,
     fontWeight: '300',
     letterSpacing: 0.5,
     textAlign: 'center',
@@ -66,23 +111,23 @@ export default StyleSheet.create({
 
   // korean
   fontBoldK: {
-    fontSize: 33,
+    fontSize: Platform.OS === 'ios' ? 33 : 30,
     fontWeight: '700',
     letterSpacing: -0.5,
     textAlign: 'center',
   },
   fontMediumK: {
-    fontSize: 25,
+    fontSize: Platform.OS === 'ios' ? 25 : 22,
     fontWeight: '400',
     textAlign: 'center',
   },
   fontRegularK: {
-    fontSize: 19,
+    fontSize: Platform.OS === 'ios' ? 19 : 17,
     fontWeight: '400',
     textAlign: 'center',
   },
   fontLightK: {
-    fontSize: 16,
+    fontSize: Platform.OS === 'ios' ? 16 : 15,
     fontWeight: '300',
     textAlign: 'center',
   },

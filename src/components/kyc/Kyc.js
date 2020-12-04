@@ -109,7 +109,7 @@ export default class Kyc extends Component {
       <SafeAreaView style={ResetStyle.container}>
         <View style={ResetStyle.containerInner}>
           <View style={styles.topAll}>
-            <Text style={[ResetStyle.fontMediumK, {marginBottom: 30}]}>
+            <Text style={[ResetStyle.fontMediumK, {marginBottom: '5%'}]}>
               KYC 정보입력
             </Text>
 

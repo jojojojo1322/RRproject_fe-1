@@ -71,10 +71,15 @@ export default class Reset extends Component {
     // console.log(DeviceInfo.getDeviceToken());
     // console.log(DeviceInfo.getDeviceName());
     return (
-      <SafeAreaView style={styles.container}>
-        <View style={styles.container2}>
-          <View style={styles.Top}>
-            <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>
+      <SafeAreaView style={ResetStyle.container}>
+        <View style={ResetStyle.containerInner}>
+          <View>
+            <Text
+              style={[
+                ResetStyle.fontMediumK,
+                ResetStyle.fontDG,
+                {marginTop: '10%'},
+              ]}>
               비밀번호를 잊으셨나요?
             </Text>
             <Text
@@ -86,38 +91,38 @@ export default class Reset extends Component {
               비밀번호 재설정을 위해{'\n'}아이디(이메일)을 입력해 주세요.
             </Text>
           </View>
-          <View>
+          <View style={[ResetStyle.textInputStyle, {marginBottom: '50%'}]}>
             <Text
               style={[
                 ResetStyle.fontRegularK,
                 ResetStyle.fontDG,
-                {textAlign: 'left'},
+                ResetStyle.textInputTitle,
               ]}>
               이메일
             </Text>
-            <View style={styles.third}>
-              <TextInput
-                style={[
-                  ResetStyle.fontRegularK,
-                  ResetStyle.fontG,
-                  {textAlign: 'left'},
-                ]}
-                placeholder="이메일 주소 입력"
-                value={this.state.email}
-                onChangeText={this.handleEmail}
+            <TextInput
+              style={[
+                ResetStyle.fontRegularK,
+                ResetStyle.fontG,
+                ResetStyle.textInputText,
+              ]}
+              placeholder="이메일 주소 입력"
+              placeholderTextColor="#a9a9a9"
+              value={this.state.email}
+              onChangeText={this.handleEmail}
+            />
+            <TouchableHighlight
+              style={ResetStyle.textInputTextButton}
+              onPress={() => {
+                this.setState({
+                  email: '',
+                });
+              }}>
+              <Image
+                style={ResetStyle.smallImg}
+                source={require('../../imgs/iconXGray.png')}
               />
-              <TouchableHighlight
-                onPress={() => {
-                  this.setState({
-                    email: '',
-                  });
-                }}>
-                <Image
-                  style={styles.thirdImag}
-                  source={require('../../imgs/iconXGray.png')}
-                />
-              </TouchableHighlight>
-            </View>
+            </TouchableHighlight>
           </View>
           <TouchableHighlight
             // style={[styles.button, {backgroundColor: '#4696ff'}]}
@@ -143,114 +148,3 @@ export default class Reset extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    position: 'relative',
-    width: '100%',
-    height: '100%',
-    // flex: 1,
-    // flexDirection: 'column',
-    // justifyContent: 'space-between',
-    // alignItems: 'center',
-    backgroundColor: '#FFF',
-  },
-  container2: {
-    flex: 1,
-    flexDirection: 'column',
-    flexWrap: 'nowrap',
-    justifyContent: 'space-between',
-    marginLeft: '5%',
-    marginRight: '5%',
-    // alignItems: 'center',
-  },
-  Top: {
-    marginTop: 30,
-    alignItems: 'center',
-    marginBottom: 50,
-  },
-  TopText: {
-    // color: '#4696ff',
-    textAlign: 'center',
-    fontSize: 30,
-    fontWeight: '500',
-    lineHeight: 36,
-  },
-  TopText2: {
-    // color: '#4696ff',
-    marginTop: 30,
-    textAlign: 'center',
-    fontSize: 20,
-    fontWeight: '100',
-    lineHeight: 25,
-  },
-  //   sec: {
-  //     alignItems: 'center',
-  //     marginBottom: 30,
-  //   },
-  secText: {
-    // textAlign: 'center',
-    fontSize: 20,
-    fontWeight: '600',
-    lineHeight: 18,
-    // marginBottom: 15,
-  },
-  third: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    height: 50,
-    marginBottom: 300,
-    borderBottomWidth: 1,
-    borderBottomColor: '#dddddd',
-  },
-  thirdText: {
-    textAlign: 'center',
-    fontSize: 20,
-    fontWeight: '400',
-    lineHeight: 25,
-    // color: '#4696ff',
-  },
-  thirdImag: {
-    // marginLeft: 225,
-    // textAlign: 'center',
-    // fontSize: 20,
-    // fontWeight: '400',
-    // lineHeight: 25,
-    // color: '#4696ff',
-  },
-  fourth: {
-    backgroundColor: '#f3f3f3',
-    height: 64,
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 5,
-    marginBottom: 7,
-  },
-  fourthText: {
-    fontSize: 12,
-    lineHeight: 16,
-    color: '#787878',
-  },
-  fifth: {
-    alignItems: 'center',
-    marginBottom: 100,
-  },
-  fifthText: {fontSize: 12, lineHeight: 17, color: '#a9a9a9'},
-  gray: {},
-  grayText: {},
-  button: {
-    width: '100%',
-    borderRadius: 50,
-    backgroundColor: '#c6c9cf',
-    padding: 15,
-    marginTop: 100,
-  },
-  buttonTexts: {
-    color: '#FFF',
-    fontWeight: '600',
-    textAlign: 'center',
-    fontSize: 16,
-  },
-});

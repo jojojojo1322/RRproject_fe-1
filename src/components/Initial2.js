@@ -13,12 +13,18 @@ import {
   Dimensions,
 } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
+import {useHeaderHeight} from '@react-navigation/stack';
+import {StatusBar} from 'react-native';
 import lang from './defined/lang';
 import ResetStyle from '../style/ResetStyle.js';
 import AuthStyle from '../style/AuthStyle.js';
 
 const images = new Array('', '', '');
 const window = Dimensions.get('window');
+// const Wrapper = styled.View`
+//   // flex : 1
+//   height: Dimenssion.get('screen') .height;
+// `;
 
 class Initial2 extends Component {
   scrollX = new Animated.Value(0);
@@ -52,10 +58,12 @@ class Initial2 extends Component {
 
   componentWillUnmount() {
     Dimensions.removeEventListener('change', this.onDimensionsChange);
+    // Dimenssion.get('screen').height;
   }
   render() {
     const userLang = this.state.userLang;
     const windowWidth = this.state.dimensions.window.width;
+    const windowHeight = this.state.dimensions.window.height;
     // console.log([ko]);
     // console.log([lang.ko.initial1]);
     // console.log([ko.initial1]);
@@ -73,8 +81,14 @@ class Initial2 extends Component {
     // console.log({userLang});
     // console.log(`${userLang}`);
     // console.log('aaa>>>', arr.initial1);
+    console.log(windowHeight);
     return (
-      <SafeAreaView style={ResetStyle.container}>
+      <SafeAreaView
+        style={[
+          ResetStyle.container,
+          // {height: windowHeight - useHeaderHeight()} -
+          //   (StatusBar.currentHeight || 0),
+        ]}>
         <View style={AuthStyle.initial2ScrollContainer}>
           <ScrollView
             horizontal={true}
@@ -97,7 +111,10 @@ class Initial2 extends Component {
             {images.map((image, imageIndex) => {
               return (
                 <View
-                  style={(AuthStyle.initial2ImgBox, {width: windowWidth})}
+                  style={
+                    (AuthStyle.initial2ImgBox,
+                    {width: windowWidth, height: windowHeight})
+                  }
                   key={imageIndex}>
                   <Image
                     source={

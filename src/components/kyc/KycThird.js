@@ -112,10 +112,8 @@ export default class kycThird extends Component {
                 ResetStyle.fontG,
                 {
                   textAlign: 'left',
-                  borderBottomWidth: 1,
-                  borderBottomColor: '#dddddd',
-                  paddingTop: 20,
-                  paddingBottom: 10,
+                  paddingTop: '6%',
+                  paddingBottom: '3%',
                 },
               ]}></TextInput>
             <Image
@@ -132,7 +130,7 @@ export default class kycThird extends Component {
           setCountry={this.setCountry}
         />
 
-        <View style={{marginTop: 40}}>
+        <View style={{marginTop: Platform.OS === 'ios' ? '10%' : '8%'}}>
           <Text
             style={[
               ResetStyle.fontRegularK,
@@ -158,10 +156,8 @@ export default class kycThird extends Component {
                 ResetStyle.fontG,
                 {
                   textAlign: 'left',
-                  borderBottomWidth: 1,
-                  borderBottomColor: '#dddddd',
-                  paddingTop: 20,
-                  paddingBottom: 10,
+                  paddingTop: '6%',
+                  paddingBottom: '3%',
                 },
               ]}></TextInput>
             <Image
@@ -178,7 +174,7 @@ export default class kycThird extends Component {
           setLanguage={this.setLanguage}
         />
 
-        <View style={{marginTop: 40}}>
+        <View style={{marginTop: Platform.OS === 'ios' ? '10%' : '8%'}}>
           <Text
             style={[
               ResetStyle.fontRegularK,
@@ -207,10 +203,8 @@ export default class kycThird extends Component {
                 ResetStyle.fontG,
                 {
                   textAlign: 'left',
-                  borderBottomWidth: 1,
-                  borderBottomColor: '#dddddd',
-                  paddingTop: 20,
-                  paddingBottom: 10,
+                  paddingTop: '6%',
+                  paddingBottom: '3%',
                 },
               ]}></TextInput>
             <Image
@@ -228,7 +222,7 @@ export default class kycThird extends Component {
           setCountry={this.setResidenceCountry}
         />
 
-        <View style={{marginTop: 40}}>
+        <View style={{marginTop: Platform.OS === 'ios' ? '10%' : '8%'}}>
           <Text
             style={[
               ResetStyle.fontRegularK,
@@ -255,10 +249,8 @@ export default class kycThird extends Component {
                 ResetStyle.fontG,
                 {
                   textAlign: 'left',
-                  borderBottomWidth: 1,
-                  borderBottomColor: '#dddddd',
-                  paddingTop: 20,
-                  paddingBottom: 10,
+                  paddingTop: '6%',
+                  paddingBottom: '3%',
                 },
               ]}></TextInput>
             <Image

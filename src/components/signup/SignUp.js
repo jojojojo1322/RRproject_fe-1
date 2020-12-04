@@ -63,12 +63,12 @@ class SignUp extends Component {
             </Text>
           </View>
 
-          <View style={styles.signUpBox}>
+          <View style={ResetStyle.textInputStyle}>
             <Text
               style={[
                 ResetStyle.fontRegularK,
                 ResetStyle.fontDG,
-                {textAlign: 'left'},
+                ResetStyle.textInputTitle,
               ]}>
               휴대폰 번호
             </Text>
@@ -78,7 +78,7 @@ class SignUp extends Component {
                 this.setModalVisible(true);
               }}
               underlayColor={'transparent'}>
-              <View style={[styles.textInputStyle2, {marginTop: 10}]}>
+              <View style={[ResetStyle.textInputText]}>
                 <Text
                   style={[
                     ResetStyle.fontRegularK,
@@ -90,7 +90,11 @@ class SignUp extends Component {
                     : `${this.state.country} (${this.state.countryCd})`}
                 </Text>
                 <Image
-                  style={{width: 20, height: 20}}
+                  style={[
+                    ResetStyle.smallImg,
+                    ResetStyle.textInputTextButton,
+                    {top: '100%'},
+                  ]}
                   source={require('../../imgs/drawable-xhdpi/icon_more_b.png')}
                 />
               </View>
@@ -105,27 +109,22 @@ class SignUp extends Component {
 
             <TextInput
               placeholder="-없이 휴대폰 번호 입력"
+              placeholderTextColor="#a9a9a9"
               keyboardType={'numeric'}
               returnKeyType={'done'}
               onChangeText={this.handleInputChange}
               value={this.state.phoneNum}
               style={[
                 ResetStyle.fontRegularK,
-                // ResetStyle.fontG,
-                {
-                  textAlign: 'left',
-                  marginTop: 10,
-                  paddingTop: 10,
-                  paddingBottom: 10,
-                  borderBottomWidth: 1,
-                  borderBottomColor: '#dedede',
-                },
+                ResetStyle.fontG,
+                ResetStyle.textInputText,
+                {marginBottom: '5%'},
               ]}></TextInput>
 
             <TouchableWithoutFeedback
               onPress={() => {}}
               underlayColor={'#164895'}
-              style={[ResetStyle.button, {marginTop: 25}]}>
+              style={[ResetStyle.button]}>
               <Text
                 style={[
                   ResetStyle.fontMediumK,
@@ -137,79 +136,83 @@ class SignUp extends Component {
             </TouchableWithoutFeedback>
           </View>
 
-          <View style={styles.signUpBox}>
+          <View style={[ResetStyle.textInputStyle]}>
             <Text
               style={[
                 ResetStyle.fontRegularK,
                 ResetStyle.fontDG,
-                {textAlign: 'left'},
+                ResetStyle.textInputTitle,
               ]}>
               인증 번호
             </Text>
 
-            <View>
-              <View style={[styles.textInputStyle2, {marginTop: 10}]}>
-                <TextInput
-                  placeholder="인증번호 입력"
-                  value={this.state.passWord}
-                  keyboardType={'numeric'}
-                  returnKeyType={'done'}
-                  secureTextEntry={true}
-                  onChangeText={(text) => this.handlePassword(text)}
-                  style={[
-                    ResetStyle.fontRegularK,
-                    ResetStyle.fontG,
-                    {textAlign: 'left'},
-                  ]}></TextInput>
-                <View
-                  style={[
-                    styles.textInputStyle2Inner,
-                    {
-                      position: 'absolute',
-                      right: 0,
-                      top: 15,
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                    },
-                  ]}>
-                  <Image
-                    source={require('../../imgs/drawable-xhdpi/icon_time.png')}
-                    style={styles.timeImg}
-                  />
-                  {/* <Text style={{fontSize: 15, color: '#0b95c9', fontWeight: '500', marginLeft: 5}}>00:00</Text> */}
-                  <CountDown />
-                </View>
-              </View>
+            <TextInput
+              placeholder="인증번호 입력"
+              placeholderTextColor="#a9a9a9"
+              value={this.state.passWord}
+              keyboardType={'numeric'}
+              returnKeyType={'done'}
+              secureTextEntry={true}
+              onChangeText={(text) => this.handlePassword(text)}
+              style={[
+                ResetStyle.fontRegularK,
+                ResetStyle.fontG,
+                ResetStyle.textInputText,
+              ]}
+            />
+            <View
+              style={[
+                ResetStyle.textInputTextButton,
+                {flexDirection: 'row', top: '38%'},
+              ]}>
+              <Image
+                source={require('../../imgs/drawable-xhdpi/icon_time.png')}
+                style={ResetStyle.smallImg}
+              />
+              {/* <Text style={{fontSize: 15, color: '#0b95c9', fontWeight: '500', marginLeft: 5}}>00:00</Text> */}
+              <CountDown />
+            </View>
 
-              <View style={[styles.textInputStyle3, {marginTop: 10}]}>
-                <Image
-                  source={require('../../imgs/drawable-xhdpi/icon_w_point_1.png')}
-                  style={styles.pointImg}
-                />
-                <Text
-                  style={[
-                    ResetStyle.fontLightK,
-                    ResetStyle.fontG,
-                    {textAlign: 'left', marginLeft: 5},
-                  ]}>
-                  3분 이내에 인증번호를 입력해 주세요.
-                </Text>
-              </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                flexWrap: 'nowrap',
+                alignItems: 'center',
+                marginTop: '2%',
+                marginBottom: '2%',
+              }}>
+              <Image
+                source={require('../../imgs/drawable-xhdpi/icon_w_point_1.png')}
+                style={ResetStyle.smallImg}
+              />
+              <Text
+                style={[
+                  ResetStyle.fontLightK,
+                  ResetStyle.fontG,
+                  {marginLeft: '2%'},
+                ]}>
+                3분 이내에 인증번호를 입력해 주세요.
+              </Text>
+            </View>
 
-              <View style={[styles.textInputStyle3, {marginTop: 10}]}>
-                <Image
-                  source={require('../../imgs/drawable-xhdpi/icon_w_point_1.png')}
-                  style={styles.pointImg}
-                />
-                <Text
-                  style={[
-                    ResetStyle.fontLightK,
-                    ResetStyle.fontG,
-                    {textAlign: 'left', marginLeft: 5},
-                  ]}>
-                  입력시간 초과 시 ‘재요청’ 버튼을 눌려주세요.
-                </Text>
-              </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                flexWrap: 'nowrap',
+                alignItems: 'center',
+              }}>
+              <Image
+                source={require('../../imgs/drawable-xhdpi/icon_w_point_1.png')}
+                style={ResetStyle.smallImg}
+              />
+              <Text
+                style={[
+                  ResetStyle.fontLightK,
+                  ResetStyle.fontG,
+                  {marginLeft: '2%'},
+                ]}>
+                입력시간 초과 시 ‘재요청’ 버튼을 눌려주세요.
+              </Text>
             </View>
           </View>
 
@@ -235,30 +238,6 @@ class SignUp extends Component {
 }
 
 const styles = StyleSheet.create({
-  headerText: {
-    fontSize: 16,
-    textAlign: 'center',
-    fontWeight: '400',
-    marginTop: 20,
-    lineHeight: 24,
-  },
-  signUpBox: {
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  },
-  signUpBoxTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  textInputStyle: {
-    position: 'relative',
-    width: '100%',
-    fontSize: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: '#dddddd',
-    paddingTop: 15,
-    paddingBottom: 15,
-  },
   textInputStyle2: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -268,28 +247,8 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     paddingBottom: 15,
   },
-  textInputStyle2Inner: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
   textInputStyle3: {
     flexDirection: 'row',
-    fontSize: 15,
-  },
-  sarrImg: {
-    width: 12,
-    height: 12,
-    resizeMode: 'contain',
-  },
-  timeImg: {
-    width: 16,
-    height: 16,
-    resizeMode: 'contain',
-  },
-  pointImg: {
-    width: 20,
-    height: 20,
-    resizeMode: 'contain',
   },
 });
 

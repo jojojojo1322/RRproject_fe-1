@@ -126,7 +126,7 @@ class Login extends Component {
           {/* <Button title="back" onPress={this.handleBack}></Button> */}
 
           <View>
-            <View style={[{marginTop: 80}]}>
+            <View style={[{marginTop: '20%'}]}>
               <Text
                 style={[
                   ResetStyle.fontBoldE,
@@ -142,7 +142,7 @@ class Login extends Component {
                 style={[
                   ResetStyle.fontRegularE,
                   ResetStyle.fontG,
-                  {textAlign: 'center', marginTop: 5},
+                  {textAlign: 'center', marginTop: '3%'},
                 ]}>
                 Hello there, Login to your account
               </Text>
@@ -154,9 +154,11 @@ class Login extends Component {
               style={[
                 ResetStyle.buttonWhite,
                 ResetStyle.fontLightE,
-                {marginBottom: 10, marginTop: 40, textAlign: 'left'},
+                ResetStyle.fontG,
+                {marginBottom: '3%', marginTop: '6%', textAlign: 'left'},
               ]}
               placeholder="Email Address"
+              placeholderTextColor="#a9a9a9"
               value={this.state.ID}
               // onBlur={ () => this.onBlur() }
               onChangeText={(text) => this.handleID(text)}></TextInput>
@@ -164,9 +166,11 @@ class Login extends Component {
               style={[
                 ResetStyle.buttonWhite,
                 ResetStyle.fontLightE,
-                {marginBottom: 20, textAlign: 'left'},
+                ResetStyle.fontG,
+                {marginBottom: '6%', textAlign: 'left'},
               ]}
               placeholder="Password"
+              placeholderTextColor="#a9a9a9"
               secureTextEntry={true}
               value={this.state.passWord}
               // onBlur={ () => this.onBlur() }
@@ -210,25 +214,15 @@ class Login extends Component {
                 style={[
                   ResetStyle.fontRegularE,
                   ResetStyle.fontB,
-                  {marginTop: 20, marginBottom: 30},
+                  {marginTop: '6%', marginBottom: '10%'},
                 ]}>
                 Forgot Password?
               </Text>
             </TouchableOpacity>
 
-            <View
-              style={[
-                AuthStyle.loginMiddleBorder,
-                {marginTop: 30, marginBottom: 30},
-              ]}
-            />
+            <View style={[AuthStyle.loginMiddleBorder, {marginBottom: '6%'}]} />
 
-            <Text
-              style={[
-                ResetStyle.fontLightE,
-                ResetStyle.fontG,
-                {marginBottom: 10},
-              ]}>
+            <Text style={[ResetStyle.fontLightE, ResetStyle.fontG]}>
               Don't have an account?{' '}
             </Text>
 
@@ -282,13 +276,8 @@ class Login extends Component {
           </View>
         </Modal> */}
 
-          <View style={[AuthStyle.loginBottomTextBox, {marginTop: 50}]}>
-            <Text
-              style={[
-                ResetStyle.fontRegularE,
-                ResetStyle.fontB,
-                {marginTop: 20},
-              ]}>
+          <View style={[AuthStyle.loginBottomTextBox, {marginTop: '5%'}]}>
+            <Text style={[ResetStyle.fontRegularE, ResetStyle.fontB]}>
               Powered by Real Research Inc.
             </Text>
           </View>

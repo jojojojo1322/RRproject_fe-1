@@ -28,13 +28,13 @@ export default class KycSecond extends Component {
   };
   render() {
     return (
-      <View style={{marginBottom: 200}}>
+      <View style={{marginBottom: '40%'}}>
         <View>
           <Text
             style={[
               ResetStyle.fontRegularK,
               ResetStyle.fontDG,
-              {textAlign: 'left', marginBottom: 10},
+              {textAlign: 'left'},
             ]}>
             생년월일 입력
           </Text>
@@ -53,8 +53,8 @@ export default class KycSecond extends Component {
                 textAlign: 'left',
                 borderBottomWidth: 1,
                 borderBottomColor: '#dddddd',
-                paddingTop: 10,
-                paddingBottom: 10,
+                paddingTop: '6%',
+                paddingBottom: '3%',
               },
             ]}></TextInput>
         </View>

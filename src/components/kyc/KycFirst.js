@@ -5,16 +5,16 @@ import ResetStyle from '../../style/ResetStyle.js';
 export default class KycFirst extends Component {
   render() {
     return (
-      <View style={{marginBottom: 150}}>
+      <View>
         <Text
           style={[
             ResetStyle.fontRegularK,
             ResetStyle.fontDG,
-            {textAlign: 'left', marginBottom: 10},
+            {textAlign: 'left', marginBottom: '3%'},
           ]}>
           성별 선택
         </Text>
-        <View style={[styles.genderAll, {marginBottom: 50}]}>
+        <View style={[styles.genderAll]}>
           <TouchableHighlight
             style={
               this.props.gender == 'male'
@@ -26,7 +26,7 @@ export default class KycFirst extends Component {
             }}>
             <Text
               style={
-                this.props.gender == 'mail'
+                this.props.gender == 'male'
                   ? [ResetStyle.fontRegularK, ResetStyle.fontWhite]
                   : [ResetStyle.fontRegularK, ResetStyle.fontDG]
               }>
@@ -44,7 +44,7 @@ export default class KycFirst extends Component {
             }}>
             <Text
               style={
-                this.props.gender == 'femail'
+                this.props.gender == 'female'
                   ? [ResetStyle.fontRegularK, ResetStyle.fontWhite]
                   : [ResetStyle.fontRegularK, ResetStyle.fontDG]
               }>
@@ -56,7 +56,7 @@ export default class KycFirst extends Component {
           style={[
             ResetStyle.fontRegularK,
             ResetStyle.fontDG,
-            {textAlign: 'left', marginBottom: 10},
+            {textAlign: 'left', marginTop: '15%', marginBottom: '3%'},
           ]}>
           결혼 여부 선택
         </Text>
@@ -98,7 +98,7 @@ export default class KycFirst extends Component {
             </Text>
           </TouchableHighlight>
         </View>
-        <View style={[styles.genderAll, {marginTop: 10, marginBottom: 10}]}>
+        <View style={[styles.genderAll, {marginTop: '3%', marginBottom: '3%'}]}>
           <TouchableHighlight
             style={
               this.props.maritalStatus == 'liveTogether'
