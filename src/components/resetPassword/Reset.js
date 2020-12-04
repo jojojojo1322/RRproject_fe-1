@@ -18,12 +18,14 @@ import {
 } from 'react-native';
 import axios from 'axios';
 import {server} from '../defined/server';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import DeviceInfo from 'react-native-device-info';
 import ResetStyle from '../../style/ResetStyle.js';
 
 export default class Reset extends Component {
   state = {
     email: '',
+    authKey: '',
   };
 
   validateEmail = (email) => {
@@ -36,19 +38,25 @@ export default class Reset extends Component {
     });
     // console.log(this.validate(this.state.email));
   };
-  emailAuth = (email) => {
+  emailReAuthApi = (email) => {
     axios
-      .post(`${server}/email/auth`, {
-        mailId: email,
+      .post(`${server}/util/email/pw-auth`, {
+        email,
       })
-      .then(({data}) => {
-        console.log(data);
+      .then(async ({data}) => {
+        console.log('then', data.authKey);
+        this.setState({
+          authKey: data.authKey,
+        });
+        const authKey = data.authKey;
+        await AsyncStorage.setItem('authKey', authKey);
+        console.log('Async!~!~!~!~', await AsyncStorage.getItem('authKey'));
       })
       .catch(({e}) => {
         console.log('error', e);
       });
   };
-  // emailAuth = (email) => {
+  // emailReAuthApi = (email) => {
   //   fetch('http://3.34.5.60:8091/v1/api/email/auth', {
   //     method: 'POST',
   //     headers: {
@@ -68,8 +76,7 @@ export default class Reset extends Component {
   // };
   render() {
     console.log(DeviceInfo.getUniqueId());
-    // console.log(DeviceInfo.getDeviceToken());
-    // console.log(DeviceInfo.getDeviceName());
+    console.log('authKey', this.state.authKey);
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.container2}>
@@ -128,9 +135,13 @@ export default class Reset extends Component {
             }
             onPress={() => {
               if (this.validateEmail(this.state.email)) {
-                this.emailAuth(this.state.email);
+                this.emailReAuthApi(this.state.email);
+                // const asy = 'aaaaaaa';
+                // await AsyncStorage.setItem('authKey', asy);
+                // console.log(await AsyncStorage.getItem('authKey'));
                 this.props.navigation.push('ResetEmail', {
                   email: this.state.email,
+                  authKey: this.state.authKey,
                 });
               }
             }}>

@@ -38,11 +38,9 @@ class TextConfirmModal extends Component {
   }
   setModalVisible = (visible) => {
     this.setState({modalVisible: visible});
-    console.log('MODAL>>> ', visible);
   };
   render() {
     const {modalVisible} = this.state;
-    console.log(modalVisible);
     return (
       <Modal
         animationType="fade"

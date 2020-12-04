@@ -16,7 +16,9 @@ export default class WalletMasterKey extends Component {
     modalVisible: false,
   };
   setModalVisible = (visible) => {
-    this.setState({modalVisible: visible});
+    this.setState({
+      modalVisible: visible,
+    });
   };
   copyToClipboard = (value) => {
     Clipboard.setString(value);

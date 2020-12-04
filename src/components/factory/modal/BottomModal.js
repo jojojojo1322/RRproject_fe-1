@@ -26,11 +26,7 @@ class BottomModal extends Component {
     this.state = {
       modalVisible: false,
     };
-    // this.setModalVisible = this.setModalVisible.bind(this);
   }
-  //   state = {
-  //     modalVisible: this.props.modalVisible,
-  //   };
   componentDidUpdate(preProps, preState) {
     if (preProps.modalVisible != this.props.modalVisible) {
       this.setState({modalVisible: this.props.modalVisible});
@@ -38,11 +34,9 @@ class BottomModal extends Component {
   }
   setModalVisible = (visible) => {
     this.setState({modalVisible: visible});
-    console.log('MODAL>>> ', visible);
   };
   render() {
     const {modalVisible} = this.state;
-    console.log(modalVisible);
     return (
       <Modal
         animationType="fade"
