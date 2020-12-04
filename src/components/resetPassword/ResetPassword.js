@@ -99,25 +99,22 @@ export default class ResetPassword extends Component {
   render() {
     CheckedArrObject = new SelectedCheckboxes();
     return (
-      <SafeAreaView style={styles.container}>
-        <View style={styles.container2}>
-          {/* 비밀번호 */}
-          <View style={styles.firstPass}>
-            <View>
-              <Text
-                style={[
-                  ResetStyle.fontRegularK,
-                  ResetStyle.fontDG,
-                  {textAlign: 'left'},
-                ]}>
-                비밀번호
-              </Text>
-            </View>
-
+      <SafeAreaView style={ResetStyle.container}>
+        <View style={ResetStyle.containerInner}>
+          <View style={{marginTop: '10%'}}>
             <TouchableHighlight>
-              <View style={styles.InputImageAll}>
+              <View style={[ResetStyle.textInputStyle]}>
+                <Text
+                  style={[
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontDG,
+                    ResetStyle.textInputTitle,
+                  ]}>
+                  비밀번호
+                </Text>
                 <TextInput
                   placeholder="아래 조합으로 입력"
+                  placeholderTextColor="#a9a9a9"
                   // keyboardType={'numeric'}
                   secureTextEntry={true}
                   onChangeText={this.handlePassword}
@@ -125,176 +122,174 @@ export default class ResetPassword extends Component {
                   style={[
                     ResetStyle.fontRegularK,
                     ResetStyle.fontG,
-                    {textAlign: 'left', paddingTop: 20, paddingBottom: 10},
+                    ResetStyle.textInputText,
                   ]}></TextInput>
                 {/* <Image
                     style={{width: 19, height: 19}}
                     source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
                   /> */}
-                <Image
-                  style={{width: 19, height: 19}}
-                  source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
-                />
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                  }}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      marginTop: 8,
+                    }}>
+                    {!chkPWRow(this.state.password) ? (
+                      <Image
+                        style={ResetStyle.xsmallImg}
+                        source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
+                      />
+                    ) : (
+                      <Image
+                        style={ResetStyle.xsmallImg}
+                        source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
+                      />
+                    )}
+                    <Text
+                      style={[
+                        ResetStyle.fontLightK,
+                        ResetStyle.fontG,
+                        {marginLeft: 5},
+                      ]}>
+                      영문
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      marginTop: 8,
+                    }}>
+                    {!chkPWNumber(this.state.password) ? (
+                      <Image
+                        style={ResetStyle.xsmallImg}
+                        source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
+                      />
+                    ) : (
+                      <Image
+                        style={ResetStyle.xsmallImg}
+                        source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
+                      />
+                    )}
+                    <Text
+                      style={[
+                        ResetStyle.fontLightK,
+                        ResetStyle.fontG,
+                        {marginLeft: 5},
+                      ]}>
+                      숫자
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      marginTop: 8,
+                    }}>
+                    {!chkPWHigh(this.state.password) ? (
+                      <Image
+                        style={ResetStyle.xsmallImg}
+                        source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
+                      />
+                    ) : (
+                      <Image
+                        style={ResetStyle.xsmallImg}
+                        source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
+                      />
+                    )}
+                    <Text
+                      style={[
+                        ResetStyle.fontLightK,
+                        ResetStyle.fontG,
+                        {marginLeft: 5},
+                      ]}>
+                      대문자
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      marginTop: 8,
+                    }}>
+                    {!chkPWCharacter(this.state.password) ? (
+                      <Image
+                        style={ResetStyle.xsmallImg}
+                        source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
+                      />
+                    ) : (
+                      <Image
+                        style={ResetStyle.xsmallImg}
+                        source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
+                      />
+                    )}
+                    <Text
+                      style={[
+                        ResetStyle.fontLightK,
+                        ResetStyle.fontG,
+                        {marginLeft: 5},
+                      ]}>
+                      특수문자
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      marginTop: 8,
+                    }}>
+                    {this.state.password.length < 8 ? (
+                      <Image
+                        style={ResetStyle.xsmallImg}
+                        source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
+                      />
+                    ) : (
+                      <Image
+                        style={ResetStyle.xsmallImg}
+                        source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
+                      />
+                    )}
+                    <Text
+                      style={[
+                        ResetStyle.fontLightK,
+                        ResetStyle.fontG,
+                        {marginLeft: 5},
+                      ]}>
+                      8자리 이상
+                    </Text>
+                  </View>
+                </View>
+                <TouchableHighlight
+                  style={[ResetStyle.textInputTextButton, {top: '45%'}]}>
+                  <Image
+                    style={ResetStyle.smallImg}
+                    source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
+                  />
+                </TouchableHighlight>
               </View>
             </TouchableHighlight>
 
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  marginTop: 8,
-                }}>
-                {!chkPWRow(this.state.password) ? (
-                  <Image
-                    style={{width: 15, height: 15}}
-                    source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
-                  />
-                ) : (
-                  <Image
-                    style={{width: 15, height: 15}}
-                    source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
-                  />
-                )}
-                <Text
-                  style={[
-                    ResetStyle.fontLightK,
-                    ResetStyle.fontG,
-                    {marginLeft: 5},
-                  ]}>
-                  영문
-                </Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  marginTop: 8,
-                }}>
-                {!chkPWNumber(this.state.password) ? (
-                  <Image
-                    style={{width: 15, height: 15}}
-                    source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
-                  />
-                ) : (
-                  <Image
-                    style={{width: 15, height: 15}}
-                    source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
-                  />
-                )}
-                <Text
-                  style={[
-                    ResetStyle.fontLightK,
-                    ResetStyle.fontG,
-                    {marginLeft: 5},
-                  ]}>
-                  숫자
-                </Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  marginTop: 8,
-                }}>
-                {!chkPWHigh(this.state.password) ? (
-                  <Image
-                    style={{width: 15, height: 15}}
-                    source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
-                  />
-                ) : (
-                  <Image
-                    style={{width: 15, height: 15}}
-                    source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
-                  />
-                )}
-                <Text
-                  style={[
-                    ResetStyle.fontLightK,
-                    ResetStyle.fontG,
-                    {marginLeft: 5},
-                  ]}>
-                  대문자
-                </Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  marginTop: 8,
-                }}>
-                {!chkPWCharacter(this.state.password) ? (
-                  <Image
-                    style={{width: 15, height: 15}}
-                    source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
-                  />
-                ) : (
-                  <Image
-                    style={{width: 15, height: 15}}
-                    source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
-                  />
-                )}
-                <Text
-                  style={[
-                    ResetStyle.fontLightK,
-                    ResetStyle.fontG,
-                    {marginLeft: 5},
-                  ]}>
-                  특수문자
-                </Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  marginTop: 8,
-                }}>
-                {this.state.password.length < 8 ? (
-                  <Image
-                    style={{width: 15, height: 15}}
-                    source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
-                  />
-                ) : (
-                  <Image
-                    style={{width: 15, height: 15}}
-                    source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
-                  />
-                )}
-                <Text
-                  style={[
-                    ResetStyle.fontLightK,
-                    ResetStyle.fontG,
-                    {marginLeft: 5},
-                  ]}>
-                  8자리 이상
-                </Text>
-              </View>
-            </View>
-          </View>
-
-          {/* 비밀번호 확인 */}
-          <View style={styles.secondPass}>
-            <View>
-              <Text
-                style={[
-                  ResetStyle.fontRegularK,
-                  ResetStyle.fontDG,
-                  {textAlign: 'left'},
-                ]}>
-                비밀번호 확인
-              </Text>
-            </View>
-
+            {/* 비밀번호 확인 */}
             <TouchableHighlight>
-              <View style={styles.InputImageAll}>
+              <View style={[ResetStyle.textInputStyle, {marginTop: '10%'}]}>
+                <Text
+                  style={[
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontDG,
+                    ResetStyle.textInputTitle,
+                  ]}>
+                  비밀번호 확인
+                </Text>
                 <TextInput
                   // secureTextEntry={true}
                   placeholder="비밀번호 다시 입력"
+                  placeholderTextColor="#a9a9a9"
                   // keyboardType={'numeric'}
                   onBlur={() => {
                     if (
@@ -323,19 +318,22 @@ export default class ResetPassword extends Component {
                   style={[
                     ResetStyle.fontRegularK,
                     ResetStyle.fontG,
-                    {textAlign: 'left', paddingTop: 20, paddingBottom: 10},
+                    ResetStyle.textInputText,
                   ]}></TextInput>
                 {/* <Image
-                    style={{width: 19, height: 19}}
+                    style={ResetStyle.smallImg}
                     source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
                   /> */}
-                <Image
-                  style={{width: 19, height: 19}}
-                  source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
-                />
+                <TouchableHighlight style={[ResetStyle.textInputTextButton]}>
+                  <Image
+                    style={ResetStyle.smallImg}
+                    source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
+                  />
+                </TouchableHighlight>
               </View>
             </TouchableHighlight>
           </View>
+          {/* 비밀번호 */}
 
           {/* 확인버튼 */}
           <TouchableHighlight
@@ -361,25 +359,6 @@ export default class ResetPassword extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    position: 'relative',
-    width: '100%',
-    height: '100%',
-    // flex: 1,
-    // flexDirection: 'column',
-    // justifyContent: 'space-between',
-    // alignItems: 'center',
-    backgroundColor: '#FFF',
-  },
-  container2: {
-    flex: 1,
-    flexDirection: 'column',
-    flexWrap: 'nowrap',
-    justifyContent: 'space-between',
-    marginLeft: '5%',
-    marginRight: '5%',
-    // alignItems: 'center',
-  },
   firstPass: {marginTop: 40},
   secondPass: {marginBottom: 300},
   button: {

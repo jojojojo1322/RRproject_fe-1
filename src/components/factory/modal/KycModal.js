@@ -19,6 +19,7 @@ import {
   Animated,
   Dimensions,
 } from 'react-native';
+import ResetStyle from '../../../style/ResetStyle';
 
 class KycModal extends Component {
   constructor(props) {
@@ -147,7 +148,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     // padding: '5%',
     borderBottomWidth: 1,
-    borderColor: '#4696ff',
+    borderColor: '#e6e6e6',
     paddingLeft: 20,
     paddingRight: 20,
   },

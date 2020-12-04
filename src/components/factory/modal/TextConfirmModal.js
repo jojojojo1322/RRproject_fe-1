@@ -19,6 +19,7 @@ import {
   Animated,
   Dimensions,
 } from 'react-native';
+import ResetStyle from '../../../style/ResetStyle';
 
 class TextConfirmModal extends Component {
   constructor(props) {
@@ -66,7 +67,14 @@ class TextConfirmModal extends Component {
 
           {/* modal view */}
           <View style={styles.modalView2}>
-            <Text style={styles.modalText2}>{this.props.text}</Text>
+            <Text
+              style={[
+                ResetStyle.fontRegularK,
+                ResetStyle.fontDG,
+                {padding: 40},
+              ]}>
+              {this.props.text}
+            </Text>
             <TouchableHighlight
               style={{...styles.closeButton2, backgroundColor: '#ffffff'}}
               // onPress={() => {
@@ -77,7 +85,14 @@ class TextConfirmModal extends Component {
                 this.props.setModalVisible(!modalVisible);
                 this.props.handleNextPage();
               }}>
-              <Text style={styles.closeButtonText2}>{this.props.confirm}</Text>
+              <Text
+                style={[
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontB,
+                  {padding: 20},
+                ]}>
+                {this.props.confirm}
+              </Text>
             </TouchableHighlight>
           </View>
         </View>
@@ -127,7 +142,6 @@ const styles = StyleSheet.create({
   closeButton2: {
     width: '100%',
     backgroundColor: '#ffffff',
-    elevation: 2,
     borderTopColor: '#707070',
     borderTopWidth: 0.3,
     borderBottomLeftRadius: 5,

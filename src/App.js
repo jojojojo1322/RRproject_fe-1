@@ -42,7 +42,7 @@ class App extends Component {
               // title: route.params?.name,
               title: '',
               headerStyle: {
-                backgroundColor: 'none',
+                backgroundColor: '#FFF',
                 shadowColor: 'none',
                 shadowOffset: {width: 0, height: 0},
                 shadowOpacity: 0,
@@ -52,23 +52,13 @@ class App extends Component {
               headerTintColor: '#000',
             }}
           />
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="WalletPassword" component={WalletPassword} />
-          <Stack.Screen name="WalletMasterKey" component={WalletMasterKey} />
-
-          <Stack.Screen name="Kyc" component={Kyc} />
-
-          <Stack.Screen name="Reset" component={Reset} />
-          <Stack.Screen name="ResetEmail" component={ResetEmail} />
-          <Stack.Screen name="ResetPassword" component={ResetPassword} />
-
           <Stack.Screen
-            name="SignUp"
-            component={SignUp}
+            name="Login"
+            component={Login}
             options={{
               title: '',
               headerStyle: {
-                backgroundColor: 'none',
+                backgroundColor: '#FFF',
                 shadowColor: 'none',
                 shadowOffset: {width: 0, height: 0},
                 shadowOpacity: 0,
@@ -76,6 +66,106 @@ class App extends Component {
                 elevation: 0,
               },
               headerTintColor: '#000',
+            }}
+          />
+          <Stack.Screen
+            name="WalletPassword"
+            component={WalletPassword}
+            options={{
+              title: '',
+              headerStyle: {
+                backgroundColor: '#FFF',
+                shadowColor: 'none',
+                shadowOffset: {width: 0, height: 0},
+                shadowOpacity: 0,
+                shadowRadius: 0,
+                elevation: 0,
+              },
+              headerTintColor: '#000',
+            }}
+          />
+          <Stack.Screen
+            name="WalletMasterKey"
+            component={WalletMasterKey}
+            options={{
+              title: '',
+              headerStyle: {
+                backgroundColor: '#FFF',
+                shadowColor: 'none',
+                shadowOffset: {width: 0, height: 0},
+                shadowOpacity: 0,
+                shadowRadius: 0,
+                elevation: 0,
+              },
+              headerTintColor: '#000',
+            }}
+          />
+
+          <Stack.Screen
+            name="Kyc"
+            component={Kyc}
+            options={{
+              title: '',
+              headerStyle: {
+                backgroundColor: '#FFF',
+                shadowColor: 'none',
+                shadowOffset: {width: 0, height: 0},
+                shadowOpacity: 0,
+                shadowRadius: 0,
+                elevation: 0,
+              },
+              headerTintColor: '#000',
+            }}
+          />
+
+          <Stack.Screen
+            name="Reset"
+            component={Reset}
+            options={{
+              title: '',
+              headerStyle: {
+                backgroundColor: '#FFF',
+                shadowColor: 'none',
+                shadowOffset: {width: 0, height: 0},
+                shadowOpacity: 0,
+                shadowRadius: 0,
+                elevation: 0,
+              },
+              headerTintColor: '#000',
+            }}
+          />
+          <Stack.Screen name="ResetEmail" component={ResetEmail} />
+          <Stack.Screen
+            name="ResetPassword"
+            component={ResetPassword}
+            options={{
+              title: '',
+              headerStyle: {
+                backgroundColor: '#FFF',
+                shadowColor: 'none',
+                shadowOffset: {width: 0, height: 0},
+                shadowOpacity: 0,
+                shadowRadius: 0,
+                elevation: 0,
+              },
+              headerTintColor: '#000',
+            }}
+          />
+
+          <Stack.Screen
+            name="SignUp"
+            component={SignUp}
+            options={{
+              title: '',
+              headerStyle: {
+                backgroundColor: '#FFF',
+                shadowColor: 'none',
+                shadowOffset: {width: 0, height: 0},
+                shadowOpacity: 0,
+                shadowRadius: 0,
+                elevation: 0,
+              },
+              headerTintColor: '#FFF',
               // headerLeft: () => (
               //   <TouchableHighlight activeOpacity={0.75} onPress={() => {
               //     this.props.navigation.goBack();
@@ -107,7 +197,7 @@ class App extends Component {
             options={{
               title: '',
               headerStyle: {
-                backgroundColor: 'none',
+                backgroundColor: '#FFF',
                 shadowColor: 'none',
                 shadowOffset: {width: 0, height: 0},
                 shadowOpacity: 0,
@@ -123,7 +213,7 @@ class App extends Component {
             options={{
               title: '',
               headerStyle: {
-                backgroundColor: 'none',
+                backgroundColor: '#FFF',
                 shadowColor: 'none',
                 shadowOffset: {width: 0, height: 0},
                 shadowOpacity: 0,
@@ -139,7 +229,7 @@ class App extends Component {
             options={{
               title: '',
               headerStyle: {
-                backgroundColor: 'none',
+                backgroundColor: '#FFF',
                 shadowColor: 'none',
                 shadowOffset: {width: 0, height: 0},
                 shadowOpacity: 0,
@@ -155,7 +245,7 @@ class App extends Component {
             options={{
               title: '',
               headerStyle: {
-                backgroundColor: 'none',
+                backgroundColor: '#FFF',
                 shadowColor: 'none',
                 shadowOffset: {width: 0, height: 0},
                 shadowOpacity: 0,
@@ -171,7 +261,7 @@ class App extends Component {
             options={{
               title: '',
               headerStyle: {
-                backgroundColor: 'none',
+                backgroundColor: '#FFF',
                 shadowColor: 'none',
                 shadowOffset: {width: 0, height: 0},
                 shadowOpacity: 0,
@@ -182,8 +272,38 @@ class App extends Component {
             }}
           />
 
-          <Stack.Screen name="ResearchForm" component={ResearchForm} />
-          <Stack.Screen name="Initial3" component={Initial3} />
+          <Stack.Screen
+            name="ResearchForm"
+            component={ResearchForm}
+            options={{
+              title: '',
+              headerStyle: {
+                backgroundColor: '#FFF',
+                shadowColor: 'none',
+                shadowOffset: {width: 0, height: 0},
+                shadowOpacity: 0,
+                shadowRadius: 0,
+                elevation: 0,
+              },
+              headerTintColor: '#000',
+            }}
+          />
+          <Stack.Screen
+            name="Initial3"
+            component={Initial3}
+            options={{
+              title: '',
+              headerStyle: {
+                backgroundColor: '#FFF',
+                shadowColor: 'none',
+                shadowOffset: {width: 0, height: 0},
+                shadowOpacity: 0,
+                shadowRadius: 0,
+                elevation: 0,
+              },
+              headerTintColor: '#000',
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     );

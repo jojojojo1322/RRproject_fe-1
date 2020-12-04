@@ -10,6 +10,7 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
+import ResetStyle from '../../../style/ResetStyle';
 
 class TextConfirmCancelModal extends Component {
   constructor(props) {
@@ -56,7 +57,14 @@ class TextConfirmCancelModal extends Component {
 
           {/* modal view */}
           <View style={styles.modalView2}>
-            <Text style={styles.modalText2}>정말 로그아웃 하시겠습니까?</Text>
+            <Text
+              style={[
+                ResetStyle.fontRegularK,
+                ResetStyle.fontDG,
+                {padding: 40},
+              ]}>
+              정말 로그아웃 하시겠습니까?
+            </Text>
             <View style={styles.modalView2bottom2Button}>
               <TouchableOpacity
                 style={styles.modalView2bottom2Button1}
@@ -64,7 +72,14 @@ class TextConfirmCancelModal extends Component {
                   this.setState({modalVisible: !modalVisible});
                   this.props.setModalVisible(!modalVisible);
                 }}>
-                <Text style={styles.closeButtonText2}>취소</Text>
+                <Text
+                  style={[
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontB,
+                    {padding: 20},
+                  ]}>
+                  취소
+                </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.modalView2bottom2Button2}
@@ -72,7 +87,14 @@ class TextConfirmCancelModal extends Component {
                   this.setState({modalVisible: !modalVisible});
                   this.props.setModalVisible(!modalVisible);
                 }}>
-                <Text style={styles.closeButtonText2}>확인</Text>
+                <Text
+                  style={[
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontB,
+                    {padding: 20},
+                  ]}>
+                  확인
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
