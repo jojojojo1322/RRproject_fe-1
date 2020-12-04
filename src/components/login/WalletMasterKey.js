@@ -9,8 +9,15 @@ import {
 } from 'react-native';
 import ResetStyle from '../../style/ResetStyle.js';
 import Clipboard from '@react-native-community/clipboard';
+import BottomModal from '../factory/modal/BottomModal';
 
 export default class WalletMasterKey extends Component {
+  state = {
+    modalVisible: false,
+  };
+  setModalVisible = (visible) => {
+    this.setState({modalVisible: visible});
+  };
   copyToClipboard = (value) => {
     Clipboard.setString(value);
   };
@@ -42,9 +49,12 @@ export default class WalletMasterKey extends Component {
           </View>
           <TouchableHighlight
             style={styles.fourth}
-            onPress={this.copyToClipboard(
-              '0x6565232c6565ed6565659desds6565c565c565c565659desds6565c565c565c5',
-            )}>
+            onPress={() => {
+              this.setModalVisible(true);
+              this.copyToClipboard(
+                '0x6565232c6565TouchableHighlight();ed6565659desds6565c565c565c565659desds6565c565c565c5',
+              );
+            }}>
             <View>
               <Text style={styles.fourthText}>
                 0x6565232c6565ed6565659desds6565c5 65c565c565659desds6565c5
@@ -64,6 +74,11 @@ export default class WalletMasterKey extends Component {
             <Text style={ResetStyle.buttonTexts}>확인</Text>
           </TouchableHighlight>
         </View>
+        <BottomModal
+          setModalVisible={this.setModalVisible}
+          modalVisible={this.state.modalVisible}
+          text={`복사되었습니다.`}
+        />
       </SafeAreaView>
     );
   }
