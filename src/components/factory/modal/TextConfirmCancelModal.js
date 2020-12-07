@@ -5,7 +5,6 @@ import {
   Text,
   Alert,
   Modal,
-  TouchableHighlight,
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from 'react-native';

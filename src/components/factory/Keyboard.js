@@ -11,7 +11,6 @@ import {
   TextInput,
   SafeAreaView,
   TouchableOpacity,
-  TouchableHighlight,
   TouchableWithoutFeedback,
   FlatList,
   StatusBar,
@@ -28,76 +27,76 @@ export default class Keyboard extends Component {
       <>
         <View style={styles.keyboard}>
           <View style={styles.keyboardView}>
-            <TouchableHighlight
+            <TouchableOpacity
               style={styles.keyboardDetail}
               onPress={this.handlePass.bind(this, '1')}>
               <Text style={styles.keyboardDetailText}>1</Text>
-            </TouchableHighlight>
-            <TouchableHighlight
+            </TouchableOpacity>
+            <TouchableOpacity
               style={styles.keyboardDetail}
               onPress={this.handlePass.bind(this, '2')}>
               <Text style={styles.keyboardDetailText}>2</Text>
-            </TouchableHighlight>
-            <TouchableHighlight
+            </TouchableOpacity>
+            <TouchableOpacity
               style={styles.keyboardDetail}
               onPress={this.handlePass.bind(this, '3')}>
               <Text style={styles.keyboardDetailText}>3</Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
 
           <View style={styles.keyboardView}>
-            <TouchableHighlight
+            <TouchableOpacity
               style={styles.keyboardDetail}
               onPress={this.handlePass.bind(this, '4')}>
               <Text style={styles.keyboardDetailText}>4</Text>
-            </TouchableHighlight>
-            <TouchableHighlight
+            </TouchableOpacity>
+            <TouchableOpacity
               style={styles.keyboardDetail}
               onPress={this.handlePass.bind(this, '5')}>
               <Text style={styles.keyboardDetailText}>5</Text>
-            </TouchableHighlight>
-            <TouchableHighlight
+            </TouchableOpacity>
+            <TouchableOpacity
               style={styles.keyboardDetail}
               onPress={this.handlePass.bind(this, '6')}>
               <Text style={styles.keyboardDetailText}>6</Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
 
           <View style={styles.keyboardView}>
-            <TouchableHighlight
+            <TouchableOpacity
               style={styles.keyboardDetail}
               onPress={this.handlePass.bind(this, '7')}>
               <Text style={styles.keyboardDetailText}>7</Text>
-            </TouchableHighlight>
-            <TouchableHighlight
+            </TouchableOpacity>
+            <TouchableOpacity
               style={styles.keyboardDetail}
               onPress={this.handlePass.bind(this, '8')}>
               <Text style={styles.keyboardDetailText}>8</Text>
-            </TouchableHighlight>
-            <TouchableHighlight
+            </TouchableOpacity>
+            <TouchableOpacity
               style={styles.keyboardDetail}
               onPress={this.handlePass.bind(this, '9')}>
               <Text style={styles.keyboardDetailText}>9</Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
           <View style={styles.keyboardView}>
-            <TouchableHighlight
+            <TouchableOpacity
               style={[styles.keyboardDetail, {backgroundColor: '#f5f5f6'}]}>
               <Text style={styles.keyboardDetailText}></Text>
-            </TouchableHighlight>
-            <TouchableHighlight
+            </TouchableOpacity>
+            <TouchableOpacity
               style={styles.keyboardDetail}
               onPress={this.handlePass.bind(this, '0')}>
               <Text style={styles.keyboardDetailText}>0</Text>
-            </TouchableHighlight>
-            <TouchableHighlight
+            </TouchableOpacity>
+            <TouchableOpacity
               style={styles.keyboardCancelButtonDetail}
               onPress={this.handlePassErase}>
               <Image
                 style={styles.keyboardCancelButton}
                 source={require('../../imgs/drawable-mdpi/icon_w_delete.png')}
               />
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
         </View>
       </>

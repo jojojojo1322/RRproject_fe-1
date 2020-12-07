@@ -13,7 +13,7 @@
 //   SafeAreaView,
 //   StatusBar,
 //   TouchableOpacity,
-//   TouchableHighlight
+//   TouchableOpacity
 // } from 'react-native';
 // import {NavigationContainer} from '@react-navigation/native';
 
@@ -34,7 +34,7 @@
 //         }}
 //       >
 
-//         <TouchableHighlight
+//         <TouchableOpacity
 //           style={styles.centeredView}
 //           onPress={() => {
 //             this.setModalVisible(!modalVisible);
@@ -43,29 +43,29 @@
 
 //           <View style={styles.modalView}>
 //             <Text style={styles.modalText}>국적선택</Text>
-//             <TouchableHighlight
+//             <TouchableOpacity
 //               style={{ ...styles.closeButton, backgroundColor: "#164895" }}
 //               onPress={() => {
 //                 this.setModalVisible(!modalVisible);
 //               }}
 //             >
 //               <Image source={require('')} style={styles.checkboxTickImg} />
-//             </TouchableHighlight>
+//             </TouchableOpacity>
 //           </View>
 
 //           <View>
 //             <TextInput></TextInput>
-//             <TouchableHighlight
+//             <TouchableOpacity
 //               style={{ ...styles.closeButton, backgroundColor: "#164895" }}
 //               // onPress={() => {
 //               //   this.setModalVisible(!modalVisible);
 //               // }}
 //             >
 //               <Image source={require('')} style={styles.checkboxTickImg} />
-//             </TouchableHighlight>
+//             </TouchableOpacity>
 //           </View>
-          
-//         </TouchableHighlight>
+
+//         </TouchableOpacity>
 
 //       </Modal>
 //     );

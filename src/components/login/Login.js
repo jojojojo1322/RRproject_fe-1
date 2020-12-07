@@ -13,7 +13,6 @@ import {
   SafeAreaView,
   StatusBar,
   TouchableOpacity,
-  TouchableHighlight,
 } from 'react-native';
 
 import TextConfirmModal from '../factory/modal/TextConfirmModal';
@@ -203,7 +202,7 @@ class Login extends Component {
            value={this.state.text}
          />
             </View> */}
-            <TouchableHighlight
+            <TouchableOpacity
               style={ResetStyle.button}
               activeOpacity={0.75}
               onPress={async () => {
@@ -219,7 +218,7 @@ class Login extends Component {
               <Text style={[ResetStyle.fontRegularE, ResetStyle.fontWhite]}>
                 LOGIN
               </Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
             {/* <RNPickerSelect
             onValueChange={(value) => console.log(value)}
             items={[
@@ -270,12 +269,12 @@ class Login extends Component {
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <Text>국적선택</Text>
-              <TouchableHighlight
+              <TouchableOpacity
                 onPress={() => {
                   this.setModalVisible(!modalVisible);
                 }}>
                 <Image source={require('../imgs/icon_close.png')}></Image>
-              </TouchableHighlight>
+              </TouchableOpacity>
               <View>
                 <TextInput
                   placeholder="Search"

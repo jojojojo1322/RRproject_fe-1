@@ -211,6 +211,21 @@ class Initial2 extends Component {
                 LOGIN
               </Text>
             </TouchableOpacity>
+            <TouchableOpacity
+              style={[ResetStyle.buttonWhite, {marginTop: 10}]}
+              activeOpacity={0.75}
+              onPress={() => {
+                this.props.navigation.navigate('Kyc');
+              }}>
+              <Text
+                style={[
+                  ResetStyle.fontMediumK,
+                  ResetStyle.fontB,
+                  {fontWeight: '600'},
+                ]}>
+                Kyc
+              </Text>
+            </TouchableOpacity>
 
             <TouchableOpacity
               style={[ResetStyle.buttonWhite, {marginTop: 10}]}

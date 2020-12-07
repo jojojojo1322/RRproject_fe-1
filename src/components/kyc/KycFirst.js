@@ -1,5 +1,5 @@
 import React, {useState, Component} from 'react';
-import {StyleSheet, View, Text, TouchableHighlight} from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import ResetStyle from '../../style/ResetStyle.js';
 
 export default class KycFirst extends Component {
@@ -15,7 +15,7 @@ export default class KycFirst extends Component {
           성별 선택
         </Text>
         <View style={[styles.genderAll]}>
-          <TouchableHighlight
+          <TouchableOpacity
             style={
               this.props.gender == 'male'
                 ? styles.clickAreaChoice
@@ -32,8 +32,8 @@ export default class KycFirst extends Component {
               }>
               남성
             </Text>
-          </TouchableHighlight>
-          <TouchableHighlight
+          </TouchableOpacity>
+          <TouchableOpacity
             style={
               this.props.gender == 'female'
                 ? styles.clickAreaChoice
@@ -50,7 +50,7 @@ export default class KycFirst extends Component {
               }>
               여성
             </Text>
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
         <Text
           style={[
@@ -61,7 +61,7 @@ export default class KycFirst extends Component {
           결혼 여부 선택
         </Text>
         <View style={styles.genderAll}>
-          <TouchableHighlight
+          <TouchableOpacity
             style={
               this.props.maritalStatus == 'single'
                 ? styles.clickAreaChoice
@@ -78,8 +78,8 @@ export default class KycFirst extends Component {
               }>
               미혼
             </Text>
-          </TouchableHighlight>
-          <TouchableHighlight
+          </TouchableOpacity>
+          <TouchableOpacity
             style={
               this.props.maritalStatus == 'marriage'
                 ? styles.clickAreaChoice
@@ -96,10 +96,10 @@ export default class KycFirst extends Component {
               }>
               결혼
             </Text>
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
         <View style={[styles.genderAll, {marginTop: '3%', marginBottom: '3%'}]}>
-          <TouchableHighlight
+          <TouchableOpacity
             style={
               this.props.maritalStatus == 'liveTogether'
                 ? styles.clickAreaChoice
@@ -116,8 +116,8 @@ export default class KycFirst extends Component {
               }>
               동거
             </Text>
-          </TouchableHighlight>
-          <TouchableHighlight
+          </TouchableOpacity>
+          <TouchableOpacity
             style={
               this.props.maritalStatus == 'divorce'
                 ? styles.clickAreaChoice
@@ -134,7 +134,7 @@ export default class KycFirst extends Component {
               }>
               이혼
             </Text>
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
       </View>
     );

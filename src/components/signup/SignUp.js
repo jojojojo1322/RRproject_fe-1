@@ -4,7 +4,7 @@ import {
   View,
   Text,
   TextInput,
-  TouchableHighlight,
+  TouchableOpacity,
   SafeAreaView,
   Image,
   Alert,
@@ -173,7 +173,7 @@ class SignUp extends Component {
               휴대폰 번호
             </Text>
 
-            <TouchableHighlight
+            <TouchableOpacity
               onPress={() => {
                 this.setModalVisible(true);
               }}
@@ -198,7 +198,7 @@ class SignUp extends Component {
                   source={require('../../imgs/drawable-xhdpi/icon_more_b.png')}
                 />
               </View>
-            </TouchableHighlight>
+            </TouchableOpacity>
 
             <ListModal
               modalVisible={this.state.modalVisible}

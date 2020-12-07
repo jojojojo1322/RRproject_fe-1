@@ -167,7 +167,7 @@ class App extends Component {
               },
               headerTintColor: '#FFF',
               // headerLeft: () => (
-              //   <TouchableHighlight activeOpacity={0.75} onPress={() => {
+              //   <TouchableOpacity activeOpacity={0.75} onPress={() => {
               //     this.props.navigation.goBack();
               //   }}
               //   >
@@ -175,10 +175,10 @@ class App extends Component {
               //       <Image />
               //       <Text>이메일 인증</Text>
               //     </View>
-              //   </TouchableHighlight>
+              //   </TouchableOpacity>
               // ),
               // headerRight: () => (
-              //   <TouchableHighlight activeOpacity={0.75} onPress={() => {
+              //   <TouchableOpacity activeOpacity={0.75} onPress={() => {
               //     this.props.navigation.goBack();
               //   }}
               //   >
@@ -186,7 +186,7 @@ class App extends Component {
               //       <Image />
               //       <Text>이메일 인증</Text>
               //     </View>
-              //   </TouchableHighlight>
+              //   </TouchableOpacity>
               // ),
             }}
           />
@@ -322,7 +322,7 @@ export default App;
 // import Login from './components/login/Login';
 // import SignUp from './components/signup/SignUp';
 // import ResearchForm from './components/research/ResearchForm';
-// import {TouchableHighlight} from 'react-native-gesture-handler';
+// import {TouchableOpacity} from 'react-native-gesture-handler';
 
 // const Stack = createStackNavigator();
 // class App extends Component {
@@ -365,7 +365,7 @@ export default App;
 //               },
 //               headerTintColor: '#000',
 //               // headerLeft: () => (
-//               //   <TouchableHighlight activeOpacity={0.75} onPress={() => {
+//               //   <TouchableOpacity activeOpacity={0.75} onPress={() => {
 //               //     this.props.navigation.goBack();
 //               //   }}
 //               //   >
@@ -373,10 +373,10 @@ export default App;
 //               //       <Image />
 //               //       <Text>이메일 인증</Text>
 //               //     </View>
-//               //   </TouchableHighlight>
+//               //   </TouchableOpacity>
 //               // ),
 //               // headerRight: () => (
-//               //   <TouchableHighlight activeOpacity={0.75} onPress={() => {
+//               //   <TouchableOpacity activeOpacity={0.75} onPress={() => {
 //               //     this.props.navigation.goBack();
 //               //   }}
 //               //   >
@@ -384,7 +384,7 @@ export default App;
 //               //       <Image />
 //               //       <Text>이메일 인증</Text>
 //               //     </View>
-//               //   </TouchableHighlight>
+//               //   </TouchableOpacity>
 //               // ),
 //             }}
 //           />

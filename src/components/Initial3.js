@@ -11,7 +11,6 @@ import {
   TextInput,
   SafeAreaView,
   TouchableOpacity,
-  TouchableHighlight,
   TouchableWithoutFeedback,
   FlatList,
   StatusBar,
@@ -108,7 +107,7 @@ class ModalCountry extends Component {
         <View style={styles.modalView}>
           <View style={styles.modalBox}>
             <Text style={styles.modalText}>국적선택</Text>
-            <TouchableHighlight
+            <TouchableOpacity
               style={styles.closeButton}
               setModalVisible={this.setModalVisible}
               modalVisible={this.props.modalVisible}
@@ -119,19 +118,19 @@ class ModalCountry extends Component {
                 style={styles.closeButton}
                 source={require('../imgs/icon_close.png')}
               />
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
 
           <View style={styles.modalInputBox}>
             <TextInput
               style={styles.searchInputText}
               placeholder="search"></TextInput>
-            <TouchableHighlight style={styles.closeButton}>
+            <TouchableOpacity style={styles.closeButton}>
               <Image
                 style={styles.closeButton}
                 source={require('../imgs/icon_search.png')}
               />
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
 
           <CountryList />
@@ -207,65 +206,65 @@ class Initial3 extends Component {
     const windowWidth = this.state.dimensions.window.width;
     return (
       <View style={styles.container}>
-        <TouchableHighlight
+        <TouchableOpacity
           // activeOpacity={0.50}
           onPress={() => {
             this.setModalVisible(true);
           }}>
           <Text style={styles.TextSize}>국가 선택 모달</Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
 
-        <TouchableHighlight
+        <TouchableOpacity
           // activeOpacity={0.50}
           onPress={() => {
             this.setModal2Visible(true);
           }}>
           <Text style={styles.TextSize}>하단 알림 모달창</Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
 
-        <TouchableHighlight
+        <TouchableOpacity
           // activeOpacity={0.50}
           onPress={() => {
             this.setModal3Visible(true);
           }}>
           <Text style={styles.TextSize}>기본 텍스트 확인 모달창</Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
 
-        <TouchableHighlight
+        <TouchableOpacity
           // activeOpacity={0.50}
           onPress={() => {
             this.setModal4Visible(true);
           }}>
           <Text style={styles.TextSize}>기본 텍스트 확인 취소 모달창</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
+        </TouchableOpacity>
+        <TouchableOpacity
           // activeOpacity={0.50}
           onPress={() => {
             this.setModal5Visible(true);
           }}>
           <Text style={styles.TextSize}>KYC LEVEL 설명 모달창</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
+        </TouchableOpacity>
+        <TouchableOpacity
           // activeOpacity={0.50}
           onPress={() => {
             this.setModal6Visible(true);
           }}>
           <Text style={styles.TextSize}>사용가능언어</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
+        </TouchableOpacity>
+        <TouchableOpacity
           // activeOpacity={0.50}
           onPress={() => {
             this.setModal7Visible(true);
           }}>
           <Text style={styles.TextSize}>거주도시</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
+        </TouchableOpacity>
+        <TouchableOpacity
           // activeOpacity={0.50}
           onPress={() => {
             this.setModal8Visible(true);
           }}>
           <Text style={styles.TextSize}>Audience</Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
 
         <Text>{this.state.title}</Text>
 
@@ -346,13 +345,13 @@ class Initial3 extends Component {
                 현재 지갑이 생성되어 있지 않습니다{'\n'}지갑을 만들어주세요
               </Text>
             </View>
-            <TouchableHighlight
+            <TouchableOpacity
               style={{...styles.closeButton2, backgroundColor: '#164895'}}
               onPress={() => {
                 this.setModal3Visible(!modal3Visible);
               }}>
               <Text style={styles.closeButtonText2}>확인</Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
         </Modal> */}
         {/* <TextConfirmModal modalVisible={this.state.modal3Visible} /> */}
@@ -379,20 +378,20 @@ class Initial3 extends Component {
               <Text style={styles.modalText2}>정말 로그아웃 하시겠습니까?</Text>
             </View>
             <View style={styles.modalView2bottom2Button}>
-              <TouchableHighlight
+              <TouchableOpacity
                 style={styles.modalView2bottom2Button1}
                 onPress={() => {
                   this.setModal4Visible(!modal4Visible);
                 }}>
                 <Text style={styles.closeButtonText2}>취소</Text>
-              </TouchableHighlight>
-              <TouchableHighlight
+              </TouchableOpacity>
+              <TouchableOpacity
                 style={styles.modalView2bottom2Button2}
                 onPress={() => {
                   this.setModal4Visible(!modal4Visible);
                 }}>
                 <Text style={styles.closeButtonText2}>확인</Text>
-              </TouchableHighlight>
+              </TouchableOpacity>
             </View>
           </View>
         </Modal> */}
@@ -417,7 +416,7 @@ class Initial3 extends Component {
             }}>
             <View style={styles.KycModalTopView2}>
               <Text style={styles.KycModalTopText2}>KYC LEVEL이란?</Text>
-              <TouchableHighlight
+              <TouchableOpacity
                 style={styles.KycModalView2bottom2Button1}
                 onPress={() => {
                   this.setModal5Visible(!modal5Visible);
@@ -426,7 +425,7 @@ class Initial3 extends Component {
                   style={styles.closeButton}
                   source={require('../imgs/drawable-hdpi/icon_close.png')}
                 />
-              </TouchableHighlight>
+              </TouchableOpacity>
             </View>
             <View style={styles.KycModalView2}>
               <Text style={styles.KycModalText2}>
@@ -519,20 +518,20 @@ class Initial3 extends Component {
               <Text style={styles.modalText2}>정말 로그아웃 하시겠습니까?</Text>
             </View>
             <View style={styles.modalView2bottom2Button}>
-              <TouchableHighlight
+              <TouchableOpacity
                 style={styles.modalView2bottom2Button1}
                 onPress={() => {
                   this.setModal4Visible(!modal4Visible);
                 }}>
                 <Text style={styles.closeButtonText2}>취소</Text>
-              </TouchableHighlight>
-              <TouchableHighlight
+              </TouchableOpacity>
+              <TouchableOpacity
                 style={styles.modalView2bottom2Button2}
                 onPress={() => {
                   this.setModal4Visible(!modal4Visible);
                 }}>
                 <Text style={styles.closeButtonText2}>확인</Text>
-              </TouchableHighlight>
+              </TouchableOpacity>
             </View>
           </View>
         </Modal> */}
@@ -552,7 +551,7 @@ class Initial3 extends Component {
             <View style={styles.AudienceAllView}>
               <View style={styles.AudienceTop}>
                 <Text style={styles.AudienceTopLeft}>Audience</Text>
-                <TouchableHighlight
+                <TouchableOpacity
                   style={styles.AudienceTopRight}
                   onPress={() => {
                     this.setmodal8Visible(!modal8Visible);
@@ -561,7 +560,7 @@ class Initial3 extends Component {
                     style={styles.AudienceTopRight}
                     source={require('../imgs/drawable-hdpi/icon_close.png')}
                   />
-                </TouchableHighlight>
+                </TouchableOpacity>
               </View>
               <Text style={styles.AudienceTop2}>참여가능 LEVEL : Level 2</Text> */}
 

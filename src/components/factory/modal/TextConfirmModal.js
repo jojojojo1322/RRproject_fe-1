@@ -11,7 +11,6 @@ import {
   TextInput,
   SafeAreaView,
   TouchableOpacity,
-  TouchableHighlight,
   TouchableWithoutFeedback,
   FlatList,
   StatusBar,
@@ -73,7 +72,7 @@ class TextConfirmModal extends Component {
               ]}>
               {this.props.text}
             </Text>
-            <TouchableHighlight
+            <TouchableOpacity
               style={{...styles.closeButton2, backgroundColor: '#ffffff'}}
               // onPress={() => {
               //   this.setmodalVisible(!modalVisible).bind(this);
@@ -91,7 +90,7 @@ class TextConfirmModal extends Component {
                 ]}>
                 {this.props.confirm}
               </Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>

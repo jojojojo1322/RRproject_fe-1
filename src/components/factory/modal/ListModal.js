@@ -11,7 +11,6 @@ import {
   TextInput,
   SafeAreaView,
   TouchableOpacity,
-  TouchableHighlight,
   TouchableWithoutFeedback,
   FlatList,
   StatusBar,
@@ -252,13 +251,13 @@ class ListModal extends Component {
                 value={this.state.searchText}
                 placeholder="search"
               />
-              <TouchableHighlight
+              <TouchableOpacity
                 style={{position: 'absolute', right: '5%', top: '35%'}}>
                 <Image
                   style={styles.closeButton}
                   source={require('../../../imgs/icon_search.png')}
                 />
-              </TouchableHighlight>
+              </TouchableOpacity>
             </View>
             <View style={{height: Platform.OS === 'ios' ? '98%' : '95%'}}>
               <CountryList
