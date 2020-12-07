@@ -143,7 +143,10 @@ class AgreementTermsConditions extends Component {
           <TouchableWithoutFeedback
             style={[ResetStyle.button, {backgroundColor: '#e6e6e6'}]}
             onPress={() => {
-              this.props.navigation.navigate('SignUpPersonal');
+              this.props.navigation.navigate('SignUpPersonal', {
+                deviceKey: this.props.route.params?.deviceKey,
+                phoneNum: this.props.route.params?.phoneNum,
+              });
               this.props.navigation.setOptions({title: '회원정보 입력'});
             }}>
             <Text

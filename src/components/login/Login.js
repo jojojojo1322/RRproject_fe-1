@@ -57,6 +57,7 @@ class Login extends Component {
     modal2Visible: false,
     selectedId: null,
     text: '',
+    loginCheck: false,
   };
 
   setModalVisible = (visible) => {
@@ -82,8 +83,8 @@ class Login extends Component {
   handleLoginCheck = () => {
     // if(this.state.Id)
   };
-  loginApi = (id, pass) => {
-    axios
+  loginApi = async (id, pass) => {
+    await axios
       .post(`${server}/user/login`, {
         email: id,
         password: pass,
@@ -100,6 +101,9 @@ class Login extends Component {
           response.headers.authorization.slice(7, undefined),
         );
         await AsyncStorage.setItem('userNo', response.data.userNo);
+        this.setState({
+          loginCheck: response.data.status,
+        });
         return response.data.status;
       })
       .catch((error) => {
@@ -202,9 +206,10 @@ class Login extends Component {
             <TouchableHighlight
               style={ResetStyle.button}
               activeOpacity={0.75}
-              onPress={() => {
+              onPress={async () => {
                 // this.setModalVisible(true);
-                if (this.loginApi(this.state.ID, this.state.passWord)) {
+                await this.loginApi(this.state.ID, this.state.passWord);
+                if (this.state.loginCheck) {
                   this.props.navigation.navigate('WalletPassword');
                 } else {
                   this.setModal2Visible(true);
@@ -255,18 +260,6 @@ class Login extends Component {
             </TouchableOpacity>
           </View>
 
-          <TextConfirmModal
-            modalVisible={modalVisible}
-            setModalVisible={this.setModalVisible}
-            text={`현재 지갑이 생성되어 있지 않습니다${'\n'}지갑을 만들어주세요`}
-            confirm={`확인`}
-          />
-          <BottomModal
-            modalVisible={this.state.modal2Visible}
-            setModalVisible={this.setModal2Visible}
-            text={`정보가 정확하지 않습니다`}
-          />
-
           {/* <Modal
           animationType="fade"
           transparent={true}
@@ -305,6 +298,17 @@ class Login extends Component {
             </Text>
           </View>
         </View>
+        <TextConfirmModal
+          modalVisible={this.state.modalVisible}
+          setModalVisible={this.setModalVisible}
+          text={`현재 지갑이 생성되어 있지 않습니다${'\n'}지갑을 만들어주세요`}
+          confirm={`확인`}
+        />
+        <BottomModal
+          modalVisible={this.state.modal2Visible}
+          setModalVisible={this.setModal2Visible}
+          text={`정보가 정확하지 않습니다`}
+        />
       </SafeAreaView>
     );
   }

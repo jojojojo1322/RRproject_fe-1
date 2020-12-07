@@ -43,12 +43,14 @@ export default class Reset extends Component {
       .post(`${server}/util/email/pw-auth`, {
         email,
       })
-      .then(async ({data}) => {
-        console.log('then', data.authKey);
+      .then(async (response) => {
+        console.log('then', response);
+        console.log('then', response.data);
+        console.log('then', response.authKey);
         this.setState({
-          authKey: data.authKey,
+          authKey: response.data.authKey,
         });
-        const authKey = data.authKey;
+        const authKey = response.data.authKey;
         await AsyncStorage.setItem('authKey', authKey);
         console.log('Async!~!~!~!~', await AsyncStorage.getItem('authKey'));
       })
