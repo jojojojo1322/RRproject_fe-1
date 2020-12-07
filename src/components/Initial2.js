@@ -247,6 +247,22 @@ class Initial2 extends Component {
               style={[ResetStyle.buttonWhite, {marginTop: 10}]}
               activeOpacity={0.75}
               onPress={() => {
+                this.props.navigation.navigate('Main');
+              }}>
+              <Text
+                style={[
+                  ResetStyle.fontMediumK,
+                  ResetStyle.fontB,
+                  {fontWeight: '600'},
+                ]}>
+                Main
+              </Text>
+            </TouchableOpacity>
+
+            {/* <TouchableOpacity
+              style={[ResetStyle.buttonWhite, {marginTop: 10}]}
+              activeOpacity={0.75}
+              onPress={() => {
                 this.props.navigation.navigate('Initial3');
               }}>
               <Text
@@ -257,7 +273,23 @@ class Initial2 extends Component {
                 ]}>
                 Test page
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
+
+            {/* <TouchableOpacity
+              style={[ResetStyle.buttonWhite, {marginTop: 10}]}
+              activeOpacity={0.75}
+              onPress={() => {
+                this.props.navigation.navigate('Initial3');
+              }}>
+              <Text
+                style={[
+                  ResetStyle.fontMediumK,
+                  ResetStyle.fontB,
+                  {fontWeight: '600'},
+                ]}>
+                Test page
+              </Text>
+            </TouchableOpacity> */}
             {/* <TouchableOpacity
               style={[ResetStyle.buttonWhite, {marginTop: 10}]}
               activeOpacity={0.75}
