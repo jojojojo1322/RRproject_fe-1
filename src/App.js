@@ -40,6 +40,7 @@ class App extends Component {
             name="Initial2"
             component={Initial2}
             options={{
+              headerShown: false,
               // title: this.props.route.params?.step,
               // title: route.params?.name,
               title: '',
@@ -58,6 +59,7 @@ class App extends Component {
             name="Login"
             component={Login}
             options={{
+              headerShown: false,
               title: '',
               headerStyle: {
                 backgroundColor: '#FFF',
@@ -74,6 +76,7 @@ class App extends Component {
             name="WalletPassword"
             component={WalletPassword}
             options={{
+              headerShown: false,
               title: '',
               headerStyle: {
                 backgroundColor: '#FFF',
@@ -90,6 +93,7 @@ class App extends Component {
             name="WalletMasterKey"
             component={WalletMasterKey}
             options={{
+              headerShown: false,
               title: '',
               headerStyle: {
                 backgroundColor: '#FFF',
@@ -107,6 +111,7 @@ class App extends Component {
             name="Kyc"
             component={Kyc}
             options={{
+              headerShown: false,
               title: '',
               headerStyle: {
                 backgroundColor: '#FFF',
@@ -124,6 +129,7 @@ class App extends Component {
             name="Reset"
             component={Reset}
             options={{
+              headerShown: false,
               title: '',
               headerStyle: {
                 backgroundColor: '#FFF',
@@ -141,6 +147,7 @@ class App extends Component {
             name="ResetPassword"
             component={ResetPassword}
             options={{
+              headerShown: false,
               title: '',
               headerStyle: {
                 backgroundColor: '#FFF',
@@ -158,6 +165,7 @@ class App extends Component {
             name="SignUp"
             component={SignUp}
             options={{
+              headerShown: false,
               title: '',
               headerStyle: {
                 backgroundColor: '#FFF',
@@ -197,6 +205,7 @@ class App extends Component {
             name="AgreementTermsConditions"
             component={AgreementTermsConditions}
             options={{
+              headerShown: false,
               title: '',
               headerStyle: {
                 backgroundColor: '#FFF',
@@ -213,6 +222,7 @@ class App extends Component {
             name="TermsConditions"
             component={TermsConditions}
             options={{
+              headerShown: false,
               title: '',
               headerStyle: {
                 backgroundColor: '#FFF',
@@ -229,6 +239,7 @@ class App extends Component {
             name="SignUpPersonal"
             component={SignUpPersonal}
             options={{
+              headerShown: false,
               title: '',
               headerStyle: {
                 backgroundColor: '#FFF',
@@ -245,6 +256,7 @@ class App extends Component {
             name="EmailAuthentication"
             component={EmailAuthentication}
             options={{
+              headerShown: false,
               title: '',
               headerStyle: {
                 backgroundColor: '#FFF',
@@ -278,6 +290,7 @@ class App extends Component {
             name="ResearchForm"
             component={ResearchForm}
             options={{
+              headerShown: false,
               title: '',
               headerStyle: {
                 backgroundColor: '#FFF',
@@ -294,6 +307,7 @@ class App extends Component {
             name="Initial3"
             component={Initial3}
             options={{
+              headerShown: false,
               title: '',
               headerStyle: {
                 backgroundColor: '#FFF',
@@ -311,6 +325,7 @@ class App extends Component {
             name="Main"
             component={Main}
             options={{
+              headerShown: false,
               title: '',
               headerStyle: {
                 backgroundColor: '#FFF',
