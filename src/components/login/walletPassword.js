@@ -256,20 +256,6 @@ export default class WalletPassword extends Component {
   }
 }
 const styles = StyleSheet.create({
-  titleText: {
-    marginTop: 71,
-    marginBottom: 30,
-    fontSize: 27,
-    fontWeight: '600',
-    lineHeight: 36,
-  },
-  subText: {
-    marginBottom: 58,
-    textAlign: 'center',
-    fontSize: 16,
-    fontWeight: '200',
-    lineHeight: 36,
-  },
   passGrayAll: {
     width: '100%',
     flexDirection: 'row',
@@ -313,9 +299,6 @@ const styles = StyleSheet.create({
     borderColor: '#ddd',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  keyboardDetailText: {
-    fontSize: 26,
   },
   keyboardCancelButtonDetail: {
     flex: 1,

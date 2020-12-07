@@ -1,154 +1,72 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import {View, Text} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import ResetStyle from '../../style/ResetStyle.js';
 
 // function padTime(time) {
 //   return time.toString().padStart(2, '0');
 // }
 
-// function CountDown() {
-//   // Timer States
-//   const [timeLeft, setTimeLeft] = React.useState(180);
-//   const [isRunning, setIsRunning] = React.useState(false);
+const padTime = (time) => {
+  return time.toString().padStart(2, '0');
+};
 
-//   // Timer variables
-//   const minutes = padTime(Math.floor(timeLeft / 60));
-//   const seconds = padTime(timeLeft - minutes * 60);
-//   const intervalRef = React.useRef(null);
+const CountDown = (standard, timeLeftNumber) => {
+  console.log('aaaa', standard.standard);
+  const [timeLeft, setTimeLeft] = useState(standard.timeLeftNumber);
+  const [isRunning, setIsRunning] = useState(standard.standard);
 
-//   // Starts countdown timer
-//   function startTimer() {
-//     setIsRunning(true);
+  const minutes = padTime(Math.floor(timeLeft / 60));
+  const seconds = padTime(timeLeft - minutes * 60);
+  const intervalRef = React.useRef(null);
 
-//     intervalRef.current = setInterval(() => {
-//       setTimeLeft((timeLeft) => {
-//         if (timeLeft >= 1) {
-//           return timeLeft - 1;
-//         } else {
-//           return 0;
-//         }
-//       });
-//     }, 1000);
-//   }
+  const startTimer = () => {
+    intervalRef.current = setInterval(() => {
+      setTimeLeft((timeLeft) => {
+        if (timeLeft >= 1) {
+          return timeLeft - 1;
+        } else {
+          return 0;
+        }
+      });
+    }, 1000);
+    setIsRunning(true);
+  };
+  const resetTimer = () => {
+    clearInterval(intervalRef.current);
+    setTimeLeft(180);
+    setIsRunning(false);
+  };
 
-//   // Stops Timer
-//   function stopTimer() {
-//     clearInterval(intervalRef.current);
-
-//     setIsRunning(false);
-//   }
-
-//   // Resets Timer
-//   function resetTimer() {
-//     clearInterval(intervalRef.current);
-//     setTimeLeft(60);
-//     setIsRunning(false);
-//   }
-
-//   return (
-//     <div className="container">
-//       <div className="timer">
-//         <span>
-//           {minutes}:{seconds}
-//         </span>
-//       </div>
-
-//       <div className="buttons">
-//         {/* Conditional rendering that removes the start and reset button if the timer
-//                 is running and removes the stop button if the timer is not running */}
-//         {!isRunning && <button onClick={startTimer}>Start</button>}
-//         <br />
-//         {isRunning && <button onClick={stopTimer}>Stop</button>}
-//         {!isRunning && <button onClick={resetTimer}>Reset</button>}
-//       </div>
-//     </div>
-//   );
-// }
-
-// ReactDOM.render(<CountDown />, document.querySelector('#root'));
-
-class CountDown extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      time: 3 * 60,
-      running: true,
-    };
-    this.handleStart();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.running !== prevState.running) {
-      switch (this.state.running) {
-        case true:
-          this.handleStart();
+  useEffect(() => {
+    console.log('aaaa,sdsdsdsdsd', isRunning);
+    console.log('aaaa,sdsdsdsdsd', standard.standard);
+    {
+      if (standard.standard === true) {
+        startTimer();
       }
     }
-  }
-
-  handleStart() {
-    this.timer = setInterval(() => {
-      const newTime = this.state.time - 1;
-      this.setState({time: newTime >= 0 ? newTime : 0});
-    }, 1000);
-  }
-
-  handleStop() {
-    if (this.timer) {
-      clearInterval(this.timer);
-      this.setState({running: false});
+    {
+      if (standard.standard === false) {
+        resetTimer();
+      }
     }
-  }
+    // [standard] == true && console.log('시작');
+  }, [standard.standard]);
 
-  handleReset() {
-    this.setState({time: 0});
-  }
+  const stopTimer = () => {
+    clearInterval(intervalRef.current);
+    setIsRunning(false);
+  };
 
-  handleCountdown(seconds) {
-    this.setState({
-      time: seconds,
-      running: true,
-    });
-  }
-
-  format(time) {
-    // let seconds = time % 60;
-    // let minutes = Math.floor(time / 60);
-    // minutes = minutes.toString().length === 1 ? "0" + minutes : minutes;
-    // seconds = seconds.toString().length === 1 ? "0" + seconds : seconds;
-    // return minutes + ':' + seconds;
-
-    const date = new Date(time * 1000);
-    let hh = date.getUTCHours();
-    let mm = date.getUTCMinutes();
-    let ss = date.getSeconds();
-    if (hh < 10) {
-      hh = '0' + hh;
-    }
-    if (mm < 10) {
-      mm = '0' + mm;
-    }
-    if (ss < 10) {
-      ss = '0' + ss;
-    }
-    return '00' !== hh ? hh + ':' + mm + ':' + ss : mm + ':' + ss;
-  }
-
-  render() {
-    const {time} = this.state;
-    return (
-      <View>
-        <Text
-          style={{
-            fontSize: 15,
-            color: '#4696ff',
-            fontWeight: '500',
-            marginLeft: 5,
-          }}>
-          {this.format(time)}
-        </Text>
-      </View>
-    );
-  }
-}
+  return (
+    <View>
+      <Text
+        style={[ResetStyle.fontLightK, ResetStyle.fontB, {fontWeight: '400'}]}>
+        {minutes}:{seconds}
+      </Text>
+    </View>
+  );
+};
 
 export default CountDown;

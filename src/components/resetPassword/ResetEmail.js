@@ -19,6 +19,7 @@ import {
 import ResetStyle from '../../style/ResetStyle.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import BottomModal from '../factory/modal/BottomModal';
+import CountDown from '../../components/factory/CountDown';
 
 export default class ResetEmail extends Component {
   state = {
@@ -26,6 +27,8 @@ export default class ResetEmail extends Component {
     emailCode: '',
     authKey: this.props.route.params?.authKey,
     modalVisible: false,
+    isRunning: false,
+    timeLeftNumber: 180,
   };
   setModalVisible = (visible) => {
     this.setState({
@@ -42,6 +45,28 @@ export default class ResetEmail extends Component {
     });
     // console.log(this.validate(this.state.email));
   };
+
+  startTimer = () => {
+    intervalRef.current = setInterval(() => {
+      this.setState((timeLeftNumber) => {
+        if (timeLeftNumber >= 1) {
+          return timeLeftNumber - 1;
+        } else {
+          return 0;
+        }
+      });
+    }, 1000);
+  };
+
+  resetTimer = () => {
+    clearInterval(intervalRef.current);
+    setTimeLeft(180);
+    // setIsRunning(false);
+    this.setState((state) => ({
+      isRunning: !state.isRunning,
+    }));
+  };
+
   render() {
     return (
       <SafeAreaView style={ResetStyle.container}>
@@ -78,13 +103,22 @@ export default class ResetEmail extends Component {
               onChangeText={this.handleEmail}
               keyboardType="number-pad"
             />
-            <TouchableHighlight
-              style={[ResetStyle.textInputTextButton, {top: '45%'}]}>
+            <View
+              style={[
+                ResetStyle.textInputTextButton,
+                {flexDirection: 'row', top: '45%'},
+              ]}>
               <Image
-                style={ResetStyle.smallImg}
+                style={[ResetStyle.smallImg, {marginRight: 8}]}
                 source={require('../../imgs/drawable-hdpi/icon_time.png')}
               />
-            </TouchableHighlight>
+              <CountDown
+                standard={this.state.isRunning}
+                timeLeftNumber={this.state.timeLeftNumber}
+                startTimer={this.startTimer}
+                resetTimer={this.resetTimer}
+              />
+            </View>
             <TouchableHighlight style={ResetStyle.textInputRe}>
               <Text
                 style={[
