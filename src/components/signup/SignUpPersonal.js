@@ -114,7 +114,7 @@ class SignUpPersonal extends Component {
   emailCheckApi = async (email) => {
     console.log('email', email);
     await axios
-      .post(`${server}/user/duplicate/MailId`, {
+      .post(`${server}/user/duplicate/mailId`, {
         mailId: email,
       })
       .then((data) => {

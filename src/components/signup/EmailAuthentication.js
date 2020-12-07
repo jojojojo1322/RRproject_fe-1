@@ -25,6 +25,8 @@ class EmailAuthentication extends Component {
     phoneNum: '',
     email: this.props.route.params?.email,
     returnValue: '',
+    isRunning: false,
+    timeLeftNumber: 180,
   };
 
   handlePassword = (text) => {
@@ -95,6 +97,28 @@ class EmailAuthentication extends Component {
         console.log('error', error);
       });
   };
+
+  startTimer = () => {
+    intervalRef.current = setInterval(() => {
+      this.setState((timeLeftNumber) => {
+        if (timeLeftNumber >= 1) {
+          return timeLeftNumber - 1;
+        } else {
+          return 0;
+        }
+      });
+    }, 1000);
+  };
+
+  resetTimer = () => {
+    clearInterval(intervalRef.current);
+    setTimeLeft(180);
+    // setIsRunning(false);
+    this.setState((state) => ({
+      isRunning: !state.isRunning,
+    }));
+  };
+
   render() {
     console.log(
       this.props.route.params?.deviceKey,
@@ -159,10 +183,15 @@ class EmailAuthentication extends Component {
                   }}>
                   <Image
                     source={require('../../imgs/drawable-xhdpi/icon_time.png')}
-                    style={ResetStyle.xsmallImg}
+                    style={[ResetStyle.smallImg, {marginRight: 8}]}
                   />
                   {/* <Text style={{fontSize: 15, color: '#0b95c9', fontWeight: '500', marginLeft: 5}}>00:00</Text> */}
-                  <CountDown />
+                  <CountDown
+                    standard={this.state.isRunning}
+                    timeLeftNumber={this.state.timeLeftNumber}
+                    startTimer={this.startTimer}
+                    resetTimer={this.resetTimer}
+                  />
                 </View>
               </View>
 

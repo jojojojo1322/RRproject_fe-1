@@ -1,11 +1,24 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, SafeAreaView, Image} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  SafeAreaView,
+  Image,
+  Alert,
+  TextInput,
+} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {RoundCheckbox, SelectedCheckboxes} from '../Roundcheck';
 import ResetStyle from '../../style/ResetStyle.js';
+// import {TextInput} from 'react-native-paper';
 
 class AgreementTermsConditions extends Component {
   state = {};
+
+  handleCheckedbox = () => {
+    console.log('hey');
+  };
 
   render() {
     CheckedArrObject = new SelectedCheckboxes();
@@ -23,6 +36,7 @@ class AgreementTermsConditions extends Component {
                 },
               ]}>
               <RoundCheckbox
+                keyValue={1}
                 size={25}
                 // keyValue={Number(item.id)}
                 checked={false}
@@ -30,6 +44,7 @@ class AgreementTermsConditions extends Component {
                 // borderColor=""
                 labelColor="#000000"
                 checkedObjArr={CheckedArrObject}
+                onPress={this.handleCheckedbox}
               />
               <Text
                 style={[

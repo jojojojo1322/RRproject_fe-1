@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
   SafeAreaView,
   Image,
+  Alert,
 } from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import ListModal from '../../components/factory/modal/ListModal';
@@ -30,6 +31,8 @@ class SignUp extends Component {
     country: '',
     countryCd: '',
     deviceKey: '',
+    isRunning: false,
+    timeLeftNumber: 180,
   };
 
   handlePassword = (text) => {
@@ -41,6 +44,7 @@ class SignUp extends Component {
   setModalVisible = (visible) => {
     this.setState({modalVisible: visible});
   };
+
   setModalVisibleNotAuth = (visible) => {
     this.setState({modalVisibleNotAuth: visible});
   };
@@ -115,6 +119,33 @@ class SignUp extends Component {
       .catch((e) => {
         console.log(e);
       });
+  };
+
+  handleCountDown() {
+    this.setState((state) => ({
+      isRunning: !state.isRunning,
+    }));
+  }
+
+  startTimer = () => {
+    intervalRef.current = setInterval(() => {
+      this.setState((timeLeftNumber) => {
+        if (timeLeftNumber >= 1) {
+          return timeLeftNumber - 1;
+        } else {
+          return 0;
+        }
+      });
+    }, 1000);
+  };
+
+  resetTimer = () => {
+    clearInterval(intervalRef.current);
+    setTimeLeft(180);
+    // setIsRunning(false);
+    this.setState((state) => ({
+      isRunning: !state.isRunning,
+    }));
   };
 
   render() {
@@ -200,6 +231,7 @@ class SignUp extends Component {
                 //     undefined,
                 //   )}`,
                 // );
+                this.handleCountDown();
                 console.log(`+82${this.state.phoneNum.slice(1, undefined)}`);
                 await this.smsAuthApi(
                   this.state.deviceKey,
@@ -253,10 +285,16 @@ class SignUp extends Component {
               ]}>
               <Image
                 source={require('../../imgs/drawable-xhdpi/icon_time.png')}
-                style={ResetStyle.smallImg}
+                style={[ResetStyle.smallImg, {marginRight: 8}]}
               />
               {/* <Text style={{fontSize: 15, color: '#0b95c9', fontWeight: '500', marginLeft: 5}}>00:00</Text> */}
-              <CountDown />
+
+              <CountDown
+                standard={this.state.isRunning}
+                timeLeftNumber={this.state.timeLeftNumber}
+                startTimer={this.startTimer}
+                resetTimer={this.resetTimer}
+              />
             </View>
 
             <View
