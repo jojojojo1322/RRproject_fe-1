@@ -127,26 +127,16 @@ class SignUp extends Component {
     }));
   }
 
-  startTimer = () => {
-    intervalRef.current = setInterval(() => {
-      this.setState((timeLeftNumber) => {
-        if (timeLeftNumber >= 1) {
-          return timeLeftNumber - 1;
-        } else {
-          return 0;
-        }
-      });
-    }, 1000);
-  };
-
-  resetTimer = () => {
-    clearInterval(intervalRef.current);
-    setTimeLeft(180);
-    // setIsRunning(false);
-    this.setState((state) => ({
-      isRunning: !state.isRunning,
-    }));
-  };
+  handleReCountDown() {
+    this.setState({
+      isRunning: false,
+      timeLeftNumber: 180,
+    });
+    this.setState({
+      isRunning: true,
+      timeLeftNumber: 180,
+    });
+  }
 
   render() {
     return (
@@ -221,37 +211,79 @@ class SignUp extends Component {
                 {marginBottom: '5%'},
               ]}></TextInput>
 
-            <TouchableWithoutFeedback
-              onPress={async () => {
-                // console.log(this.state.phoneNum);
-                // console.log(this.state.countryCd);
-                // console.log(
-                //   `${this.state.countryCd}${this.state.phoneNum.slice(
-                //     1,
-                //     undefined,
-                //   )}`,
-                // );
-                this.handleCountDown();
-                console.log(`+82${this.state.phoneNum.slice(1, undefined)}`);
-                await this.smsAuthApi(
-                  this.state.deviceKey,
-                  `+82${this.state.phoneNum.slice(1, undefined)}`,
-                );
-                if (this.state.phoneAuthCheck == '-1') {
-                  this.setModalVisibleNotPhone(true);
-                }
-              }}
-              underlayColor={'#164895'}
-              style={[ResetStyle.button]}>
-              <Text
-                style={[
-                  ResetStyle.fontMediumK,
-                  ResetStyle.fontWhite,
-                  {fontWeight: '600'},
-                ]}>
-                인증요청
-              </Text>
-            </TouchableWithoutFeedback>
+            {this.state.isRunning === true ? (
+              <TouchableWithoutFeedback
+                onPress={async () => {
+                  // console.log(this.state.phoneNum);
+                  // console.log(this.state.countryCd);
+                  // console.log(
+                  //   `${this.state.countryCd}${this.state.phoneNum.slice(
+                  //     1,
+                  //     undefined,
+                  //   )}`,
+                  // );
+                  console.log('aaaaaa');
+                  // this.handleReCountDown();
+                  {
+                    this.state.isRunning === true
+                      ? this.handleReCountDown()
+                      : this.handleCountDown();
+                  }
+
+                  // await this.handleCountDown();
+                  // console.log(`+82${this.state.phoneNum.slice(1, undefined)}`);
+                  // await this.smsAuthApi(
+                  //   this.state.deviceKey,
+                  //   `+82${this.state.phoneNum.slice(1, undefined)}`,
+                  // );
+                  // if (this.state.phoneAuthCheck == '-1') {
+                  //   this.setModalVisibleNotPhone(true);
+                  // }
+                }}
+                underlayColor={'#164895'}
+                style={[ResetStyle.buttonWhite]}>
+                <Text
+                  style={[
+                    ResetStyle.fontMediumK,
+                    ResetStyle.fontB,
+                    {fontWeight: '600'},
+                  ]}>
+                  재요청
+                </Text>
+              </TouchableWithoutFeedback>
+            ) : (
+              <TouchableWithoutFeedback
+                onPress={async () => {
+                  // console.log(this.state.phoneNum);
+                  // console.log(this.state.countryCd);
+                  // console.log(
+                  //   `${this.state.countryCd}${this.state.phoneNum.slice(
+                  //     1,
+                  //     undefined,
+                  //   )}`,
+                  // );
+                  this.handleCountDown();
+                  console.log(`+82${this.state.phoneNum.slice(1, undefined)}`);
+                  // await this.smsAuthApi(
+                  //   this.state.deviceKey,
+                  //   `+82${this.state.phoneNum.slice(1, undefined)}`,
+                  // );
+                  // if (this.state.phoneAuthCheck == '-1') {
+                  //   this.setModalVisibleNotPhone(true);
+                  // }
+                }}
+                underlayColor={'#164895'}
+                style={[ResetStyle.button]}>
+                <Text
+                  style={[
+                    ResetStyle.fontMediumK,
+                    ResetStyle.fontWhite,
+                    {fontWeight: '600'},
+                  ]}>
+                  인증요청
+                </Text>
+              </TouchableWithoutFeedback>
+            )}
           </View>
 
           <View style={[ResetStyle.textInputStyle]}>
@@ -294,6 +326,7 @@ class SignUp extends Component {
                 timeLeftNumber={this.state.timeLeftNumber}
                 startTimer={this.startTimer}
                 resetTimer={this.resetTimer}
+                handleReCountDown={this.handleReCountDown}
               />
             </View>
 

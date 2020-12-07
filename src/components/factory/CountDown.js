@@ -1,5 +1,5 @@
 import React, {Component, useEffect, useState} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, TouchableWithoutFeedback} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import ResetStyle from '../../style/ResetStyle.js';
 
@@ -12,7 +12,7 @@ const padTime = (time) => {
 };
 
 const CountDown = (standard, timeLeftNumber) => {
-  console.log('aaaa', standard.standard);
+  // console.log('aaaa', standard.standard);
   const [timeLeft, setTimeLeft] = useState(standard.timeLeftNumber);
   const [isRunning, setIsRunning] = useState(standard.standard);
 
@@ -30,17 +30,30 @@ const CountDown = (standard, timeLeftNumber) => {
         }
       });
     }, 1000);
-    setIsRunning(true);
+
+    if (timeLeft === 0) {
+      setTimeLeft(standard.timeLeftNumber);
+      return setIsRunning(false);
+    } else {
+      return setIsRunning(true);
+    }
   };
-  const resetTimer = () => {
+  const resetTimer = (timeLeftNumber) => {
     clearInterval(intervalRef.current);
-    setTimeLeft(180);
+    setTimeLeft(standard.timeLeftNumber);
     setIsRunning(false);
   };
 
+  const handleZeroTimer = () => {
+    if (timeLeft === 0) {
+      console.log('Countdown end');
+      setIsRunning(false);
+    }
+  };
+
   useEffect(() => {
-    console.log('aaaa,sdsdsdsdsd', isRunning);
-    console.log('aaaa,sdsdsdsdsd', standard.standard);
+    // console.log('aaaa,sdsdsdsdsd', isRunning);
+    // console.log('aaaa,sdsdsdsdsd', standard.standard);
     {
       if (standard.standard === true) {
         startTimer();
@@ -49,6 +62,7 @@ const CountDown = (standard, timeLeftNumber) => {
     {
       if (standard.standard === false) {
         resetTimer();
+        // startTimer();
       }
     }
     // [standard] == true && console.log('시작');
@@ -60,7 +74,10 @@ const CountDown = (standard, timeLeftNumber) => {
   };
 
   return (
-    <View>
+    <View
+      onStartShouldSetResponder={() => {
+        handleZeroTimer();
+      }}>
       <Text
         style={[ResetStyle.fontLightK, ResetStyle.fontB, {fontWeight: '400'}]}>
         {minutes}:{seconds}
@@ -70,3 +87,106 @@ const CountDown = (standard, timeLeftNumber) => {
 };
 
 export default CountDown;
+
+// class Clock extends React.Component {
+//   format(time) {
+//     let seconds = time % 60;
+//     let minutes = Math.floor(time / 60);
+//     minutes = minutes.toString().length === 1 ? '0' + minutes : minutes;
+//     seconds = seconds.toString().length === 1 ? '0' + seconds : seconds;
+//     return minutes + ':' + seconds;
+//   }
+//   render() {
+//     const {time} = this.props;
+//     return (
+//       <>
+//         <Text>{this.format(time)}</Text>
+//       </>
+//     );
+//   }
+// }
+
+// class CountDown extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       count: 180,
+//       running: false,
+//     };
+//   }
+
+//   componentDidUpdate(prevProps, prevState) {
+//     if (this.state.running !== prevState.running) {
+//       switch (this.state.running) {
+//         case true:
+//           this.handleStart();
+//       }
+//     }
+//   }
+
+//   handleStart() {
+//     this.timer = setInterval(() => {
+//       const newCount = this.state.count - 1;
+//       this.setState({count: newCount >= 0 ? newCount : 0});
+//     }, 1000);
+//   }
+
+//   // handleStop() {
+//   //   if (this.timer) {
+//   //     clearInterval(this.timer);
+//   //     this.setState({running: false});
+//   //   }
+//   // }
+
+//   handleReset() {
+//     this.setState({count: 0});
+//   }
+
+//   handleCountdown(seconds) {
+//     this.setState({
+//       count: seconds,
+//       running: true,
+//     });
+//   }
+
+//   handleStartd(event) {
+//     event.preventDefault();
+//     if (this.state.count === 0) {
+//       console.log('bye');
+//       this.setState({
+//         count: 0,
+//         running: false,
+//       });
+//     } else {
+//       console.log('hi');
+//       this.setState({
+//         count: 5,
+//         running: true,
+//       });
+//     }
+//   }
+
+//   render() {
+
+//     const {count} = this.state;
+//     return (
+//       <View style={{position: 'relative', top: '-100%'}}>
+//         <Clock time={count} />
+
+//         <TouchableWithoutFeedback onPress={this.handleStartd.bind(this)}>
+//           <Text>start</Text>
+//         </TouchableWithoutFeedback>
+
+//         <TouchableWithoutFeedback onPress={this.handleReset.bind(this)}>
+//           <Text>reset</Text>
+//         </TouchableWithoutFeedback>
+
+//         {/* <TouchableWithoutFeedback onPress={this.handleStop.bind(this)}>
+//           <Text>stop</Text>
+//         </TouchableWithoutFeedback> */}
+//       </View>
+//     );
+//   }
+// }
+
+// export default CountDown;
