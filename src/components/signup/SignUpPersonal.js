@@ -73,6 +73,7 @@ class SignUpPersonal extends Component {
     inviteCode: '',
     passwordBlur: true,
     checkPasswordBlur: true,
+    checkEmail: '',
   };
   handleEmail = (e) => {
     this.setState({
@@ -110,17 +111,34 @@ class SignUpPersonal extends Component {
       });
     }
   };
-  emailCheckApi = (email) => {
+  emailCheckApi = async (email) => {
     console.log('email', email);
-    axios
+    await axios
       .post(`${server}/user/duplicate/MailId`, {
-        email,
+        mailId: email,
       })
       .then((data) => {
         console.log('then', data);
+        console.log('then', data.data.ret_val);
+        this.setState({checkEmail: data.data.ret_val});
       })
-      .catch(({error}) => {
-        console.log(error);
+      .catch((error) => {
+        console.log('error', error);
+      });
+  };
+  emailAuthApi = async (email) => {
+    console.log('email', email);
+    await axios
+      .post(`${server}/util/email/auth`, {
+        email: email,
+      })
+      .then((data) => {
+        console.log('then', data);
+        console.log('then', data.data.ret_val);
+        // this.setState({checkEmail: data.data.ret_val});
+      })
+      .catch((error) => {
+        console.log('error', error);
       });
   };
   render() {
@@ -181,31 +199,40 @@ class SignUpPersonal extends Component {
                 alignItems: 'center',
                 marginTop: '3%',
               }}>
-              <Image
-                style={ResetStyle.smallImg}
-                source={require('../../imgs/drawable-xhdpi/icon_x_red.png')}
-              />
-              <Text
-                style={[
-                  ResetStyle.fontLightK,
-                  ResetStyle.fontR,
-                  {marginLeft: 5},
-                ]}>
-                이미 사용 중인 이메일입니다.
-              </Text>
+              {this.state.checkEmail !== 0 && this.state.checkEmail != '' && (
+                // this.state.checkEmail !== '' &&
 
-              <Image
-                style={ResetStyle.smallImg}
-                source={require('../../imgs/drawable-xhdpi/icon_m_check.png')}
-              />
-              <Text
-                style={[
-                  ResetStyle.fontLightK,
-                  ResetStyle.fontB,
-                  {marginLeft: 5},
-                ]}>
-                등록 가능한 이메일 입니다.
-              </Text>
+                <>
+                  <Image
+                    style={ResetStyle.smallImg}
+                    source={require('../../imgs/drawable-xhdpi/icon_x_red.png')}
+                  />
+                  <Text
+                    style={[
+                      ResetStyle.fontLightK,
+                      ResetStyle.fontR,
+                      {marginLeft: 5},
+                    ]}>
+                    이미 사용 중인 이메일입니다.
+                  </Text>
+                </>
+              )}
+              {this.state.checkEmail === 0 && (
+                <>
+                  <Image
+                    style={ResetStyle.smallImg}
+                    source={require('../../imgs/drawable-xhdpi/icon_m_check.png')}
+                  />
+                  <Text
+                    style={[
+                      ResetStyle.fontLightK,
+                      ResetStyle.fontB,
+                      {marginLeft: 5},
+                    ]}>
+                    등록 가능한 이메일 입니다.
+                  </Text>
+                </>
+              )}
             </View>
           </View>
 
@@ -551,7 +578,7 @@ class SignUpPersonal extends Component {
             </TouchableHighlight>
 
             {/* alert */}
-            <View
+            {/* <View
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
@@ -569,16 +596,35 @@ class SignUpPersonal extends Component {
                 ]}>
                 초대코드가 올바르지 않습니다.
               </Text>
-            </View>
+            </View> */}
           </View>
 
           <TouchableWithoutFeedback
-            style={[ResetStyle.button, {backgroundColor: '#e6e6e6'}]}
+            // style={[ResetStyle.button, {backgroundColor: '#e6e6e6'}]}
+            style={[
+              ResetStyle.button,
+              this.state.checkBoolean != true &&
+                this.state.checkEmail !== 0 && {backgroundColor: '#e6e6e6'},
+            ]}
             onPress={() => {
-              this.props.navigation.navigate('EmailAuthentication', {
-                email: this.state.email,
-              });
-              this.props.navigation.setOptions({title: '약관동의'});
+              console.log('nextBoolean', this.state.checkBoolean);
+              console.log('nextsadasdasd', this.state.checkEmail);
+              console.log(Platform.OS);
+              if (
+                this.state.checkBoolean == true &&
+                this.state.checkEmail === 0
+              ) {
+                this.emailAuthApi(this.state.email);
+                console.log('aaaa');
+                this.props.navigation.navigate('EmailAuthentication', {
+                  email: this.state.email,
+                  password: this.state.password,
+                  deviceKey: this.props.route.params?.deviceKey,
+                  phoneNum: this.props.route.params?.phoneNum,
+                  inviteCode: this.state.inviteCode,
+                });
+                this.props.navigation.setOptions({title: '약관동의'});
+              }
             }}>
             <Text
               style={[

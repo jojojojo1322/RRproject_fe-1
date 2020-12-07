@@ -51,6 +51,7 @@ class BottomModal extends Component {
           onPress={() => {
             this.setState({modalVisible: !modalVisible});
             this.props.setModalVisible(!modalVisible);
+            console.log('aaaa');
           }}>
           <View style={styles.modalFooterBg}>
             <View style={styles.modalFooter}>

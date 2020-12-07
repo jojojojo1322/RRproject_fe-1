@@ -13,13 +13,23 @@ import ListModal from '../../components/factory/modal/ListModal';
 import CountDown from '../../components/factory/CountDown';
 import ResetStyle from '../../style/ResetStyle.js';
 
+import {server} from '../defined/server';
+import axios from 'axios';
+import DeviceInfo from 'react-native-device-info';
+import BottomModal from '../factory/modal/BottomModal';
+
 class SignUp extends Component {
   state = {
     passWord: '',
     modalVisible: false,
+    modalVisibleNotAuth: false,
+    modalVisibleNotPhone: false,
+    phoneAuthCheck: '',
+    AuthKeyCheck: '',
     phoneNum: '',
     country: '',
     countryCd: '',
+    deviceKey: '',
   };
 
   handlePassword = (text) => {
@@ -31,6 +41,12 @@ class SignUp extends Component {
   setModalVisible = (visible) => {
     this.setState({modalVisible: visible});
   };
+  setModalVisibleNotAuth = (visible) => {
+    this.setState({modalVisibleNotAuth: visible});
+  };
+  setModalVisibleNotPhone = (visible) => {
+    this.setState({modalVisibleNotPhone: visible});
+  };
 
   // only number
   handleInputChange = (phoneNum) => {
@@ -40,14 +56,67 @@ class SignUp extends Component {
       });
     }
   };
+  componentDidMount() {
+    this.setState({
+      deviceKey: DeviceInfo.getUniqueId(),
+    });
+  }
   setCountry = (a, b) => {
-    console.log('a>>', a);
-    console.log('b>>', b);
     this.setState({
       country: a,
       countryCd: b,
     });
   };
+
+  smsAuthApi = async (device, phone) => {
+    await axios
+      .post(`${server}/util/sms/auth`, {
+        deviceKey: device,
+        phoneNum: phone,
+      })
+      .then((response) => {
+        console.log(response);
+        this.setState({
+          phoneAuthCheck: response.data.ret_val,
+        });
+        return response.data.ret_val;
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+  smsAuthApproveApi = async (authKey, phone) => {
+    await axios
+      .patch(`${server}/util/sms/auth/approve`, {
+        authKey: authKey,
+        phoneNum: phone,
+      })
+      .then((response) => {
+        console.log(response);
+        console.log(response.data.ret_val);
+        this.setState({
+          AuthKeyCheck: response.data.ret_val,
+        });
+        return response.data.ret_val;
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+  smsAuthExpireApi = (device, phone) => {
+    axios
+      .patch(`${server}/util/sms/auth/expired`, {
+        deviceKey: device,
+        phoneNum: phone,
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
   render() {
     return (
       <SafeAreaView style={ResetStyle.container}>
@@ -122,7 +191,24 @@ class SignUp extends Component {
               ]}></TextInput>
 
             <TouchableWithoutFeedback
-              onPress={() => {}}
+              onPress={async () => {
+                // console.log(this.state.phoneNum);
+                // console.log(this.state.countryCd);
+                // console.log(
+                //   `${this.state.countryCd}${this.state.phoneNum.slice(
+                //     1,
+                //     undefined,
+                //   )}`,
+                // );
+                console.log(`+82${this.state.phoneNum.slice(1, undefined)}`);
+                await this.smsAuthApi(
+                  this.state.deviceKey,
+                  `+82${this.state.phoneNum.slice(1, undefined)}`,
+                );
+                if (this.state.phoneAuthCheck == '-1') {
+                  this.setModalVisibleNotPhone(true);
+                }
+              }}
               underlayColor={'#164895'}
               style={[ResetStyle.button]}>
               <Text
@@ -218,8 +304,24 @@ class SignUp extends Component {
 
           <TouchableWithoutFeedback
             style={[ResetStyle.button, {backgroundColor: '#e6e6e6'}]}
-            onPress={() => {
-              this.props.navigation.navigate('AgreementTermsConditions');
+            onPress={async () => {
+              // await this.smsAuthApproveApi(
+              //   this.state.passWord,
+              //   `+82${this.state.phoneNum.slice(1, undefined)}`,
+              // );
+              // if (
+              //   this.state.AuthKeyCheck == '-3'
+              //   // true
+              // ) {
+              //   this.setModalVisibleNotAuth(true);
+              // } else if (this.state.AuthKeyCheck == '0') {
+              //   this.props.navigation.navigate('AgreementTermsConditions');
+              //   this.props.navigation.setOptions({title: '약관동의'});
+              // }
+              this.props.navigation.navigate('AgreementTermsConditions', {
+                deviceKey: this.state.deviceKey,
+                phoneNum: `+82${this.state.phoneNum.slice(1, undefined)}`,
+              });
               this.props.navigation.setOptions({title: '약관동의'});
             }}>
             <Text
@@ -232,6 +334,16 @@ class SignUp extends Component {
             </Text>
           </TouchableWithoutFeedback>
         </View>
+        <BottomModal
+          setModalVisible={this.setModalVisibleNotAuth}
+          modalVisible={this.state.modalVisibleNotAuth}
+          text={`인증번호가 틀렸습니다`}
+        />
+        <BottomModal
+          setModalVisible={this.setModalVisibleNotPhone}
+          modalVisible={this.state.modalVisibleNotPhone}
+          text={`이미 인증된 번호입니다`}
+        />
       </SafeAreaView>
     );
   }
