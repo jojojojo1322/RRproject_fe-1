@@ -13,7 +13,6 @@ import {
   SafeAreaView,
   StatusBar,
   TouchableOpacity,
-  TouchableHighlight,
 } from 'react-native';
 import BottomModal from '../factory/modal/BottomModal';
 import TextConfirmModal from '../factory/modal/TextConfirmModal';
@@ -167,76 +166,76 @@ export default class WalletPassword extends Component {
 
         <View style={styles.keyboard}>
           <View style={styles.keyboardView}>
-            <TouchableHighlight
+            <TouchableOpacity
               style={styles.keyboardDetail}
               onPress={this.handlePass.bind(this, '1')}>
               <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>1</Text>
-            </TouchableHighlight>
-            <TouchableHighlight
+            </TouchableOpacity>
+            <TouchableOpacity
               style={styles.keyboardDetail}
               onPress={this.handlePass.bind(this, '2')}>
               <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>2</Text>
-            </TouchableHighlight>
-            <TouchableHighlight
+            </TouchableOpacity>
+            <TouchableOpacity
               style={styles.keyboardDetail}
               onPress={this.handlePass.bind(this, '3')}>
               <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>3</Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
 
           <View style={styles.keyboardView}>
-            <TouchableHighlight
+            <TouchableOpacity
               style={styles.keyboardDetail}
               onPress={this.handlePass.bind(this, '4')}>
               <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>4</Text>
-            </TouchableHighlight>
-            <TouchableHighlight
+            </TouchableOpacity>
+            <TouchableOpacity
               style={styles.keyboardDetail}
               onPress={this.handlePass.bind(this, '5')}>
               <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>5</Text>
-            </TouchableHighlight>
-            <TouchableHighlight
+            </TouchableOpacity>
+            <TouchableOpacity
               style={styles.keyboardDetail}
               onPress={this.handlePass.bind(this, '6')}>
               <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>6</Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
 
           <View style={styles.keyboardView}>
-            <TouchableHighlight
+            <TouchableOpacity
               style={styles.keyboardDetail}
               onPress={this.handlePass.bind(this, '7')}>
               <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>7</Text>
-            </TouchableHighlight>
-            <TouchableHighlight
+            </TouchableOpacity>
+            <TouchableOpacity
               style={styles.keyboardDetail}
               onPress={this.handlePass.bind(this, '8')}>
               <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>8</Text>
-            </TouchableHighlight>
-            <TouchableHighlight
+            </TouchableOpacity>
+            <TouchableOpacity
               style={styles.keyboardDetail}
               onPress={this.handlePass.bind(this, '9')}>
               <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>9</Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
           <View style={styles.keyboardView}>
-            <TouchableHighlight
+            <TouchableOpacity
               style={[styles.keyboardDetail, {backgroundColor: '#f5f5f6'}]}>
               <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}></Text>
-            </TouchableHighlight>
-            <TouchableHighlight
+            </TouchableOpacity>
+            <TouchableOpacity
               style={styles.keyboardDetail}
               onPress={this.handlePass.bind(this, '0')}>
               <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>0</Text>
-            </TouchableHighlight>
-            <TouchableHighlight
+            </TouchableOpacity>
+            <TouchableOpacity
               style={styles.keyboardDetail}
               onPress={this.handlePassErase}>
               <Image
                 style={styles.keyboardCancelButton}
                 source={require('../../imgs/drawable-mdpi/icon_delete.png')}
               />
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
         </View>
         <BottomModal

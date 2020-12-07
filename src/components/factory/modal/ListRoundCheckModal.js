@@ -11,7 +11,6 @@ import {
   TextInput,
   SafeAreaView,
   TouchableOpacity,
-  TouchableHighlight,
   TouchableWithoutFeedback,
   FlatList,
   StatusBar,
@@ -265,7 +264,7 @@ const Item = ({item, onPress, style, setResidenceCity}) => {
 //         <View style={styles.modalView}>
 //           <View style={styles.modalBox}>
 //             <Text style={styles.modalText}>거주도시 선택</Text>
-//             <TouchableHighlight
+//             <TouchableOpacity
 //               style={styles.closeButton}
 //               setModalVisible={this.props.setModalVisible}
 //               modalVisible={this.props.modalVisible}
@@ -276,19 +275,19 @@ const Item = ({item, onPress, style, setResidenceCity}) => {
 //                 style={styles.closeButton}
 //                 source={require('../../../imgs/icon_close.png')}
 //               />
-//             </TouchableHighlight>
+//             </TouchableOpacity>
 //           </View>
 
 //           <View style={styles.modalInputBox}>
 //             <TextInput
 //               style={styles.searchInputText}
 //               placeholder="search"></TextInput>
-//             <TouchableHighlight style={styles.closeButton}>
+//             <TouchableOpacity style={styles.closeButton}>
 //               <Image
 //                 style={styles.closeButton}
 //                 source={require('../../../imgs/icon_search.png')}
 //               />
-//             </TouchableHighlight>
+//             </TouchableOpacity>
 //           </View>
 
 //           <CountryList />
@@ -367,12 +366,12 @@ class ListRoundCheckModal extends Component {
             <TextInput
               style={styles.searchInputText}
               placeholder="search"></TextInput>
-            <TouchableHighlight style={styles.closeButton}>
+            <TouchableOpacity style={styles.closeButton}>
               <Image
                 style={styles.closeButton}
                 source={require('../../../imgs/icon_search.png')}
               />
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
 
           <CountryList setResidenceCity={this.props.setResidenceCity} />

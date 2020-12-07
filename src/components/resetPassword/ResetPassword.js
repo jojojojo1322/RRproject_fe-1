@@ -14,10 +14,13 @@ import {
   SafeAreaView,
   StatusBar,
   TouchableOpacity,
-  TouchableHighlight,
 } from 'react-native';
 import {RoundCheckbox, SelectedCheckboxes} from '../Roundcheck';
 import ResetStyle from '../../style/ResetStyle.js';
+import axios from 'axios';
+import {server} from '../defined/server';
+
+import TextConfirmModal from '../factory/modal/TextConfirmModal';
 
 function chkPW(password) {
   var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
@@ -71,6 +74,13 @@ export default class ResetPassword extends Component {
     checkBoolean: '',
     firstBlur: true,
     secondBlur: true,
+    ret_val: '',
+    modalVisible: false,
+  };
+  setModalVisible = (visible) => {
+    this.setState({
+      modalVisible: visible,
+    });
   };
   handleFirst = (e) => {
     this.setState({
@@ -95,14 +105,38 @@ export default class ResetPassword extends Component {
       checkBoolean: '',
     });
   };
-
+  handleNextPage = () => {
+    this.props.navigation.navigate('Login');
+  };
+  pwReSettingApi = async (password) => {
+    console.log('password', password);
+    console.log('userno', this.props.route.params?.userNo);
+    await axios
+      .patch(`${server}/user/${this.props.route.params?.userNo}`, {
+        userPw: password,
+      })
+      .then(async (response) => {
+        console.log('then', response);
+        console.log('then', response.data);
+        console.log('then', response.authKey);
+        this.setState({
+          ret_val: response.data.ret_val,
+        });
+        // const authKey = response.data.authKey;
+        // await AsyncStorage.setItem('authKey', authKey);
+        // console.log('Async!~!~!~!~', await AsyncStorage.getItem('authKey'));
+      })
+      .catch((e) => {
+        console.log('error', e);
+      });
+  };
   render() {
     CheckedArrObject = new SelectedCheckboxes();
     return (
       <SafeAreaView style={ResetStyle.container}>
         <View style={ResetStyle.containerInner}>
           <View style={{marginTop: '10%'}}>
-            <TouchableHighlight>
+            <TouchableOpacity>
               <View style={[ResetStyle.textInputStyle]}>
                 <Text
                   style={[
@@ -265,18 +299,18 @@ export default class ResetPassword extends Component {
                     </Text>
                   </View>
                 </View>
-                <TouchableHighlight
+                <TouchableOpacity
                   style={[ResetStyle.textInputTextButton, {top: '45%'}]}>
                   <Image
                     style={ResetStyle.smallImg}
                     source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
                   />
-                </TouchableHighlight>
+                </TouchableOpacity>
               </View>
-            </TouchableHighlight>
+            </TouchableOpacity>
 
             {/* 비밀번호 확인 */}
-            <TouchableHighlight>
+            <TouchableOpacity>
               <View style={[ResetStyle.textInputStyle, {marginTop: '10%'}]}>
                 <Text
                   style={[
@@ -324,34 +358,43 @@ export default class ResetPassword extends Component {
                     style={ResetStyle.smallImg}
                     source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
                   /> */}
-                <TouchableHighlight style={[ResetStyle.textInputTextButton]}>
+                <TouchableOpacity style={[ResetStyle.textInputTextButton]}>
                   <Image
                     style={ResetStyle.smallImg}
                     source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
                   />
-                </TouchableHighlight>
+                </TouchableOpacity>
               </View>
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
           {/* 비밀번호 */}
 
           {/* 확인버튼 */}
-          <TouchableHighlight
+          <TouchableOpacity
             // style={[styles.button, {backgroundColor: '#4696ff'}]}
             style={
               true
                 ? [ResetStyle.button]
                 : [ResetStyle.button, {backgroundColor: '#e6e6e6'}]
             }
-            onPress={() => {
-              if (true) {
-                this.props.navigation.navigate('ResetPassword');
+            onPress={async () => {
+              await this.pwReSettingApi(this.state.password);
+              if ((await this.state.ret_val) === 0) {
+                this.setModalVisible(true);
+                this.props.navigation.navigate('Login');
               }
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontWhite]}>
               다음
             </Text>
-          </TouchableHighlight>
+          </TouchableOpacity>
+          <TextConfirmModal
+            setModalVisible={this.setModalVisible}
+            modalVisible={this.state.modalVisible}
+            text={`비밀번호가 변경되었습니다`}
+            confirm={`확인`}
+            handleNextPage={this.handleNextPage}
+          />
         </View>
       </SafeAreaView>
     );

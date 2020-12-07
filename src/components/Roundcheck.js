@@ -5,7 +5,8 @@ import {
   Platform,
   StyleSheet,
   Text,
-  TouchableHighlight,
+  TouchableOpacity,
+  TouchableOpacityBase,
   View,
 } from 'react-native';
 import PropTypes from 'prop-types';
@@ -47,26 +48,58 @@ export class RoundCheckbox extends Component {
       });
     }
   }
+  componentDidUpdate(preProps, preState) {
+    if (preProps.checked != this.props.checked) {
+      if (this.props.checked) {
+        this.setState({checked: true}, () => {
+          this.props.checkedObjArr.addItem({
+            key: this.props.keyValue,
+            value: this.props.value,
+            label: this.props.label,
+          });
+        });
+      } else {
+        this.setState({
+          checked: false,
+        });
+        this.props.checkedObjArr.fetchArray().splice(
+          this.props.checkedObjArr
+            .fetchArray()
+            .findIndex((y) => y.key == this.props.keyValue),
+          1,
+        );
+      }
+    }
+  }
   stateSwitcher(key, label, value) {
     this.setState({checked: !this.state.checked}, () => {
+      this.props.handleStatus();
       if (this.state.checked) {
         this.props.checkedObjArr.addItem({
           key: key,
           value: value,
           label: label,
         });
+        if (label === 'all') {
+          this.props.handleAll(true);
+        }
+        // console.log(this.props.checkedObjArr.fetchArray());
+        // console.log(this.props.checkedObjArr.fetchArray().length);
       } else {
         this.props.checkedObjArr.fetchArray().splice(
           this.props.checkedObjArr.fetchArray().findIndex((y) => y.key == key),
           1,
         );
+        if (label === 'all') {
+          this.props.handleAll(false);
+        }
       }
     });
   }
 
   render() {
     return (
-      <TouchableHighlight
+      <TouchableOpacity
         onPress={this.stateSwitcher.bind(
           this,
           this.props.keyValue,
@@ -110,7 +143,7 @@ export class RoundCheckbox extends Component {
             {this.props.label}
           </Text> */}
         </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
     );
   }
 }

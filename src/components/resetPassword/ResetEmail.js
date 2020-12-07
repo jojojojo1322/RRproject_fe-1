@@ -14,7 +14,6 @@ import {
   SafeAreaView,
   StatusBar,
   TouchableOpacity,
-  TouchableHighlight,
 } from 'react-native';
 import ResetStyle from '../../style/ResetStyle.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -68,6 +67,8 @@ export default class ResetEmail extends Component {
   };
 
   render() {
+    console.log(this.props.route.params?.userNo);
+    console.log(this.props.route.params?.authKey);
     return (
       <SafeAreaView style={ResetStyle.container}>
         <View style={ResetStyle.containerInner}>
@@ -119,7 +120,7 @@ export default class ResetEmail extends Component {
                 resetTimer={this.resetTimer}
               />
             </View>
-            <TouchableHighlight style={ResetStyle.textInputRe}>
+            <TouchableOpacity style={ResetStyle.textInputRe}>
               <Text
                 style={[
                   ResetStyle.fontLightK,
@@ -128,10 +129,10 @@ export default class ResetEmail extends Component {
                 ]}>
                 재전송
               </Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
 
-          <TouchableHighlight
+          <TouchableOpacity
             // style={[styles.button, {backgroundColor: '#4696ff'}]}
             style={
               this.state.emailCode.length == 6
@@ -145,7 +146,8 @@ export default class ResetEmail extends Component {
                   (await AsyncStorage.getItem('authKey'))
                 ) {
                   this.props.navigation.navigate('ResetPassword', {
-                    email: this.props.route.param?.email,
+                    email: this.props.route.params?.email,
+                    userNo: this.props.route.params?.userNo,
                   });
                 } else {
                   console.log('ssssssssssssss');
@@ -156,7 +158,7 @@ export default class ResetEmail extends Component {
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontWhite]}>
               다음
             </Text>
-          </TouchableHighlight>
+          </TouchableOpacity>
           <BottomModal
             setModalVisible={this.setModalVisible}
             modalVisible={this.state.modalVisible}

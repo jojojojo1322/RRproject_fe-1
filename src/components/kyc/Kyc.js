@@ -5,7 +5,7 @@ import {
   Text,
   Image,
   SafeAreaView,
-  TouchableHighlight,
+  TouchableOpacity,
 } from 'react-native';
 import KycFirst from './KycFirst';
 import KycSecond from './KycSecond';
@@ -163,7 +163,7 @@ export default class Kyc extends Component {
             <KycThird birth={this.state.birth} handleBirth={this.handleBirth} />
           )}
           <View style={styles.bottomButtonAll}>
-            <TouchableHighlight
+            <TouchableOpacity
               style={
                 this.state.step == undefined &&
                 this.state.maritalStatus != '' &&
@@ -203,7 +203,7 @@ export default class Kyc extends Component {
                 ]}>
                 {this.state.step == 3 ? '확인' : '다음'}
               </Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
         </View>
       </SafeAreaView>

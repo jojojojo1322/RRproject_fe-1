@@ -11,7 +11,6 @@ import {
   TextInput,
   SafeAreaView,
   TouchableOpacity,
-  TouchableHighlight,
   TouchableWithoutFeedback,
   FlatList,
   StatusBar,
@@ -92,7 +91,7 @@ export default class kycThird extends Component {
           </Text>
         </View>
 
-        <TouchableHighlight
+        <TouchableOpacity
           onPress={() => {
             this.setCountryModal(!this.state.countryModal);
           }}>
@@ -121,7 +120,7 @@ export default class kycThird extends Component {
               source={require('../../imgs/drawable-mdpi/icon_srarch.png')}
             />
           </View>
-        </TouchableHighlight>
+        </TouchableOpacity>
 
         {/* 국적 */}
         <ListModal
@@ -141,7 +140,7 @@ export default class kycThird extends Component {
           </Text>
         </View>
 
-        <TouchableHighlight
+        <TouchableOpacity
           onPress={() => {
             this.setLanguageModal(!this.state.language);
           }}>
@@ -165,7 +164,7 @@ export default class kycThird extends Component {
               source={require('../../imgs/drawable-mdpi/icon_srarch.png')}
             />
           </View>
-        </TouchableHighlight>
+        </TouchableOpacity>
 
         {/* 사용가능언어 */}
         <ListCheckModal
@@ -184,7 +183,7 @@ export default class kycThird extends Component {
             거주국가 선택
           </Text>
         </View>
-        <TouchableHighlight
+        <TouchableOpacity
           onPress={() => {
             this.setResidenceCountryModal(!this.state.residenceCountryModal);
           }}>
@@ -212,7 +211,7 @@ export default class kycThird extends Component {
               source={require('../../imgs/drawable-mdpi/icon_srarch.png')}
             />
           </View>
-        </TouchableHighlight>
+        </TouchableOpacity>
 
         {/* 거주국가선택 */}
 
@@ -232,7 +231,7 @@ export default class kycThird extends Component {
             거주도시 선택
           </Text>
         </View>
-        <TouchableHighlight
+        <TouchableOpacity
           onPress={() => {
             this.setResidenceCityModal(!this.state.setResidenceCityModal);
           }}>
@@ -258,7 +257,7 @@ export default class kycThird extends Component {
               source={require('../../imgs/drawable-mdpi/icon_srarch.png')}
             />
           </View>
-        </TouchableHighlight>
+        </TouchableOpacity>
 
         {/* 거주도시 선택 */}
         <ListModal

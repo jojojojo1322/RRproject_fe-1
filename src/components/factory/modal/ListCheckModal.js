@@ -11,13 +11,13 @@ import {
   TextInput,
   SafeAreaView,
   TouchableOpacity,
-  TouchableHighlight,
   TouchableWithoutFeedback,
   FlatList,
   StatusBar,
   Linking,
   Animated,
   Dimensions,
+  TouchableOpacityBase,
 } from 'react-native';
 import {Checkbox, SelectedCheckboxes} from '../../Checkbox';
 const window = Dimensions.get('window');
@@ -204,7 +204,7 @@ const Item = ({item, onPress, style, CheckedArrObject}) => {
 //         <View style={styles.modalView}>
 //           <View style={styles.modalBox}>
 //             <Text style={styles.modalText}>사용가능언어 선택</Text>
-//             <TouchableHighlight
+//             <TouchableOpacity
 //               style={styles.closeButton}
 //               setModalVisible={this.props.setModalVisible}
 //               modalVisible={this.props.modalVisible}
@@ -215,19 +215,19 @@ const Item = ({item, onPress, style, CheckedArrObject}) => {
 //                 style={styles.closeButton}
 //                 source={require('../../../imgs/icon_close.png')}
 //               />
-//             </TouchableHighlight>
+//             </TouchableOpacity
 //           </View>
 
 //           <View style={styles.modalInputBox}>
 //             <TextInput
 //               style={styles.searchInputText}
 //               placeholder="search"></TextInput>
-//             <TouchableHighlight style={styles.closeButton}>
+//             <TouchableOpacitytyle={styles.closeButton}>
 //               <Image
 //                 style={styles.closeButton}
 //                 source={require('../../../imgs/icon_search.png')}
 //               />
-//             </TouchableHighlight>
+//             </TouchableOpacity
 //           </View>
 
 //           <CountryList />
@@ -259,7 +259,7 @@ class ListCheckModal extends Component {
   render() {
     let CheckedArrObject = new SelectedCheckboxes();
     const {modalVisible} = this.state;
-    console.log(CheckedArrObject.fetchArray());
+    console.log(CheckedArrObject.fetchArray().length);
     return (
       <Modal
         animationType="fade"
@@ -312,12 +312,12 @@ class ListCheckModal extends Component {
             <TextInput
               style={styles.searchInputText}
               placeholder="search"></TextInput>
-            <TouchableHighlight style={styles.closeButton}>
+            <TouchableOpacity style={styles.closeButton}>
               <Image
                 style={styles.closeButton}
                 source={require('../../../imgs/icon_search.png')}
               />
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
 
           <CountryList
@@ -325,7 +325,7 @@ class ListCheckModal extends Component {
             CheckedArrObject={CheckedArrObject}
           />
 
-          <TouchableHighlight
+          <TouchableOpacity
             style={[
               styles.button,
               // {backgroundColor: '#c6c9cf', marginTop: 15},
@@ -333,13 +333,12 @@ class ListCheckModal extends Component {
             <Text style={[styles.buttonTexts, {backgroundColor: '#4696ff'}]}>
               CONFIRM
             </Text>
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
       </Modal>
     );
   }
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

@@ -5,7 +5,7 @@ import {
   View,
   Text,
   TextInput,
-  TouchableHighlight,
+  TouchableOpacity,
   SafeAreaView,
   Image,
 } from 'react-native';
@@ -114,7 +114,7 @@ class SignUpPersonal extends Component {
   emailCheckApi = async (email) => {
     console.log('email', email);
     await axios
-      .post(`${server}/user/duplicate/mailId`, {
+      .post(`${server}/user/duplicate/mailid`, {
         mailId: email,
       })
       .then((data) => {
@@ -161,7 +161,7 @@ class SignUpPersonal extends Component {
               </Text>
             </View>
 
-            <TouchableHighlight>
+            <TouchableOpacity>
               <View style={AuthStyle.signupInputImageAll}>
                 <TextInput
                   placeholder="이메일 주소 입력"
@@ -178,7 +178,7 @@ class SignUpPersonal extends Component {
                     ResetStyle.fontG,
                     {textAlign: 'left', paddingTop: '6%', paddingBottom: '3%'},
                   ]}></TextInput>
-                <TouchableHighlight
+                <TouchableOpacity
                   onPress={() => {
                     this.setState({
                       email: '',
@@ -188,9 +188,9 @@ class SignUpPersonal extends Component {
                     style={ResetStyle.smallImg}
                     source={require('../../imgs/drawable-xhdpi/icon_x_gray.png')}
                   />
-                </TouchableHighlight>
+                </TouchableOpacity>
               </View>
-            </TouchableHighlight>
+            </TouchableOpacity>
 
             {/* alert */}
             <View
@@ -249,7 +249,7 @@ class SignUpPersonal extends Component {
               </Text>
             </View>
 
-            <TouchableHighlight>
+            <TouchableOpacity>
               <View style={AuthStyle.signupInputImageAll}>
                 <TextInput
                   placeholder="아래 조합으로 입력"
@@ -263,7 +263,7 @@ class SignUpPersonal extends Component {
                     ResetStyle.fontG,
                     {textAlign: 'left', paddingTop: '6%', paddingBottom: '3%'},
                   ]}></TextInput>
-                <TouchableHighlight
+                <TouchableOpacity
                   onPress={() => {
                     this.setState({
                       passwordBlur: !this.state.passwordBlur,
@@ -280,9 +280,9 @@ class SignUpPersonal extends Component {
                       source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
                     />
                   )}
-                </TouchableHighlight>
+                </TouchableOpacity>
               </View>
-            </TouchableHighlight>
+            </TouchableOpacity>
 
             <View
               style={{
@@ -436,7 +436,7 @@ class SignUpPersonal extends Component {
               </Text>
             </View>
 
-            <TouchableHighlight>
+            <TouchableOpacity>
               <View style={AuthStyle.signupInputImageAll}>
                 <TextInput
                   placeholder="비밀번호 다시 입력"
@@ -476,7 +476,7 @@ class SignUpPersonal extends Component {
                     style={ResetStyle.smallImg}
                     source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
                   /> */}
-                <TouchableHighlight
+                <TouchableOpacity
                   onPress={() => {
                     this.setState({
                       checkPasswordBlur: !this.state.checkPasswordBlur,
@@ -493,9 +493,9 @@ class SignUpPersonal extends Component {
                       source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
                     />
                   )}
-                </TouchableHighlight>
+                </TouchableOpacity>
               </View>
-            </TouchableHighlight>
+            </TouchableOpacity>
 
             {/* alert */}
             <View
@@ -550,7 +550,7 @@ class SignUpPersonal extends Component {
               </Text>
             </View>
 
-            <TouchableHighlight>
+            <TouchableOpacity>
               <View style={AuthStyle.signupInputImageAll}>
                 <TextInput
                   placeholder="비밀번호 다시 입력"
@@ -563,7 +563,7 @@ class SignUpPersonal extends Component {
                     ResetStyle.fontG,
                     {textAlign: 'left', paddingTop: '6%', paddingBottom: '3%'},
                   ]}></TextInput>
-                <TouchableHighlight
+                <TouchableOpacity
                   onPress={() => {
                     this.setState({
                       inviteCode: '',
@@ -573,9 +573,9 @@ class SignUpPersonal extends Component {
                     style={ResetStyle.smallImg}
                     source={require('../../imgs/drawable-xhdpi/icon_x_gray.png')}
                   />
-                </TouchableHighlight>
+                </TouchableOpacity>
               </View>
-            </TouchableHighlight>
+            </TouchableOpacity>
 
             {/* alert */}
             {/* <View

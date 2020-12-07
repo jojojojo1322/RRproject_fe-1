@@ -5,7 +5,7 @@ import {
   Platform,
   StyleSheet,
   Text,
-  TouchableHighlight,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import PropTypes from 'prop-types';
@@ -67,7 +67,7 @@ export class Checkbox extends Component {
 
   render() {
     return (
-      <TouchableHighlight
+      <TouchableOpacity
         onPress={this.stateSwitcher.bind(
           this,
           this.props.keyValue,
@@ -104,7 +104,7 @@ export class Checkbox extends Component {
             {this.props.label}
           </Text> */}
         </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
     );
   }
 }

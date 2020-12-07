@@ -11,7 +11,6 @@ import {
   TextInput,
   SafeAreaView,
   TouchableOpacity,
-  TouchableHighlight,
   TouchableWithoutFeedback,
   FlatList,
   StatusBar,
@@ -67,7 +66,7 @@ class AudienceModal extends Component {
           <View style={styles.AudienceAllView}>
             <View style={styles.AudienceTop}>
               <Text style={styles.AudienceTopLeft}>Audience</Text>
-              <TouchableHighlight
+              <TouchableOpacity
                 style={styles.AudienceTopRight}
                 onPress={() => {
                   this.setState({modalVisible: !modalVisible});
@@ -78,7 +77,7 @@ class AudienceModal extends Component {
                   style={styles.AudienceTopRight}
                   source={require('../../../imgs/drawable-hdpi/icon_close.png')}
                 />
-              </TouchableHighlight>
+              </TouchableOpacity>
             </View>
             <Text style={styles.AudienceTop2}>참여가능 LEVEL : Level 2</Text>
 

@@ -5,7 +5,7 @@ import {
   Text,
   ScrollView,
   Button,
-  TouchableHighlight,
+  TouchableOpacity,
   Alert,
   Image,
   Platform,
@@ -71,7 +71,7 @@ class RoundCheckbox extends Component {
 
   render() {
     return (
-      <TouchableHighlight
+      <TouchableOpacity
         onPress={this.stateSwitcher.bind(
           this,
           this.props.keyValue,
@@ -108,7 +108,7 @@ class RoundCheckbox extends Component {
             {this.props.label}
           </Text>
         </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
     );
   }
 }
@@ -383,7 +383,7 @@ class ResearchForm extends Component {
         {researchList[this.state.nowIndex]}
 
         <View style={styles.buttonBox}>
-          <TouchableHighlight
+          <TouchableOpacity
             style={
               this.state.nowIndex == 0 ? styles.buttonCancel : styles.button
             }
@@ -392,8 +392,8 @@ class ResearchForm extends Component {
             <Text style={styles.buttonText}>
               {this.state.nowIndex == 0 ? '취소' : '이전'}
             </Text>
-          </TouchableHighlight>
-          <TouchableHighlight
+          </TouchableOpacity>
+          <TouchableOpacity
             style={styles.button}
             activeOpacity={0.75}
             onPress={this.handlerNext}>
@@ -402,7 +402,7 @@ class ResearchForm extends Component {
                 ? '제출'
                 : '다음'}
             </Text>
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
       </View>
     );

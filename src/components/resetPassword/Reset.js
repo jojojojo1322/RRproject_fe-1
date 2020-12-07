@@ -14,20 +14,27 @@ import {
   SafeAreaView,
   StatusBar,
   TouchableOpacity,
-  TouchableHighlight,
 } from 'react-native';
 import axios from 'axios';
 import {server} from '../defined/server';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DeviceInfo from 'react-native-device-info';
 import ResetStyle from '../../style/ResetStyle.js';
+import BottomModal from '../factory/modal/BottomModal';
 
 export default class Reset extends Component {
   state = {
     email: '',
     authKey: '',
+    ret_val: '',
+    userNo: '',
+    modalVisible: false,
   };
-
+  setModalVisible = (visible) => {
+    this.setState({
+      modalVisible: visible,
+    });
+  };
   validateEmail = (email) => {
     var re = /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
@@ -55,6 +62,24 @@ export default class Reset extends Component {
         console.log('Async!~!~!~!~', await AsyncStorage.getItem('authKey'));
       })
       .catch(({e}) => {
+        console.log('error', e);
+      });
+  };
+  emailUserCheckApi = async (email) => {
+    await axios
+      .post(`${server}/user/duplicate/mailid`, {
+        mailId: email,
+      })
+      .then(async (response) => {
+        console.log('then', response);
+        console.log('then', response.data);
+        console.log('then', response.data.userNo);
+        this.setState({
+          ret_val: response.data.ret_val,
+          userNo: response.data.userNo,
+        });
+      })
+      .catch((e) => {
         console.log('error', e);
       });
   };
@@ -120,7 +145,7 @@ export default class Reset extends Component {
               value={this.state.email}
               onChangeText={this.handleEmail}
             />
-            <TouchableHighlight
+            <TouchableOpacity
               style={ResetStyle.textInputTextButton}
               onPress={() => {
                 this.setState({
@@ -131,31 +156,43 @@ export default class Reset extends Component {
                 style={ResetStyle.smallImg}
                 source={require('../../imgs/iconXGray.png')}
               />
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
-          <TouchableHighlight
+          <TouchableOpacity
             // style={[styles.button, {backgroundColor: '#4696ff'}]}
             style={
               this.validateEmail(this.state.email)
                 ? [ResetStyle.button]
                 : [ResetStyle.button, {backgroundColor: '#e6e6e6'}]
             }
-            onPress={() => {
+            onPress={async () => {
               if (this.validateEmail(this.state.email)) {
-                this.emailReAuthApi(this.state.email);
-                // const asy = 'aaaaaaa';
-                // await AsyncStorage.setItem('authKey', asy);
-                // console.log(await AsyncStorage.getItem('authKey'));
-                this.props.navigation.push('ResetEmail', {
-                  email: this.state.email,
-                  authKey: this.state.authKey,
-                });
+                await this.emailUserCheckApi(this.state.email);
+                if (this.state.ret_val == '-2') {
+                  this.emailReAuthApi(this.state.email);
+                  this.props.navigation.push('ResetEmail', {
+                    email: this.state.email,
+                    authKey: this.state.authKey,
+                    userNo: this.state.userNo,
+                  });
+                } else if (this.state.ret_val == '0') {
+                  this.setModalVisible(true);
+                }
+                // this.emailReAuthApi(this.state.email);
+                // // const asy = 'aaaaaaa';
+                // // await AsyncStorage.setItem('authKey', asy);
+                // // console.log(await AsyncStorage.getItem('authKey'));
               }
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontWhite]}>
               다음
             </Text>
-          </TouchableHighlight>
+          </TouchableOpacity>
+          <BottomModal
+            setModalVisible={this.setModalVisible}
+            modalVisible={this.state.modalVisible}
+            text={`가입되지 않은 이메일입니다.`}
+          />
         </View>
       </SafeAreaView>
     );

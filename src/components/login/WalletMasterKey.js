@@ -5,7 +5,7 @@ import {
   Text,
   Image,
   SafeAreaView,
-  TouchableHighlight,
+  TouchableOpacity,
 } from 'react-native';
 import ResetStyle from '../../style/ResetStyle.js';
 import Clipboard from '@react-native-community/clipboard';
@@ -60,12 +60,12 @@ export default class WalletMasterKey extends Component {
             </Text>
           </View>
           <View>
-            <TouchableHighlight
+            <TouchableOpacity
               style={styles.fourth}
               onPress={() => {
                 this.setModalVisible(true);
                 this.copyToClipboard(
-                  '0x6565232c6565TouchableHighlight();ed6565659desds6565c565c565c565659desds6565c565c565c5',
+                  '0x6565232c6565TouchableOpacity();ed6565659desds6565c565c565c565659desds6565c565c565c5',
                 );
               }}>
               <Text
@@ -77,7 +77,7 @@ export default class WalletMasterKey extends Component {
                 0x6565232c6565ed6565659desds6565c5 65c565c565659desds6565c5
                 65c565c5
               </Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
             <Text
               style={[
                 ResetStyle.fontLightK,
@@ -88,7 +88,7 @@ export default class WalletMasterKey extends Component {
             </Text>
           </View>
 
-          <TouchableHighlight
+          <TouchableOpacity
             style={[ResetStyle.button, {backgroundColor: '#4696ff'}]}
             onPress={() => {
               this.props.navigation.navigate('Initial2');
@@ -96,7 +96,7 @@ export default class WalletMasterKey extends Component {
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontWhite]}>
               확인
             </Text>
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
         <BottomModal
           setModalVisible={this.setModalVisible}
