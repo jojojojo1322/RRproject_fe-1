@@ -67,16 +67,37 @@ class TermsConditions extends Component {
 
   render() {
     return (
-      <Tab.Navigator
-        tabBarOptions={{
-          labelStyle: {fontSize: 20, fontWeight: '400'},
-          activeTintColor: '#4696ff',
-          inactiveTintColor: '#787878',
-          indicatorStyle: {borderColor: '#4696ff', borderWidth: 1.5},
-        }}>
-        <Tab.Screen name="이용약관" component={Terms} />
-        <Tab.Screen name="개인정보처리방침" component={Conditions} />
-      </Tab.Navigator>
+      <>
+        <View
+          style={{
+            backgroundColor: '#fff',
+            paddingTop: '15%',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            padding: '5%',
+          }}>
+          <TouchableOpacity>
+            <Image
+              source={require('../../imgs/drawable-xxxhdpi/main_r_logo.png')}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Image
+              source={require('../../imgs/drawable-xxxhdpi/menu_icon.png')}
+            />
+          </TouchableOpacity>
+        </View>
+        <Tab.Navigator
+          tabBarOptions={{
+            labelStyle: {fontSize: 20, fontWeight: '400'},
+            activeTintColor: '#4696ff',
+            inactiveTintColor: '#787878',
+            indicatorStyle: {borderColor: '#4696ff', borderWidth: 1.5},
+          }}>
+          <Tab.Screen name="이용약관" component={Terms} />
+          <Tab.Screen name="개인정보처리방침" component={Conditions} />
+        </Tab.Navigator>
+      </>
     );
   }
 }
