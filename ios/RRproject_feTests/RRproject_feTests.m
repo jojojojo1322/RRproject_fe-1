@@ -54,7 +54,7 @@
   }
 
 #ifdef DEBUG
-  RCTSetLogFunction(RCTDefaultLogFunction);
+  RCTSetLogFunction(faultLogFunction);
 #endif
 
   XCTAssertNil(redboxError, @"RedBox error: %@", redboxError);
