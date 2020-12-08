@@ -33,6 +33,13 @@ export default StyleSheet.create({
     borderWidth: 1,
     padding: Platform.OS === 'ios' ? '5%' : '4%',
   },
+  buttonSmall: {
+    width: '30%',
+    backgroundColor: '#4696ff',
+    alignItems: 'center',
+    borderRadius: 50,
+    padding: Platform.OS === 'ios' ? '3%' : '2%',
+  },
   buttonTexts: {
     color: '#FFF',
     fontWeight: '600',

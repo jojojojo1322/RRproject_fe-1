@@ -57,20 +57,24 @@ export default class kycThird extends Component {
 
   setCountry = (country, cd) => {
     this.setState({country: country, countryCd: cd});
+    this.props.setCountry(country, cd);
   };
   setLanguage = (visible) => {
     console.log(visible);
     this.setState({language: visible});
+    this.props.setLanguage(visible);
   };
   setResidenceCountry = (residenceCountry, residenceCountryCd) => {
     this.setState({
       residenceCountry: residenceCountry,
       residenceCountryCd: residenceCountryCd,
     });
+    this.props.setResidenceCountry(residenceCountry, residenceCountryCd);
   };
   setResidenceCity = (visible) => {
     console.log(visible);
     this.setState({residenceCity: visible});
+    this.props.setResidenceCity(visible);
   };
 
   handleBirth = (e) => {

@@ -11,6 +11,9 @@ import KycFirst from './KycFirst';
 import KycSecond from './KycSecond';
 import KycThird from './KycThird';
 import ResetStyle from '../../style/ResetStyle.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import {server} from '../defined/server';
 
 function isBirthday(dateStr) {
   if (dateStr === undefined) {
@@ -69,7 +72,63 @@ export default class Kyc extends Component {
         : this.props.route.params?.maritalStatus,
     step: this.props.route.params?.step,
     birth: this.props.route.params?.birth,
+    country: '',
+    countryCd: '',
+    countryCity: '',
+    countryResidence: '',
+    countryResidenceCd: '',
+
+    languageCd: '',
   };
+
+  setCountry = (country, cd) => {
+    this.setState({country: country, countryCd: cd});
+  };
+  setLanguage = (visible) => {
+    console.log(visible);
+    this.setState({languageCd: visible});
+  };
+  setResidenceCountry = (countryResidence, countryResidenceCd) => {
+    this.setState({
+      countryResidence: countryResidence,
+      countryResidenceCd: countryResidenceCd,
+    });
+  };
+  setResidenceCity = (visible) => {
+    console.log(visible);
+    this.setState({countryCity: visible});
+  };
+
+  KycInsertApi = async (
+    birthday,
+    countryCd,
+    countryCity,
+    countryResidence,
+    gender,
+    languageCd,
+    marriageStatus,
+  ) => {
+    const userNo = await AsyncStorage.getItem('userNo');
+    console.log('userNo', userNo);
+    await axios
+      .post(`${server}/kyc`, {
+        birthday: birthday,
+        countryCd: countryCd,
+        countryCity: countryCity,
+        countryResidence: countryResidence,
+        gender: 'F',
+        languageCd: 'LA',
+        marriageStatus: marriageStatus,
+        userNo: userNo,
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
   handleBirth = (value) => {
     console.log(value);
     this.setState({
@@ -90,13 +149,7 @@ export default class Kyc extends Component {
       maritalStatus: value,
     });
   };
-  componentDidUpdate(preProps, preState) {
-    // console.log('upda', this.props.route.params);
-    // console.log('prePropsupda', preProps.route.params);
-    // if (preProps.route.params != this.props.route.params) {
-    //   console.log('updateeeeeee');
-    // }
-  }
+  componentDidUpdate(preProps, preState) {}
   render() {
     // const {navigation} = this.props;
     // const itemId = navigation.getParam('step');
@@ -159,8 +212,16 @@ export default class Kyc extends Component {
               handleBirth={this.handleBirth}
             />
           )}
+
           {this.state.step == 3 && (
-            <KycThird birth={this.state.birth} handleBirth={this.handleBirth} />
+            <KycThird
+              birth={this.state.birth}
+              handleBirth={this.handleBirth}
+              setCountry={this.setCountry}
+              setLanguage={this.setLanguage}
+              setResidenceCountry={this.setResidenceCountry}
+              setResidenceCity={this.setResidenceCity}
+            />
           )}
           <View style={styles.bottomButtonAll}>
             <TouchableOpacity
@@ -193,6 +254,43 @@ export default class Kyc extends Component {
                       maritalStatus: this.state.maritalStatus,
                       birth: this.state.birth,
                     });
+                } else if (this.state.step == 3) {
+                  // KycInsertApi = async (
+                  //   birthday,
+                  //   countryCd,
+                  //   countryCity,
+                  //   countryResidence,
+                  //   gender,
+                  //   languageCd,
+                  //   marriageStatus,
+                  // ) => {
+                  this.KycInsertApi(
+                    this.state.birth,
+                    this.state.countryCd,
+                    this.state.countryCity,
+                    this.state.countryResidence,
+                    this.state.gender,
+                    // this.state.languageCd,
+                    'KOR',
+                    this.state.maritalStatus,
+                  );
+                  //               gender:
+                  //   this.props.route.params?.gender == undefined
+                  //     ? ''
+                  //     : this.props.route.params?.gender,
+                  // maritalStatus:
+                  //   this.props.route.params?.maritalStatus == undefined
+                  //     ? ''
+                  //     : this.props.route.params?.maritalStatus,
+                  // step: this.props.route.params?.step,
+                  // birth: this.props.route.params?.birth,
+                  // country: '',
+                  // countryCd: '',
+                  // countryCity: '',
+                  // countryResidence: '',
+                  // countryResidenceCd: '',
+
+                  // languageCd: '',
                 }
               }}>
               <Text

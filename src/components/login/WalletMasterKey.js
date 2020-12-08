@@ -65,7 +65,7 @@ export default class WalletMasterKey extends Component {
               onPress={() => {
                 this.setModalVisible(true);
                 this.copyToClipboard(
-                  '0x6565232c6565TouchableOpacity();ed6565659desds6565c565c565c565659desds6565c565c565c5',
+                  '0x6565232c6565ed6565659desds6565c565c565c565659desds6565c565c565c5',
                 );
               }}>
               <Text
