@@ -64,9 +64,7 @@ export default class WalletMasterKey extends Component {
               style={styles.fourth}
               onPress={() => {
                 this.setModalVisible(true);
-                this.copyToClipboard(
-                  '0x6565232c6565ed6565659desds6565c565c565c565659desds6565c565c565c5',
-                );
+                this.copyToClipboard(this.props.route.params?.walletAddress);
               }}>
               <Text
                 style={[
@@ -74,8 +72,7 @@ export default class WalletMasterKey extends Component {
                   ResetStyle.fontDG,
                   {paddingTop: 20, paddingBottom: 20},
                 ]}>
-                0x6565232c6565ed6565659desds6565c5 65c565c565659desds6565c5
-                65c565c5
+                {this.props.route.params?.walletAddress}
               </Text>
             </TouchableOpacity>
             <Text

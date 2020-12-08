@@ -24,9 +24,56 @@ class EmailAuthentication extends Component {
     modalVisible: false,
     phoneNum: '',
     email: this.props.route.params?.email,
+    authKey: '',
     returnValue: '',
-    isRunning: false,
+    isRunning: true,
     timeLeftNumber: 180,
+    CountDownCheck: '',
+    CountDownExpireCheck: false,
+  };
+  /* <CountDown
+                standard={this.state.isRunning}
+                timeLeftNumber={this.state.timeLeftNumber}
+                CountDownCheck={this.state.CountDownCheck}
+                CountDownExpireCheck={this.state.CountDownExpireCheck}
+                handleCountDownExpireCheck={this.handleCountDownExpireCheck}
+              /> */
+
+  handleCountDown() {
+    this.setState((state) => ({
+      isRunning: !state.isRunning,
+      CountDownExpireCheck: false,
+    }));
+  }
+
+  handleReCountDown = async () => {
+    await this.setState({
+      isRunning: true,
+      timeLeftNumber: 180,
+      CountDownExpireCheck: false,
+    });
+    await this.setState({
+      isRunning: false,
+      timeLeftNumber: 180,
+      CountDownExpireCheck: false,
+    });
+    // this.setState({
+    //   isRunning: true,
+    //   timeLeftNumber: 180,
+    // });
+  };
+  handleCountDownCheck = (value) => {
+    this.setState({
+      CountDownCheck: value,
+    });
+  };
+  handleCountDownExpireCheck = () => {
+    console.log(
+      'handleCountDownExpireCheckhandleCountDownExpireCheckhandleCountDownExpireCheckhandleCountDownExpireCheck',
+    );
+    this.setState({
+      CountDownExpireCheck: true,
+    });
   };
 
   handlePassword = (text) => {
@@ -48,6 +95,38 @@ class EmailAuthentication extends Component {
       });
     }
   };
+  emailExpireApi = async (authKey) => {
+    console.log('expire', authKey);
+    await axios
+      .patch(`${server}/util/email/auth/expired`, {
+        authKey: authKey,
+      })
+      .then((response) => {
+        console.log('Expire', response);
+      })
+      .catch((e) => {
+        console.log('Expire', e);
+      });
+  };
+  emailAuthApi = async (email) => {
+    console.log('email', email);
+    await axios
+      .post(`${server}/util/email/auth`, {
+        email: email,
+      })
+      .then((data) => {
+        console.log('then', data);
+        console.log('then', data.data.ret_val);
+        this.setState({
+          authKey: data.data.authKey,
+        });
+        // this.setState({checkEmail: data.data.ret_val});
+      })
+      .catch((error) => {
+        console.log('error', error);
+      });
+  };
+
   loginApi = async (id, pass) => {
     await axios
       .post(`${server}/user/login`, {
@@ -118,7 +197,17 @@ class EmailAuthentication extends Component {
       isRunning: !state.isRunning,
     }));
   };
-
+  componentDidUpdate = async (preProps, preState) => {
+    if (preState.CountDownExpireCheck !== this.state.CountDownExpireCheck) {
+      if (this.state.CountDownExpireCheck == true) {
+        if (this.state.authKey == '') {
+          this.emailExpireApi(await AsyncStorage.getItem('authKey'));
+        } else {
+          this.emailExpireApi(this.state.authKey);
+        }
+      }
+    }
+  };
   render() {
     console.log(
       this.props.route.params?.deviceKey,
@@ -189,8 +278,11 @@ class EmailAuthentication extends Component {
                   <CountDown
                     standard={this.state.isRunning}
                     timeLeftNumber={this.state.timeLeftNumber}
-                    startTimer={this.startTimer}
-                    resetTimer={this.resetTimer}
+                    handleReCountDown={this.handleReCountDown}
+                    handleCountDownCheck={this.handleCountDownCheck}
+                    CountDownCheck={this.state.CountDownCheck}
+                    CountDownExpireCheck={this.state.CountDownExpireCheck}
+                    handleCountDownExpireCheck={this.handleCountDownExpireCheck}
                   />
                 </View>
               </View>
@@ -219,6 +311,22 @@ class EmailAuthentication extends Component {
                     </Text>
                   </View>
                 )}
+                {this.state.returnValue === -1 && (
+                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <Image
+                      style={ResetStyle.smallImg}
+                      source={require('../../imgs/drawable-xhdpi/icon_x_red.png')}
+                    />
+                    <Text
+                      style={[
+                        ResetStyle.fontLightK,
+                        ResetStyle.fontR,
+                        {marginLeft: 5},
+                      ]}>
+                      만료된 인증번호입니다.
+                    </Text>
+                  </View>
+                )}
 
                 {this.state.returnValue !== -3 && (
                   <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -236,7 +344,11 @@ class EmailAuthentication extends Component {
                 )}
 
                 {/* <View></View> */}
-                <TouchableWithoutFeedback>
+                <TouchableOpacity
+                  onPress={() => {
+                    this.handleReCountDown();
+                    this.emailAuthApi(this.state.email);
+                  }}>
                   <Text
                     style={[
                       ResetStyle.fontLightK,
@@ -245,7 +357,7 @@ class EmailAuthentication extends Component {
                     ]}>
                     재전송
                   </Text>
-                </TouchableWithoutFeedback>
+                </TouchableOpacity>
               </View>
             </View>
           </View>
@@ -255,9 +367,9 @@ class EmailAuthentication extends Component {
               ResetStyle.button,
               this.state.passWord.length < 6 && {backgroundColor: '#e6e6e6'},
             ]}
-            onPress={() => {
+            onPress={async () => {
               const os = Platform.OS;
-              this.userRegistApi(this.state.passWord, 'I');
+              await this.userRegistApi(this.state.passWord, 'I');
               if (this.state.returnValue === 0) {
                 this.loginApi(
                   this.props.route.params?.email,

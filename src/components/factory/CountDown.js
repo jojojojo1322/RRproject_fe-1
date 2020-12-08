@@ -12,6 +12,7 @@ const padTime = (time) => {
 };
 
 const CountDown = (standard, timeLeftNumber) => {
+  // console.log('aaaa', standard);
   // console.log('aaaa', standard.standard);
   const [timeLeft, setTimeLeft] = useState(standard.timeLeftNumber);
   const [isRunning, setIsRunning] = useState(standard.standard);
@@ -21,6 +22,7 @@ const CountDown = (standard, timeLeftNumber) => {
   const intervalRef = React.useRef(null);
 
   const startTimer = () => {
+    standard.handleCountDownCheck('start');
     intervalRef.current = setInterval(() => {
       setTimeLeft((timeLeft) => {
         if (timeLeft >= 1) {
@@ -33,12 +35,13 @@ const CountDown = (standard, timeLeftNumber) => {
 
     if (timeLeft === 0) {
       setTimeLeft(standard.timeLeftNumber);
+      handleZeroTimer();
       return setIsRunning(false);
     } else {
       return setIsRunning(true);
     }
   };
-  const resetTimer = (timeLeftNumber) => {
+  const resetTimer = () => {
     clearInterval(intervalRef.current);
     setTimeLeft(standard.timeLeftNumber);
     setIsRunning(false);
@@ -52,22 +55,28 @@ const CountDown = (standard, timeLeftNumber) => {
   };
 
   useEffect(() => {
-    // console.log('aaaa,sdsdsdsdsd', isRunning);
-    // console.log('aaaa,sdsdsdsdsd', standard.standard);
-    {
-      if (standard.standard === true) {
-        startTimer();
-      }
-    }
-    {
-      if (standard.standard === false) {
-        resetTimer();
-        // startTimer();
-      }
-    }
+    setIsRunning(standard.standard);
     // [standard] == true && console.log('시작');
   }, [standard.standard]);
 
+  useEffect(() => {
+    console.log('aaaa,sdsdsdsdsd', isRunning);
+    // console.log('aaaa,sdsdsdsdsd', standard.standard);
+    if (isRunning === true) {
+      resetTimer();
+      startTimer();
+    } else if (isRunning === false) {
+      resetTimer();
+      console.log('flflflflflffl');
+      // stopTimer();
+      if (standard.CountDownCheck == 'start') startTimer();
+    }
+  }, [isRunning]);
+  useEffect(() => {
+    if (standard.CountDownCheck == 'start' && timeLeft == 0) {
+      standard.handleCountDownExpireCheck();
+    }
+  }, [timeLeft]);
   const stopTimer = () => {
     clearInterval(intervalRef.current);
     setIsRunning(false);

@@ -19,20 +19,34 @@ import axios from 'axios';
 import DeviceInfo from 'react-native-device-info';
 import BottomModal from '../factory/modal/BottomModal';
 
+//휴대폰 유효성 검사
+function isCellPhone(p) {
+  p = p.split('-').join('');
+
+  var regPhone = /^((01[1|6|7|8|9])[1-9]+[0-9]{6,7})|(010[1-9][0-9]{7})$/;
+
+  return regPhone.test(p);
+}
+
 class SignUp extends Component {
   state = {
     passWord: '',
     modalVisible: false,
     modalVisibleNotAuth: false,
+    modalVisibleNotAuthExpire: false,
     modalVisibleNotPhone: false,
+    modalVisibleNotPhoneVali: false,
     phoneAuthCheck: '',
     AuthKeyCheck: '',
+    AuthKey: '',
     phoneNum: '',
     country: '',
     countryCd: '',
     deviceKey: '',
     isRunning: false,
     timeLeftNumber: 180,
+    CountDownCheck: '',
+    CountDownExpireCheck: false,
   };
 
   handlePassword = (text) => {
@@ -48,8 +62,14 @@ class SignUp extends Component {
   setModalVisibleNotAuth = (visible) => {
     this.setState({modalVisibleNotAuth: visible});
   };
+  setModalVisibleNotAuthExpire = (visible) => {
+    this.setState({modalVisibleNotAuthExpire: visible});
+  };
   setModalVisibleNotPhone = (visible) => {
     this.setState({modalVisibleNotPhone: visible});
+  };
+  setModalVisibleNotPhoneVali = (visible) => {
+    this.setState({modalVisibleNotPhoneVali: visible});
   };
 
   // only number
@@ -65,6 +85,14 @@ class SignUp extends Component {
       deviceKey: DeviceInfo.getUniqueId(),
     });
   }
+  componentDidUpdate(preProps, preState) {
+    if (preState.CountDownExpireCheck !== this.state.CountDownExpireCheck) {
+      if (this.state.CountDownExpireCheck === true) {
+        console.log(this.state.AuthKey);
+        this.smsAuthExpireApi(this.state.AuthKey);
+      }
+    }
+  }
   setCountry = (a, b) => {
     this.setState({
       country: a,
@@ -73,6 +101,7 @@ class SignUp extends Component {
   };
 
   smsAuthApi = async (device, phone) => {
+    console.log('smsmsmsmsmsmsmsmsmsmsm');
     await axios
       .post(`${server}/util/sms/auth`, {
         deviceKey: device,
@@ -80,8 +109,11 @@ class SignUp extends Component {
       })
       .then((response) => {
         console.log(response);
+        console.log(response.data);
+        console.log(response.data.authkey);
         this.setState({
           phoneAuthCheck: response.data.ret_val,
+          AuthKey: response.data.authkey,
         });
         return response.data.ret_val;
       })
@@ -107,11 +139,11 @@ class SignUp extends Component {
         console.log(e);
       });
   };
-  smsAuthExpireApi = (device, phone) => {
+  smsAuthExpireApi = (authKey) => {
+    console.log('Expire AUAUAUAU', authKey);
     axios
       .patch(`${server}/util/sms/auth/expired`, {
-        deviceKey: device,
-        phoneNum: phone,
+        authKey: authKey,
       })
       .then((response) => {
         console.log(response);
@@ -124,19 +156,39 @@ class SignUp extends Component {
   handleCountDown() {
     this.setState((state) => ({
       isRunning: !state.isRunning,
+      CountDownExpireCheck: false,
     }));
   }
 
-  handleReCountDown() {
-    this.setState({
-      isRunning: false,
-      timeLeftNumber: 180,
-    });
-    this.setState({
+  handleReCountDown = async () => {
+    await this.setState({
       isRunning: true,
       timeLeftNumber: 180,
+      CountDownExpireCheck: false,
     });
-  }
+    await this.setState({
+      isRunning: false,
+      timeLeftNumber: 180,
+      CountDownExpireCheck: false,
+    });
+    // this.setState({
+    //   isRunning: true,
+    //   timeLeftNumber: 180,
+    // });
+  };
+  handleCountDownCheck = (value) => {
+    this.setState({
+      CountDownCheck: value,
+    });
+  };
+  handleCountDownExpireCheck = () => {
+    console.log(
+      'handleCountDownExpireCheckhandleCountDownExpireCheckhandleCountDownExpireCheckhandleCountDownExpireCheck',
+    );
+    this.setState({
+      CountDownExpireCheck: true,
+    });
+  };
 
   render() {
     return (
@@ -211,7 +263,7 @@ class SignUp extends Component {
                 {marginBottom: '5%'},
               ]}></TextInput>
 
-            {this.state.isRunning === true ? (
+            {this.state.CountDownCheck == 'start' && (
               <TouchableWithoutFeedback
                 onPress={async () => {
                   // console.log(this.state.phoneNum);
@@ -222,23 +274,20 @@ class SignUp extends Component {
                   //     undefined,
                   //   )}`,
                   // );
-                  console.log('aaaaaa');
-                  // this.handleReCountDown();
-                  {
-                    this.state.isRunning === true
-                      ? this.handleReCountDown()
-                      : this.handleCountDown();
-                  }
 
-                  // await this.handleCountDown();
                   // console.log(`+82${this.state.phoneNum.slice(1, undefined)}`);
-                  // await this.smsAuthApi(
-                  //   this.state.deviceKey,
-                  //   `+82${this.state.phoneNum.slice(1, undefined)}`,
-                  // );
-                  // if (this.state.phoneAuthCheck == '-1') {
-                  //   this.setModalVisibleNotPhone(true);
-                  // }
+                  if (isCellPhone(this.state.phoneNum)) {
+                    this.handleReCountDown();
+                    await this.smsAuthApi(
+                      this.state.deviceKey,
+                      `+82${this.state.phoneNum.slice(1, undefined)}`,
+                    );
+                    if (this.state.phoneAuthCheck == '-1') {
+                      this.setModalVisibleNotPhone(true);
+                    }
+                  } else {
+                    this.setModalVisibleNotPhoneVali(true);
+                  }
                 }}
                 underlayColor={'#164895'}
                 style={[ResetStyle.buttonWhite]}>
@@ -251,7 +300,8 @@ class SignUp extends Component {
                   재요청
                 </Text>
               </TouchableWithoutFeedback>
-            ) : (
+            )}
+            {this.state.CountDownCheck == '' && (
               <TouchableWithoutFeedback
                 onPress={async () => {
                   // console.log(this.state.phoneNum);
@@ -262,15 +312,18 @@ class SignUp extends Component {
                   //     undefined,
                   //   )}`,
                   // );
-                  this.handleCountDown();
-                  console.log(`+82${this.state.phoneNum.slice(1, undefined)}`);
-                  // await this.smsAuthApi(
-                  //   this.state.deviceKey,
-                  //   `+82${this.state.phoneNum.slice(1, undefined)}`,
-                  // );
-                  // if (this.state.phoneAuthCheck == '-1') {
-                  //   this.setModalVisibleNotPhone(true);
-                  // }
+                  if (isCellPhone(this.state.phoneNum)) {
+                    this.handleCountDown();
+                    await this.smsAuthApi(
+                      this.state.deviceKey,
+                      `+82${this.state.phoneNum.slice(1, undefined)}`,
+                    );
+                    if (this.state.phoneAuthCheck == '-1') {
+                      this.setModalVisibleNotPhone(true);
+                    }
+                  } else {
+                    this.setModalVisibleNotPhoneVali(true);
+                  }
                 }}
                 underlayColor={'#164895'}
                 style={[ResetStyle.button]}>
@@ -324,9 +377,11 @@ class SignUp extends Component {
               <CountDown
                 standard={this.state.isRunning}
                 timeLeftNumber={this.state.timeLeftNumber}
-                startTimer={this.startTimer}
-                resetTimer={this.resetTimer}
                 handleReCountDown={this.handleReCountDown}
+                handleCountDownCheck={this.handleCountDownCheck}
+                CountDownCheck={this.state.CountDownCheck}
+                CountDownExpireCheck={this.state.CountDownExpireCheck}
+                handleCountDownExpireCheck={this.handleCountDownExpireCheck}
               />
             </View>
 
@@ -376,24 +431,26 @@ class SignUp extends Component {
           <TouchableWithoutFeedback
             style={[ResetStyle.button, {backgroundColor: '#e6e6e6'}]}
             onPress={async () => {
-              // await this.smsAuthApproveApi(
-              //   this.state.passWord,
-              //   `+82${this.state.phoneNum.slice(1, undefined)}`,
-              // );
-              // if (
-              //   this.state.AuthKeyCheck == '-3'
-              //   // true
-              // ) {
-              //   this.setModalVisibleNotAuth(true);
-              // } else if (this.state.AuthKeyCheck == '0') {
-              //   this.props.navigation.navigate('AgreementTermsConditions');
-              //   this.props.navigation.setOptions({title: '약관동의'});
-              // }
-              this.props.navigation.navigate('AgreementTermsConditions', {
-                deviceKey: this.state.deviceKey,
-                phoneNum: `+82${this.state.phoneNum.slice(1, undefined)}`,
-              });
-              this.props.navigation.setOptions({title: '약관동의'});
+              await this.smsAuthApproveApi(
+                this.state.passWord,
+                `+82${this.state.phoneNum.slice(1, undefined)}`,
+              );
+              if (this.state.AuthKeyCheck == '-3') {
+                this.setModalVisibleNotAuth(true);
+              } else if (this.state.AuthKeyCheck == '-1') {
+                this.setModalVisibleNotAuthExpire(true);
+              } else if (this.state.AuthKeyCheck == '0') {
+                this.props.navigation.navigate('AgreementTermsConditions', {
+                  deviceKey: this.state.deviceKey,
+                  phoneNum: `+82${this.state.phoneNum.slice(1, undefined)}`,
+                });
+                this.props.navigation.setOptions({title: '약관동의'});
+              }
+              // this.props.navigation.navigate('AgreementTermsConditions', {
+              //   deviceKey: this.state.deviceKey,
+              //   phoneNum: `+82${this.state.phoneNum.slice(1, undefined)}`,
+              // });
+              // this.props.navigation.setOptions({title: '약관동의'});
             }}>
             <Text
               style={[
@@ -411,9 +468,23 @@ class SignUp extends Component {
           text={`인증번호가 틀렸습니다`}
         />
         <BottomModal
+          setModalVisible={this.setModalVisibleNotAuthExpire}
+          modalVisible={this.state.modalVisibleNotAuthExpire}
+          text={`만료된 인증번호입니다`}
+        />
+        <BottomModal
           setModalVisible={this.setModalVisibleNotPhone}
           modalVisible={this.state.modalVisibleNotPhone}
           text={`이미 인증된 번호입니다`}
+        />
+        <BottomModal
+          setModalVisible={this.setModalVisibleNotPhoneVali}
+          modalVisible={this.state.modalVisibleNotPhoneVali}
+          text={
+            this.state.country == ''
+              ? `국가를 선택해주세요`
+              : `휴대폰 번호를 정확히 입력해주세요`
+          }
         />
       </SafeAreaView>
     );
