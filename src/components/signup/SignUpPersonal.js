@@ -13,6 +13,7 @@ import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {RoundCheckbox, SelectedCheckboxes} from '../Roundcheck';
 import ResetStyle from '../../style/ResetStyle.js';
 import AuthStyle from '../../style/AuthStyle.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {server} from '../defined/server';
 
@@ -132,10 +133,11 @@ class SignUpPersonal extends Component {
       .post(`${server}/util/email/auth`, {
         email: email,
       })
-      .then((data) => {
+      .then(async (data) => {
         console.log('then', data);
         console.log('then', data.data.ret_val);
-        // this.setState({checkEmail: data.data.ret_val});
+        await AsyncStorage.setItem('authKey', data.data.authKey);
+        console.log('Async!~!~!~!~', await AsyncStorage.getItem('authKey'));
       })
       .catch((error) => {
         console.log('error', error);

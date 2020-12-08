@@ -14,6 +14,7 @@ import ResetStyle from '../../style/ResetStyle.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {server} from '../defined/server';
+import TextConfirmModal from '../factory/modal/TextConfirmModal';
 
 function isBirthday(dateStr) {
   if (dateStr === undefined) {
@@ -79,6 +80,16 @@ export default class Kyc extends Component {
     countryResidenceCd: '',
 
     languageCd: '',
+    modalVisible: false,
+    returnValue: '',
+  };
+  setModalVisible = (visible) => {
+    this.setState({
+      modalVisible: visible,
+    });
+  };
+  handleNextPage = () => {
+    this.props.navigation.navigate('Initial2');
   };
 
   setCountry = (country, cd) => {
@@ -123,6 +134,10 @@ export default class Kyc extends Component {
       })
       .then((response) => {
         console.log(response);
+        console.log(response.data.ret_val);
+        this.setState({
+          returnValue: response.data.ret_val,
+        });
       })
       .catch((e) => {
         console.log(e);
@@ -237,7 +252,7 @@ export default class Kyc extends Component {
                 //   ? styles.buttonChoice
                 //   : styles.button
               }
-              onPress={() => {
+              onPress={async () => {
                 if (this.state.step == undefined) {
                   this.state.gender != '' &&
                     this.state.maritalStatus != '' &&
@@ -255,16 +270,7 @@ export default class Kyc extends Component {
                       birth: this.state.birth,
                     });
                 } else if (this.state.step == 3) {
-                  // KycInsertApi = async (
-                  //   birthday,
-                  //   countryCd,
-                  //   countryCity,
-                  //   countryResidence,
-                  //   gender,
-                  //   languageCd,
-                  //   marriageStatus,
-                  // ) => {
-                  this.KycInsertApi(
+                  await this.KycInsertApi(
                     this.state.birth,
                     this.state.countryCd,
                     this.state.countryCity,
@@ -274,23 +280,9 @@ export default class Kyc extends Component {
                     'KOR',
                     this.state.maritalStatus,
                   );
-                  //               gender:
-                  //   this.props.route.params?.gender == undefined
-                  //     ? ''
-                  //     : this.props.route.params?.gender,
-                  // maritalStatus:
-                  //   this.props.route.params?.maritalStatus == undefined
-                  //     ? ''
-                  //     : this.props.route.params?.maritalStatus,
-                  // step: this.props.route.params?.step,
-                  // birth: this.props.route.params?.birth,
-                  // country: '',
-                  // countryCd: '',
-                  // countryCity: '',
-                  // countryResidence: '',
-                  // countryResidenceCd: '',
-
-                  // languageCd: '',
+                  if (this.state.returnValue == '0') {
+                    await this.setModalVisible(true);
+                  }
                 }
               }}>
               <Text
@@ -303,6 +295,13 @@ export default class Kyc extends Component {
               </Text>
             </TouchableOpacity>
           </View>
+          <TextConfirmModal
+            setModalVisible={this.setModalVisible}
+            modalVisible={this.state.modalVisible}
+            text={`KYC 인증이 완료되었습니다.${'\n'}로그인하여 주시기 바랍니다.`}
+            confirm={`확인`}
+            handleNextPage={this.handleNextPage}
+          />
         </View>
       </SafeAreaView>
     );

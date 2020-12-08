@@ -17,6 +17,9 @@ import {
 import BottomModal from '../factory/modal/BottomModal';
 import TextConfirmModal from '../factory/modal/TextConfirmModal';
 import ResetStyle from '../../style/ResetStyle.js';
+import {server} from '../defined/server';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class WalletPassword extends Component {
   state = {
@@ -25,6 +28,23 @@ export default class WalletPassword extends Component {
     pass: '',
     modalVisible: false,
     modal2Visible: false,
+    walletAddress: '',
+  };
+  walletPasswordApi = async (walletPw) => {
+    await axios
+      .post(`${server}/wallet`, {
+        userNo: await AsyncStorage.getItem('userNo'),
+        walletPw: walletPw,
+      })
+      .then((response) => {
+        console.log(response);
+        this.setState({
+          walletAddress: response.data.walletAddress,
+        });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
   handlePass = async (value, e) => {
     console.log(value);
@@ -83,8 +103,14 @@ export default class WalletPassword extends Component {
   setModal2Visible = (visible) => {
     this.setState({modal2Visible: visible});
   };
-  handleNextPage = () => {
-    this.props.navigation.navigate('WalletMasterKey');
+  handleNextPage = async () => {
+    console.log('1212');
+    await this.walletPasswordApi(this.state.pass);
+    console.log('3434');
+    console.log(this.state.walletAddress);
+    this.props.navigation.navigate('WalletMasterKey', {
+      walletAddress: this.state.walletAddress,
+    });
   };
 
   render() {
