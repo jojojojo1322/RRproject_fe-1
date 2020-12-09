@@ -12,16 +12,22 @@ import {
   StatusBar,
   Dimensions,
 } from 'react-native';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
-import {RoundCheckbox, SelectedCheckboxes} from '../Roundcheck';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItemList,
+  DrawerItem,
+} from '@react-navigation/drawer';
 import {ProgressCircle} from 'react-native-svg-charts';
 import ResetStyle from '../../style/ResetStyle.js';
+import MainDetail from '../main/MainDetail';
 
 const Tab = createMaterialTopTabNavigator();
-const screenWidth = Dimensions.get('window').width;
+const Drawer = createDrawerNavigator();
+// const screenWidth = Dimensions.get('window').width;
 
-const DATA = [
+const data = [
   {
     id: '1',
     img: require('../../imgs/drawable-xxxhdpi/survey_img_1.png'),
@@ -40,6 +46,51 @@ const DATA = [
   {
     id: '2',
     img: null,
+    status: 'upcoming',
+    division: 'Any Category1',
+    dateStart: '2020.12.03',
+    dateEnd: '2020.12.31',
+    title: '부동산,\n이게 어떻게 된 일일까요?',
+    participant: 'S20 사용자',
+    participantCount: '20000',
+    participantCompleteCount: '0',
+    tnc: '10',
+    purpose: '다음 제품 출시를 위하여',
+    host: 'Samsung',
+  },
+  {
+    id: '3',
+    img: null,
+    status: 'upcoming',
+    division: 'Any Category2',
+    dateStart: '2020.12.03',
+    dateEnd: '2020.12.31',
+    title: '결혼, 출산, 그리고 육아',
+    participant: 'S20 사용자',
+    participantCount: '20000',
+    participantCompleteCount: '0',
+    tnc: '10',
+    purpose: '다음 제품 출시를 위하여',
+    host: 'Samsung',
+  },
+  {
+    id: '4',
+    img: require('../../imgs/drawable-xxxhdpi/survey_img_2.png'),
+    status: 'expired',
+    division: 'Any Category1',
+    dateStart: '2020.12.03',
+    dateEnd: '2020.12.31',
+    title: '2020년 크리스마스,\n어떻게 보내실 건가요?',
+    participant: 'S20 사용자',
+    participantCount: '20000',
+    participantCompleteCount: '12375',
+    tnc: '10',
+    purpose: '다음 제품 출시를 위하여',
+    host: 'Samsung',
+  },
+  {
+    id: '5',
+    img: null,
     status: 'ongoing',
     division: 'Any Category1',
     dateStart: '2020.12.03',
@@ -53,7 +104,7 @@ const DATA = [
     host: 'Samsung',
   },
   {
-    id: '3',
+    id: '6',
     img: null,
     status: 'ongoing',
     division: 'Any Category2',
@@ -68,7 +119,7 @@ const DATA = [
     host: 'Samsung',
   },
   {
-    id: '4',
+    id: '7',
     img: require('../../imgs/drawable-xxxhdpi/survey_img_2.png'),
     status: 'ongoing',
     division: 'Any Category1',
@@ -82,39 +133,152 @@ const DATA = [
     purpose: '다음 제품 출시를 위하여',
     host: 'Samsung',
   },
+  {
+    id: '8',
+    img: null,
+    status: 'expired',
+    division: 'Any Category2',
+    dateStart: '2020.12.03',
+    dateEnd: '2020.12.31',
+    title: '결혼, 출산, 그리고 육아',
+    participant: 'S20 사용자',
+    participantCount: '20000',
+    participantCompleteCount: '12375',
+    tnc: '10',
+    purpose: '다음 제품 출시를 위하여',
+    host: 'Samsung',
+  },
 ];
 
-data = DATA.filter((item) => item.status == 'ongoing').map(
-  ({
-    img,
-    division,
-    dateStart,
-    dateEnd,
-    title,
-    participant,
-    participantCount,
-    participantCompleteCount,
-    tnc,
-    purpose,
-    host,
-  }) => ({
-    img,
-    division,
-    dateStart,
-    dateEnd,
-    title,
-    participant,
-    participantCount,
-    participantCompleteCount,
-    tnc,
-    purpose,
-    host,
-  }),
-);
-console.log(data);
+dataFilteringOngoing = data
+  .filter((item) => item.status == 'ongoing')
+  .map(
+    ({
+      status,
+      img,
+      division,
+      dateStart,
+      dateEnd,
+      title,
+      participant,
+      participantCount,
+      participantCompleteCount,
+      tnc,
+      purpose,
+      host,
+    }) => ({
+      status,
+      img,
+      division,
+      dateStart,
+      dateEnd,
+      title,
+      participant,
+      participantCount,
+      participantCompleteCount,
+      tnc,
+      purpose,
+      host,
+    }),
+  );
+
+dataFilteringCompleted = data
+  .filter((item) => item.status == 'completed')
+  .map(
+    ({
+      status,
+      img,
+      division,
+      dateStart,
+      dateEnd,
+      title,
+      participant,
+      participantCount,
+      participantCompleteCount,
+      tnc,
+      purpose,
+      host,
+    }) => ({
+      status,
+      img,
+      division,
+      dateStart,
+      dateEnd,
+      title,
+      participant,
+      participantCount,
+      participantCompleteCount,
+      tnc,
+      purpose,
+      host,
+    }),
+  );
+
+dataFilteringUpcoming = data
+  .filter((item) => item.status == 'upcoming')
+  .map(
+    ({
+      status,
+      img,
+      division,
+      dateStart,
+      dateEnd,
+      title,
+      participant,
+      participantCount,
+      participantCompleteCount,
+      tnc,
+      purpose,
+      host,
+    }) => ({
+      status,
+      img,
+      division,
+      dateStart,
+      dateEnd,
+      title,
+      participant,
+      participantCount,
+      participantCompleteCount,
+      tnc,
+      purpose,
+      host,
+    }),
+  );
+
+dataFilteringExpired = data
+  .filter((item) => item.status == 'expired')
+  .map(
+    ({
+      status,
+      img,
+      division,
+      dateStart,
+      dateEnd,
+      title,
+      participant,
+      participantCount,
+      participantCompleteCount,
+      tnc,
+      purpose,
+      host,
+    }) => ({
+      status,
+      img,
+      division,
+      dateStart,
+      dateEnd,
+      title,
+      participant,
+      participantCount,
+      participantCompleteCount,
+      tnc,
+      purpose,
+      host,
+    }),
+  );
 
 const Item = ({
-  addImg,
   status,
   division,
   dateStart,
@@ -129,6 +293,7 @@ const Item = ({
   host,
 }) => (
   <View
+    opacity={status === 'expired' ? 0.5 : 1.0}
     style={{
       width: '90%',
       alignSelf: 'center',
@@ -156,7 +321,12 @@ const Item = ({
             left: 0,
             width: '100%',
             height: 10,
-            backgroundColor: '#ffedc2',
+            backgroundColor:
+              division === 'E-commerce'
+                ? '#ffedc2'
+                : division === 'Any Category1'
+                ? '#b7fcff'
+                : '#ffdfdf',
             // backgroundColor: '#b7fcff',
             // backgroundColor: '#ffdfdf',
           }}></View>
@@ -375,8 +545,9 @@ const Item = ({
       style={{
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'flex-start',
+        justifyContent: 'flex-end',
         paddingLeft: '5%',
+        paddingRight: '5%',
         marginTop: '2%',
       }}>
       <Text
@@ -390,6 +561,7 @@ const Item = ({
 function Ongoing() {
   const renderItem = ({item}) => (
     <Item
+      status={item.status}
       division={item.division}
       img={item.img}
       title={item.title}
@@ -414,7 +586,7 @@ function Ongoing() {
       }}>
       <ScrollView style={{width: '100%'}}>
         <FlatList
-          data={DATA}
+          data={dataFilteringOngoing}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
@@ -424,6 +596,23 @@ function Ongoing() {
 }
 
 function Completed() {
+  const renderItem = ({item}) => (
+    <Item
+      status={item.status}
+      division={item.division}
+      img={item.img}
+      title={item.title}
+      dateStart={item.dateStart}
+      dateEnd={item.dateEnd}
+      participant={item.participant}
+      participantCount={item.participantCount}
+      participantCompleteCount={item.participantCompleteCount}
+      tnc={item.tnc}
+      purpose={item.purpose}
+      host={item.host}
+    />
+  );
+
   return (
     <SafeAreaView
       style={{
@@ -432,21 +621,35 @@ function Completed() {
         overflow: 'scroll',
         backgroundColor: '#f9f9f9',
       }}>
-      <ScrollView style={{width: '100%', height: '100%'}}>
-        <Text
-          style={[
-            ResetStyle.fontLightK,
-            ResetStyle.fontDG,
-            {textAlign: 'left', margin: '5%'},
-          ]}>
-          2
-        </Text>
+      <ScrollView style={{width: '100%'}}>
+        <FlatList
+          data={dataFilteringCompleted}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+        />
       </ScrollView>
     </SafeAreaView>
   );
 }
 
-function Terms2() {
+function Upcoming() {
+  const renderItem = ({item}) => (
+    <Item
+      status={item.status}
+      division={item.division}
+      img={item.img}
+      title={item.title}
+      dateStart={item.dateStart}
+      dateEnd={item.dateEnd}
+      participant={item.participant}
+      participantCount={item.participantCount}
+      participantCompleteCount={item.participantCompleteCount}
+      tnc={item.tnc}
+      purpose={item.purpose}
+      host={item.host}
+    />
+  );
+
   return (
     <SafeAreaView
       style={{
@@ -455,21 +658,35 @@ function Terms2() {
         overflow: 'scroll',
         backgroundColor: '#f9f9f9',
       }}>
-      <ScrollView style={{width: '100%', height: '100%'}}>
-        <Text
-          style={[
-            ResetStyle.fontLightK,
-            ResetStyle.fontDG,
-            {textAlign: 'left', margin: '5%'},
-          ]}>
-          3
-        </Text>
+      <ScrollView style={{width: '100%'}}>
+        <FlatList
+          data={dataFilteringUpcoming}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+        />
       </ScrollView>
     </SafeAreaView>
   );
 }
 
-function Conditions2() {
+function Expired() {
+  const renderItem = ({item}) => (
+    <Item
+      status={item.status}
+      division={item.division}
+      img={item.img}
+      title={item.title}
+      dateStart={item.dateStart}
+      dateEnd={item.dateEnd}
+      participant={item.participant}
+      participantCount={item.participantCount}
+      participantCompleteCount={item.participantCompleteCount}
+      tnc={item.tnc}
+      purpose={item.purpose}
+      host={item.host}
+    />
+  );
+
   return (
     <SafeAreaView
       style={{
@@ -478,192 +695,286 @@ function Conditions2() {
         overflow: 'scroll',
         backgroundColor: '#f9f9f9',
       }}>
-      <ScrollView style={{width: '100%', height: '200%'}}>
-        <Text
-          style={[
-            ResetStyle.fontLightK,
-            ResetStyle.fontDG,
-            {textAlign: 'left', margin: '5%'},
-          ]}>
-          4
-        </Text>
+      <ScrollView style={{width: '100%'}}>
+        <FlatList
+          data={dataFilteringExpired}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+        />
       </ScrollView>
     </SafeAreaView>
   );
 }
 
-class TermsConditions extends Component {
-  state = {};
-
-  render() {
-    return (
+// Main Component
+function MainPage({navigation}) {
+  return (
+    <View
+      style={{
+        backgroundColor: '#f9f9f9',
+        marginTop: StatusBar.currentHeight || 0,
+        flex: 1,
+      }}>
       <View
         style={{
           backgroundColor: '#f9f9f9',
-          marginTop: StatusBar.currentHeight || 0,
-          flex: 1,
+          paddingTop: '15%',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          padding: '5%',
+          paddingBottom: '10%',
+        }}>
+        <TouchableOpacity>
+          <View style={{flexDirection: 'row'}}>
+            <Image
+              source={require('../../imgs/drawable-xxxhdpi/main_r_logo.png')}
+            />
+            <Text
+              style={[
+                ResetStyle.fontRegularK,
+                ResetStyle.fontB,
+                {marginLeft: 10},
+              ]}>
+              Real Research
+            </Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.openDrawer()}>
+          <Image
+            source={require('../../imgs/drawable-xxxhdpi/menu_icon.png')}
+          />
+        </TouchableOpacity>
+      </View>
+
+      <View
+        style={{
+          width: '90%',
+          height: '10%',
+          backgroundColor: '#FFF',
+          alignSelf: 'center',
+          borderRadius: 10,
+          borderWidth: 1,
+          borderColor: '#e8e8e8',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: '6%',
+          paddingLeft: '5%',
+          paddingRight: '13%',
         }}>
         <View
           style={{
-            backgroundColor: '#f9f9f9',
-            paddingTop: '15%',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            padding: '5%',
-            paddingBottom: '10%',
+            flexDirection: 'column',
+            alignItems: 'center',
           }}>
-          <TouchableOpacity>
-            <View style={{flexDirection: 'row'}}>
-              <Image
-                source={require('../../imgs/drawable-xxxhdpi/main_r_logo.png')}
-              />
-              <Text
-                style={[
-                  ResetStyle.fontRegularK,
-                  ResetStyle.fontB,
-                  {marginLeft: 10},
-                ]}>
-                Real Research
-              </Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Image
-              source={require('../../imgs/drawable-xxxhdpi/menu_icon.png')}
-            />
-          </TouchableOpacity>
+          <Text
+            style={[
+              ResetStyle.fontLightK,
+              ResetStyle.fontG,
+              {fontWeight: '500'},
+            ]}>
+            MY TNC
+          </Text>
+          <Text
+            style={[
+              ResetStyle.fontMediumE,
+              ResetStyle.fontB,
+              {fontWeight: '600'},
+            ]}>
+            10,000
+          </Text>
+        </View>
+
+        <View style={{flexDirection: 'column', alignItems: 'center'}}>
+          <Text
+            style={[
+              ResetStyle.fontLightK,
+              ResetStyle.fontG,
+              {fontWeight: '500'},
+            ]}>
+            HIT
+          </Text>
+          <Text
+            style={[
+              ResetStyle.fontMediumE,
+              ResetStyle.fontB,
+              {fontWeight: '600'},
+            ]}>
+            10
+          </Text>
         </View>
 
         <View
           style={{
-            width: '90%',
-            height: '10%',
-            backgroundColor: '#FFF',
-            alignSelf: 'center',
-            borderRadius: 10,
-            borderWidth: 1,
-            borderColor: '#e8e8e8',
-            flexDirection: 'row',
+            position: 'absolute',
+            top: '-70%',
+            left: 0,
+            right: 0,
+            bottom: 0,
+            justifyContent: 'center',
             alignItems: 'center',
-            justifyContent: 'space-between',
-            marginBottom: '6%',
-            paddingLeft: '5%',
-            paddingRight: '13%',
+            flexDirection: 'column',
           }}>
+          {/* progress 최대 수치 1 */}
+          <ProgressCircle
+            style={{
+              position: 'absolute',
+              width: 120,
+              height: 125,
+              backgroundColor: '#FFF',
+              borderRadius: 60,
+            }}
+            progress={0.7}
+            progressColor={'#0080ff'}
+            strokeWidth={3}
+          />
+
           <View
             style={{
-              flexDirection: 'column',
-              alignItems: 'center',
+              flexDirection: 'row',
+              borderBottomWidth: 1,
+              borderBottomColor: '#0080ff',
+              paddingBottom: 5,
+              marginTop: 10,
             }}>
-            <Text style={[ResetStyle.fontRegularK, ResetStyle.fontG]}>
-              MY TNC
-            </Text>
             <Text
               style={[
-                ResetStyle.fontMediumK,
+                ResetStyle.fontLightK,
                 ResetStyle.fontB,
-                {fontWeight: '600'},
+                {fontWeight: '500', marginRight: 5},
               ]}>
-              10,000
+              LEVEL
             </Text>
+            <TouchableOpacity>
+              <Image
+                source={require('../../imgs/drawable-xxxhdpi/main_questionmark_icon.png')}
+              />
+            </TouchableOpacity>
           </View>
 
-          <View style={{flexDirection: 'column', alignItems: 'center'}}>
-            <Text style={[ResetStyle.fontRegularK, ResetStyle.fontG]}>HIT</Text>
-            <Text
-              style={[
-                ResetStyle.fontMediumK,
-                ResetStyle.fontB,
-                {fontWeight: '600'},
-              ]}>
-              10
-            </Text>
-          </View>
+          <Text style={[ResetStyle.fontBoldK, ResetStyle.fontB]}>2</Text>
+        </View>
+      </View>
 
+      <View
+        style={{
+          width: '100%',
+          height: 70,
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <View
+          style={{
+            position: 'absolute',
+            top: '-45%',
+            width: '55%',
+            backgroundColor: '#2d91ff',
+            padding: '5%',
+            borderRadius: 10,
+          }}>
           <View
             style={{
               position: 'absolute',
-              top: '-45%',
-              left: 0,
-              right: 0,
-              bottom: 0,
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'column',
-            }}>
-            {/* progress 최대 수치 1 */}
-            <ProgressCircle
-              style={{
-                position: 'absolute',
-                width: 120,
-                height: 120,
-                backgroundColor: '#FFF',
-                borderRadius: 60,
-              }}
-              progress={0.7}
-              progressColor={'#0080ff'}
-              strokeWidth={4}
-            />
-
-            <View
-              style={{
-                flexDirection: 'row',
-                borderBottomWidth: 1,
-                borderBottomColor: '#0080ff',
-                paddingBottom: 5,
-                marginTop: 10,
-              }}>
-              <Text
-                style={[
-                  ResetStyle.fontLightK,
-                  ResetStyle.fontB,
-                  {fontWeight: '500', marginRight: 5},
-                ]}>
-                LEVEL
-              </Text>
-              <TouchableOpacity>
-                <Image
-                  source={require('../../imgs/drawable-xxxhdpi/main_questionmark_icon.png')}
-                />
-              </TouchableOpacity>
-            </View>
-
-            <Text style={[ResetStyle.fontBoldK, ResetStyle.fontB]}>2</Text>
-          </View>
+              top: '-15%',
+              left: '41%',
+              width: 0,
+              height: 0,
+              backgroundColor: 'transparent',
+              borderStyle: 'solid',
+              borderLeftWidth: 30,
+              borderRightWidth: 30,
+              borderBottomWidth: 50,
+              borderLeftColor: 'transparent',
+              borderRightColor: 'transparent',
+              borderBottomColor: '#2d91ff',
+            }}></View>
+          <Text
+            style={[
+              ResetStyle.fontLightK,
+              ResetStyle.fontWhite,
+              {textAlign: 'center', fontWeight: '500'},
+            ]}>
+            KYC LEVEL을{'\n'}업데이트해보세요!
+          </Text>
+          <Text
+            style={[
+              ResetStyle.fontLightK,
+              ResetStyle.fontWhite,
+              {textAlign: 'center', marginTop: 5},
+            ]}>
+            (HIGHEST LEVEL 23)
+          </Text>
         </View>
-
-        <View
-          style={{borderBottomWidth: 1, borderBottomColor: '#dedede'}}></View>
-
-        <Tab.Navigator
-          tabBarOptions={{
-            labelStyle: {fontSize: 16, fontWeight: '500', letterSpacing: -0.5},
-            activeTintColor: '#222222',
-            inactiveTintColor: '#a9a9a9',
-            tabStyle: {
-              paddingLeft: 0,
-              paddingRight: 0,
-              paddingTop: 15,
-              paddingBottom: 20,
-            },
-            indicatorStyle: {
-              position: 'relative',
-              top: '75%',
-              left: '4%',
-              borderColor: '#222222',
-              borderWidth: 1.5,
-              width: '5%',
-            },
-            style: {
-              backgroundColor: '#f9f9f9',
-            },
-          }}>
-          <Tab.Screen name="ONGOING" component={Ongoing} />
-          <Tab.Screen name="COMPLETED" component={Completed} />
-          <Tab.Screen name="UPCOMING" component={Terms2} />
-          <Tab.Screen name="EXPIRED" component={Conditions2} />
-        </Tab.Navigator>
       </View>
+
+      <View style={{borderBottomWidth: 1, borderBottomColor: '#dedede'}}></View>
+
+      <Tab.Navigator
+        tabBarOptions={{
+          labelStyle: {fontSize: 16, fontWeight: '500', letterSpacing: -0.5},
+          activeTintColor: '#222222',
+          inactiveTintColor: '#a9a9a9',
+          tabStyle: {
+            paddingLeft: 0,
+            paddingRight: 0,
+            paddingTop: 15,
+            paddingBottom: 20,
+          },
+          indicatorStyle: {
+            position: 'relative',
+            top: '75%',
+            left: '4%',
+            borderColor: '#222222',
+            borderWidth: 1.5,
+            width: '5%',
+          },
+          style: {
+            backgroundColor: '#f9f9f9',
+          },
+        }}>
+        <Tab.Screen name="ONGOING" component={Ongoing} />
+        <Tab.Screen name="COMPLETED" component={Completed} />
+        <Tab.Screen name="UPCOMING" component={Upcoming} />
+        <Tab.Screen name="EXPIRED" component={Expired} />
+      </Tab.Navigator>
+    </View>
+  );
+}
+
+function CustomDrawerContent(props) {
+  return (
+    <DrawerContentScrollView {...props}>
+      <View>
+        <Text>123</Text>
+      </View>
+      <ProgressCircle style={{width: 120, height: 125}} />
+
+      <DrawerItemList {...props} />
+      {/* <DrawerItem
+        label="Close drawer"
+        onPress={() => props.navigation.closeDrawer()}
+      />
+      <DrawerItem
+        label="Toggle drawer"
+        onPress={() => props.navigation.toggleDrawer()}
+      /> */}
+    </DrawerContentScrollView>
+  );
+}
+
+// Main Drawer
+class Main extends Component {
+  // state = {};
+
+  render() {
+    return (
+      <Drawer.Navigator
+        drawerContent={(props) => <CustomDrawerContent {...props} />}
+        drawerPosition="right"
+        drawerStyle={{width: '80%'}}>
+        <Drawer.Screen name="MainPage" component={MainPage} />
+      </Drawer.Navigator>
     );
   }
 }
@@ -696,4 +1007,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TermsConditions;
+export default Main;
