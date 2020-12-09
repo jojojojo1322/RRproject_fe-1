@@ -96,7 +96,7 @@ export default class Kyc extends Component {
     this.setState({country: country, countryCd: cd});
   };
   setLanguage = (visible) => {
-    console.log(visible);
+    console.log('Language', visible);
     this.setState({languageCd: visible});
   };
   setResidenceCountry = (countryResidence, countryResidenceCd) => {
@@ -164,7 +164,11 @@ export default class Kyc extends Component {
       maritalStatus: value,
     });
   };
-  componentDidUpdate(preProps, preState) {}
+  componentDidUpdate(preProps, preState) {
+    if (preState.languageCd !== this.state.languageCd) {
+      console.log('trans~~~~~~~~~');
+    }
+  }
   render() {
     // const {navigation} = this.props;
     // const itemId = navigation.getParam('step');
