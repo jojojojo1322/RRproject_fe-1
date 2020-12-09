@@ -20,101 +20,12 @@ import {
 } from 'react-native';
 import {RoundCheckbox, SelectedCheckboxes} from '../../Roundcheck';
 import ResetStyle from '../../../style/ResetStyle';
+import {DefineCountryList} from '../../defined/DefineCountryList';
 
 const window = Dimensions.get('window');
 
-let DATA = [
-  {
-    id: '1',
-    img: require('../../../imgs/drawable-xhdpi/flag_afghanistan.png'),
-    title: 'Afghanistan(AF)',
-    cd: '+93',
-  },
-  {
-    id: '2',
-    img: require('../../../imgs/drawable-xhdpi/flag_albania.png'),
-    title: 'Albania',
-    cd: '+355',
-  },
-  {
-    id: '3',
-    img: require('../../../imgs/drawable-xhdpi/flag_argentina.png'),
-    title: 'Argentina',
-    cd: '+54',
-  },
-  {
-    id: '4',
-    img: require('../../../imgs/drawable-xhdpi/flag_afghanistan.png'),
-    title: 'Afghanistan(AF)',
-    cd: '+93',
-  },
-  {
-    id: '5',
-    img: require('../../../imgs/drawable-xhdpi/flag_albania.png'),
-    title: 'Albania',
-    cd: '+355',
-  },
-  {
-    id: '6',
-    img: require('../../../imgs/drawable-xhdpi/flag_argentina.png'),
-    title: 'Argentina',
-    cd: '+54',
-  },
-  {
-    id: '7',
-    img: require('../../../imgs/drawable-xhdpi/flag_afghanistan.png'),
-    title: 'Afghanistan(AF)',
-    cd: '+93',
-  },
-  {
-    id: '8',
-    img: require('../../../imgs/drawable-xhdpi/flag_albania.png'),
-    title: 'Albania',
-    cd: '+355',
-  },
-  {
-    id: '9',
-    img: require('../../../imgs/drawable-xhdpi/flag_argentina.png'),
-    title: 'Argentina',
-    cd: '+54',
-  },
-  {
-    id: '10',
-    img: require('../../../imgs/drawable-xhdpi/flag_afghanistan.png'),
-    title: 'Afghanistan(AF)',
-    cd: '+93',
-  },
-  {
-    id: '11',
-    img: require('../../../imgs/drawable-xhdpi/flag_albania.png'),
-    title: 'Albania',
-    cd: '+355',
-  },
-  {
-    id: '12',
-    img: require('../../../imgs/drawable-xhdpi/flag_argentina.png'),
-    title: 'Argentina',
-    cd: '+54',
-  },
-  {
-    id: '13',
-    img: require('../../../imgs/drawable-xhdpi/flag_afghanistan.png'),
-    title: 'Afghanistan(AF)',
-    cd: '+93',
-  },
-  {
-    id: '14',
-    img: require('../../../imgs/drawable-xhdpi/flag_albania.png'),
-    title: 'Albania',
-    cd: '+355',
-  },
-  {
-    id: '15',
-    img: require('../../../imgs/drawable-xhdpi/flag_argentina.png'),
-    title: 'Argentina',
-    cd: '+54',
-  },
-];
+let DATA = DefineCountryList;
+
 const CountryList = (props) => {
   const [selectedId, setSelectedId] = useState(null);
 
@@ -132,7 +43,14 @@ const CountryList = (props) => {
   };
 
   if (props.searchText != '') {
-    DATA = DATA.filter((data) => data.title == props.searchText);
+    DATA = DefineCountryList.filter(
+      (data) =>
+        data.title.toLowerCase().indexOf(props.searchText.toLowerCase()) !== -1,
+    );
+
+    // list.custName.toLowerCase().indexOf(searchName) > -1
+  } else {
+    DATA = DefineCountryList;
   }
 
   return (
@@ -156,7 +74,8 @@ const Item = ({item, onPress, style, handlePick}) => {
       }}
       style={[styles.item, style]}>
       <Image style={styles.listImg} source={item.img} />
-      <Text style={[ResetStyle.fontRegularK, ResetStyle.fontDG]}>
+      <Text
+        style={[ResetStyle.fontRegularK, ResetStyle.fontDG, {width: '70%'}]}>
         {item.title}
       </Text>
       <Text style={[ResetStyle.fontRegularK, ResetStyle.fontDG]}>

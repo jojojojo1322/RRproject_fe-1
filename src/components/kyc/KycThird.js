@@ -60,9 +60,20 @@ export default class kycThird extends Component {
     this.props.setCountry(country, cd);
   };
   setLanguage = (visible) => {
-    console.log(visible);
-    this.setState({language: visible});
-    this.props.setLanguage(visible);
+    let Lang = '';
+    let HighLang = '';
+    visible.map((data, index) => {
+      visible.length == index + 1
+        ? (Lang += `${data.label}`)
+        : (Lang += `${data.label}, `);
+    });
+    visible.map((data, index) => {
+      visible.length == index + 1
+        ? (HighLang += `${data.label}`)
+        : (HighLang += `${data.label},`);
+    });
+    this.setState({language: Lang});
+    this.props.setLanguage(HighLang);
   };
   setResidenceCountry = (residenceCountry, residenceCountryCd) => {
     this.setState({
@@ -153,7 +164,7 @@ export default class kycThird extends Component {
               placeholder="선택해 주세요"
               // keyboardType={'numeric'}
               onChangeText={this.handleBirth}
-              // value={this.props.birth}
+              value={this.state.language}
               style={[
                 ResetStyle.fontRegularK,
                 ResetStyle.fontG,
@@ -268,6 +279,7 @@ export default class kycThird extends Component {
           modalVisible={this.state.residenceCityModal}
           setModalVisible={this.setResidenceCityModal}
           setCountry={this.setResidenceCity}
+          setLanguage={this.setLanguage}
         />
       </View>
     );

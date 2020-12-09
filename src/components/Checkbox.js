@@ -56,7 +56,10 @@ export class Checkbox extends Component {
           value: value,
           label: label,
         });
+        this.props.handleCheckedArray(this.props.checkedObjArr.fetchArray());
       } else {
+        this.props.handleUnCheckedArray(key);
+        // this.props.handleUnCheckedArray(this.props.checkedObjArr.fetchArray());
         this.props.checkedObjArr.fetchArray().splice(
           this.props.checkedObjArr.fetchArray().findIndex((y) => y.key == key),
           1,

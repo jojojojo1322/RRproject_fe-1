@@ -178,10 +178,15 @@ export default class Login extends Component {
                   hasWallet: '',
                 });
                 await this.loginApi(this.state.ID, this.state.passWord);
+                console.log('notyey');
+                console.log(this.state.loginCheck);
+
                 if (this.state.loginCheck) {
                   if (this.state.hasWallet === -1) {
                     console.log('aaa');
                     this.setModalVisible(true);
+                  } else {
+                    this.props.navigation.navigate('Main');
                   }
                   // this.props.navigation.navigate('WalletPassword');
                 } else {

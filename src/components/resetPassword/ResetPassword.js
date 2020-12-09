@@ -23,24 +23,13 @@ import {server} from '../defined/server';
 import TextConfirmModal from '../factory/modal/TextConfirmModal';
 
 function chkPW(password) {
-  var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+  var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~!@#$%^&*()_+|<>?:{}]).{8,}$/;
   var regHigh = /^(?=.*?[A-Z])/;
   var regRow = /^(?=.*?[a-z])/;
   var regNumber = /^(?=.*?[0-9])/;
   var regCharacters = /^(?=.*?[~!@#$%^&*()_+|<>?:{}])/;
   var pw = password;
 
-  // if (false === regHigh.test(pw)) {
-  //   console.log('대문자');
-  // } else if (false === regRow.test(pw)) {
-  //   console.log('소문자');
-  // } else if (false === regNumber.test(pw)) {
-  //   console.log('숫자');
-  // } else if (false === regCharacters.test(pw)) {
-  //   console.log('특수문자');
-  // } else {
-  //   console.log('통과');
-  // }
   return reg.test(pw);
 }
 function chkPWHigh(password) {
@@ -150,7 +139,7 @@ export default class ResetPassword extends Component {
                   placeholder="아래 조합으로 입력"
                   placeholderTextColor="#a9a9a9"
                   // keyboardType={'numeric'}
-                  secureTextEntry={true}
+                  secureTextEntry={this.state.firstBlur}
                   onChangeText={this.handlePassword}
                   value={this.state.password}
                   style={[
@@ -158,10 +147,26 @@ export default class ResetPassword extends Component {
                     ResetStyle.fontG,
                     ResetStyle.textInputText,
                   ]}></TextInput>
-                {/* <Image
-                    style={{width: 19, height: 19}}
-                    source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
-                  /> */}
+                <TouchableOpacity
+                  style={[ResetStyle.textInputTextButton, {top: '45%'}]}
+                  onPress={() => {
+                    const first = this.state.firstBlur;
+                    this.setState({
+                      firstBlur: !first,
+                    });
+                  }}>
+                  {this.state.firstBlur ? (
+                    <Image
+                      style={ResetStyle.smallImg}
+                      source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
+                    />
+                  ) : (
+                    <Image
+                      style={ResetStyle.smallImg}
+                      source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
+                    />
+                  )}
+                </TouchableOpacity>
                 <View
                   style={{
                     flexDirection: 'row',
@@ -299,13 +304,6 @@ export default class ResetPassword extends Component {
                     </Text>
                   </View>
                 </View>
-                <TouchableOpacity
-                  style={[ResetStyle.textInputTextButton, {top: '45%'}]}>
-                  <Image
-                    style={ResetStyle.smallImg}
-                    source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
-                  />
-                </TouchableOpacity>
               </View>
             </TouchableOpacity>
 
@@ -321,7 +319,7 @@ export default class ResetPassword extends Component {
                   비밀번호 확인
                 </Text>
                 <TextInput
-                  // secureTextEntry={true}
+                  secureTextEntry={this.state.secondBlur}
                   placeholder="비밀번호 다시 입력"
                   placeholderTextColor="#a9a9a9"
                   // keyboardType={'numeric'}
@@ -358,14 +356,53 @@ export default class ResetPassword extends Component {
                     style={ResetStyle.smallImg}
                     source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
                   /> */}
-                <TouchableOpacity style={[ResetStyle.textInputTextButton]}>
-                  <Image
-                    style={ResetStyle.smallImg}
-                    source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
-                  />
+                <TouchableOpacity
+                  style={[ResetStyle.textInputTextButton]}
+                  onPress={() => {
+                    const second = this.state.secondBlur;
+                    this.setState({
+                      secondBlur: !second,
+                    });
+                  }}>
+                  {this.state.secondBlur ? (
+                    <Image
+                      style={ResetStyle.smallImg}
+                      source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
+                    />
+                  ) : (
+                    <Image
+                      style={ResetStyle.smallImg}
+                      source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
+                    />
+                  )}
                 </TouchableOpacity>
               </View>
             </TouchableOpacity>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginTop: '3%',
+              }}>
+              {this.state.checkBoolean !== '' &&
+                this.state.checkBoolean == false && (
+                  <>
+                    <Image
+                      style={ResetStyle.smallImg}
+                      source={require('../../imgs/drawable-xhdpi/icon_x_red.png')}
+                    />
+
+                    <Text
+                      style={[
+                        ResetStyle.fontLightK,
+                        ResetStyle.fontR,
+                        {marginLeft: 5},
+                      ]}>
+                      비밀번호가 일치하지 않습니다.
+                    </Text>
+                  </>
+                )}
+            </View>
           </View>
           {/* 비밀번호 */}
 
@@ -378,14 +415,23 @@ export default class ResetPassword extends Component {
                 : [ResetStyle.button, {backgroundColor: '#e6e6e6'}]
             }
             onPress={async () => {
-              await this.pwReSettingApi(this.state.password);
+              if (
+                chkPW(this.state.password) &&
+                this.state.password == this.state.checkPassword
+              ) {
+                await this.pwReSettingApi(this.state.password);
+              } else if (this.state.password !== this.state.checkPassword) {
+                this.setState({
+                  checkBoolean: false,
+                });
+              }
               if ((await this.state.ret_val) === 0) {
                 this.setModalVisible(true);
                 this.props.navigation.navigate('Login');
               }
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontWhite]}>
-              다음
+              확인
             </Text>
           </TouchableOpacity>
           <TextConfirmModal

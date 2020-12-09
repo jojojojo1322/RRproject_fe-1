@@ -16,6 +16,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import ResetStyle from '../../style/ResetStyle.js';
+import axios from 'axios';
+import {server} from '../defined/server';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import BottomModal from '../factory/modal/BottomModal';
 import CountDown from '../../components/factory/CountDown';
@@ -26,12 +28,20 @@ export default class ResetEmail extends Component {
     emailCode: '',
     authKey: this.props.route.params?.authKey,
     modalVisible: false,
-    isRunning: false,
+    modal2Visible: false,
+    isRunning: true,
     timeLeftNumber: 180,
+    CountDownCheck: '',
+    CountDownExpireCheck: false,
   };
   setModalVisible = (visible) => {
     this.setState({
       modalVisible: visible,
+    });
+  };
+  setModal2Visible = (visible) => {
+    this.setState({
+      modal2Visible: visible,
     });
   };
   validateEmail = (email) => {
@@ -44,26 +54,62 @@ export default class ResetEmail extends Component {
     });
     // console.log(this.validate(this.state.email));
   };
-
-  startTimer = () => {
-    intervalRef.current = setInterval(() => {
-      this.setState((timeLeftNumber) => {
-        if (timeLeftNumber >= 1) {
-          return timeLeftNumber - 1;
-        } else {
-          return 0;
-        }
+  emailReAuthApi = (email) => {
+    axios
+      .post(`${server}/util/email/pw-auth`, {
+        email,
+      })
+      .then(async (response) => {
+        console.log('then', response);
+        console.log('then', response.data);
+        console.log('then', response.authKey);
+        this.setState({
+          authKey: response.data.authKey,
+        });
+        const authKey = response.data.authKey;
+        await AsyncStorage.setItem('authKey', authKey);
+        console.log('Async!~!~!~!~', await AsyncStorage.getItem('authKey'));
+      })
+      .catch(({e}) => {
+        console.log('error', e);
       });
-    }, 1000);
   };
 
-  resetTimer = () => {
-    clearInterval(intervalRef.current);
-    setTimeLeft(180);
-    // setIsRunning(false);
+  handleCountDown() {
     this.setState((state) => ({
       isRunning: !state.isRunning,
+      CountDownExpireCheck: false,
     }));
+  }
+
+  handleReCountDown = async () => {
+    await this.setState({
+      isRunning: true,
+      timeLeftNumber: 180,
+      CountDownExpireCheck: false,
+    });
+    await this.setState({
+      isRunning: false,
+      timeLeftNumber: 180,
+      CountDownExpireCheck: false,
+    });
+    // this.setState({
+    //   isRunning: true,
+    //   timeLeftNumber: 180,
+    // });
+  };
+  handleCountDownCheck = (value) => {
+    this.setState({
+      CountDownCheck: value,
+    });
+  };
+  handleCountDownExpireCheck = () => {
+    console.log(
+      'handleCountDownExpireCheckhandleCountDownExpireCheckhandleCountDownExpireCheckhandleCountDownExpireCheck',
+    );
+    this.setState({
+      CountDownExpireCheck: true,
+    });
   };
 
   render() {
@@ -116,11 +162,19 @@ export default class ResetEmail extends Component {
               <CountDown
                 standard={this.state.isRunning}
                 timeLeftNumber={this.state.timeLeftNumber}
-                startTimer={this.startTimer}
-                resetTimer={this.resetTimer}
+                handleReCountDown={this.handleReCountDown}
+                handleCountDownCheck={this.handleCountDownCheck}
+                CountDownCheck={this.state.CountDownCheck}
+                CountDownExpireCheck={this.state.CountDownExpireCheck}
+                handleCountDownExpireCheck={this.handleCountDownExpireCheck}
               />
             </View>
-            <TouchableOpacity style={ResetStyle.textInputRe}>
+            <TouchableOpacity
+              style={ResetStyle.textInputRe}
+              onPress={() => {
+                this.handleReCountDown();
+                this.emailReAuthApi(this.state.email);
+              }}>
               <Text
                 style={[
                   ResetStyle.fontLightK,
@@ -143,12 +197,14 @@ export default class ResetEmail extends Component {
               if (this.state.emailCode.length == 6) {
                 if (
                   this.state.emailCode ==
-                  (await AsyncStorage.getItem('authKey'))
+                    (await AsyncStorage.getItem('authKey')) &&
+                  this.state.CountDownExpireCheck == false
                 ) {
                   this.props.navigation.navigate('ResetPassword', {
                     email: this.props.route.params?.email,
                     userNo: this.props.route.params?.userNo,
                   });
+                } else if (this.state.CountDownExpireCheck == true) {
                 } else {
                   console.log('ssssssssssssss');
                   this.setModalVisible(true);
@@ -163,6 +219,11 @@ export default class ResetEmail extends Component {
             setModalVisible={this.setModalVisible}
             modalVisible={this.state.modalVisible}
             text={`인증번호가 틀렸습니다`}
+          />
+          <BottomModal
+            setModalVisible={this.setModal2Visible}
+            modalVisible={this.state.modal2Visible}
+            text={`만료된 인증번호입니다`}
           />
         </View>
       </SafeAreaView>

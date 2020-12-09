@@ -20,136 +20,11 @@ import {
   TouchableOpacityBase,
 } from 'react-native';
 import {Checkbox, SelectedCheckboxes} from '../../Checkbox';
-const window = Dimensions.get('window');
+import {DefineCountryList} from '../../defined/DefineCountryList';
 
-const DATA = [
-  {
-    id: '1',
-    img: require('../../../imgs/drawable-xhdpi/flag_afghanistan.png'),
-    title: 'Afghanistan(AF)',
-    cd: '+93',
-  },
-  {
-    id: '2',
-    img: require('../../../imgs/drawable-xhdpi/flag_albania.png'),
-    title: 'Albania',
-    cd: '+355',
-  },
-  {
-    id: '3',
-    img: require('../../../imgs/drawable-xhdpi/flag_argentina.png'),
-    title: 'Argentina',
-    cd: '+54',
-  },
-  {
-    id: '1',
-    img: require('../../../imgs/drawable-xhdpi/flag_afghanistan.png'),
-    title: 'Afghanistan(AF)',
-    cd: '+93',
-  },
-  {
-    id: '2',
-    img: require('../../../imgs/drawable-xhdpi/flag_albania.png'),
-    title: 'Albania',
-    cd: '+355',
-  },
-  {
-    id: '3',
-    img: require('../../../imgs/drawable-xhdpi/flag_argentina.png'),
-    title: 'Argentina',
-    cd: '+54',
-  },
-  {
-    id: '1',
-    img: require('../../../imgs/drawable-xhdpi/flag_afghanistan.png'),
-    title: 'Afghanistan(AF)',
-    cd: '+93',
-  },
-  {
-    id: '2',
-    img: require('../../../imgs/drawable-xhdpi/flag_albania.png'),
-    title: 'Albania',
-    cd: '+355',
-  },
-  {
-    id: '3',
-    img: require('../../../imgs/drawable-xhdpi/flag_argentina.png'),
-    title: 'Argentina',
-    cd: '+54',
-  },
-  {
-    id: '1',
-    img: require('../../../imgs/drawable-xhdpi/flag_afghanistan.png'),
-    title: 'Afghanistan(AF)',
-    cd: '+93',
-  },
-  {
-    id: '2',
-    img: require('../../../imgs/drawable-xhdpi/flag_albania.png'),
-    title: 'Albania',
-    cd: '+355',
-  },
-  {
-    id: '3',
-    img: require('../../../imgs/drawable-xhdpi/flag_argentina.png'),
-    title: 'Argentina',
-    cd: '+54',
-  },
-  {
-    id: '1',
-    img: require('../../../imgs/drawable-xhdpi/flag_afghanistan.png'),
-    title: 'Afghanistan(AF)',
-    cd: '+93',
-  },
-  {
-    id: '2',
-    img: require('../../../imgs/drawable-xhdpi/flag_albania.png'),
-    title: 'Albania',
-    cd: '+355',
-  },
-  {
-    id: '3',
-    img: require('../../../imgs/drawable-xhdpi/flag_argentina.png'),
-    title: 'Argentina',
-    cd: '+54',
-  },
-  {
-    id: '1',
-    img: require('../../../imgs/drawable-xhdpi/flag_afghanistan.png'),
-    title: 'Afghanistan(AF)',
-    cd: '+93',
-  },
-  {
-    id: '2',
-    img: require('../../../imgs/drawable-xhdpi/flag_albania.png'),
-    title: 'Albania',
-    cd: '+355',
-  },
-  {
-    id: '3',
-    img: require('../../../imgs/drawable-xhdpi/flag_argentina.png'),
-    title: 'Argentina',
-    cd: '+54',
-  },
-  {
-    id: '1',
-    img: require('../../../imgs/drawable-xhdpi/flag_afghanistan.png'),
-    title: 'Afghanistan(AF)',
-    cd: '+93',
-  },
-  {
-    id: '2',
-    img: require('../../../imgs/drawable-xhdpi/flag_albania.png'),
-    title: 'Albania',
-    cd: '+355',
-  },
-  {
-    id: '3',
-    img: require('../../../imgs/drawable-xhdpi/flag_argentina.png'),
-    title: 'Argentina',
-    cd: '+54',
-  },
-];
+const window = Dimensions.get('window');
+let DATA = DefineCountryList;
+
 const CountryList = (props) => {
   const [selectedId, setSelectedId] = useState(null);
 
@@ -162,9 +37,21 @@ const CountryList = (props) => {
         onPress={() => setSelectedId(item.id)}
         style={{backgroundColor}}
         CheckedArrObject={props.CheckedArrObject}
+        handleCheckedArray={props.handleCheckedArray}
+        handleUnCheckedArray={props.handleUnCheckedArray}
       />
     );
   };
+  if (props.searchText != '') {
+    DATA = DefineCountryList.filter(
+      (data) =>
+        data.title.toLowerCase().indexOf(props.searchText.toLowerCase()) !== -1,
+    );
+
+    // list.custName.toLowerCase().indexOf(searchName) > -1
+  } else {
+    DATA = DefineCountryList;
+  }
 
   return (
     <View style={styles.countryList}>
@@ -178,81 +65,73 @@ const CountryList = (props) => {
   );
 };
 
-const Item = ({item, onPress, style, CheckedArrObject}) => {
+const Item = ({
+  item,
+  onPress,
+  style,
+  CheckedArrObject,
+  handleCheckedArray,
+  handleUnCheckedArray,
+}) => {
   // CheckedArrObject = new SelectedCheckboxes();
   return (
     <TouchableOpacity onPress={onPress} style={[styles.item, style]}>
-      <Text style={styles.title}>{item.title}</Text>
+      <Text style={[styles.title, {width: '80%'}]}>{item.title}</Text>
       <Checkbox
         size={25}
-        keyValue={Number(item.id)}
+        keyValue={item.id}
         checked={false}
         color="#164895"
         labelColor="#000000"
-        label="Birds of Prey"
-        value="birds_of_prey"
+        label={item.title}
+        value={item.cd}
         checkedObjArr={CheckedArrObject}
+        handleCheckedArray={handleCheckedArray}
+        handleUnCheckedArray={handleUnCheckedArray}
       />
     </TouchableOpacity>
   );
 };
-
-// class ModalCountry extends Component {
-//   render() {
-//     return (
-//       <>
-//         <View style={styles.modalView}>
-//           <View style={styles.modalBox}>
-//             <Text style={styles.modalText}>사용가능언어 선택</Text>
-//             <TouchableOpacity
-//               style={styles.closeButton}
-//               setModalVisible={this.props.setModalVisible}
-//               modalVisible={this.props.modalVisible}
-//               onPress={() => {
-//                 this.props.setModalVisible(!modalVisible);
-//               }}>
-//               <Image
-//                 style={styles.closeButton}
-//                 source={require('../../../imgs/icon_close.png')}
-//               />
-//             </TouchableOpacity
-//           </View>
-
-//           <View style={styles.modalInputBox}>
-//             <TextInput
-//               style={styles.searchInputText}
-//               placeholder="search"></TextInput>
-//             <TouchableOpacitytyle={styles.closeButton}>
-//               <Image
-//                 style={styles.closeButton}
-//                 source={require('../../../imgs/icon_search.png')}
-//               />
-//             </TouchableOpacity
-//           </View>
-
-//           <CountryList />
-//         </View>
-//       </>
-//     );
-//   }
-// }
 
 class ListCheckModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
       modalVisible: false,
+      searchText: '',
+      checkedArray: [],
     };
-    // this.setModalVisible = this.setModalVisible.bind(this);
   }
-  //   state = {
-  //     modalVisible: this.props.modalVisible,
-  //   };
+  handleCheckedArray = async (Array) => {
+    let checkedArray = this.state.checkedArray;
+    await this.setState({
+      checkedArray: checkedArray.concat(Array),
+    });
+    console.log('PlusArrayLATE', this.state.checkedArray);
+  };
+
+  handleUnCheckedArray = async (key) => {
+    let checkedArray = this.state.checkedArray;
+    checkedArray.splice(
+      checkedArray.findIndex((y) => y.key == key),
+      1,
+    ),
+      await this.setState({
+        checkedArray: checkedArray,
+      });
+    console.log('MinusArrayLATE', this.state.checkedArray);
+  };
+
   componentDidUpdate(preProps, preState) {
     if (preProps.modalVisible != this.props.modalVisible) {
       this.setState({modalVisible: this.props.modalVisible});
     }
   }
+  handleInputChange = (searchText) => {
+    this.setState({
+      searchText: searchText,
+    });
+  };
   setModalVisible = (visible) => {
     this.setState({modalVisible: visible});
   };
@@ -278,11 +157,6 @@ class ListCheckModal extends Component {
           }}>
           <View style={styles.centeredView}></View>
         </TouchableWithoutFeedback>
-
-        {/* <ModalCountry
-          data={this.state}
-          ListCheckModalVisible={this.props.ListCheckModalVisible}
-        /> */}
 
         {/* modal view */}
         <View style={styles.modalView}>
@@ -311,6 +185,8 @@ class ListCheckModal extends Component {
           <View style={styles.modalInputBox}>
             <TextInput
               style={styles.searchInputText}
+              onChangeText={this.handleInputChange}
+              value={this.state.searchText}
               placeholder="search"></TextInput>
             <TouchableOpacity style={styles.closeButton}>
               <Image
@@ -323,16 +199,26 @@ class ListCheckModal extends Component {
           <CountryList
             setLanguage={this.props.setLanguage}
             CheckedArrObject={CheckedArrObject}
+            searchText={this.state.searchText}
+            handleCheckedArray={this.handleCheckedArray}
+            handleUnCheckedArray={this.handleUnCheckedArray}
           />
 
           <TouchableOpacity
             style={[
               styles.button,
+
               // {backgroundColor: '#c6c9cf', marginTop: 15},
-            ]}>
-            <Text style={[styles.buttonTexts, {backgroundColor: '#4696ff'}]}>
-              CONFIRM
-            </Text>
+              this.state.checkedArray == '' && {backgroundColor: '#e6e6e6'},
+            ]}
+            onPress={() => {
+              if (this.state.checkedArray !== '') {
+                this.props.setLanguage(this.state.checkedArray);
+                this.setState({modalVisible: !modalVisible});
+                this.props.setModalVisible(!modalVisible);
+              }
+            }}>
+            <Text style={[styles.buttonTexts]}>CONFIRM</Text>
           </TouchableOpacity>
         </View>
       </Modal>
