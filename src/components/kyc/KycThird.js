@@ -142,6 +142,7 @@ export default class kycThird extends Component {
           modalVisible={this.state.countryModal}
           setModalVisible={this.setCountryModal}
           setCountry={this.setCountry}
+          titleText={`국적선택`}
         />
 
         <View style={{marginTop: Platform.OS === 'ios' ? '10%' : '8%'}}>
@@ -234,6 +235,7 @@ export default class kycThird extends Component {
           modalVisible={this.state.residenceCountryModal}
           setModalVisible={this.setResidenceCountryModal}
           setCountry={this.setResidenceCountry}
+          titleText={`거주국가선택`}
         />
 
         <View style={{marginTop: Platform.OS === 'ios' ? '10%' : '8%'}}>
@@ -280,6 +282,7 @@ export default class kycThird extends Component {
           setModalVisible={this.setResidenceCityModal}
           setCountry={this.setResidenceCity}
           setLanguage={this.setLanguage}
+          titleText={`거주도시선택`}
         />
       </View>
     );

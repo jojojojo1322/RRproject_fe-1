@@ -246,7 +246,7 @@ class SignUp extends Component {
               modalVisible={this.state.modalVisible}
               setModalVisible={this.setModalVisible}
               setCountry={this.setCountry}
-              text={`인증번호를 발송하였습니다.`}
+              titleText={`국가선택`}
             />
 
             <TextInput
@@ -355,7 +355,7 @@ class SignUp extends Component {
               value={this.state.passWord}
               keyboardType={'numeric'}
               returnKeyType={'done'}
-              secureTextEntry={true}
+              // secureTextEntry={true}
               onChangeText={(text) => this.handlePassword(text)}
               style={[
                 ResetStyle.fontRegularK,
@@ -429,7 +429,10 @@ class SignUp extends Component {
           </View>
 
           <TouchableWithoutFeedback
-            style={[ResetStyle.button, {backgroundColor: '#e6e6e6'}]}
+            style={[
+              ResetStyle.button,
+              this.state.passWord.length !== 6 && {backgroundColor: '#e6e6e6'},
+            ]}
             onPress={async () => {
               await this.smsAuthApproveApi(
                 this.state.passWord,

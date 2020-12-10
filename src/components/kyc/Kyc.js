@@ -127,8 +127,8 @@ export default class Kyc extends Component {
         countryCd: countryCd,
         countryCity: countryCity,
         countryResidence: countryResidence,
-        gender: 'F',
-        languageCd: 'LA',
+        gender: gender,
+        languageCd: languageCd,
         marriageStatus: marriageStatus,
         userNo: userNo,
       })
@@ -251,6 +251,12 @@ export default class Kyc extends Component {
                   ? ResetStyle.button
                   : this.state.step == 2 && isBirthday(this.state.birth)
                   ? ResetStyle.button
+                  : this.state.step == 3 &&
+                    this.state.countryCd !== '' &&
+                    this.state.languageCd !== '' &&
+                    this.state.countryResidence !== '' &&
+                    this.state.countryCity !== ''
+                  ? ResetStyle.button
                   : [ResetStyle.button, {backgroundColor: '#e6e6e6'}]
                 // this.state.gender != '' && this.state.maritalStatus != ''
                 //   ? styles.buttonChoice
@@ -274,16 +280,23 @@ export default class Kyc extends Component {
                       birth: this.state.birth,
                     });
                 } else if (this.state.step == 3) {
-                  await this.KycInsertApi(
-                    this.state.birth,
-                    this.state.countryCd,
-                    this.state.countryCity,
-                    this.state.countryResidence,
-                    this.state.gender,
-                    // this.state.languageCd,
-                    'KOR',
-                    this.state.maritalStatus,
-                  );
+                  if (
+                    this.state.countryCd !== '' &&
+                    this.state.languageCd !== '' &&
+                    this.state.countryResidence !== '' &&
+                    this.state.countryCity !== ''
+                  ) {
+                    await this.KycInsertApi(
+                      this.state.birth,
+                      this.state.countryCd,
+                      this.state.countryCity,
+                      this.state.countryResidence,
+                      this.state.gender,
+                      this.state.languageCd,
+                      // 'KOR',
+                      this.state.maritalStatus,
+                    );
+                  }
                   if (this.state.returnValue == '0') {
                     await this.setModalVisible(true);
                   }

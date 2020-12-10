@@ -134,8 +134,8 @@ class EmailAuthentication extends Component {
         password: pass,
       })
       .then(async (response) => {
-        console.log('then', response.data.status);
-        console.log('then', response.data.userNo);
+        console.log('thenLogin', response.data.status);
+        console.log('thenLogin', response.data.userNo);
         console.log(
           'then header>>>>' +
             response.headers.authorization.slice(7, undefined),
@@ -151,7 +151,7 @@ class EmailAuthentication extends Component {
         return response.data.status;
       })
       .catch((error) => {
-        console.log('erro', error);
+        console.log('erroLOGIN', error);
       });
   };
   userRegistApi = async (maAuthKey, osType) => {
@@ -166,14 +166,14 @@ class EmailAuthentication extends Component {
         userPw: this.props.route.params?.password,
       })
       .then((data) => {
-        console.log('then', data);
-        console.log('then', data.data.ret_val);
+        console.log('thenRERE', data);
+        console.log('thenRERE', data.data.ret_val);
         this.setState({
           returnValue: data.data.ret_val,
         });
       })
       .catch((error) => {
-        console.log('error', error);
+        console.log('errorRERE', error);
       });
   };
 
