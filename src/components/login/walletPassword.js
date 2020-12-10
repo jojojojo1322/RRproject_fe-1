@@ -78,6 +78,10 @@ export default class WalletPassword extends Component {
         if (test != this.state.pass) {
           this.setModalVisible(true);
         } else if (test == this.state.pass) {
+          console.log('1212');
+          await this.walletPasswordApi(this.state.pass);
+          console.log('3434');
+          console.log(this.state.walletAddress);
           this.setModal2Visible(true);
         }
       }
@@ -104,10 +108,6 @@ export default class WalletPassword extends Component {
     this.setState({modal2Visible: visible});
   };
   handleNextPage = async () => {
-    console.log('1212');
-    await this.walletPasswordApi(this.state.pass);
-    console.log('3434');
-    console.log(this.state.walletAddress);
     this.props.navigation.navigate('WalletMasterKey', {
       walletAddress: this.state.walletAddress,
     });

@@ -74,12 +74,40 @@ class AgreementTermsConditions extends Component {
         this.setState({
           allCheck1: true,
         });
+      } else if (
+        (this.state.allCheck2 !== true || this.state.allCheck3 !== true) &&
+        this.state.allCheck1 === true
+      ) {
+        this.setState({
+          allCheck1: false,
+        });
       }
     }
   }
 
-  handleCheckedbox = () => {
-    console.log('hey');
+  handleCheckedbox = (value, status) => {
+    console.log('chchchchchch', value);
+    if (status === 'PLUS') {
+      if (value == 2) {
+        this.setState({
+          allCheck2: true,
+        });
+      } else if (value == 3) {
+        this.setState({
+          allCheck3: true,
+        });
+      }
+    } else if (status === 'MINUS') {
+      if (value == 2) {
+        this.setState({
+          allCheck2: false,
+        });
+      } else if (value == 3) {
+        this.setState({
+          allCheck3: false,
+        });
+      }
+    }
   };
 
   render() {
@@ -110,6 +138,7 @@ class AgreementTermsConditions extends Component {
                 checkedObjArr={CheckedArrObject}
                 handleStatus={this.handleStatus}
                 handleAll={this.handleAll}
+                handleCheckedbox={this.handleCheckedbox}
               />
               <Text
                 style={[
@@ -142,6 +171,7 @@ class AgreementTermsConditions extends Component {
                   label="2"
                   checkedObjArr={CheckedArrObject}
                   handleStatus={this.handleStatus}
+                  handleCheckedbox={this.handleCheckedbox}
                 />
                 <TouchableWithoutFeedback
                   onPress={() => {
@@ -195,6 +225,7 @@ class AgreementTermsConditions extends Component {
                   label="3"
                   checkedObjArr={CheckedArrObject}
                   handleStatus={this.handleStatus}
+                  handleCheckedbox={this.handleCheckedbox}
                 />
                 <TouchableWithoutFeedback
                   onPress={() => {

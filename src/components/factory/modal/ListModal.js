@@ -143,7 +143,7 @@ class ListModal extends Component {
           <View style={styles.modalView}>
             <View style={styles.modalBox}>
               <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>
-                국적선택
+                {this.props.titleText}
               </Text>
               <TouchableWithoutFeedback
                 style={styles.closeButton}
