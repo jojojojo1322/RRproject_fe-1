@@ -34,11 +34,11 @@ export default StyleSheet.create({
     padding: Platform.OS === 'ios' ? '5%' : '4%',
   },
   buttonSmall: {
-    width: '30%',
+    width: '32%',
     backgroundColor: '#4696ff',
     alignItems: 'center',
     borderRadius: 50,
-    padding: Platform.OS === 'ios' ? '3%' : '2%',
+    padding: Platform.OS === 'ios' ? '2%' : '2%',
   },
   buttonTexts: {
     color: '#FFF',
@@ -124,7 +124,7 @@ export default StyleSheet.create({
     textAlign: 'center',
   },
   fontMediumK: {
-    fontSize: Platform.OS === 'ios' ? 25 : 22,
+    fontSize: Platform.OS === 'ios' ? 22 : 22,
     fontWeight: '400',
     textAlign: 'center',
   },
@@ -144,7 +144,7 @@ export default StyleSheet.create({
     color: '#a9a9a9',
   },
   fontDG: {
-    color: '#787878',
+    color: '#6f6f6f',
   },
   fontB: {
     color: '#4696ff',
