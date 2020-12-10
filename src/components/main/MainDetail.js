@@ -28,7 +28,10 @@ export default class MainDetail extends Component {
               paddingTop: '2%',
               paddingBottom: '6%',
             }}>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.goBack();
+              }}>
               <Image
                 source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
               />
