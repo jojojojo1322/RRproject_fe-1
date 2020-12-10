@@ -13,6 +13,7 @@ import {
   Dimensions,
 } from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -291,8 +292,9 @@ const Item = ({
   tnc,
   purpose,
   host,
+  onPress,
 }) => (
-  <View
+  <TouchableOpacity
     opacity={status === 'expired' ? 0.5 : 1.0}
     style={{
       width: '90%',
@@ -305,260 +307,291 @@ const Item = ({
       borderColor: '#e8e8e8',
       paddingTop: '5%',
       paddingBottom: '5%',
-    }}>
+    }}
+    onPress={onPress}>
     <View
+      opacity={status === 'expired' ? 0.5 : 1.0}
       style={{
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingLeft: '5%',
-        paddingRight: '5%',
+        flex: 1,
+        // alignSelf: 'center',
       }}>
-      <View style={{position: 'relative'}}>
-        <View
-          style={{
-            position: 'absolute',
-            bottom: '-5%',
-            left: 0,
-            width: '100%',
-            height: 10,
-            backgroundColor:
-              division === 'E-commerce'
-                ? '#ffedc2'
-                : division === 'Any Category1'
-                ? '#b7fcff'
-                : '#ffdfdf',
-            // backgroundColor: '#b7fcff',
-            // backgroundColor: '#ffdfdf',
-          }}></View>
-        <Text style={[ResetStyle.fontRegularE, ResetStyle.fontBlack]}>
-          {division}
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          paddingLeft: '5%',
+          paddingRight: '5%',
+        }}>
+        <View style={{position: 'relative'}}>
+          <View
+            style={{
+              position: 'absolute',
+              bottom: '-5%',
+              left: 0,
+              width: '100%',
+              height: 10,
+              backgroundColor:
+                division === 'E-commerce'
+                  ? '#ffedc2'
+                  : division === 'Any Category1'
+                  ? '#b7fcff'
+                  : '#ffdfdf',
+              // backgroundColor: '#b7fcff',
+              // backgroundColor: '#ffdfdf',
+            }}></View>
+          <Text style={[ResetStyle.fontRegularE, ResetStyle.fontBlack]}>
+            {division}
+          </Text>
+        </View>
+
+        <TouchableOpacity>
+          <Image
+            source={require('../../imgs/drawable-xxxhdpi/share_icon.png')}
+          />
+        </TouchableOpacity>
+      </View>
+
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'flex-start',
+          paddingLeft: '5%',
+          paddingRight: '5%',
+          marginTop: '3%',
+          marginBottom: '4%',
+        }}>
+        <Text
+          style={[
+            ResetStyle.fontMediumK,
+            ResetStyle.fontBlack,
+            {textAlign: 'left'},
+          ]}>
+          {title}
         </Text>
       </View>
 
-      <TouchableOpacity>
-        <Image source={require('../../imgs/drawable-xxxhdpi/share_icon.png')} />
-      </TouchableOpacity>
-    </View>
+      {img === null ? (
+        <View
+          style={{
+            width: '90%',
+            alignSelf: 'center',
+            borderTopWidth: 2,
+            borderTopColor: '#dedede',
+          }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginTop: '4%',
+            }}>
+            <Text style={[ResetStyle.fontBoldK, ResetStyle.fontB]}>
+              + {tnc}
+            </Text>
+            <Text
+              style={[
+                ResetStyle.fontRegularK,
+                ResetStyle.fontB,
+                {marginLeft: 5},
+              ]}>
+              TNC
+            </Text>
+          </View>
+        </View>
+      ) : (
+        <View style={{width: '100%', height: 200, overflow: 'hidden'}}>
+          <View style={{position: 'relative', width: '100%', height: '100%'}}>
+            <Image
+              source={img}
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+              }}
+            />
+            <Image
+              source={require('../../imgs/survey_img_gradient.png')}
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+              }}
+            />
+          </View>
+          <View
+            style={{
+              position: 'absolute',
+              top: '70%',
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginLeft: '7%',
+            }}>
+            <Text style={[ResetStyle.fontBoldK, ResetStyle.fontWhite]}>
+              + {tnc}
+            </Text>
+            <Text
+              style={[
+                ResetStyle.fontRegularK,
+                ResetStyle.fontWhite,
+                {marginLeft: 5},
+              ]}>
+              TNC
+            </Text>
+          </View>
+        </View>
+      )}
 
-    <View
-      style={{
-        flexDirection: 'row',
-        alignItems: 'flex-start',
-        paddingLeft: '5%',
-        paddingRight: '5%',
-        marginTop: '3%',
-        marginBottom: '4%',
-      }}>
-      <Text
-        style={[
-          ResetStyle.fontMediumK,
-          ResetStyle.fontBlack,
-          {textAlign: 'left'},
-        ]}>
-        {title}
-      </Text>
-    </View>
-
-    {img === null ? (
       <View
         style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          paddingLeft: '5%',
+          paddingRight: '5%',
+          marginTop: '4%',
+        }}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Text style={[ResetStyle.fontRegularK, ResetStyle.fontBlack]}>
+            참여자
+          </Text>
+          <Text
+            style={[
+              ResetStyle.fontRegularK,
+              ResetStyle.fontDG,
+              {marginLeft: 10},
+            ]}>
+            {participant}
+          </Text>
+        </View>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Text style={[ResetStyle.fontRegularK, ResetStyle.fontBlack]}>
+            참여자수
+          </Text>
+          <Text
+            style={[
+              ResetStyle.fontRegularK,
+              ResetStyle.fontDG,
+              {marginLeft: 10},
+            ]}>
+            {participantCount}명
+          </Text>
+        </View>
+      </View>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          paddingLeft: '5%',
+          paddingRight: '5%',
+          marginTop: 2,
+        }}>
+        <Text style={[ResetStyle.fontRegularK, ResetStyle.fontBlack]}>
+          목적
+        </Text>
+        <Text
+          style={[
+            ResetStyle.fontRegularK,
+            ResetStyle.fontDG,
+            {marginLeft: 10, textAlign: 'left', width: '90%'},
+          ]}>
+          {purpose}
+        </Text>
+      </View>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          paddingLeft: '5%',
+          paddingRight: '5%',
+          marginTop: 2,
+        }}>
+        <Text style={[ResetStyle.fontRegularK, ResetStyle.fontBlack]}>
+          기한
+        </Text>
+        <Text
+          style={[
+            ResetStyle.fontRegularK,
+            ResetStyle.fontDG,
+            {marginLeft: 10},
+          ]}>
+          {dateStart} ~ {dateEnd}
+        </Text>
+      </View>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          paddingLeft: '5%',
+          paddingRight: '5%',
+          marginTop: 2,
+        }}>
+        <Text style={[ResetStyle.fontRegularK, ResetStyle.fontBlack]}>
+          주최
+        </Text>
+        <Text
+          style={[
+            ResetStyle.fontRegularK,
+            ResetStyle.fontDG,
+            {marginLeft: 10},
+          ]}>
+          {host}
+        </Text>
+      </View>
+
+      <View
+        style={{
+          position: 'relative',
           width: '90%',
+          height: 3,
           alignSelf: 'center',
-          borderTopWidth: 2,
-          borderTopColor: '#dedede',
+          marginTop: '5%',
         }}>
         <View
           style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginTop: '4%',
-          }}>
-          <Text style={[ResetStyle.fontBoldK, ResetStyle.fontB]}>+ {tnc}</Text>
-          <Text
-            style={[
-              ResetStyle.fontRegularK,
-              ResetStyle.fontB,
-              {marginLeft: 5},
-            ]}>
-            TNC
-          </Text>
-        </View>
-      </View>
-    ) : (
-      <View style={{width: '100%', height: 200, overflow: 'hidden'}}>
-        <View style={{position: 'relative', width: '100%', height: '100%'}}>
-          <Image
-            source={img}
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-            }}
-          />
-          <Image
-            source={require('../../imgs/survey_img_gradient.png')}
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-            }}
-          />
-        </View>
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            backgroundColor: '#d7d7d7',
+          }}></View>
         <View
           style={{
             position: 'absolute',
-            top: '70%',
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginLeft: '7%',
-          }}>
-          <Text style={[ResetStyle.fontBoldK, ResetStyle.fontWhite]}>
-            + {tnc}
-          </Text>
-          <Text
-            style={[
-              ResetStyle.fontRegularK,
-              ResetStyle.fontWhite,
-              {marginLeft: 5},
-            ]}>
-            TNC
-          </Text>
-        </View>
+            top: 0,
+            left: 0,
+            width: '65%',
+            height: '100%',
+            backgroundColor: '#0080ff',
+          }}></View>
       </View>
-    )}
 
-    <View
-      style={{
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingLeft: '5%',
-        paddingRight: '5%',
-        marginTop: '4%',
-      }}>
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <Text style={[ResetStyle.fontRegularK, ResetStyle.fontBlack]}>
-          참여자
-        </Text>
-        <Text
-          style={[
-            ResetStyle.fontRegularK,
-            ResetStyle.fontDG,
-            {marginLeft: 10},
-          ]}>
-          {participant}
-        </Text>
-      </View>
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <Text style={[ResetStyle.fontRegularK, ResetStyle.fontBlack]}>
-          참여자수
-        </Text>
-        <Text
-          style={[
-            ResetStyle.fontRegularK,
-            ResetStyle.fontDG,
-            {marginLeft: 10},
-          ]}>
-          {participantCount}명
-        </Text>
-      </View>
-    </View>
-    <View
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingLeft: '5%',
-        paddingRight: '5%',
-        marginTop: 2,
-      }}>
-      <Text style={[ResetStyle.fontRegularK, ResetStyle.fontBlack]}>목적</Text>
-      <Text
-        style={[
-          ResetStyle.fontRegularK,
-          ResetStyle.fontDG,
-          {marginLeft: 10, textAlign: 'left', width: '90%'},
-        ]}>
-        {purpose}
-      </Text>
-    </View>
-    <View
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingLeft: '5%',
-        paddingRight: '5%',
-        marginTop: 2,
-      }}>
-      <Text style={[ResetStyle.fontRegularK, ResetStyle.fontBlack]}>기한</Text>
-      <Text
-        style={[ResetStyle.fontRegularK, ResetStyle.fontDG, {marginLeft: 10}]}>
-        {dateStart} ~ {dateEnd}
-      </Text>
-    </View>
-    <View
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingLeft: '5%',
-        paddingRight: '5%',
-        marginTop: 2,
-      }}>
-      <Text style={[ResetStyle.fontRegularK, ResetStyle.fontBlack]}>주최</Text>
-      <Text
-        style={[ResetStyle.fontRegularK, ResetStyle.fontDG, {marginLeft: 10}]}>
-        {host}
-      </Text>
-    </View>
-
-    <View
-      style={{
-        position: 'relative',
-        width: '90%',
-        height: 3,
-        alignSelf: 'center',
-        marginTop: '5%',
-      }}>
       <View
         style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          backgroundColor: '#d7d7d7',
-        }}></View>
-      <View
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '65%',
-          height: '100%',
-          backgroundColor: '#0080ff',
-        }}></View>
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'flex-end',
+          paddingLeft: '5%',
+          paddingRight: '5%',
+          marginTop: '2%',
+        }}>
+        <Text
+          style={[
+            ResetStyle.fontLightK,
+            ResetStyle.fontB,
+            {fontWeight: '500'},
+          ]}>
+          {participantCompleteCount} / {participantCount}
+        </Text>
+      </View>
     </View>
-
-    <View
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        paddingLeft: '5%',
-        paddingRight: '5%',
-        marginTop: '2%',
-      }}>
-      <Text
-        style={[ResetStyle.fontLightK, ResetStyle.fontB, {fontWeight: '500'}]}>
-        {participantCompleteCount} / {participantCount}
-      </Text>
-    </View>
-  </View>
+  </TouchableOpacity>
 );
 
-function Ongoing() {
+function Ongoing({navigation}) {
+  console.log(navigation);
   const renderItem = ({item}) => (
     <Item
       status={item.status}
@@ -573,6 +606,9 @@ function Ongoing() {
       tnc={item.tnc}
       purpose={item.purpose}
       host={item.host}
+      onPress={() => {
+        navigation.navigate('MainDetail');
+      }}
     />
   );
 
@@ -584,13 +620,13 @@ function Ongoing() {
         overflow: 'scroll',
         backgroundColor: '#f9f9f9',
       }}>
-      <ScrollView style={{width: '100%'}}>
-        <FlatList
-          data={dataFilteringOngoing}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-        />
-      </ScrollView>
+      {/* <ScrollView style={{width: '100%'}}> */}
+      <FlatList
+        data={dataFilteringOngoing}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+      />
+      {/* </ScrollView> */}
     </SafeAreaView>
   );
 }
@@ -621,13 +657,13 @@ function Completed() {
         overflow: 'scroll',
         backgroundColor: '#f9f9f9',
       }}>
-      <ScrollView style={{width: '100%'}}>
-        <FlatList
-          data={dataFilteringCompleted}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-        />
-      </ScrollView>
+      {/* <ScrollView style={{width: '100%'}}> */}
+      <FlatList
+        data={dataFilteringCompleted}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+      />
+      {/* </ScrollView> */}
     </SafeAreaView>
   );
 }
@@ -658,13 +694,13 @@ function Upcoming() {
         overflow: 'scroll',
         backgroundColor: '#f9f9f9',
       }}>
-      <ScrollView style={{width: '100%'}}>
-        <FlatList
-          data={dataFilteringUpcoming}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-        />
-      </ScrollView>
+      {/* <ScrollView style={{width: '100%'}}> */}
+      <FlatList
+        data={dataFilteringUpcoming}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+      />
+      {/* </ScrollView> */}
     </SafeAreaView>
   );
 }
@@ -695,13 +731,13 @@ function Expired() {
         overflow: 'scroll',
         backgroundColor: '#f9f9f9',
       }}>
-      <ScrollView style={{width: '100%'}}>
-        <FlatList
-          data={dataFilteringExpired}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-        />
-      </ScrollView>
+      {/* <ScrollView style={{width: '100%'}}> */}
+      <FlatList
+        data={dataFilteringExpired}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+      />
+      {/* </ScrollView> */}
     </SafeAreaView>
   );
 }
@@ -824,7 +860,7 @@ function MainPage({navigation}) {
               backgroundColor: '#FFF',
               borderRadius: 60,
             }}
-            progress={0.7}
+            progress={0.086}
             progressColor={'#0080ff'}
             strokeWidth={3}
           />
@@ -945,12 +981,164 @@ function MainPage({navigation}) {
 function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
-      <View>
-        <Text>123</Text>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '5%',
+          paddingBottom: '12%',
+        }}>
+        <TouchableOpacity>
+          <View style={{flexDirection: 'row'}}>
+            <Image
+              source={require('../../imgs/drawable-xxxhdpi/main_r_logo.png')}
+            />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text
+            style={[
+              ResetStyle.fontLightK,
+              {
+                color: '#6f6f6f',
+                textDecorationStyle: 'solid',
+                textDecorationColor: '#787878',
+                textDecorationLine: 'underline',
+              },
+            ]}>
+            tnctnctnc123@gmail.com
+          </Text>
+        </TouchableOpacity>
       </View>
-      <ProgressCircle style={{width: 120, height: 125}} />
 
-      <DrawerItemList {...props} />
+      <View
+        style={{
+          position: 'relative',
+          right: 0,
+          top: 0,
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column',
+        }}>
+        {/* progress 최대 수치 1 */}
+        <ProgressCircle
+          style={{
+            position: 'absolute',
+            top: 0,
+            width: 130,
+            height: 135,
+            backgroundColor: '#FFF',
+            borderRadius: 60,
+          }}
+          progress={0.086}
+          progressColor={'#0080ff'}
+          strokeWidth={3}
+        />
+
+        <View
+          style={{
+            position: 'absolute',
+            top: 35,
+            flexDirection: 'row',
+            borderBottomWidth: 0.5,
+            borderBottomColor: '#0080ff',
+            paddingBottom: 5,
+          }}>
+          <Text
+            style={[
+              ResetStyle.fontRegularK,
+              ResetStyle.fontB,
+              {fontWeight: '500', marginRight: 5},
+            ]}>
+            KYC LEVEL
+          </Text>
+        </View>
+
+        <Text
+          style={[
+            ResetStyle.fontBoldE,
+            ResetStyle.fontB,
+            {fontSize: 40, marginTop: 5, position: 'absolute', top: 60},
+          ]}>
+          2
+        </Text>
+        <TouchableOpacity>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginTop: 140,
+            }}>
+            <Text
+              style={[
+                ResetStyle.fontRegularK,
+                ResetStyle.fontB,
+                {fontWeight: '600'},
+              ]}>
+              레벨업하러 가기
+            </Text>
+            <Image
+              style={{marginLeft: 5}}
+              source={require('../../imgs/drawable-xxxhdpi/menu_kyc_more_icon.png')}
+            />
+          </View>
+        </TouchableOpacity>
+      </View>
+      <View
+        style={{
+          borderBottomWidth: 0.5,
+          borderBottomColor: '#dedede',
+          marginTop: 40,
+        }}></View>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          margin: '5%',
+        }}>
+        <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
+          <Text style={[ResetStyle.fontMediumE, ResetStyle.fontB]}>0</Text>
+          <Text
+            style={[
+              ResetStyle.fontLightK,
+              ResetStyle.fontB,
+              {fontWeight: '500', marginLeft: 5, paddingBottom: 2},
+            ]}>
+            TNC
+          </Text>
+        </View>
+        <TouchableOpacity
+          style={{width: '35%', backgroundColor: '#2d91ff', borderRadius: 50}}>
+          <Text
+            style={[
+              ResetStyle.fontLightK,
+              ResetStyle.fontWhite,
+              {padding: '10%', textAlign: 'center', fontWeight: '500'},
+            ]}>
+            내지갑열기
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      <DrawerItemList
+        label="Research"
+        itemStyle={{
+          margin: 0,
+          padding: 0,
+        }}
+        activeBackgroundColor={{
+          backgroundColor: 'tranparent',
+        }}
+        itemsContainerStyle={{padding: 0, margin: 0}}
+        labelStyle={[
+          ResetStyle.fontRegularK,
+          ResetStyle.fontBlack,
+          {textAlign: 'left'},
+        ]}
+        {...props}
+      />
       {/* <DrawerItem
         label="Close drawer"
         onPress={() => props.navigation.closeDrawer()}
@@ -970,10 +1158,19 @@ class Main extends Component {
   render() {
     return (
       <Drawer.Navigator
+        initialRouteName="설문조사"
         drawerContent={(props) => <CustomDrawerContent {...props} />}
         drawerPosition="right"
-        drawerStyle={{width: '80%'}}>
-        <Drawer.Screen name="MainPage" component={MainPage} />
+        drawerStyle={{
+          width: '80%',
+          backgroundColor: '#FFF',
+        }}>
+        <Drawer.Screen name="설문조사" component={MainPage} />
+        <Drawer.Screen name="설문조사 의뢰하기" component={MainPage} />
+        <Drawer.Screen name="미디어" component={MainPage} />
+        <Drawer.Screen name="알림" component={MainPage} />
+        <Drawer.Screen name="설정" component={MainPage} />
+        <Drawer.Screen name="초대코드" component={MainPage} />
       </Drawer.Navigator>
     );
   }

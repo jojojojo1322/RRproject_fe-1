@@ -15,7 +15,7 @@ import WalletMasterKey from './components/login/WalletMasterKey';
 import Kyc from './components/kyc/Kyc';
 
 import Main from './components/main/Main';
-// import MainDetail from './components/main/MainDetail';
+import MainDetail from './components/main/MainDetail';
 
 import SignUp from './components/signup/SignUp';
 import AgreementTermsConditions from './components/signup/AgreementTermsConditions';
@@ -327,6 +327,24 @@ class App extends Component {
           <Stack.Screen
             name="Main"
             component={Main}
+            options={{
+              headerShown: false,
+              title: '',
+              headerStyle: {
+                backgroundColor: '#FFF',
+                shadowColor: 'none',
+                shadowOffset: {width: 0, height: 0},
+                shadowOpacity: 0,
+                shadowRadius: 0,
+                elevation: 0,
+              },
+              headerTintColor: '#000',
+            }}
+          />
+
+          <Stack.Screen
+            name="MainDetail"
+            component={MainDetail}
             options={{
               headerShown: false,
               title: '',
