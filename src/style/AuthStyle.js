@@ -112,7 +112,6 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginTop: '3%',
   },
-
   // ResetPassword
   resetPasswordView1: {
     flexDirection: 'row',

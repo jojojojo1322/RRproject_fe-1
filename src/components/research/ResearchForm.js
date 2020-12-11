@@ -15,105 +15,105 @@ import {
 import PropTypes from 'prop-types';
 import ResetStyle from '../../style/ResetStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {SelectedCheckboxes, RoundCheckbox} from '../factory/Roundcheck';
+// class SelectedCheckboxes {
+//   constructor() {
+//     selectedCheckboxes = [];
+//   }
 
-class SelectedCheckboxes {
-  constructor() {
-    selectedCheckboxes = [];
-  }
+//   addItem(option) {
+//     selectedCheckboxes.push(option);
+//   }
 
-  addItem(option) {
-    selectedCheckboxes.push(option);
-  }
+//   fetchArray() {
+//     return selectedCheckboxes;
+//   }
+// }
 
-  fetchArray() {
-    return selectedCheckboxes;
-  }
-}
+// class RoundCheckbox extends Component {
+//   constructor() {
+//     super();
+//     this.state = {
+//       checked: null,
+//     };
+//   }
 
-class RoundCheckbox extends Component {
-  constructor() {
-    super();
-    this.state = {
-      checked: null,
-    };
-  }
+//   componentDidMount() {
+//     if (this.props.checked) {
+//       this.setState({checked: true}, () => {
+//         this.props.checkedObjArr.addItem({
+//           key: this.props.keyValue,
+//           value: this.props.value,
+//           label: this.props.label,
+//         });
+//       });
+//     } else {
+//       this.setState({
+//         checked: false,
+//       });
+//     }
+//   }
 
-  componentDidMount() {
-    if (this.props.checked) {
-      this.setState({checked: true}, () => {
-        this.props.checkedObjArr.addItem({
-          key: this.props.keyValue,
-          value: this.props.value,
-          label: this.props.label,
-        });
-      });
-    } else {
-      this.setState({
-        checked: false,
-      });
-    }
-  }
+//   stateSwitcher(key, label, value) {
+//     this.setState({checked: !this.state.checked}, () => {
+//       if (this.state.checked) {
+//         this.props.checkedObjArr.addItem({
+//           key: key,
+//           value: value,
+//           label: label,
+//         });
+//       } else {
+//         this.props.checkedObjArr.fetchArray().splice(
+//           this.props.checkedObjArr.fetchArray().findIndex((y) => y.key == key),
+//           1,
+//         );
+//       }
+//     });
+//   }
 
-  stateSwitcher(key, label, value) {
-    this.setState({checked: !this.state.checked}, () => {
-      if (this.state.checked) {
-        this.props.checkedObjArr.addItem({
-          key: key,
-          value: value,
-          label: label,
-        });
-      } else {
-        this.props.checkedObjArr.fetchArray().splice(
-          this.props.checkedObjArr.fetchArray().findIndex((y) => y.key == key),
-          1,
-        );
-      }
-    });
-  }
-
-  render() {
-    return (
-      <TouchableOpacity
-        onPress={this.stateSwitcher.bind(
-          this,
-          this.props.keyValue,
-          this.props.label,
-          this.props.value,
-        )}
-        underlayColor="transparent"
-        style={{marginVertical: 0}}>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}>
-          <View
-            style={{
-              padding: 1.5,
-              borderRadius: 50,
-              width: this.props.size,
-              height: this.props.size,
-              backgroundColor: this.props.color,
-            }}>
-            {this.state.checked ? (
-              <View style={styles.selectedUI}>
-                <Image
-                  source={require('../../imgs/roundcheck.png')}
-                  style={styles.checkboxTickImg}
-                />
-              </View>
-            ) : (
-              <View style={styles.uncheckedCheckbox} />
-            )}
-          </View>
-          <Text style={[styles.checkboxLabel, {color: this.props.labelColor}]}>
-            {this.props.label}
-          </Text>
-        </View>
-      </TouchableOpacity>
-    );
-  }
-}
+//   render() {
+//     return (
+//       <TouchableOpacity
+//         onPress={this.stateSwitcher.bind(
+//           this,
+//           this.props.keyValue,
+//           this.props.label,
+//           this.props.value,
+//         )}
+//         underlayColor="transparent"
+//         style={{marginVertical: 0}}>
+//         <View
+//           style={{
+//             flexDirection: 'row',
+//             alignItems: 'center',
+//           }}>
+//           <View
+//             style={{
+//               padding: 1.5,
+//               borderRadius: 50,
+//               width: this.props.size,
+//               height: this.props.size,
+//               backgroundColor: this.props.color,
+//             }}>
+//             {this.state.checked ? (
+//               <View style={styles.selectedUI}>
+//                 <Image
+//                   source={require('../../imgs/roundcheck.png')}
+//                   style={styles.checkboxTickImg}
+//                 />
+//               </View>
+//             ) : (
+//               <View style={styles.uncheckedCheckbox} />
+//             )}
+//           </View>
+//           <Text style={[styles.checkboxLabel, {color: this.props.labelColor}]}>
+//             {this.props.label}
+//           </Text>
+//         </View>
+//       </TouchableOpacity>
+//     );
+//   }
+// }
 
 class ResearchForm extends Component {
   // CheckedArrObject = new SelectedCheckboxes();
