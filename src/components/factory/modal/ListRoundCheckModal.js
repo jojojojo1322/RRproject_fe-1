@@ -18,7 +18,7 @@ import {
   Animated,
   Dimensions,
 } from 'react-native';
-import {RoundCheckbox, SelectedCheckboxes} from '../../Roundcheck';
+import {RoundCheckbox, SelectedCheckboxes} from '../Roundcheck';
 const window = Dimensions.get('window');
 
 const DATA = [

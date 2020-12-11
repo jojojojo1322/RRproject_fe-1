@@ -19,7 +19,7 @@ import {
   Dimensions,
   TouchableOpacityBase,
 } from 'react-native';
-import {Checkbox, SelectedCheckboxes} from '../../Checkbox';
+import {Checkbox, SelectedCheckboxes} from '../Checkbox';
 import {DefineCountryList} from '../../defined/DefineCountryList';
 
 const window = Dimensions.get('window');

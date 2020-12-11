@@ -8,7 +8,7 @@ import {
   Image,
 } from 'react-native';
 import CountDown from '../../components/factory/CountDown';
-import {RoundCheckbox, SelectedCheckboxes} from '../Roundcheck';
+import {RoundCheckbox, SelectedCheckboxes} from '../factory/Roundcheck';
 import ResetStyle from '../../style/ResetStyle.js';
 import AuthStyle from '../../style/AuthStyle.js';
 

@@ -95,7 +95,7 @@ export class Checkbox extends Component {
             {this.state.checked ? (
               <View style={styles.selectedUI}>
                 <Image
-                  source={require('../imgs/roundcheck.png')}
+                  source={require('../../imgs/roundcheck.png')}
                   style={styles.checkboxTickImg}
                 />
               </View>
