@@ -39,9 +39,10 @@ class TextConfirmCancelModal extends Component {
         animationType="fade"
         transparent={true}
         visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-        }}>
+        // onRequestClose={() => {
+        //   Alert.alert('Modal has been closed.');
+        // }}
+      >
         <View style={{flex: 1, position: 'relative'}}>
           {/* modal background */}
           <TouchableWithoutFeedback

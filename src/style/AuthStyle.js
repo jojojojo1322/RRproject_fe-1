@@ -112,6 +112,17 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginTop: '3%',
   },
+  // ResetPassword
+  resetPasswordView1: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  resetPasswordView2: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 8,
+  },
 
   // WalletMasterKey
   walletCopy: {

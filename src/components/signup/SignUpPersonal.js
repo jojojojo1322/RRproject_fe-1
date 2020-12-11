@@ -331,12 +331,7 @@ class SignUpPersonal extends Component {
                   영문
                 </Text>
               </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  marginTop: '3%',
-                }}>
+              <View style={[AuthStyle.signupCheckView]}>
                 {!chkPWNumber(this.state.password) ? (
                   <Image
                     style={ResetStyle.xsmallImg}
@@ -357,12 +352,7 @@ class SignUpPersonal extends Component {
                   숫자
                 </Text>
               </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  marginTop: '3%',
-                }}>
+              <View style={[AuthStyle.signupCheckView]}>
                 {!chkPWHigh(this.state.password) ? (
                   <Image
                     style={ResetStyle.xsmallImg}
@@ -383,12 +373,7 @@ class SignUpPersonal extends Component {
                   대문자
                 </Text>
               </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  marginTop: 8,
-                }}>
+              <View style={[AuthStyle.signupCheckView]}>
                 {!chkPWCharacter(this.state.password) ? (
                   <Image
                     style={ResetStyle.xsmallImg}
@@ -409,12 +394,7 @@ class SignUpPersonal extends Component {
                   특수문자
                 </Text>
               </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  marginTop: '3%',
-                }}>
+              <View style={[AuthStyle.signupCheckView]}>
                 {this.state.password.length < 8 ? (
                   <Image
                     style={ResetStyle.xsmallImg}
@@ -513,12 +493,7 @@ class SignUpPersonal extends Component {
             </TouchableOpacity>
 
             {/* alert */}
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginTop: '3%',
-              }}>
+            <View style={[AuthStyle.signupCheckView]}>
               {this.state.checkBoolean !== '' &&
                 this.state.checkBoolean == false && (
                   <>
@@ -591,27 +566,6 @@ class SignUpPersonal extends Component {
                 </TouchableOpacity>
               </View>
             </TouchableOpacity>
-
-            {/* alert */}
-            {/* <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginTop: '3%',
-              }}>
-              <Image
-                style={ResetStyle.smallImg}
-                source={require('../../imgs/drawable-xhdpi/icon_x_red.png')}
-              />
-              <Text
-                style={[
-                  ResetStyle.fontLightK,
-                  ResetStyle.fontR,
-                  {marginLeft: 5},
-                ]}>
-                초대코드가 올바르지 않습니다.
-              </Text>
-            </View> */}
           </View>
 
           <TouchableOpacity

@@ -251,14 +251,14 @@ class Initial3 extends Component {
           onPress={() => {
             this.setModal6Visible(true);
           }}>
-          <Text style={styles.TextSize}>사용가능언어</Text>
+          <Text style={styles.TextSize}>거주도시</Text>
         </TouchableOpacity>
         <TouchableOpacity
           // activeOpacity={0.50}
           onPress={() => {
             this.setModal7Visible(true);
           }}>
-          <Text style={styles.TextSize}>거주도시</Text>
+          <Text style={styles.TextSize}>사용가능언어</Text>
         </TouchableOpacity>
         <TouchableOpacity
           // activeOpacity={0.50}
