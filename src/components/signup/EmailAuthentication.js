@@ -97,7 +97,7 @@ class EmailAuthentication extends Component {
     console.log('expire', authKey);
     await axios
       .patch(`${server}/util/email/auth/expired`, {
-        authKey: authKey,
+        authKey: authKey.replace(/(\s*)/g, ''),
       })
       .then((response) => {
         console.log('Expire', response);
@@ -110,7 +110,7 @@ class EmailAuthentication extends Component {
     console.log('email', email);
     await axios
       .post(`${server}/util/email/auth`, {
-        email: email,
+        email: email.replace(/(\s*)/g, ''),
       })
       .then((data) => {
         console.log('then', data);
@@ -126,9 +126,11 @@ class EmailAuthentication extends Component {
   };
 
   loginApi = async (id, pass) => {
+    console.log('loginApi ID >>>>', id);
+    console.log('loginApi pass >>>>', pass);
     await axios
       .post(`${server}/user/login`, {
-        email: id,
+        email: id.replace(/(\s*)/g, ''),
         password: pass,
       })
       .then(async (response) => {

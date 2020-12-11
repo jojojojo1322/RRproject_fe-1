@@ -121,7 +121,7 @@ class SignUpPersonal extends Component {
         this.setState({checkEmail: data.data.ret_val});
       })
       .catch((error) => {
-        console.log('error', error);
+        console.log('error>>>>>>>>>>>>>>>>', error);
       });
   };
   emailAuthApi = async (email) => {
