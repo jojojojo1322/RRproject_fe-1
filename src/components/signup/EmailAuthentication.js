@@ -225,137 +225,154 @@ class EmailAuthentication extends Component {
       <SafeAreaView style={ResetStyle.container}>
         <View style={ResetStyle.containerInner}>
           <View>
+            {/* topBackButton */}
+            <View>
+              <View style={ResetStyle.topBackButton}>
+                <TouchableOpacity
+                  onPress={() => {
+                    this.props.navigation.goBack();
+                  }}>
+                  <Image
+                    source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
+                  />
+                </TouchableOpacity>
+                <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+                  약관동의
+                </Text>
+              </View>
+            </View>
             <Text
               style={[
                 ResetStyle.fontRegularK,
                 ResetStyle.fontDG,
-                {marginTop: '30%'},
+                {marginTop: '10%', marginBottom: '10%'},
               ]}>
               {this.state.email} 으로{'\n'}6자리 인증 코드를 발송했습니다
             </Text>
-          </View>
-
-          <View>
-            <Text
-              style={[
-                ResetStyle.fontRegularK,
-                ResetStyle.fontDG,
-                {textAlign: 'left'},
-              ]}>
-              인증 번호
-            </Text>
-
             <View>
-              <View style={[AuthStyle.emailAuthTextInputStyle2]}>
-                <TextInput
-                  placeholder="인증번호 입력"
-                  placeholderTextColor="#a9a9a9"
-                  value={this.state.passWord}
-                  keyboardType={'numeric'}
-                  returnKeyType={'done'}
-                  // secureTextEntry={true}
-                  onChangeText={(text) => this.handlePassword(text)}
-                  style={[
-                    ResetStyle.fontRegularK,
-                    ResetStyle.fontG,
-                    {textAlign: 'left'},
-                  ]}></TextInput>
+              <Text
+                style={[
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontDG,
+                  {textAlign: 'left'},
+                ]}>
+                인증 번호
+              </Text>
+
+              <View>
+                <View style={[AuthStyle.emailAuthTextInputStyle2]}>
+                  <TextInput
+                    placeholder="인증번호 입력"
+                    placeholderTextColor="#a9a9a9"
+                    value={this.state.passWord}
+                    keyboardType={'numeric'}
+                    returnKeyType={'done'}
+                    // secureTextEntry={true}
+                    onChangeText={(text) => this.handlePassword(text)}
+                    style={[
+                      ResetStyle.fontRegularK,
+                      ResetStyle.fontG,
+                      {textAlign: 'left'},
+                    ]}></TextInput>
+                  <View
+                    style={{
+                      position: 'absolute',
+                      right: 0,
+                      top: '60%',
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                    }}>
+                    <Image
+                      source={require('../../imgs/drawable-xhdpi/icon_time.png')}
+                      style={[ResetStyle.smallImg, {marginRight: 8}]}
+                    />
+                    {/* <Text style={{fontSize: 15, color: '#0b95c9', fontWeight: '500', marginLeft: 5}}>00:00</Text> */}
+                    <CountDown
+                      standard={this.state.isRunning}
+                      timeLeftNumber={this.state.timeLeftNumber}
+                      handleReCountDown={this.handleReCountDown}
+                      handleCountDownCheck={this.handleCountDownCheck}
+                      CountDownCheck={this.state.CountDownCheck}
+                      CountDownExpireCheck={this.state.CountDownExpireCheck}
+                      handleCountDownExpireCheck={
+                        this.handleCountDownExpireCheck
+                      }
+                    />
+                  </View>
+                </View>
+
+                {/* alert */}
                 <View
                   style={{
-                    position: 'absolute',
-                    right: 0,
-                    top: '60%',
                     flexDirection: 'row',
                     alignItems: 'center',
+                    marginTop: '3%',
+                    justifyContent: 'space-between',
                   }}>
-                  <Image
-                    source={require('../../imgs/drawable-xhdpi/icon_time.png')}
-                    style={[ResetStyle.smallImg, {marginRight: 8}]}
-                  />
-                  {/* <Text style={{fontSize: 15, color: '#0b95c9', fontWeight: '500', marginLeft: 5}}>00:00</Text> */}
-                  <CountDown
-                    standard={this.state.isRunning}
-                    timeLeftNumber={this.state.timeLeftNumber}
-                    handleReCountDown={this.handleReCountDown}
-                    handleCountDownCheck={this.handleCountDownCheck}
-                    CountDownCheck={this.state.CountDownCheck}
-                    CountDownExpireCheck={this.state.CountDownExpireCheck}
-                    handleCountDownExpireCheck={this.handleCountDownExpireCheck}
-                  />
+                  {this.state.returnValue === -3 && (
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                      <Image
+                        style={ResetStyle.smallImg}
+                        source={require('../../imgs/drawable-xhdpi/icon_x_red.png')}
+                      />
+                      <Text
+                        style={[
+                          ResetStyle.fontLightK,
+                          ResetStyle.fontR,
+                          {marginLeft: 5},
+                        ]}>
+                        인증번호가 올바르지 않습니다.
+                      </Text>
+                    </View>
+                  )}
+                  {this.state.returnValue === -1 && (
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                      <Image
+                        style={ResetStyle.smallImg}
+                        source={require('../../imgs/drawable-xhdpi/icon_x_red.png')}
+                      />
+                      <Text
+                        style={[
+                          ResetStyle.fontLightK,
+                          ResetStyle.fontR,
+                          {marginLeft: 5},
+                        ]}>
+                        만료된 인증번호입니다.
+                      </Text>
+                    </View>
+                  )}
+
+                  {this.state.returnValue !== -3 && (
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                      <Image
+                        style={ResetStyle.smallImg}
+                        // source={require('../../imgs/drawable-xhdpi/icon_x_red.png')}
+                      />
+                      <Text
+                        style={[
+                          ResetStyle.fontLightK,
+                          ResetStyle.fontR,
+                          {marginLeft: 5},
+                        ]}></Text>
+                    </View>
+                  )}
+
+                  {/* <View></View> */}
+                  <TouchableOpacity
+                    onPress={() => {
+                      this.handleReCountDown();
+                      this.emailAuthApi(this.state.email);
+                    }}>
+                    <Text
+                      style={[
+                        ResetStyle.fontLightK,
+                        ResetStyle.fontB,
+                        {marginLeft: 5},
+                      ]}>
+                      재전송
+                    </Text>
+                  </TouchableOpacity>
                 </View>
-              </View>
-
-              {/* alert */}
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  marginTop: '3%',
-                  justifyContent: 'space-between',
-                }}>
-                {this.state.returnValue === -3 && (
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <Image
-                      style={ResetStyle.smallImg}
-                      source={require('../../imgs/drawable-xhdpi/icon_x_red.png')}
-                    />
-                    <Text
-                      style={[
-                        ResetStyle.fontLightK,
-                        ResetStyle.fontR,
-                        {marginLeft: 5},
-                      ]}>
-                      인증번호가 올바르지 않습니다.
-                    </Text>
-                  </View>
-                )}
-                {this.state.returnValue === -1 && (
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <Image
-                      style={ResetStyle.smallImg}
-                      source={require('../../imgs/drawable-xhdpi/icon_x_red.png')}
-                    />
-                    <Text
-                      style={[
-                        ResetStyle.fontLightK,
-                        ResetStyle.fontR,
-                        {marginLeft: 5},
-                      ]}>
-                      만료된 인증번호입니다.
-                    </Text>
-                  </View>
-                )}
-
-                {this.state.returnValue !== -3 && (
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <Image
-                      style={ResetStyle.smallImg}
-                      // source={require('../../imgs/drawable-xhdpi/icon_x_red.png')}
-                    />
-                    <Text
-                      style={[
-                        ResetStyle.fontLightK,
-                        ResetStyle.fontR,
-                        {marginLeft: 5},
-                      ]}></Text>
-                  </View>
-                )}
-
-                {/* <View></View> */}
-                <TouchableOpacity
-                  onPress={() => {
-                    this.handleReCountDown();
-                    this.emailAuthApi(this.state.email);
-                  }}>
-                  <Text
-                    style={[
-                      ResetStyle.fontLightK,
-                      ResetStyle.fontB,
-                      {marginLeft: 5},
-                    ]}>
-                    재전송
-                  </Text>
-                </TouchableOpacity>
               </View>
             </View>
           </View>

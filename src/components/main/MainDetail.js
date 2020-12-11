@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   TouchableOpacityBase,
+  Platform,
 } from 'react-native';
 import ResetStyle from '../../style/ResetStyle.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -25,8 +26,8 @@ export default class MainDetail extends Component {
               flexDirection: 'row',
               alignItems: 'center',
               justifyContent: 'flex-start',
-              paddingTop: '2%',
-              paddingBottom: '6%',
+              paddingTop: Platform.OS === 'ios' ? '2%' : '5%',
+              paddingBottom: Platform.OS === 'ios' ? '6%' : '2%',
             }}>
             <TouchableOpacity
               onPress={() => {
@@ -37,6 +38,7 @@ export default class MainDetail extends Component {
               />
             </TouchableOpacity>
           </View>
+
           <View
             style={{
               flexDirection: 'row',
@@ -188,7 +190,10 @@ export default class MainDetail extends Component {
           </Text>
 
           <TouchableOpacity
-            style={[ResetStyle.button]}
+            style={[
+              ResetStyle.button,
+              {marginBottom: Platform.OS === 'ios' ? 0 : '5%'},
+            ]}
             onPress={() => {
               this.props.navigation.navigate('ResearchForm');
             }}>
@@ -196,7 +201,9 @@ export default class MainDetail extends Component {
               style={[
                 ResetStyle.fontMediumK,
                 ResetStyle.fontWhite,
-                {fontWeight: '600'},
+                {
+                  fontWeight: '600',
+                },
               ]}>
               시작하기
             </Text>

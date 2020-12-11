@@ -192,11 +192,27 @@ class SignUp extends Component {
       <SafeAreaView style={ResetStyle.container}>
         <View style={ResetStyle.containerInner}>
           <View>
+            {/* topBackButton */}
+            <View>
+              <View style={ResetStyle.topBackButton}>
+                <TouchableOpacity
+                  onPress={() => {
+                    this.props.navigation.goBack();
+                  }}>
+                  <Image
+                    source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
+                  />
+                </TouchableOpacity>
+                <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+                  휴대폰 인증
+                </Text>
+              </View>
+            </View>
             <Text
               style={[
                 ResetStyle.fontRegularK,
                 ResetStyle.fontDG,
-                {marginTop: 50},
+                {marginTop: '10%'},
               ]}>
               원활한 서비스 제공을 위해{'\n'}휴대폰 번호를 입력해주세요
             </Text>

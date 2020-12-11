@@ -99,7 +99,7 @@ export default class KycFirst extends Component {
             </Text>
           </TouchableOpacity>
         </View>
-        <View style={[AuthStyle.KycBox, {marginTop: '3%', marginBottom: '3%'}]}>
+        <View style={[AuthStyle.kycBox, {marginTop: '3%', marginBottom: '3%'}]}>
           <TouchableOpacity
             style={
               this.props.maritalStatus == 'liveTogether'

@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {ScrollView, Text, SafeAreaView} from 'react-native';
+import {
+  ScrollView,
+  Text,
+  SafeAreaView,
+  View,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import ResetStyle from '../../style/ResetStyle.js';
 import AuthStyle from '../../style/AuthStyle.js';
@@ -191,16 +198,34 @@ class TermsConditions extends Component {
 
   render() {
     return (
-      <Tab.Navigator
-        tabBarOptions={{
-          labelStyle: {fontSize: 20, fontWeight: '400'},
-          activeTintColor: '#4696ff',
-          inactiveTintColor: '#787878',
-          indicatorStyle: {borderColor: '#4696ff', borderWidth: 1.5},
-        }}>
-        <Tab.Screen name="이용약관" component={Terms} />
-        <Tab.Screen name="개인정보처리방침" component={Conditions} />
-      </Tab.Navigator>
+      <SafeAreaView style={{flex: 1, backgroundColor: '#FFF'}}>
+        {/* topBackButton */}
+        <View style={{marginLeft: '5%', marginRight: '5%'}}>
+          <View style={[ResetStyle.topBackButton, {paddingBottom: '2%'}]}>
+            <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.goBack();
+              }}>
+              <Image
+                source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
+              />
+            </TouchableOpacity>
+            <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+              이용약관 및 개인정보처리방침
+            </Text>
+          </View>
+        </View>
+        <Tab.Navigator
+          tabBarOptions={{
+            labelStyle: {fontSize: 20, fontWeight: '400'},
+            activeTintColor: '#4696ff',
+            inactiveTintColor: '#787878',
+            indicatorStyle: {borderColor: '#4696ff', borderWidth: 1.5},
+          }}>
+          <Tab.Screen name="이용약관" component={Terms} />
+          <Tab.Screen name="개인정보처리방침" component={Conditions} />
+        </Tab.Navigator>
+      </SafeAreaView>
     );
   }
 }

@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 50,
+    borderRadius: 100,
     backgroundColor: '#2B97FB',
     borderWidth: 1,
     borderColor: '#2B97FB',
