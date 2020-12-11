@@ -17,6 +17,8 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
   },
 
+  topBackButton: {},
+
   // button
   button: {
     width: '100%',
@@ -124,17 +126,17 @@ export default StyleSheet.create({
     textAlign: 'center',
   },
   fontMediumK: {
-    fontSize: Platform.OS === 'ios' ? 22 : 22,
+    fontSize: Platform.OS === 'ios' ? 22 : 20,
     fontWeight: '400',
     textAlign: 'center',
   },
   fontRegularK: {
-    fontSize: Platform.OS === 'ios' ? 19 : 17,
+    fontSize: Platform.OS === 'ios' ? 19 : 16,
     fontWeight: '400',
     textAlign: 'center',
   },
   fontLightK: {
-    fontSize: Platform.OS === 'ios' ? 16 : 15,
+    fontSize: Platform.OS === 'ios' ? 16 : 14,
     fontWeight: '300',
     textAlign: 'center',
   },

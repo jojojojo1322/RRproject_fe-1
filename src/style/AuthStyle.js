@@ -2,9 +2,10 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   // initial2
+
   initial2ScrollContainer: {
-    marginTop: Platform.OS === 'ios' ? '20%' : '15%',
-    height: '40%',
+    marginTop: Platform.OS === 'ios' ? '45%' : '35%',
+    height: '45%',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -57,12 +58,65 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
 
-  //signup personal
+  // AgreementTermsConditions
+
+  agreementViewBox: {
+    flexDirection: 'row',
+    flexWrap: 'nowrap',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+
+  // TermsConditions
+
+  termsConditionsContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    overflow: 'scroll',
+    backgroundColor: '#FFF',
+  },
+
+  // EmailAuthentication
+
+  emailAuthTextInputStyle2: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#dddddd',
+    paddingTop: '4%',
+    paddingBottom: '2%',
+  },
+
+  // SignupPersonal
+
   signupInputImageAll: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
     alignItems: 'center',
+  },
+
+  // WalletMasterKey
+  walletCopy: {
+    backgroundColor: '#f3f3f3',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  // KycFirst
+  kycBox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  kycButton: {
+    backgroundColor: '#eeeeee',
+    height: 50,
+    width: '48%',
+    borderRadius: 5,
+    marginLeft: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignContent: 'stretch',
   },
 });

@@ -1,18 +1,9 @@
 import React, {Component} from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  SafeAreaView,
-  Image,
-  Alert,
-  TextInput,
-} from 'react-native';
+import {View, Text, SafeAreaView, Image, Alert} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
-// import {RoundCheckbox, SelectedCheckboxes} from '../Roundcheck';
 import {RoundCheckbox} from '../Roundcheck';
 import ResetStyle from '../../style/ResetStyle.js';
-// import {TextInput} from 'react-native-paper';
+import AuthStyle from '../../style/AuthStyle';
 
 class SelectedCheckboxes {
   constructor() {
@@ -117,7 +108,7 @@ class AgreementTermsConditions extends Component {
           <View>
             <View
               style={[
-                styles.viewBox,
+                AuthStyle.agreementViewBox,
                 {
                   justifyContent: 'flex-start',
                   paddingTop: 20,
@@ -151,7 +142,7 @@ class AgreementTermsConditions extends Component {
             </View>
             <View
               style={[
-                styles.viewBox,
+                AuthStyle.agreementViewBox,
                 {
                   padding: 17,
                   backgroundColor: '#f9f9f9',
@@ -159,7 +150,7 @@ class AgreementTermsConditions extends Component {
                   borderRadius: 5,
                 },
               ]}>
-              <View style={styles.viewBox}>
+              <View style={AuthStyle.agreementViewBox}>
                 <RoundCheckbox
                   size={20}
                   keyValue={2}
@@ -205,7 +196,7 @@ class AgreementTermsConditions extends Component {
             </View>
             <View
               style={[
-                styles.viewBox,
+                AuthStyle.agreementViewBox,
                 {
                   padding: 17,
                   backgroundColor: '#f9f9f9',
@@ -213,11 +204,10 @@ class AgreementTermsConditions extends Component {
                   borderRadius: 5,
                 },
               ]}>
-              <View style={styles.viewBox}>
+              <View style={[AuthStyle.agreementViewBox]}>
                 <RoundCheckbox
                   size={20}
                   keyValue={3}
-                  // keyValue={Number(item.id)}
                   checked={this.state.allCheck3}
                   color="#164895"
                   labelColor="#000000"
@@ -287,18 +277,5 @@ class AgreementTermsConditions extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  viewBox: {
-    flexDirection: 'row',
-    flexWrap: 'nowrap',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  textStyle: {
-    fontSize: 16,
-    color: '#333333',
-  },
-});
 
 export default AgreementTermsConditions;

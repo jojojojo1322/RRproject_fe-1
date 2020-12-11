@@ -131,7 +131,7 @@ class Initial2 extends Component {
                     style={[
                       ResetStyle.fontBoldK,
                       ResetStyle.fontB,
-                      {textAlign: 'center', marginTop: 20},
+                      {textAlign: 'center', marginTop: '8%'},
                     ]}>
                     {imageIndex == 0
                       ? 'RESEARCH'
@@ -143,7 +143,7 @@ class Initial2 extends Component {
                     style={[
                       ResetStyle.fontLightE,
                       ResetStyle.fontDG,
-                      {textAlign: 'center'},
+                      {textAlign: 'center', marginTop: '4%', lineHeight: 26},
                     ]}>
                     {imageIndex == 0
                       ? [lang.en.initial1]
@@ -155,7 +155,11 @@ class Initial2 extends Component {
               );
             })}
           </ScrollView>
-          <View style={AuthStyle.initial2IndicatorContainer}>
+          <View
+            style={[
+              AuthStyle.initial2IndicatorContainer,
+              {marginBottom: '8%'},
+            ]}>
             {images.map((image, imageIndex) => {
               const backgroundColor = this.scrollX.interpolate({
                 inputRange: [
@@ -211,7 +215,8 @@ class Initial2 extends Component {
                 LOGIN
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity
+
+            {/* <TouchableOpacity
               style={[ResetStyle.buttonWhite, {marginTop: 10}]}
               activeOpacity={0.75}
               onPress={() => {
@@ -225,7 +230,7 @@ class Initial2 extends Component {
                 ]}>
                 Kyc
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             {/* <TouchableOpacity
               style={[ResetStyle.buttonWhite, {marginTop: 10}]}
@@ -244,15 +249,17 @@ class Initial2 extends Component {
             </TouchableOpacity> */}
 
             <TouchableOpacity
-              style={[ResetStyle.buttonWhite, {marginTop: 10}]}
-              activeOpacity={0.75}
+              style={[
+                ResetStyle.buttonWhite,
+                {marginTop: 10, borderColor: '#FFF'},
+              ]}
               onPress={() => {
                 this.props.navigation.navigate('Main');
               }}>
               <Text
                 style={[
                   ResetStyle.fontMediumK,
-                  ResetStyle.fontB,
+                  ResetStyle.fontWhite,
                   {fontWeight: '600'},
                 ]}>
                 Main

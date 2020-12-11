@@ -187,7 +187,11 @@ export default class MainDetail extends Component {
             대박대박대박 재밌는 설문조사 리얼리서치가 되어요.
           </Text>
 
-          <TouchableOpacity style={[ResetStyle.button]}>
+          <TouchableOpacity
+            style={[ResetStyle.button]}
+            onPress={() => {
+              this.props.navigation.navigate('ResearchForm');
+            }}>
             <Text
               style={[
                 ResetStyle.fontMediumK,

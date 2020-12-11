@@ -11,7 +11,6 @@ import {
   TextInput,
   SafeAreaView,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   FlatList,
   StatusBar,
   Linking,
@@ -276,7 +275,7 @@ class Initial3 extends Component {
           onRequestClose={() => {
             Alert.alert('Modal has been closed.');
           }}>
-          <TouchableWithoutFeedback
+          <TouchableOpacity
             activeOpacity={0.55}
             onPress={() => {
               this.setModalVisible(!modalVisible);
@@ -286,7 +285,7 @@ class Initial3 extends Component {
                 data={this.state}
                 setModalVisible={this.setModalVisible}></ModalCountry>
             </View>
-          </TouchableWithoutFeedback>
+          </TouchableOpacity>
         </Modal> */}
         <ListModal
           modalVisible={modalVisible}
@@ -302,7 +301,7 @@ class Initial3 extends Component {
           onRequestClose={() => {
             Alert.alert('Modal has been closed.');
           }}>
-          <TouchableWithoutFeedback
+          <TouchableOpacity
             activeOpacity={0.55}
             onPress={() => {
               this.setModal2Visible(!modal2Visible);
@@ -314,7 +313,7 @@ class Initial3 extends Component {
                 </Text>
               </View>
             </View>
-          </TouchableWithoutFeedback>
+          </TouchableOpacity>
         </Modal> */}
         {/* <bottomModal
           modalVisible={modal2Visible}
@@ -458,7 +457,7 @@ class Initial3 extends Component {
           onRequestClose={() => {
             Alert.alert('Modal has been closed.');
           }}>
-          <TouchableWithoutFeedback
+          <TouchableOpacity
             activeOpacity={0.55}
             onPress={() => {
               this.setModal6Visible(!modal6Visible);
@@ -468,7 +467,7 @@ class Initial3 extends Component {
                 data={this.state}
                 setModal6Visible={this.setModal6Visible}></ModalCountry>
             </View>
-          </TouchableWithoutFeedback>
+          </TouchableOpacity>
         </Modal> */}
         <ListRoundCheckModal
           modalVisible={modal6Visible}
@@ -484,7 +483,7 @@ class Initial3 extends Component {
           onRequestClose={() => {
             Alert.alert('Modal has been closed.');
           }}>
-          <TouchableWithoutFeedback
+          <TouchableOpacity
             activeOpacity={0.55}
             onPress={() => {
               this.setModal7Visible(!modal7Visible);
@@ -494,7 +493,7 @@ class Initial3 extends Component {
                 data={this.state}
                 setModal7Visible={this.setModal7Visible}></ModalCountry>
             </View>
-          </TouchableWithoutFeedback>
+          </TouchableOpacity>
         </Modal> */}
 
         <ListCheckModal

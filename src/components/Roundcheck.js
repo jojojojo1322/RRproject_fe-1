@@ -84,9 +84,11 @@ export class RoundCheckbox extends Component {
           this.props.handleAll(true);
         }
         this.props.handleCheckedbox(value, 'PLUS');
+        // this.props.handleCheckedArray(this.props.checkedObjArr.fetchArray());
         // console.log(this.props.checkedObjArr.fetchArray());
         // console.log(this.props.checkedObjArr.fetchArray().length);
       } else {
+        // this.props.handleUnCheckedArray(key);
         this.props.handleCheckedbox(value, 'MINUS');
         this.props.checkedObjArr.fetchArray().splice(
           this.props.checkedObjArr.fetchArray().findIndex((y) => y.key == key),

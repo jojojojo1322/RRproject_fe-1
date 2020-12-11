@@ -1,15 +1,12 @@
 import React, {Component} from 'react';
 import {
-  StyleSheet,
   View,
   Text,
   TextInput,
   TouchableOpacity,
   SafeAreaView,
   Image,
-  Alert,
 } from 'react-native';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import ListModal from '../../components/factory/modal/ListModal';
 import CountDown from '../../components/factory/CountDown';
 import ResetStyle from '../../style/ResetStyle.js';
@@ -264,7 +261,7 @@ class SignUp extends Component {
               ]}></TextInput>
 
             {this.state.CountDownCheck == 'start' && (
-              <TouchableWithoutFeedback
+              <TouchableOpacity
                 onPress={async () => {
                   // console.log(this.state.phoneNum);
                   // console.log(this.state.countryCd);
@@ -299,10 +296,10 @@ class SignUp extends Component {
                   ]}>
                   재요청
                 </Text>
-              </TouchableWithoutFeedback>
+              </TouchableOpacity>
             )}
             {this.state.CountDownCheck == '' && (
-              <TouchableWithoutFeedback
+              <TouchableOpacity
                 onPress={async () => {
                   // console.log(this.state.phoneNum);
                   // console.log(this.state.countryCd);
@@ -335,7 +332,7 @@ class SignUp extends Component {
                   ]}>
                   인증요청
                 </Text>
-              </TouchableWithoutFeedback>
+              </TouchableOpacity>
             )}
           </View>
 
@@ -428,7 +425,7 @@ class SignUp extends Component {
             </View>
           </View>
 
-          <TouchableWithoutFeedback
+          <TouchableOpacity
             style={[
               ResetStyle.button,
               this.state.passWord.length !== 6 && {backgroundColor: '#e6e6e6'},
@@ -463,7 +460,7 @@ class SignUp extends Component {
               ]}>
               다음
             </Text>
-          </TouchableWithoutFeedback>
+          </TouchableOpacity>
         </View>
         <BottomModal
           setModalVisible={this.setModalVisibleNotAuth}
@@ -493,20 +490,5 @@ class SignUp extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  textInputStyle2: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    fontSize: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: '#dddddd',
-    paddingTop: 15,
-    paddingBottom: 15,
-  },
-  textInputStyle3: {
-    flexDirection: 'row',
-  },
-});
 
 export default SignUp;
