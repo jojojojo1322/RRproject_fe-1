@@ -42,9 +42,10 @@ class BottomModal extends Component {
         animationType="fade"
         transparent={true}
         visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-        }}>
+        // onRequestClose={() => {
+        //   Alert.alert('Modal has been closed.');
+        // }}
+      >
         <TouchableWithoutFeedback
           activeOpacity={0.55}
           onPress={() => {

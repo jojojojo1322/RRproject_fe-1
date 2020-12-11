@@ -144,9 +144,10 @@ class ListCheckModal extends Component {
         animationType="fade"
         transparent={true}
         visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-        }}>
+        // onRequestClose={() => {
+        //   Alert.alert('Modal has been closed.');
+        // }}
+      >
         {/* modal background */}
         <TouchableWithoutFeedback
           // style={styles.centeredView}
@@ -213,6 +214,7 @@ class ListCheckModal extends Component {
             ]}
             onPress={() => {
               if (this.state.checkedArray !== '') {
+                console.log('AKKKKAKAKAKAKAKAKAK');
                 this.props.setLanguage(this.state.checkedArray);
                 this.setState({modalVisible: !modalVisible});
                 this.props.setModalVisible(!modalVisible);
@@ -248,13 +250,15 @@ const styles = StyleSheet.create({
   },
   modalView: {
     position: 'absolute',
-    top: '17.5%',
+    top: Platform.OS === 'ios' ? '17.5%' : '10%',
     left: '5%',
-    width: '90%',
-    height: '65%',
-    backgroundColor: 'white',
-    padding: 20,
+    flex: 1,
+    flexDirection: 'column',
     alignItems: 'center',
+    width: '90%',
+    height: Platform.OS === 'ios' ? '65%' : '74%',
+    backgroundColor: 'white',
+    padding: '5%',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -283,12 +287,15 @@ const styles = StyleSheet.create({
   modalInputBox: {
     width: '100%',
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
     borderWidth: 1,
     borderColor: '#dddddd',
     borderRadius: 5,
-    padding: 15,
-    marginTop: 20,
+    padding: Platform.OS === 'ios' ? '5%' : 0,
+    paddingLeft: '5%',
+    paddingRight: '5%',
+    marginTop: '3%',
   },
   modalText: {
     fontSize: 20,
@@ -303,8 +310,9 @@ const styles = StyleSheet.create({
   },
   countryList: {
     width: '100%',
-    height: '70%',
+    height: Platform.OS === 'ios' ? '70%' : '65%',
     overflow: 'scroll',
+
     flexDirection: 'column',
     marginTop: 10,
   },
@@ -322,95 +330,6 @@ const styles = StyleSheet.create({
     height: 16,
   },
 
-  modalFooterBg: {
-    flex: 1,
-    height: '60%',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    backgroundColor: 'hsla(0, 0%, 20%, 0.6)',
-    paddingBottom: '5%',
-  },
-  modalFooter: {
-    width: '90%',
-    height: 50,
-    backgroundColor: 'white',
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    borderRadius: 50,
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-    justifyContent: 'center',
-  },
-  modalFooterText: {
-    textAlign: 'center',
-    fontSize: 16,
-    fontWeight: '400',
-  },
-
-  centeredView2: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'hsla(0, 0%, 20%, 0.6)',
-  },
-  modalView2: {
-    width: '90%',
-    backgroundColor: 'white',
-    padding: 30,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    borderTopLeftRadius: 5,
-    borderTopRightRadius: 5,
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  modalText2: {
-    textAlign: 'center',
-    fontSize: 16,
-    lineHeight: 24,
-    marginTop: '5%',
-    marginBottom: '5%',
-  },
-  closeButton2: {
-    width: '90%',
-    backgroundColor: '#F194FF',
-    elevation: 2,
-    borderBottomLeftRadius: 5,
-    borderBottomRightRadius: 5,
-  },
-  closeButtonText2: {
-    color: '#FFF',
-    fontWeight: '500',
-    fontSize: 16,
-    textAlign: 'center',
-    padding: 17,
-  },
-  modalView2bottom2Button: {
-    width: '90%',
-    alignItems: 'center',
-    flexDirection: 'row',
-    // justifyContent: 'space-between'
-  },
-  modalView2bottom2Button1: {
-    width: '50%',
-    borderBottomLeftRadius: 5,
-    backgroundColor: '#c6c9cf',
-  },
-  modalView2bottom2Button2: {
-    width: '50%',
-    borderBottomRightRadius: 5,
-    backgroundColor: '#164895',
-  },
   button: {
     width: '100%',
     borderRadius: 50,

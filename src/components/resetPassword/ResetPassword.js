@@ -14,6 +14,7 @@ import axios from 'axios';
 import {server} from '../defined/server';
 
 import TextConfirmModal from '../factory/modal/TextConfirmModal';
+import AuthStyle from '../../style/AuthStyle';
 
 function chkPW(password) {
   var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~!@#$%^&*()_+|<>?:{}]).{8,}$/;
@@ -160,18 +161,8 @@ export default class ResetPassword extends Component {
                     />
                   )}
                 </TouchableOpacity>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                  }}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      marginTop: 8,
-                    }}>
+                <View style={[AuthStyle.resetPasswordView1]}>
+                  <View style={[AuthStyle.resetPasswordView2]}>
                     {!chkPWRow(this.state.password) ? (
                       <Image
                         style={ResetStyle.xsmallImg}
@@ -192,12 +183,7 @@ export default class ResetPassword extends Component {
                       영문
                     </Text>
                   </View>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      marginTop: 8,
-                    }}>
+                  <View style={[AuthStyle.resetPasswordView2]}>
                     {!chkPWNumber(this.state.password) ? (
                       <Image
                         style={ResetStyle.xsmallImg}
@@ -218,12 +204,7 @@ export default class ResetPassword extends Component {
                       숫자
                     </Text>
                   </View>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      marginTop: 8,
-                    }}>
+                  <View style={[AuthStyle.resetPasswordView2]}>
                     {!chkPWHigh(this.state.password) ? (
                       <Image
                         style={ResetStyle.xsmallImg}
@@ -244,12 +225,7 @@ export default class ResetPassword extends Component {
                       대문자
                     </Text>
                   </View>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      marginTop: 8,
-                    }}>
+                  <View style={[AuthStyle.resetPasswordView2]}>
                     {!chkPWCharacter(this.state.password) ? (
                       <Image
                         style={ResetStyle.xsmallImg}
@@ -270,12 +246,7 @@ export default class ResetPassword extends Component {
                       특수문자
                     </Text>
                   </View>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      marginTop: 8,
-                    }}>
+                  <View style={[AuthStyle.resetPasswordView2]}>
                     {this.state.password.length < 8 ? (
                       <Image
                         style={ResetStyle.xsmallImg}

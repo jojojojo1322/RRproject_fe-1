@@ -260,7 +260,7 @@ class EmailAuthentication extends Component {
               </Text>
 
               <View>
-                <View style={[AuthStyle.emailAuthTextInputStyle2]}>
+                <View style={[AuthStyle.emailAuthTextInputStyle]}>
                   <TextInput
                     placeholder="인증번호 입력"
                     placeholderTextColor="#a9a9a9"
@@ -274,14 +274,7 @@ class EmailAuthentication extends Component {
                       ResetStyle.fontG,
                       {textAlign: 'left'},
                     ]}></TextInput>
-                  <View
-                    style={{
-                      position: 'absolute',
-                      right: 0,
-                      top: '60%',
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                    }}>
+                  <View style={[AuthStyle.emailAuthCountdownBox]}>
                     <Image
                       source={require('../../imgs/drawable-xhdpi/icon_time.png')}
                       style={[ResetStyle.smallImg, {marginRight: 8}]}
@@ -302,13 +295,7 @@ class EmailAuthentication extends Component {
                 </View>
 
                 {/* alert */}
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    marginTop: '3%',
-                    justifyContent: 'space-between',
-                  }}>
+                <View style={[AuthStyle.emailAuthAlertView]}>
                   {this.state.returnValue === -3 && (
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
                       <Image

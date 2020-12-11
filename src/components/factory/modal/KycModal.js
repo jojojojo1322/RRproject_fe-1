@@ -48,9 +48,10 @@ class KycModal extends Component {
         animationType="fade"
         transparent={true}
         visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-        }}>
+        // onRequestClose={() => {
+        //   Alert.alert('Modal has been closed.');
+        // }}
+      >
         <View style={{flex: 1, position: 'relative'}}>
           {/* modal background */}
           <TouchableWithoutFeedback
@@ -156,15 +157,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 10,
     backgroundColor: '#fff',
-    alignItems: 'baseline',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    borderBottomLeftRadius: 5,
-    borderBottomRightRadius: 5,
-    elevation: 5,
   },
   KycModalTopText: {
     textAlign: 'left',

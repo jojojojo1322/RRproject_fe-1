@@ -124,9 +124,10 @@ class ListModal extends Component {
         animationType="fade"
         transparent={true}
         visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-        }}>
+        // onRequestClose={() => {
+        //   Alert.alert('Modal has been closed.');
+        // }}
+      >
         <View style={{flex: 1, position: 'relative'}}>
           {/* modal background */}
           <TouchableWithoutFeedback
@@ -217,7 +218,7 @@ const styles = StyleSheet.create({
     top: '17.5%',
     left: '5%',
     width: '90%',
-    height: Platform.OS === 'ios' ? '65%' : '65%',
+    height: Platform.OS === 'ios' ? '65%' : '70%',
     backgroundColor: 'white',
     padding: 20,
     alignItems: 'center',

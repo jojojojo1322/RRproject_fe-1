@@ -78,11 +78,24 @@ export default StyleSheet.create({
 
   // EmailAuthentication
 
-  emailAuthTextInputStyle2: {
+  emailAuthTextInputStyle: {
     borderBottomWidth: 1,
     borderBottomColor: '#dddddd',
     paddingTop: '4%',
     paddingBottom: '2%',
+  },
+  emailAuthCountdownBox: {
+    position: 'absolute',
+    right: 0,
+    top: '60%',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  emailAuthAlertView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: '3%',
+    justifyContent: 'space-between',
   },
 
   // SignupPersonal
@@ -93,6 +106,23 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
     alignItems: 'center',
+  },
+  signupCheckView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: '3%',
+  },
+
+  // ResetPassword
+  resetPasswordView1: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  resetPasswordView2: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 8,
   },
 
   // WalletMasterKey
