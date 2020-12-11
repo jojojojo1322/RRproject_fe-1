@@ -221,6 +221,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 50,
+    borderWidth: 0.5,
+    borderColor: '#666',
   },
 
   checkboxLabel: {
