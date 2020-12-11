@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, SafeAreaView, Image, Alert} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
-import {RoundCheckbox} from '../Roundcheck';
+import {RoundCheckbox} from '../factory/Roundcheck';
 import ResetStyle from '../../style/ResetStyle.js';
 import AuthStyle from '../../style/AuthStyle';
 
