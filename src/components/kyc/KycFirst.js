@@ -141,31 +141,3 @@ export default class KycFirst extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  clickArea: {
-    backgroundColor: '#eeeeee',
-    height: 50,
-    width: '48%',
-    borderRadius: 5,
-    marginLeft: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignContent: 'stretch',
-  },
-  clickAreaChoice: {
-    backgroundColor: '#4696ff',
-    height: 50,
-    width: '48%',
-    borderRadius: 5,
-    marginLeft: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignContent: 'stretch',
-  },
-  clickAreaTextChoice: {
-    fontSize: 15,
-    lineHeight: 22,
-    color: '#ffffff',
-  },
-});

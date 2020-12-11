@@ -25,12 +25,11 @@ import {
 } from '@react-navigation/drawer';
 import {ProgressCircle} from 'react-native-svg-charts';
 import ResetStyle from '../../style/ResetStyle.js';
-import MainDetail from '../main/MainDetail';
+import MainStyle from '../../style/MainStyle.js';
 import {CustomDrawerContent} from '../defined/CustomDrawerContent';
 
 const Tab = createMaterialTopTabNavigator();
 const Drawer = createDrawerNavigator();
-// const screenWidth = Dimensions.get('window').width;
 
 // {
 //   "id": "1",                                 // id
@@ -312,26 +311,11 @@ const Item = ({
   host,
   onPress,
 }) => (
-  <TouchableOpacity
-    opacity={status === 'expired' ? 0.5 : 1.0}
-    style={{
-      width: '90%',
-      alignSelf: 'center',
-      marginTop: 15,
-      borderRadius: 10,
-      backgroundColor: '#fff',
-      borderRadius: 10,
-      borderWidth: 1,
-      borderColor: '#e8e8e8',
-      paddingTop: '5%',
-      paddingBottom: '5%',
-    }}
-    onPress={onPress}>
+  <TouchableOpacity style={[MainStyle.ItemBox]} onPress={onPress}>
     <View
       opacity={status === 'expired' ? 0.5 : 1.0}
       style={{
         flex: 1,
-        // alignSelf: 'center',
       }}>
       <View
         style={{
@@ -1024,33 +1008,5 @@ class Main extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#fff',
-  },
-  containerInner: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    marginLeft: '5%',
-    marginRight: '5%',
-    backgroundColor: '#fff',
-  },
-  button: {
-    width: '100%',
-    borderRadius: 50,
-    backgroundColor: '#0b95c9',
-    padding: 15,
-  },
-  buttonTexts: {
-    color: '#FFF',
-    fontWeight: '600',
-    textAlign: 'center',
-    fontSize: 16,
-  },
-});
 
 export default Main;

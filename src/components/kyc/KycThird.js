@@ -109,7 +109,7 @@ export default class kycThird extends Component {
           onPress={() => {
             this.setCountryModal(!this.state.countryModal);
           }}>
-          <View style={styles.InputImageAll}>
+          <View style={AuthStyle.kycInput}>
             <TextInput
               placeholder={'선택해 주세요.'}
               // keyboardType={'numeric'}
@@ -130,7 +130,6 @@ export default class kycThird extends Component {
                 },
               ]}></TextInput>
             <Image
-              style={styles.InputImage}
               source={require('../../imgs/drawable-mdpi/icon_srarch.png')}
             />
           </View>
@@ -159,7 +158,7 @@ export default class kycThird extends Component {
           onPress={() => {
             this.setLanguageModal(!this.state.language);
           }}>
-          <View style={styles.InputImageAll}>
+          <View style={AuthStyle.kycInput}>
             <TextInput
               placeholder="선택해 주세요"
               // keyboardType={'numeric'}
@@ -175,7 +174,6 @@ export default class kycThird extends Component {
                 },
               ]}></TextInput>
             <Image
-              style={styles.InputImage}
               source={require('../../imgs/drawable-mdpi/icon_srarch.png')}
             />
           </View>
@@ -202,7 +200,7 @@ export default class kycThird extends Component {
           onPress={() => {
             this.setResidenceCountryModal(!this.state.residenceCountryModal);
           }}>
-          <View style={styles.InputImageAll}>
+          <View style={AuthStyle.kycInput}>
             <TextInput
               placeholder="선택해 주세요"
               // keyboardType={'numeric'}
@@ -222,7 +220,6 @@ export default class kycThird extends Component {
                 },
               ]}></TextInput>
             <Image
-              style={styles.InputImage}
               source={require('../../imgs/drawable-mdpi/icon_srarch.png')}
             />
           </View>
@@ -251,7 +248,7 @@ export default class kycThird extends Component {
           onPress={() => {
             this.setResidenceCityModal(!this.state.setResidenceCityModal);
           }}>
-          <View style={styles.InputImageAll}>
+          <View style={AuthStyle.kycInput}>
             <TextInput
               placeholder="선택해 주세요"
               // keyboardType={'numeric'}
@@ -269,7 +266,6 @@ export default class kycThird extends Component {
                 },
               ]}></TextInput>
             <Image
-              style={styles.InputImage}
               source={require('../../imgs/drawable-mdpi/icon_srarch.png')}
             />
           </View>
@@ -287,119 +283,3 @@ export default class kycThird extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  titleText: {
-    marginTop: 71,
-    marginBottom: 30,
-    fontSize: 27,
-    fontWeight: '600',
-    lineHeight: 36,
-  },
-  subText: {
-    fontSize: 16,
-    fontWeight: '500',
-    lineHeight: 18,
-  },
-
-  InputImageAll: {
-    // flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    borderBottomWidth: 1,
-    borderBottomColor: '#dddddd',
-    alignItems: 'center',
-    // alignContent: 'stretch',
-    // borderBottomWidth: 1,
-    // borderBottomColor: '#4696ff',
-  },
-  InputImage: {
-    // position: 'absolute',
-    // alignItems: 'center',2
-  },
-  passGrayAll: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  passGray: {
-    backgroundColor: '#4696ff',
-    textAlign: 'center',
-    flex: 1,
-    marginLeft: '3%',
-    // width: '14%',
-    height: 53,
-    borderRadius: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-    // fontSize: 20,
-  },
-  passGrayText: {
-    fontSize: 30,
-    marginTop: 10,
-  },
-  keyboard: {
-    position: 'absolute',
-    width: '100%',
-    left: 0,
-    bottom: 0,
-    backgroundColor: '#fff',
-  },
-  keyboardView: {
-    flexDirection: 'row',
-    flexWrap: 'nowrap',
-    alignContent: 'stretch',
-  },
-  keyboardDetail: {
-    flex: 1,
-    height: 70,
-    borderWidth: 0.3,
-    borderStyle: 'solid',
-    borderColor: '#4696ff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  keyboardDetailText: {
-    fontSize: 26,
-  },
-  keyboardCancelButtonDetail: {
-    flex: 1,
-    height: 80,
-    // borderWidth: 1,
-    // borderStyle: 'solid',
-    // borderColor: '#4696ff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#164895',
-  },
-  keyboardCancelButton: {
-    // color: '#fff',
-    resizeMode: 'center',
-  },
-  textInputStyle: {
-    // position: 'relative',
-    // width: '100%',
-    fontSize: 15,
-    // borderBottomWidth: 1,
-    // borderBottomColor: '#4696ff',
-    paddingTop: 15,
-    paddingBottom: 15,
-  },
-  textInputStyle2: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    fontSize: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: '#4696ff',
-    paddingTop: 15,
-    paddingBottom: 15,
-  },
-  textInputStyle2Inner: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  textInputStyle3: {
-    flexDirection: 'row',
-    fontSize: 15,
-  },
-});
