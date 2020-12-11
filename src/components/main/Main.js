@@ -766,13 +766,13 @@ function MainPage({navigation}) {
     <View
       style={{
         backgroundColor: '#f9f9f9',
-        marginTop: StatusBar.currentHeight || 0,
+        // marginTop: StatusBar.currentHeight || 0,
         flex: 1,
       }}>
       <View
         style={{
           backgroundColor: '#f9f9f9',
-          paddingTop: '15%',
+          paddingTop: Platform.OS === 'ios' ? '15%' : '5%',
           flexDirection: 'row',
           justifyContent: 'space-between',
           padding: '5%',
@@ -803,7 +803,7 @@ function MainPage({navigation}) {
       <View
         style={{
           width: '90%',
-          height: '10%',
+          height: Platform.OS === 'ios' ? '10%' : '13%',
           backgroundColor: '#FFF',
           alignSelf: 'center',
           borderRadius: 10,
@@ -873,14 +873,14 @@ function MainPage({navigation}) {
           <ProgressCircle
             style={{
               position: 'absolute',
-              width: 120,
-              height: 125,
+              width: Platform.OS === 'ios' ? 120 : 110,
+              height: Platform.OS === 'ios' ? 120 : 110,
               backgroundColor: '#FFF',
               borderRadius: 60,
             }}
             progress={0.086}
             progressColor={'#0080ff'}
-            strokeWidth={3}
+            strokeWidth={Platform.OS === 'ios' ? 3 : 2}
           />
 
           <View
@@ -913,7 +913,7 @@ function MainPage({navigation}) {
       <View
         style={{
           width: '100%',
-          height: 70,
+          height: Platform.OS === 'ios' ? '7%' : '10%',
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'center',
@@ -921,7 +921,7 @@ function MainPage({navigation}) {
         <View
           style={{
             position: 'absolute',
-            top: '-45%',
+            top: Platform.OS === 'ios' ? '-50%' : '-42%',
             width: '55%',
             backgroundColor: '#2d91ff',
             padding: '5%',
@@ -931,7 +931,7 @@ function MainPage({navigation}) {
             style={{
               position: 'absolute',
               top: '-15%',
-              left: '41%',
+              left: Platform.OS === 'ios' ? '41%' : '38%',
               width: 0,
               height: 0,
               backgroundColor: 'transparent',
@@ -966,7 +966,11 @@ function MainPage({navigation}) {
 
       <Tab.Navigator
         tabBarOptions={{
-          labelStyle: {fontSize: 16, fontWeight: '500', letterSpacing: -0.5},
+          labelStyle: {
+            fontSize: Platform.OS === 'ios' ? 16 : 14,
+            fontWeight: '500',
+            letterSpacing: -0.5,
+          },
           activeTintColor: '#222222',
           inactiveTintColor: '#a9a9a9',
           tabStyle: {
