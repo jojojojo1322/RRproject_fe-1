@@ -331,7 +331,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     alignContent: 'stretch',
-    // marginBottom: '-60%',
   },
   ktilMiddle: {
     width: 20,
@@ -341,17 +340,11 @@ const styles = StyleSheet.create({
   },
   topAll: {
     marginTop: 16,
-    // marginBottom: -250,
   },
   topText: {
     fontSize: 23,
     textAlign: 'center',
     lineHeight: 24,
     fontWeight: '500',
-  },
-  bottomButtonAll: {
-    // position: 'absolute',
-    // bottom: 20,
-    // alignContent: '',
   },
 });

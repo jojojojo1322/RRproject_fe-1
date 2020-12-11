@@ -1,30 +1,14 @@
 import React, {Component} from 'react';
-import {
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  SafeAreaView,
-  Image,
-} from 'react-native';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
-import {RoundCheckbox, SelectedCheckboxes} from '../Roundcheck';
+import {ScrollView, Text, SafeAreaView} from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import ResetStyle from '../../style/ResetStyle.js';
+import AuthStyle from '../../style/AuthStyle.js';
 
 const Tab = createMaterialTopTabNavigator();
 
 function Terms() {
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        overflow: 'scroll',
-        backgroundColor: '#FFF',
-      }}>
+    <SafeAreaView style={AuthStyle.termsConditionsContainer}>
       <ScrollView style={{width: '100%'}}>
         <Text
           style={[
@@ -114,13 +98,7 @@ function Terms() {
 
 function Conditions() {
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        overflow: 'scroll',
-        backgroundColor: '#FFF',
-      }}>
+    <SafeAreaView style={AuthStyle.termsConditionsContainer}>
       <ScrollView style={{width: '100%'}}>
         <Text
           style={[
@@ -226,33 +204,5 @@ class TermsConditions extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#fff',
-  },
-  containerInner: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    marginLeft: '5%',
-    marginRight: '5%',
-    backgroundColor: '#fff',
-  },
-  button: {
-    width: '100%',
-    borderRadius: 50,
-    backgroundColor: '#0b95c9',
-    padding: 15,
-  },
-  buttonTexts: {
-    color: '#FFF',
-    fontWeight: '600',
-    textAlign: 'center',
-    fontSize: 16,
-  },
-});
 
 export default TermsConditions;

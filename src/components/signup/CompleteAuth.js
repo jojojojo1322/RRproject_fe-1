@@ -1,15 +1,5 @@
 import React, {Component} from 'react';
-import {
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  SafeAreaView,
-  Image,
-} from 'react-native';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
+import {View, Text, TouchableOpacity, SafeAreaView, Image} from 'react-native';
 import ResetStyle from '../../style/ResetStyle.js';
 import AuthStyle from '../../style/AuthStyle.js';
 
@@ -77,7 +67,7 @@ class CompleteAuth extends Component {
             </Text>
           </View>
 
-          <TouchableWithoutFeedback
+          <TouchableOpacity
             style={[ResetStyle.button, {backgroundColor: '#4696ff'}]}
             onPress={() => {
               this.props.navigation.navigate('Kyc');
@@ -91,7 +81,7 @@ class CompleteAuth extends Component {
               ]}>
               시작하기
             </Text>
-          </TouchableWithoutFeedback>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     );

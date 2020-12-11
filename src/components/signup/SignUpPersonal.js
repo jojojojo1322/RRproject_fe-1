@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import {
-  StyleSheet,
-  ScrollView,
   View,
   Text,
   TextInput,
@@ -9,7 +7,6 @@ import {
   SafeAreaView,
   Image,
 } from 'react-native';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {RoundCheckbox, SelectedCheckboxes} from '../Roundcheck';
 import ResetStyle from '../../style/ResetStyle.js';
 import AuthStyle from '../../style/AuthStyle.js';
@@ -601,7 +598,7 @@ class SignUpPersonal extends Component {
             </View> */}
           </View>
 
-          <TouchableWithoutFeedback
+          <TouchableOpacity
             // style={[ResetStyle.button, {backgroundColor: '#e6e6e6'}]}
             style={[
               ResetStyle.button,
@@ -636,7 +633,7 @@ class SignUpPersonal extends Component {
               ]}>
               다음
             </Text>
-          </TouchableWithoutFeedback>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     );

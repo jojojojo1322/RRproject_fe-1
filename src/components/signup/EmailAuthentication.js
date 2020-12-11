@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import {
-  StyleSheet,
-  ScrollView,
   View,
   Text,
   TextInput,
@@ -9,10 +7,10 @@ import {
   SafeAreaView,
   Image,
 } from 'react-native';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import CountDown from '../../components/factory/CountDown';
 import {RoundCheckbox, SelectedCheckboxes} from '../Roundcheck';
 import ResetStyle from '../../style/ResetStyle.js';
+import AuthStyle from '../../style/AuthStyle.js';
 
 import axios from 'axios';
 import {server} from '../defined/server';
@@ -248,7 +246,7 @@ class EmailAuthentication extends Component {
             </Text>
 
             <View>
-              <View style={[styles.textInputStyle2]}>
+              <View style={[AuthStyle.emailAuthTextInputStyle2]}>
                 <TextInput
                   placeholder="인증번호 입력"
                   placeholderTextColor="#a9a9a9"
@@ -362,7 +360,7 @@ class EmailAuthentication extends Component {
             </View>
           </View>
 
-          <TouchableWithoutFeedback
+          <TouchableOpacity
             style={[
               ResetStyle.button,
               this.state.passWord.length < 6 && {backgroundColor: '#e6e6e6'},
@@ -386,20 +384,11 @@ class EmailAuthentication extends Component {
               ]}>
               회원가입
             </Text>
-          </TouchableWithoutFeedback>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  textInputStyle2: {
-    borderBottomWidth: 1,
-    borderBottomColor: '#dddddd',
-    paddingTop: '4%',
-    paddingBottom: '2%',
-  },
-});
 
 export default EmailAuthentication;

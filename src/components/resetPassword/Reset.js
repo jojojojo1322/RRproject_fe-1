@@ -1,18 +1,10 @@
 import React, {Component} from 'react';
-
 import {
-  StyleSheet,
-  ScrollView,
   View,
   Text,
-  Alert,
-  Modal,
-  Button,
   Image,
   TextInput,
-  FlatList,
   SafeAreaView,
-  StatusBar,
   TouchableOpacity,
 } from 'react-native';
 import axios from 'axios';
@@ -43,7 +35,6 @@ export default class Reset extends Component {
     this.setState({
       email: e,
     });
-    // console.log(this.validate(this.state.email));
   };
   emailReAuthApi = (email) => {
     axios
@@ -159,7 +150,6 @@ export default class Reset extends Component {
             </TouchableOpacity>
           </View>
           <TouchableOpacity
-            // style={[styles.button, {backgroundColor: '#4696ff'}]}
             style={
               this.validateEmail(this.state.email)
                 ? [ResetStyle.button]

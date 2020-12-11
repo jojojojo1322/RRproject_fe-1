@@ -1,6 +1,7 @@
 import React, {useState, Component} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import ResetStyle from '../../style/ResetStyle.js';
+import AuthStyle from '../../style/AuthStyle.js';
 
 export default class KycFirst extends Component {
   render() {
@@ -14,12 +15,12 @@ export default class KycFirst extends Component {
           ]}>
           성별 선택
         </Text>
-        <View style={[styles.genderAll]}>
+        <View style={[AuthStyle.kycBox]}>
           <TouchableOpacity
             style={
               this.props.gender == 'male'
-                ? styles.clickAreaChoice
-                : styles.clickArea
+                ? [AuthStyle.kycButton, {backgroundColor: '#4696ff'}]
+                : AuthStyle.kycButton
             }
             onPress={() => {
               this.props.handleGender('male');
@@ -36,8 +37,8 @@ export default class KycFirst extends Component {
           <TouchableOpacity
             style={
               this.props.gender == 'female'
-                ? styles.clickAreaChoice
-                : styles.clickArea
+                ? [AuthStyle.kycButton, {backgroundColor: '#4696ff'}]
+                : AuthStyle.kycButton
             }
             onPress={() => {
               this.props.handleGender('female');
@@ -60,12 +61,12 @@ export default class KycFirst extends Component {
           ]}>
           결혼 여부 선택
         </Text>
-        <View style={styles.genderAll}>
+        <View style={[AuthStyle.kycBox]}>
           <TouchableOpacity
             style={
               this.props.maritalStatus == 'single'
-                ? styles.clickAreaChoice
-                : styles.clickArea
+                ? [AuthStyle.kycButton, {backgroundColor: '#4696ff'}]
+                : AuthStyle.kycButton
             }
             onPress={() => {
               this.props.handleMarital('single');
@@ -82,8 +83,8 @@ export default class KycFirst extends Component {
           <TouchableOpacity
             style={
               this.props.maritalStatus == 'marriage'
-                ? styles.clickAreaChoice
-                : styles.clickArea
+                ? [AuthStyle.kycButton, {backgroundColor: '#4696ff'}]
+                : AuthStyle.kycButton
             }
             onPress={() => {
               this.props.handleMarital('marriage');
@@ -98,12 +99,12 @@ export default class KycFirst extends Component {
             </Text>
           </TouchableOpacity>
         </View>
-        <View style={[styles.genderAll, {marginTop: '3%', marginBottom: '3%'}]}>
+        <View style={[AuthStyle.KycBox, {marginTop: '3%', marginBottom: '3%'}]}>
           <TouchableOpacity
             style={
               this.props.maritalStatus == 'liveTogether'
-                ? styles.clickAreaChoice
-                : styles.clickArea
+                ? [AuthStyle.kycButton, {backgroundColor: '#4696ff'}]
+                : AuthStyle.kycButton
             }
             onPress={() => {
               this.props.handleMarital('liveTogether');
@@ -120,8 +121,8 @@ export default class KycFirst extends Component {
           <TouchableOpacity
             style={
               this.props.maritalStatus == 'divorce'
-                ? styles.clickAreaChoice
-                : styles.clickArea
+                ? [AuthStyle.kycButton, {backgroundColor: '#4696ff'}]
+                : AuthStyle.kycButton
             }
             onPress={() => {
               this.props.handleMarital('divorce');
@@ -142,24 +143,6 @@ export default class KycFirst extends Component {
 }
 
 const styles = StyleSheet.create({
-  topText: {
-    fontSize: 20,
-    textAlign: 'center',
-    lineHeight: 24,
-    fontWeight: '500',
-  },
-  genderAll: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    alignContent: 'center',
-    justifyContent: 'space-between',
-  },
-  choiceText: {
-    fontSize: 16,
-    lineHeight: 18,
-    fontWeight: '600',
-    marginBottom: 15,
-  },
   clickArea: {
     backgroundColor: '#eeeeee',
     height: 50,
@@ -169,10 +152,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     alignContent: 'stretch',
-  },
-  clickAreaText: {
-    fontSize: 15,
-    lineHeight: 22,
   },
   clickAreaChoice: {
     backgroundColor: '#4696ff',

@@ -13,6 +13,8 @@ import {
 // import CheckBox from '@react-native-community/checkbox';
 // import CheckBox from 'react-native-check-box';
 import PropTypes from 'prop-types';
+import ResetStyle from '../../style/ResetStyle.js';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 class SelectedCheckboxes {
   constructor() {
@@ -128,6 +130,7 @@ class ResearchForm extends Component {
     checkId: '',
     nowIndex: 0,
     pickedElements: '',
+    checkedArray: '',
   };
 
   // constructor() {
@@ -203,6 +206,27 @@ class ResearchForm extends Component {
       });
     }
   }
+  handleCheckedArray = async (Array) => {
+    console.log('PLUS', Array);
+    let checkedArray = this.state.checkedArray;
+    await this.setState({
+      checkedArray: checkedArray.concat(Array),
+    });
+    console.log('PlusArrayLATE', this.state.checkedArray);
+  };
+
+  handleUnCheckedArray = async (key) => {
+    console.log('MINUS', key);
+    let checkedArray = this.state.checkedArray;
+    checkedArray.splice(
+      checkedArray.findIndex((y) => y.key == key),
+      1,
+    ),
+      await this.setState({
+        checkedArray: checkedArray,
+      });
+    console.log('MinusArrayLATE', this.state.checkedArray);
+  };
 
   render() {
     let researchArr = this.state.question;
@@ -214,10 +238,28 @@ class ResearchForm extends Component {
         (researchList = researchList.concat(
           <View style={styles.container} key={index}>
             <View style={styles.researchSubBox}>
-              <Text style={styles.researchSubNumber}>
+              <Text
+                style={[
+                  ResetStyle.fontBoldK,
+                  ResetStyle.fontB,
+                  {fontWeight: '400', marginTop: '9%'},
+                ]}>
                 {data.id + 1}/{this.state.questionLength}
               </Text>
-              <Text style={styles.researchSubText}>{data.question}</Text>
+              <Text
+                style={[
+                  ResetStyle.fontLightK,
+                  ResetStyle.fontBlack,
+                  {
+                    fontWeight: '500',
+                    textAlign: 'left',
+                    marginTop: '6%',
+                    marginBottom: '8%',
+                    lineHeight: 25,
+                  },
+                ]}>
+                {data.question}
+              </Text>
             </View>
 
             <ScrollView>
@@ -377,34 +419,54 @@ class ResearchForm extends Component {
     console.log('Length', this.state.questionLength);
     console.log('nowIndex', this.state.nowIndex);
     return (
-      <View style={styles.container}>
-        <Text style={styles.researchTitle}>설문조사 제목</Text>
+      <SafeAreaView style={styles.container}>
+        <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+          설문조사 제목
+        </Text>
 
         {researchList[this.state.nowIndex]}
 
         <View style={styles.buttonBox}>
           <TouchableOpacity
             style={
-              this.state.nowIndex == 0 ? styles.buttonCancel : styles.button
+              this.state.nowIndex == 0
+                ? [
+                    ResetStyle.button,
+                    {width: '49%', backgroundColor: '#e6e6e6'},
+                  ]
+                : [ResetStyle.button, {width: '49%'}]
             }
             activeOpacity={0.75}
             onPress={this.handlerPrev}>
-            <Text style={styles.buttonText}>
+            <Text
+              style={[
+                ResetStyle.fontMediumK,
+                ResetStyle.fontWhite,
+                {fontWeight: '600'},
+              ]}>
               {this.state.nowIndex == 0 ? '취소' : '이전'}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={styles.button}
+            style={[
+              ResetStyle.button,
+              {width: '49%', backgroundColor: '#4696ff'},
+            ]}
             activeOpacity={0.75}
             onPress={this.handlerNext}>
-            <Text style={styles.buttonText}>
+            <Text
+              style={[
+                ResetStyle.fontMediumK,
+                ResetStyle.fontWhite,
+                {fontWeight: '600'},
+              ]}>
               {this.state.nowIndex == this.state.questionLength - 1
                 ? '제출'
                 : '다음'}
             </Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </SafeAreaView>
     );
   }
 }
@@ -501,18 +563,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     // justifyContent: 'center',
-    padding: '5%',
+    padding: '4%',
+    paddingLeft: '5%',
+    paddingRight: '5%',
     borderBottomWidth: 1,
-    borderColor: '#4696ff',
+    borderColor: '#dedede',
   },
   checkListFirst: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: '5%',
+    padding: '4%',
+    paddingLeft: '5%',
+    paddingRight: '5%',
     borderBottomWidth: 1,
     borderTopWidth: 1,
-    borderColor: '#4696ff',
+    borderColor: '#dedede',
   },
   checkListText: {
     fontSize: 15,

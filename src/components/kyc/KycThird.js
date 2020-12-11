@@ -11,7 +11,6 @@ import {
   TextInput,
   SafeAreaView,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   FlatList,
   StatusBar,
   Linking,

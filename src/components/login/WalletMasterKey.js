@@ -10,6 +10,7 @@ import {
 import ResetStyle from '../../style/ResetStyle.js';
 import Clipboard from '@react-native-community/clipboard';
 import BottomModal from '../factory/modal/BottomModal';
+import AuthStyle from '../../style/AuthStyle.js';
 
 export default class WalletMasterKey extends Component {
   state = {
@@ -61,7 +62,7 @@ export default class WalletMasterKey extends Component {
           </View>
           <View>
             <TouchableOpacity
-              style={styles.fourth}
+              style={AuthStyle.walletCopy}
               onPress={() => {
                 this.setModalVisible(true);
                 this.copyToClipboard(this.props.route.params?.walletAddress);
@@ -104,15 +105,3 @@ export default class WalletMasterKey extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  fourth: {
-    backgroundColor: '#f3f3f3',
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  fifth: {
-    alignItems: 'center',
-  },
-});

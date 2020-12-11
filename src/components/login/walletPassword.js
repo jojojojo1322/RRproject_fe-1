@@ -20,6 +20,7 @@ import ResetStyle from '../../style/ResetStyle.js';
 import {server} from '../defined/server';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import AuthStyle from '../../style/AuthStyle';
 
 export default class WalletPassword extends Component {
   state = {
@@ -144,7 +145,13 @@ export default class WalletPassword extends Component {
                   {marginLeft: 0},
                   passArr[0] == undefined ? '' : {backgroundColor: '#4696ff'},
                 ]}>
-                {passArr[0] != undefined && <View style={styles.circle}></View>}
+                {passArr[0] != undefined && (
+                  <View
+                    style={[
+                      AuthStyle.initial2NormalDot,
+                      {backgroundColor: '#FFF'},
+                    ]}></View>
+                )}
               </View>
               <View
                 style={[
@@ -152,7 +159,13 @@ export default class WalletPassword extends Component {
                   {marginLeft: 0},
                   passArr[1] == undefined ? '' : {backgroundColor: '#4696ff'},
                 ]}>
-                {passArr[1] != undefined && <View style={styles.circle}></View>}
+                {passArr[1] != undefined && (
+                  <View
+                    style={[
+                      AuthStyle.initial2NormalDot,
+                      {backgroundColor: '#FFF'},
+                    ]}></View>
+                )}
               </View>
               <View
                 style={[
@@ -160,7 +173,13 @@ export default class WalletPassword extends Component {
                   {marginLeft: 0},
                   passArr[2] == undefined ? '' : {backgroundColor: '#4696ff'},
                 ]}>
-                {passArr[2] != undefined && <View style={styles.circle}></View>}
+                {passArr[2] != undefined && (
+                  <View
+                    style={[
+                      AuthStyle.initial2NormalDot,
+                      {backgroundColor: '#FFF'},
+                    ]}></View>
+                )}
               </View>
               <View
                 style={[
@@ -168,7 +187,13 @@ export default class WalletPassword extends Component {
                   {marginLeft: 0},
                   passArr[3] == undefined ? '' : {backgroundColor: '#4696ff'},
                 ]}>
-                {passArr[3] != undefined && <View style={styles.circle}></View>}
+                {passArr[3] != undefined && (
+                  <View
+                    style={[
+                      AuthStyle.initial2NormalDot,
+                      {backgroundColor: '#FFF'},
+                    ]}></View>
+                )}
               </View>
               <View
                 style={[
@@ -176,7 +201,13 @@ export default class WalletPassword extends Component {
                   {marginLeft: 0},
                   passArr[4] == undefined ? '' : {backgroundColor: '#4696ff'},
                 ]}>
-                {passArr[4] != undefined && <View style={styles.circle}></View>}
+                {passArr[4] != undefined && (
+                  <View
+                    style={[
+                      AuthStyle.initial2NormalDot,
+                      {backgroundColor: '#FFF'},
+                    ]}></View>
+                )}
               </View>
               <View
                 style={[
@@ -184,7 +215,13 @@ export default class WalletPassword extends Component {
                   {marginLeft: 0},
                   passArr[5] == undefined ? '' : {backgroundColor: '#4696ff'},
                 ]}>
-                {passArr[5] != undefined && <View style={styles.circle}></View>}
+                {passArr[5] != undefined && (
+                  <View
+                    style={[
+                      AuthStyle.initial2NormalDot,
+                      {backgroundColor: '#FFF'},
+                    ]}></View>
+                )}
               </View>
             </View>
           </View>
@@ -340,11 +377,5 @@ const styles = StyleSheet.create({
     height: '30%',
     resizeMode: 'contain',
     // color: '#fff',
-  },
-  circle: {
-    height: 8,
-    width: 8,
-    backgroundColor: '#ffffff',
-    borderRadius: 50,
   },
 });

@@ -1,18 +1,10 @@
 import React, {Component} from 'react';
-
 import {
-  StyleSheet,
-  ScrollView,
   View,
   Text,
-  Alert,
-  Modal,
-  Button,
   Image,
   TextInput,
-  FlatList,
   SafeAreaView,
-  StatusBar,
   TouchableOpacity,
 } from 'react-native';
 import ResetStyle from '../../style/ResetStyle.js';
@@ -187,7 +179,6 @@ export default class ResetEmail extends Component {
           </View>
 
           <TouchableOpacity
-            // style={[styles.button, {backgroundColor: '#4696ff'}]}
             style={
               this.state.emailCode.length == 6
                 ? [ResetStyle.button]

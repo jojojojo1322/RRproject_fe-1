@@ -1,18 +1,11 @@
 import React, {Component} from 'react';
-
 import {
   StyleSheet,
-  ScrollView,
   View,
   Text,
-  Alert,
-  Modal,
-  Button,
   Image,
   TextInput,
-  FlatList,
   SafeAreaView,
-  StatusBar,
   TouchableOpacity,
 } from 'react-native';
 import {RoundCheckbox, SelectedCheckboxes} from '../Roundcheck';
@@ -446,57 +439,3 @@ export default class ResetPassword extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  firstPass: {marginTop: 40},
-  secondPass: {marginBottom: 300},
-  button: {
-    width: '100%',
-    borderRadius: 50,
-    backgroundColor: '#0b95c9',
-    padding: 15,
-  },
-  buttonTexts: {
-    color: '#FFF',
-    fontWeight: '600',
-    textAlign: 'center',
-    fontSize: 16,
-  },
-  InputImageAll: {
-    // flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
-    alignItems: 'center',
-    // alignContent: 'stretch',
-    // borderBottomWidth: 1,
-    // borderBottomColor: '#ddd',
-  },
-  InputImage: {
-    // position: 'absolute',
-    // alignItems: 'center',2
-  },
-  textInputStyle: {
-    // position: 'relative',
-    // width: '100%',
-    fontSize: 15,
-    // borderBottomWidth: 1,
-    // borderBottomColor: '#dddddd',
-    paddingTop: 15,
-    paddingBottom: 15,
-  },
-  button: {
-    width: '100%',
-    borderRadius: 50,
-    backgroundColor: '#c6c9cf',
-    padding: 15,
-    marginTop: 100,
-  },
-  buttonTexts: {
-    color: '#FFF',
-    fontWeight: '600',
-    textAlign: 'center',
-    fontSize: 16,
-  },
-});
