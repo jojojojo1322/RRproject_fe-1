@@ -8,7 +8,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
-import {RoundCheckbox, SelectedCheckboxes} from '../Roundcheck';
+import {RoundCheckbox, SelectedCheckboxes} from '../factory/Roundcheck';
 import ResetStyle from '../../style/ResetStyle.js';
 import axios from 'axios';
 import {server} from '../defined/server';
