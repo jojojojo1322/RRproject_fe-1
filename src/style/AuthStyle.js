@@ -148,4 +148,13 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignContent: 'stretch',
   },
+
+  // KycThird
+  kycInput: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderBottomWidth: 1,
+    borderBottomColor: '#dddddd',
+    alignItems: 'center',
+  },
 });
