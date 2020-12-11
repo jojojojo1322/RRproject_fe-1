@@ -32,21 +32,21 @@ const Tab = createMaterialTopTabNavigator();
 const Drawer = createDrawerNavigator();
 // const screenWidth = Dimensions.get('window').width;
 
+// {
+//   "id": "1",                                 // id
+//   "surveyStatus": "ONGOING",                 // status
+//   "category": "E-COMMERCE",                  // division
+//   "createTime": "2020-12-10 18:48:00",       // dateStart
+//   "endTime": "2020-12-14 17:28:00",          // dateEnd
+//   "surveyName": "sponsor1Survey",            // title
+//   "participants": 2000,                      // participant
+//   "particiRestrictions": 0,                  // particiRestrictions
+//   "reward": "10"                             // reward
+//   "instructions": "설문조사1입니다.sponsor",     // purpose
+//   "organizationName": "스폰서1",               // host
+//   "organizationId": "1",
+// },
 const data = [
-  // {
-  //   "id": "1",
-  //   "surveyStatus": "ONGOING",
-  //   "category": "E-COMMERCE",
-  //   "createTime": "2020-12-10 18:48:00",
-  //   "endTime": "2020-12-14 17:28:00",
-  //   "surveyName": "sponsor1Survey",
-  //   "participants": 2000,
-  //   "particiRestrictions": 0,
-  //   "reward": "10"
-  //   "instructions": "설문조사1입니다.sponsor",
-  //   "organizationName": "스폰서1",
-  //   "organizationId": "1",
-  // },
   {
     id: '1',
     img: require('../../imgs/drawable-xxxhdpi/survey_img_1.png'),
@@ -766,13 +766,13 @@ function MainPage({navigation}) {
     <View
       style={{
         backgroundColor: '#f9f9f9',
-        // marginTop: StatusBar.currentHeight || 0,
+        marginTop: StatusBar.currentHeight || 0,
         flex: 1,
       }}>
       <View
         style={{
           backgroundColor: '#f9f9f9',
-          paddingTop: Platform.OS === 'ios' ? '15%' : '5%',
+          paddingTop: '15%',
           flexDirection: 'row',
           justifyContent: 'space-between',
           padding: '5%',
@@ -803,7 +803,7 @@ function MainPage({navigation}) {
       <View
         style={{
           width: '90%',
-          height: Platform.OS === 'ios' ? '10%' : '12%',
+          height: '10%',
           backgroundColor: '#FFF',
           alignSelf: 'center',
           borderRadius: 10,
@@ -873,14 +873,14 @@ function MainPage({navigation}) {
           <ProgressCircle
             style={{
               position: 'absolute',
-              width: Platform.OS === 'ios' ? 120 : 105,
-              height: Platform.OS === 'ios' ? 120 : 105,
+              width: 120,
+              height: 125,
               backgroundColor: '#FFF',
               borderRadius: 60,
             }}
             progress={0.086}
             progressColor={'#0080ff'}
-            strokeWidth={Platform.OS === 'ios' ? 3 : 2}
+            strokeWidth={3}
           />
 
           <View
@@ -910,11 +910,10 @@ function MainPage({navigation}) {
         </View>
       </View>
 
-      {/* KYC LEVEL Update Speech Bubble */}
       <View
         style={{
           width: '100%',
-          height: Platform.OS === 'ios' ? 65 : 59,
+          height: 70,
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'center',
@@ -922,7 +921,7 @@ function MainPage({navigation}) {
         <View
           style={{
             position: 'absolute',
-            top: '-48%',
+            top: '-45%',
             width: '55%',
             backgroundColor: '#2d91ff',
             padding: '5%',
@@ -932,7 +931,7 @@ function MainPage({navigation}) {
             style={{
               position: 'absolute',
               top: '-15%',
-              left: Platform.OS === 'ios' ? '41%' : '38%',
+              left: '41%',
               width: 0,
               height: 0,
               backgroundColor: 'transparent',
@@ -967,11 +966,7 @@ function MainPage({navigation}) {
 
       <Tab.Navigator
         tabBarOptions={{
-          labelStyle: {
-            fontSize: Platform.OS === 'ios' ? 16 : 14,
-            fontWeight: '500',
-            letterSpacing: -0.5,
-          },
+          labelStyle: {fontSize: 16, fontWeight: '500', letterSpacing: -0.5},
           activeTintColor: '#222222',
           inactiveTintColor: '#a9a9a9',
           tabStyle: {
@@ -1025,5 +1020,33 @@ class Main extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#fff',
+  },
+  containerInner: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    marginLeft: '5%',
+    marginRight: '5%',
+    backgroundColor: '#fff',
+  },
+  button: {
+    width: '100%',
+    borderRadius: 50,
+    backgroundColor: '#0b95c9',
+    padding: 15,
+  },
+  buttonTexts: {
+    color: '#FFF',
+    fontWeight: '600',
+    textAlign: 'center',
+    fontSize: 16,
+  },
+});
 
 export default Main;

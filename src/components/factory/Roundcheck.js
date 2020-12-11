@@ -83,13 +83,13 @@ export class RoundCheckbox extends Component {
         if (label === 'all') {
           this.props.handleAll(true);
         }
-        this.props.handleCheckedbox(value, 'PLUS');
+        // this.props.handleCheckedbox(value, 'PLUS');
         // this.props.handleCheckedArray(this.props.checkedObjArr.fetchArray());
         // console.log(this.props.checkedObjArr.fetchArray());
         // console.log(this.props.checkedObjArr.fetchArray().length);
       } else {
         // this.props.handleUnCheckedArray(key);
-        this.props.handleCheckedbox(value, 'MINUS');
+        // this.props.handleCheckedbox(value, 'MINUS');
         this.props.checkedObjArr.fetchArray().splice(
           this.props.checkedObjArr.fetchArray().findIndex((y) => y.key == key),
           1,
@@ -130,14 +130,14 @@ export class RoundCheckbox extends Component {
             {this.state.checked ? (
               <View style={styles.selectedUI}>
                 <Image
-                  source={require('../imgs/drawable-xhdpi/icon_w_check_2_on_m.png')}
+                  source={require('../../imgs/drawable-xhdpi/icon_w_check_2_on_m.png')}
                   style={styles.checkboxTickImg}
                 />
               </View>
             ) : (
               <View style={styles.uncheckedCheckbox}>
                 <Image
-                  source={require('../imgs/drawable-xhdpi/icon_w_check2_off_m.png')}
+                  source={require('../../imgs/drawable-xhdpi/icon_w_check2_off_m.png')}
                   style={styles.checkboxTickImg}
                 />
               </View>
