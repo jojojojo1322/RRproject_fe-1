@@ -146,8 +146,24 @@ class SignUpPersonal extends Component {
     return (
       <SafeAreaView style={ResetStyle.container}>
         <View style={[ResetStyle.containerInner]}>
+          {/* topBackButton */}
+          <View>
+            <View style={[ResetStyle.topBackButton, {paddingBottom: '2%'}]}>
+              <TouchableOpacity
+                onPress={() => {
+                  this.props.navigation.goBack();
+                }}>
+                <Image
+                  source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
+                />
+              </TouchableOpacity>
+              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+                회원정보 입력
+              </Text>
+            </View>
+          </View>
           {/* 이메일 */}
-          <View style={{marginTop: '10%'}}>
+          <View>
             {/* <View> */}
             <View>
               <Text

@@ -276,6 +276,7 @@ class App extends Component {
             name="CompleteAuth"
             component={CompleteAuth}
             options={{
+              headerShown: false,
               title: '',
               headerStyle: {
                 backgroundColor: '#FFF',

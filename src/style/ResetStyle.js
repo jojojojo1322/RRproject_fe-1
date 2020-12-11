@@ -17,7 +17,13 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
   },
 
-  topBackButton: {},
+  topBackButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    paddingTop: Platform.OS === 'ios' ? '2%' : '5%',
+    paddingBottom: Platform.OS === 'ios' ? '6%' : '2%',
+  },
 
   // button
   button: {

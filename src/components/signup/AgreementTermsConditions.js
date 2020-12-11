@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {View, Text, SafeAreaView, Image, Alert} from 'react-native';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  Image,
+  Alert,
+  TouchableOpacity,
+} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {RoundCheckbox} from '../factory/Roundcheck';
 import ResetStyle from '../../style/ResetStyle.js';
@@ -106,6 +113,22 @@ class AgreementTermsConditions extends Component {
       <SafeAreaView style={ResetStyle.container}>
         <View style={ResetStyle.containerInner}>
           <View>
+            {/* topBackButton */}
+            <View>
+              <View style={ResetStyle.topBackButton}>
+                <TouchableOpacity
+                  onPress={() => {
+                    this.props.navigation.goBack();
+                  }}>
+                  <Image
+                    source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
+                  />
+                </TouchableOpacity>
+                <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+                  약관동의
+                </Text>
+              </View>
+            </View>
             <View
               style={[
                 AuthStyle.agreementViewBox,
@@ -249,7 +272,7 @@ class AgreementTermsConditions extends Component {
             </View>
           </View>
 
-          <TouchableWithoutFeedback
+          <TouchableOpacity
             style={[
               ResetStyle.button,
               this.state.allCheck1 == false && {backgroundColor: '#e6e6e6'},
@@ -271,7 +294,7 @@ class AgreementTermsConditions extends Component {
               ]}>
               다음
             </Text>
-          </TouchableWithoutFeedback>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     );
