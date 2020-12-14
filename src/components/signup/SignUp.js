@@ -447,25 +447,25 @@ class SignUp extends Component {
               this.state.passWord.length !== 6 && {backgroundColor: '#e6e6e6'},
             ]}
             onPress={async () => {
-              // await this.smsAuthApproveApi(
-              //   this.state.passWord,
-              //   `+82${this.state.phoneNum.slice(1, undefined)}`,
-              // );
-              // if (this.state.AuthKeyCheck == '-3') {
-              //   this.setModalVisibleNotAuth(true);
-              // } else if (this.state.AuthKeyCheck == '-1') {
-              //   this.setModalVisibleNotAuthExpire(true);
-              // } else if (this.state.AuthKeyCheck == '0') {
-              //   this.props.navigation.navigate('AgreementTermsConditions', {
-              //     deviceKey: this.state.deviceKey,
-              //     phoneNum: `+82${this.state.phoneNum.slice(1, undefined)}`,
-              //   });
-              //   this.props.navigation.setOptions({title: '약관동의'});
-              // }
-              this.props.navigation.navigate('AgreementTermsConditions', {
-                deviceKey: this.state.deviceKey,
-                phoneNum: `+82${this.state.phoneNum.slice(1, undefined)}`,
-              });
+              await this.smsAuthApproveApi(
+                this.state.passWord,
+                `+82${this.state.phoneNum.slice(1, undefined)}`,
+              );
+              if (this.state.AuthKeyCheck == '-3') {
+                this.setModalVisibleNotAuth(true);
+              } else if (this.state.AuthKeyCheck == '-1') {
+                this.setModalVisibleNotAuthExpire(true);
+              } else if (this.state.AuthKeyCheck == '0') {
+                this.props.navigation.navigate('AgreementTermsConditions', {
+                  deviceKey: this.state.deviceKey,
+                  phoneNum: `+82${this.state.phoneNum.slice(1, undefined)}`,
+                });
+                this.props.navigation.setOptions({title: '약관동의'});
+              }
+              // this.props.navigation.navigate('AgreementTermsConditions', {
+              //   deviceKey: this.state.deviceKey,
+              //   phoneNum: `+82${this.state.phoneNum.slice(1, undefined)}`,
+              // });
               this.props.navigation.setOptions({title: '약관동의'});
             }}>
             <Text

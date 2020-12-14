@@ -33,7 +33,6 @@ class AgreementTermsConditions extends Component {
   }
   state = {
     pickedElements: '',
-    check: false,
     allCheck1: false,
     allCheck2: false,
     allCheck3: false,
@@ -49,11 +48,11 @@ class AgreementTermsConditions extends Component {
       });
     }
   };
-  handleStatus = async () => {
-    await this.setState({
-      check: !this.state.check,
-    });
-  };
+  // handleStatus = async () => {
+  //   await this.setState({
+  //     check: !this.state.check,
+  //   });
+  // };
   handleAll = (value) => {
     this.setState({
       allCheck1: value,
@@ -150,7 +149,6 @@ class AgreementTermsConditions extends Component {
                 value="1"
                 label="all"
                 checkedObjArr={CheckedArrObject}
-                handleStatus={this.handleStatus}
                 handleAll={this.handleAll}
                 handleCheckedbox={this.handleCheckedbox}
               />
@@ -184,7 +182,6 @@ class AgreementTermsConditions extends Component {
                   value="2"
                   label="2"
                   checkedObjArr={CheckedArrObject}
-                  handleStatus={this.handleStatus}
                   handleCheckedbox={this.handleCheckedbox}
                 />
                 <TouchableWithoutFeedback
@@ -237,7 +234,6 @@ class AgreementTermsConditions extends Component {
                   value="3"
                   label="3"
                   checkedObjArr={CheckedArrObject}
-                  handleStatus={this.handleStatus}
                   handleCheckedbox={this.handleCheckedbox}
                 />
                 <TouchableWithoutFeedback

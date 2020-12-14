@@ -16,7 +16,17 @@ import axios from 'axios';
 import {server} from '../defined/server';
 import Reset from '../resetPassword/Reset.js';
 
+import AudienceModal from '../factory/modal/AudienceModal';
+
 export default class MainDetail extends Component {
+  state = {
+    modalVisible: false,
+  };
+  setModalVisible = (visible) => {
+    this.setState({
+      modalVisible: visible,
+    });
+  };
   render() {
     return (
       <SafeAreaView style={[ResetStyle.container]}>
@@ -95,11 +105,27 @@ export default class MainDetail extends Component {
                 TNC
               </Text>
             </View>
-            <TouchableOpacity style={[ResetStyle.buttonSmall]}>
+            <TouchableOpacity
+              style={[ResetStyle.buttonSmall]}
+              onPress={() => {
+                this.setModalVisible(true);
+              }}>
               <Text style={[ResetStyle.fontRegularK, ResetStyle.fontWhite]}>
                 Audience
               </Text>
             </TouchableOpacity>
+            <AudienceModal
+              setModalVisible={this.setModalVisible}
+              modalVisible={this.state.modalVisible}
+              level={`2`}
+              age={`25`}
+              gender={`여성`}
+              maritalStatus={`미혼`}
+              nationality={`한국`}
+              country={`한국`}
+              countryCity={`서울`}
+              language={`한국어`}
+            />
           </View>
           <View
             style={{
