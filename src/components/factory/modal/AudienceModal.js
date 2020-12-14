@@ -19,6 +19,19 @@ import {
   Dimensions,
 } from 'react-native';
 
+// 사용 props
+
+// setModalVisible={this.setModalVisible}
+// modalVisible={this.state.modalVisible}
+// level={`2`}
+// age={`25`}
+// gender={`여성`}
+// maritalStatus={`미혼`}
+// nationality={`한국`}
+// country={`한국`}
+// countryCity={`서울`}
+// language={`한국어`}
+
 class AudienceModal extends Component {
   constructor(props) {
     super(props);
@@ -80,15 +93,19 @@ class AudienceModal extends Component {
                 />
               </TouchableOpacity>
             </View>
-            <Text style={styles.AudienceTop2}>참여가능 LEVEL : Level 2</Text>
-
+            <View style={[styles.AudienceTop2]}>
+              <Text style={[styles.AudienceTop2Text]}>참여가능 LEVEL : </Text>
+              <Text style={[styles.AudienceTop2Text2]}>{this.props.level}</Text>
+            </View>
             {/* 나이 */}
             <View style={styles.AudienceDetail}>
               <View style={styles.AudienceDetailLeft}>
                 <Text style={styles.AudienceDetailLeftText}>나이</Text>
               </View>
               <View style={styles.AudienceDetailRight}>
-                <Text style={styles.AudienceDetailRightText}>25</Text>
+                <Text style={styles.AudienceDetailRightText}>
+                  {this.props.age}
+                </Text>
               </View>
             </View>
             {/* 성별 */}
@@ -97,7 +114,9 @@ class AudienceModal extends Component {
                 <Text style={styles.AudienceDetailLeftText}>성별</Text>
               </View>
               <View style={styles.AudienceDetailRight}>
-                <Text style={styles.AudienceDetailRightText}>여성</Text>
+                <Text style={styles.AudienceDetailRightText}>
+                  {this.props.gender}
+                </Text>
               </View>
             </View>
             {/* 결혼유무 */}
@@ -106,7 +125,9 @@ class AudienceModal extends Component {
                 <Text style={styles.AudienceDetailLeftText}>결혼유무</Text>
               </View>
               <View style={styles.AudienceDetailRight}>
-                <Text style={styles.AudienceDetailRightText}>미혼</Text>
+                <Text style={styles.AudienceDetailRightText}>
+                  {this.props.maritalStatus}
+                </Text>
               </View>
             </View>
             {/* 국적 */}
@@ -115,7 +136,9 @@ class AudienceModal extends Component {
                 <Text style={styles.AudienceDetailLeftText}>국적</Text>
               </View>
               <View style={styles.AudienceDetailRight}>
-                <Text style={styles.AudienceDetailRightText}>한국</Text>
+                <Text style={styles.AudienceDetailRightText}>
+                  {this.props.nationality}
+                </Text>
               </View>
             </View>
             {/* 거주국가 */}
@@ -124,7 +147,9 @@ class AudienceModal extends Component {
                 <Text style={styles.AudienceDetailLeftText}>거주국가</Text>
               </View>
               <View style={styles.AudienceDetailRight}>
-                <Text style={styles.AudienceDetailRightText}>한국</Text>
+                <Text style={styles.AudienceDetailRightText}>
+                  {this.props.country}
+                </Text>
               </View>
             </View>
             {/* 거주도시 */}
@@ -133,7 +158,9 @@ class AudienceModal extends Component {
                 <Text style={styles.AudienceDetailLeftText}>거주도시</Text>
               </View>
               <View style={styles.AudienceDetailRight}>
-                <Text style={styles.AudienceDetailRightText}>서울</Text>
+                <Text style={styles.AudienceDetailRightText}>
+                  {this.props.countryCity}
+                </Text>
               </View>
             </View>
             {/* 언어 */}
@@ -142,7 +169,9 @@ class AudienceModal extends Component {
                 <Text style={styles.AudienceDetailLeftText}>언어</Text>
               </View>
               <View style={styles.AudienceDetailRight}>
-                <Text style={styles.AudienceDetailRightText}>한국어</Text>
+                <Text style={styles.AudienceDetailRightText}>
+                  {this.props.language}
+                </Text>
               </View>
             </View>
           </View>
@@ -216,11 +245,22 @@ const styles = StyleSheet.create({
   AudienceTop2: {
     textAlign: 'center',
     fontSize: 18,
-    backgroundColor: '#f5f5f5',
+    // backgroundColor: '#f5f5f5',
     marginTop: 21,
     marginBottom: 19,
     paddingTop: 16,
     paddingBottom: 16,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  AudienceTop2Text: {
+    fontSize: 23,
+    fontWeight: '600',
+  },
+  AudienceTop2Text2: {
+    fontSize: 23,
+    fontWeight: '600',
+    color: '#2d91ff',
   },
   AudienceDetail: {
     // flex: 1,
@@ -235,31 +275,34 @@ const styles = StyleSheet.create({
 
   AudienceDetailLeft: {
     width: '30%',
-    backgroundColor: '#1e4683',
-    borderTopLeftRadius: 5,
+    backgroundColor: '#f9f9f9',
+    // alignItems: 'baseline',
+    // borderTopLeftRadius: 5,
     // borderTopRightRadius: 5,
-    borderBottomLeftRadius: 5,
+    // borderBottomLeftRadius: 5,
     // borderBottomRightRadius: 5,
   },
   AudienceDetailRight: {
-    // backgroundColor: '#1e4683',
+    backgroundColor: '#f9f9f9',
     width: '70%',
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: '#4696ff',
+
+    // borderWidth: 1,
+    // borderStyle: 'solid',
+    // borderColor: '#f9f9f9',
     // borderTopLeftRadius: 5,
-    borderTopRightRadius: 5,
+    // borderTopRightRadius: 5,
     // borderBottomLeftRadius: 5,
-    borderBottomRightRadius: 5,
+    // borderBottomRightRadius: 5,
   },
   AudienceDetailLeftText: {
     // position: 'absolute',
     // width: '30%',
-    color: 'white',
+    marginLeft: 25,
+    color: '#2d91ff',
     fontWeight: 'bold',
     fontSize: 15,
     paddingTop: 15,
-    textAlign: 'center',
+    // textAlign: '',
     // paddingBottom: 10,
     // paddingLeft: 36,
     // paddingRight: 36,

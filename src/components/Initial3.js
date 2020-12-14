@@ -636,6 +636,14 @@ class Initial3 extends Component {
           modalVisible={modal8Visible}
           setModalVisible={this.setModal8Visible}
           text={`정말 로그아웃 하시겠습니까?`}
+          level={`2`}
+          age={`25`}
+          gender={`여성`}
+          maritalStatus={`미혼`}
+          nationality={`한국`}
+          country={`한국`}
+          countryCity={`서울`}
+          language={`한국어`}
         />
       </View>
     );

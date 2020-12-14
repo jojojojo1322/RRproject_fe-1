@@ -73,7 +73,6 @@ export class RoundCheckbox extends Component {
   }
   stateSwitcher(key, label, value) {
     this.setState({checked: !this.state.checked}, () => {
-      this.props.handleStatus();
       if (this.state.checked) {
         this.props.checkedObjArr.addItem({
           key: key,
@@ -83,13 +82,16 @@ export class RoundCheckbox extends Component {
         if (label === 'all') {
           this.props.handleAll(true);
         }
-        // this.props.handleCheckedbox(value, 'PLUS');
+        this.props.handleCheckedbox(
+          this.props.checkedObjArr.fetchArray(),
+          'PLUS',
+        );
         // this.props.handleCheckedArray(this.props.checkedObjArr.fetchArray());
         // console.log(this.props.checkedObjArr.fetchArray());
         // console.log(this.props.checkedObjArr.fetchArray().length);
       } else {
         // this.props.handleUnCheckedArray(key);
-        // this.props.handleCheckedbox(value, 'MINUS');
+        this.props.handleCheckedbox(value, 'MINUS');
         this.props.checkedObjArr.fetchArray().splice(
           this.props.checkedObjArr.fetchArray().findIndex((y) => y.key == key),
           1,
