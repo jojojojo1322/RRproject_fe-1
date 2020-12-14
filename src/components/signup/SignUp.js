@@ -466,7 +466,7 @@ class SignUp extends Component {
               //   deviceKey: this.state.deviceKey,
               //   phoneNum: `+82${this.state.phoneNum.slice(1, undefined)}`,
               // });
-              this.props.navigation.setOptions({title: '약관동의'});
+              // this.props.navigation.setOptions({title: '약관동의'});
             }}>
             <Text
               style={[
