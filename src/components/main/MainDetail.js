@@ -68,11 +68,11 @@ export default class MainDetail extends Component {
               </Text>
             </View>
 
-            <TouchableOpacity>
+            {/* <TouchableOpacity>
               <Image
                 source={require('../../imgs/drawable-xxxhdpi/survey_detail_share_icon.png')}
               />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
 
           <View style={{marginBottom: 30}}>
@@ -221,7 +221,7 @@ export default class MainDetail extends Component {
               {marginBottom: Platform.OS === 'ios' ? 0 : '5%'},
             ]}
             onPress={() => {
-              this.props.navigation.navigate('ResearchForm');
+              this.props.navigation.navigate('MainVideo');
             }}>
             <Text
               style={[

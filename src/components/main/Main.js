@@ -17,6 +17,8 @@ import axios from 'axios';
 import {server} from '../defined/server';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
+import MainTest from '../main/MainTest';
+
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -311,57 +313,39 @@ const Item = ({
   host,
   onPress,
 }) => (
-  <TouchableOpacity style={[MainStyle.ItemBox]} onPress={onPress}>
+  <TouchableOpacity style={[MainStyle.itemBox]} onPress={onPress}>
     <View
       opacity={status === 'expired' ? 0.5 : 1.0}
       style={{
         flex: 1,
       }}>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          paddingLeft: '5%',
-          paddingRight: '5%',
-        }}>
+      <View style={[MainStyle.itemBoxInner]}>
         <View style={{position: 'relative'}}>
           <View
-            style={{
-              position: 'absolute',
-              bottom: '-5%',
-              left: 0,
-              width: '100%',
-              height: 10,
-              backgroundColor:
-                division === 'E-commerce'
-                  ? '#ffedc2'
-                  : division === 'Any Category1'
-                  ? '#b7fcff'
-                  : '#ffdfdf',
-              // backgroundColor: '#b7fcff',
-              // backgroundColor: '#ffdfdf',
-            }}></View>
+            style={[
+              MainStyle.itemDivisionColor,
+              {
+                backgroundColor:
+                  division === 'E-commerce'
+                    ? '#ffedc2'
+                    : division === 'Any Category1'
+                    ? '#b7fcff'
+                    : '#ffdfdf',
+              },
+            ]}></View>
           <Text style={[ResetStyle.fontRegularE, ResetStyle.fontBlack]}>
             {division}
           </Text>
         </View>
 
-        <TouchableOpacity>
+        {/* <TouchableOpacity>
           <Image
             source={require('../../imgs/drawable-xxxhdpi/share_icon.png')}
           />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'flex-start',
-          paddingLeft: '5%',
-          paddingRight: '5%',
-          marginTop: '3%',
-          marginBottom: '4%',
-        }}>
+      <View style={MainStyle.itemTitleView}>
         <Text
           style={[
             ResetStyle.fontMediumK,
@@ -373,19 +357,8 @@ const Item = ({
       </View>
 
       {img === null ? (
-        <View
-          style={{
-            width: '90%',
-            alignSelf: 'center',
-            borderTopWidth: 2,
-            borderTopColor: '#dedede',
-          }}>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginTop: '4%',
-            }}>
+        <View style={MainStyle.itemImagenullView}>
+          <View style={MainStyle.itemImagenullViewInner}>
             <Text style={[ResetStyle.fontBoldK, ResetStyle.fontB]}>
               + {tnc}
             </Text>
@@ -400,37 +373,15 @@ const Item = ({
           </View>
         </View>
       ) : (
-        <View style={{width: '100%', height: 200, overflow: 'hidden'}}>
-          <View style={{position: 'relative', width: '100%', height: '100%'}}>
-            <Image
-              source={img}
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-              }}
-            />
+        <View style={MainStyle.itemImageView}>
+          <View style={MainStyle.itemImageViewInner}>
+            <Image source={img} style={MainStyle.itemImageViewImage} />
             <Image
               source={require('../../imgs/survey_img_gradient.png')}
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-              }}
+              style={MainStyle.itemImageViewImage}
             />
           </View>
-          <View
-            style={{
-              position: 'absolute',
-              top: '70%',
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginLeft: '7%',
-            }}>
+          <View style={MainStyle.itemImageTncView}>
             <Text style={[ResetStyle.fontBoldK, ResetStyle.fontWhite]}>
               + {tnc}
             </Text>
@@ -446,14 +397,7 @@ const Item = ({
         </View>
       )}
 
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          paddingLeft: '5%',
-          paddingRight: '5%',
-          marginTop: '4%',
-        }}>
+      <View style={MainStyle.itemBoxBottom}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Text style={[ResetStyle.fontRegularK, ResetStyle.fontBlack]}>
             참여자
@@ -481,14 +425,7 @@ const Item = ({
           </Text>
         </View>
       </View>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          paddingLeft: '5%',
-          paddingRight: '5%',
-          marginTop: 2,
-        }}>
+      <View style={MainStyle.itemBoxBottomTextView}>
         <Text style={[ResetStyle.fontRegularK, ResetStyle.fontBlack]}>
           목적
         </Text>
@@ -501,14 +438,7 @@ const Item = ({
           {purpose}
         </Text>
       </View>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          paddingLeft: '5%',
-          paddingRight: '5%',
-          marginTop: 2,
-        }}>
+      <View style={MainStyle.itemBoxBottomTextView}>
         <Text style={[ResetStyle.fontRegularK, ResetStyle.fontBlack]}>
           기한
         </Text>
@@ -521,14 +451,7 @@ const Item = ({
           {dateStart} ~ {dateEnd}
         </Text>
       </View>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          paddingLeft: '5%',
-          paddingRight: '5%',
-          marginTop: 2,
-        }}>
+      <View style={MainStyle.itemBoxBottomTextView}>
         <Text style={[ResetStyle.fontRegularK, ResetStyle.fontBlack]}>
           주최
         </Text>
@@ -542,43 +465,15 @@ const Item = ({
         </Text>
       </View>
 
-      <View
-        style={{
-          position: 'relative',
-          width: '90%',
-          height: 3,
-          alignSelf: 'center',
-          marginTop: '5%',
-        }}>
+      <View style={MainStyle.itemBoxBottomBarChartView}>
         <View
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            backgroundColor: '#d7d7d7',
-          }}></View>
-        <View
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '65%',
-            height: '100%',
-            backgroundColor: '#0080ff',
-          }}></View>
+          style={[
+            MainStyle.itemBoxBottomBarChartPercent,
+            {width: '65%'},
+          ]}></View>
       </View>
 
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'flex-end',
-          paddingLeft: '5%',
-          paddingRight: '5%',
-          marginTop: '2%',
-        }}>
+      <View style={MainStyle.participantCountView}>
         <Text
           style={[
             ResetStyle.fontLightK,
@@ -615,13 +510,7 @@ function Ongoing({navigation}) {
   );
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        overflow: 'scroll',
-        backgroundColor: '#f9f9f9',
-      }}>
+    <SafeAreaView style={MainStyle.mainFlatlistView}>
       {/* <ScrollView style={{width: '100%'}}> */}
       <FlatList
         data={dataFilteringOngoing}
@@ -652,13 +541,7 @@ function Completed() {
   );
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        overflow: 'scroll',
-        backgroundColor: '#f9f9f9',
-      }}>
+    <SafeAreaView style={MainStyle.mainFlatlistView}>
       {/* <ScrollView style={{width: '100%'}}> */}
       <FlatList
         data={dataFilteringCompleted}
@@ -689,13 +572,7 @@ function Upcoming() {
   );
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        overflow: 'scroll',
-        backgroundColor: '#f9f9f9',
-      }}>
+    <SafeAreaView style={MainStyle.mainFlatlistView}>
       {/* <ScrollView style={{width: '100%'}}> */}
       <FlatList
         data={dataFilteringUpcoming}
@@ -726,13 +603,7 @@ function Expired() {
   );
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        overflow: 'scroll',
-        backgroundColor: '#f9f9f9',
-      }}>
+    <SafeAreaView style={MainStyle.mainFlatlistView}>
       {/* <ScrollView style={{width: '100%'}}> */}
       <FlatList
         data={dataFilteringExpired}
@@ -998,7 +869,7 @@ class Main extends Component {
           width: '80%',
           backgroundColor: '#FFF',
         }}>
-        <Drawer.Screen name="설문조사" component={MainPage} />
+        <Drawer.Screen name="설문조사" component={MainTest} />
         <Drawer.Screen name="설문조사 의뢰하기" component={MainPage} />
         <Drawer.Screen name="미디어" component={MainPage} />
         <Drawer.Screen name="알림" component={MainPage} />

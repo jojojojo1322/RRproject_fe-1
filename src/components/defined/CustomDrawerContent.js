@@ -29,6 +29,7 @@ import MainDetail from '../main/MainDetail';
 
 const Tab = createMaterialTopTabNavigator();
 const Drawer = createDrawerNavigator();
+
 export function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
@@ -114,7 +115,10 @@ export function CustomDrawerContent(props) {
           ]}>
           2
         </Text>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            this.props.navigation.navigate('KycMain');
+          }}>
           <View
             style={{
               flexDirection: 'row',
