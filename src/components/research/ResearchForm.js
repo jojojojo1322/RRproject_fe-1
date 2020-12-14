@@ -31,7 +31,7 @@ class ResearchForm extends Component {
     checkId: '',
     nowIndex: 0,
     pickedElements: '',
-    checkedArray: '',
+    checkedArray: [],
   };
 
   handleCheckedbox = (value, status) => {
@@ -60,6 +60,9 @@ class ResearchForm extends Component {
         nowIndex: nowIndex - 1,
         checkId: '',
       });
+      // this.props.navigation.goBack();
+    } else if (nowIndex == 0) {
+      this.props.navigation.goBack();
     }
   };
   handlerNext = (e) => {
@@ -70,6 +73,7 @@ class ResearchForm extends Component {
         nowIndex: nowIndex + 1,
         checkId: '',
       });
+      // this.props.navigation.push('ResearchForm');
     }
   };
 
@@ -171,16 +175,23 @@ class ResearchForm extends Component {
       });
     }
   }
-  handleCheckedbox = async (value, key) => {
-    console.log(key, '--------', value);
+  handleQuestion = async (question, answer, status) => {
+    console.log(status, '----question----', question);
+    console.log(status, '----answer----', answer);
     let checkedArray = this.state.checkedArray;
-    if (key === 'PLUS') {
+    if (status === 'PLUS') {
       await this.setState({
-        checkedArray: checkedArray.concat(value),
+        checkedArray: checkedArray.concat({
+          key: question,
+          question: question,
+          answer: answer,
+        }),
       });
-    } else if (key === 'MINUS') {
+    } else if (status === 'MINUS') {
       checkedArray.splice(
-        checkedArray.findIndex((y) => y.key == value),
+        checkedArray.findIndex(
+          (y) => y.question === question && y.answer === answer,
+        ),
         1,
       ),
         await this.setState({
@@ -238,45 +249,60 @@ class ResearchForm extends Component {
             </View>
 
             <ScrollView>
-              {data.questionDetail.map((data) => {
-                if (data.id == 1) {
+              {data.questionDetail.map((detail, index) => {
+                if (detail.id == 1) {
                   return (
-                    <View style={styles.checkListFirst}>
-                      <Text style={styles.checkListText}>{data.detail}</Text>
+                    <View style={styles.checkListFirst} key={index}>
+                      <Text style={styles.checkListText}>{detail.detail}</Text>
                       <RoundCheckbox
                         size={25}
-                        keyValue={1}
-                        checked={false}
+                        keyValue={data.id}
+                        checked={
+                          this.state.checkedArray.findIndex(
+                            (y) =>
+                              y.question === data.id && y.answer === detail.id,
+                          ) >= 0
+                            ? true
+                            : false
+                        }
                         color="#164895"
                         labelColor="#000000"
-                        label={data.detail}
-                        value={data.id}
+                        label={detail.detail}
+                        value={detail.id}
                         onClick={() => {
                           this.setState({
                             isChecked: !this.state.isChecked,
-                            checkId: data.id,
+                            checkId: detail.id,
                           });
                         }}
                         isChecked={
                           this.state.isChecked && this.state.checkId == 1
                         }
                         checkedObjArr={CheckedArrObject}
-                        handleCheckedbox={this.handleCheckedbox}
+                        handleQuestion={this.handleQuestion}
+                        checkedArray={this.state.checkedArray}
                       />
                     </View>
                   );
                 } else {
                   return (
-                    <View style={styles.checkList}>
-                      <Text style={styles.checkListText}>{data.detail}</Text>
+                    <View style={styles.checkList} key={index}>
+                      <Text style={styles.checkListText}>{detail.detail}</Text>
                       <RoundCheckbox
                         size={25}
-                        keyValue={1}
-                        checked={false}
+                        keyValue={data.id}
+                        checked={
+                          this.state.checkedArray.findIndex(
+                            (y) =>
+                              y.question === data.id && y.answer === detail.id,
+                          ) >= 0
+                            ? true
+                            : false
+                        }
                         color="#164895"
                         labelColor="#000000"
-                        label={data.detail}
-                        value={data.id}
+                        label={detail.detail}
+                        value={detail.id}
                         onClick={() => {
                           this.setState({
                             isChecked: !this.state.isChecked,
@@ -287,7 +313,8 @@ class ResearchForm extends Component {
                           this.state.isChecked && this.state.checkId == 1
                         }
                         checkedObjArr={CheckedArrObject}
-                        handleCheckedbox={this.handleCheckedbox}
+                        handleQuestion={this.handleQuestion}
+                        checkedArray={this.state.checkedArray}
                       />
                     </View>
                   );
@@ -297,8 +324,7 @@ class ResearchForm extends Component {
           </View>,
         )),
     );
-    console.log('Length', this.state.questionLength);
-    console.log('nowIndex', this.state.nowIndex);
+
     return (
       <SafeAreaView style={styles.container}>
         <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
@@ -352,16 +378,16 @@ class ResearchForm extends Component {
   }
 }
 
-// RoundCheckbox.propTypes = {
-//   keyValue: PropTypes.number.isRequired,
-//   size: PropTypes.number,
-//   color: PropTypes.string,
-//   label: PropTypes.string,
-//   value: PropTypes.string,
-//   checked: PropTypes.bool,
-//   labelColor: PropTypes.string,
-//   checkedObjArr: PropTypes.object.isRequired,
-// };
+RoundCheckbox.propTypes = {
+  keyValue: PropTypes.number.isRequired,
+  size: PropTypes.number,
+  color: PropTypes.string,
+  label: PropTypes.string,
+  value: PropTypes.number,
+  checked: PropTypes.bool,
+  labelColor: PropTypes.string,
+  checkedObjArr: PropTypes.object.isRequired,
+};
 
 // RoundCheckbox.defaultProps = {
 //   size: 30,
