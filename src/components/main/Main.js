@@ -452,13 +452,9 @@ export const MainTest = ({navigation}) => {
     return (
       <Animated.View
         {...headerPanResponder.panHandlers}
-        style={[styles.header, {transform: [{translateY: y}]}]}>
+        style={[MainStyle.mainHeader, {transform: [{translateY: y}]}]}>
         <View style={[MainStyle.mainHeaderView]}>
-          <View
-            style={{
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}>
+          <View style={[MainStyle.mainHeaderViewInner]}>
             <Text
               style={[
                 ResetStyle.fontLightK,
@@ -477,7 +473,7 @@ export const MainTest = ({navigation}) => {
             </Text>
           </View>
 
-          <View style={{flexDirection: 'column', alignItems: 'center'}}>
+          <View style={[MainStyle.mainHeaderViewInner]}>
             <Text
               style={[
                 ResetStyle.fontLightK,
@@ -496,39 +492,16 @@ export const MainTest = ({navigation}) => {
             </Text>
           </View>
 
-          <View
-            style={{
-              position: 'absolute',
-              top: '-50%',
-              left: 0,
-              right: 0,
-              bottom: 0,
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'column',
-            }}>
+          <View style={[MainStyle.progressCircleView]}>
             {/* progress 최대 수치 1 */}
             <ProgressCircle
-              style={{
-                position: 'absolute',
-                width: Platform.OS === 'ios' ? 113 : 110,
-                height: Platform.OS === 'ios' ? 113 : 110,
-                backgroundColor: '#FFF',
-                borderRadius: 70,
-              }}
+              style={[MainStyle.progressCircle]}
               progress={0.086}
               progressColor={'#0080ff'}
               strokeWidth={Platform.OS === 'ios' ? 2.5 : 2}
             />
 
-            <View
-              style={{
-                flexDirection: 'row',
-                borderBottomWidth: 1,
-                borderBottomColor: '#0080ff',
-                paddingBottom: 5,
-                marginTop: 10,
-              }}>
+            <View style={[MainStyle.progressCircleInner]}>
               <Text
                 style={[
                   ResetStyle.fontLightK,
@@ -547,39 +520,9 @@ export const MainTest = ({navigation}) => {
             <Text style={[ResetStyle.fontBoldK, ResetStyle.fontB]}>2</Text>
           </View>
         </View>
-        <View
-          style={{
-            width: '100%',
-            height: Platform.OS === 'ios' ? '7%' : '10%',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <View
-            style={{
-              position: 'absolute',
-              top: Platform.OS === 'ios' ? '-20%' : '-42%',
-              width: '50%',
-              backgroundColor: '#2d91ff',
-              padding: '4%',
-              borderRadius: 10,
-            }}>
-            <View
-              style={{
-                position: 'absolute',
-                top: '-13%',
-                left: Platform.OS === 'ios' ? '39%' : '38%',
-                width: 0,
-                height: 0,
-                backgroundColor: 'transparent',
-                borderStyle: 'solid',
-                borderLeftWidth: 30,
-                borderRightWidth: 30,
-                borderBottomWidth: 55,
-                borderLeftColor: 'transparent',
-                borderRightColor: 'transparent',
-                borderBottomColor: '#2d91ff',
-              }}></View>
+        <View style={[MainStyle.speechBubbleView]}>
+          <View style={[MainStyle.speechBubble]}>
+            <View style={[MainStyle.speechBubbleTriangle]}></View>
             <Text
               style={[
                 ResetStyle.fontLightK,
@@ -602,7 +545,7 @@ export const MainTest = ({navigation}) => {
     );
   };
 
-  const rednerTab1Item = ({item, index}) => {
+  const rednerTab1Item = ({item, index, onPress}) => {
     // console.log('>>>>>>ASDSDAsdasdas>>>>>>>', item.status);
     if (item.status === 'zero') {
       return (
@@ -622,7 +565,11 @@ export const MainTest = ({navigation}) => {
       );
     } else if (item.status !== 'zero') {
       return (
-        <TouchableOpacity style={[MainStyle.itemBox]}>
+        <TouchableOpacity
+          style={[MainStyle.itemBox]}
+          onPress={() => {
+            navigation.navigate('MainDetail');
+          }}>
           <View
             opacity={item.status === 'expired' ? 0.5 : 1.0}
             style={{
@@ -667,7 +614,7 @@ export const MainTest = ({navigation}) => {
                     style={[
                       ResetStyle.fontRegularK,
                       ResetStyle.fontB,
-                      {marginLeft: 5},
+                      {marginLeft: 5, paddingBottom: 5},
                     ]}>
                     TNC
                   </Text>
@@ -693,7 +640,7 @@ export const MainTest = ({navigation}) => {
                     style={[
                       ResetStyle.fontRegularK,
                       ResetStyle.fontWhite,
-                      {marginLeft: 5},
+                      {marginLeft: 5, paddingBottom: 5},
                     ]}>
                     TNC
                   </Text>
@@ -792,7 +739,7 @@ export const MainTest = ({navigation}) => {
 
   const renderLabel = ({route, focused}) => {
     return (
-      <Text style={[styles.label, {opacity: focused ? 1 : 0.5}]}>
+      <Text style={[MainStyle.mainLabel, {opacity: focused ? 1 : 0.5}]}>
         {route.title}
       </Text>
     );
@@ -908,9 +855,9 @@ export const MainTest = ({navigation}) => {
               preventDefault();
             }
           }}
-          style={styles.tab}
+          style={[MainStyle.mainTab, {height: TabBarHeight}]}
           renderLabel={renderLabel}
-          indicatorStyle={styles.indicator}
+          indicatorStyle={MainStyle.mainIndicator}
         />
       </Animated.View>
     );
@@ -989,18 +936,8 @@ export const MainTest = ({navigation}) => {
   };
 
   return (
-    <View style={styles.container}>
-      <View
-        style={{
-          backgroundColor: '#f9f9f9',
-          width: '100%',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          paddingLeft: '5%',
-          paddingRight: '5%',
-          paddingTop: Platform.OS === 'ios' ? '15%' : 0,
-          paddingBottom: Platform.OS === 'ios' ? '2%' : 0,
-        }}>
+    <View style={MainStyle.mainContainer}>
+      <View style={[MainStyle.topLogoView]}>
         <TouchableOpacity>
           <View
             style={{
@@ -1031,43 +968,6 @@ export const MainTest = ({navigation}) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f9f9f9',
-  },
-  header: {
-    // height: HeaderHeight,
-    width: '100%',
-    position: 'absolute',
-    top: '11%',
-    zIndex: -1,
-    // backgroundColor: '#f9f9f9',
-  },
-  label: {
-    width: '100%',
-    height: '100%',
-    fontSize: 16,
-    color: '#000',
-    paddingTop: 5,
-  },
-  tab: {
-    elevation: 0,
-    shadowOpacity: 0,
-    backgroundColor: '#f9f9f9',
-    height: TabBarHeight,
-    borderTopWidth: 1,
-    borderTopColor: '#dedede',
-  },
-  indicator: {
-    backgroundColor: '#000',
-    width: '4%',
-    position: 'absolute',
-    top: '80%',
-    left: '4%',
-  },
-});
 
 class Main extends Component {
   // state = {};

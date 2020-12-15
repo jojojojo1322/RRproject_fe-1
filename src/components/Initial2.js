@@ -244,7 +244,7 @@ class Initial2 extends Component {
                 ResearchForm
               </Text>
             </TouchableOpacity> */}
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={[ResetStyle.buttonWhite, {marginTop: 10}]}
               activeOpacity={0.75}
               onPress={() => {
@@ -258,8 +258,8 @@ class Initial2 extends Component {
                 ]}>
                 ProfileMain
               </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
+            </TouchableOpacity> */}
+            {/* <TouchableOpacity
               style={[ResetStyle.buttonWhite, {marginTop: 10}]}
               activeOpacity={0.75}
               onPress={() => {
@@ -273,7 +273,7 @@ class Initial2 extends Component {
                 ]}>
                 Test page
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <TouchableOpacity
               style={[
                 ResetStyle.buttonWhite,

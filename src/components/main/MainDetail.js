@@ -221,7 +221,7 @@ export default class MainDetail extends Component {
               {marginBottom: Platform.OS === 'ios' ? 0 : '5%'},
             ]}
             onPress={() => {
-              this.props.navigation.navigate('MainVideo');
+              this.props.navigation.navigate('ResearchForm');
             }}>
             <Text
               style={[
