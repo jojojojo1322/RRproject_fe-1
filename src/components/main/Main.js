@@ -1,640 +1,1011 @@
-import React, {Component} from 'react';
+import React, {Component, useState, useEffect, useRef} from 'react';
 import {
   StyleSheet,
-  ScrollView,
   View,
   Text,
-  TextInput,
-  FlatList,
-  TouchableOpacity,
-  SafeAreaView,
-  Image,
-  StatusBar,
   Dimensions,
+  Animated,
+  PanResponder,
+  Platform,
+  Image,
+  TouchableOpacity,
+  Alert,
+  StatusBar,
+  ActivityIndicator,
 } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
-import {server} from '../defined/server';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-
-import MainTest from '../main/MainTest';
-
-import {
-  createDrawerNavigator,
-  DrawerContentScrollView,
-  DrawerItemList,
-  DrawerItem,
-} from '@react-navigation/drawer';
-import {ProgressCircle} from 'react-native-svg-charts';
+import {TabView, TabBar} from 'react-native-tab-view';
 import ResetStyle from '../../style/ResetStyle.js';
 import MainStyle from '../../style/MainStyle.js';
+import {ProgressCircle} from 'react-native-svg-charts';
+
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import {CustomDrawerContent} from '../defined/CustomDrawerContent';
 
-const Tab = createMaterialTopTabNavigator();
 const Drawer = createDrawerNavigator();
+const AnimatedIndicator = Animated.createAnimatedComponent(ActivityIndicator);
+const windowHeight = Dimensions.get('window').height;
+const windowWidth = Dimensions.get('window').width;
+const TabBarHeight = 48;
+const HeaderHeight = 215;
+const SafeStatusBar = Platform.select({
+  ios: 44,
+  android: StatusBar.currentHeight,
+});
+const PullToRefreshDist = 150;
 
-// {
-//   "id": "1",                                 // id
-//   "surveyStatus": "ONGOING",                 // status
-//   "category": "E-COMMERCE",                  // division
-//   "createTime": "2020-12-10 18:48:00",       // dateStart
-//   "endTime": "2020-12-14 17:28:00",          // dateEnd
-//   "surveyName": "sponsor1Survey",            // title
-//   "participants": 2000,                      // participant
-//   "particiRestrictions": 0,                  // particiRestrictions
-//   "reward": "10"                             // reward
-//   "instructions": "설문조사1입니다.sponsor",     // purpose
-//   "organizationName": "스폰서1",               // host
-//   "organizationId": "1",
-// },
-const data = [
-  {
-    id: '1',
-    img: require('../../imgs/drawable-xxxhdpi/survey_img_1.png'),
-    status: 'ongoing',
-    division: 'E-commerce',
-    dateStart: '2020.12.03',
-    dateEnd: '2020.12.31',
-    title: '안드로이드 S20 만족도 조사',
-    participant: 'S20 사용자',
-    participantCount: '20000',
-    participantCompleteCount: '12375',
-    tnc: '10',
-    purpose: '다음 제품 출시를 위하여',
-    host: 'Samsung',
-  },
-  {
-    id: '2',
-    img: null,
-    status: 'upcoming',
-    division: 'Any Category1',
-    dateStart: '2020.12.03',
-    dateEnd: '2020.12.31',
-    title: '부동산,\n이게 어떻게 된 일일까요?',
-    participant: 'S20 사용자',
-    participantCount: '20000',
-    participantCompleteCount: '0',
-    tnc: '10',
-    purpose: '다음 제품 출시를 위하여',
-    host: 'Samsung',
-  },
-  {
-    id: '3',
-    img: null,
-    status: 'upcoming',
-    division: 'Any Category2',
-    dateStart: '2020.12.03',
-    dateEnd: '2020.12.31',
-    title: '결혼, 출산, 그리고 육아',
-    participant: 'S20 사용자',
-    participantCount: '20000',
-    participantCompleteCount: '0',
-    tnc: '10',
-    purpose: '다음 제품 출시를 위하여',
-    host: 'Samsung',
-  },
-  {
-    id: '4',
-    img: require('../../imgs/drawable-xxxhdpi/survey_img_2.png'),
-    status: 'expired',
-    division: 'Any Category1',
-    dateStart: '2020.12.03',
-    dateEnd: '2020.12.31',
-    title: '2020년 크리스마스,\n어떻게 보내실 건가요?',
-    participant: 'S20 사용자',
-    participantCount: '20000',
-    participantCompleteCount: '12375',
-    tnc: '10',
-    purpose: '다음 제품 출시를 위하여',
-    host: 'Samsung',
-  },
-  {
-    id: '5',
-    img: null,
-    status: 'ongoing',
-    division: 'Any Category1',
-    dateStart: '2020.12.03',
-    dateEnd: '2020.12.31',
-    title: '부동산,\n이게 어떻게 된 일일까요?',
-    participant: 'S20 사용자',
-    participantCount: '20000',
-    participantCompleteCount: '12375',
-    tnc: '10',
-    purpose: '다음 제품 출시를 위하여',
-    host: 'Samsung',
-  },
-  {
-    id: '6',
-    img: null,
-    status: 'ongoing',
-    division: 'Any Category2',
-    dateStart: '2020.12.03',
-    dateEnd: '2020.12.31',
-    title: '결혼, 출산, 그리고 육아',
-    participant: 'S20 사용자',
-    participantCount: '20000',
-    participantCompleteCount: '12375',
-    tnc: '10',
-    purpose: '다음 제품 출시를 위하여',
-    host: 'Samsung',
-  },
-  {
-    id: '7',
-    img: require('../../imgs/drawable-xxxhdpi/survey_img_2.png'),
-    status: 'ongoing',
-    division: 'Any Category1',
-    dateStart: '2020.12.03',
-    dateEnd: '2020.12.31',
-    title: '2020년 크리스마스,\n어떻게 보내실 건가요?',
-    participant: 'S20 사용자',
-    participantCount: '20000',
-    participantCompleteCount: '12375',
-    tnc: '10',
-    purpose: '다음 제품 출시를 위하여',
-    host: 'Samsung',
-  },
-  {
-    id: '8',
-    img: null,
-    status: 'expired',
-    division: 'Any Category2',
-    dateStart: '2020.12.03',
-    dateEnd: '2020.12.31',
-    title: '결혼, 출산, 그리고 육아',
-    participant: 'S20 사용자',
-    participantCount: '20000',
-    participantCompleteCount: '12375',
-    tnc: '10',
-    purpose: '다음 제품 출시를 위하여',
-    host: 'Samsung',
-  },
-];
+export const MainTest = ({navigation}) => {
+  /**
+   * stats
+   */
+  const [tabIndex, setIndex] = useState(0);
+  const [routes] = useState([
+    {key: 'ongoing', title: 'ONGOING'},
+    {key: 'completed', title: 'COMPLETED'},
+    {key: 'upcoming', title: 'UPCOMING'},
+    {key: 'expired', title: 'EXPIRED'},
+  ]);
+  const [canScroll, setCanScroll] = useState(true);
+  const [tab1Data] = useState([
+    {
+      id: '1',
+      img: require('../../imgs/drawable-xxxhdpi/survey_img_1.png'),
+      status: 'ongoing',
+      division: 'E-commerce',
+      dateStart: '2020.12.03',
+      dateEnd: '2020.12.31',
+      title: '안드로이드 S20 만족도 조사',
+      participant: 'S20 사용자',
+      participantCount: '20000',
+      participantCompleteCount: '12375',
+      tnc: '10',
+      purpose: '다음 제품 출시를 위하여',
+      host: 'Samsung',
+    },
+    {
+      id: '2',
+      img: null,
+      status: 'upcoming',
+      division: 'Any Category1',
+      dateStart: '2020.12.03',
+      dateEnd: '2020.12.31',
+      title: '부동산,\n이게 어떻게 된 일일까요?',
+      participant: 'S20 사용자',
+      participantCount: '20000',
+      participantCompleteCount: '0',
+      tnc: '10',
+      purpose: '다음 제품 출시를 위하여',
+      host: 'Samsung',
+    },
+    {
+      id: '3',
+      img: null,
+      status: 'upcoming',
+      division: 'Any Category2',
+      dateStart: '2020.12.03',
+      dateEnd: '2020.12.31',
+      title: '결혼, 출산, 그리고 육아',
+      participant: 'S20 사용자',
+      participantCount: '20000',
+      participantCompleteCount: '0',
+      tnc: '10',
+      purpose: '다음 제품 출시를 위하여',
+      host: 'Samsung',
+    },
+    {
+      id: '4',
+      img: require('../../imgs/drawable-xxxhdpi/survey_img_2.png'),
+      status: 'expired',
+      division: 'Any Category1',
+      dateStart: '2020.12.03',
+      dateEnd: '2020.12.31',
+      title: '2020년 크리스마스,\n어떻게 보내실 건가요?',
+      participant: 'S20 사용자',
+      participantCount: '20000',
+      participantCompleteCount: '12375',
+      tnc: '10',
+      purpose: '다음 제품 출시를 위하여',
+      host: 'Samsung',
+    },
+    {
+      id: '5',
+      img: null,
+      status: 'ongoing',
+      division: 'Any Category1',
+      dateStart: '2020.12.03',
+      dateEnd: '2020.12.31',
+      title: '부동산,\n이게 어떻게 된 일일까요?',
+      participant: 'S20 사용자',
+      participantCount: '20000',
+      participantCompleteCount: '12375',
+      tnc: '10',
+      purpose: '다음 제품 출시를 위하여',
+      host: 'Samsung',
+    },
+    {
+      id: '6',
+      img: null,
+      status: 'ongoing',
+      division: 'Any Category2',
+      dateStart: '2020.12.03',
+      dateEnd: '2020.12.31',
+      title: '결혼, 출산, 그리고 육아',
+      participant: 'S20 사용자',
+      participantCount: '20000',
+      participantCompleteCount: '12375',
+      tnc: '10',
+      purpose: '다음 제품 출시를 위하여',
+      host: 'Samsung',
+    },
+    {
+      id: '7',
+      img: require('../../imgs/drawable-xxxhdpi/survey_img_2.png'),
+      status: 'ongoing',
+      division: 'Any Category1',
+      dateStart: '2020.12.03',
+      dateEnd: '2020.12.31',
+      title: '2020년 크리스마스,\n어떻게 보내실 건가요?',
+      participant: 'S20 사용자',
+      participantCount: '20000',
+      participantCompleteCount: '12375',
+      tnc: '10',
+      purpose: '다음 제품 출시를 위하여',
+      host: 'Samsung',
+    },
+    {
+      id: '8',
+      img: null,
+      status: 'expired',
+      division: 'Any Category2',
+      dateStart: '2020.12.03',
+      dateEnd: '2020.12.31',
+      title: '결혼, 출산, 그리고 육아',
+      participant: 'S20 사용자',
+      participantCount: '20000',
+      participantCompleteCount: '12375',
+      tnc: '10',
+      purpose: '다음 제품 출시를 위하여',
+      host: 'Samsung',
+    },
+  ]);
 
-dataFilteringOngoing = data
-  .filter((item) => item.status == 'ongoing')
-  .map(
-    ({
-      status,
-      img,
-      division,
-      dateStart,
-      dateEnd,
-      title,
-      participant,
-      participantCount,
-      participantCompleteCount,
-      tnc,
-      purpose,
-      host,
-    }) => ({
-      status,
-      img,
-      division,
-      dateStart,
-      dateEnd,
-      title,
-      participant,
-      participantCount,
-      participantCompleteCount,
-      tnc,
-      purpose,
-      host,
+  /**
+   * ref
+   */
+  const scrollY = useRef(new Animated.Value(0)).current;
+  const headerScrollY = useRef(new Animated.Value(0)).current;
+  // for capturing header scroll on Android
+  const headerMoveScrollY = useRef(new Animated.Value(0)).current;
+  const listRefArr = useRef([]);
+  const listOffset = useRef({});
+  const isListGliding = useRef(false);
+  const headerScrollStart = useRef(0);
+  const _tabIndex = useRef(0);
+  const refreshStatusRef = useRef(false);
+
+  /**
+   * PanResponder for header
+   */
+  const headerPanResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponderCapture: (evt, gestureState) => false,
+      onMoveShouldSetPanResponderCapture: (evt, gestureState) => false,
+      onStartShouldSetPanResponder: (evt, gestureState) => {
+        headerScrollY.stopAnimation();
+        syncScrollOffset();
+        return false;
+      },
+
+      onMoveShouldSetPanResponder: (evt, gestureState) => {
+        headerScrollY.stopAnimation();
+        return Math.abs(gestureState.dy) > 5;
+      },
+      onPanResponderEnd: (evt, gestureState) => {
+        handlePanReleaseOrEnd(evt, gestureState);
+      },
+      onPanResponderMove: (evt, gestureState) => {
+        const curListRef = listRefArr.current.find(
+          (ref) => ref.key === routes[_tabIndex.current].key,
+        );
+        const headerScrollOffset = -gestureState.dy + headerScrollStart.current;
+        if (curListRef.value) {
+          // scroll up
+          if (headerScrollOffset > 0) {
+            curListRef.value.scrollToOffset({
+              offset: headerScrollOffset,
+              animated: false,
+            });
+            // start pull down
+          } else {
+            if (Platform.OS === 'ios') {
+              curListRef.value.scrollToOffset({
+                offset: headerScrollOffset / 3,
+                animated: false,
+              });
+            } else if (Platform.OS === 'android') {
+              if (!refreshStatusRef.current) {
+                headerMoveScrollY.setValue(headerScrollOffset / 1.5);
+              }
+            }
+          }
+        }
+      },
+      onShouldBlockNativeResponder: () => true,
+      onPanResponderGrant: (evt, gestureState) => {
+        headerScrollStart.current = scrollY._value;
+      },
     }),
-  );
+  ).current;
 
-dataFilteringCompleted = data
-  .filter((item) => item.status == 'completed')
-  .map(
-    ({
-      status,
-      img,
-      division,
-      dateStart,
-      dateEnd,
-      title,
-      participant,
-      participantCount,
-      participantCompleteCount,
-      tnc,
-      purpose,
-      host,
-    }) => ({
-      status,
-      img,
-      division,
-      dateStart,
-      dateEnd,
-      title,
-      participant,
-      participantCount,
-      participantCompleteCount,
-      tnc,
-      purpose,
-      host,
+  /**
+   * PanResponder for list in tab scene
+   */
+  const listPanResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponderCapture: (evt, gestureState) => false,
+      onMoveShouldSetPanResponderCapture: (evt, gestureState) => false,
+      onStartShouldSetPanResponder: (evt, gestureState) => false,
+      onMoveShouldSetPanResponder: (evt, gestureState) => {
+        headerScrollY.stopAnimation();
+        return false;
+      },
+      onShouldBlockNativeResponder: () => true,
+      onPanResponderGrant: (evt, gestureState) => {
+        headerScrollY.stopAnimation();
+      },
     }),
-  );
+  ).current;
 
-dataFilteringUpcoming = data
-  .filter((item) => item.status == 'upcoming')
-  .map(
-    ({
-      status,
-      img,
-      division,
-      dateStart,
-      dateEnd,
-      title,
-      participant,
-      participantCount,
-      participantCompleteCount,
-      tnc,
-      purpose,
-      host,
-    }) => ({
-      status,
-      img,
-      division,
-      dateStart,
-      dateEnd,
-      title,
-      participant,
-      participantCount,
-      participantCompleteCount,
-      tnc,
-      purpose,
-      host,
-    }),
-  );
+  /**
+   * effect
+   */
+  useEffect(() => {
+    scrollY.addListener(({value}) => {
+      const curRoute = routes[tabIndex].key;
+      listOffset.current[curRoute] = value;
+    });
 
-dataFilteringExpired = data
-  .filter((item) => item.status == 'expired')
-  .map(
-    ({
-      status,
-      img,
-      division,
-      dateStart,
-      dateEnd,
-      title,
-      participant,
-      participantCount,
-      participantCompleteCount,
-      tnc,
-      purpose,
-      host,
-    }) => ({
-      status,
-      img,
-      division,
-      dateStart,
-      dateEnd,
-      title,
-      participant,
-      participantCount,
-      participantCompleteCount,
-      tnc,
-      purpose,
-      host,
-    }),
-  );
+    headerScrollY.addListener(({value}) => {
+      listRefArr.current.forEach((item) => {
+        if (item.key !== routes[tabIndex].key) {
+          return;
+        }
+        if (value > HeaderHeight || value < 0) {
+          headerScrollY.stopAnimation();
+          syncScrollOffset();
+        }
+        if (item.value && value <= HeaderHeight) {
+          item.value.scrollToOffset({
+            offset: value,
+            animated: false,
+          });
+        }
+      });
+    });
+    return () => {
+      scrollY.removeAllListeners();
+      headerScrollY.removeAllListeners();
+    };
+  }, [routes, tabIndex]);
 
-const Item = ({
-  status,
-  division,
-  dateStart,
-  dateEnd,
-  title,
-  img,
-  participant,
-  participantCount,
-  participantCompleteCount,
-  tnc,
-  purpose,
-  host,
-  onPress,
-}) => (
-  <TouchableOpacity style={[MainStyle.itemBox]} onPress={onPress}>
-    <View
-      opacity={status === 'expired' ? 0.5 : 1.0}
-      style={{
-        flex: 1,
-      }}>
-      <View style={[MainStyle.itemBoxInner]}>
-        <View style={{position: 'relative'}}>
+  /**
+   *  helper functions
+   */
+  const syncScrollOffset = () => {
+    const curRouteKey = routes[_tabIndex.current].key;
+
+    listRefArr.current.forEach((item) => {
+      if (item.key !== curRouteKey) {
+        if (scrollY._value < HeaderHeight && scrollY._value >= 0) {
+          if (item.value) {
+            item.value.scrollToOffset({
+              offset: scrollY._value,
+              animated: false,
+            });
+            listOffset.current[item.key] = scrollY._value;
+          }
+        } else if (scrollY._value >= HeaderHeight) {
+          if (
+            listOffset.current[item.key] < HeaderHeight ||
+            listOffset.current[item.key] == null
+          ) {
+            if (item.value) {
+              item.value.scrollToOffset({
+                offset: HeaderHeight,
+                animated: false,
+              });
+              listOffset.current[item.key] = HeaderHeight;
+            }
+          }
+        }
+      }
+    });
+  };
+
+  const startRefreshAction = () => {
+    if (Platform.OS === 'ios') {
+      listRefArr.current.forEach((listRef) => {
+        listRef.value.scrollToOffset({
+          offset: -50,
+          animated: true,
+        });
+      });
+      refresh().finally(() => {
+        syncScrollOffset();
+        // do not bounce back if user scroll to another position
+        if (scrollY._value < 0) {
+          listRefArr.current.forEach((listRef) => {
+            listRef.value.scrollToOffset({
+              offset: 0,
+              animated: true,
+            });
+          });
+        }
+      });
+    } else if (Platform.OS === 'android') {
+      Animated.timing(headerMoveScrollY, {
+        toValue: -150,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+      refresh().finally(() => {
+        Animated.timing(headerMoveScrollY, {
+          toValue: 0,
+          duration: 300,
+          useNativeDriver: true,
+        }).start();
+      });
+    }
+  };
+
+  const handlePanReleaseOrEnd = (evt, gestureState) => {
+    // console.log('handlePanReleaseOrEnd', scrollY._value);
+    syncScrollOffset();
+    headerScrollY.setValue(scrollY._value);
+    if (Platform.OS === 'ios') {
+      if (scrollY._value < 0) {
+        if (scrollY._value < -PullToRefreshDist && !refreshStatusRef.current) {
+          startRefreshAction();
+        } else {
+          // should bounce back
+          listRefArr.current.forEach((listRef) => {
+            listRef.value.scrollToOffset({
+              offset: 0,
+              animated: true,
+            });
+          });
+        }
+      } else {
+        if (Math.abs(gestureState.vy) < 0.2) {
+          return;
+        }
+        Animated.decay(headerScrollY, {
+          velocity: -gestureState.vy,
+          useNativeDriver: true,
+        }).start(() => {
+          syncScrollOffset();
+        });
+      }
+    } else if (Platform.OS === 'android') {
+      if (
+        headerMoveScrollY._value < 0 &&
+        headerMoveScrollY._value / 1.5 < -PullToRefreshDist
+      ) {
+        startRefreshAction();
+      } else {
+        Animated.timing(headerMoveScrollY, {
+          toValue: 0,
+          duration: 300,
+          useNativeDriver: true,
+        }).start();
+      }
+    }
+  };
+
+  const onMomentumScrollBegin = () => {
+    isListGliding.current = true;
+  };
+
+  const onMomentumScrollEnd = () => {
+    isListGliding.current = false;
+    syncScrollOffset();
+    // console.log('onMomentumScrollEnd');
+  };
+
+  const onScrollEndDrag = (e) => {
+    syncScrollOffset();
+
+    const offsetY = e.nativeEvent.contentOffset.y;
+    // console.log('onScrollEndDrag', offsetY);
+    // iOS only
+    if (Platform.OS === 'ios') {
+      if (offsetY < -PullToRefreshDist && !refreshStatusRef.current) {
+        startRefreshAction();
+      }
+    }
+
+    // check pull to refresh
+  };
+
+  const refresh = async () => {
+    console.log('-- start refresh');
+    refreshStatusRef.current = true;
+    await new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('done');
+      }, 2000);
+    }).then((value) => {
+      console.log('-- refresh done!');
+      refreshStatusRef.current = false;
+    });
+  };
+
+  /**
+   * render Helper
+   */
+  const renderHeader = (navigation) => {
+    const y = scrollY.interpolate({
+      inputRange: [0, HeaderHeight],
+      outputRange: [0, -HeaderHeight],
+      extrapolateRight: 'clamp',
+      // extrapolate: 'clamp',
+    });
+    return (
+      <Animated.View
+        {...headerPanResponder.panHandlers}
+        style={[styles.header, {transform: [{translateY: y}]}]}>
+        <View style={[MainStyle.mainHeaderView]}>
           <View
-            style={[
-              MainStyle.itemDivisionColor,
-              {
-                backgroundColor:
-                  division === 'E-commerce'
-                    ? '#ffedc2'
-                    : division === 'Any Category1'
-                    ? '#b7fcff'
-                    : '#ffdfdf',
-              },
-            ]}></View>
-          <Text style={[ResetStyle.fontRegularE, ResetStyle.fontBlack]}>
-            {division}
-          </Text>
-        </View>
-
-        {/* <TouchableOpacity>
-          <Image
-            source={require('../../imgs/drawable-xxxhdpi/share_icon.png')}
-          />
-        </TouchableOpacity> */}
-      </View>
-
-      <View style={MainStyle.itemTitleView}>
-        <Text
-          style={[
-            ResetStyle.fontMediumK,
-            ResetStyle.fontBlack,
-            {textAlign: 'left'},
-          ]}>
-          {title}
-        </Text>
-      </View>
-
-      {img === null ? (
-        <View style={MainStyle.itemImagenullView}>
-          <View style={MainStyle.itemImagenullViewInner}>
-            <Text style={[ResetStyle.fontBoldK, ResetStyle.fontB]}>
-              + {tnc}
+            style={{
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}>
+            <Text
+              style={[
+                ResetStyle.fontLightK,
+                ResetStyle.fontG,
+                {fontWeight: '500'},
+              ]}>
+              MY TNC
             </Text>
             <Text
               style={[
-                ResetStyle.fontRegularK,
+                ResetStyle.fontMediumE,
                 ResetStyle.fontB,
-                {marginLeft: 5},
+                {fontWeight: '600'},
               ]}>
-              TNC
+              10,000
             </Text>
           </View>
-        </View>
-      ) : (
-        <View style={MainStyle.itemImageView}>
-          <View style={MainStyle.itemImageViewInner}>
-            <Image source={img} style={MainStyle.itemImageViewImage} />
-            <Image
-              source={require('../../imgs/survey_img_gradient.png')}
-              style={MainStyle.itemImageViewImage}
-            />
-          </View>
-          <View style={MainStyle.itemImageTncView}>
-            <Text style={[ResetStyle.fontBoldK, ResetStyle.fontWhite]}>
-              + {tnc}
+
+          <View style={{flexDirection: 'column', alignItems: 'center'}}>
+            <Text
+              style={[
+                ResetStyle.fontLightK,
+                ResetStyle.fontG,
+                {fontWeight: '500'},
+              ]}>
+              HIT
             </Text>
             <Text
               style={[
-                ResetStyle.fontRegularK,
-                ResetStyle.fontWhite,
-                {marginLeft: 5},
+                ResetStyle.fontMediumE,
+                ResetStyle.fontB,
+                {fontWeight: '600'},
               ]}>
-              TNC
+              10
+            </Text>
+          </View>
+
+          <View
+            style={{
+              position: 'absolute',
+              top: '-50%',
+              left: 0,
+              right: 0,
+              bottom: 0,
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column',
+            }}>
+            {/* progress 최대 수치 1 */}
+            <ProgressCircle
+              style={{
+                position: 'absolute',
+                width: Platform.OS === 'ios' ? 113 : 110,
+                height: Platform.OS === 'ios' ? 113 : 110,
+                backgroundColor: '#FFF',
+                borderRadius: 70,
+              }}
+              progress={0.086}
+              progressColor={'#0080ff'}
+              strokeWidth={Platform.OS === 'ios' ? 2.5 : 2}
+            />
+
+            <View
+              style={{
+                flexDirection: 'row',
+                borderBottomWidth: 1,
+                borderBottomColor: '#0080ff',
+                paddingBottom: 5,
+                marginTop: 10,
+              }}>
+              <Text
+                style={[
+                  ResetStyle.fontLightK,
+                  ResetStyle.fontB,
+                  {fontWeight: '500', marginRight: 5},
+                ]}>
+                LEVEL
+              </Text>
+              <TouchableOpacity>
+                <Image
+                  source={require('../../imgs/drawable-xxxhdpi/main_questionmark_icon.png')}
+                />
+              </TouchableOpacity>
+            </View>
+
+            <Text style={[ResetStyle.fontBoldK, ResetStyle.fontB]}>2</Text>
+          </View>
+        </View>
+        <View
+          style={{
+            width: '100%',
+            height: Platform.OS === 'ios' ? '7%' : '10%',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <View
+            style={{
+              position: 'absolute',
+              top: Platform.OS === 'ios' ? '-20%' : '-42%',
+              width: '50%',
+              backgroundColor: '#2d91ff',
+              padding: '4%',
+              borderRadius: 10,
+            }}>
+            <View
+              style={{
+                position: 'absolute',
+                top: '-13%',
+                left: Platform.OS === 'ios' ? '39%' : '38%',
+                width: 0,
+                height: 0,
+                backgroundColor: 'transparent',
+                borderStyle: 'solid',
+                borderLeftWidth: 30,
+                borderRightWidth: 30,
+                borderBottomWidth: 55,
+                borderLeftColor: 'transparent',
+                borderRightColor: 'transparent',
+                borderBottomColor: '#2d91ff',
+              }}></View>
+            <Text
+              style={[
+                ResetStyle.fontLightK,
+                ResetStyle.fontWhite,
+                {textAlign: 'center', fontWeight: '500'},
+              ]}>
+              KYC LEVEL을{'\n'}업데이트해보세요!
+            </Text>
+            <Text
+              style={[
+                ResetStyle.fontLightK,
+                ResetStyle.fontWhite,
+                {textAlign: 'center', marginTop: 5},
+              ]}>
+              (HIGHEST LEVEL 23)
             </Text>
           </View>
         </View>
-      )}
+      </Animated.View>
+    );
+  };
 
-      <View style={MainStyle.itemBoxBottom}>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Text style={[ResetStyle.fontRegularK, ResetStyle.fontBlack]}>
-            참여자
-          </Text>
-          <Text
-            style={[
-              ResetStyle.fontRegularK,
-              ResetStyle.fontDG,
-              {marginLeft: 10},
-            ]}>
-            {participant}
-          </Text>
-        </View>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Text style={[ResetStyle.fontRegularK, ResetStyle.fontBlack]}>
-            참여자수
-          </Text>
-          <Text
-            style={[
-              ResetStyle.fontRegularK,
-              ResetStyle.fontDG,
-              {marginLeft: 10},
-            ]}>
-            {participantCount}명
-          </Text>
-        </View>
-      </View>
-      <View style={MainStyle.itemBoxBottomTextView}>
-        <Text style={[ResetStyle.fontRegularK, ResetStyle.fontBlack]}>
-          목적
-        </Text>
-        <Text
+  const rednerTab1Item = ({item, index}) => {
+    // console.log('>>>>>>ASDSDAsdasdas>>>>>>>', item.status);
+    if (item.status === 'zero') {
+      return (
+        <TouchableOpacity
           style={[
-            ResetStyle.fontRegularK,
-            ResetStyle.fontDG,
-            {marginLeft: 10, textAlign: 'left', width: '90%'},
+            MainStyle.itemBox,
+            {borderWidth: 0, backgroundColor: 'transparent'},
           ]}>
-          {purpose}
-        </Text>
-      </View>
-      <View style={MainStyle.itemBoxBottomTextView}>
-        <Text style={[ResetStyle.fontRegularK, ResetStyle.fontBlack]}>
-          기한
-        </Text>
-        <Text
-          style={[
-            ResetStyle.fontRegularK,
-            ResetStyle.fontDG,
-            {marginLeft: 10},
-          ]}>
-          {dateStart} ~ {dateEnd}
-        </Text>
-      </View>
-      <View style={MainStyle.itemBoxBottomTextView}>
-        <Text style={[ResetStyle.fontRegularK, ResetStyle.fontBlack]}>
-          주최
-        </Text>
-        <Text
-          style={[
-            ResetStyle.fontRegularK,
-            ResetStyle.fontDG,
-            {marginLeft: 10},
-          ]}>
-          {host}
-        </Text>
-      </View>
+          <Image
+            style={{alignSelf: 'center'}}
+            source={require('../../imgs/drawable-xxxhdpi/no_data_icon.png')}
+          />
+          <Text style={[ResetStyle.fontMediumK, ResetStyle.fontG]}>
+            No data!
+          </Text>
+        </TouchableOpacity>
+      );
+    } else if (item.status !== 'zero') {
+      return (
+        <TouchableOpacity style={[MainStyle.itemBox]}>
+          <View
+            opacity={item.status === 'expired' ? 0.5 : 1.0}
+            style={{
+              flex: 1,
+            }}>
+            <View style={[MainStyle.itemBoxInner]}>
+              <View style={{position: 'relative'}}>
+                <View
+                  style={[
+                    MainStyle.itemDivisionColor,
+                    {
+                      backgroundColor:
+                        item.division === 'E-commerce'
+                          ? '#ffedc2'
+                          : item.division === 'Any Category1'
+                          ? '#b7fcff'
+                          : '#ffdfdf',
+                    },
+                  ]}></View>
+                <Text style={[ResetStyle.fontRegularE, ResetStyle.fontBlack]}>
+                  {item.division}
+                </Text>
+              </View>
+            </View>
+            <View style={MainStyle.itemTitleView}>
+              <Text
+                style={[
+                  ResetStyle.fontMediumK,
+                  ResetStyle.fontBlack,
+                  {textAlign: 'left'},
+                ]}>
+                {item.title}
+              </Text>
+            </View>
+            {item.img === null ? (
+              <View style={MainStyle.itemImagenullView}>
+                <View style={MainStyle.itemImagenullViewInner}>
+                  <Text style={[ResetStyle.fontBoldK, ResetStyle.fontB]}>
+                    + {item.tnc}
+                  </Text>
+                  <Text
+                    style={[
+                      ResetStyle.fontRegularK,
+                      ResetStyle.fontB,
+                      {marginLeft: 5},
+                    ]}>
+                    TNC
+                  </Text>
+                </View>
+              </View>
+            ) : (
+              <View style={MainStyle.itemImageView}>
+                <View style={MainStyle.itemImageViewInner}>
+                  <Image
+                    source={item.img}
+                    style={MainStyle.itemImageViewImage}
+                  />
+                  <Image
+                    source={require('../../imgs/survey_img_gradient.png')}
+                    style={MainStyle.itemImageViewImage}
+                  />
+                </View>
+                <View style={MainStyle.itemImageTncView}>
+                  <Text style={[ResetStyle.fontBoldK, ResetStyle.fontWhite]}>
+                    + {item.tnc}
+                  </Text>
+                  <Text
+                    style={[
+                      ResetStyle.fontRegularK,
+                      ResetStyle.fontWhite,
+                      {marginLeft: 5},
+                    ]}>
+                    TNC
+                  </Text>
+                </View>
+              </View>
+            )}
+            <View style={MainStyle.itemBoxBottom}>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Text style={[ResetStyle.fontRegularK, ResetStyle.fontBlack]}>
+                  참여자
+                </Text>
+                <Text
+                  style={[
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontDG,
+                    {marginLeft: 10},
+                  ]}>
+                  {item.participant}
+                </Text>
+              </View>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Text style={[ResetStyle.fontRegularK, ResetStyle.fontBlack]}>
+                  참여자수
+                </Text>
+                <Text
+                  style={[
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontDG,
+                    {marginLeft: 10},
+                  ]}>
+                  {item.participantCount}명
+                </Text>
+              </View>
+            </View>
+            <View style={MainStyle.itemBoxBottomTextView}>
+              <Text style={[ResetStyle.fontRegularK, ResetStyle.fontBlack]}>
+                목적
+              </Text>
+              <Text
+                style={[
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontDG,
+                  {marginLeft: 10, textAlign: 'left', width: '90%'},
+                ]}>
+                {item.purpose}
+              </Text>
+            </View>
+            <View style={MainStyle.itemBoxBottomTextView}>
+              <Text style={[ResetStyle.fontRegularK, ResetStyle.fontBlack]}>
+                기한
+              </Text>
+              <Text
+                style={[
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontDG,
+                  {marginLeft: 10},
+                ]}>
+                {item.dateStart} ~ {item.dateEnd}
+              </Text>
+            </View>
+            <View style={MainStyle.itemBoxBottomTextView}>
+              <Text style={[ResetStyle.fontRegularK, ResetStyle.fontBlack]}>
+                주최
+              </Text>
+              <Text
+                style={[
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontDG,
+                  {marginLeft: 10},
+                ]}>
+                {item.host}
+              </Text>
+            </View>
+            <View style={MainStyle.itemBoxBottomBarChartView}>
+              <View
+                style={[
+                  MainStyle.itemBoxBottomBarChartPercent,
+                  {width: '65%'},
+                ]}></View>
+            </View>
+            <View style={MainStyle.participantCountView}>
+              <Text
+                style={[
+                  ResetStyle.fontLightK,
+                  ResetStyle.fontB,
+                  {fontWeight: '500'},
+                ]}>
+                {item.participantCompleteCount} / {item.participantCount}
+              </Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+      );
+    }
+  };
 
-      <View style={MainStyle.itemBoxBottomBarChartView}>
-        <View
-          style={[
-            MainStyle.itemBoxBottomBarChartPercent,
-            {width: '65%'},
-          ]}></View>
-      </View>
+  const renderLabel = ({route, focused}) => {
+    return (
+      <Text style={[styles.label, {opacity: focused ? 1 : 0.5}]}>
+        {route.title}
+      </Text>
+    );
+  };
 
-      <View style={MainStyle.participantCountView}>
-        <Text
-          style={[
-            ResetStyle.fontLightK,
-            ResetStyle.fontB,
-            {fontWeight: '500'},
-          ]}>
-          {participantCompleteCount} / {participantCount}
-        </Text>
-      </View>
-    </View>
-  </TouchableOpacity>
-);
-
-function Ongoing({navigation}) {
-  console.log(navigation);
-  const renderItem = ({item}) => (
-    <Item
-      status={item.status}
-      division={item.division}
-      img={item.img}
-      title={item.title}
-      dateStart={item.dateStart}
-      dateEnd={item.dateEnd}
-      participant={item.participant}
-      participantCount={item.participantCount}
-      participantCompleteCount={item.participantCompleteCount}
-      tnc={item.tnc}
-      purpose={item.purpose}
-      host={item.host}
-      onPress={() => {
-        navigation.navigate('MainDetail');
-      }}
-    />
-  );
-
-  return (
-    <SafeAreaView style={MainStyle.mainFlatlistView}>
-      {/* <ScrollView style={{width: '100%'}}> */}
-      <FlatList
-        data={dataFilteringOngoing}
+  const renderScene = ({route}) => {
+    const focused = route.key === routes[tabIndex].key;
+    let numCols;
+    let data;
+    let renderItem;
+    switch (route.key) {
+      case 'ongoing':
+        numCols = 1;
+        data =
+          tab1Data.filter((item) => item.status == 'ongoing').length == 0
+            ? [{status: 'zero'}]
+            : tab1Data.filter((item) => item.status == 'ongoing');
+        renderItem = rednerTab1Item;
+        break;
+      case 'completed':
+        numCols = 1;
+        data =
+          tab1Data.filter((item) => item.status == 'completed').length == 0
+            ? [{status: 'zero'}]
+            : tab1Data.filter((item) => item.status == 'completed');
+        renderItem = rednerTab1Item;
+        break;
+      case 'upcoming':
+        numCols = 1;
+        data =
+          tab1Data.filter((item) => item.status == 'upcoming').length == 0
+            ? [{status: 'zero'}]
+            : tab1Data.filter((item) => item.status == 'upcoming');
+        renderItem = rednerTab1Item;
+        break;
+      case 'expired':
+        numCols = 1;
+        data =
+          tab1Data.filter((item) => item.status == 'expired').length == 0
+            ? [{status: 'zero'}]
+            : tab1Data.filter((item) => item.status == 'expired');
+        renderItem = rednerTab1Item;
+        break;
+      default:
+        return null;
+    }
+    return (
+      <Animated.FlatList
+        scrollToOverflowEnabled={true}
+        // scrollEnabled={canScroll}
+        {...listPanResponder.panHandlers}
+        numColumns={numCols}
+        ref={(ref) => {
+          if (ref) {
+            const found = listRefArr.current.find((e) => e.key === route.key);
+            if (!found) {
+              listRefArr.current.push({
+                key: route.key,
+                value: ref,
+              });
+            }
+          }
+        }}
+        scrollEventThrottle={16}
+        onScroll={
+          focused
+            ? Animated.event(
+                [
+                  {
+                    nativeEvent: {contentOffset: {y: scrollY}},
+                  },
+                ],
+                {useNativeDriver: true},
+              )
+            : null
+        }
+        onMomentumScrollBegin={onMomentumScrollBegin}
+        onScrollEndDrag={onScrollEndDrag}
+        onMomentumScrollEnd={onMomentumScrollEnd}
+        contentContainerStyle={{
+          paddingTop: HeaderHeight + TabBarHeight,
+          minHeight: windowHeight - SafeStatusBar + HeaderHeight,
+        }}
+        showsHorizontalScrollIndicator={false}
+        data={data}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        showsVerticalScrollIndicator={false}
+        keyExtractor={(item, index) => index.toString()}
       />
-      {/* </ScrollView> */}
-    </SafeAreaView>
-  );
-}
+    );
+  };
 
-function Completed() {
-  const renderItem = ({item}) => (
-    <Item
-      status={item.status}
-      division={item.division}
-      img={item.img}
-      title={item.title}
-      dateStart={item.dateStart}
-      dateEnd={item.dateEnd}
-      participant={item.participant}
-      participantCount={item.participantCount}
-      participantCompleteCount={item.participantCompleteCount}
-      tnc={item.tnc}
-      purpose={item.purpose}
-      host={item.host}
-    />
-  );
+  const renderTabBar = (props) => {
+    const y = scrollY.interpolate({
+      inputRange: [0, HeaderHeight],
+      outputRange: [HeaderHeight, 0],
+      // extrapolate: 'clamp',
+      extrapolateRight: 'clamp',
+    });
+    return (
+      <Animated.View
+        style={{
+          top: 0,
+          zIndex: 1,
+          position: 'absolute',
+          transform: [{translateY: y}],
+          width: '100%',
+        }}>
+        <TabBar
+          {...props}
+          onTabPress={({route, preventDefault}) => {
+            if (isListGliding.current) {
+              preventDefault();
+            }
+          }}
+          style={styles.tab}
+          renderLabel={renderLabel}
+          indicatorStyle={styles.indicator}
+        />
+      </Animated.View>
+    );
+  };
+
+  const renderTabView = () => {
+    return (
+      <TabView
+        onSwipeStart={() => setCanScroll(false)}
+        onSwipeEnd={() => setCanScroll(true)}
+        onIndexChange={(id) => {
+          _tabIndex.current = id;
+          setIndex(id);
+        }}
+        navigationState={{index: tabIndex, routes}}
+        renderScene={renderScene}
+        renderTabBar={renderTabBar}
+        initialLayout={{
+          height: 0,
+          width: windowWidth,
+        }}
+      />
+    );
+  };
+
+  const renderCustomRefresh = () => {
+    // headerMoveScrollY
+    return Platform.select({
+      ios: (
+        <AnimatedIndicator
+          style={{
+            top: -50,
+            position: 'absolute',
+            alignSelf: 'center',
+            transform: [
+              {
+                translateY: scrollY.interpolate({
+                  inputRange: [-100, 0],
+                  outputRange: [120, 0],
+                  extrapolate: 'clamp',
+                }),
+              },
+            ],
+          }}
+          animating
+        />
+      ),
+      android: (
+        <Animated.View
+          style={{
+            transform: [
+              {
+                translateY: headerMoveScrollY.interpolate({
+                  inputRange: [-300, 0],
+                  outputRange: [150, 0],
+                  extrapolate: 'clamp',
+                }),
+              },
+            ],
+            backgroundColor: '#f9f9f9',
+            height: 38,
+            width: 38,
+            borderRadius: 19,
+            borderWidth: 2,
+            borderColor: '#ddd',
+            justifyContent: 'center',
+            alignItems: 'center',
+            alignSelf: 'center',
+            top: -50,
+            position: 'absolute',
+          }}>
+          <ActivityIndicator animating />
+        </Animated.View>
+      ),
+    });
+  };
 
   return (
-    <SafeAreaView style={MainStyle.mainFlatlistView}>
-      {/* <ScrollView style={{width: '100%'}}> */}
-      <FlatList
-        data={dataFilteringCompleted}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
-      {/* </ScrollView> */}
-    </SafeAreaView>
-  );
-}
-
-function Upcoming() {
-  const renderItem = ({item}) => (
-    <Item
-      status={item.status}
-      division={item.division}
-      img={item.img}
-      title={item.title}
-      dateStart={item.dateStart}
-      dateEnd={item.dateEnd}
-      participant={item.participant}
-      participantCount={item.participantCount}
-      participantCompleteCount={item.participantCompleteCount}
-      tnc={item.tnc}
-      purpose={item.purpose}
-      host={item.host}
-    />
-  );
-
-  return (
-    <SafeAreaView style={MainStyle.mainFlatlistView}>
-      {/* <ScrollView style={{width: '100%'}}> */}
-      <FlatList
-        data={dataFilteringUpcoming}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
-      {/* </ScrollView> */}
-    </SafeAreaView>
-  );
-}
-
-function Expired() {
-  const renderItem = ({item}) => (
-    <Item
-      status={item.status}
-      division={item.division}
-      img={item.img}
-      title={item.title}
-      dateStart={item.dateStart}
-      dateEnd={item.dateEnd}
-      participant={item.participant}
-      participantCount={item.participantCount}
-      participantCompleteCount={item.participantCompleteCount}
-      tnc={item.tnc}
-      purpose={item.purpose}
-      host={item.host}
-    />
-  );
-
-  return (
-    <SafeAreaView style={MainStyle.mainFlatlistView}>
-      {/* <ScrollView style={{width: '100%'}}> */}
-      <FlatList
-        data={dataFilteringExpired}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
-      {/* </ScrollView> */}
-    </SafeAreaView>
-  );
-}
-
-// Main Component
-function MainPage({navigation}) {
-  return (
-    <View
-      style={{
-        backgroundColor: '#f9f9f9',
-        // marginTop: StatusBar.currentHeight || 0,
-        flex: 1,
-      }}>
+    <View style={styles.container}>
       <View
         style={{
           backgroundColor: '#f9f9f9',
-          paddingTop: Platform.OS === 'ios' ? '15%' : '5%',
+          width: '100%',
           flexDirection: 'row',
           justifyContent: 'space-between',
-          padding: '5%',
-          paddingBottom: '10%',
+          paddingLeft: '5%',
+          paddingRight: '5%',
+          paddingTop: Platform.OS === 'ios' ? '15%' : 0,
+          paddingBottom: Platform.OS === 'ios' ? '2%' : 0,
         }}>
         <TouchableOpacity>
-          <View style={{flexDirection: 'row'}}>
+          <View
+            style={{
+              flexDirection: 'row',
+            }}>
             <Image
               source={require('../../imgs/drawable-xxxhdpi/main_r_logo.png')}
             />
@@ -654,208 +1025,50 @@ function MainPage({navigation}) {
           />
         </TouchableOpacity>
       </View>
-
-      <View
-        style={{
-          width: '90%',
-          height: Platform.OS === 'ios' ? '10%' : '13%',
-          backgroundColor: '#FFF',
-          alignSelf: 'center',
-          borderRadius: 10,
-          borderWidth: 1,
-          borderColor: '#e8e8e8',
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          marginBottom: '6%',
-          paddingLeft: '5%',
-          paddingRight: '13%',
-        }}>
-        <View
-          style={{
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}>
-          <Text
-            style={[
-              ResetStyle.fontLightK,
-              ResetStyle.fontG,
-              {fontWeight: '500'},
-            ]}>
-            MY TNC
-          </Text>
-          <Text
-            style={[
-              ResetStyle.fontMediumE,
-              ResetStyle.fontB,
-              {fontWeight: '600'},
-            ]}>
-            10,000
-          </Text>
-        </View>
-
-        <View style={{flexDirection: 'column', alignItems: 'center'}}>
-          <Text
-            style={[
-              ResetStyle.fontLightK,
-              ResetStyle.fontG,
-              {fontWeight: '500'},
-            ]}>
-            HIT
-          </Text>
-          <Text
-            style={[
-              ResetStyle.fontMediumE,
-              ResetStyle.fontB,
-              {fontWeight: '600'},
-            ]}>
-            10
-          </Text>
-        </View>
-
-        <View
-          style={{
-            position: 'absolute',
-            top: '-70%',
-            left: 0,
-            right: 0,
-            bottom: 0,
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexDirection: 'column',
-          }}>
-          {/* progress 최대 수치 1 */}
-          <ProgressCircle
-            style={{
-              position: 'absolute',
-              width: Platform.OS === 'ios' ? 120 : 110,
-              height: Platform.OS === 'ios' ? 120 : 110,
-              backgroundColor: '#FFF',
-              borderRadius: 60,
-            }}
-            progress={0.086}
-            progressColor={'#0080ff'}
-            strokeWidth={Platform.OS === 'ios' ? 3 : 2}
-          />
-
-          <View
-            style={{
-              flexDirection: 'row',
-              borderBottomWidth: 1,
-              borderBottomColor: '#0080ff',
-              paddingBottom: 5,
-              marginTop: 10,
-            }}>
-            <Text
-              style={[
-                ResetStyle.fontLightK,
-                ResetStyle.fontB,
-                {fontWeight: '500', marginRight: 5},
-              ]}>
-              LEVEL
-            </Text>
-            <TouchableOpacity>
-              <Image
-                source={require('../../imgs/drawable-xxxhdpi/main_questionmark_icon.png')}
-              />
-            </TouchableOpacity>
-          </View>
-
-          <Text style={[ResetStyle.fontBoldK, ResetStyle.fontB]}>2</Text>
-        </View>
-      </View>
-
-      <View
-        style={{
-          width: '100%',
-          height: Platform.OS === 'ios' ? '7%' : '10%',
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-        <View
-          style={{
-            position: 'absolute',
-            top: Platform.OS === 'ios' ? '-50%' : '-42%',
-            width: '55%',
-            backgroundColor: '#2d91ff',
-            padding: '5%',
-            borderRadius: 10,
-          }}>
-          <View
-            style={{
-              position: 'absolute',
-              top: '-15%',
-              left: Platform.OS === 'ios' ? '41%' : '38%',
-              width: 0,
-              height: 0,
-              backgroundColor: 'transparent',
-              borderStyle: 'solid',
-              borderLeftWidth: 30,
-              borderRightWidth: 30,
-              borderBottomWidth: 50,
-              borderLeftColor: 'transparent',
-              borderRightColor: 'transparent',
-              borderBottomColor: '#2d91ff',
-            }}></View>
-          <Text
-            style={[
-              ResetStyle.fontLightK,
-              ResetStyle.fontWhite,
-              {textAlign: 'center', fontWeight: '500'},
-            ]}>
-            KYC LEVEL을{'\n'}업데이트해보세요!
-          </Text>
-          <Text
-            style={[
-              ResetStyle.fontLightK,
-              ResetStyle.fontWhite,
-              {textAlign: 'center', marginTop: 5},
-            ]}>
-            (HIGHEST LEVEL 23)
-          </Text>
-        </View>
-      </View>
-
-      <View style={{borderBottomWidth: 1, borderBottomColor: '#dedede'}}></View>
-
-      <Tab.Navigator
-        tabBarOptions={{
-          labelStyle: {
-            fontSize: Platform.OS === 'ios' ? 16 : 14,
-            fontWeight: '500',
-            letterSpacing: -0.5,
-          },
-          activeTintColor: '#222222',
-          inactiveTintColor: '#a9a9a9',
-          tabStyle: {
-            paddingLeft: 0,
-            paddingRight: 0,
-            paddingTop: 15,
-            paddingBottom: 20,
-          },
-          indicatorStyle: {
-            position: 'relative',
-            top: '75%',
-            left: '4%',
-            borderColor: '#222222',
-            borderWidth: 1.5,
-            width: '5%',
-          },
-          style: {
-            backgroundColor: '#f9f9f9',
-          },
-        }}>
-        <Tab.Screen name="ONGOING" component={Ongoing} />
-        <Tab.Screen name="COMPLETED" component={Completed} />
-        <Tab.Screen name="UPCOMING" component={Upcoming} />
-        <Tab.Screen name="EXPIRED" component={Expired} />
-      </Tab.Navigator>
+      {renderTabView()}
+      {renderHeader(navigation)}
+      {renderCustomRefresh()}
     </View>
   );
-}
-///////
-// Main Drawer
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f9f9f9',
+  },
+  header: {
+    // height: HeaderHeight,
+    width: '100%',
+    position: 'absolute',
+    top: '11%',
+    zIndex: -1,
+    // backgroundColor: '#f9f9f9',
+  },
+  label: {
+    width: '100%',
+    height: '100%',
+    fontSize: 16,
+    color: '#000',
+    paddingTop: 5,
+  },
+  tab: {
+    elevation: 0,
+    shadowOpacity: 0,
+    backgroundColor: '#f9f9f9',
+    height: TabBarHeight,
+    borderTopWidth: 1,
+    borderTopColor: '#dedede',
+  },
+  indicator: {
+    backgroundColor: '#000',
+    width: '4%',
+    position: 'absolute',
+    top: '80%',
+    left: '4%',
+  },
+});
+
 class Main extends Component {
   // state = {};
 
@@ -870,11 +1083,11 @@ class Main extends Component {
           backgroundColor: '#FFF',
         }}>
         <Drawer.Screen name="설문조사" component={MainTest} />
-        <Drawer.Screen name="설문조사 의뢰하기" component={MainPage} />
-        <Drawer.Screen name="미디어" component={MainPage} />
-        <Drawer.Screen name="알림" component={MainPage} />
-        <Drawer.Screen name="설정" component={MainPage} />
-        <Drawer.Screen name="초대코드" component={MainPage} />
+        <Drawer.Screen name="설문조사 의뢰하기" component={MainTest} />
+        <Drawer.Screen name="미디어" component={MainTest} />
+        <Drawer.Screen name="알림" component={MainTest} />
+        <Drawer.Screen name="설정" component={MainTest} />
+        <Drawer.Screen name="초대코드" component={MainTest} />
       </Drawer.Navigator>
     );
   }

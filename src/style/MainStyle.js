@@ -111,10 +111,31 @@ export default StyleSheet.create({
     marginTop: '2%',
   },
 
+  // MainVideo
   mainFlatlistView: {
     flex: 1,
     justifyContent: 'center',
     overflow: 'scroll',
     backgroundColor: '#f9f9f9',
+  },
+
+  //
+  // Main
+  //
+  // header
+  mainHeaderView: {
+    width: '90%',
+    height: Platform.OS === 'ios' ? '100%' : '80%',
+    backgroundColor: '#FFF',
+    alignSelf: 'center',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#e8e8e8',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: '8%',
+    paddingLeft: '5%',
+    paddingRight: '13%',
   },
 });
