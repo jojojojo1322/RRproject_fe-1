@@ -13,6 +13,7 @@ import AuthStyle from '../../style/AuthStyle.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {server} from '../defined/server';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 function chkPW(password) {
   var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
@@ -145,466 +146,484 @@ class SignUpPersonal extends Component {
 
     return (
       <SafeAreaView style={ResetStyle.container}>
-        <View style={[ResetStyle.containerInner]}>
-          {/* topBackButton */}
-          <View>
-            <View style={[ResetStyle.topBackButton, {paddingBottom: '2%'}]}>
-              <TouchableOpacity
-                onPress={() => {
-                  this.props.navigation.goBack();
-                }}>
-                <Image
-                  source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
-                />
+        <KeyboardAwareScrollView contentContainerStyle={{flex: 1}}>
+          <View style={[ResetStyle.containerInner]}>
+            {/* topBackButton */}
+            <View>
+              <View style={[ResetStyle.topBackButton, {paddingBottom: '2%'}]}>
+                <TouchableOpacity
+                  onPress={() => {
+                    this.props.navigation.goBack();
+                  }}>
+                  <Image
+                    source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
+                  />
+                </TouchableOpacity>
+                <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+                  회원정보 입력
+                </Text>
+              </View>
+            </View>
+            {/* 이메일 */}
+            <View>
+              {/* <View> */}
+              <View>
+                <Text
+                  style={[
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontDG,
+                    {textAlign: 'left'},
+                  ]}>
+                  이메일
+                </Text>
+              </View>
+
+              <TouchableOpacity>
+                <View style={AuthStyle.signupInputImageAll}>
+                  <TextInput
+                    placeholder="이메일 주소 입력"
+                    placeholderTextColor="#a9a9a9"
+                    onBlur={() => {
+                      console.log('>>>>>>>>>>>>>>>>>>>>aaa>>>>>>>>');
+                      this.emailCheckApi(this.state.email);
+                    }}
+                    // keyboardType={'numeric'}
+                    onChangeText={this.handleEmail}
+                    value={this.state.email}
+                    style={[
+                      ResetStyle.fontRegularK,
+                      ResetStyle.fontG,
+                      {
+                        textAlign: 'left',
+                        paddingTop: '6%',
+                        paddingBottom: '3%',
+                      },
+                    ]}></TextInput>
+                  <TouchableOpacity
+                    onPress={() => {
+                      this.setState({
+                        email: '',
+                      });
+                    }}>
+                    <Image
+                      style={ResetStyle.smallImg}
+                      source={require('../../imgs/drawable-xhdpi/icon_x_gray.png')}
+                    />
+                  </TouchableOpacity>
+                </View>
               </TouchableOpacity>
-              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-                회원정보 입력
-              </Text>
-            </View>
-          </View>
-          {/* 이메일 */}
-          <View>
-            {/* <View> */}
-            <View>
-              <Text
-                style={[
-                  ResetStyle.fontRegularK,
-                  ResetStyle.fontDG,
-                  {textAlign: 'left'},
-                ]}>
-                이메일
-              </Text>
-            </View>
 
-            <TouchableOpacity>
-              <View style={AuthStyle.signupInputImageAll}>
-                <TextInput
-                  placeholder="이메일 주소 입력"
-                  placeholderTextColor="#a9a9a9"
-                  onBlur={() => {
-                    console.log('>>>>>>>>>>>>>>>>>>>>aaa>>>>>>>>');
-                    this.emailCheckApi(this.state.email);
-                  }}
-                  // keyboardType={'numeric'}
-                  onChangeText={this.handleEmail}
-                  value={this.state.email}
-                  style={[
-                    ResetStyle.fontRegularK,
-                    ResetStyle.fontG,
-                    {textAlign: 'left', paddingTop: '6%', paddingBottom: '3%'},
-                  ]}></TextInput>
-                <TouchableOpacity
-                  onPress={() => {
-                    this.setState({
-                      email: '',
-                    });
-                  }}>
-                  <Image
-                    style={ResetStyle.smallImg}
-                    source={require('../../imgs/drawable-xhdpi/icon_x_gray.png')}
-                  />
-                </TouchableOpacity>
-              </View>
-            </TouchableOpacity>
-
-            {/* alert */}
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginTop: '3%',
-              }}>
-              {this.state.checkEmail !== 0 && this.state.checkEmail != '' && (
-                // this.state.checkEmail !== '' &&
-
-                <>
-                  <Image
-                    style={ResetStyle.smallImg}
-                    source={require('../../imgs/drawable-xhdpi/icon_x_red.png')}
-                  />
-                  <Text
-                    style={[
-                      ResetStyle.fontLightK,
-                      ResetStyle.fontR,
-                      {marginLeft: 5},
-                    ]}>
-                    이미 사용 중인 이메일입니다.
-                  </Text>
-                </>
-              )}
-              {this.state.checkEmail === 0 && (
-                <>
-                  <Image
-                    style={ResetStyle.smallImg}
-                    source={require('../../imgs/drawable-xhdpi/icon_m_check.png')}
-                  />
-                  <Text
-                    style={[
-                      ResetStyle.fontLightK,
-                      ResetStyle.fontB,
-                      {marginLeft: 5},
-                    ]}>
-                    등록 가능한 이메일 입니다.
-                  </Text>
-                </>
-              )}
-            </View>
-          </View>
-
-          {/* 비밀번호 */}
-          <View>
-            <View>
-              <Text
-                style={[
-                  ResetStyle.fontRegularK,
-                  ResetStyle.fontDG,
-                  {textAlign: 'left'},
-                ]}>
-                비밀번호
-              </Text>
-            </View>
-
-            <TouchableOpacity>
-              <View style={AuthStyle.signupInputImageAll}>
-                <TextInput
-                  placeholder="아래 조합으로 입력"
-                  placeholderTextColor="#a9a9a9"
-                  secureTextEntry={this.state.passwordBlur}
-                  // keyboardType={'numeric'}
-                  onChangeText={this.handlePassword}
-                  value={this.state.password}
-                  style={[
-                    ResetStyle.fontRegularK,
-                    ResetStyle.fontG,
-                    {textAlign: 'left', paddingTop: '6%', paddingBottom: '3%'},
-                  ]}></TextInput>
-                <TouchableOpacity
-                  onPress={() => {
-                    this.setState({
-                      passwordBlur: !this.state.passwordBlur,
-                    });
-                  }}>
-                  {this.state.passwordBlur ? (
-                    <Image
-                      style={ResetStyle.smallImg}
-                      source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
-                    />
-                  ) : (
-                    <Image
-                      style={ResetStyle.smallImg}
-                      source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
-                    />
-                  )}
-                </TouchableOpacity>
-              </View>
-            </TouchableOpacity>
-
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}>
+              {/* alert */}
               <View
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',
                   marginTop: '3%',
                 }}>
-                {!chkPWRow(this.state.password) ? (
-                  <Image
-                    style={ResetStyle.xsmallImg}
-                    source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
-                  />
-                ) : (
-                  <Image
-                    style={ResetStyle.xsmallImg}
-                    source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
-                  />
-                )}
-                <Text
-                  style={[
-                    ResetStyle.fontLightK,
-                    ResetStyle.fontG,
-                    {marginLeft: 5},
-                  ]}>
-                  영문
-                </Text>
-              </View>
-              <View style={[AuthStyle.signupCheckView]}>
-                {!chkPWNumber(this.state.password) ? (
-                  <Image
-                    style={ResetStyle.xsmallImg}
-                    source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
-                  />
-                ) : (
-                  <Image
-                    style={ResetStyle.xsmallImg}
-                    source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
-                  />
-                )}
-                <Text
-                  style={[
-                    ResetStyle.fontLightK,
-                    ResetStyle.fontG,
-                    {marginLeft: 5},
-                  ]}>
-                  숫자
-                </Text>
-              </View>
-              <View style={[AuthStyle.signupCheckView]}>
-                {!chkPWHigh(this.state.password) ? (
-                  <Image
-                    style={ResetStyle.xsmallImg}
-                    source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
-                  />
-                ) : (
-                  <Image
-                    style={ResetStyle.xsmallImg}
-                    source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
-                  />
-                )}
-                <Text
-                  style={[
-                    ResetStyle.fontLightK,
-                    ResetStyle.fontG,
-                    {marginLeft: 5},
-                  ]}>
-                  대문자
-                </Text>
-              </View>
-              <View style={[AuthStyle.signupCheckView]}>
-                {!chkPWCharacter(this.state.password) ? (
-                  <Image
-                    style={ResetStyle.xsmallImg}
-                    source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
-                  />
-                ) : (
-                  <Image
-                    style={ResetStyle.xsmallImg}
-                    source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
-                  />
-                )}
-                <Text
-                  style={[
-                    ResetStyle.fontLightK,
-                    ResetStyle.fontG,
-                    {marginLeft: 5},
-                  ]}>
-                  특수문자
-                </Text>
-              </View>
-              <View style={[AuthStyle.signupCheckView]}>
-                {this.state.password.length < 8 ? (
-                  <Image
-                    style={ResetStyle.xsmallImg}
-                    source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
-                  />
-                ) : (
-                  <Image
-                    style={ResetStyle.xsmallImg}
-                    source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
-                  />
-                )}
-                <Text
-                  style={[
-                    ResetStyle.fontLightK,
-                    ResetStyle.fontG,
-                    {marginLeft: 5},
-                  ]}>
-                  8자리 이상
-                </Text>
-              </View>
-            </View>
-          </View>
+                {this.state.checkEmail !== 0 && this.state.checkEmail != '' && (
+                  // this.state.checkEmail !== '' &&
 
-          {/* 비밀번호 확인 */}
-          <View>
-            <View>
-              <Text
-                style={[
-                  ResetStyle.fontRegularK,
-                  ResetStyle.fontDG,
-                  {textAlign: 'left'},
-                ]}>
-                비밀번호 확인
-              </Text>
-            </View>
-
-            <TouchableOpacity>
-              <View style={AuthStyle.signupInputImageAll}>
-                <TextInput
-                  placeholder="비밀번호 다시 입력"
-                  placeholderTextColor="#a9a9a9"
-                  secureTextEntry={this.state.checkPasswordBlur}
-                  // keyboardType={'numeric'}
-                  onBlur={() => {
-                    if (
-                      this.state.checkPassword == '' ||
-                      this.state.password == ''
-                    ) {
-                      this.setState({
-                        checkBoolean: '',
-                      });
-                    } else if (
-                      this.state.checkPassword == this.state.password
-                    ) {
-                      this.setState({
-                        checkBoolean: true,
-                      });
-                    } else if (
-                      this.state.checkPassword != this.state.password
-                    ) {
-                      this.setState({
-                        checkBoolean: false,
-                      });
-                    }
-                  }}
-                  onChangeText={this.handleCheckPassword}
-                  value={this.state.checkPassword}
-                  style={[
-                    ResetStyle.fontRegularK,
-                    ResetStyle.fontG,
-                    {textAlign: 'left', paddingTop: '6%', paddingBottom: '3%'},
-                  ]}></TextInput>
-                {/* <Image
-                    style={ResetStyle.smallImg}
-                    source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
-                  /> */}
-                <TouchableOpacity
-                  onPress={() => {
-                    this.setState({
-                      checkPasswordBlur: !this.state.checkPasswordBlur,
-                    });
-                  }}>
-                  {this.state.checkPasswordBlur ? (
-                    <Image
-                      style={ResetStyle.smallImg}
-                      source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
-                    />
-                  ) : (
-                    <Image
-                      style={ResetStyle.smallImg}
-                      source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
-                    />
-                  )}
-                </TouchableOpacity>
-              </View>
-            </TouchableOpacity>
-
-            {/* alert */}
-            <View style={[AuthStyle.signupCheckView]}>
-              {this.state.checkBoolean !== '' &&
-                this.state.checkBoolean == false && (
                   <>
                     <Image
                       style={ResetStyle.smallImg}
                       source={require('../../imgs/drawable-xhdpi/icon_x_red.png')}
                     />
-
                     <Text
                       style={[
                         ResetStyle.fontLightK,
                         ResetStyle.fontR,
                         {marginLeft: 5},
                       ]}>
-                      비밀번호가 일치하지 않습니다.
+                      이미 사용 중인 이메일입니다.
                     </Text>
                   </>
                 )}
-              {this.state.checkBoolean == true && (
-                <>
-                  <Image
-                    style={ResetStyle.smallImg}
-                    source={require('../../imgs/drawable-xhdpi/icon_m_check.png')}
-                  />
-                  <Text
-                    style={{color: '#0080ff', fontSize: 14, marginLeft: 10}}>
-                    비밀번호가 일치합니다.
-                  </Text>
-                </>
-              )}
+                {this.state.checkEmail === 0 && (
+                  <>
+                    <Image
+                      style={ResetStyle.smallImg}
+                      source={require('../../imgs/drawable-xhdpi/icon_m_check.png')}
+                    />
+                    <Text
+                      style={[
+                        ResetStyle.fontLightK,
+                        ResetStyle.fontB,
+                        {marginLeft: 5},
+                      ]}>
+                      등록 가능한 이메일 입니다.
+                    </Text>
+                  </>
+                )}
+              </View>
             </View>
-          </View>
 
-          {/* 초대코드 */}
-          <View>
+            {/* 비밀번호 */}
             <View>
-              <Text
-                style={[
-                  ResetStyle.fontRegularK,
-                  ResetStyle.fontDG,
-                  {textAlign: 'left'},
-                ]}>
-                초대코드 (선택사항)
-              </Text>
-            </View>
-
-            <TouchableOpacity>
-              <View style={AuthStyle.signupInputImageAll}>
-                <TextInput
-                  placeholder="비밀번호 다시 입력"
-                  placeholderTextColor="#a9a9a9"
-                  // keyboardType={'numeric'}
-                  onChangeText={this.handleInviteCode}
-                  value={this.state.inviteCode}
+              <View>
+                <Text
                   style={[
                     ResetStyle.fontRegularK,
-                    ResetStyle.fontG,
-                    {textAlign: 'left', paddingTop: '6%', paddingBottom: '3%'},
-                  ]}></TextInput>
-                <TouchableOpacity
-                  onPress={() => {
-                    this.setState({
-                      inviteCode: '',
-                    });
-                  }}>
-                  <Image
-                    style={ResetStyle.smallImg}
-                    source={require('../../imgs/drawable-xhdpi/icon_x_gray.png')}
-                  />
-                </TouchableOpacity>
+                    ResetStyle.fontDG,
+                    {textAlign: 'left'},
+                  ]}>
+                  비밀번호
+                </Text>
               </View>
+
+              <TouchableOpacity>
+                <View style={AuthStyle.signupInputImageAll}>
+                  <TextInput
+                    placeholder="아래 조합으로 입력"
+                    placeholderTextColor="#a9a9a9"
+                    secureTextEntry={this.state.passwordBlur}
+                    // keyboardType={'numeric'}
+                    onChangeText={this.handlePassword}
+                    value={this.state.password}
+                    style={[
+                      ResetStyle.fontRegularK,
+                      ResetStyle.fontG,
+                      {
+                        textAlign: 'left',
+                        paddingTop: '6%',
+                        paddingBottom: '3%',
+                      },
+                    ]}></TextInput>
+                  <TouchableOpacity
+                    onPress={() => {
+                      this.setState({
+                        passwordBlur: !this.state.passwordBlur,
+                      });
+                    }}>
+                    {this.state.passwordBlur ? (
+                      <Image
+                        style={ResetStyle.smallImg}
+                        source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
+                      />
+                    ) : (
+                      <Image
+                        style={ResetStyle.smallImg}
+                        source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
+                      />
+                    )}
+                  </TouchableOpacity>
+                </View>
+              </TouchableOpacity>
+
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginTop: '3%',
+                  }}>
+                  {!chkPWRow(this.state.password) ? (
+                    <Image
+                      style={ResetStyle.xsmallImg}
+                      source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
+                    />
+                  ) : (
+                    <Image
+                      style={ResetStyle.xsmallImg}
+                      source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
+                    />
+                  )}
+                  <Text
+                    style={[
+                      ResetStyle.fontLightK,
+                      ResetStyle.fontG,
+                      {marginLeft: 5},
+                    ]}>
+                    영문
+                  </Text>
+                </View>
+                <View style={[AuthStyle.signupCheckView]}>
+                  {!chkPWNumber(this.state.password) ? (
+                    <Image
+                      style={ResetStyle.xsmallImg}
+                      source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
+                    />
+                  ) : (
+                    <Image
+                      style={ResetStyle.xsmallImg}
+                      source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
+                    />
+                  )}
+                  <Text
+                    style={[
+                      ResetStyle.fontLightK,
+                      ResetStyle.fontG,
+                      {marginLeft: 5},
+                    ]}>
+                    숫자
+                  </Text>
+                </View>
+                <View style={[AuthStyle.signupCheckView]}>
+                  {!chkPWHigh(this.state.password) ? (
+                    <Image
+                      style={ResetStyle.xsmallImg}
+                      source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
+                    />
+                  ) : (
+                    <Image
+                      style={ResetStyle.xsmallImg}
+                      source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
+                    />
+                  )}
+                  <Text
+                    style={[
+                      ResetStyle.fontLightK,
+                      ResetStyle.fontG,
+                      {marginLeft: 5},
+                    ]}>
+                    대문자
+                  </Text>
+                </View>
+                <View style={[AuthStyle.signupCheckView]}>
+                  {!chkPWCharacter(this.state.password) ? (
+                    <Image
+                      style={ResetStyle.xsmallImg}
+                      source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
+                    />
+                  ) : (
+                    <Image
+                      style={ResetStyle.xsmallImg}
+                      source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
+                    />
+                  )}
+                  <Text
+                    style={[
+                      ResetStyle.fontLightK,
+                      ResetStyle.fontG,
+                      {marginLeft: 5},
+                    ]}>
+                    특수문자
+                  </Text>
+                </View>
+                <View style={[AuthStyle.signupCheckView]}>
+                  {this.state.password.length < 8 ? (
+                    <Image
+                      style={ResetStyle.xsmallImg}
+                      source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
+                    />
+                  ) : (
+                    <Image
+                      style={ResetStyle.xsmallImg}
+                      source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
+                    />
+                  )}
+                  <Text
+                    style={[
+                      ResetStyle.fontLightK,
+                      ResetStyle.fontG,
+                      {marginLeft: 5},
+                    ]}>
+                    8자리 이상
+                  </Text>
+                </View>
+              </View>
+            </View>
+
+            {/* 비밀번호 확인 */}
+            <View>
+              <View>
+                <Text
+                  style={[
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontDG,
+                    {textAlign: 'left'},
+                  ]}>
+                  비밀번호 확인
+                </Text>
+              </View>
+
+              <TouchableOpacity>
+                <View style={AuthStyle.signupInputImageAll}>
+                  <TextInput
+                    placeholder="비밀번호 다시 입력"
+                    placeholderTextColor="#a9a9a9"
+                    secureTextEntry={this.state.checkPasswordBlur}
+                    // keyboardType={'numeric'}
+                    onBlur={() => {
+                      if (
+                        this.state.checkPassword == '' ||
+                        this.state.password == ''
+                      ) {
+                        this.setState({
+                          checkBoolean: '',
+                        });
+                      } else if (
+                        this.state.checkPassword == this.state.password
+                      ) {
+                        this.setState({
+                          checkBoolean: true,
+                        });
+                      } else if (
+                        this.state.checkPassword != this.state.password
+                      ) {
+                        this.setState({
+                          checkBoolean: false,
+                        });
+                      }
+                    }}
+                    onChangeText={this.handleCheckPassword}
+                    value={this.state.checkPassword}
+                    style={[
+                      ResetStyle.fontRegularK,
+                      ResetStyle.fontG,
+                      {
+                        textAlign: 'left',
+                        paddingTop: '6%',
+                        paddingBottom: '3%',
+                      },
+                    ]}></TextInput>
+                  {/* <Image
+                    style={ResetStyle.smallImg}
+                    source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
+                  /> */}
+                  <TouchableOpacity
+                    onPress={() => {
+                      this.setState({
+                        checkPasswordBlur: !this.state.checkPasswordBlur,
+                      });
+                    }}>
+                    {this.state.checkPasswordBlur ? (
+                      <Image
+                        style={ResetStyle.smallImg}
+                        source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
+                      />
+                    ) : (
+                      <Image
+                        style={ResetStyle.smallImg}
+                        source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
+                      />
+                    )}
+                  </TouchableOpacity>
+                </View>
+              </TouchableOpacity>
+
+              {/* alert */}
+              <View style={[AuthStyle.signupCheckView]}>
+                {this.state.checkBoolean !== '' &&
+                  this.state.checkBoolean == false && (
+                    <>
+                      <Image
+                        style={ResetStyle.smallImg}
+                        source={require('../../imgs/drawable-xhdpi/icon_x_red.png')}
+                      />
+
+                      <Text
+                        style={[
+                          ResetStyle.fontLightK,
+                          ResetStyle.fontR,
+                          {marginLeft: 5},
+                        ]}>
+                        비밀번호가 일치하지 않습니다.
+                      </Text>
+                    </>
+                  )}
+                {this.state.checkBoolean == true && (
+                  <>
+                    <Image
+                      style={ResetStyle.smallImg}
+                      source={require('../../imgs/drawable-xhdpi/icon_m_check.png')}
+                    />
+                    <Text
+                      style={{color: '#0080ff', fontSize: 14, marginLeft: 10}}>
+                      비밀번호가 일치합니다.
+                    </Text>
+                  </>
+                )}
+              </View>
+            </View>
+
+            {/* 초대코드 */}
+            <View>
+              <View>
+                <Text
+                  style={[
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontDG,
+                    {textAlign: 'left'},
+                  ]}>
+                  초대코드 (선택사항)
+                </Text>
+              </View>
+
+              <TouchableOpacity>
+                <View style={AuthStyle.signupInputImageAll}>
+                  <TextInput
+                    placeholder="비밀번호 다시 입력"
+                    placeholderTextColor="#a9a9a9"
+                    // keyboardType={'numeric'}
+                    onChangeText={this.handleInviteCode}
+                    value={this.state.inviteCode}
+                    style={[
+                      ResetStyle.fontRegularK,
+                      ResetStyle.fontG,
+                      {
+                        textAlign: 'left',
+                        paddingTop: '6%',
+                        paddingBottom: '3%',
+                      },
+                    ]}></TextInput>
+                  <TouchableOpacity
+                    onPress={() => {
+                      this.setState({
+                        inviteCode: '',
+                      });
+                    }}>
+                    <Image
+                      style={ResetStyle.smallImg}
+                      source={require('../../imgs/drawable-xhdpi/icon_x_gray.png')}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </TouchableOpacity>
+            </View>
+
+            <TouchableOpacity
+              // style={[ResetStyle.button, {backgroundColor: '#e6e6e6'}]}
+              style={[
+                ResetStyle.button,
+                this.state.checkBoolean != true &&
+                  this.state.checkEmail !== 0 && {backgroundColor: '#e6e6e6'},
+              ]}
+              onPress={() => {
+                console.log('nextBoolean', this.state.checkBoolean);
+                console.log('nextsadasdasd', this.state.checkEmail);
+                console.log(Platform.OS);
+                if (
+                  this.state.checkBoolean == true &&
+                  this.state.checkEmail === 0
+                ) {
+                  this.emailAuthApi(this.state.email);
+                  console.log('aaaa');
+                  this.props.navigation.navigate('EmailAuthentication', {
+                    email: this.state.email,
+                    password: this.state.password,
+                    deviceKey: this.props.route.params?.deviceKey,
+                    phoneNum: this.props.route.params?.phoneNum,
+                    inviteCode: this.state.inviteCode,
+                  });
+                  this.props.navigation.setOptions({title: '약관동의'});
+                }
+              }}>
+              <Text
+                style={[
+                  ResetStyle.fontMediumK,
+                  ResetStyle.fontWhite,
+                  {fontWeight: '600'},
+                ]}>
+                다음
+              </Text>
             </TouchableOpacity>
           </View>
-
-          <TouchableOpacity
-            // style={[ResetStyle.button, {backgroundColor: '#e6e6e6'}]}
-            style={[
-              ResetStyle.button,
-              this.state.checkBoolean != true &&
-                this.state.checkEmail !== 0 && {backgroundColor: '#e6e6e6'},
-            ]}
-            onPress={() => {
-              console.log('nextBoolean', this.state.checkBoolean);
-              console.log('nextsadasdasd', this.state.checkEmail);
-              console.log(Platform.OS);
-              if (
-                this.state.checkBoolean == true &&
-                this.state.checkEmail === 0
-              ) {
-                this.emailAuthApi(this.state.email);
-                console.log('aaaa');
-                this.props.navigation.navigate('EmailAuthentication', {
-                  email: this.state.email,
-                  password: this.state.password,
-                  deviceKey: this.props.route.params?.deviceKey,
-                  phoneNum: this.props.route.params?.phoneNum,
-                  inviteCode: this.state.inviteCode,
-                });
-                this.props.navigation.setOptions({title: '약관동의'});
-              }
-            }}>
-            <Text
-              style={[
-                ResetStyle.fontMediumK,
-                ResetStyle.fontWhite,
-                {fontWeight: '600'},
-              ]}>
-              다음
-            </Text>
-          </TouchableOpacity>
-        </View>
+        </KeyboardAwareScrollView>
       </SafeAreaView>
     );
   }
