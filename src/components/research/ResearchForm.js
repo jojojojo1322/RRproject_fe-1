@@ -75,6 +75,9 @@ class ResearchForm extends Component {
       });
       // this.props.navigation.push('ResearchForm');
     }
+    if (nowIndex === this.state.questionLength - 1) {
+      this.props.navigation.navigate('MainVideo');
+    }
   };
 
   componentDidMount() {
