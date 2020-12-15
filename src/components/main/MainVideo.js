@@ -152,14 +152,6 @@ function VideoList({navigation}) {
 }
 
 export default class MainVideo extends Component {
-  // state = {
-  //   modalVisible: false,
-  // };
-  // setModalVisible = (visible) => {
-  //   this.setState({
-  //     modalVisible: visible,
-  //   });
-  // };
   render() {
     return (
       <SafeAreaView style={[ResetStyle.container, {backgroundColor: '#fff'}]}>
@@ -172,18 +164,18 @@ export default class MainVideo extends Component {
           <Video
             source={{
               uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-            }} // Can be a URL or a local file.
+            }}
             ref={(ref) => {
               this.player = ref;
-            }} // Store reference
+            }}
             rate={1.0}
             volume={1.0}
             isMuted={true}
             resizeMode="cover"
             shouldPlay
             isLooping
-            onBuffer={this.onBuffer} // Callback when remote video is buffering
-            onError={this.videoError} // Callback when video cannot be loaded
+            onBuffer={this.onBuffer}
+            onError={this.videoError}
             style={{width: '100%', height: '100%'}}
           />
         </View>

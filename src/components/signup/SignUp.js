@@ -5,6 +5,9 @@ import {
   TextInput,
   TouchableOpacity,
   SafeAreaView,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
   Image,
 } from 'react-native';
 import ListModal from '../../components/factory/modal/ListModal';
@@ -362,7 +365,7 @@ class SignUp extends Component {
               인증 번호
             </Text>
 
-            <TextInput
+            {/* <TextInput
               placeholder="인증번호 입력"
               placeholderTextColor="#a9a9a9"
               value={this.state.passWord}
@@ -375,7 +378,25 @@ class SignUp extends Component {
                 ResetStyle.fontG,
                 ResetStyle.textInputText,
               ]}
-            />
+            /> */}
+            <KeyboardAvoidingView>
+              <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <TextInput
+                  placeholder="인증번호 입력"
+                  placeholderTextColor="#a9a9a9"
+                  value={this.state.passWord}
+                  keyboardType={'numeric'}
+                  returnKeyType={'done'}
+                  // secureTextEntry={true}
+                  onChangeText={(text) => this.handlePassword(text)}
+                  style={[
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontG,
+                    ResetStyle.textInputText,
+                  ]}
+                />
+              </TouchableWithoutFeedback>
+            </KeyboardAvoidingView>
             <View
               style={[
                 ResetStyle.textInputTextButton,
