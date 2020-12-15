@@ -21,6 +21,7 @@ import {
 import {RoundCheckbox, SelectedCheckboxes} from '../../factory/Roundcheck';
 import ResetStyle from '../../../style/ResetStyle';
 import {DefineCountryList} from '../../defined/DefineCountryList';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 const window = Dimensions.get('window');
 
@@ -128,65 +129,67 @@ class ListModal extends Component {
         //   Alert.alert('Modal has been closed.');
         // }}
       >
-        <View style={{flex: 1, position: 'relative'}}>
-          {/* modal background */}
-          <TouchableWithoutFeedback
-            // style={styles.centeredView}
-            activeOpacity={0.55}
-            onPress={() => {
-              this.setState({modalVisible: !modalVisible});
-              this.props.setModalVisible(!modalVisible);
-            }}>
-            <View style={styles.centeredView}></View>
-          </TouchableWithoutFeedback>
+        <KeyboardAwareScrollView contentContainerStyle={{flex: 1}}>
+          <View style={{flex: 1, position: 'relative'}}>
+            {/* modal background */}
+            <TouchableWithoutFeedback
+              // style={styles.centeredView}
+              activeOpacity={0.55}
+              onPress={() => {
+                this.setState({modalVisible: !modalVisible});
+                this.props.setModalVisible(!modalVisible);
+              }}>
+              <View style={styles.centeredView}></View>
+            </TouchableWithoutFeedback>
 
-          {/* modal view */}
-          <View style={styles.modalView}>
-            <View style={styles.modalBox}>
-              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>
-                {this.props.titleText}
-              </Text>
-              <TouchableWithoutFeedback
-                style={styles.closeButton}
-                setModalVisible={this.props.setModalVisible}
-                modalVisible={this.props.modalVisible}
-                onPress={() => {
-                  this.props.setModalVisible(!modalVisible);
-                }}>
-                <Image
+            {/* modal view */}
+            <View style={styles.modalView}>
+              <View style={styles.modalBox}>
+                <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>
+                  {this.props.titleText}
+                </Text>
+                <TouchableWithoutFeedback
                   style={styles.closeButton}
-                  source={require('../../../imgs/icon_close.png')}
-                />
-              </TouchableWithoutFeedback>
-            </View>
+                  setModalVisible={this.props.setModalVisible}
+                  modalVisible={this.props.modalVisible}
+                  onPress={() => {
+                    this.props.setModalVisible(!modalVisible);
+                  }}>
+                  <Image
+                    style={styles.closeButton}
+                    source={require('../../../imgs/icon_close.png')}
+                  />
+                </TouchableWithoutFeedback>
+              </View>
 
-            <View style={styles.modalInputBox}>
-              <TextInput
-                style={[
-                  ResetStyle.fontRegularK,
-                  ResetStyle.fontG,
-                  {padding: 10},
-                ]}
-                onChangeText={this.handleInputChange}
-                value={this.state.searchText}
-                placeholder="search"
-              />
-              <TouchableOpacity
-                style={{position: 'absolute', right: '5%', top: '35%'}}>
-                <Image
-                  style={styles.closeButton}
-                  source={require('../../../imgs/icon_search.png')}
+              <View style={styles.modalInputBox}>
+                <TextInput
+                  style={[
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontG,
+                    {padding: 10},
+                  ]}
+                  onChangeText={this.handleInputChange}
+                  value={this.state.searchText}
+                  placeholder="search"
                 />
-              </TouchableOpacity>
-            </View>
-            <View style={{height: Platform.OS === 'ios' ? '98%' : '95%'}}>
-              <CountryList
-                handlePick={this.handlePick}
-                searchText={this.state.searchText}
-              />
+                <TouchableOpacity
+                  style={{position: 'absolute', right: '5%', top: '35%'}}>
+                  <Image
+                    style={styles.closeButton}
+                    source={require('../../../imgs/icon_search.png')}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View style={{height: Platform.OS === 'ios' ? '98%' : '95%'}}>
+                <CountryList
+                  handlePick={this.handlePick}
+                  searchText={this.state.searchText}
+                />
+              </View>
             </View>
           </View>
-        </View>
+        </KeyboardAwareScrollView>
       </Modal>
     );
   }

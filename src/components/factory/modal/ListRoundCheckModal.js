@@ -19,6 +19,7 @@ import {
   Dimensions,
 } from 'react-native';
 import {RoundCheckbox, SelectedCheckboxes} from '../../factory/Roundcheck';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 const window = Dimensions.get('window');
 
 const DATA = [
@@ -327,56 +328,58 @@ class ListRoundCheckModal extends Component {
         //   Alert.alert('Modal has been closed.');
         // }}
       >
-        <View style={{flex: 1, position: 'relative'}}>
-          {/* modal background */}
-          <TouchableWithoutFeedback
-            // style={styles.centeredView}
-            activeOpacity={0.55}
-            onPress={() => {
-              this.setState({modalVisible: !modalVisible});
-              this.props.setModalVisible(!modalVisible);
-            }}>
-            <View style={styles.centeredView}></View>
-          </TouchableWithoutFeedback>
-        </View>
+        <KeyboardAwareScrollView contentContainerStyle={{flex: 1}}>
+          <View style={{flex: 1, position: 'relative'}}>
+            {/* modal background */}
+            <TouchableWithoutFeedback
+              // style={styles.centeredView}
+              activeOpacity={0.55}
+              onPress={() => {
+                this.setState({modalVisible: !modalVisible});
+                this.props.setModalVisible(!modalVisible);
+              }}>
+              <View style={styles.centeredView}></View>
+            </TouchableWithoutFeedback>
+          </View>
 
-        {/* <ModalCountry
+          {/* <ModalCountry
           data={this.state}
           setModalVisible={this.props.setModalVisible}
         /> */}
 
-        {/* modal view */}
-        <View style={styles.modalView}>
-          <View style={styles.modalBox}>
-            <Text style={styles.modalText}>거주도시 선택</Text>
-            <TouchableWithoutFeedback
-              style={styles.closeButton}
-              setModalVisible={this.props.setModalVisible}
-              modalVisible={this.props.modalVisible}
-              onPress={() => {
-                this.props.setModalVisible(!modalVisible);
-              }}>
-              <Image
+          {/* modal view */}
+          <View style={styles.modalView}>
+            <View style={styles.modalBox}>
+              <Text style={styles.modalText}>거주도시 선택</Text>
+              <TouchableWithoutFeedback
                 style={styles.closeButton}
-                source={require('../../../imgs/icon_close.png')}
-              />
-            </TouchableWithoutFeedback>
-          </View>
+                setModalVisible={this.props.setModalVisible}
+                modalVisible={this.props.modalVisible}
+                onPress={() => {
+                  this.props.setModalVisible(!modalVisible);
+                }}>
+                <Image
+                  style={styles.closeButton}
+                  source={require('../../../imgs/icon_close.png')}
+                />
+              </TouchableWithoutFeedback>
+            </View>
 
-          <View style={styles.modalInputBox}>
-            <TextInput
-              style={styles.searchInputText}
-              placeholder="search"></TextInput>
-            <TouchableOpacity style={styles.closeButton}>
-              <Image
-                style={styles.closeButton}
-                source={require('../../../imgs/icon_search.png')}
-              />
-            </TouchableOpacity>
-          </View>
+            <View style={styles.modalInputBox}>
+              <TextInput
+                style={styles.searchInputText}
+                placeholder="search"></TextInput>
+              <TouchableOpacity style={styles.closeButton}>
+                <Image
+                  style={styles.closeButton}
+                  source={require('../../../imgs/icon_search.png')}
+                />
+              </TouchableOpacity>
+            </View>
 
-          <CountryList setResidenceCity={this.props.setResidenceCity} />
-        </View>
+            <CountryList setResidenceCity={this.props.setResidenceCity} />
+          </View>
+        </KeyboardAwareScrollView>
       </Modal>
     );
   }

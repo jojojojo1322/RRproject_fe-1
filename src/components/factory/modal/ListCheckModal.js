@@ -21,6 +21,7 @@ import {
 } from 'react-native';
 import {Checkbox, SelectedCheckboxes} from '../../factory/Checkbox';
 import {DefineCountryList} from '../../defined/DefineCountryList';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 const window = Dimensions.get('window');
 let DATA = DefineCountryList;
@@ -148,81 +149,83 @@ class ListCheckModal extends Component {
         //   Alert.alert('Modal has been closed.');
         // }}
       >
-        {/* modal background */}
-        <TouchableWithoutFeedback
-          // style={styles.centeredView}
-          activeOpacity={0.55}
-          onPress={() => {
-            this.setState({modalVisible: !modalVisible});
-            this.props.setModalVisible(!modalVisible);
-          }}>
-          <View style={styles.centeredView}></View>
-        </TouchableWithoutFeedback>
+        <KeyboardAwareScrollView contentContainerStyle={{flex: 1}}>
+          {/* modal background */}
+          <TouchableWithoutFeedback
+            // style={styles.centeredView}
+            activeOpacity={0.55}
+            onPress={() => {
+              this.setState({modalVisible: !modalVisible});
+              this.props.setModalVisible(!modalVisible);
+            }}>
+            <View style={styles.centeredView}></View>
+          </TouchableWithoutFeedback>
 
-        {/* modal view */}
-        <View style={styles.modalView}>
-          <View style={styles.modalBox}>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={styles.modalText}>사용가능언어 선택</Text>
-              <Text style={[styles.modalText, {fontSize: 13, marginLeft: 5}]}>
-                (다중 선택 가능)
-              </Text>
+          {/* modal view */}
+          <View style={styles.modalView}>
+            <View style={styles.modalBox}>
+              <View style={{flexDirection: 'row'}}>
+                <Text style={styles.modalText}>사용가능언어 선택</Text>
+                <Text style={[styles.modalText, {fontSize: 13, marginLeft: 5}]}>
+                  (다중 선택 가능)
+                </Text>
+              </View>
+              <TouchableWithoutFeedback
+                style={styles.closeButton}
+                setModalVisible={this.props.modalVisible}
+                modalVisible={this.props.modalVisible}
+                onPress={() => {
+                  this.setState({modalVisible: !modalVisible});
+                  this.props.setModalVisible(!modalVisible);
+                }}>
+                <Image
+                  style={styles.closeButton}
+                  source={require('../../../imgs/icon_close.png')}
+                />
+              </TouchableWithoutFeedback>
             </View>
-            <TouchableWithoutFeedback
-              style={styles.closeButton}
-              setModalVisible={this.props.modalVisible}
-              modalVisible={this.props.modalVisible}
-              onPress={() => {
-                this.setState({modalVisible: !modalVisible});
-                this.props.setModalVisible(!modalVisible);
-              }}>
-              <Image
-                style={styles.closeButton}
-                source={require('../../../imgs/icon_close.png')}
-              />
-            </TouchableWithoutFeedback>
-          </View>
 
-          <View style={styles.modalInputBox}>
-            <TextInput
-              style={styles.searchInputText}
-              onChangeText={this.handleInputChange}
-              value={this.state.searchText}
-              placeholder="search"></TextInput>
-            <TouchableOpacity style={styles.closeButton}>
-              <Image
-                style={styles.closeButton}
-                source={require('../../../imgs/icon_search.png')}
-              />
+            <View style={styles.modalInputBox}>
+              <TextInput
+                style={styles.searchInputText}
+                onChangeText={this.handleInputChange}
+                value={this.state.searchText}
+                placeholder="search"></TextInput>
+              <TouchableOpacity style={styles.closeButton}>
+                <Image
+                  style={styles.closeButton}
+                  source={require('../../../imgs/icon_search.png')}
+                />
+              </TouchableOpacity>
+            </View>
+
+            <CountryList
+              setLanguage={this.props.setLanguage}
+              CheckedArrObject={CheckedArrObject}
+              searchText={this.state.searchText}
+              handleCheckedArray={this.handleCheckedArray}
+              handleUnCheckedArray={this.handleUnCheckedArray}
+            />
+
+            <TouchableOpacity
+              style={[
+                styles.button,
+
+                // {backgroundColor: '#c6c9cf', marginTop: 15},
+                this.state.checkedArray == '' && {backgroundColor: '#e6e6e6'},
+              ]}
+              onPress={() => {
+                if (this.state.checkedArray !== '') {
+                  console.log('AKKKKAKAKAKAKAKAKAK');
+                  this.props.setLanguage(this.state.checkedArray);
+                  this.setState({modalVisible: !modalVisible});
+                  this.props.setModalVisible(!modalVisible);
+                }
+              }}>
+              <Text style={[styles.buttonTexts]}>CONFIRM</Text>
             </TouchableOpacity>
           </View>
-
-          <CountryList
-            setLanguage={this.props.setLanguage}
-            CheckedArrObject={CheckedArrObject}
-            searchText={this.state.searchText}
-            handleCheckedArray={this.handleCheckedArray}
-            handleUnCheckedArray={this.handleUnCheckedArray}
-          />
-
-          <TouchableOpacity
-            style={[
-              styles.button,
-
-              // {backgroundColor: '#c6c9cf', marginTop: 15},
-              this.state.checkedArray == '' && {backgroundColor: '#e6e6e6'},
-            ]}
-            onPress={() => {
-              if (this.state.checkedArray !== '') {
-                console.log('AKKKKAKAKAKAKAKAKAK');
-                this.props.setLanguage(this.state.checkedArray);
-                this.setState({modalVisible: !modalVisible});
-                this.props.setModalVisible(!modalVisible);
-              }
-            }}>
-            <Text style={[styles.buttonTexts]}>CONFIRM</Text>
-          </TouchableOpacity>
-        </View>
+        </KeyboardAwareScrollView>
       </Modal>
     );
   }
