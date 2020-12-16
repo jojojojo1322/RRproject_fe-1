@@ -12,7 +12,7 @@ import {
 import {NavigationContainer} from '@react-navigation/native';
 import {useHeaderHeight} from '@react-navigation/stack';
 import {StatusBar} from 'react-native';
-import lang from './defined/lang';
+import {lang} from './defined/lang';
 import ResetStyle from '../style/ResetStyle.js';
 import AuthStyle from '../style/AuthStyle.js';
 
@@ -61,23 +61,8 @@ class Initial2 extends Component {
     const userLang = this.state.userLang;
     const windowWidth = this.state.dimensions.window.width;
     const windowHeight = this.state.dimensions.window.height;
-    // console.log([ko]);
-    // console.log([lang.ko.initial1]);
-    // console.log([ko.initial1]);
-    // console.log([en.initial1]);
-    // console.log([lang]);
-    // console.log('1', userLang);
-    // console.log('2', {userLang});
-    // console.log('3', [userLang]);
-    // console.log('4', `${userLang}`);
-    // console.log('>>>>', [`${lang}.${userLang}.${initial1}`]);
-    // console.log('>>>>', [lang.{userLang}]);
-    // const arr = lang + `.${userLang}`;
-    // console.log('arr>>>>', arr);
-    // console.log(userLang);
-    // console.log({userLang});
-    // console.log(`${userLang}`);
-    // console.log('aaa>>>', arr.initial1);
+    const llang = lang;
+    console.log('llangngngn>>>>', llang(223)[0].ko.KycComplete);
     console.log(windowHeight);
     return (
       <SafeAreaView
@@ -143,10 +128,19 @@ class Initial2 extends Component {
                       {textAlign: 'center', marginTop: '4%', lineHeight: 26},
                     ]}>
                     {imageIndex == 0
-                      ? [lang.en.initial1]
+                      ? lang()[0].en.initial1
                       : imageIndex == 1
-                      ? [lang.en.initial2]
-                      : [lang.en.initial3]}
+                      ? lang()[0].en.initial2
+                      : lang()[0].en.initial3}
+
+                    {/* {
+                      lang(223, <Text style={{color: 'red'}}>asd</Text>)[0].ko
+                        .KycComplete[1]
+                    }
+                    {
+                      lang(223, <Text style={{color: 'red'}}>asd</Text>)[0].ko
+                        .KycComplete[2]
+                    } */}
                   </Text>
                 </View>
               );
@@ -258,7 +252,7 @@ class Initial2 extends Component {
                 ]}>
                 ProfileMain
               </Text>
-            </TouchableOpacity> */}
+            </TouchableOpacity>
             {/* <TouchableOpacity
               style={[ResetStyle.buttonWhite, {marginTop: 10}]}
               activeOpacity={0.75}

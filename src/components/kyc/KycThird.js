@@ -21,6 +21,7 @@ import ListModal from '../factory/modal/ListModal';
 import ListCheckModal from '../factory/modal/ListCheckModal';
 import ListRoundCheckModal from '../factory/modal/ListRoundCheckModal';
 import ResetStyle from '../../style/ResetStyle.js';
+import AuthStyle from '../../style/AuthStyle.js';
 
 export default class kycThird extends Component {
   state = {

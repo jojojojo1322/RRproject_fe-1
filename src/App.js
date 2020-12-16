@@ -32,6 +32,10 @@ import ResetEmail from './components/resetPassword/ResetEmail';
 import ResetPassword from './components/resetPassword/ResetPassword';
 
 import ProfileMain from './components/settings/profile/ProfileMain';
+import ProfileAll from './components/settings/profile/ProfileAll';
+import ProfileCompleteDetail from './components/settings/profile/ProfileCompleteDetail';
+import ProfileIncompleteDetail from './components/settings/profile/ProfileIncompleteDetail';
+import ProfileComplete from './components/settings/profile/ProfileComplete';
 
 const Stack = createStackNavigator();
 
@@ -404,6 +408,74 @@ class App extends Component {
           <Stack.Screen
             name="ProfileMain"
             component={ProfileMain}
+            options={{
+              headerShown: false,
+              title: '',
+              headerStyle: {
+                backgroundColor: '#FFF',
+                shadowColor: 'none',
+                shadowOffset: {width: 0, height: 0},
+                shadowOpacity: 0,
+                shadowRadius: 0,
+                elevation: 0,
+              },
+              headerTintColor: '#000',
+            }}
+          />
+          <Stack.Screen
+            name="ProfileAll"
+            component={ProfileAll}
+            options={{
+              headerShown: false,
+              title: '',
+              headerStyle: {
+                backgroundColor: '#FFF',
+                shadowColor: 'none',
+                shadowOffset: {width: 0, height: 0},
+                shadowOpacity: 0,
+                shadowRadius: 0,
+                elevation: 0,
+              },
+              headerTintColor: '#000',
+            }}
+          />
+          <Stack.Screen
+            name="ProfileCompleteDetail"
+            component={ProfileCompleteDetail}
+            options={{
+              headerShown: false,
+              title: '',
+              headerStyle: {
+                backgroundColor: '#FFF',
+                shadowColor: 'none',
+                shadowOffset: {width: 0, height: 0},
+                shadowOpacity: 0,
+                shadowRadius: 0,
+                elevation: 0,
+              },
+              headerTintColor: '#000',
+            }}
+          />
+          <Stack.Screen
+            name="ProfileIncompleteDetail"
+            component={ProfileIncompleteDetail}
+            options={{
+              headerShown: false,
+              title: '',
+              headerStyle: {
+                backgroundColor: '#FFF',
+                shadowColor: 'none',
+                shadowOffset: {width: 0, height: 0},
+                shadowOpacity: 0,
+                shadowRadius: 0,
+                elevation: 0,
+              },
+              headerTintColor: '#000',
+            }}
+          />
+          <Stack.Screen
+            name="ProfileComplete"
+            component={ProfileComplete}
             options={{
               headerShown: false,
               title: '',
