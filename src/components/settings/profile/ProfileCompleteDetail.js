@@ -21,119 +21,13 @@ import MainStyle from '../../../style/MainStyle.js';
 
 const kycArr = [
   {
-    id: 23,
-    level: 23,
-    status: null,
-  },
-  {
-    id: 22,
-    level: 22,
-    status: null,
-  },
-  {
-    id: 21,
-    level: 21,
-    status: null,
-  },
-  {
-    id: 20,
-    level: 20,
-    status: null,
-  },
-  {
-    id: 19,
-    level: 19,
-    status: null,
-  },
-  {
-    id: 18,
-    level: 18,
-    status: null,
-  },
-  {
-    id: 17,
-    level: 17,
-    status: null,
-  },
-  {
-    id: 16,
-    level: 16,
-    status: null,
-  },
-  {
-    id: 15,
-    level: 15,
-    status: null,
-  },
-  {
-    id: 14,
-    level: 14,
-    status: null,
-  },
-  {
-    id: 13,
-    level: 13,
-    status: null,
-  },
-  {
-    id: 12,
-    level: 12,
-    status: null,
-  },
-  {
-    id: 11,
-    level: 11,
-    status: null,
-  },
-  {
-    id: 10,
-    level: 10,
-    status: null,
-  },
-  {
-    id: 9,
-    level: 9,
-    status: null,
-  },
-  {
-    id: 8,
-    level: 8,
-    status: null,
-  },
-  {
-    id: 7,
-    level: 7,
-    status: null,
-  },
-  {
-    id: 6,
-    level: 6,
-    status: null,
-  },
-  {
-    id: 5,
-    level: 5,
-    status: null,
-  },
-  {
-    id: 4,
-    level: 4,
-    status: null,
-  },
-  {
-    id: 3,
-    level: 3,
-    status: null,
-  },
-  {
-    id: 2,
-    level: 2,
-    status: true,
-  },
-  {
-    id: 1,
-    level: 1,
-    status: true,
+    나이: '25',
+    성별: 'female',
+    결혼유무: 'single',
+    국적: 'Korea',
+    거주국가: 'Korea',
+    거주도시: 'Seoul',
+    언어: 'korean',
   },
 ];
 export default class ProfileCompleteDetail extends Component {
@@ -146,142 +40,73 @@ export default class ProfileCompleteDetail extends Component {
             // marginTop: StatusBar.currentHeight || 0,
             flex: 1,
           }}>
-          <View
-            style={{
-              backgroundColor: '#f9f9f9',
-              paddingTop: Platform.OS === 'ios' ? '15%' : '5%',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              padding: '5%',
-              paddingTop: '4%',
-              //   paddingBottom: '10%',
-            }}>
-            <TouchableOpacity>
-              <View style={{flexDirection: 'row'}}>
-                <Image
-                  source={require('../../../imgs/drawable-xxxhdpi/main_r_logo.png')}
-                />
-                <Text
-                  style={[
-                    ResetStyle.fontRegularK,
-                    ResetStyle.fontB,
-                    {marginLeft: 10},
-                  ]}>
-                  Real Research
-                </Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.openDrawer()}>
-              <Image
-                source={require('../../../imgs/drawable-xxxhdpi/menu_icon.png')}
-              />
-            </TouchableOpacity>
-          </View>
-          <View
-            style={{
-              backgroundColor: '#2d91ff',
-              padding: 20,
-              paddingTop: 25,
-              paddingBottom: 25,
-            }}>
-            <Text
-              style={[
-                ResetStyle.fontRegularE,
-                ResetStyle.fontWhite,
-                {fontWeight: '700'},
-                {textAlign: 'left'},
-              ]}>
-              LEVEL 2
-            </Text>
-            <Text
-              style={[
-                ResetStyle.fontRegularE,
-                ResetStyle.fontWhite,
-                {textAlign: 'left'},
-              ]}>
-              tnctnctnc123@gmail.com
-            </Text>
-          </View>
           <ScrollView style={{padding: '5%', marginTop: 12}}>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                marginBottom: 30,
-              }}>
-              <Text style={[ResetStyle.fontMediumE, {fontWeight: '400'}]}>
-                KYC LEVEL
-              </Text>
-              <TouchableOpacity
-                style={[
-                  ResetStyle.buttonSmall,
-                  {width: '20%', padding: 0, paddingTop: 3},
-                ]}>
-                <Text
-                  style={[
-                    // ResetStyle.fontMediumE,
-                    ResetStyle.buttonTexts,
-                    ResetStyle.fontRegularE,
-                    {fontWeight: '500'},
-                  ]}>
-                  ALL
-                </Text>
-              </TouchableOpacity>
-            </View>
             {kycArr.map((data, index) => {
+              let Arr = [];
+              let i = 0;
+              for (d in data) {
+                ++i;
+                console.log('asdasd', i == Object.keys(data).length);
+                // console.log('a', Object.keys(d).length);
+                Arr.push(
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'flex-start',
+                      borderBottomColor: '#dedede',
+                      borderBottomWidth: i != Object.keys(data).length ? 1 : 0,
+                      width: '100%',
+                      paddingTop: 15,
+                      paddingBottom: 15,
+                    }}>
+                    <Text
+                      style={[
+                        ResetStyle.fontRegularK,
+                        ResetStyle.fontB,
+                        {width: '30%', textAlign: 'left'},
+                      ]}>
+                      {d}
+                    </Text>
+                    <Text style={[ResetStyle.fontRegularK, ResetStyle.fontDG]}>
+                      {data[d]}
+                    </Text>
+                  </View>,
+                );
+              }
               return (
-                <>
-                  <TouchableOpacity
+                <View>
+                  <View
                     style={{
                       flexDirection: 'row',
                       justifyContent: 'space-between',
-                      marginTop: 15,
-                    }}
-                    key={index}>
+                      marginBottom: 30,
+                      marginTop: 50,
+                    }}>
                     <Text
-                      style={[
-                        ResetStyle.fontLightE,
-                        data.status === true || kycArr[index + 1].status == true
-                          ? ResetStyle.fontBlack
-                          : ResetStyle.fontG,
-                        {fontWeight: '500', paddingLeft: 10, marginBottom: 20},
-                      ]}>
-                      KYC LEVEL {data.level}
+                      style={[ResetStyle.fontRegularE, {fontWeight: '500'}]}>
+                      KYC LEVEL {index + 1}
                     </Text>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        paddingRight: 10,
-                      }}>
-                      <Text
-                        style={[
-                          ResetStyle.fontLightE,
-                          data.status === true ||
-                          kycArr[index + 1].status == true
-                            ? ResetStyle.fontBlack
-                            : ResetStyle.fontG,
-                          {fontWeight: '500', paddingRight: 10},
-                        ]}>
-                        {data.status == true ? `완료` : `시작`}
-                      </Text>
+                    {/* <TouchableOpacity>
                       <Image
-                        source={
-                          data.status == true
-                            ? require('../../../imgs/drawable-hdpi/icon_s_check_on.png')
-                            : require('../../../imgs/drawable-hdpi/icon_s_check_off.png')
-                        }
+                        source={require('../../../imgs/drawable-xxxhdpi/kyc_edit_icon.png')}
+                        // source={require('../../../imgs/drawable-xxxhdpi/kyc_edit_completed_icon.png')}
                       />
-                    </View>
-                  </TouchableOpacity>
-                  <View
-                    style={{
-                      borderBottomColor: '#dedede',
-                      borderBottomWidth: 1.5,
-                    }}></View>
-                </>
+                    </TouchableOpacity> */}
+                  </View>
+                  {Arr}
+                </View>
               );
             })}
           </ScrollView>
+          <TouchableOpacity
+            style={[ResetStyle.button, {marginLeft: '5%', width: '90%'}]}
+            onPress={() => {
+              this.props.navigation.navigate('Kyc');
+            }}>
+            <Text style={[ResetStyle.buttonTexts, {fontSize: 20}]}>
+              정보 수정하기
+            </Text>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     );

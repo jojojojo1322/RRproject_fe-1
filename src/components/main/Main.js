@@ -22,6 +22,7 @@ import MainAlert from '../main/MainAlert';
 
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {CustomDrawerContent} from '../defined/CustomDrawerContent';
+import ProfileMain from '../settings/profile/ProfileMain';
 
 const Drawer = createDrawerNavigator();
 const AnimatedIndicator = Animated.createAnimatedComponent(ActivityIndicator);
@@ -968,7 +969,11 @@ export const MainTest = ({navigation}) => {
             </Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.openDrawer()}>
+        <TouchableOpacity
+          onPress={() => {
+            console.log(navigation.openDrawer);
+            navigation.openDrawer();
+          }}>
           <Image
             source={require('../../imgs/drawable-xxxhdpi/menu_icon.png')}
           />
@@ -1000,6 +1005,7 @@ class Main extends Component {
         <Drawer.Screen name="알림" component={MainAlert} />
         <Drawer.Screen name="설정" component={MainTest} />
         <Drawer.Screen name="초대코드" component={MainTest} />
+        <Drawer.Screen name="프로필" component={ProfileMain} />
       </Drawer.Navigator>
     );
   }

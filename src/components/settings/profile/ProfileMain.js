@@ -18,7 +18,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '../../../style/ResetStyle.js';
 import MainStyle from '../../../style/MainStyle.js';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+// import {CustomDrawerContent} from '../../defined/CustomDrawerContent';
 
+const Drawer = createDrawerNavigator();
 const kycArr = [
   {
     id: 23,
@@ -136,7 +139,7 @@ const kycArr = [
     status: true,
   },
 ];
-export default class ProfileMain extends Component {
+export default class ProfileMainDrawer extends Component {
   render() {
     return (
       <SafeAreaView style={MainStyle.mainFlatlistView}>
@@ -171,7 +174,13 @@ export default class ProfileMain extends Component {
                 </Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.openDrawer()}>
+            <TouchableOpacity
+              onPress={() => {
+                console.log(this.props.navigation.openDrawer);
+                // console.log(this.props.route.params?.openDrawer);
+                // this.props.navigation.openDrawer();
+                this.props.route.params?.openDrawer;
+              }}>
               <Image
                 source={require('../../../imgs/drawable-xxxhdpi/menu_icon.png')}
               />
@@ -216,7 +225,10 @@ export default class ProfileMain extends Component {
                 style={[
                   ResetStyle.buttonSmall,
                   {width: '20%', padding: 0, paddingTop: 3},
-                ]}>
+                ]}
+                onPress={() => {
+                  this.props.navigation.navigate('ProfileAll');
+                }}>
                 <Text
                   style={[
                     // ResetStyle.fontMediumE,
@@ -237,7 +249,17 @@ export default class ProfileMain extends Component {
                       justifyContent: 'space-between',
                       marginTop: 15,
                     }}
-                    key={index}>
+                    key={index}
+                    onPress={() => {
+                      data.status === true
+                        ? this.props.navigation.navigate(
+                            'ProfileCompleteDetail',
+                          )
+                        : // : this.props.navigation.navigate(
+                          //     'ProfileIncompleteDetail',
+                          //   );
+                          this.props.navigation.navigate('ProfileComplete');
+                    }}>
                     <Text
                       style={[
                         ResetStyle.fontLightE,

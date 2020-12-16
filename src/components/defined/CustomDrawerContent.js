@@ -115,9 +115,18 @@ export function CustomDrawerContent(props) {
           ]}>
           2
         </Text>
+        {/* <DrawerItemList {...props} /> */}
+        {/* <DrawerItem
+          label="Help"
+          onPress={() => {
+            props.navigation.navigate('ProfileMain');
+            console.log('asdasdasdasdasd');
+          }}> */}
         <TouchableOpacity
           onPress={() => {
-            this.props.navigation.navigate('KycMain');
+            console.log(props.navigation.openDrawer);
+            props.navigation.navigate('ProfileMain');
+            // props.navigation.openDrawer;
           }}>
           <View
             style={{
@@ -139,6 +148,7 @@ export function CustomDrawerContent(props) {
             />
           </View>
         </TouchableOpacity>
+        {/* </DrawerItem> */}
       </View>
       <View
         style={{
