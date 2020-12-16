@@ -18,6 +18,8 @@ import ResetStyle from '../../style/ResetStyle.js';
 import MainStyle from '../../style/MainStyle.js';
 import {ProgressCircle} from 'react-native-svg-charts';
 
+import MainAlert from '../main/MainAlert';
+
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {CustomDrawerContent} from '../defined/CustomDrawerContent';
 
@@ -568,7 +570,12 @@ export const MainTest = ({navigation}) => {
         <TouchableOpacity
           style={[MainStyle.itemBox]}
           onPress={() => {
-            navigation.navigate('MainDetail');
+            item.status === 'expired'
+              ? navigation.navigate('MainDetailExpired')
+              : item.status === 'upcoming'
+              ? navigation.navigate('MainDetail')
+              : navigation.navigate('MainDetail');
+            // navigation.navigate('MainDetail');
           }}>
           <View
             opacity={item.status === 'expired' ? 0.5 : 1.0}
@@ -716,10 +723,15 @@ export const MainTest = ({navigation}) => {
             </View>
             <View style={MainStyle.itemBoxBottomBarChartView}>
               <View
-                style={[
-                  MainStyle.itemBoxBottomBarChartPercent,
-                  {width: '65%'},
-                ]}></View>
+                style={{
+                  ...MainStyle.itemBoxBottomBarChartPercent,
+                  width:
+                    item.status === 'upcoming'
+                      ? 0
+                      : item.status === 'ongoing'
+                      ? '65%'
+                      : '65%',
+                }}></View>
             </View>
             <View style={MainStyle.participantCountView}>
               <Text
@@ -985,7 +997,7 @@ class Main extends Component {
         <Drawer.Screen name="설문조사" component={MainTest} />
         <Drawer.Screen name="설문조사 의뢰하기" component={MainTest} />
         <Drawer.Screen name="미디어" component={MainTest} />
-        <Drawer.Screen name="알림" component={MainTest} />
+        <Drawer.Screen name="알림" component={MainAlert} />
         <Drawer.Screen name="설정" component={MainTest} />
         <Drawer.Screen name="초대코드" component={MainTest} />
       </Drawer.Navigator>

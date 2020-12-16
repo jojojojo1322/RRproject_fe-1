@@ -16,6 +16,7 @@ import Kyc from './components/kyc/Kyc';
 
 import Main from './components/main/Main';
 import MainDetail from './components/main/MainDetail';
+import MainDetailExpired from './components/main/MainDetailExpired';
 import MainVideo from './components/main/MainVideo';
 
 import SignUp from './components/signup/SignUp';
@@ -349,6 +350,24 @@ class App extends Component {
           <Stack.Screen
             name="MainDetail"
             component={MainDetail}
+            options={{
+              headerShown: false,
+              title: '',
+              headerStyle: {
+                backgroundColor: '#FFF',
+                shadowColor: 'none',
+                shadowOffset: {width: 0, height: 0},
+                shadowOpacity: 0,
+                shadowRadius: 0,
+                elevation: 0,
+              },
+              headerTintColor: '#000',
+            }}
+          />
+
+          <Stack.Screen
+            name="MainDetailExpired"
+            component={MainDetailExpired}
             options={{
               headerShown: false,
               title: '',

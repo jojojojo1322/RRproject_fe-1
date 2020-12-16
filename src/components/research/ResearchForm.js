@@ -15,6 +15,7 @@ import PropTypes from 'prop-types';
 import ResetStyle from '../../style/ResetStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {SelectedCheckboxes, RoundCheckbox} from '../factory/Roundcheck';
+import ResearchStyle from '../../style/ResearchStyle.js';
 
 class ResearchForm extends Component {
   // CheckedArrObject = new SelectedCheckboxes();
@@ -204,19 +205,6 @@ class ResearchForm extends Component {
     console.log(this.state.checkedArray);
   };
 
-  // handleUnCheckedArray = async (key) => {
-  //   console.log('MINUS', key);
-  //   let checkedArray = this.state.checkedArray;
-  //   checkedArray.splice(
-  //     checkedArray.findIndex((y) => y.key == key),
-  //     1,
-  //   ),
-  //     await this.setState({
-  //       checkedArray: checkedArray,
-  //     });
-  //   console.log('MinusArrayLATE', this.state.checkedArray);
-  // };
-
   render() {
     let researchArr = this.state.question;
     let Arr;
@@ -225,40 +213,46 @@ class ResearchForm extends Component {
     researchArr.map(
       (data, index) =>
         (researchList = researchList.concat(
-          <View style={styles.container} key={index}>
-            <View style={styles.researchSubBox}>
+          <View style={[ResearchStyle.researchView]} key={index}>
+            <View style={ResearchStyle.researchQuestionLength}>
               <Text
                 style={[
                   ResetStyle.fontBoldK,
                   ResetStyle.fontB,
-                  {fontWeight: '400', marginTop: '9%'},
+                  {fontWeight: '400'},
                 ]}>
                 {data.id + 1}/{this.state.questionLength}
               </Text>
               <Text
                 style={[
-                  ResetStyle.fontLightK,
+                  ResetStyle.fontRegularK,
                   ResetStyle.fontBlack,
-                  {
-                    fontWeight: '500',
-                    textAlign: 'left',
-                    marginTop: '6%',
-                    marginBottom: '8%',
-                    lineHeight: 25,
-                  },
+                  ResearchStyle.researchQuestion,
                 ]}>
                 {data.question}
               </Text>
             </View>
 
-            <ScrollView>
+            <ScrollView style={ResearchStyle.researchScrollView}>
               {data.questionDetail.map((detail, index) => {
                 if (detail.id == 1) {
                   return (
-                    <View style={styles.checkListFirst} key={index}>
-                      <Text style={styles.checkListText}>{detail.detail}</Text>
+                    <View
+                      style={[
+                        ResearchStyle.researchAnswerStyle,
+                        ResearchStyle.researchAnswerTopStyle,
+                      ]}
+                      key={index}>
+                      <Text
+                        style={[
+                          ResetStyle.fontRegularK,
+                          ResetStyle.fontBlack,
+                          {textAlign: 'left'},
+                        ]}>
+                        {detail.detail}
+                      </Text>
                       <RoundCheckbox
-                        size={25}
+                        size={30}
                         keyValue={data.id}
                         checked={
                           this.state.checkedArray.findIndex(
@@ -289,10 +283,17 @@ class ResearchForm extends Component {
                   );
                 } else {
                   return (
-                    <View style={styles.checkList} key={index}>
-                      <Text style={styles.checkListText}>{detail.detail}</Text>
+                    <View style={ResearchStyle.researchAnswerStyle} key={index}>
+                      <Text
+                        style={[
+                          ResetStyle.fontRegularK,
+                          ResetStyle.fontBlack,
+                          {textAlign: 'left'},
+                        ]}>
+                        {detail.detail}
+                      </Text>
                       <RoundCheckbox
-                        size={25}
+                        size={30}
                         keyValue={data.id}
                         checked={
                           this.state.checkedArray.findIndex(
@@ -329,203 +330,64 @@ class ResearchForm extends Component {
     );
 
     return (
-      <SafeAreaView style={styles.container}>
-        <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-          설문조사 제목
-        </Text>
-
-        {researchList[this.state.nowIndex]}
-
-        <View style={styles.buttonBox}>
-          <TouchableOpacity
-            style={
-              this.state.nowIndex == 0
-                ? [
-                    ResetStyle.button,
-                    {width: '49%', backgroundColor: '#e6e6e6'},
-                  ]
-                : [ResetStyle.button, {width: '49%'}]
-            }
-            activeOpacity={0.75}
-            onPress={this.handlerPrev}>
-            <Text
-              style={[
-                ResetStyle.fontMediumK,
-                ResetStyle.fontWhite,
-                {fontWeight: '600'},
-              ]}>
-              {this.state.nowIndex == 0 ? '취소' : '이전'}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
+      <SafeAreaView style={ResetStyle.container}>
+        <View
+          style={[ResetStyle.containerInner, {marginLeft: 0, marginRight: 0}]}>
+          <Text
             style={[
-              ResetStyle.button,
-              {width: '49%', backgroundColor: '#4696ff'},
-            ]}
-            activeOpacity={0.75}
-            onPress={this.handlerNext}>
-            <Text
+              ResetStyle.fontMediumK,
+              ResetStyle.fontBlack,
+              ResearchStyle.researchTitle,
+            ]}>
+            설문조사 제목
+          </Text>
+
+          {researchList[this.state.nowIndex]}
+
+          <View style={ResearchStyle.researchBottomButton}>
+            <TouchableOpacity
+              style={
+                this.state.nowIndex == 0
+                  ? [
+                      ResetStyle.button,
+                      {width: '49%', backgroundColor: '#e6e6e6'},
+                    ]
+                  : [ResetStyle.button, {width: '49%'}]
+              }
+              activeOpacity={0.75}
+              onPress={this.handlerPrev}>
+              <Text
+                style={[
+                  ResetStyle.fontMediumK,
+                  ResetStyle.fontWhite,
+                  {fontWeight: '600'},
+                ]}>
+                {this.state.nowIndex == 0 ? '취소' : '이전'}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
               style={[
-                ResetStyle.fontMediumK,
-                ResetStyle.fontWhite,
-                {fontWeight: '600'},
-              ]}>
-              {this.state.nowIndex == this.state.questionLength - 1
-                ? '제출'
-                : '다음'}
-            </Text>
-          </TouchableOpacity>
+                ResetStyle.button,
+                {width: '49%', backgroundColor: '#4696ff'},
+              ]}
+              activeOpacity={0.75}
+              onPress={this.handlerNext}>
+              <Text
+                style={[
+                  ResetStyle.fontMediumK,
+                  ResetStyle.fontWhite,
+                  {fontWeight: '600'},
+                ]}>
+                {this.state.nowIndex == this.state.questionLength - 1
+                  ? '제출'
+                  : '다음'}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </SafeAreaView>
     );
   }
 }
-
-RoundCheckbox.propTypes = {
-  keyValue: PropTypes.number.isRequired,
-  size: PropTypes.number,
-  color: PropTypes.string,
-  label: PropTypes.string,
-  value: PropTypes.number,
-  checked: PropTypes.bool,
-  labelColor: PropTypes.string,
-  checkedObjArr: PropTypes.object.isRequired,
-};
-
-// RoundCheckbox.defaultProps = {
-//   size: 30,
-//   checked: false,
-//   value: 'Default',
-//   label: 'Default',
-//   color: '#164895',
-//   labelColor: '000000',
-// };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    backgroundColor: '#FFF',
-  },
-  researchTitle: {
-    textAlign: 'center',
-    fontSize: 20,
-    fontWeight: '500',
-    marginTop: '10%',
-  },
-  researchSubBox: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    paddingLeft: '5%',
-    paddingRight: '5%',
-  },
-  researchSubNumber: {
-    marginTop: '10%',
-    fontSize: 27,
-    lineHeight: 36,
-    fontWeight: '500',
-    color: '#164895',
-  },
-  researchSubText: {
-    marginTop: '10%',
-    fontSize: 16,
-    lineHeight: 25,
-    fontWeight: '500',
-    color: '#333',
-    marginBottom: '10%',
-  },
-  buttonBox: {
-    flexDirection: 'row',
-    paddingLeft: '5%',
-    paddingRight: '5%',
-    justifyContent: 'space-between',
-    marginBottom: '8%',
-  },
-  button: {
-    width: '48%',
-    height: 56,
-    borderRadius: 30,
-    backgroundColor: '#164895',
-    justifyContent: 'center',
-    color: '#FFF',
-  },
-  buttonCancel: {
-    width: '48%',
-    height: 56,
-    borderRadius: 30,
-    backgroundColor: '#c6c9cf',
-    justifyContent: 'center',
-    color: '#FFF',
-  },
-  buttonText: {
-    color: '#FFF',
-    textAlign: 'center',
-    // alignSelf: 'center',
-    fontSize: 17,
-    // lineHeight: 56,
-    fontWeight: '500',
-    letterSpacing: 0.9,
-  },
-  checkList: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    // justifyContent: 'center',
-    padding: '4%',
-    paddingLeft: '5%',
-    paddingRight: '5%',
-    borderBottomWidth: 1,
-    borderColor: '#dedede',
-  },
-  checkListFirst: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: '4%',
-    paddingLeft: '5%',
-    paddingRight: '5%',
-    borderBottomWidth: 1,
-    borderTopWidth: 1,
-    borderColor: '#dedede',
-  },
-  checkListText: {
-    fontSize: 15,
-    lineHeight: 24,
-    color: '#333',
-  },
-  buttonText: {
-    fontSize: 20,
-    color: '#ffffff',
-    textAlign: 'center',
-    alignSelf: 'stretch',
-  },
-
-  selectedUI: {
-    flex: 1,
-    // justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  checkboxTickImg: {
-    width: '75%',
-    height: '75%',
-    tintColor: '#ffffff',
-    resizeMode: 'contain',
-  },
-
-  uncheckedCheckbox: {
-    flex: 1,
-    borderRadius: 50,
-    backgroundColor: '#ffffff',
-  },
-
-  checkboxLabel: {
-    display: 'none',
-    fontSize: 18,
-    paddingLeft: 15,
-  },
-});
 
 export default ResearchForm;
