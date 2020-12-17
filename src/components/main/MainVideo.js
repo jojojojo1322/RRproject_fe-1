@@ -76,9 +76,9 @@ const Item = ({videoUri, videoTitle, videoSub, videoDate, onPress}) => (
         source={{
           uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
         }} // Can be a URL or a local file.
-        ref={(ref) => {
-          this.player = ref;
-        }} // Store reference
+        // ref={(ref) => {
+        //   this.player = ref;
+        // }}
         rate={1.0}
         volume={1.0}
         isMuted={true}
@@ -86,8 +86,8 @@ const Item = ({videoUri, videoTitle, videoSub, videoDate, onPress}) => (
         // shouldPlay
         // isLooping
         paused={true}
-        onBuffer={this.onBuffer} // Callback when remote video is buffering
-        onError={this.videoError} // Callback when video cannot be loaded
+        // onBuffer={this.onBuffer}
+        // onError={this.videoError}
         style={{width: '100%', height: 105}}
       />
       <TouchableOpacity
@@ -174,9 +174,11 @@ export default class MainVideo extends Component {
             resizeMode="cover"
             shouldPlay
             isLooping
-            onBuffer={this.onBuffer}
-            onError={this.videoError}
+            // onBuffer={this.onBuffer}
+            // onError={this.videoError}
             style={{width: '100%', height: '100%'}}
+            controls={true}
+            fullscreenOrientation={'landscape'}
           />
         </View>
         <VideoList />
