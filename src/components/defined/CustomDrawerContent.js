@@ -205,13 +205,18 @@ export function CustomDrawerContent(props) {
         {...props}
       />
       {/* <DrawerItem
-          label="Close drawer"
-          onPress={() => props.navigation.closeDrawer()}
-        />
-        <DrawerItem
-          label="Toggle drawer"
-          onPress={() => props.navigation.toggleDrawer()}
-        /> */}
+        label="Close drawer"
+        onPress={() => props.navigation.closeDrawer()}
+      />
+      <DrawerItem
+        label="Toggle drawer"
+        onPress={() => props.navigation.toggleDrawer()}
+      /> */}
+      <DrawerItem
+        label="change"
+        onPress={() => props.navigation.closeDrawer()}
+        {...props}
+      />
     </DrawerContentScrollView>
   );
 }
