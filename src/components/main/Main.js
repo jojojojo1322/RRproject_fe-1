@@ -22,7 +22,10 @@ import MainAlert from '../main/MainAlert';
 
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {CustomDrawerContent} from '../defined/CustomDrawerContent';
+import App from '../../App';
 import ProfileMain from '../settings/profile/ProfileMain';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Drawer = createDrawerNavigator();
 const AnimatedIndicator = Animated.createAnimatedComponent(ActivityIndicator);
@@ -36,7 +39,7 @@ const SafeStatusBar = Platform.select({
 });
 const PullToRefreshDist = 150;
 
-export const MainTest = ({navigation}) => {
+export const Main = ({navigation}) => {
   /**
    * stats
    */
@@ -324,7 +327,8 @@ export const MainTest = ({navigation}) => {
     });
   };
 
-  const startRefreshAction = () => {
+  const startRefreshAction = async () => {
+    console.log('rererefresh', await AsyncStorage.getItem('userNo'));
     if (Platform.OS === 'ios') {
       listRefArr.current.forEach((listRef) => {
         listRef.value.scrollToOffset({
@@ -986,32 +990,35 @@ export const MainTest = ({navigation}) => {
   );
 };
 
-export const Main = () => {
-  return (
-    <Drawer.Navigator
-      initialRouteName="설문조사"
-      drawerContent={(props) => <CustomDrawerContent {...props} />}
-      drawerPosition="right"
-      drawerStyle={{
-        width: '80%',
-        backgroundColor: '#FFF',
-      }}
-      drawerContentOptions={{
-        itemStyle: {
-          marginVertical: 1,
-          margin: 0,
-        },
-      }}>
-      <Drawer.Screen name="설문조사" component={MainTest} options={{}} />
-      <Drawer.Screen name="설문조사 의뢰하기" component={MainTest} />
-      <Drawer.Screen name="미디어" component={MainTest} />
-      <Drawer.Screen name="알림" component={MainAlert} />
-      <Drawer.Screen name="설정" component={MainTest} />
-      <Drawer.Screen name="초대코드" component={MainTest} />
-      <Drawer.Screen name="프로필" component={ProfileMain} />
-    </Drawer.Navigator>
-  );
-};
+// export const Main = () => {
+//   return (
+// <Drawer.Navigator
+//   initialRouteName="설문조사"
+//   drawerContent={(props) => <CustomDrawerContent {...props} />}
+//   drawerPosition="right"
+//   drawerStyle={{
+//     width: '80%',
+//     backgroundColor: '#FFF',
+//   }}
+//   drawerContentOptions={{
+//     itemStyle: {
+//       marginVertical: 1,
+//       margin: 0,
+//     },
+//   }}>
+//   <Drawer.Screen name="설문조사" component={MainTest} options={{}} />
+//   <Drawer.Screen name="설문조사 의뢰하기" component={MainTest} />
+//   <Drawer.Screen name="미디어" component={MainTest} />
+//   <Drawer.Screen name="알림" component={MainAlert} />
+//   <Drawer.Screen name="설정" component={MainTest} />
+//   <Drawer.Screen name="초대코드" component={MainTest} />
+//   <Drawer.Screen name="프로필" component={ProfileMain} />
+// </Drawer.Navigator>
+//     <View>
+//       <Text>GDGDGD</Text>
+//     </View>
+//   );
+// };
 // class Main extends Component {
 //   // state = {};
 
