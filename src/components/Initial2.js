@@ -223,11 +223,11 @@ class Initial2 extends Component {
               </Text>
             </TouchableOpacity> */}
 
-            {/* <TouchableOpacity
+            <TouchableOpacity
               style={[ResetStyle.buttonWhite, {marginTop: 10}]}
               activeOpacity={0.75}
               onPress={() => {
-                this.props.navigation.navigate('ResearchForm');
+                this.props.navigation.navigate('ProfileMain');
               }}>
               <Text
                 style={[
@@ -235,9 +235,9 @@ class Initial2 extends Component {
                   ResetStyle.fontB,
                   {fontWeight: '600'},
                 ]}>
-                ResearchForm
+                ProfileMain
               </Text>
-            </TouchableOpacity> */}
+            </TouchableOpacity>
             {/* <TouchableOpacity
               style={[ResetStyle.buttonWhite, {marginTop: 10}]}
               activeOpacity={0.75}

@@ -258,7 +258,8 @@ export const ProfileMain = ({navigation}) => {
                       : // : this.props.navigation.navigate(
                         //     'ProfileIncompleteDetail',
                         //   );
-                        navigation.navigate('ProfileComplete');
+                        // navigation.navigate('ProfileComplete');
+                        navigation.navigate('ProfileIncompleteDetail');
                   }}>
                   <Text
                     style={[
