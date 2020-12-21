@@ -300,7 +300,7 @@ const styles = StyleSheet.create({
     marginLeft: 25,
     color: '#2d91ff',
     fontWeight: 'bold',
-    fontSize: 15,
+    fontSize: 20,
     paddingTop: 15,
     // textAlign: '',
     // paddingBottom: 10,
@@ -308,7 +308,7 @@ const styles = StyleSheet.create({
     // paddingRight: 36,
   },
   AudienceDetailRightText: {
-    fontSize: 15,
+    fontSize: 20,
     paddingTop: 13,
     paddingBottom: 13,
     paddingLeft: 20,
