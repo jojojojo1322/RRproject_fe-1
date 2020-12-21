@@ -15,6 +15,17 @@ import axios from 'axios';
 import {server} from '../defined/server';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
+//이메일 유효성 체크
+function CheckEmail(str) {
+  var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+  if (!reg_email.test(str)) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+//비밀번호 유효성 체크
 function chkPW(password) {
   var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
   var regHigh = /^(?=.*?[A-Z])/;
@@ -65,7 +76,6 @@ class SignUpPersonal extends Component {
     modalVisible: false,
     phoneNum: '',
     email: '',
-    emailCheck: '',
     password: '',
     checkPassword: '',
     checkBoolean: '',
@@ -73,6 +83,7 @@ class SignUpPersonal extends Component {
     passwordBlur: true,
     checkPasswordBlur: true,
     checkEmail: '',
+    checkEmailValidation: true,
   };
   handleEmail = (e) => {
     this.setState({
@@ -183,9 +194,18 @@ class SignUpPersonal extends Component {
                   <TextInput
                     placeholder="이메일 주소 입력"
                     placeholderTextColor="#a9a9a9"
-                    onBlur={() => {
+                    onBlur={async () => {
                       console.log('>>>>>>>>>>>>>>>>>>>>aaa>>>>>>>>');
-                      this.emailCheckApi(this.state.email);
+                      if (CheckEmail(this.state.email)) {
+                        this.emailCheckApi(this.state.email);
+                      } else {
+                        await this.setState({
+                          checkEmailValidation: false,
+                        });
+                        console.log('유효성 에러');
+                        console.log(this.state.checkEmailValidation);
+                        console.log('유효성 에러');
+                      }
                     }}
                     // keyboardType={'numeric'}
                     onChangeText={this.handleEmail}
@@ -220,7 +240,27 @@ class SignUpPersonal extends Component {
                   alignItems: 'center',
                   marginTop: '3%',
                 }}>
-                {this.state.checkEmail !== 0 && this.state.checkEmail != '' && (
+                {this.state.checkEmail !== 0 &&
+                  this.state.checkEmail != '' &&
+                  this.state.checkEmailValidation === true && (
+                    // this.state.checkEmail !== '' &&
+
+                    <>
+                      <Image
+                        style={ResetStyle.smallImg}
+                        source={require('../../imgs/drawable-xhdpi/icon_x_red.png')}
+                      />
+                      <Text
+                        style={[
+                          ResetStyle.fontLightK,
+                          ResetStyle.fontR,
+                          {marginLeft: 5},
+                        ]}>
+                        이미 사용 중인 이메일입니다.
+                      </Text>
+                    </>
+                  )}
+                {this.state.checkEmailValidation === false && (
                   // this.state.checkEmail !== '' &&
 
                   <>
@@ -234,7 +274,7 @@ class SignUpPersonal extends Component {
                         ResetStyle.fontR,
                         {marginLeft: 5},
                       ]}>
-                      이미 사용 중인 이메일입니다.
+                      이메일 형식이 맞지 않습니다.
                     </Text>
                   </>
                 )}
