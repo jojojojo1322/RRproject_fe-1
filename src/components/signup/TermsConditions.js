@@ -197,6 +197,7 @@ class TermsConditions extends Component {
   state = {};
 
   render() {
+    console.log('apapapapapapapap', this.props.route.params?.name);
     return (
       <SafeAreaView style={{flex: 1, backgroundColor: '#FFF'}}>
         {/* topBackButton */}
@@ -216,6 +217,7 @@ class TermsConditions extends Component {
           </View>
         </View>
         <Tab.Navigator
+          initialRouteName={this.props.route.params?.name}
           tabBarOptions={{
             labelStyle: {fontSize: 20, fontWeight: '400'},
             activeTintColor: '#4696ff',
