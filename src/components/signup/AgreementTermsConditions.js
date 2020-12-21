@@ -186,7 +186,9 @@ class AgreementTermsConditions extends Component {
                 />
                 <TouchableWithoutFeedback
                   onPress={() => {
-                    this.props.navigation.navigate('TermsConditions');
+                    this.props.navigation.navigate('TermsConditions', {
+                      name: '이용약관',
+                    });
                     this.props.navigation.setOptions({
                       title: '이용약관 및 개인정보처리방침',
                     });
@@ -203,7 +205,9 @@ class AgreementTermsConditions extends Component {
               </View>
               <TouchableWithoutFeedback
                 onPress={() => {
-                  this.props.navigation.navigate('TermsConditions');
+                  this.props.navigation.navigate('TermsConditions', {
+                    name: '이용약관',
+                  });
                   this.props.navigation.setOptions({
                     title: '이용약관 및 개인정보처리방침',
                   });
@@ -238,7 +242,9 @@ class AgreementTermsConditions extends Component {
                 />
                 <TouchableWithoutFeedback
                   onPress={() => {
-                    this.props.navigation.navigate('TermsConditions');
+                    this.props.navigation.navigate('TermsConditions', {
+                      name: '개인정보처리방침',
+                    });
                     this.props.navigation.setOptions({
                       title: '이용약관 및 개인정보처리방침',
                     });
@@ -255,7 +261,9 @@ class AgreementTermsConditions extends Component {
               </View>
               <TouchableWithoutFeedback
                 onPress={() => {
-                  this.props.navigation.navigate('TermsConditions');
+                  this.props.navigation.navigate('TermsConditions', {
+                    name: '개인정보처리방침',
+                  });
                   this.props.navigation.setOptions({
                     title: '이용약관 및 개인정보처리방침',
                   });
