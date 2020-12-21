@@ -31,7 +31,7 @@ export default StyleSheet.create({
   },
   researchScrollView: {
     flexDirection: 'column',
-    maxHeight: '70%',
+    maxHeight: '80%',
   },
   researchQuestion: {
     fontWeight: '500',

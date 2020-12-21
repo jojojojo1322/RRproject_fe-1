@@ -168,8 +168,64 @@ export default class ProfileIncompleteDetail extends Component {
           ],
           answer: '',
         },
+        {
+          id: 3,
+          question:
+            '세번째 설문조사 질문입니다. 이 질문에 대해서 어떻게 생각하시나요?',
+          questionDetail: [
+            {
+              id: 1,
+              detail: '매우좋음',
+            },
+            {
+              id: 2,
+              detail: '좋음',
+            },
+            {
+              id: 3,
+              detail: '보통',
+            },
+            {
+              id: 4,
+              detail: '나쁨',
+            },
+            {
+              id: 5,
+              detail: '매우나쁨',
+            },
+          ],
+          answer: '',
+        },
+        {
+          id: 4,
+          question:
+            '세번째 설문조사 질문입니다. 이 질문에 대해서 어떻게 생각하시나요?',
+          questionDetail: [
+            {
+              id: 1,
+              detail: '매우좋음',
+            },
+            {
+              id: 2,
+              detail: '좋음',
+            },
+            {
+              id: 3,
+              detail: '보통',
+            },
+            {
+              id: 4,
+              detail: '나쁨',
+            },
+            {
+              id: 5,
+              detail: '매우나쁨',
+            },
+          ],
+          answer: '',
+        },
       ],
-      questionLength: 3,
+      questionLength: 5,
     });
   }
   componentDidUpdate(preProps, preState) {
@@ -208,26 +264,48 @@ export default class ProfileIncompleteDetail extends Component {
   render() {
     let researchArr = this.state.question;
     let Arr;
+    let researchCheck = [];
     let researchList = [];
     let i = 0;
     researchArr.map(
       (data, index) =>
+        (researchCheck = researchCheck.concat(
+          <>
+            {index <= [this.state.nowIndex] ? (
+              <Image
+                source={require('../../../imgs/drawable-mdpi/icon_ktit_on.png')}
+              />
+            ) : (
+              <Image
+                source={require('../../../imgs/drawable-mdpi/icon_ktit_off.png')}
+              />
+            )}
+
+            {researchArr.length - 1 !== index && (
+              <View
+                style={{
+                  width: 20,
+                  borderWidth: 0.5,
+                  borderStyle: 'solid',
+                  borderColor: '#dddddd',
+                  marginRight: 4,
+                  marginLeft: 4,
+                }}></View>
+            )}
+          </>,
+        )),
+    );
+    researchArr.map(
+      (data, index) =>
         (researchList = researchList.concat(
           <View style={[ResearchStyle.researchView]} key={index}>
-            <View style={ResearchStyle.researchQuestionLength}>
-              <Text
-                style={[
-                  ResetStyle.fontBoldK,
-                  ResetStyle.fontB,
-                  {fontWeight: '400'},
-                ]}>
-                {data.id + 1}/{this.state.questionLength}
-              </Text>
+            <View style={[ResearchStyle.researchQuestionLength]}>
               <Text
                 style={[
                   ResetStyle.fontRegularK,
                   ResetStyle.fontBlack,
                   ResearchStyle.researchQuestion,
+                  {textAlign: 'center'},
                 ]}>
                 {data.question}
               </Text>
@@ -333,18 +411,32 @@ export default class ProfileIncompleteDetail extends Component {
       <SafeAreaView style={ResetStyle.container}>
         <View
           style={[ResetStyle.containerInner, {marginLeft: 0, marginRight: 0}]}>
-          <Text
-            style={[
-              ResetStyle.fontMediumK,
-              ResetStyle.fontBlack,
-              ResearchStyle.researchTitle,
-            ]}>
-            설문조사 제목
-          </Text>
+          <View>
+            <Text
+              style={[
+                ResetStyle.fontMediumK,
+                ResetStyle.fontBlack,
+                ResearchStyle.researchTitle,
+              ]}>
+              Level 2 KYC
+            </Text>
+            {/* 상단 체크박스 */}
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+                alignContent: 'stretch',
+                marginTop: 40,
+              }}>
+              {researchCheck}
+            </View>
+          </View>
 
           {researchList[this.state.nowIndex]}
 
-          <View style={ResearchStyle.researchBottomButton}>
+          <View
+            style={[ResearchStyle.researchBottomButton, {marginTop: '40%'}]}>
             <TouchableOpacity
               style={
                 this.state.nowIndex == 0
