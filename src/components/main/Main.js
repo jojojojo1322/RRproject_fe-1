@@ -26,6 +26,7 @@ import App from '../../App';
 import ProfileMain from '../settings/profile/ProfileMain';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {getFontScale} from 'react-native/Libraries/Utilities/PixelRatio';
 
 const Drawer = createDrawerNavigator();
 const AnimatedIndicator = Animated.createAnimatedComponent(ActivityIndicator);
@@ -856,6 +857,7 @@ export const Main = ({navigation}) => {
       // extrapolate: 'clamp',
       extrapolateRight: 'clamp',
     });
+    console.log('props', props.navigationState.index);
     return (
       <Animated.View
         style={{
@@ -874,7 +876,12 @@ export const Main = ({navigation}) => {
           }}
           style={[MainStyle.mainTab, {height: TabBarHeight}]}
           renderLabel={renderLabel}
-          indicatorStyle={MainStyle.mainIndicator}
+          indicatorStyle={[
+            MainStyle.mainIndicator,
+            props.navigationState.index == '1' && {left: '1.5%'},
+            props.navigationState.index == '2' && {left: '2.5%'},
+            props.navigationState.index == '3' && {left: '5%'},
+          ]}
         />
       </Animated.View>
     );
