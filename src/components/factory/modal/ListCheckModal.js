@@ -19,7 +19,7 @@ import {
   Dimensions,
   TouchableOpacityBase,
 } from 'react-native';
-import {Checkbox, SelectedCheckboxes} from '../../factory/Checkbox';
+import {RoundCheckbox, SelectedCheckboxes} from '../Roundcheck';
 import {DefineCountryList} from '../../defined/DefineCountryList';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
@@ -78,7 +78,7 @@ const Item = ({
   return (
     <TouchableOpacity onPress={onPress} style={[styles.item, style]}>
       <Text style={[styles.title, {width: '80%'}]}>{item.title}</Text>
-      <Checkbox
+      <RoundCheckbox
         size={25}
         keyValue={item.id}
         checked={false}
