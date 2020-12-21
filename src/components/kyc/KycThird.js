@@ -111,16 +111,16 @@ export default class kycThird extends Component {
             this.setCountryModal(!this.state.countryModal);
           }}>
           <View style={AuthStyle.kycInput}>
-            <TextInput
-              placeholder={'선택해 주세요.'}
-              // keyboardType={'numeric'}
-              onChangeText={this.handleBirth}
-              value={
-                this.state.country == ''
-                  ? ''
-                  : `${this.state.country} (${this.state.countryCd})`
-              }
-              editable={false}
+            <Text
+              // placeholder={'선택해 주세요.'}
+              // // keyboardType={'numeric'}
+              // onChangeText={this.handleBirth}
+              // value={
+              //   this.state.country == ''
+              //     ? ''
+              //     : `${this.state.country} (${this.state.countryCd})`
+              // }
+              // editable={false}
               style={[
                 ResetStyle.fontRegularK,
                 ResetStyle.fontG,
@@ -129,7 +129,11 @@ export default class kycThird extends Component {
                   paddingTop: '6%',
                   paddingBottom: '3%',
                 },
-              ]}></TextInput>
+              ]}>
+              {this.state.country == ''
+                ? '선택해 주세요.'
+                : `${this.state.country} (${this.state.countryCd})`}
+            </Text>
             <Image
               source={require('../../imgs/drawable-mdpi/icon_srarch.png')}
             />
@@ -160,11 +164,7 @@ export default class kycThird extends Component {
             this.setLanguageModal(!this.state.language);
           }}>
           <View style={AuthStyle.kycInput}>
-            <TextInput
-              placeholder="선택해 주세요"
-              // keyboardType={'numeric'}
-              onChangeText={this.handleBirth}
-              value={this.state.language}
+            <Text
               style={[
                 ResetStyle.fontRegularK,
                 ResetStyle.fontG,
@@ -173,7 +173,11 @@ export default class kycThird extends Component {
                   paddingTop: '6%',
                   paddingBottom: '3%',
                 },
-              ]}></TextInput>
+              ]}>
+              {this.state.language == ''
+                ? '선택해 주세요.'
+                : this.state.language}
+            </Text>
             <Image
               source={require('../../imgs/drawable-mdpi/icon_srarch.png')}
             />
@@ -202,15 +206,7 @@ export default class kycThird extends Component {
             this.setResidenceCountryModal(!this.state.residenceCountryModal);
           }}>
           <View style={AuthStyle.kycInput}>
-            <TextInput
-              placeholder="선택해 주세요"
-              // keyboardType={'numeric'}
-              onChangeText={this.handleBirth}
-              value={
-                this.state.residenceCountry == ''
-                  ? ''
-                  : `${this.state.residenceCountry} (${this.state.residenceCountryCd})`
-              }
+            <Text
               style={[
                 ResetStyle.fontRegularK,
                 ResetStyle.fontG,
@@ -219,7 +215,11 @@ export default class kycThird extends Component {
                   paddingTop: '6%',
                   paddingBottom: '3%',
                 },
-              ]}></TextInput>
+              ]}>
+              {this.state.residenceCountry == ''
+                ? '선택해 주세요.'
+                : `${this.state.residenceCountry} (${this.state.residenceCountryCd})`}
+            </Text>
             <Image
               source={require('../../imgs/drawable-mdpi/icon_srarch.png')}
             />
@@ -250,13 +250,7 @@ export default class kycThird extends Component {
             this.setResidenceCityModal(!this.state.setResidenceCityModal);
           }}>
           <View style={AuthStyle.kycInput}>
-            <TextInput
-              placeholder="선택해 주세요"
-              // keyboardType={'numeric'}
-              onChangeText={this.handleBirth}
-              value={
-                this.state.residenceCity == '' ? '' : this.state.residenceCity
-              }
+            <Text
               style={[
                 ResetStyle.fontRegularK,
                 ResetStyle.fontG,
@@ -265,7 +259,11 @@ export default class kycThird extends Component {
                   paddingTop: '6%',
                   paddingBottom: '3%',
                 },
-              ]}></TextInput>
+              ]}>
+              {this.state.residenceCity == ''
+                ? '선택해 주세요.'
+                : this.state.residenceCity}
+            </Text>
             <Image
               source={require('../../imgs/drawable-mdpi/icon_srarch.png')}
             />

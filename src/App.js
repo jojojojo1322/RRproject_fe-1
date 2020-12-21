@@ -1026,7 +1026,7 @@ const test = async () => {
 // }
 
 const App = () => {
-  const [login, setLogin] = useState('');
+  const [login, setLogin] = useState(null);
   const test = async () => {
     // return typeof (await AsyncStorage.getItem('userNo')) == String
     try {
