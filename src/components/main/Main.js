@@ -962,7 +962,14 @@ export const Main = ({navigation}) => {
   return (
     <View style={MainStyle.mainContainer}>
       <View style={[MainStyle.topLogoView]}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={async () => {
+            try {
+              console.log('USerNONONO', await AsyncStorage.getItem('userNo'));
+              await AsyncStorage.removeItem('userNo');
+              console.log('USerNONONO', await AsyncStorage.getItem('userNo'));
+            } catch (e) {}
+          }}>
           <View
             style={{
               flexDirection: 'row',

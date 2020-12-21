@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-
 import {
   StyleSheet,
   View,
@@ -12,276 +11,379 @@ import {
   Platform,
 } from 'react-native';
 
-import {server} from '../../defined/server';
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import PropTypes from 'prop-types';
 import ResetStyle from '../../../style/ResetStyle.js';
-import MainStyle from '../../../style/MainStyle.js';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {SelectedCheckboxes, RoundCheckbox} from '../../factory/Roundcheck';
+import ResearchStyle from '../../../style/ResearchStyle.js';
 
-const kycArr = [
-  {
-    id: 23,
-    level: 23,
-    status: null,
-  },
-  {
-    id: 22,
-    level: 22,
-    status: null,
-  },
-  {
-    id: 21,
-    level: 21,
-    status: null,
-  },
-  {
-    id: 20,
-    level: 20,
-    status: null,
-  },
-  {
-    id: 19,
-    level: 19,
-    status: null,
-  },
-  {
-    id: 18,
-    level: 18,
-    status: null,
-  },
-  {
-    id: 17,
-    level: 17,
-    status: null,
-  },
-  {
-    id: 16,
-    level: 16,
-    status: null,
-  },
-  {
-    id: 15,
-    level: 15,
-    status: null,
-  },
-  {
-    id: 14,
-    level: 14,
-    status: null,
-  },
-  {
-    id: 13,
-    level: 13,
-    status: null,
-  },
-  {
-    id: 12,
-    level: 12,
-    status: null,
-  },
-  {
-    id: 11,
-    level: 11,
-    status: null,
-  },
-  {
-    id: 10,
-    level: 10,
-    status: null,
-  },
-  {
-    id: 9,
-    level: 9,
-    status: null,
-  },
-  {
-    id: 8,
-    level: 8,
-    status: null,
-  },
-  {
-    id: 7,
-    level: 7,
-    status: null,
-  },
-  {
-    id: 6,
-    level: 6,
-    status: null,
-  },
-  {
-    id: 5,
-    level: 5,
-    status: null,
-  },
-  {
-    id: 4,
-    level: 4,
-    status: null,
-  },
-  {
-    id: 3,
-    level: 3,
-    status: null,
-  },
-  {
-    id: 2,
-    level: 2,
-    status: true,
-  },
-  {
-    id: 1,
-    level: 1,
-    status: true,
-  },
-];
 export default class ProfileIncompleteDetail extends Component {
+  // CheckedArrObject = new SelectedCheckboxes();
+
+  constructor() {
+    super();
+    CheckedArrObject = new SelectedCheckboxes();
+    // this.state = { pickedElements: '' }
+  }
+  state = {
+    question: [],
+    questionLength: 0,
+    isChecked: false,
+    checkId: '',
+    nowIndex: 0,
+    pickedElements: '',
+    checkedArray: [],
+  };
+
+  handleCheckedbox = (value, status) => {
+    console.log(value, status);
+  };
+
+  renderSelectedElements = () => {
+    if (CheckedArrObject.fetchArray().length == 0) {
+      Alert.alert('No Item Selected');
+    } else {
+      this.setState(() => {
+        return {
+          pickedElements: CheckedArrObject.fetchArray()
+            .map((res) => res.value)
+            .join(),
+        };
+      });
+    }
+  };
+
+  handlerPrev = (e) => {
+    e.preventDefault();
+    const nowIndex = this.state.nowIndex;
+    if (nowIndex != 0) {
+      this.setState({
+        nowIndex: nowIndex - 1,
+        checkId: '',
+      });
+      // this.props.navigation.goBack();
+    } else if (nowIndex == 0) {
+      this.props.navigation.goBack();
+    }
+  };
+  handlerNext = (e) => {
+    e.preventDefault();
+    const nowIndex = this.state.nowIndex;
+    if (nowIndex != this.state.questionLength - 1) {
+      this.setState({
+        nowIndex: nowIndex + 1,
+        checkId: '',
+      });
+      // this.props.navigation.push('ResearchForm');
+    }
+    if (nowIndex === this.state.questionLength - 1) {
+      this.props.navigation.navigate('MainVideo');
+    }
+  };
+
+  componentDidMount() {
+    this.setState({
+      question: [
+        {
+          id: 0,
+          question:
+            '첫번째 설문조사 질문입니다. 이 질문에 대해서 어떻게 생각하시나요?',
+          questionDetail: [
+            {
+              id: 1,
+              detail: '매우좋음',
+            },
+            {
+              id: 2,
+              detail: '좋음',
+            },
+            {
+              id: 3,
+              detail: '보통',
+            },
+            {
+              id: 4,
+              detail: '나쁨',
+            },
+            {
+              id: 5,
+              detail: '매우나쁨',
+            },
+          ],
+          answer: '',
+        },
+        {
+          id: 1,
+          question:
+            '두번째 설문조사 질문입니다. 이 질문에 대해서 어떻게 생각하시나요?',
+          questionDetail: [
+            {
+              id: 1,
+              detail: '매우좋음',
+            },
+            {
+              id: 2,
+              detail: '좋음',
+            },
+            {
+              id: 3,
+              detail: '보통',
+            },
+            {
+              id: 4,
+              detail: '나쁨',
+            },
+            {
+              id: 5,
+              detail: '매우나쁨',
+            },
+          ],
+          answer: '',
+        },
+        {
+          id: 2,
+          question:
+            '세번째 설문조사 질문입니다. 이 질문에 대해서 어떻게 생각하시나요?',
+          questionDetail: [
+            {
+              id: 1,
+              detail: '매우좋음',
+            },
+            {
+              id: 2,
+              detail: '좋음',
+            },
+            {
+              id: 3,
+              detail: '보통',
+            },
+            {
+              id: 4,
+              detail: '나쁨',
+            },
+            {
+              id: 5,
+              detail: '매우나쁨',
+            },
+          ],
+          answer: '',
+        },
+      ],
+      questionLength: 3,
+    });
+  }
+  componentDidUpdate(preProps, preState) {
+    if (preState.checkId != this.state.checkId) {
+      this.setState({
+        isChecked: true,
+      });
+    }
+  }
+  handleQuestion = async (question, answer, status) => {
+    console.log(status, '----question----', question);
+    console.log(status, '----answer----', answer);
+    let checkedArray = this.state.checkedArray;
+    if (status === 'PLUS') {
+      await this.setState({
+        checkedArray: checkedArray.concat({
+          key: question,
+          question: question,
+          answer: answer,
+        }),
+      });
+    } else if (status === 'MINUS') {
+      checkedArray.splice(
+        checkedArray.findIndex(
+          (y) => y.question === question && y.answer === answer,
+        ),
+        1,
+      ),
+        await this.setState({
+          checkedArray: checkedArray,
+        });
+    }
+    console.log(this.state.checkedArray);
+  };
+
   render() {
-    return (
-      <SafeAreaView style={MainStyle.mainFlatlistView}>
-        <View
-          style={{
-            backgroundColor: '#f9f9f9',
-            // marginTop: StatusBar.currentHeight || 0,
-            flex: 1,
-          }}>
-          <View
-            style={{
-              backgroundColor: '#f9f9f9',
-              paddingTop: Platform.OS === 'ios' ? '15%' : '5%',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              padding: '5%',
-              paddingTop: '4%',
-              //   paddingBottom: '10%',
-            }}>
-            <TouchableOpacity>
-              <View style={{flexDirection: 'row'}}>
-                <Image
-                  source={require('../../../imgs/drawable-xxxhdpi/main_r_logo.png')}
-                />
-                <Text
-                  style={[
-                    ResetStyle.fontRegularK,
-                    ResetStyle.fontB,
-                    {marginLeft: 10},
-                  ]}>
-                  Real Research
-                </Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.openDrawer()}>
-              <Image
-                source={require('../../../imgs/drawable-xxxhdpi/menu_icon.png')}
-              />
-            </TouchableOpacity>
-          </View>
-          <View
-            style={{
-              backgroundColor: '#2d91ff',
-              padding: 20,
-              paddingTop: 25,
-              paddingBottom: 25,
-            }}>
-            <Text
-              style={[
-                ResetStyle.fontRegularE,
-                ResetStyle.fontWhite,
-                {fontWeight: '700'},
-                {textAlign: 'left'},
-              ]}>
-              LEVEL 2
-            </Text>
-            <Text
-              style={[
-                ResetStyle.fontRegularE,
-                ResetStyle.fontWhite,
-                {textAlign: 'left'},
-              ]}>
-              tnctnctnc123@gmail.com
-            </Text>
-          </View>
-          <ScrollView style={{padding: '5%', marginTop: 12}}>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                marginBottom: 30,
-              }}>
-              <Text style={[ResetStyle.fontMediumE, {fontWeight: '400'}]}>
-                KYC LEVEL
-              </Text>
-              <TouchableOpacity
+    let researchArr = this.state.question;
+    let Arr;
+    let researchList = [];
+    let i = 0;
+    researchArr.map(
+      (data, index) =>
+        (researchList = researchList.concat(
+          <View style={[ResearchStyle.researchView]} key={index}>
+            <View style={ResearchStyle.researchQuestionLength}>
+              <Text
                 style={[
-                  ResetStyle.buttonSmall,
-                  {width: '20%', padding: 0, paddingTop: 3},
+                  ResetStyle.fontBoldK,
+                  ResetStyle.fontB,
+                  {fontWeight: '400'},
                 ]}>
-                <Text
-                  style={[
-                    // ResetStyle.fontMediumE,
-                    ResetStyle.buttonTexts,
-                    ResetStyle.fontRegularE,
-                    {fontWeight: '500'},
-                  ]}>
-                  ALL
-                </Text>
-              </TouchableOpacity>
+                {data.id + 1}/{this.state.questionLength}
+              </Text>
+              <Text
+                style={[
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontBlack,
+                  ResearchStyle.researchQuestion,
+                ]}>
+                {data.question}
+              </Text>
             </View>
-            {kycArr.map((data, index) => {
-              return (
-                <>
-                  <TouchableOpacity
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      marginTop: 15,
-                    }}
-                    key={index}>
-                    <Text
-                      style={[
-                        ResetStyle.fontLightE,
-                        data.status === true || kycArr[index + 1].status == true
-                          ? ResetStyle.fontBlack
-                          : ResetStyle.fontG,
-                        {fontWeight: '500', paddingLeft: 10, marginBottom: 20},
-                      ]}>
-                      KYC LEVEL {data.level}
-                    </Text>
+
+            <ScrollView style={ResearchStyle.researchScrollView}>
+              {data.questionDetail.map((detail, index) => {
+                if (detail.id == 1) {
+                  return (
                     <View
-                      style={{
-                        flexDirection: 'row',
-                        paddingRight: 10,
-                      }}>
+                      style={[
+                        ResearchStyle.researchAnswerStyle,
+                        ResearchStyle.researchAnswerTopStyle,
+                      ]}
+                      key={index}>
                       <Text
                         style={[
-                          ResetStyle.fontLightE,
-                          data.status === true ||
-                          kycArr[index + 1].status == true
-                            ? ResetStyle.fontBlack
-                            : ResetStyle.fontG,
-                          {fontWeight: '500', paddingRight: 10},
+                          ResetStyle.fontRegularK,
+                          ResetStyle.fontBlack,
+                          {textAlign: 'left'},
                         ]}>
-                        {data.status == true ? `완료` : `시작`}
+                        {detail.detail}
                       </Text>
-                      <Image
-                        source={
-                          data.status == true
-                            ? require('../../../imgs/drawable-hdpi/icon_s_check_on.png')
-                            : require('../../../imgs/drawable-hdpi/icon_s_check_off.png')
+                      <RoundCheckbox
+                        size={30}
+                        keyValue={data.id}
+                        checked={
+                          this.state.checkedArray.findIndex(
+                            (y) =>
+                              y.question === data.id && y.answer === detail.id,
+                          ) >= 0
+                            ? true
+                            : false
                         }
+                        color="#164895"
+                        labelColor="#000000"
+                        label={detail.detail}
+                        value={detail.id}
+                        onClick={() => {
+                          this.setState({
+                            isChecked: !this.state.isChecked,
+                            checkId: detail.id,
+                          });
+                        }}
+                        isChecked={
+                          this.state.isChecked && this.state.checkId == 1
+                        }
+                        checkedObjArr={CheckedArrObject}
+                        handleQuestion={this.handleQuestion}
+                        checkedArray={this.state.checkedArray}
                       />
                     </View>
-                  </TouchableOpacity>
-                  <View
-                    style={{
-                      borderBottomColor: '#dedede',
-                      borderBottomWidth: 1.5,
-                    }}></View>
-                </>
-              );
-            })}
-          </ScrollView>
+                  );
+                } else {
+                  return (
+                    <View style={ResearchStyle.researchAnswerStyle} key={index}>
+                      <Text
+                        style={[
+                          ResetStyle.fontRegularK,
+                          ResetStyle.fontBlack,
+                          {textAlign: 'left'},
+                        ]}>
+                        {detail.detail}
+                      </Text>
+                      <RoundCheckbox
+                        size={30}
+                        keyValue={data.id}
+                        checked={
+                          this.state.checkedArray.findIndex(
+                            (y) =>
+                              y.question === data.id && y.answer === detail.id,
+                          ) >= 0
+                            ? true
+                            : false
+                        }
+                        color="#164895"
+                        labelColor="#000000"
+                        label={detail.detail}
+                        value={detail.id}
+                        onClick={() => {
+                          this.setState({
+                            isChecked: !this.state.isChecked,
+                            checkId: data.id,
+                          });
+                        }}
+                        isChecked={
+                          this.state.isChecked && this.state.checkId == 1
+                        }
+                        checkedObjArr={CheckedArrObject}
+                        handleQuestion={this.handleQuestion}
+                        checkedArray={this.state.checkedArray}
+                      />
+                    </View>
+                  );
+                }
+              })}
+            </ScrollView>
+          </View>,
+        )),
+    );
+
+    return (
+      <SafeAreaView style={ResetStyle.container}>
+        <View
+          style={[ResetStyle.containerInner, {marginLeft: 0, marginRight: 0}]}>
+          <Text
+            style={[
+              ResetStyle.fontMediumK,
+              ResetStyle.fontBlack,
+              ResearchStyle.researchTitle,
+            ]}>
+            설문조사 제목
+          </Text>
+
+          {researchList[this.state.nowIndex]}
+
+          <View style={ResearchStyle.researchBottomButton}>
+            <TouchableOpacity
+              style={
+                this.state.nowIndex == 0
+                  ? [
+                      ResetStyle.button,
+                      {width: '49%', backgroundColor: '#e6e6e6'},
+                    ]
+                  : [ResetStyle.button, {width: '49%'}]
+              }
+              activeOpacity={0.75}
+              onPress={this.handlerPrev}>
+              <Text
+                style={[
+                  ResetStyle.fontMediumK,
+                  ResetStyle.fontWhite,
+                  {fontWeight: '600'},
+                ]}>
+                {this.state.nowIndex == 0 ? '취소' : '이전'}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                ResetStyle.button,
+                {width: '49%', backgroundColor: '#4696ff'},
+              ]}
+              activeOpacity={0.75}
+              onPress={this.handlerNext}>
+              <Text
+                style={[
+                  ResetStyle.fontMediumK,
+                  ResetStyle.fontWhite,
+                  {fontWeight: '600'},
+                ]}>
+                {this.state.nowIndex == this.state.questionLength - 1
+                  ? '제출'
+                  : '다음'}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </SafeAreaView>
     );
