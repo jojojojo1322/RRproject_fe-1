@@ -81,8 +81,6 @@ export default StyleSheet.create({
   emailAuthTextInputStyle: {
     borderBottomWidth: 1,
     borderBottomColor: '#dddddd',
-    paddingTop: '4%',
-    paddingBottom: '2%',
   },
   emailAuthCountdownBox: {
     position: 'absolute',

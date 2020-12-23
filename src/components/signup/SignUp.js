@@ -198,7 +198,9 @@ class SignUp extends Component {
   render() {
     return (
       <SafeAreaView style={ResetStyle.container}>
-        <KeyboardAwareScrollView contentContainerStyle={{flex: 1}}>
+        <KeyboardAwareScrollView
+          enableOnAndroid={true}
+          contentContainerStyle={{flexGrow: 1}}>
           <View style={[ResetStyle.containerInner]}>
             <View>
               {/* topBackButton */}

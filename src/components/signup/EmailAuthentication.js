@@ -303,7 +303,11 @@ class EmailAuthentication extends Component {
                 <View
                   style={[
                     AuthStyle.emailAuthTextInputStyle,
-                    {flexDirection: 'row', justifyContent: 'space-between'},
+                    {
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    },
                   ]}>
                   <TextInput
                     placeholder="인증번호 입력"
@@ -327,7 +331,9 @@ class EmailAuthentication extends Component {
                         this.state.returnApprove,
                       );
                     }}>
-                    <Text style={[ResetStyle.buttonTexts]}>인증하기</Text>
+                    <Text style={[ResetStyle.fontLightK, ResetStyle.fontWhite]}>
+                      인증하기
+                    </Text>
                   </TouchableOpacity>
                 </View>
 
