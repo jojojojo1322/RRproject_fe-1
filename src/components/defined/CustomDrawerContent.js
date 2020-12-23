@@ -215,11 +215,11 @@ export function CustomDrawerContent(props) {
         label="Toggle drawer"
         onPress={() => props.navigation.toggleDrawer()}
       /> */}
-      <DrawerItem
+      {/* <DrawerItem
         label="change"
         onPress={() => props.navigation.closeDrawer()}
         {...props}
-      />
+      /> */}
     </DrawerContentScrollView>
   );
 }
