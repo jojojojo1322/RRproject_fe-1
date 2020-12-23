@@ -364,7 +364,7 @@ export default class MainVideo extends Component {
           ]}
           activeOpacity={0.75}
           onPress={() => {
-            this.props.navigation.navigate('MainTest');
+            this.props.navigation.navigate('WalletMain');
           }}>
           <Text
             style={[

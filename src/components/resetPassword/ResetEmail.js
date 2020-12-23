@@ -139,6 +139,7 @@ export default class ResetEmail extends Component {
               placeholder="6자리 인증번호 입력"
               placeholderTextColor="#a9a9a9"
               value={this.state.emailCode}
+              returnKeyType={'done'}
               onChangeText={this.handleEmail}
               keyboardType="number-pad"
             />
