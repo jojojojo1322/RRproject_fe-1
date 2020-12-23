@@ -198,8 +198,13 @@ class SignUpPersonal extends Component {
                     placeholderTextColor="#a9a9a9"
                     onBlur={async () => {
                       console.log('>>>>>>>>>>>>>>>>>>>>aaa>>>>>>>>');
-                      if (CheckEmail(this.state.email)) {
-                        this.emailCheckApi(this.state.email);
+                      console.log(this.state.email.trim());
+                      console.log('>>>>>>>>>>>>>>>>>>>>aaa>>>>>>>>');
+                      this.setState({
+                        checkEmailValidation: true,
+                      });
+                      if (CheckEmail(this.state.email.trim())) {
+                        this.emailCheckApi(this.state.email.trim());
                       } else {
                         await this.setState({
                           checkEmailValidation: false,
@@ -647,7 +652,7 @@ class SignUpPersonal extends Component {
                   this.emailAuthApi(this.state.email);
                   console.log('aaaa');
                   this.props.navigation.navigate('EmailAuthentication', {
-                    email: this.state.email,
+                    email: this.state.email.trim(),
                     password: this.state.password,
                     deviceKey: this.props.route.params?.deviceKey,
                     phoneNum: this.props.route.params?.phoneNum,

@@ -354,7 +354,7 @@ export class AppAuthStack extends Component {
           }}
         />
         <Stack.Screen
-          name="Main"
+          name="설문조사"
           component={Main}
           options={{
             headerShown: false,
@@ -1163,7 +1163,7 @@ const App = () => {
       <NavigationContainer>
         {/* <Main /> */}
         <Drawer.Navigator
-          initialRouteName="설문조사"
+          initialRouteName="초기"
           drawerContent={(props) => <CustomDrawerContent {...props} />}
           drawerPosition="right"
           drawerStyle={{
@@ -1181,7 +1181,7 @@ const App = () => {
           <Drawer.Screen name="설문조사 의뢰하기" component={Main} />
           <Drawer.Screen name="미디어" component={Main} />
           <Drawer.Screen name="알림" component={MainAlert} />
-          <Drawer.Screen name="설정" component={ProfileMain} />
+          {/* <Drawer.Screen name="설정" component={ProfileMain} /> */}
           <Drawer.Screen name="초대코드" component={Main} />
         </Drawer.Navigator>
       </NavigationContainer>

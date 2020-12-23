@@ -156,23 +156,32 @@ export default class Reset extends Component {
                 : [ResetStyle.button, {backgroundColor: '#e6e6e6'}]
             }
             onPress={async () => {
-              if (this.validateEmail(this.state.email)) {
-                await this.emailUserCheckApi(this.state.email);
-                if (this.state.ret_val == '-2') {
-                  this.emailReAuthApi(this.state.email);
-                  this.props.navigation.push('ResetEmail', {
-                    email: this.state.email,
-                    authKey: this.state.authKey,
-                    userNo: this.state.userNo,
-                  });
-                } else if (this.state.ret_val == '0') {
-                  this.setModalVisible(true);
-                }
-                // this.emailReAuthApi(this.state.email);
-                // // const asy = 'aaaaaaa';
-                // // await AsyncStorage.setItem('authKey', asy);
-                // // console.log(await AsyncStorage.getItem('authKey'));
-              }
+              // api 용
+              // if (this.validateEmail(this.state.email)) {
+              //   await this.emailUserCheckApi(this.state.email);
+              //   if (this.state.ret_val == '-2') {
+              //     this.emailReAuthApi(this.state.email);
+              //     this.props.navigation.push('ResetEmail', {
+              //       email: this.state.email,
+              //       authKey: this.state.authKey,
+              //       userNo: this.state.userNo,
+              //     });
+              //   } else if (this.state.ret_val == '0') {
+              //     this.setModalVisible(true);
+              //   }
+              //   // this.emailReAuthApi(this.state.email);
+              //   // // const asy = 'aaaaaaa';
+              //   // // await AsyncStorage.setItem('authKey', asy);
+              //   // // console.log(await AsyncStorage.getItem('authKey'));
+              // }
+
+              // 본부장님 테스트용
+              this.emailReAuthApi(this.state.email);
+              this.props.navigation.push('ResetEmail', {
+                email: this.state.email,
+                authKey: this.state.authKey,
+                userNo: this.state.userNo,
+              });
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontWhite]}>
               다음
