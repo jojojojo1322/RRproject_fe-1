@@ -15,6 +15,7 @@ import AuthStyle from '../../style/AuthStyle.js';
 import axios from 'axios';
 import {server} from '../defined/server';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {DrawerContentScrollView} from '@react-navigation/drawer';
 
 class EmailAuthentication extends Component {
   state = {
@@ -24,6 +25,7 @@ class EmailAuthentication extends Component {
     email: this.props.route.params?.email,
     authKey: '',
     returnValue: '',
+    returnApprove: '',
     isRunning: true,
     timeLeftNumber: 180,
     CountDownCheck: '',
@@ -130,6 +132,7 @@ class EmailAuthentication extends Component {
     console.log('loginApi pass >>>>', pass);
     await axios
       .post(`${server}/user/login`, {
+        deviceKey: this.props.route.params?.deviceKey,
         email: id.replace(/(\s*)/g, ''),
         password: pass,
       })
@@ -154,26 +157,56 @@ class EmailAuthentication extends Component {
         console.log('erroLOGIN', error);
       });
   };
-  userRegistApi = async (maAuthKey, osType) => {
+  userEmailApprove = async () => {
+    await axios
+      .post(`${server}/util/email/auth/approve`, {
+        authKey: this.state.passWord,
+        mailId: this.props.route.params?.email,
+      })
+      .then((data) => {
+        console.log('THENuserEmailApprove', data);
+        console.log('THENuserEmailApprove', data.data.ret_val);
+        this.setState({
+          returnApprove: data.data.ret_val,
+        });
+      })
+      .catch((error) => {
+        console.log('ERRORuserEmailApprove', error);
+      });
+  };
+  userRegistApi = async (osType) => {
+    console.log(
+      '-----------',
+      this.props.route.params?.deviceKey,
+      '-----------',
+      this.props.route.params?.inviteCode,
+      '-----------',
+      this.props.route.params?.email,
+      '-----------',
+      osType,
+      '-----------',
+      this.props.route.params?.phoneNum,
+      '-----------',
+      this.props.route.params?.password,
+    );
     await axios
       .post(`${server}/user/register`, {
         deviceKey: this.props.route.params?.deviceKey,
         inviteCode: this.props.route.params?.inviteCode,
-        maAuthKey: maAuthKey,
         mailId: this.props.route.params?.email,
         osType: osType,
         phoneNum: this.props.route.params?.phoneNum,
         userPw: this.props.route.params?.password,
       })
       .then((data) => {
-        console.log('thenRERE', data);
-        console.log('thenRERE', data.data.ret_val);
+        console.log('thenuserRegistApi', data);
+        console.log('thenuserRegistApi', data.data.ret_val);
         this.setState({
           returnValue: data.data.ret_val,
         });
       })
       .catch((error) => {
-        console.log('errorRERE', error);
+        console.log('ERRORuserRegistApi', error);
       });
   };
 
@@ -199,7 +232,10 @@ class EmailAuthentication extends Component {
   };
   componentDidUpdate = async (preProps, preState) => {
     if (preState.CountDownExpireCheck !== this.state.CountDownExpireCheck) {
-      if (this.state.CountDownExpireCheck == true) {
+      if (
+        this.state.CountDownExpireCheck == true &&
+        this.state.returnApprove != '0'
+      ) {
         if (this.state.authKey == '') {
           this.emailExpireApi(await AsyncStorage.getItem('authKey'));
         } else {
@@ -209,20 +245,22 @@ class EmailAuthentication extends Component {
     }
   };
   render() {
-    console.log(
-      this.props.route.params?.deviceKey,
-      '---------',
-      this.props.route.params?.inviteCode,
-      '---------',
+    // console.log(
+    //   this.props.route.params?.deviceKey,
+    //   '---------',
 
-      this.props.route.params?.email,
-      '---------',
+    //   this.props.route.params?.inviteCode,
+    //   '---------',
 
-      this.props.route.params?.phoneNum,
-      '---------',
-      this.props.route.params?.password,
-    );
+    //   this.props.route.params?.email,
+    //   '---------',
+
+    //   this.props.route.params?.phoneNum,
+    //   '---------',
+    //   this.props.route.params?.password,
+    // );
     CheckedArrObject = new SelectedCheckboxes();
+    console.log('DEVICE>>>>>', this.props.route.params?.deviceKey);
     return (
       <SafeAreaView style={ResetStyle.container}>
         <View style={ResetStyle.containerInner}>
@@ -262,7 +300,11 @@ class EmailAuthentication extends Component {
               </Text>
 
               <View>
-                <View style={[AuthStyle.emailAuthTextInputStyle]}>
+                <View
+                  style={[
+                    AuthStyle.emailAuthTextInputStyle,
+                    {flexDirection: 'row', justifyContent: 'space-between'},
+                  ]}>
                   <TextInput
                     placeholder="인증번호 입력"
                     placeholderTextColor="#a9a9a9"
@@ -276,29 +318,21 @@ class EmailAuthentication extends Component {
                       ResetStyle.fontG,
                       {textAlign: 'left'},
                     ]}></TextInput>
-                  <View style={[AuthStyle.emailAuthCountdownBox]}>
-                    <Image
-                      source={require('../../imgs/drawable-xhdpi/icon_time.png')}
-                      style={[ResetStyle.smallImg, {marginRight: 8}]}
-                    />
-                    {/* <Text style={{fontSize: 15, color: '#0b95c9', fontWeight: '500', marginLeft: 5}}>00:00</Text> */}
-                    <CountDown
-                      standard={this.state.isRunning}
-                      timeLeftNumber={this.state.timeLeftNumber}
-                      handleReCountDown={this.handleReCountDown}
-                      handleCountDownCheck={this.handleCountDownCheck}
-                      CountDownCheck={this.state.CountDownCheck}
-                      CountDownExpireCheck={this.state.CountDownExpireCheck}
-                      handleCountDownExpireCheck={
-                        this.handleCountDownExpireCheck
-                      }
-                    />
-                  </View>
+                  <TouchableOpacity
+                    style={[ResetStyle.buttonSmall, {width: '26%'}]}
+                    onPress={async () => {
+                      await this.userEmailApprove();
+                      console.log(
+                        '인증하기버튼 클릭후 >>>>',
+                        this.state.returnApprove,
+                      );
+                    }}>
+                    <Text style={[ResetStyle.buttonTexts]}>인증하기</Text>
+                  </TouchableOpacity>
                 </View>
 
                 {/* alert */}
-                <View style={[AuthStyle.emailAuthAlertView]}>
-                  {this.state.returnValue === -3 && (
+                {/* {this.state.returnValue === -3 && (
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
                       <Image
                         style={ResetStyle.smallImg}
@@ -344,9 +378,37 @@ class EmailAuthentication extends Component {
                           {marginLeft: 5},
                         ]}></Text>
                     </View>
-                  )}
+                  )} */}
 
-                  {/* <View></View> */}
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    marginTop: '3%',
+                  }}>
+                  {/* <View style={[AuthStyle.emailAuthCountdownBox]}> */}
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                    }}>
+                    <Image
+                      source={require('../../imgs/drawable-xhdpi/icon_time.png')}
+                      style={[ResetStyle.smallImg, {marginRight: 8}]}
+                    />
+                    {/* <Text style={{fontSize: 15, color: '#0b95c9', fontWeight: '500', marginLeft: 5}}>00:00</Text> */}
+                    <CountDown
+                      standard={this.state.isRunning}
+                      timeLeftNumber={this.state.timeLeftNumber}
+                      handleReCountDown={this.handleReCountDown}
+                      handleCountDownCheck={this.handleCountDownCheck}
+                      CountDownCheck={this.state.CountDownCheck}
+                      CountDownExpireCheck={this.state.CountDownExpireCheck}
+                      handleCountDownExpireCheck={
+                        this.handleCountDownExpireCheck
+                      }
+                    />
+                  </View>
                   <TouchableOpacity
                     onPress={() => {
                       this.handleReCountDown();
@@ -369,11 +431,12 @@ class EmailAuthentication extends Component {
           <TouchableOpacity
             style={[
               ResetStyle.button,
-              this.state.passWord.length < 6 && {backgroundColor: '#e6e6e6'},
+              this.state.returnApprove != '0' && {backgroundColor: '#e6e6e6'},
+              // this.state.passWord.length < 6 && {backgroundColor: '#e6e6e6'},
             ]}
             onPress={async () => {
               const os = Platform.OS;
-              await this.userRegistApi(this.state.passWord, 'I');
+              await this.userRegistApi('I');
               if (this.state.returnValue === 0) {
                 this.loginApi(
                   this.props.route.params?.email,

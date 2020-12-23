@@ -42,6 +42,10 @@ import ProfileComplete from './components/settings/profile/ProfileComplete';
 import ProfileCompleteDetail from './components/settings/profile/ProfileCompleteDetail';
 import ProfileIncompleteDetail from './components/settings/profile/ProfileIncompleteDetail';
 
+import WalletMain from './components/settings/wallet/WalletMain';
+import WalletDetail from './components/settings/wallet/WalletDetail';
+import WalletSend from './components/settings/wallet/WalletSend';
+import WalletReceive from './components/settings/wallet/WalletReceive';
 const Stack = createStackNavigator();
 
 const Drawer = createDrawerNavigator();
@@ -1010,6 +1014,76 @@ export class AppMainStack extends Component {
         <Stack.Screen
           name="ProfileComplete"
           component={ProfileComplete}
+          options={{
+            headerShown: false,
+            title: '',
+            headerStyle: {
+              backgroundColor: '#FFF',
+              shadowColor: 'none',
+              shadowOffset: {width: 0, height: 0},
+              shadowOpacity: 0,
+              shadowRadius: 0,
+              elevation: 0,
+            },
+            headerTintColor: '#000',
+          }}
+        />
+
+        {/* Wallet */}
+        <Stack.Screen
+          name="WalletMain"
+          component={WalletMain}
+          options={{
+            headerShown: false,
+            title: '',
+            headerStyle: {
+              backgroundColor: '#FFF',
+              shadowColor: 'none',
+              shadowOffset: {width: 0, height: 0},
+              shadowOpacity: 0,
+              shadowRadius: 0,
+              elevation: 0,
+            },
+            headerTintColor: '#000',
+          }}
+        />
+        <Stack.Screen
+          name="WalletDetail"
+          component={WalletDetail}
+          options={{
+            headerShown: false,
+            title: '',
+            headerStyle: {
+              backgroundColor: '#FFF',
+              shadowColor: 'none',
+              shadowOffset: {width: 0, height: 0},
+              shadowOpacity: 0,
+              shadowRadius: 0,
+              elevation: 0,
+            },
+            headerTintColor: '#000',
+          }}
+        />
+        <Stack.Screen
+          name="WalletSend"
+          component={WalletSend}
+          options={{
+            headerShown: false,
+            title: '',
+            headerStyle: {
+              backgroundColor: '#FFF',
+              shadowColor: 'none',
+              shadowOffset: {width: 0, height: 0},
+              shadowOpacity: 0,
+              shadowRadius: 0,
+              elevation: 0,
+            },
+            headerTintColor: '#000',
+          }}
+        />
+        <Stack.Screen
+          name="WalletReceive"
+          component={WalletReceive}
           options={{
             headerShown: false,
             title: '',
