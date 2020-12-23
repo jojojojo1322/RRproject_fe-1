@@ -223,37 +223,37 @@ class Initial2 extends Component {
               </Text>
             </TouchableOpacity> */}
 
+            {/* <TouchableOpacity
+              style={[ResetStyle.buttonWhite, {marginTop: 10}]}
+              activeOpacity={0.75}
+              onPress={() => {
+                this.props.navigation.navigate('ProfileMain');
+              }}>
+              <Text
+                style={[
+                  ResetStyle.fontMediumK,
+                  ResetStyle.fontB,
+                  {fontWeight: '600'},
+                ]}>
+                ProfileMain
+              </Text>
+            </TouchableOpacity> */}
+            {/* <TouchableOpacity
+              style={[ResetStyle.buttonWhite, {marginTop: 10}]}
+              activeOpacity={0.75}
+              onPress={() => {
+                this.props.navigation.navigate('ProfileMain');
+              }}>
+              <Text
+                style={[
+                  ResetStyle.fontMediumK,
+                  ResetStyle.fontB,
+                  {fontWeight: '600'},
+                ]}>
+                ProfileMain
+              </Text>
+            </TouchableOpacity> */}
             <TouchableOpacity
-              style={[ResetStyle.buttonWhite, {marginTop: 10}]}
-              activeOpacity={0.75}
-              onPress={() => {
-                this.props.navigation.navigate('ProfileMain');
-              }}>
-              <Text
-                style={[
-                  ResetStyle.fontMediumK,
-                  ResetStyle.fontB,
-                  {fontWeight: '600'},
-                ]}>
-                ProfileMain
-              </Text>
-            </TouchableOpacity>
-            {/* <TouchableOpacity
-              style={[ResetStyle.buttonWhite, {marginTop: 10}]}
-              activeOpacity={0.75}
-              onPress={() => {
-                this.props.navigation.navigate('ProfileMain');
-              }}>
-              <Text
-                style={[
-                  ResetStyle.fontMediumK,
-                  ResetStyle.fontB,
-                  {fontWeight: '600'},
-                ]}>
-                ProfileMain
-              </Text>
-            </TouchableOpacity>
-            {/* <TouchableOpacity
               style={[ResetStyle.buttonWhite, {marginTop: 10}]}
               activeOpacity={0.75}
               onPress={() => {
@@ -267,8 +267,8 @@ class Initial2 extends Component {
                 ]}>
                 Test page
               </Text>
-            </TouchableOpacity> */}
-            <TouchableOpacity
+            </TouchableOpacity>
+            {/* <TouchableOpacity
               style={[
                 ResetStyle.buttonWhite,
                 {marginTop: 10, borderColor: '#FFF'},
@@ -284,7 +284,7 @@ class Initial2 extends Component {
                 ]}>
                 Main
               </Text>
-            </TouchableOpacity>
+              </TouchableOpacity> */}
 
             {/* <TouchableOpacity
               style={[ResetStyle.buttonWhite, {marginTop: 10}]}

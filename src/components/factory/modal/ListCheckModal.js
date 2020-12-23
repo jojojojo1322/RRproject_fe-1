@@ -22,6 +22,9 @@ import {
 import {RoundCheckbox, SelectedCheckboxes} from '../Roundcheck';
 import {DefineCountryList} from '../../defined/DefineCountryList';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import ResetStyle from '../../../style/ResetStyle';
+import ModalStyle from '../../../style/ModalStyle';
+import Reset from '../../resetPassword/Reset';
 
 const window = Dimensions.get('window');
 let DATA = DefineCountryList;
@@ -55,14 +58,15 @@ const CountryList = (props) => {
   }
 
   return (
-    <View style={styles.countryList}>
+    <>
       <FlatList
         data={DATA}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         extraData={selectedId}
+        style={{width: '100%', marginTop: '5%', marginBottom: '5%'}}
       />
-    </View>
+    </>
   );
 };
 
@@ -76,20 +80,29 @@ const Item = ({
 }) => {
   // CheckedArrObject = new SelectedCheckboxes();
   return (
-    <TouchableOpacity onPress={onPress} style={[styles.item, style]}>
-      <Text style={[styles.title, {width: '80%'}]}>{item.title}</Text>
-      <RoundCheckbox
-        size={25}
-        keyValue={item.id}
-        checked={false}
-        color="#164895"
-        labelColor="#000000"
-        label={item.title}
-        value={item.cd}
-        checkedObjArr={CheckedArrObject}
-        handleCheckedArray={handleCheckedArray}
-        handleUnCheckedArray={handleUnCheckedArray}
-      />
+    <TouchableOpacity onPress={onPress}>
+      <View style={[ModalStyle.lrcItemView]}>
+        <Text
+          style={[
+            ResetStyle.fontRegularK,
+            ResetStyle.fontBlack,
+            {width: '80%', textAlign: 'left'},
+          ]}>
+          {item.title}
+        </Text>
+        <RoundCheckbox
+          size={25}
+          keyValue={item.id}
+          checked={false}
+          color="#164895"
+          labelColor="#000000"
+          label={item.title}
+          value={item.cd}
+          checkedObjArr={CheckedArrObject}
+          handleCheckedArray={handleCheckedArray}
+          handleUnCheckedArray={handleUnCheckedArray}
+        />
+      </View>
     </TouchableOpacity>
   );
 };
@@ -152,26 +165,26 @@ class ListCheckModal extends Component {
         <KeyboardAwareScrollView contentContainerStyle={{flex: 1}}>
           {/* modal background */}
           <TouchableWithoutFeedback
-            // style={styles.centeredView}
             activeOpacity={0.55}
             onPress={() => {
               this.setState({modalVisible: !modalVisible});
               this.props.setModalVisible(!modalVisible);
             }}>
-            <View style={styles.centeredView}></View>
+            <View style={[ModalStyle.modalCenteredView]}></View>
           </TouchableWithoutFeedback>
 
           {/* modal view */}
-          <View style={styles.modalView}>
-            <View style={styles.modalBox}>
-              <View style={{flexDirection: 'row'}}>
-                <Text style={styles.modalText}>사용가능언어 선택</Text>
-                <Text style={[styles.modalText, {fontSize: 13, marginLeft: 5}]}>
+          <View style={[ModalStyle.lcModal]}>
+            <View style={[ModalStyle.lcModalBox]}>
+              <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
+                <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+                  사용가능언어 선택
+                </Text>
+                <Text style={[ResetStyle.fontLightK, ResetStyle.fontBlack]}>
                   (다중 선택 가능)
                 </Text>
               </View>
               <TouchableWithoutFeedback
-                style={styles.closeButton}
                 setModalVisible={this.props.modalVisible}
                 modalVisible={this.props.modalVisible}
                 onPress={() => {
@@ -179,21 +192,21 @@ class ListCheckModal extends Component {
                   this.props.setModalVisible(!modalVisible);
                 }}>
                 <Image
-                  style={styles.closeButton}
+                  style={[ModalStyle.listModalCloseButton]}
                   source={require('../../../imgs/icon_close.png')}
                 />
               </TouchableWithoutFeedback>
             </View>
 
-            <View style={styles.modalInputBox}>
+            <View style={[ModalStyle.lcModalInput]}>
               <TextInput
-                style={styles.searchInputText}
+                style={[ResetStyle.fontLightK, ResetStyle.fontG]}
                 onChangeText={this.handleInputChange}
                 value={this.state.searchText}
                 placeholder="search"></TextInput>
-              <TouchableOpacity style={styles.closeButton}>
+              <TouchableOpacity>
                 <Image
-                  style={styles.closeButton}
+                  style={[ModalStyle.listModalSearch]}
                   source={require('../../../imgs/icon_search.png')}
                 />
               </TouchableOpacity>
@@ -209,7 +222,7 @@ class ListCheckModal extends Component {
 
             <TouchableOpacity
               style={[
-                styles.button,
+                ResetStyle.button,
 
                 // {backgroundColor: '#c6c9cf', marginTop: 15},
                 this.state.checkedArray == '' && {backgroundColor: '#e6e6e6'},
@@ -222,7 +235,9 @@ class ListCheckModal extends Component {
                   this.props.setModalVisible(!modalVisible);
                 }
               }}>
-              <Text style={[styles.buttonTexts]}>CONFIRM</Text>
+              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontWhite]}>
+                CONFIRM
+              </Text>
             </TouchableOpacity>
           </View>
         </KeyboardAwareScrollView>
@@ -230,120 +245,4 @@ class ListCheckModal extends Component {
     );
   }
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#FFF',
-  },
-  centeredView: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  centeredView: {
-    flex: 1,
-    backgroundColor: 'hsla(0, 0%, 20%, 0.6)',
-  },
-  modalView: {
-    position: 'absolute',
-    top: Platform.OS === 'ios' ? '17.5%' : '10%',
-    left: '5%',
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    width: '90%',
-    height: Platform.OS === 'ios' ? '65%' : '74%',
-    backgroundColor: 'white',
-    padding: '5%',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    borderRadius: 5,
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  TextSize: {
-    fontSize: 20,
-  },
-  modalText: {
-    textAlign: 'center',
-    fontSize: 16,
-    lineHeight: 24,
-    marginTop: '5%',
-    marginBottom: '5%',
-  },
-  modalBox: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  modalInputBox: {
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    borderWidth: 1,
-    borderColor: '#dddddd',
-    borderRadius: 5,
-    padding: Platform.OS === 'ios' ? '5%' : 0,
-    paddingLeft: '5%',
-    paddingRight: '5%',
-    marginTop: '3%',
-  },
-  modalText: {
-    fontSize: 20,
-    lineHeight: 24,
-  },
-  closeButton: {
-    width: 20,
-    height: 20,
-  },
-  searchInputText: {
-    fontSize: 15,
-  },
-  countryList: {
-    width: '100%',
-    height: Platform.OS === 'ios' ? '70%' : '65%',
-    overflow: 'scroll',
-
-    flexDirection: 'column',
-    marginTop: 10,
-  },
-  item: {
-    padding: 10,
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  title: {
-    fontSize: 16,
-  },
-  listImg: {
-    width: 25,
-    height: 16,
-  },
-
-  button: {
-    width: '100%',
-    borderRadius: 50,
-    backgroundColor: '#4696ff',
-    padding: 15,
-  },
-  buttonTexts: {
-    color: '#FFF',
-    fontWeight: '600',
-    textAlign: 'center',
-    fontSize: 16,
-  },
-});
 export default ListCheckModal;

@@ -1,25 +1,19 @@
 import React, {useState, Component} from 'react';
 import {
   StyleSheet,
-  ScrollView,
   View,
   Text,
-  Alert,
   Modal,
-  Button,
   Image,
   TextInput,
-  SafeAreaView,
   TouchableOpacity,
   TouchableWithoutFeedback,
   FlatList,
-  StatusBar,
-  Linking,
-  Animated,
   Dimensions,
 } from 'react-native';
 import {RoundCheckbox, SelectedCheckboxes} from '../../factory/Roundcheck';
 import ResetStyle from '../../../style/ResetStyle';
+import ModalStyle from '../../../style/ModalStyle';
 import {DefineCountryList} from '../../defined/DefineCountryList';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
@@ -55,14 +49,15 @@ const CountryList = (props) => {
   }
 
   return (
-    <View style={styles.countryList}>
+    <>
       <FlatList
         data={DATA}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         extraData={selectedId}
+        style={{width: '100%', marginTop: '5%'}}
       />
-    </View>
+    </>
   );
 };
 
@@ -73,8 +68,11 @@ const Item = ({item, onPress, style, handlePick}) => {
       onPress={() => {
         handlePick(item.title, item.cd);
       }}
-      style={[styles.item, style]}>
-      <Image style={styles.listImg} source={item.img} />
+      style={[ModalStyle.listModalItem]}>
+      <Image
+        style={[ModalStyle.listModalImg, {marginTop: 2}]}
+        source={item.img}
+      />
       <Text
         style={[ResetStyle.fontRegularK, ResetStyle.fontDG, {width: '70%'}]}>
         {item.title}
@@ -133,36 +131,34 @@ class ListModal extends Component {
           <View style={{flex: 1, position: 'relative'}}>
             {/* modal background */}
             <TouchableWithoutFeedback
-              // style={styles.centeredView}
               activeOpacity={0.55}
               onPress={() => {
                 this.setState({modalVisible: !modalVisible});
                 this.props.setModalVisible(!modalVisible);
               }}>
-              <View style={styles.centeredView}></View>
+              <View style={[ModalStyle.modalCenteredView]}></View>
             </TouchableWithoutFeedback>
 
             {/* modal view */}
-            <View style={styles.modalView}>
-              <View style={styles.modalBox}>
+            <View style={[ModalStyle.listModal]}>
+              <View style={[ModalStyle.listModalBox]}>
                 <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>
                   {this.props.titleText}
                 </Text>
                 <TouchableWithoutFeedback
-                  style={styles.closeButton}
                   setModalVisible={this.props.setModalVisible}
                   modalVisible={this.props.modalVisible}
                   onPress={() => {
                     this.props.setModalVisible(!modalVisible);
                   }}>
                   <Image
-                    style={styles.closeButton}
+                    style={[ModalStyle.listModalCloseButton]}
                     source={require('../../../imgs/icon_close.png')}
                   />
                 </TouchableWithoutFeedback>
               </View>
 
-              <View style={styles.modalInputBox}>
+              <View style={[ModalStyle.listModalInputBox]}>
                 <TextInput
                   style={[
                     ResetStyle.fontRegularK,
@@ -174,19 +170,17 @@ class ListModal extends Component {
                   placeholder="search"
                 />
                 <TouchableOpacity
-                  style={{position: 'absolute', right: '5%', top: '35%'}}>
+                  style={{position: 'absolute', right: '3%', top: '22%'}}>
                   <Image
-                    style={styles.closeButton}
+                    style={[ModalStyle.listModalSearch]}
                     source={require('../../../imgs/icon_search.png')}
                   />
                 </TouchableOpacity>
               </View>
-              <View style={{height: Platform.OS === 'ios' ? '98%' : '95%'}}>
-                <CountryList
-                  handlePick={this.handlePick}
-                  searchText={this.state.searchText}
-                />
-              </View>
+              <CountryList
+                handlePick={this.handlePick}
+                searchText={this.state.searchText}
+              />
             </View>
           </View>
         </KeyboardAwareScrollView>
@@ -194,81 +188,4 @@ class ListModal extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#FFF',
-  },
-  centeredView: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  centeredView: {
-    flex: 1,
-    backgroundColor: 'hsla(0, 0%, 20%, 0.6)',
-  },
-  modalView: {
-    position: 'absolute',
-    top: '17.5%',
-    left: '5%',
-    width: '90%',
-    height: Platform.OS === 'ios' ? '65%' : '70%',
-    backgroundColor: 'white',
-    padding: 20,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    borderRadius: 5,
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  modalBox: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  modalInputBox: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    borderWidth: 1,
-    borderColor: '#dddddd',
-    borderRadius: 5,
-    marginTop: 20,
-  },
-  closeButton: {
-    width: 20,
-    height: 20,
-  },
-  countryList: {
-    width: '100%',
-    height: '80%',
-    overflow: 'scroll',
-    flexDirection: 'column',
-    marginTop: 10,
-  },
-  item: {
-    padding: 10,
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  listImg: {
-    width: 25,
-    height: 16,
-  },
-});
 export default ListModal;

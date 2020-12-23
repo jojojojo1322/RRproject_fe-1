@@ -33,7 +33,7 @@ const AnimatedIndicator = Animated.createAnimatedComponent(ActivityIndicator);
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const TabBarHeight = 48;
-const HeaderHeight = 215;
+const HeaderHeight = Platform.OS === 'ios' ? 215 : 230;
 const SafeStatusBar = Platform.select({
   ios: 44,
   android: StatusBar.currentHeight,
@@ -162,6 +162,21 @@ export const Main = ({navigation}) => {
       id: '8',
       img: null,
       status: 'expired',
+      division: 'Any Category2',
+      dateStart: '2020.12.03',
+      dateEnd: '2020.12.31',
+      title: '결혼, 출산, 그리고 육아',
+      participant: 'S20 사용자',
+      participantCount: '20000',
+      participantCompleteCount: '12375',
+      tnc: '10',
+      purpose: '다음 제품 출시를 위하여',
+      host: 'Samsung',
+    },
+    {
+      id: '9',
+      img: null,
+      status: 'completed',
       division: 'Any Category2',
       dateStart: '2020.12.03',
       dateEnd: '2020.12.31',
@@ -580,7 +595,7 @@ export const Main = ({navigation}) => {
               ? navigation.navigate('MainDetailExpired')
               : item.status === 'upcoming'
               ? navigation.navigate('MainDetail')
-              : navigation.navigate('MainDetail');
+              : navigation.navigate('MainDetailCompleted');
             // navigation.navigate('MainDetail');
           }}>
           <View
