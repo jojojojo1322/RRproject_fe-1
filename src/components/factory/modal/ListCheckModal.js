@@ -162,7 +162,9 @@ class ListCheckModal extends Component {
         //   Alert.alert('Modal has been closed.');
         // }}
       >
-        <KeyboardAwareScrollView contentContainerStyle={{flex: 1}}>
+        <KeyboardAwareScrollView
+          enableOnAndroid={true}
+          contentContainerStyle={{flexGrow: 1}}>
           {/* modal background */}
           <TouchableWithoutFeedback
             activeOpacity={0.55}
