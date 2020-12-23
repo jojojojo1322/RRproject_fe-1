@@ -46,6 +46,7 @@ import WalletMain from './components/settings/wallet/WalletMain';
 import WalletDetail from './components/settings/wallet/WalletDetail';
 import WalletSend from './components/settings/wallet/WalletSend';
 import WalletReceive from './components/settings/wallet/WalletReceive';
+import MainAlert from './components/main/MainAlert';
 const Stack = createStackNavigator();
 
 const Drawer = createDrawerNavigator();
@@ -1162,7 +1163,7 @@ const App = () => {
       <NavigationContainer>
         {/* <Main /> */}
         <Drawer.Navigator
-          initialRouteName="초기"
+          initialRouteName="설문조사"
           drawerContent={(props) => <CustomDrawerContent {...props} />}
           drawerPosition="right"
           drawerStyle={{
@@ -1176,8 +1177,12 @@ const App = () => {
             },
           }}>
           <Drawer.Screen name="초기" component={AppMainStack} />
-          <Drawer.Screen name="Main" component={Main} />
+          <Drawer.Screen name="설문조사" component={Main} />
           <Drawer.Screen name="설문조사 의뢰하기" component={Main} />
+          <Drawer.Screen name="미디어" component={Main} />
+          <Drawer.Screen name="알림" component={MainAlert} />
+          <Drawer.Screen name="설정" component={ProfileMain} />
+          <Drawer.Screen name="초대코드" component={Main} />
         </Drawer.Navigator>
       </NavigationContainer>
     );
