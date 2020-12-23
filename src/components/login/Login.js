@@ -173,25 +173,27 @@ export default class Login extends Component {
               style={ResetStyle.button}
               activeOpacity={0.75}
               onPress={async () => {
-                this.setState({
-                  hasWallet: '',
-                });
-                await this.loginApi(this.state.ID, this.state.passWord);
-                console.log('notyey');
-                console.log(this.state.loginCheck);
+                //api용
+                // this.setState({
+                //   hasWallet: '',
+                // });
+                // await this.loginApi(this.state.ID, this.state.passWord);
+                // console.log('notyey');
+                // console.log(this.state.loginCheck);
 
-                if (this.state.loginCheck) {
-                  if (this.state.hasWallet === -1) {
-                    console.log('aaa');
-                    this.setModalVisible(true);
-                  } else {
-                    this.props.navigation.navigate('Main');
-                  }
-                } else {
-                  this.setModal2Visible(true);
-                }
+                // if (this.state.loginCheck) {
+                //   if (this.state.hasWallet === -1) {
+                //     console.log('aaa');
+                //     this.setModalVisible(true);
+                //   } else {
+                //     this.props.navigation.navigate('Main');
+                //   }
+                // } else {
+                //   this.setModal2Visible(true);
+                // }
 
-                // await AsyncStorage.setItem('userNo', '111');
+                //본부장님 테스트용
+                await AsyncStorage.setItem('userNo', '111');
               }}>
               <Text style={[ResetStyle.fontRegularE, ResetStyle.fontWhite]}>
                 LOGIN

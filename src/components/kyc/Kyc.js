@@ -280,24 +280,34 @@ export default class Kyc extends Component {
                       birth: this.state.birth,
                     });
                 } else if (this.state.step == 3) {
+                  //api 용
+                  // if (
+                  //   this.state.countryCd !== '' &&
+                  //   this.state.languageCd !== '' &&
+                  //   this.state.countryResidence !== '' &&
+                  //   this.state.countryCity !== ''
+                  // ) {
+                  //   await this.KycInsertApi(
+                  //     this.state.birth,
+                  //     this.state.countryCd,
+                  //     this.state.countryCity,
+                  //     this.state.countryResidence,
+                  //     this.state.gender,
+                  //     this.state.languageCd,
+                  //     // 'KOR',
+                  //     this.state.maritalStatus,
+                  //   );
+                  // }
+                  // if (this.state.returnValue == '0') {
+                  //   await this.setModalVisible(true);
+                  // }
+                  //본부장님 테스트용
                   if (
                     this.state.countryCd !== '' &&
                     this.state.languageCd !== '' &&
                     this.state.countryResidence !== '' &&
                     this.state.countryCity !== ''
                   ) {
-                    await this.KycInsertApi(
-                      this.state.birth,
-                      this.state.countryCd,
-                      this.state.countryCity,
-                      this.state.countryResidence,
-                      this.state.gender,
-                      this.state.languageCd,
-                      // 'KOR',
-                      this.state.maritalStatus,
-                    );
-                  }
-                  if (this.state.returnValue == '0') {
                     await this.setModalVisible(true);
                   }
                 }
