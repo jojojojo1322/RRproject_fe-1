@@ -134,7 +134,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: '8%',
+    marginTop: Platform.OS === 'ios' ? '8%' : '9%',
     paddingLeft: '5%',
     paddingRight: '13%',
   },
@@ -203,7 +203,7 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     paddingLeft: '5%',
     paddingRight: '5%',
-    paddingTop: Platform.OS === 'ios' ? '15%' : '8%',
+    paddingTop: Platform.OS === 'ios' ? '15%' : '6%',
     paddingBottom: Platform.OS === 'ios' ? '2%' : '2%',
   },
   mainContainer: {
@@ -213,7 +213,7 @@ export default StyleSheet.create({
   mainHeader: {
     width: '100%',
     position: 'absolute',
-    top: Platform.OS === 'ios' ? '11%' : '11%',
+    top: Platform.OS === 'ios' ? '11%' : '13%',
     zIndex: -1,
   },
   mainLabel: {

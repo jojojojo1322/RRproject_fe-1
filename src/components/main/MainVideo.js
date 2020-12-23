@@ -17,57 +17,7 @@ import Clipboard from '@react-native-community/clipboard';
 import BottomModal from '../factory/modal/BottomModal';
 import {ProgressCircle} from 'react-native-svg-charts';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
-import {server} from '../defined/server';
-import Reset from '../resetPassword/Reset.js';
-
 const data = [
-  {
-    id: '1',
-    videoUri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-    videoTitle: 'AD Title 1 AD Title 1 AD Title 1 AD Title 1',
-    videoSub: 'AD sub title AD sub titleAD sub title',
-    videoDate: '2020.12.03',
-  },
-  {
-    id: '2',
-    videoUri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-    videoTitle: 'AD Title 2 AD Title 2 AD Title 2 AD Title 2',
-    videoSub: 'AD sub title AD sub titleAD sub title',
-    videoDate: '2020.12.03',
-  },
-  {
-    id: '3',
-    videoUri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-    videoTitle: 'AD Title 3 AD Title 3 AD Title 3 AD Title 3',
-    videoSub: 'AD sub title AD sub titleAD sub title',
-    videoDate: '2020.12.03',
-  },
-  {
-    id: '4',
-    videoUri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-    videoTitle: 'AD Title 4 AD Title 4 AD Title 4 AD Title 4',
-    videoSub: 'AD sub title AD sub titleAD sub title',
-    videoDate: '2020.12.03',
-  },
-  {
-    id: '5',
-    videoUri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-    videoTitle: 'AD Title 5 AD Title 5 AD Title 5 AD Title 5',
-    videoSub: 'AD sub title AD sub titleAD sub title',
-    videoDate: '2020.12.03',
-  },
-  {
-    id: '6',
-    videoUri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-    videoTitle: 'AD Title 6 AD Title 6 AD Title 6 AD Title 6',
-    videoSub: 'AD sub title AD sub titleAD sub title',
-    videoDate: '2020.12.03',
-  },
-];
-
-const txidData = [
   {
     id: '1',
     videoUri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
@@ -201,7 +151,10 @@ function VideoList({navigation}) {
   );
 }
 
-function VideoTXID({navigation}) {
+function VideoTXID(props) {
+  copyToClipboard = (value) => {
+    Clipboard.setString(value);
+  };
   return (
     <SafeAreaView
       style={[MainStyle.mainFlatlistView, {backgroundColor: '#fff'}]}>
@@ -217,7 +170,7 @@ function VideoTXID({navigation}) {
           style={[
             ResetStyle.fontRegularK,
             ResetStyle.fontBlack,
-            {marginTop: '5%'},
+            {marginTop: '5%', lineHeight: 25},
           ]}>
           설문조사를 완료해주셔서 감사합니다.{'\n'}
           블록체인 네트워크에서 확인 완료 후{'\n'}
@@ -259,8 +212,9 @@ function VideoTXID({navigation}) {
             },
           ]}
           onPress={() => {
-            this.setModalVisible(true);
-            this.copyToClipboard();
+            props.setModalVisible(true);
+            console.log(props);
+            copyToClipboard('123');
             // this.copyToClipboard(this.props.route.params?.walletAddress);
           }}>
           <Text
@@ -269,7 +223,7 @@ function VideoTXID({navigation}) {
               ResetStyle.fontDG,
               {paddingTop: 20, paddingBottom: 20, textAlign: 'left'},
             ]}>
-            {/* {this.props.route.params?.walletAddress} */}
+            {/* {this.props.route.params?.walletAddress} */}123
           </Text>
         </TouchableOpacity>
         <Text
@@ -359,9 +313,9 @@ export default class MainVideo extends Component {
       modalVisible: visible,
     });
   };
-  copyToClipboard = (value) => {
-    Clipboard.setString(value);
-  };
+  // copyToClipboard = (value) => {
+  //   Clipboard.setString(value);
+  // };
   render() {
     return (
       <SafeAreaView style={[ResetStyle.container, {backgroundColor: '#fff'}]}>
@@ -392,11 +346,11 @@ export default class MainVideo extends Component {
           />
         </View>
         {/* <VideoList /> */}
-        {/* <VideoTXID
-          copyToClipboard={this.copyToClipboard}
+        <VideoTXID
           setModalVisible={this.setModalVisible}
-        /> */}
-        <VideoKYC />
+          modalVisible={this.state.modalVisible}
+        />
+        {/* <VideoKYC /> */}
         <TouchableOpacity
           style={[
             ResetStyle.button,
