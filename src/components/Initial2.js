@@ -207,7 +207,7 @@ class Initial2 extends Component {
               </Text>
             </TouchableOpacity>
 
-            {/* <TouchableOpacity
+            <TouchableOpacity
               style={[ResetStyle.buttonWhite, {marginTop: 10}]}
               activeOpacity={0.75}
               onPress={() => {
@@ -221,7 +221,7 @@ class Initial2 extends Component {
                 ]}>
                 Kyc
               </Text>
-            </TouchableOpacity> */}
+            </TouchableOpacity>
 
             {/* <TouchableOpacity
               style={[ResetStyle.buttonWhite, {marginTop: 10}]}
