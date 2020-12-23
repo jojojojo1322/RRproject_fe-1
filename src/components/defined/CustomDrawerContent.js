@@ -175,7 +175,10 @@ export function CustomDrawerContent(props) {
           </Text>
         </View>
         <TouchableOpacity
-          style={{width: '35%', backgroundColor: '#2d91ff', borderRadius: 50}}>
+          style={{width: '35%', backgroundColor: '#2d91ff', borderRadius: 50}}
+          onPress={() => {
+            props.navigation.navigate('WalletMain');
+          }}>
           <Text
             style={[
               ResetStyle.fontLightK,

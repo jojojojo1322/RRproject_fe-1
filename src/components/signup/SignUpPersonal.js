@@ -278,22 +278,23 @@ class SignUpPersonal extends Component {
                     </Text>
                   </>
                 )}
-                {this.state.checkEmail === 0 && (
-                  <>
-                    <Image
-                      style={ResetStyle.smallImg}
-                      source={require('../../imgs/drawable-xhdpi/icon_m_check.png')}
-                    />
-                    <Text
-                      style={[
-                        ResetStyle.fontLightK,
-                        ResetStyle.fontB,
-                        {marginLeft: 5},
-                      ]}>
-                      등록 가능한 이메일 입니다.
-                    </Text>
-                  </>
-                )}
+                {this.state.checkEmail === 0 &&
+                  this.state.checkEmailValidation === true && (
+                    <>
+                      <Image
+                        style={ResetStyle.smallImg}
+                        source={require('../../imgs/drawable-xhdpi/icon_m_check.png')}
+                      />
+                      <Text
+                        style={[
+                          ResetStyle.fontLightK,
+                          ResetStyle.fontB,
+                          {marginLeft: 5},
+                        ]}>
+                        등록 가능한 이메일 입니다.
+                      </Text>
+                    </>
+                  )}
               </View>
             </View>
 
