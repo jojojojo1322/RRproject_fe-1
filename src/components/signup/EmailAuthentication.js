@@ -441,13 +441,18 @@ class EmailAuthentication extends Component {
               // this.state.passWord.length < 6 && {backgroundColor: '#e6e6e6'},
             ]}
             onPress={async () => {
-              const os = Platform.OS;
-              await this.userRegistApi('I');
-              if (this.state.returnValue === 0) {
-                this.loginApi(
-                  this.props.route.params?.email,
-                  this.props.route.params?.password,
-                );
+              //api 잠시 끄기
+              // const os = Platform.OS;
+              // await this.userRegistApi('I');
+              // if (this.state.returnValue === 0) {
+              //   this.loginApi(
+              //     this.props.route.params?.email,
+              //     this.props.route.params?.password,
+              //   );
+              //   this.props.navigation.navigate('CompleteAuth');
+              // }
+              //본부장님 테스트용
+              if (this.state.returnApprove == 0) {
                 this.props.navigation.navigate('CompleteAuth');
               }
             }}>
