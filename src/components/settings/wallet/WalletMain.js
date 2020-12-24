@@ -22,7 +22,7 @@ const TestArray = [
     id: 0,
     status: 'RECEIVE',
     statusDetail: null,
-    TNC: 11323123123123,
+    TNC: 10,
     DATE: '2020-10-31 11:11:11',
     object: '설문조사10',
   },
@@ -30,7 +30,7 @@ const TestArray = [
     id: 1,
     status: 'RECEIVE',
     statusDetail: null,
-    TNC: 11323123123123,
+    TNC: 10,
     DATE: '2020-10-31 11:11:11',
     object: '설문조사8',
   },
@@ -38,15 +38,15 @@ const TestArray = [
     id: 2,
     status: 'TRANSFER',
     statusDetail: 'SEND',
-    TNC: 11323123123123,
+    TNC: 10,
     DATE: '2020-10-31 11:11:11',
-    object: 'adad',
+    object: 'adadasdsadasdasdasdasd',
   },
   {
     id: 3,
     status: 'RECEIVE',
     statusDetail: null,
-    TNC: 11323123123123,
+    TNC: 10,
     DATE: '2020-10-31 11:11:11',
     object: '설문조사10',
   },
@@ -54,9 +54,65 @@ const TestArray = [
     id: 4,
     status: 'TRANSFER',
     statusDetail: 'RECEIVE',
-    TNC: 11323123123123,
+    TNC: 10,
     DATE: '2020-10-31 11:11:11',
-    object: 'acac',
+    object: 'acacasdasdasd',
+  },
+  {
+    id: 4,
+    status: 'TRANSFER',
+    statusDetail: 'RECEIVE',
+    TNC: 10,
+    DATE: '2020-10-31 11:11:11',
+    object: 'acacasdasdasd',
+  },
+  {
+    id: 4,
+    status: 'TRANSFER',
+    statusDetail: 'RECEIVE',
+    TNC: 10,
+    DATE: '2020-10-31 11:11:11',
+    object: 'acacasdasdasd',
+  },
+  {
+    id: 4,
+    status: 'TRANSFER',
+    statusDetail: 'RECEIVE',
+    TNC: 10,
+    DATE: '2020-10-31 11:11:11',
+    object: 'acacasdasdasd',
+  },
+  {
+    id: 4,
+    status: 'TRANSFER',
+    statusDetail: 'RECEIVE',
+    TNC: 10,
+    DATE: '2020-10-31 11:11:11',
+    object: 'acacasdasdasd',
+  },
+  {
+    id: 4,
+    status: 'TRANSFER',
+    statusDetail: 'RECEIVE',
+    TNC: 10,
+    DATE: '2020-10-31 11:11:11',
+    object: 'acacasdasdasd',
+  },
+  {
+    id: 4,
+    status: 'TRANSFER',
+    statusDetail: 'RECEIVE',
+    TNC: 10,
+    DATE: '2020-10-31 11:11:11',
+    object: 'acacasdasdasd',
+  },
+  {
+    id: 4,
+    status: 'TRANSFER',
+    statusDetail: 'RECEIVE',
+    TNC: 10,
+    DATE: '2020-10-31 11:11:11',
+    object: 'acacasdasdasd',
   },
 ];
 
@@ -65,20 +121,65 @@ export default class WalletMain extends Component {
     let TransactionArr = [];
     TestArray.map((data, index) => {
       TransactionArr = TransactionArr.concat(
-        <View key={index}>
+        <TouchableOpacity
+          key={index}
+          style={{
+            borderBottomColor: '#dedede',
+            borderBottomWidth: 1,
+            marginTop: 17,
+          }}
+          onPress={() => {
+            this.props.navigation.navigate('WalletDetail');
+          }}>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <Text style={[ResetStyle.fontRegularE, ResetStyle.fontB]}>
+            <Text
+              style={[
+                ResetStyle.fontRegularE,
+                ResetStyle.fontB,
+                {fontWeight: '600'},
+                data.statusDetail == 'SEND' && {color: '#ff9100'},
+              ]}>
               {data.status}
             </Text>
-            <Text style={[ResetStyle.fontRegularE, ResetStyle.fontB]}>
-              {data.TNC} TNC
+            <Text
+              style={[
+                ResetStyle.fontRegularE,
+                ResetStyle.fontB,
+                {fontWeight: '600'},
+                data.statusDetail == 'SEND' && {color: '#ff9100'},
+              ]}>
+              {`${data.statusDetail == 'SEND' ? '-' : '+'} ${data.TNC} TNC`}
             </Text>
           </View>
-          <View>
-            <Text></Text>
-            <Text></Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginTop: 3,
+              marginBottom: 17,
+            }}>
+            <Text
+              style={[
+                ResetStyle.fontLightK,
+                ResetStyle.fontDG,
+                {fontSize: 18},
+                {fontWeight: '400'},
+              ]}>
+              {data.object.length <= 10
+                ? data.object
+                : data.object.slice(0, 10) + '..'}
+            </Text>
+            <Text
+              style={[
+                ResetStyle.fontLightK,
+                ResetStyle.fontDG,
+                {fontSize: 18},
+                {fontWeight: '400'},
+              ]}>
+              {data.DATE}
+            </Text>
           </View>
-        </View>,
+        </TouchableOpacity>,
       );
     });
     return (
@@ -86,7 +187,7 @@ export default class WalletMain extends Component {
         <View style={[ResetStyle.containerInner]}>
           <View
             style={{
-              backgroundColor: '#f9f9f9',
+              backgroundColor: '#ffffff',
               paddingTop: Platform.OS === 'ios' ? '15%' : '5%',
               flexDirection: 'row',
               justifyContent: 'space-between',
@@ -150,7 +251,7 @@ export default class WalletMain extends Component {
                 marginTop: '2%',
               }}>
               <Text style={[ResetStyle.fontLightE, ResetStyle.fontWhite]}>
-                TNC
+                {`TNC `}
               </Text>
               <Text
                 style={[
@@ -177,7 +278,10 @@ export default class WalletMain extends Component {
                     borderColor: '#fff',
                     marginRight: 3,
                   },
-                ]}>
+                ]}
+                onPress={() => {
+                  this.props.navigation.navigate('WalletSend');
+                }}>
                 <Text
                   style={[
                     ResetStyle.buttonTexts,
@@ -197,7 +301,10 @@ export default class WalletMain extends Component {
                     borderWidth: 1,
                     marginLeft: 3,
                   },
-                ]}>
+                ]}
+                onPress={() => {
+                  this.props.navigation.navigate('WalletReceive');
+                }}>
                 <Text
                   style={[ResetStyle.buttonTexts, {fontSize: 20, margin: 6}]}>
                   Receive
@@ -213,7 +320,7 @@ export default class WalletMain extends Component {
                 textAlign: 'left',
                 fontWeight: '500',
                 marginTop: '9%',
-                marginBottom: '9%',
+                marginBottom: '5%',
               },
             ]}>
             Transactions
