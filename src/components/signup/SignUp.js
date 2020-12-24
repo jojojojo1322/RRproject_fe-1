@@ -204,20 +204,18 @@ class SignUp extends Component {
           <View style={[ResetStyle.containerInner]}>
             <View>
               {/* topBackButton */}
-              <View>
-                <View style={ResetStyle.topBackButton}>
-                  <TouchableOpacity
-                    onPress={() => {
-                      this.props.navigation.goBack();
-                    }}>
-                    <Image
-                      source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
-                    />
-                  </TouchableOpacity>
-                  <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-                    휴대폰 인증
-                  </Text>
-                </View>
+              <View style={ResetStyle.topBackButton}>
+                <TouchableOpacity
+                  onPress={() => {
+                    this.props.navigation.goBack();
+                  }}>
+                  <Image
+                    source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
+                  />
+                </TouchableOpacity>
+                <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+                  휴대폰 인증
+                </Text>
               </View>
               <Text
                 style={[
@@ -265,13 +263,6 @@ class SignUp extends Component {
                   />
                 </View>
               </TouchableOpacity>
-
-              <ListModal
-                modalVisible={this.state.modalVisible}
-                setModalVisible={this.setModalVisible}
-                setCountry={this.setCountry}
-                titleText={`국가선택`}
-              />
 
               <TextInput
                 placeholder="-없이 휴대폰 번호 입력"
@@ -453,6 +444,7 @@ class SignUp extends Component {
                 </Text>
               </View>
             </View>
+
             <TouchableOpacity
               style={[
                 ResetStyle.button,
@@ -493,6 +485,14 @@ class SignUp extends Component {
             </TouchableOpacity>
           </View>
         </KeyboardAwareScrollView>
+        <View>
+          <ListModal
+            modalVisible={this.state.modalVisible}
+            setModalVisible={this.setModalVisible}
+            setCountry={this.setCountry}
+            titleText={`국가선택`}
+          />
+        </View>
         <BottomModal
           setModalVisible={this.setModalVisibleNotAuth}
           modalVisible={this.state.modalVisibleNotAuth}

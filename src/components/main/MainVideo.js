@@ -80,7 +80,7 @@ const Item = ({videoUri, videoTitle, videoSub, videoDate, onPress}) => (
         //   this.player = ref;
         // }}
         rate={1.0}
-        volume={1.0}
+        volume={0.0}
         isMuted={true}
         resizeMode="cover"
         // shouldPlay
@@ -333,7 +333,7 @@ export default class MainVideo extends Component {
               this.player = ref;
             }}
             rate={1.0}
-            volume={1.0}
+            volume={0.0}
             isMuted={true}
             resizeMode="cover"
             shouldPlay
@@ -341,7 +341,7 @@ export default class MainVideo extends Component {
             // onBuffer={this.onBuffer}
             // onError={this.videoError}
             style={{width: '100%', height: '100%'}}
-            controls={true}
+            controls={false}
             fullscreenOrientation={'landscape'}
           />
         </View>

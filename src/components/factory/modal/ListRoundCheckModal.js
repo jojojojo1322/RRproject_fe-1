@@ -204,17 +204,17 @@ class ListRoundCheckModal extends Component {
   render() {
     const {modalVisible} = this.state;
     return (
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        // onRequestClose={() => {
-        //   Alert.alert('Modal has been closed.');
-        // }}
-      >
-        <KeyboardAwareScrollView
-          enableOnAndroid={true}
-          contentContainerStyle={{flexGrow: 1}}>
+      <KeyboardAwareScrollView
+        enableOnAndroid={true}
+        contentContainerStyle={{flexGrow: 1}}>
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible}
+          // onRequestClose={() => {
+          //   Alert.alert('Modal has been closed.');
+          // }}
+        >
           <View style={{flex: 1, position: 'relative'}}>
             {/* modal background */}
             <TouchableWithoutFeedback
@@ -268,8 +268,8 @@ class ListRoundCheckModal extends Component {
 
             <CountryList setResidenceCity={this.props.setResidenceCity} />
           </View>
-        </KeyboardAwareScrollView>
-      </Modal>
+        </Modal>
+      </KeyboardAwareScrollView>
     );
   }
 }

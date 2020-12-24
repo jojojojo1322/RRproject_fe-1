@@ -154,17 +154,17 @@ class ListCheckModal extends Component {
     const {modalVisible} = this.state;
     console.log(CheckedArrObject.fetchArray().length);
     return (
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        // onRequestClose={() => {
-        //   Alert.alert('Modal has been closed.');
-        // }}
-      >
-        <KeyboardAwareScrollView
-          enableOnAndroid={true}
-          contentContainerStyle={{flexGrow: 1}}>
+      <KeyboardAwareScrollView
+        enableOnAndroid={true}
+        contentContainerStyle={{flexGrow: 1}}>
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible}
+          // onRequestClose={() => {
+          //   Alert.alert('Modal has been closed.');
+          // }}
+        >
           {/* modal background */}
           <TouchableWithoutFeedback
             activeOpacity={0.55}
@@ -242,8 +242,8 @@ class ListCheckModal extends Component {
               </Text>
             </TouchableOpacity>
           </View>
-        </KeyboardAwareScrollView>
-      </Modal>
+        </Modal>
+      </KeyboardAwareScrollView>
     );
   }
 }

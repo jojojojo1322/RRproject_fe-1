@@ -17,7 +17,10 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  modalCenteredView: {flex: 1, backgroundColor: 'hsla(0, 0%, 20%, 0.6)'},
+  modalCenteredView: {
+    flex: 1,
+    backgroundColor: 'hsla(0, 0%, 20%, 0.6)',
+  },
 
   // Audience Modal
   audienceAllView: {
@@ -118,6 +121,7 @@ export default StyleSheet.create({
     left: '5%',
     width: '90%',
     height: Platform.OS === 'ios' ? '65%' : '70%',
+    // height: Platform.OS === 'ios' ? 600 : 500,
     backgroundColor: '#FFF',
     padding: 20,
     alignItems: 'center',

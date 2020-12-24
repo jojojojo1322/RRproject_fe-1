@@ -593,9 +593,9 @@ export const Main = ({navigation}) => {
           onPress={() => {
             item.status === 'expired'
               ? navigation.navigate('MainDetailExpired')
-              : item.status === 'upcoming'
-              ? navigation.navigate('MainDetail')
-              : navigation.navigate('MainDetailCompleted');
+              : item.status === 'completed'
+              ? navigation.navigate('MainDetailCompleted')
+              : navigation.navigate('MainDetail');
             // navigation.navigate('MainDetail');
           }}>
           <View

@@ -74,7 +74,11 @@ const Item = ({item, onPress, style, handlePick}) => {
         source={item.img}
       />
       <Text
-        style={[ResetStyle.fontRegularK, ResetStyle.fontDG, {width: '70%'}]}>
+        style={[
+          ResetStyle.fontRegularK,
+          ResetStyle.fontDG,
+          {width: '68%', textAlign: 'left'},
+        ]}>
         {item.title}
       </Text>
       <Text style={[ResetStyle.fontRegularK, ResetStyle.fontDG]}>
@@ -119,17 +123,17 @@ class ListModal extends Component {
   render() {
     const {modalVisible} = this.state;
     return (
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        // onRequestClose={() => {
-        //   Alert.alert('Modal has been closed.');
-        // }}
-      >
-        <KeyboardAwareScrollView
-          enableOnAndroid={true}
-          contentContainerStyle={{flexGrow: 1}}>
+      <KeyboardAwareScrollView
+        enableOnAndroid={true}
+        contentContainerStyle={{flexGrow: 1}}>
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible}
+          // onRequestClose={() => {
+          //   Alert.alert('Modal has been closed.');
+          // }}
+        >
           <View style={{flex: 1, position: 'relative'}}>
             {/* modal background */}
             <TouchableWithoutFeedback
@@ -185,8 +189,8 @@ class ListModal extends Component {
               />
             </View>
           </View>
-        </KeyboardAwareScrollView>
-      </Modal>
+        </Modal>
+      </KeyboardAwareScrollView>
     );
   }
 }
