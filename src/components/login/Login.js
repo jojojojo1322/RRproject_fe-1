@@ -193,6 +193,7 @@ export default class Login extends Component {
                 // }
 
                 //본부장님 테스트용
+                this.props.navigation.navigate('WalletPassword');
                 await AsyncStorage.setItem('userNo', '111');
               }}>
               <Text style={[ResetStyle.fontRegularE, ResetStyle.fontWhite]}>

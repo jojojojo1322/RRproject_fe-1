@@ -16,6 +16,8 @@ import axios from 'axios';
 import {server} from '../defined/server';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
+import BottomModal from '../factory/modal/BottomModal';
+import TextConfirmModal from '../factory/modal/TextConfirmModal';
 
 class EmailAuthentication extends Component {
   state = {
@@ -30,7 +32,31 @@ class EmailAuthentication extends Component {
     timeLeftNumber: 180,
     CountDownCheck: '',
     CountDownExpireCheck: false,
+    modalVisible: false,
+    modal2Visible: false,
+    modal3Visible: false,
+    modal4Visible: false,
   };
+
+  setModalVisible = (visible) => {
+    this.setState({modalVisible: visible});
+  };
+  setModal2Visible = (visible) => {
+    this.setState({modal2Visible: visible});
+  };
+  setModal3Visible = (visible) => {
+    this.setState({modal3Visible: visible});
+  };
+  setModal4Visible = (visible) => {
+    this.setState({modal4Visible: visible});
+  };
+  handleNextPage = () => {
+    console.log('success');
+  };
+  // setModal5Visible = (visible) => {
+  //   this.setState({modal5Visible: visible});
+  // };
+
   /* <CountDown
                 standard={this.state.isRunning}
                 timeLeftNumber={this.state.timeLeftNumber}
@@ -81,10 +107,6 @@ class EmailAuthentication extends Component {
       passWord: text,
       returnValue: '',
     });
-  };
-
-  setModalVisible = (visible) => {
-    this.setState({modalVisible: visible});
   };
 
   // only number
@@ -307,21 +329,31 @@ class EmailAuthentication extends Component {
                       flexDirection: 'row',
                       justifyContent: 'space-between',
                       alignItems: 'center',
+                      paddingBottom: '2%',
+                      paddingTop: '3%',
                     },
                   ]}>
-                  <TextInput
-                    placeholder="인증번호 입력"
-                    placeholderTextColor="#a9a9a9"
-                    value={this.state.passWord}
-                    keyboardType={'numeric'}
-                    returnKeyType={'done'}
-                    // secureTextEntry={true}
-                    onChangeText={(text) => this.handlePassword(text)}
-                    style={[
-                      ResetStyle.fontRegularK,
-                      ResetStyle.fontG,
-                      {textAlign: 'left'},
-                    ]}></TextInput>
+                  <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
+                    <TextInput
+                      placeholder="인증번호 입력"
+                      placeholderTextColor="#a9a9a9"
+                      value={this.state.passWord}
+                      keyboardType={'numeric'}
+                      returnKeyType={'done'}
+                      // secureTextEntry={true}
+                      onChangeText={(text) => this.handlePassword(text)}
+                      style={[
+                        ResetStyle.fontRegularK,
+                        ResetStyle.fontG,
+                        {textAlign: 'left'},
+                      ]}></TextInput>
+                    {this.state.returnApprove == '0' && (
+                      <Image
+                        style={{marginLeft: '4%', marginBottom: '2%'}}
+                        source={require('../../imgs/drawable-xxxhdpi/verification_code_check_icon.png')}
+                      />
+                    )}
+                  </View>
                   <TouchableOpacity
                     style={[ResetStyle.buttonSmall, {width: '26%'}]}
                     onPress={async () => {
@@ -330,6 +362,11 @@ class EmailAuthentication extends Component {
                         '인증하기버튼 클릭후 >>>>',
                         this.state.returnApprove,
                       );
+                      if (this.state.returnApprove == '0') {
+                        this.setModalVisible(true);
+                      } else if (this.state.returnApprove != '0') {
+                        this.setModal2Visible(true);
+                      }
                     }}>
                     <Text style={[ResetStyle.fontLightK, ResetStyle.fontWhite]}>
                       인증하기
@@ -465,6 +502,18 @@ class EmailAuthentication extends Component {
               회원가입
             </Text>
           </TouchableOpacity>
+          <TextConfirmModal
+            setModalVisible={this.setModalVisible}
+            modalVisible={this.state.modalVisible}
+            handleNextPage={this.handleNextPage}
+            text={`인증되었습니다.`}
+            confirm={`확인`}
+          />
+          <BottomModal
+            setModalVisible={this.setModal2Visible}
+            modalVisible={this.state.modal2Visible}
+            text={`잘못된 인증번호입니다.`}
+          />
         </View>
       </SafeAreaView>
     );

@@ -268,7 +268,7 @@ class Initial2 extends Component {
                 Test page
               </Text>
             </TouchableOpacity> */}
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={[
                 ResetStyle.buttonWhite,
                 {marginTop: 10, borderColor: '#FFF'},
@@ -284,7 +284,7 @@ class Initial2 extends Component {
                 ]}>
                 Main
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             {/* <TouchableOpacity
               style={[ResetStyle.buttonWhite, {marginTop: 10}]}
