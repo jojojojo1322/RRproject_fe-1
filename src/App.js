@@ -47,6 +47,10 @@ import WalletDetail from './components/settings/wallet/WalletDetail';
 import WalletSend from './components/settings/wallet/WalletSend';
 import WalletReceive from './components/settings/wallet/WalletReceive';
 import MainAlert from './components/main/MainAlert';
+
+import Settings from './components/settings/Settings';
+import SettingsLock from './components/settings/SettingsLock';
+
 const Stack = createStackNavigator();
 
 const Drawer = createDrawerNavigator();
@@ -1099,6 +1103,40 @@ export class AppMainStack extends Component {
             headerTintColor: '#000',
           }}
         />
+        <Stack.Screen
+          name="Settings"
+          component={Settings}
+          options={{
+            headerShown: false,
+            title: '',
+            headerStyle: {
+              backgroundColor: '#FFF',
+              shadowColor: 'none',
+              shadowOffset: {width: 0, height: 0},
+              shadowOpacity: 0,
+              shadowRadius: 0,
+              elevation: 0,
+            },
+            headerTintColor: '#000',
+          }}
+        />
+        <Stack.Screen
+          name="SettingsLock"
+          component={SettingsLock}
+          options={{
+            headerShown: false,
+            title: '',
+            headerStyle: {
+              backgroundColor: '#FFF',
+              shadowColor: 'none',
+              shadowOffset: {width: 0, height: 0},
+              shadowOpacity: 0,
+              shadowRadius: 0,
+              elevation: 0,
+            },
+            headerTintColor: '#000',
+          }}
+        />
       </Stack.Navigator>
     );
   }
@@ -1181,7 +1219,7 @@ const App = () => {
           <Drawer.Screen name="설문조사 의뢰하기" component={Main} />
           <Drawer.Screen name="미디어" component={Main} />
           <Drawer.Screen name="알림" component={MainAlert} />
-          {/* <Drawer.Screen name="설정" component={ProfileMain} /> */}
+          <Drawer.Screen name="설정" component={Settings} />
           <Drawer.Screen name="초대코드" component={Main} />
         </Drawer.Navigator>
       </NavigationContainer>
