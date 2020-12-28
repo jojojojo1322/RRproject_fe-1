@@ -16,7 +16,6 @@ import ResetStyle from '../../../style/ResetStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {SelectedCheckboxes, RoundCheckbox} from '../../factory/Roundcheck';
 import ResearchStyle from '../../../style/ResearchStyle.js';
-import {TextInput} from 'react-native-paper';
 
 const dealDetail = {
   block: '1035613',

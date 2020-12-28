@@ -48,8 +48,22 @@ import WalletSend from './components/settings/wallet/WalletSend';
 import WalletReceive from './components/settings/wallet/WalletReceive';
 import MainAlert from './components/main/MainAlert';
 
-import Settings from './components/settings/Settings';
-import SettingsLock from './components/settings/SettingsLock';
+import Settings from './components/settings/settingsDetail/Settings';
+
+import SettingsAlert from './components/settings/settingsDetail/SettingsAlert';
+import SettingsLanguage from './components/settings/settingsDetail/SettingsLanguage';
+import SettingsLock from './components/settings/settingsDetail/lock/SettingsLock';
+import SettingsLockPattern from './components/settings/settingsDetail/lock/SettingsLockPattern';
+import SettingsLockPassword from './components/settings/settingsDetail/lock/SettingsLockPassword';
+
+import SettingsPersonal from './components/settings/settingsDetail/personal/SettingsPersonal';
+import SettingsPersonalPassword from './components/settings/settingsDetail/personal/SettingsPersonalPassword';
+import SettingsPersonalPasswordChange from './components/settings/settingsDetail/personal/SettingsPersonalPasswordChange';
+import SettingsPersonalEmail from './components/settings/settingsDetail/personal/SettingsPersonalEmail';
+import SettingsPersonalResetPassword from './components/settings/settingsDetail/personal/SettingsPersonalResetPassword';
+import SettingsPersonalPhone from './components/settings/settingsDetail/personal/SettingsPersonalPhone';
+import SettingsPersonalMasterPhone from './components/settings/settingsDetail/personal/SettingsPersonalMasterPhone';
+import SettingsPersonalMasterKey from './components/settings/settingsDetail/personal/SettingsPersonalMasterKey';
 
 const Stack = createStackNavigator();
 
@@ -84,16 +98,16 @@ export class AppAuthStack extends Component {
             headerShown: false,
             // title: this.props.route.params?.step,
             // title: route.params?.name,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
+            // title: '',
+            // headerStyle: {
+            //   backgroundColor: '#FFF',
+            //   shadowColor: 'none',
+            //   shadowOffset: {width: 0, height: 0},
+            //   shadowOpacity: 0,
+            //   shadowRadius: 0,
+            //   elevation: 0,
+            // },
+            // headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -101,16 +115,6 @@ export class AppAuthStack extends Component {
           component={Login}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -118,16 +122,6 @@ export class AppAuthStack extends Component {
           component={WalletPassword}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -135,16 +129,6 @@ export class AppAuthStack extends Component {
           component={WalletMasterKey}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -152,16 +136,6 @@ export class AppAuthStack extends Component {
           component={Kyc}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -169,16 +143,6 @@ export class AppAuthStack extends Component {
           component={Reset}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen name="ResetEmail" component={ResetEmail} />
@@ -187,16 +151,6 @@ export class AppAuthStack extends Component {
           component={ResetPassword}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -204,16 +158,6 @@ export class AppAuthStack extends Component {
           component={SignUp}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#FFF',
             // headerLeft: () => (
             //   <TouchableOpacity activeOpacity={0.75} onPress={() => {
             //     this.props.navigation.goBack();
@@ -243,16 +187,6 @@ export class AppAuthStack extends Component {
           component={AgreementTermsConditions}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -260,16 +194,6 @@ export class AppAuthStack extends Component {
           component={TermsConditions}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -277,16 +201,6 @@ export class AppAuthStack extends Component {
           component={SignUpPersonal}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -294,16 +208,6 @@ export class AppAuthStack extends Component {
           component={EmailAuthentication}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -311,16 +215,6 @@ export class AppAuthStack extends Component {
           component={CompleteAuth}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -328,16 +222,6 @@ export class AppAuthStack extends Component {
           component={ResearchForm}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -345,16 +229,6 @@ export class AppAuthStack extends Component {
           component={Initial3}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -362,16 +236,6 @@ export class AppAuthStack extends Component {
           component={Main}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -379,16 +243,6 @@ export class AppAuthStack extends Component {
           component={MainDetail}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -396,16 +250,6 @@ export class AppAuthStack extends Component {
           component={MainDetailCompleted}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -413,16 +257,6 @@ export class AppAuthStack extends Component {
           component={MainDetailExpired}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -430,16 +264,6 @@ export class AppAuthStack extends Component {
           component={MainVideo}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -447,16 +271,6 @@ export class AppAuthStack extends Component {
           component={ProfileMain}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -464,16 +278,6 @@ export class AppAuthStack extends Component {
           component={ProfileAll}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -481,16 +285,6 @@ export class AppAuthStack extends Component {
           component={ProfileCompleteDetail}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -498,16 +292,6 @@ export class AppAuthStack extends Component {
           component={ProfileIncompleteDetail}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -515,16 +299,6 @@ export class AppAuthStack extends Component {
           component={ProfileComplete}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
       </Stack.Navigator>
@@ -547,13 +321,8 @@ export class AppMainStack extends Component {
   //   }
   // };
   render() {
-    // console.log('appppappppapppapp');
-    // console.log(this.state.isLogin);
-    // console.log('appppappppapppapp');
     return (
-      <Stack.Navigator
-        // initialRouteName={this.state.isLogin ? 'Main' : 'Initial2'}>
-        initialRouteName="Main">
+      <Stack.Navigator initialRouteName="Main">
         <Stack.Screen
           name="Initial2"
           component={Initial2}
@@ -561,16 +330,6 @@ export class AppMainStack extends Component {
             headerShown: false,
             // title: this.props.route.params?.step,
             // title: route.params?.name,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -578,16 +337,6 @@ export class AppMainStack extends Component {
           component={Login}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -595,16 +344,6 @@ export class AppMainStack extends Component {
           component={WalletPassword}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -612,16 +351,6 @@ export class AppMainStack extends Component {
           component={WalletMasterKey}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
 
@@ -630,16 +359,6 @@ export class AppMainStack extends Component {
           component={Kyc}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
 
@@ -648,16 +367,6 @@ export class AppMainStack extends Component {
           component={Reset}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen name="ResetEmail" component={ResetEmail} />
@@ -666,16 +375,6 @@ export class AppMainStack extends Component {
           component={ResetPassword}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
 
@@ -684,16 +383,6 @@ export class AppMainStack extends Component {
           component={SignUp}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#FFF',
             // headerLeft: () => (
             //   <TouchableOpacity activeOpacity={0.75} onPress={() => {
             //     this.props.navigation.goBack();
@@ -724,16 +413,6 @@ export class AppMainStack extends Component {
           component={AgreementTermsConditions}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -741,16 +420,6 @@ export class AppMainStack extends Component {
           component={TermsConditions}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -758,16 +427,6 @@ export class AppMainStack extends Component {
           component={SignUpPersonal}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -775,16 +434,6 @@ export class AppMainStack extends Component {
           component={EmailAuthentication}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -792,16 +441,6 @@ export class AppMainStack extends Component {
           component={CompleteAuth}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
 
@@ -810,16 +449,6 @@ export class AppMainStack extends Component {
           component={ResearchForm}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -827,16 +456,6 @@ export class AppMainStack extends Component {
           component={Initial3}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
 
@@ -845,16 +464,6 @@ export class AppMainStack extends Component {
           component={Main}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
 
@@ -863,16 +472,6 @@ export class AppMainStack extends Component {
           component={MainDetail}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
 
@@ -881,16 +480,6 @@ export class AppMainStack extends Component {
           component={MainDetailCompleted}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
 
@@ -899,16 +488,6 @@ export class AppMainStack extends Component {
           component={MainDetailExpired}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
 
@@ -917,52 +496,14 @@ export class AppMainStack extends Component {
           component={MainVideo}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
-
-        {/* <Stack.Screen
-          name="MainVideoTest"
-          component={MainVideoTest}
-          options={{
-            headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
-          }}
-        /> */}
 
         <Stack.Screen
           name="ProfileMain"
           component={ProfileMain}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -970,16 +511,6 @@ export class AppMainStack extends Component {
           component={ProfileAll}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -987,16 +518,6 @@ export class AppMainStack extends Component {
           component={ProfileCompleteDetail}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -1004,16 +525,6 @@ export class AppMainStack extends Component {
           component={ProfileIncompleteDetail}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -1021,16 +532,6 @@ export class AppMainStack extends Component {
           component={ProfileComplete}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
 
@@ -1040,16 +541,6 @@ export class AppMainStack extends Component {
           component={WalletMain}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -1057,16 +548,6 @@ export class AppMainStack extends Component {
           component={WalletDetail}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -1074,16 +555,6 @@ export class AppMainStack extends Component {
           component={WalletSend}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -1091,16 +562,6 @@ export class AppMainStack extends Component {
           component={WalletReceive}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -1108,16 +569,6 @@ export class AppMainStack extends Component {
           component={Settings}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
           }}
         />
         <Stack.Screen
@@ -1125,16 +576,90 @@ export class AppMainStack extends Component {
           component={SettingsLock}
           options={{
             headerShown: false,
-            title: '',
-            headerStyle: {
-              backgroundColor: '#FFF',
-              shadowColor: 'none',
-              shadowOffset: {width: 0, height: 0},
-              shadowOpacity: 0,
-              shadowRadius: 0,
-              elevation: 0,
-            },
-            headerTintColor: '#000',
+          }}
+        />
+        <Stack.Screen
+          name="SettingsLockPassword"
+          component={SettingsLockPassword}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="SettingsLockPattern"
+          component={SettingsLockPattern}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="SettingsPersonal"
+          component={SettingsPersonal}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="SettingsPersonalPassword"
+          component={SettingsPersonalPassword}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="SettingsPersonalPasswordChange"
+          component={SettingsPersonalPasswordChange}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="SettingsPersonalEmail"
+          component={SettingsPersonalEmail}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="SettingsPersonalResetPassword"
+          component={SettingsPersonalResetPassword}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="SettingsPersonalPhone"
+          component={SettingsPersonalPhone}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="SettingsPersonalMasterPhone"
+          component={SettingsPersonalMasterPhone}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="SettingsPersonalMasterKey"
+          component={SettingsPersonalMasterKey}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="SettingsAlert"
+          component={SettingsAlert}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="SettingsLanguage"
+          component={SettingsLanguage}
+          options={{
+            headerShown: false,
           }}
         />
       </Stack.Navigator>

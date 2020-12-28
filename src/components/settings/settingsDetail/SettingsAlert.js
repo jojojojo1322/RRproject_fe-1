@@ -7,27 +7,29 @@ import {
   Button,
   TouchableOpacity,
   Alert,
+  Switch,
   Image,
   Platform,
 } from 'react-native';
-import {RoundCheckbox, SelectedCheckboxes} from '../factory/Roundcheck';
+import {RoundCheckbox, SelectedCheckboxes} from '../../factory/Roundcheck';
 import {FlatList} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import ResetStyle from '../../style/ResetStyle.js';
+import ResetStyle from '../../../style/ResetStyle.js';
 
-const SettingsLock = ({navigation}) => {
+const SettingsAlert = ({navigation}) => {
+  const [isEnabled, setIsEnabled] = useState(false);
+  const [isEnabled2, setIsEnabled2] = useState(false);
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+  const toggleSwitch2 = () => setIsEnabled2((previousState) => !previousState);
+
   const [DATA] = useState([
     {
       id: '1',
-      title: '사용 안함',
+      title: 'Research 알림',
     },
     {
       id: '2',
-      title: '비밀번호',
-    },
-    {
-      id: '3',
-      title: '패턴',
+      title: '리워드 지급 알림',
     },
   ]);
 
@@ -61,9 +63,12 @@ const SettingsLock = ({navigation}) => {
         ]}>
         {title}
       </Text>
-      <Image
-        style={{width: 30, height: 30}}
-        source={require('../../imgs/drawable-xxxhdpi/icon_more_b.png')}
+      <Switch
+        trackColor={{false: '#e6e6e6', true: '#4696ff'}}
+        thumbColor={'#FFF'}
+        ios_backgroundColor="#e6e6e6"
+        onValueChange={id === '1' ? toggleSwitch : toggleSwitch2}
+        value={id === '1' ? isEnabled : isEnabled2}
       />
     </TouchableOpacity>
   );
@@ -84,11 +89,11 @@ const SettingsLock = ({navigation}) => {
               navigation.goBack();
             }}>
             <Image
-              source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
+              source={require('../../../imgs/drawable-xxxhdpi/back_icon.png')}
             />
           </TouchableOpacity>
           <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-            잠금 설정
+            알림 설정
           </Text>
         </View>
         <FlatList
@@ -102,4 +107,4 @@ const SettingsLock = ({navigation}) => {
   );
 };
 
-export default SettingsLock;
+export default SettingsAlert;

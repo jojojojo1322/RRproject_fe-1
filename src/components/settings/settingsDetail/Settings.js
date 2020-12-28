@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import ResetStyle from '../../style/ResetStyle.js';
+import ResetStyle from '../../../style/ResetStyle.js';
 import {CommonActions, StackActions} from '@react-navigation/native';
 
 const Settings = ({navigation}) => {
@@ -56,9 +56,18 @@ const Settings = ({navigation}) => {
         paddingRight: '5%',
       }}
       onPress={() => {
-        if (id === '2') {
+        if (id === '1') {
+          navigation.navigate('Settings');
+          navigation.dispatch(StackActions.push('SettingsPersonalPassword'));
+        } else if (id === '2') {
           navigation.navigate('Settings');
           navigation.dispatch(StackActions.push('SettingsLock'));
+        } else if (id === '3') {
+          navigation.navigate('Settings');
+          navigation.dispatch(StackActions.push('SettingsAlert'));
+        } else if (id === '4') {
+          navigation.navigate('Settings');
+          navigation.dispatch(StackActions.push('SettingsLanguage'));
         } else if (id === '5') {
           navigation.navigate('Settings');
           navigation.dispatch(
@@ -75,11 +84,7 @@ const Settings = ({navigation}) => {
           );
         } else {
           navigation.navigate('Settings');
-          navigation.dispatch(
-            StackActions.push('TermsConditions', {
-              name: '개인정보처리방침',
-            }),
-          );
+          navigation.dispatch(StackActions.push('SettingsLock'));
         }
       }}
       // onPress={() => {
@@ -97,7 +102,7 @@ const Settings = ({navigation}) => {
       </Text>
       <Image
         style={{width: 30, height: 30}}
-        source={require('../../imgs/drawable-xxxhdpi/icon_more_b.png')}
+        source={require('../../../imgs/drawable-xxxhdpi/icon_more_b.png')}
       />
     </TouchableOpacity>
   );
@@ -118,7 +123,7 @@ const Settings = ({navigation}) => {
               navigation.goBack();
             }}>
             <Image
-              source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
+              source={require('../../../imgs/drawable-xxxhdpi/back_icon.png')}
             />
           </TouchableOpacity>
           <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
