@@ -7,44 +7,33 @@ import {
   Button,
   TouchableOpacity,
   Alert,
+  Switch,
   Image,
   Platform,
 } from 'react-native';
+import {RoundCheckbox, SelectedCheckboxes} from '../../factory/Roundcheck';
 import {FlatList} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '../../../style/ResetStyle.js';
-import {CommonActions, StackActions} from '@react-navigation/native';
+import TextConfirmModal from '../../factory/modal/TextConfirmModal';
 
-const Settings = ({navigation}) => {
-  console.log('navigationnavigationnavigationnavigationnavigation', navigation);
+const SettingsWallet = ({navigation}) => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+
+  const handleNextPage = () => {
+    navigation.navigate('SettingsLockPassword');
+  };
+
   const [DATA] = useState([
     {
       id: '1',
-      title: '개인 정보 설정',
+      title: '지갑 비밀번호 변경',
     },
     {
       id: '2',
-      title: '지갑 설정',
-    },
-    {
-      id: '3',
-      title: '잠금 설정',
-    },
-    {
-      id: '4',
-      title: '알림 설정',
-    },
-    {
-      id: '5',
-      title: '언어 설정',
-    },
-    {
-      id: '6',
-      title: '이용약관',
-    },
-    {
-      id: '7',
-      title: '개인정보처리방침',
+      title: '지갑 비밀번호 분실',
     },
   ]);
 
@@ -61,44 +50,11 @@ const Settings = ({navigation}) => {
       }}
       onPress={() => {
         if (id === '1') {
-          navigation.navigate('Settings');
-          navigation.dispatch(StackActions.push('SettingsPersonalPassword'));
+          navigation.navigate('SettingsWalletPassword');
         } else if (id === '2') {
-          navigation.navigate('Settings');
-          navigation.dispatch(StackActions.push('SettingsWallet'));
-        } else if (id === '3') {
-          navigation.navigate('Settings');
-          navigation.dispatch(StackActions.push('SettingsLock'));
-        } else if (id === '4') {
-          navigation.navigate('Settings');
-          navigation.dispatch(StackActions.push('SettingsAlert'));
-        } else if (id === '5') {
-          navigation.navigate('Settings');
-          navigation.dispatch(StackActions.push('SettingsLanguage'));
-        } else if (id === '6') {
-          navigation.navigate('Settings');
-          navigation.dispatch(
-            StackActions.push('TermsConditions', {
-              name: '이용약관',
-            }),
-          );
-        } else if (id === '7') {
-          navigation.navigate('Settings');
-          navigation.dispatch(
-            StackActions.push('TermsConditions', {
-              name: '개인정보처리방침',
-            }),
-          );
-        } else {
-          navigation.navigate('Settings');
-          navigation.dispatch(StackActions.push('SettingsLock'));
+          navigation.navigate('SettingsWalletMasterKey');
         }
-      }}
-      // onPress={() => {
-      //   navigation.navigate('SettingsLock');
-      //   navigation.dispatch(StackActions.push('SettingsLock'));
-      // }}
-    >
+      }}>
       <Text
         style={[
           ResetStyle.fontRegularK,
@@ -108,7 +64,7 @@ const Settings = ({navigation}) => {
         {title}
       </Text>
       <Image
-        style={{width: 30, height: 30}}
+        style={{width: 25, height: 25}}
         source={require('../../../imgs/drawable-xxxhdpi/icon_more_b.png')}
       />
     </TouchableOpacity>
@@ -134,7 +90,7 @@ const Settings = ({navigation}) => {
             />
           </TouchableOpacity>
           <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-            설정
+            지갑 설정
           </Text>
         </View>
         <FlatList
@@ -148,4 +104,4 @@ const Settings = ({navigation}) => {
   );
 };
 
-export default Settings;
+export default SettingsWallet;
