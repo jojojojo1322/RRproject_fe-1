@@ -188,12 +188,10 @@ export default class WalletMain extends Component {
           <View
             style={{
               backgroundColor: '#ffffff',
-              paddingTop: Platform.OS === 'ios' ? '15%' : '5%',
+              paddingTop: Platform.OS === 'ios' ? '4%' : '5%',
               flexDirection: 'row',
               justifyContent: 'space-between',
-              padding: '5%',
-              paddingTop: '4%',
-              //   paddingBottom: '10%',
+              paddingBottom: '5%',
             }}>
             <TouchableOpacity>
               <View style={{flexDirection: 'row'}}>
