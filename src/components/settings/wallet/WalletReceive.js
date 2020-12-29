@@ -9,6 +9,7 @@ import {
   Alert,
   Image,
   Platform,
+  TextInput,
 } from 'react-native';
 import {Dimensions} from 'react-native';
 import PropTypes from 'prop-types';
@@ -17,6 +18,7 @@ import ResetStyle from '../../../style/ResetStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {SelectedCheckboxes, RoundCheckbox} from '../../factory/Roundcheck';
 import ResearchStyle from '../../../style/ResearchStyle.js';
+import QRCode from 'react-native-qrcode2';
 
 const deviceWidth = Dimensions.get('screen').width;
 const deviceHeight = Dimensions.get('screen').height;
@@ -36,6 +38,7 @@ export default class WalletReceive extends Component {
   state = {
     modalVisible: false,
     modal2Visible: false,
+    text: '123asdfadswfgweg534sg2',
   };
 
   setModalVisible = (visible) => {
@@ -52,7 +55,7 @@ export default class WalletReceive extends Component {
           <View style={[ResetStyle.topBackButton]}>
             <TouchableOpacity
               onPress={() => {
-                navigation.goBack();
+                this.props.navigation.goBack();
               }}>
               <Image
                 source={require('../../../imgs/drawable-xxxhdpi/back_icon.png')}
@@ -62,6 +65,16 @@ export default class WalletReceive extends Component {
               받기
             </Text>
           </View>
+          <TextInput
+            onChangeText={(text) => this.setState({text: text})}
+            value={this.state.text}
+          />
+          <QRCode
+            value={this.state.text}
+            size={500}
+            bgColor="#000"
+            fgColor="white"
+          />
           {/* Bottom Button */}
           <View style={{flexDirection: 'row'}}>
             <TouchableOpacity

@@ -16,7 +16,65 @@ import {FlatList} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '../../../../style/ResetStyle.js';
 import TextConfirmModal from '../../../factory/modal/TextConfirmModal';
-import Svg, {Circle, Line} from 'react-native-svg';
+
+import PasswordGesture from 'react-native-gesture-password';
+
+var Password1 = '123';
+
+export class LockPattern extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      message: 'Please input your password.',
+      status: 'normal',
+    };
+  }
+
+  onEnd(password) {
+    if (password == Password1) {
+      this.setState({
+        status: 'right',
+        message: 'Password is right, success.',
+      });
+
+      // your codes to close this view
+    } else {
+      this.setState({
+        status: 'wrong',
+        message: 'Password is wrong, try again.',
+      });
+    }
+  }
+
+  onStart() {
+    this.setState({
+      status: 'normal',
+      message: 'Please input your password.',
+    });
+  }
+
+  onReset() {
+    this.setState({
+      status: 'normal',
+      message: 'Please input your password (again).',
+    });
+  }
+
+  render() {
+    return (
+      <PasswordGesture
+        ref="pg"
+        status={this.state.status}
+        message={this.state.message}
+        onStart={() => this.onStart()}
+        onEnd={(password) => this.onEnd(password)}
+        innerCircle={true}
+        outerCircle={true}
+      />
+    );
+  }
+}
 
 const SettingsLockPattern = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -41,17 +99,7 @@ const SettingsLockPattern = ({navigation}) => {
             />
           </TouchableOpacity>
         </View>
-        <Svg>
-          <Line
-            ref={(node) => (this._line = node)}
-            x1="50" // start coordinate x
-            y1="50" // start coordinate y
-            x2="150" // end coordinate x
-            y2="50" // end coordinate y
-            stroke="red"
-            strokeWidth="2"
-          />
-        </Svg>
+        <LockPattern />
       </View>
       <TextConfirmModal
         setModalVisible={setModalVisible}
