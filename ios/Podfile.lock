@@ -242,6 +242,8 @@ PODS:
     - react-native-video/Video (= 5.1.0-alpha8)
   - react-native-video/Video (5.1.0-alpha8):
     - React
+  - react-native-webview (11.0.2):
+    - React-Core
   - React-RCTActionSheet (0.62.0):
     - React-Core/RCTActionSheetHeaders (= 0.62.0)
   - React-RCTAnimation (0.62.0):
@@ -346,6 +348,7 @@ DEPENDENCIES:
   - react-native-fingerprint-scanner (from `../node_modules/react-native-fingerprint-scanner`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-video (from `../node_modules/react-native-video`)
+  - react-native-webview (from `../node_modules/react-native-webview`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
   - React-RCTBlob (from `../node_modules/react-native/Libraries/Blob`)
@@ -417,6 +420,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-video:
     :path: "../node_modules/react-native-video"
+  react-native-webview:
+    :path: "../node_modules/react-native-webview"
   React-RCTActionSheet:
     :path: "../node_modules/react-native/Libraries/ActionSheetIOS"
   React-RCTAnimation:
@@ -485,6 +490,7 @@ SPEC CHECKSUMS:
   react-native-fingerprint-scanner: c68136ca57e3704d7bdf5faa554ea535ce15b1d0
   react-native-safe-area-context: 86612d2c9a9e94e288319262d10b5f93f0b395f5
   react-native-video: 8d97379f3c2322a569f1e27542ad1a646cad9444
+  react-native-webview: b2542d6fd424bcc3e3b2ec5f854f0abb4ec86c87
   React-RCTActionSheet: 674afbc8b9c76e0a83520e0a51da29a70802c03f
   React-RCTAnimation: f5f24330d09ee677fb49e0782f8321868f4df431
   React-RCTBlob: b773ce6138ab0d172ebd8a455fd4efd200a92549
