@@ -45,6 +45,7 @@ import ProfileIncompleteDetail from './components/settings/profile/ProfileIncomp
 import WalletMain from './components/settings/wallet/WalletMain';
 import WalletDetail from './components/settings/wallet/WalletDetail';
 import WalletSend from './components/settings/wallet/WalletSend';
+import WalletSendSuccess from './components/settings/wallet/WalletSendSuccess';
 import WalletReceive from './components/settings/wallet/WalletReceive';
 import MainAlert from './components/main/MainAlert';
 
@@ -560,6 +561,13 @@ export class AppMainStack extends Component {
         <Stack.Screen
           name="WalletReceive"
           component={WalletReceive}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="WalletSendSuccess"
+          component={WalletSendSuccess}
           options={{
             headerShown: false,
           }}

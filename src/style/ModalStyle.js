@@ -56,6 +56,51 @@ export default StyleSheet.create({
     paddingBottom: Platform.OS === 'ios' ? '4%' : '3%',
     marginBottom: '2%',
   },
+  // wallet Send Modal
+  walletAllView: {
+    position: 'absolute',
+    // top: Platform.OS === 'ios' ? '17.5%' : '15%',
+    width: '100%',
+    bottom: 0,
+    height: '60%',
+
+    backgroundColor: 'white',
+    padding: '5%',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    // borderRadius: 10,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    justifyContent: 'space-between',
+  },
+
+  walletTop: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: '5%',
+    paddingBottom: '5%',
+  },
+  walletMain: {
+    backgroundColor: '#f3f3f3',
+    padding: '6%',
+    marginBottom: '3%',
+    borderRadius: 10,
+  },
+  walletDetailTitle: {
+    fontSize: 17,
+    fontWeight: '500',
+    marginBottom: '2%',
+  },
+  walletDetailSub: {
+    fontSize: 17,
+  },
 
   // Bottom Modal
   bottomModalBG: {
