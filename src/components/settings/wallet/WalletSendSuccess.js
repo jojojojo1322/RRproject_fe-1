@@ -27,15 +27,24 @@ export default class WalletSendSuccess extends Component {
     return (
       <SafeAreaView style={ResetStyle.container}>
         <View style={ResetStyle.containerInner}>
+          {/* topBackButton */}
+          <View style={[ResetStyle.topBackButton]}>
+            <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.goBack();
+              }}>
+              <Image
+                source={require('../../../imgs/drawable-xxxhdpi/back_icon.png')}
+              />
+            </TouchableOpacity>
+          </View>
           <View
             style={{
-              //   flexDirection: 'column',
+              justifyContent: 'center',
               alignItems: 'center',
-              marginTop: '20%',
-              borderWidth: 1,
             }}>
             <Image
-              style={{width: '35%', height: '35%', resizeMode: 'contain'}}
+              style={{width: 100, height: 100, resizeMode: 'contain'}}
               source={require('../../../imgs/drawable-xhdpi/icon_l_check.png')}
             />
             <Text
@@ -63,14 +72,14 @@ export default class WalletSendSuccess extends Component {
               <Text style={[ModalStyle.walletDetailsub]}>10월의 수익</Text>
             </View>
           </View>
-          <View style={{flexDirection: 'row', marginBottom: '20%'}}>
+          <View style={{flexDirection: 'row'}}>
             <TouchableOpacity
               style={[
                 ResetStyle.button,
                 // {backgroundColor: '#4696ff', width: '49%', marginLeft: '1%'},
               ]}
               onPress={() => {
-                this.props.navigation.navigate('ProfileMain');
+                this.props.navigation.navigate('WalletMain');
                 // this.props.navigation.setOptions({ title: '약관동의' });
               }}>
               <Text
