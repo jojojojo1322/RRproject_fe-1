@@ -18,10 +18,6 @@ import ResetStyle from '../../../../style/ResetStyle.js';
 import TextConfirmModal from '../../../factory/modal/TextConfirmModal';
 import Svg, {Circle, Line} from 'react-native-svg';
 
-const DEFAULT_DOT_RADIUS = 5;
-const SNAP_DOT_RADIUS = 10;
-const SNAP_DURATION = 100;
-
 const SettingsLockPattern = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [isEnabled, setIsEnabled] = useState(false);

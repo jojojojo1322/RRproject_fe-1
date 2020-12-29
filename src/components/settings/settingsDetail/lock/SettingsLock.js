@@ -62,6 +62,9 @@ const SettingsLock = ({navigation}) => {
             borderBottomColor: '#dddddd',
             paddingLeft: '5%',
             paddingRight: '5%',
+          }}
+          onPress={() => {
+            navigation.navigate('SettingsLockPassword');
           }}>
           <Text
             style={[
@@ -103,6 +106,11 @@ const SettingsLock = ({navigation}) => {
             ios_backgroundColor="#e6e6e6"
             onValueChange={toggleSwitch}
             value={isEnabled}
+            onChange={() => {
+              if (isEnabled === false) {
+                setModalVisible(!modalVisible);
+              }
+            }}
           />
         </TouchableOpacity>
       );
@@ -119,10 +127,10 @@ const SettingsLock = ({navigation}) => {
             paddingRight: '5%',
           }}
           onPress={() => {
-            if (id === '2') {
-              setModalVisible(!modalVisible);
-            } else if (id === '3') {
+            if (id === '3') {
               navigation.navigate('SettingsLockPattern');
+            } else if (id === '2') {
+              navigation.navigate('SettingsLockPassword');
             }
           }}>
           <Text

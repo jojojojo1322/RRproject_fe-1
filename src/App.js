@@ -52,6 +52,9 @@ import MainAlert from './components/main/MainAlert';
 import Settings from './components/settings/settingsDetail/Settings';
 
 import SettingsAlert from './components/settings/settingsDetail/SettingsAlert';
+import SettingsWallet from './components/settings/settingsDetail/SettingsWallet';
+import SettingsWalletMasterKey from './components/settings/settingsDetail/SettingsWalletMasterKey';
+import SettingsWalletPassword from './components/settings/settingsDetail/SettingsWalletPassword';
 import SettingsLanguage from './components/settings/settingsDetail/SettingsLanguage';
 import SettingsLock from './components/settings/settingsDetail/lock/SettingsLock';
 import SettingsLockPattern from './components/settings/settingsDetail/lock/SettingsLockPattern';
@@ -582,6 +585,27 @@ export class AppMainStack extends Component {
         <Stack.Screen
           name="SettingsLock"
           component={SettingsLock}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="SettingsWallet"
+          component={SettingsWallet}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="SettingsWalletMasterKey"
+          component={SettingsWalletMasterKey}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="SettingsWalletPassword"
+          component={SettingsWalletPassword}
           options={{
             headerShown: false,
           }}
