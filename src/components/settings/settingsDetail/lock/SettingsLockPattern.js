@@ -70,7 +70,7 @@ export class LockPattern extends Component {
         onStart={() => this.onStart()}
         onEnd={(password) => this.onEnd(password)}
         innerCircle={true}
-        outerCircle={true}
+        outerCircle={false}
       />
     );
   }
@@ -99,7 +99,44 @@ const SettingsLockPattern = ({navigation}) => {
             />
           </TouchableOpacity>
         </View>
+        <View>
+          <Text style={[ResetStyle.fontBoldK, ResetStyle.fontBlack]}>패턴</Text>
+          <Text
+            style={[
+              ResetStyle.fontRegularK,
+              ResetStyle.fontBlack,
+              {marginTop: '5%'},
+            ]}>
+            잠금해제 패턴을 입력해 주세요.
+          </Text>
+        </View>
         <LockPattern />
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <TouchableOpacity
+            style={[
+              ResetStyle.button,
+              {width: '49%', backgroundColor: '#e6e6e6'},
+            ]}>
+            <Text
+              style={[
+                ResetStyle.fontMediumK,
+                ResetStyle.fontWhite,
+                {fontWeight: '600'},
+              ]}>
+              취소
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[ResetStyle.button, {width: '49%'}]}>
+            <Text
+              style={[
+                ResetStyle.fontMediumK,
+                ResetStyle.fontWhite,
+                {fontWeight: '600'},
+              ]}>
+              다음
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
       <TextConfirmModal
         setModalVisible={setModalVisible}
