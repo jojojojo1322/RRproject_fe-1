@@ -16,10 +16,10 @@ import {
   Linking,
   Animated,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native';
 import ResetStyle from '../../../style/ResetStyle';
 import ModalStyle from '../../../style/ModalStyle';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 
 export default class WalletSendModal extends Component {
   constructor(props) {

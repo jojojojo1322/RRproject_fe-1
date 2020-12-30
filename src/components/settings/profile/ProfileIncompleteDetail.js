@@ -77,7 +77,7 @@ export default class ProfileIncompleteDetail extends Component {
       // this.props.navigation.push('ResearchForm');
     }
     if (nowIndex === this.state.questionLength - 1) {
-      this.props.navigation.navigate('MainVideo');
+      this.props.navigation.navigate('ProfileComplete');
     }
   };
 
@@ -435,8 +435,7 @@ export default class ProfileIncompleteDetail extends Component {
 
           {researchList[this.state.nowIndex]}
 
-          <View
-            style={[ResearchStyle.researchBottomButton, {marginTop: '40%'}]}>
+          <View style={[ResearchStyle.researchBottomButton, {}]}>
             <TouchableOpacity
               style={
                 this.state.nowIndex == 0
@@ -460,7 +459,10 @@ export default class ProfileIncompleteDetail extends Component {
             <TouchableOpacity
               style={[
                 ResetStyle.button,
-                {width: '49%', backgroundColor: '#4696ff'},
+                {
+                  width: '49%',
+                  backgroundColor: '#4696ff',
+                },
               ]}
               activeOpacity={0.75}
               onPress={this.handlerNext}>

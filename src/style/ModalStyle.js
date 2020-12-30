@@ -61,10 +61,9 @@ export default StyleSheet.create({
     position: 'absolute',
     // top: Platform.OS === 'ios' ? '17.5%' : '15%',
     width: '100%',
-    bottom: 0,
-    height: '60%',
-
-    backgroundColor: 'white',
+    bottom: '5%',
+    height: '65%',
+    backgroundColor: '#fff',
     padding: '5%',
     shadowColor: '#000',
     shadowOffset: {
