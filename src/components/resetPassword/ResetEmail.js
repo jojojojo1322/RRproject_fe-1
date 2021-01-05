@@ -110,75 +110,90 @@ export default class ResetEmail extends Component {
     return (
       <SafeAreaView style={ResetStyle.container}>
         <View style={ResetStyle.containerInner}>
-          <Text
-            style={[
-              ResetStyle.fontRegularK,
-              ResetStyle.fontG,
-              {marginTop: '20%'},
-            ]}>{`${
-            this.state.email
-          }으로 ${'\n'}6자리 인증 코드를 발송했습니다.`}</Text>
-          {/* <Text style={styles.TopText2}>
-              비밀번호 재설정을 위해{'\n'}아이디(이메일)을 입력해 주세요.
-            </Text> */}
-          <View style={[ResetStyle.textInputStyle, {marginBottom: '50%'}]}>
+          <View>
+            <View style={ResetStyle.topBackButton}>
+              <TouchableOpacity
+                style={{flexDirection: 'row'}}
+                onPress={() => {
+                  this.props.navigation.goBack();
+                }}>
+                <Image
+                  source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
+                />
+                <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+                  이메일 인증
+                </Text>
+              </TouchableOpacity>
+            </View>
             <Text
               style={[
                 ResetStyle.fontRegularK,
-                ResetStyle.fontDG,
-                ResetStyle.textInputTitle,
-              ]}>
-              인증번호
-            </Text>
-            <TextInput
-              style={[
-                ResetStyle.fontRegularK,
                 ResetStyle.fontG,
-                ResetStyle.textInputText,
-              ]}
-              placeholder="6자리 인증번호 입력"
-              placeholderTextColor="#a9a9a9"
-              value={this.state.emailCode}
-              returnKeyType={'done'}
-              onChangeText={this.handleEmail}
-              keyboardType="number-pad"
-            />
-            <View
-              style={[
-                ResetStyle.textInputTextButton,
-                {flexDirection: 'row', top: '45%'},
-              ]}>
-              <Image
-                style={[ResetStyle.smallImg, {marginRight: 8}]}
-                source={require('../../imgs/drawable-hdpi/icon_time.png')}
-              />
-              <CountDown
-                standard={this.state.isRunning}
-                timeLeftNumber={this.state.timeLeftNumber}
-                handleReCountDown={this.handleReCountDown}
-                handleCountDownCheck={this.handleCountDownCheck}
-                CountDownCheck={this.state.CountDownCheck}
-                CountDownExpireCheck={this.state.CountDownExpireCheck}
-                handleCountDownExpireCheck={this.handleCountDownExpireCheck}
-              />
-            </View>
-            <TouchableOpacity
-              style={ResetStyle.textInputRe}
-              onPress={() => {
-                this.handleReCountDown();
-                this.emailReAuthApi(this.state.email);
-              }}>
+                {marginTop: '20%'},
+              ]}>{`${
+              this.state.email
+            }으로 ${'\n'}6자리 인증 코드를 발송했습니다.`}</Text>
+            {/* <Text style={styles.TopText2}>
+              비밀번호 재설정을 위해{'\n'}아이디(이메일)을 입력해 주세요.
+            </Text> */}
+            <View style={[ResetStyle.textInputStyle, {marginTop: '20%'}]}>
               <Text
                 style={[
-                  ResetStyle.fontLightK,
-                  ResetStyle.fontB,
-                  {textAlign: 'left', marginTop: 10},
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontDG,
+                  ResetStyle.textInputTitle,
                 ]}>
-                재전송
+                인증번호
               </Text>
-            </TouchableOpacity>
+              <TextInput
+                style={[
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontG,
+                  ResetStyle.textInputText,
+                ]}
+                placeholder="6자리 인증번호 입력"
+                placeholderTextColor="#a9a9a9"
+                value={this.state.emailCode}
+                returnKeyType={'done'}
+                onChangeText={this.handleEmail}
+                keyboardType="number-pad"
+              />
+              <View
+                style={[
+                  ResetStyle.textInputTextButton,
+                  {flexDirection: 'row', top: '45%'},
+                ]}>
+                <Image
+                  style={[ResetStyle.smallImg, {marginRight: 8}]}
+                  source={require('../../imgs/drawable-hdpi/icon_time.png')}
+                />
+                <CountDown
+                  standard={this.state.isRunning}
+                  timeLeftNumber={this.state.timeLeftNumber}
+                  handleReCountDown={this.handleReCountDown}
+                  handleCountDownCheck={this.handleCountDownCheck}
+                  CountDownCheck={this.state.CountDownCheck}
+                  CountDownExpireCheck={this.state.CountDownExpireCheck}
+                  handleCountDownExpireCheck={this.handleCountDownExpireCheck}
+                />
+              </View>
+              <TouchableOpacity
+                style={ResetStyle.textInputRe}
+                onPress={() => {
+                  this.handleReCountDown();
+                  this.emailReAuthApi(this.state.email);
+                }}>
+                <Text
+                  style={[
+                    ResetStyle.fontLightK,
+                    ResetStyle.fontB,
+                    {textAlign: 'left', marginTop: 10},
+                  ]}>
+                  재전송
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
-
           <TouchableOpacity
             style={
               this.state.emailCode.length == 6

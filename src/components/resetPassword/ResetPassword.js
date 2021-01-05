@@ -118,7 +118,21 @@ export default class ResetPassword extends Component {
     return (
       <SafeAreaView style={ResetStyle.container}>
         <View style={ResetStyle.containerInner}>
-          <View style={{marginTop: '10%'}}>
+          <View>
+            <View style={ResetStyle.topBackButton}>
+              <TouchableOpacity
+                style={{flexDirection: 'row', marginBottom: '10%'}}
+                onPress={() => {
+                  this.props.navigation.goBack();
+                }}>
+                <Image
+                  source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
+                />
+                <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+                  휴대폰 인증
+                </Text>
+              </TouchableOpacity>
+            </View>
             <TouchableOpacity>
               <View style={[ResetStyle.textInputStyle]}>
                 <Text

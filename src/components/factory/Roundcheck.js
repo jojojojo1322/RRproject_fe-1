@@ -142,17 +142,20 @@ export class RoundCheckbox extends Component {
             alignItems: 'center',
           }}>
           <View
-            style={{
-              // padding: 1.5,
-              borderRadius: 50,
-              width: this.props.size,
-              height: this.props.size,
-              borderWidth: this.props.borderWidth,
-              borderColor: this.props.borderColor,
-              // backgroundColor: this.props.color,
-            }}>
+            style={[
+              {
+                // padding: 1.5,
+                borderRadius: 50,
+                width: this.props.size,
+                height: this.props.size,
+                borderWidth: this.props.borderWidth,
+                borderColor: this.props.borderColor,
+                // backgroundColor: this.props.color,
+              },
+              this.state.checked && {borderWidth: 0},
+            ]}>
             {this.state.checked ? (
-              <View style={styles.selectedUI}>
+              <View style={[styles.selectedUI, {borderWidth: 0}]}>
                 <Image
                   source={require('../../imgs/drawable-xhdpi/icon_w_check_2_on_m.png')}
                   style={styles.checkboxTickImg}
@@ -229,8 +232,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 100,
     backgroundColor: '#2B97FB',
-    borderWidth: 1,
-    borderColor: '#2B97FB',
+    // borderWidth: 1,
+    // borderColor: '#2B97FB',
   },
 
   checkboxTickImg: {

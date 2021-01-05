@@ -165,16 +165,17 @@ class SignUpPersonal extends Component {
             <View>
               <View style={[ResetStyle.topBackButton, {paddingBottom: '2%'}]}>
                 <TouchableOpacity
+                  style={{flexDirection: 'row'}}
                   onPress={() => {
                     this.props.navigation.goBack();
                   }}>
                   <Image
                     source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
                   />
+                  <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+                    회원정보 입력
+                  </Text>
                 </TouchableOpacity>
-                <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-                  회원정보 입력
-                </Text>
               </View>
             </View>
             {/* 이메일 */}
@@ -217,6 +218,7 @@ class SignUpPersonal extends Component {
                     // keyboardType={'numeric'}
                     onChangeText={this.handleEmail}
                     value={this.state.email}
+                    autoCapitalize={'none'}
                     style={[
                       ResetStyle.fontRegularK,
                       ResetStyle.fontG,
@@ -224,6 +226,7 @@ class SignUpPersonal extends Component {
                         textAlign: 'left',
                         paddingTop: '6%',
                         paddingBottom: '3%',
+                        width: '90%',
                       },
                     ]}></TextInput>
                   <TouchableOpacity
@@ -334,6 +337,7 @@ class SignUpPersonal extends Component {
                         textAlign: 'left',
                         paddingTop: '6%',
                         paddingBottom: '3%',
+                        width: '90%',
                       },
                     ]}></TextInput>
                   <TouchableOpacity
@@ -527,6 +531,7 @@ class SignUpPersonal extends Component {
                         textAlign: 'left',
                         paddingTop: '6%',
                         paddingBottom: '3%',
+                        width: '90%',
                       },
                     ]}></TextInput>
                   {/* <Image

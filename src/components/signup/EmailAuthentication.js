@@ -94,9 +94,6 @@ class EmailAuthentication extends Component {
     });
   };
   handleCountDownExpireCheck = () => {
-    console.log(
-      'handleCountDownExpireCheckhandleCountDownExpireCheckhandleCountDownExpireCheckhandleCountDownExpireCheck',
-    );
     this.setState({
       CountDownExpireCheck: true,
     });
@@ -291,16 +288,17 @@ class EmailAuthentication extends Component {
             <View>
               <View style={ResetStyle.topBackButton}>
                 <TouchableOpacity
+                  style={{flexDirection: 'row'}}
                   onPress={() => {
                     this.props.navigation.goBack();
                   }}>
                   <Image
                     source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
                   />
+                  <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+                    이메일 인증
+                  </Text>
                 </TouchableOpacity>
-                <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-                  약관동의
-                </Text>
               </View>
             </View>
             <Text
@@ -479,19 +477,19 @@ class EmailAuthentication extends Component {
             ]}
             onPress={async () => {
               //api 잠시 끄기
-              // const os = Platform.OS;
-              // await this.userRegistApi('I');
-              // if (this.state.returnValue === 0) {
-              //   this.loginApi(
-              //     this.props.route.params?.email,
-              //     this.props.route.params?.password,
-              //   );
-              //   this.props.navigation.navigate('CompleteAuth');
-              // }
-              //본부장님 테스트용
-              if (this.state.returnApprove == 0) {
+              const os = Platform.OS;
+              await this.userRegistApi('I');
+              if (this.state.returnValue === 0) {
+                this.loginApi(
+                  this.props.route.params?.email,
+                  this.props.route.params?.password,
+                );
                 this.props.navigation.navigate('CompleteAuth');
               }
+              //본부장님 테스트용
+              // if (this.state.returnApprove == 0) {
+              //   this.props.navigation.navigate('CompleteAuth');
+              // }
             }}>
             <Text
               style={[

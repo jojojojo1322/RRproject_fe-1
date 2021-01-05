@@ -126,16 +126,17 @@ const Settings = ({navigation}) => {
             {marginLeft: '5%', marginRight: '5%'},
           ]}>
           <TouchableOpacity
+            style={{flexDirection: 'row'}}
             onPress={() => {
               navigation.goBack();
             }}>
             <Image
               source={require('../../../imgs/drawable-xxxhdpi/back_icon.png')}
             />
+            <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+              설정
+            </Text>
           </TouchableOpacity>
-          <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-            설정
-          </Text>
         </View>
         <FlatList
           data={DATA}

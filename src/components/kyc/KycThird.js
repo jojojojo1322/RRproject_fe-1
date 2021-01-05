@@ -22,7 +22,10 @@ import ListCheckModal from '../factory/modal/ListCheckModal';
 import ListRoundCheckModal from '../factory/modal/ListRoundCheckModal';
 import ResetStyle from '../../style/ResetStyle.js';
 import AuthStyle from '../../style/AuthStyle.js';
+import {server} from '../defined/server';
+import axios from 'axios';
 
+import {CountryListApi} from '../defined/DefineCountryList';
 export default class kycThird extends Component {
   state = {
     country: '',
@@ -35,7 +38,63 @@ export default class kycThird extends Component {
     languageModal: false,
     residenceCountryModal: false,
     residenceCityModal: false,
+
+    countryData: [],
+    cityData: [],
+    languageData: [],
   };
+
+  componentDidMount() {
+    this.countryDataApi();
+    this.cityDataApi();
+    this.languageDataApi();
+  }
+  cityDataApi = async () => {
+    await axios
+      .get(`${server}/util/global/cities`)
+      .then(async (response) => {
+        // console.log('countryListList', response);
+        // setCountry(response.data);
+        this.setState({
+          cityData: response.data,
+        });
+        // return await response;
+      })
+      .catch(({e}) => {
+        console.log('error', e);
+      });
+  };
+  countryDataApi = async () => {
+    await axios
+      .get(`${server}/util/global/country`)
+      .then(async (response) => {
+        // console.log('countryListList', response);
+        // setCountry(response.data);
+        this.setState({
+          countryData: response.data,
+        });
+        // return await response;
+      })
+      .catch(({e}) => {
+        console.log('error', e);
+      });
+  };
+  languageDataApi = async () => {
+    await axios
+      .get(`${server}/util/global/languages`)
+      .then(async (response) => {
+        // console.log('countryListList', response);
+        // setCountry(response.data);
+        this.setState({
+          languageData: response.data,
+        });
+        // return await response;
+      })
+      .catch(({e}) => {
+        console.log('error', e);
+      });
+  };
+
   handleModalBoolean = (value, boolean) => {
     this.setState({
       [value]: boolean,
@@ -93,6 +152,8 @@ export default class kycThird extends Component {
     this.props.handleBirth(e);
   };
   render() {
+    // console.log('this.state.cityData');
+    // console.log(this.state.cityData);
     return (
       <View>
         <View>
@@ -146,6 +207,7 @@ export default class kycThird extends Component {
           setModalVisible={this.setCountryModal}
           setCountry={this.setCountry}
           titleText={`국적선택`}
+          list={this.state.countryData}
         />
 
         <View style={{marginTop: Platform.OS === 'ios' ? '10%' : '8%'}}>
@@ -176,6 +238,8 @@ export default class kycThird extends Component {
               ]}>
               {this.state.language == ''
                 ? '선택해 주세요.'
+                : this.state.language.length >= 20
+                ? this.state.language.slice(0, 20) + '...'
                 : this.state.language}
             </Text>
             <Image
@@ -189,6 +253,7 @@ export default class kycThird extends Component {
           modalVisible={this.state.languageModal}
           setModalVisible={this.setLanguageModal}
           setLanguage={this.setLanguage}
+          list={this.state.languageData}
         />
 
         <View style={{marginTop: Platform.OS === 'ios' ? '10%' : '8%'}}>
@@ -233,6 +298,7 @@ export default class kycThird extends Component {
           setModalVisible={this.setResidenceCountryModal}
           setCountry={this.setResidenceCountry}
           titleText={`거주국가선택`}
+          list={this.state.countryData}
         />
 
         <View style={{marginTop: Platform.OS === 'ios' ? '10%' : '8%'}}>
@@ -277,6 +343,7 @@ export default class kycThird extends Component {
           setCountry={this.setResidenceCity}
           setLanguage={this.setLanguage}
           titleText={`거주도시선택`}
+          list={this.state.cityData}
         />
       </View>
     );

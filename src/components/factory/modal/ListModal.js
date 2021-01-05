@@ -14,17 +14,38 @@ import {
 import {RoundCheckbox, SelectedCheckboxes} from '../../factory/Roundcheck';
 import ResetStyle from '../../../style/ResetStyle';
 import ModalStyle from '../../../style/ModalStyle';
-import {DefineCountryList} from '../../defined/DefineCountryList';
+// import {
+//   DefineCountryList,
+//   CountryListApi,
+// } from '../../defined/DefineCountryList';
+import {CountryListApi, CLA} from '../../defined/DefineCountryList';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 const window = Dimensions.get('window');
 
-let DATA = DefineCountryList;
+// let DATA = DefineCountryList;
+// let DATA = CountryListApi();
+// let DATA = [];
+// console.log(
+//   'DATA CONSOLE>>>>>',
+//   CountryListApi()
+//     .then((data) => {
+//       data;
+//     })
+//     .catch((err) => {
+//       err;
+//     }),
+// );
 
+console.log('DATA CONSOLE>>>>>', async () => {
+  await CountryListApi();
+});
+// console.log('DATA CONSOLE>>>>>', CLA.val);
 const CountryList = (props) => {
   const [selectedId, setSelectedId] = useState(null);
-
+  let [DATA, setDATA] = useState(props.DATA);
   const renderItem = ({item}) => {
+    // console.log('', DATA);
     const backgroundColor = item.id === selectedId ? '#efefef' : '#FFF';
     return (
       <Item
@@ -38,14 +59,15 @@ const CountryList = (props) => {
   };
 
   if (props.searchText != '') {
-    DATA = DefineCountryList.filter(
+    DATA = DATA.filter(
       (data) =>
-        data.title.toLowerCase().indexOf(props.searchText.toLowerCase()) !== -1,
+        data.fullName.toLowerCase().indexOf(props.searchText.toLowerCase()) !==
+        -1,
     );
 
     // list.custName.toLowerCase().indexOf(searchName) > -1
   } else {
-    DATA = DefineCountryList;
+    DATA = DATA;
   }
 
   return (
@@ -63,29 +85,57 @@ const CountryList = (props) => {
 
 const Item = ({item, onPress, style, handlePick}) => {
   CheckedArrObject = new SelectedCheckboxes();
-  return (
-    <TouchableOpacity
-      onPress={() => {
-        handlePick(item.title, item.cd);
-      }}
-      style={[ModalStyle.listModalItem]}>
-      <Image
-        style={[ModalStyle.listModalImg, {marginTop: 2}]}
-        source={item.img}
-      />
-      <Text
-        style={[
-          ResetStyle.fontRegularK,
-          ResetStyle.fontDG,
-          {width: '68%', textAlign: 'left'},
-        ]}>
-        {item.title}
-      </Text>
-      <Text style={[ResetStyle.fontRegularK, ResetStyle.fontDG]}>
-        {item.cd}
-      </Text>
-    </TouchableOpacity>
-  );
+  if (item.fullName !== '') {
+    return (
+      <TouchableOpacity
+        onPress={() => {
+          handlePick(item.fullName, item.countryCode);
+        }}
+        style={[ModalStyle.listModalItem]}>
+        <Image
+          style={[ModalStyle.listModalImg, {marginTop: 2}]}
+          source={item.emojiFlag !== '' ? item.emojiFlag : ''}
+        />
+        <Text
+          style={[
+            ResetStyle.fontRegularK,
+            ResetStyle.fontDG,
+            {width: '68%', textAlign: 'left', color: '#222222'},
+          ]}>
+          {`${item.fullName}(${item.countryCode})`}
+        </Text>
+        <Text
+          style={[
+            ResetStyle.fontRegularK,
+            ResetStyle.fontDG,
+            {color: '#222222'},
+          ]}>
+          {`+${item.countryPhone}`}
+        </Text>
+      </TouchableOpacity>
+    );
+  } else {
+    return (
+      <TouchableOpacity
+        onPress={() => {
+          handlePick(item.cityName);
+        }}
+        style={[ModalStyle.listModalItem]}>
+        <Image
+          style={[ModalStyle.listModalImg, {marginTop: 2}]}
+          source={item.emojiFlag !== '' ? item.emojiFlag : ''}
+        />
+        <Text
+          style={[
+            ResetStyle.fontRegularK,
+            ResetStyle.fontDG,
+            {width: '68%', textAlign: 'left', color: '#222222'},
+          ]}>
+          {`${item.cityName}`}
+        </Text>
+      </TouchableOpacity>
+    );
+  }
 };
 
 class ListModal extends Component {
@@ -147,8 +197,17 @@ class ListModal extends Component {
 
             {/* modal view */}
             <View style={[ModalStyle.listModal]}>
-              <View style={[ModalStyle.listModalBox]}>
-                <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>
+              <View
+                style={[
+                  ModalStyle.listModalBox,
+                  {marginTop: '3%', marginBottom: '4%'},
+                ]}>
+                <Text
+                  style={[
+                    ResetStyle.fontMediumK,
+                    ResetStyle.fontBlack,
+                    {fontWeight: '500', fontSize: 25},
+                  ]}>
                   {this.props.titleText}
                 </Text>
                 <TouchableWithoutFeedback
@@ -159,7 +218,7 @@ class ListModal extends Component {
                   }}>
                   <Image
                     style={[ModalStyle.listModalCloseButton]}
-                    source={require('../../../imgs/icon_close.png')}
+                    source={require('../../../imgs/drawable-xxhdpi/delete_icon.png')}
                   />
                 </TouchableWithoutFeedback>
               </View>
@@ -169,14 +228,18 @@ class ListModal extends Component {
                   style={[
                     ResetStyle.fontRegularK,
                     ResetStyle.fontG,
-                    {padding: 10},
+                    {
+                      padding: 10,
+                      textAlign: 'left',
+                      width: '90%',
+                    },
                   ]}
                   onChangeText={this.handleInputChange}
                   value={this.state.searchText}
                   placeholder="search"
                 />
                 <TouchableOpacity
-                  style={{position: 'absolute', right: '3%', top: '22%'}}>
+                  style={{position: 'absolute', right: '3%', top: '40%'}}>
                   <Image
                     style={[ModalStyle.listModalSearch]}
                     source={require('../../../imgs/icon_search.png')}
@@ -186,6 +249,7 @@ class ListModal extends Component {
               <CountryList
                 handlePick={this.handlePick}
                 searchText={this.state.searchText}
+                DATA={this.props.list}
               />
             </View>
           </View>

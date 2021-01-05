@@ -47,6 +47,7 @@ import WalletDetail from './components/settings/wallet/WalletDetail';
 import WalletSend from './components/settings/wallet/WalletSend';
 import WalletSendSuccess from './components/settings/wallet/WalletSendSuccess';
 import WalletReceive from './components/settings/wallet/WalletReceive';
+import WalletConfirmPassword from './components/settings/wallet/WalletConfirmPassword';
 import MainAlert from './components/main/MainAlert';
 
 import Settings from './components/settings/settingsDetail/Settings';
@@ -149,7 +150,11 @@ export class AppAuthStack extends Component {
             headerShown: false,
           }}
         />
-        <Stack.Screen name="ResetEmail" component={ResetEmail} />
+        <Stack.Screen
+          name="ResetEmail"
+          component={ResetEmail}
+          options={{headerShown: false}}
+        />
         <Stack.Screen
           name="ResetPassword"
           component={ResetPassword}
@@ -373,7 +378,13 @@ export class AppMainStack extends Component {
             headerShown: false,
           }}
         />
-        <Stack.Screen name="ResetEmail" component={ResetEmail} />
+        <Stack.Screen
+          name="ResetEmail"
+          component={ResetEmail}
+          options={{
+            headerShown: false,
+          }}
+        />
         <Stack.Screen
           name="ResetPassword"
           component={ResetPassword}
@@ -557,6 +568,13 @@ export class AppMainStack extends Component {
         <Stack.Screen
           name="WalletSend"
           component={WalletSend}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="WalletConfirmPassword"
+          component={WalletConfirmPassword}
           options={{
             headerShown: false,
           }}
