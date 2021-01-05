@@ -18,6 +18,8 @@ import Reset from '../resetPassword/Reset.js';
 
 import AudienceModal from '../factory/modal/AudienceModal';
 
+import CarrierInfo from 'react-native-carrier-info';
+
 export default class MainDetail extends Component {
   state = {
     modalVisible: false,
@@ -27,6 +29,38 @@ export default class MainDetail extends Component {
       modalVisible: visible,
     });
   };
+  componentDidMount() {
+    CarrierInfo.allowsVOIP()
+      .then((result) => {
+        console.log('CarrierInfo>>then>>>>', result);
+      })
+      .catch((e) => {
+        console.log('error>>>>', e);
+      });
+    CarrierInfo.carrierName()
+      .then((result) => {
+        console.log('CarrierName>>then>>>>', result);
+      })
+      .catch((e) => {
+        console.log('error>>>>', e);
+      });
+    ////유심 체크 (끼어져 있는 유심이 공유심인지는 체크 불가)
+    CarrierInfo.mobileNetworkCode()
+      .then((result) => {
+        console.log('mobileNetworkCode>>then>>>>', result);
+      })
+      .catch((e) => {
+        console.log('error>>>>', e);
+      });
+    CarrierInfo.mobileNetworkOperator()
+      .then((result) => {
+        console.log('mobileNetworkOperator>>then>>>>', result);
+      })
+      .catch((e) => {
+        console.log('error>>>>', e);
+      });
+  }
+
   render() {
     return (
       <SafeAreaView style={[ResetStyle.container]}>

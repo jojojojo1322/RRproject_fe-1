@@ -54,16 +54,17 @@ export default class WalletReceive extends Component {
           {/* topBackButton */}
           <View style={[ResetStyle.topBackButton]}>
             <TouchableOpacity
+              style={{flexDirection: 'row'}}
               onPress={() => {
                 this.props.navigation.goBack();
               }}>
               <Image
                 source={require('../../../imgs/drawable-xxxhdpi/back_icon.png')}
               />
+              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+                받기
+              </Text>
             </TouchableOpacity>
-            <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-              받기
-            </Text>
           </View>
           <TextInput
             onChangeText={(text) => this.setState({text: text})}

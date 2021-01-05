@@ -206,16 +206,17 @@ class SignUp extends Component {
               {/* topBackButton */}
               <View style={ResetStyle.topBackButton}>
                 <TouchableOpacity
+                  style={{flexDirection: 'row'}}
                   onPress={() => {
                     this.props.navigation.goBack();
                   }}>
                   <Image
                     source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
                   />
+                  <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+                    휴대폰 인증
+                  </Text>
                 </TouchableOpacity>
-                <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-                  휴대폰 인증
-                </Text>
               </View>
               <Text
                 style={[
@@ -275,7 +276,7 @@ class SignUp extends Component {
                   ResetStyle.fontRegularK,
                   ResetStyle.fontG,
                   ResetStyle.textInputText,
-                  {marginBottom: '5%'},
+                  {marginBottom: '5%', width: '100%'},
                 ]}></TextInput>
 
               {this.state.CountDownCheck == 'start' && (
@@ -453,26 +454,26 @@ class SignUp extends Component {
                 },
               ]}
               onPress={async () => {
-                await this.smsAuthApproveApi(
-                  this.state.passWord,
-                  `+82${this.state.phoneNum.slice(1, undefined)}`,
-                );
-                if (this.state.AuthKeyCheck == '-3') {
-                  this.setModalVisibleNotAuth(true);
-                } else if (this.state.AuthKeyCheck == '-1') {
-                  this.setModalVisibleNotAuthExpire(true);
-                } else if (this.state.AuthKeyCheck == '0') {
-                  this.props.navigation.navigate('AgreementTermsConditions', {
-                    deviceKey: this.state.deviceKey,
-                    phoneNum: `+82${this.state.phoneNum.slice(1, undefined)}`,
-                  });
-                  this.props.navigation.setOptions({title: '약관동의'});
-                }
-                // this.props.navigation.navigate('AgreementTermsConditions', {
-                //   deviceKey: this.state.deviceKey,
-                //   phoneNum: `+82${this.state.phoneNum.slice(1, undefined)}`,
-                // });
-                // this.props.navigation.setOptions({title: '약관동의'});
+                // await this.smsAuthApproveApi(
+                //   this.state.passWord,
+                //   `+82${this.state.phoneNum.slice(1, undefined)}`,
+                // );
+                // if (this.state.AuthKeyCheck == '-3') {
+                //   this.setModalVisibleNotAuth(true);
+                // } else if (this.state.AuthKeyCheck == '-1') {
+                //   this.setModalVisibleNotAuthExpire(true);
+                // } else if (this.state.AuthKeyCheck == '0') {
+                //   this.props.navigation.navigate('AgreementTermsConditions', {
+                //     deviceKey: this.state.deviceKey,
+                //     phoneNum: `+82${this.state.phoneNum.slice(1, undefined)}`,
+                //   });
+                //   this.props.navigation.setOptions({title: '약관동의'});
+                // }
+                this.props.navigation.navigate('AgreementTermsConditions', {
+                  deviceKey: this.state.deviceKey,
+                  phoneNum: `+82${this.state.phoneNum.slice(1, undefined)}`,
+                });
+                this.props.navigation.setOptions({title: '약관동의'});
               }}>
               <Text
                 style={[

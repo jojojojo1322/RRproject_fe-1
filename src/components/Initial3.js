@@ -207,7 +207,7 @@ class Initial3 extends Component {
     const {modal9Visible} = this.state;
     const windowWidth = this.state.dimensions.window.width;
     return (
-      <View style={styles.container}>
+      <View style={(styles.container, {marginTop: '40%'})}>
         <TouchableOpacity
           // activeOpacity={0.50}
           onPress={() => {

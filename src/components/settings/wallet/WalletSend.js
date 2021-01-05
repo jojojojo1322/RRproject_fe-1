@@ -45,7 +45,8 @@ export default class WalletSend extends Component {
     });
   };
   setConfirm = () => {
-    this.props.navigation.navigate('WalletSendSuccess');
+    this.props.navigation.navigate('WalletConfirmPassword');
+    // this.props.navigation.navigate('WalletSendSuccess');
   };
   handlePer = (value) => {
     if (value === 'tenth') {
@@ -97,10 +98,9 @@ export default class WalletSend extends Component {
                 this.props.navigation.goBack();
               }}>
               <Image
-                style={{marginTop: '2%'}}
                 source={require('../../../imgs/drawable-xxxhdpi/back_icon.png')}
               />
-              <Text style={[ResetStyle.fontMediumK, {fontWeight: '500'}]}>
+              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
                 보내기
               </Text>
             </TouchableOpacity>
@@ -146,6 +146,7 @@ export default class WalletSend extends Component {
                       ResetStyle.fontRegularK,
                       {
                         textAlign: 'left',
+                        width: '90%',
                       },
                     ]}
                     placeholder={`보낼 주소 입력`}
@@ -186,6 +187,7 @@ export default class WalletSend extends Component {
                     ResetStyle.fontRegularK,
                     {
                       textAlign: 'left',
+                      width: '90%',
                     },
                   ]}
                   placeholder={`보낼 수량 입력`}
@@ -315,6 +317,7 @@ export default class WalletSend extends Component {
                     ResetStyle.fontRegularK,
                     {
                       textAlign: 'left',
+                      width: '90%',
                     },
                   ]}
                   placeholder={`메모 입력`}

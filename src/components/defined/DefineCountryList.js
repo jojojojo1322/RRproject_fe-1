@@ -1,5 +1,94 @@
-import React from 'react';
+import React, {Component, useState} from 'react';
+import {server} from '../defined/server';
+import axios from 'axios';
 
+// export class CountryListApi extends Component {
+//   state = {
+//     data: [],
+//   };
+//   componentDidMount() {
+//     this.API();
+//   }
+//   API = () => {
+//     axios
+//       .get(`${server}/util/global/country`)
+//       .then((response) => {
+//         // console.log('countryListList', response);
+//         // setCountry(response.data);
+//         this.setState({
+//           data: response.data,
+//         });
+//       })
+//       .catch(({e}) => {
+//         console.log('error', e);
+//       });
+//   };
+//   render() {
+//     return this.state.data;
+//   }
+// }
+
+API = async () => {
+  await axios
+    .get(`${server}/util/global/country`)
+    .then(async (response) => {
+      // console.log('countryListList', response);
+      // setCountry(response.data);
+      return await response;
+    })
+    .catch(({e}) => {
+      console.log('error', e);
+    });
+};
+
+export const CountryListApi = async () => {
+  await axios
+    .get(`${server}/util/global/country`)
+    .then(async (response) => {
+      console.log('2');
+      // List = response;
+      return await response;
+    })
+    .catch(({e}) => {
+      console.log('error', e);
+    });
+  return 'FAILED';
+};
+
+export let CL = [];
+
+export class CLA extends Component {
+  state = {
+    DATA: [],
+  };
+  componentDidMount() {
+    this.API();
+  }
+  val = () => {
+    return this.state.DATA;
+  };
+  static API = () => {
+    axios
+      .get(`${server}/util/global/country`)
+      .then((response) => {
+        console.log('2');
+        this.setState({
+          DATA: response.data,
+        });
+        CL = response.data;
+        return response.data;
+        // List = response;
+      })
+      .catch(({e}) => {
+        console.log('error', e);
+      });
+  };
+  render() {
+    return this.state.DATA;
+  }
+}
+
+// export default CountryListApi;
 export let DefineCountryList = [
   {
     id: 'AD',

@@ -27,14 +27,14 @@ import ModalStyle from '../../../style/ModalStyle';
 import Reset from '../../resetPassword/Reset';
 
 const window = Dimensions.get('window');
-let DATA = DefineCountryList;
+// let DATA = DefineCountryList;
 
 const CountryList = (props) => {
   const [selectedId, setSelectedId] = useState(null);
 
+  let DATA = props.list;
   const renderItem = ({item}) => {
     const backgroundColor = item.id === selectedId ? '#FFF' : '#FFF';
-
     return (
       <Item
         item={item}
@@ -47,14 +47,16 @@ const CountryList = (props) => {
     );
   };
   if (props.searchText != '') {
-    DATA = DefineCountryList.filter(
+    DATA = DATA.filter(
       (data) =>
-        data.title.toLowerCase().indexOf(props.searchText.toLowerCase()) !== -1,
+        data.nativeName
+          .toLowerCase()
+          .indexOf(props.searchText.toLowerCase()) !== -1,
     );
 
     // list.custName.toLowerCase().indexOf(searchName) > -1
   } else {
-    DATA = DefineCountryList;
+    DATA = DATA;
   }
 
   return (
@@ -64,7 +66,13 @@ const CountryList = (props) => {
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         extraData={selectedId}
-        style={{width: '100%', marginTop: '5%', marginBottom: '5%'}}
+        style={{
+          width: '100%',
+          marginTop: '5%',
+          marginBottom: '5%',
+          paddingLeft: '1%',
+          paddingRight: '1%',
+        }}
       />
     </>
   );
@@ -86,17 +94,17 @@ const Item = ({
           style={[
             ResetStyle.fontRegularK,
             ResetStyle.fontBlack,
-            {width: '80%', textAlign: 'left'},
+            {width: '80%', textAlign: 'left', fontSize: 20},
           ]}>
-          {item.title}
+          {item.nativeName}
         </Text>
         <RoundCheckbox
-          size={25}
+          size={30}
           keyValue={item.id}
           checked={false}
           color="#164895"
           labelColor="#000000"
-          label={item.title}
+          label={item.nativeName}
           value={item.cd}
           checkedObjArr={CheckedArrObject}
           handleCheckedArray={handleCheckedArray}
@@ -177,9 +185,24 @@ class ListCheckModal extends Component {
 
           {/* modal view */}
           <View style={[ModalStyle.lcModal]}>
-            <View style={[ModalStyle.lcModalBox]}>
-              <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
-                <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+            <View
+              style={[
+                ModalStyle.lcModalBox,
+                {marginTop: '3%', marginBottom: '5%'},
+              ]}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'flex-end',
+
+                  // marginTop: '3%',
+                }}>
+                <Text
+                  style={[
+                    ResetStyle.fontMediumK,
+                    ResetStyle.fontBlack,
+                    {fontSize: 19, fontWeight: '500'},
+                  ]}>
                   사용가능언어 선택
                 </Text>
                 <Text style={[ResetStyle.fontLightK, ResetStyle.fontBlack]}>
@@ -195,15 +218,26 @@ class ListCheckModal extends Component {
                 }}>
                 <Image
                   style={[ModalStyle.listModalCloseButton]}
-                  source={require('../../../imgs/icon_close.png')}
+                  source={require('../../../imgs/drawable-xxxhdpi/delete_icon.png')}
                 />
               </TouchableWithoutFeedback>
             </View>
 
             <View style={[ModalStyle.lcModalInput]}>
               <TextInput
-                style={[ResetStyle.fontLightK, ResetStyle.fontG]}
+                style={[
+                  ResetStyle.fontLightK,
+                  ResetStyle.fontBlack,
+                  {
+                    textAlign: 'left',
+                    width: '90%',
+                    paddingTop: '2%',
+                    paddingBottom: '2%',
+                    fontSize: 20,
+                  },
+                ]}
                 onChangeText={this.handleInputChange}
+                placeholderTextColor={ResetStyle.fontG}
                 value={this.state.searchText}
                 placeholder="search"></TextInput>
               <TouchableOpacity>
@@ -213,15 +247,17 @@ class ListCheckModal extends Component {
                 />
               </TouchableOpacity>
             </View>
-
+            {/* <View
+              style={{paddingLeft: '10%', paddingRight: '10%', height: '70%'}}> */}
             <CountryList
               setLanguage={this.props.setLanguage}
               CheckedArrObject={CheckedArrObject}
               searchText={this.state.searchText}
               handleCheckedArray={this.handleCheckedArray}
               handleUnCheckedArray={this.handleUnCheckedArray}
+              list={this.props.list}
             />
-
+            {/* </View> */}
             <TouchableOpacity
               style={[
                 ResetStyle.button,

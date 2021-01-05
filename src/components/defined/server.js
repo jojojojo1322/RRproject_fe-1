@@ -1,3 +1,3 @@
 import React from 'react';
 
-export const server = 'http://3.34.5.60:8091/v1/api';
+export const server = 'http://52.78.181.176:8091/v1/api';

@@ -32,16 +32,17 @@ export default class WalletMasterKey extends Component {
           {/* topBackButton */}
           <View style={[ResetStyle.topBackButton]}>
             <TouchableOpacity
+              style={{flexDirection: 'row'}}
               onPress={() => {
                 this.props.navigation.navigate('SettingsPersonal');
               }}>
               <Image
                 source={require('../../../../imgs/drawable-xxxhdpi/back_icon.png')}
               />
+              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+                Master Key
+              </Text>
             </TouchableOpacity>
-            <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-              Master Key
-            </Text>
           </View>
           <View>
             <Text style={[ResetStyle.fontBoldK, ResetStyle.fontB]}>
