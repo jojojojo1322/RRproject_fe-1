@@ -230,8 +230,8 @@ class ListModal extends Component {
                     ResetStyle.fontG,
                     {
                       padding: 10,
+                      width: '100%',
                       textAlign: 'left',
-                      width: '90%',
                     },
                   ]}
                   onChangeText={this.handleInputChange}

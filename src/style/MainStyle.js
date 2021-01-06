@@ -4,6 +4,7 @@ export default StyleSheet.create({
   // Item
   itemBox: {
     width: '90%',
+    height: Platform.OS === 'ios' ? 500 : 360,
     alignSelf: 'center',
     marginTop: 15,
     borderRadius: 10,
@@ -11,8 +12,8 @@ export default StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#e8e8e8',
-    paddingTop: '5%',
-    paddingBottom: '5%',
+    paddingBottom: '10%',
+    overflow: 'hidden',
   },
   itemBoxInner: {
     flexDirection: 'row',
@@ -28,24 +29,18 @@ export default StyleSheet.create({
     height: 10,
   },
   itemTitleView: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'flex-start',
     paddingLeft: '5%',
     paddingRight: '5%',
     marginTop: '3%',
     marginBottom: '4%',
   },
-
-  itemImagenullView: {
-    width: '90%',
-    alignSelf: 'center',
-    borderTopWidth: 2,
-    borderTopColor: '#dedede',
-  },
   itemImagenullViewInner: {
     flexDirection: 'row',
     alignItems: 'flex-end',
-    marginTop: '4%',
+    width: '100%',
+    alignSelf: 'center',
   },
 
   itemImageView: {
@@ -82,8 +77,6 @@ export default StyleSheet.create({
   itemBoxBottomTextView: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingLeft: '5%',
-    paddingRight: '5%',
     marginTop: 2,
   },
 
@@ -197,14 +190,16 @@ export default StyleSheet.create({
     borderBottomColor: '#2d91ff',
   },
   topLogoView: {
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#4696ff',
     width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingLeft: '5%',
-    paddingRight: '5%',
+    flexDirection: 'column',
+    // justifyContent: 'flex-start',
+    // paddingLeft: '5%',
+    // paddingRight: '5%',
     paddingTop: Platform.OS === 'ios' ? '15%' : '6%',
-    paddingBottom: Platform.OS === 'ios' ? '2%' : '2%',
+    paddingBottom: Platform.OS === 'ios' ? '3%' : '2%',
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25,
   },
   mainContainer: {
     flex: 1,
@@ -219,22 +214,23 @@ export default StyleSheet.create({
   mainLabel: {
     width: '100%',
     height: '100%',
-    fontSize: 16,
+    fontSize: Platform.OS === 'ios' ? 21 : 16,
     color: '#000',
-    paddingTop: 5,
+    paddingTop: Platform.OS === 'ios' ? 15 : 5,
   },
   mainTab: {
     elevation: 0,
     shadowOpacity: 0,
     backgroundColor: '#f9f9f9',
-    borderTopWidth: 1,
-    borderTopColor: '#dedede',
+    // borderTopWidth: 1,
+    // borderTopColor: '#dedede',
   },
   mainIndicator: {
     backgroundColor: '#000',
-    width: '4%',
+    width: '4.5%',
+    height: 3,
     position: 'absolute',
     top: '80%',
-    left: '4%',
+    left: '10.5%',
   },
 });

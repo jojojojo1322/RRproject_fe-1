@@ -15,6 +15,23 @@ import {RoundCheckbox, SelectedCheckboxes} from '../../factory/Roundcheck';
 import {FlatList} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '../../../style/ResetStyle.js';
+import email from 'react-native-email';
+
+// import NotiService from './NotiService';
+
+function handleEmail(status) {
+  const to = ['rrmaster@gmail.com']; // string or array of email addresses
+  email(to, {
+    // Optional additional arguments
+    // cc: ['bazzy@moo.com', 'doooo@daaa.com'],
+    // string or array of email addresses
+    // bcc: 'mee@mee.com',
+    // string or array of email addresses
+    subject: 'Real Research Support',
+    body:
+      '리얼 리서치는 회원님들의 원활한 이용을 위해 영어, 러시아어, 한국어 총 3개 언어를 지원하고 있습니다. 도움이 필요하시면 언제든 문의해주십시오.',
+  }).catch(console.error);
+}
 
 const SettingsAlert = ({navigation}) => {
   const [isEnabled, setIsEnabled] = useState(false);
@@ -74,6 +91,7 @@ const SettingsAlert = ({navigation}) => {
   );
 
   const renderItem = ({item}) => <Item title={item.title} id={item.id} />;
+
   return (
     <SafeAreaView style={ResetStyle.container}>
       <View
@@ -103,6 +121,10 @@ const SettingsAlert = ({navigation}) => {
           keyExtractor={(item) => item.id}
           style={{borderTopWidth: 1, borderTopColor: '#dddddd'}}
         />
+        <TouchableOpacity>
+          <Text>123456</Text>
+          <Button title="Send Mail" onPress={handleEmail} />
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

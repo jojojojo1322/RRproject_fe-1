@@ -24,6 +24,9 @@ import MainDetailExpired from './components/main/MainDetailExpired';
 import MainVideo from './components/main/MainVideo';
 // import MainVideoTest from './components/main/MainVideoTest';
 
+import Media from './Media';
+import RequestResearch from './RequestResearch';
+
 import SignUp from './components/signup/SignUp';
 import AgreementTermsConditions from './components/signup/AgreementTermsConditions';
 import TermsConditions from './components/signup/TermsConditions';
@@ -53,6 +56,7 @@ import MainAlert from './components/main/MainAlert';
 import Settings from './components/settings/settingsDetail/Settings';
 
 import SettingsAlert from './components/settings/settingsDetail/SettingsAlert';
+
 import SettingsWallet from './components/settings/settingsDetail/SettingsWallet';
 import SettingsWalletMasterKey from './components/settings/settingsDetail/SettingsWalletMasterKey';
 import SettingsWalletPassword from './components/settings/settingsDetail/SettingsWalletPassword';
@@ -712,6 +716,20 @@ export class AppMainStack extends Component {
             headerShown: false,
           }}
         />
+        <Stack.Screen
+          name="Media"
+          component={Media}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="RequestResearch"
+          component={RequestResearch}
+          options={{
+            headerShown: false,
+          }}
+        />
       </Stack.Navigator>
     );
   }
@@ -778,7 +796,7 @@ const App = () => {
         <Drawer.Navigator
           initialRouteName="초기"
           drawerContent={(props) => <CustomDrawerContent {...props} />}
-          drawerPosition="right"
+          drawerPosition="left"
           drawerStyle={{
             width: '80%',
             backgroundColor: '#FFF',
@@ -789,13 +807,21 @@ const App = () => {
               margin: 0,
             },
           }}>
-          <Drawer.Screen name="초기" component={AppMainStack} />
           <Drawer.Screen name="설문조사" component={Main} />
-          <Drawer.Screen name="설문조사 의뢰하기" component={Main} />
-          <Drawer.Screen name="미디어" component={Main} />
+          <Drawer.Screen name="설문조사 의뢰하기" component={RequestResearch} />
+          <Drawer.Screen name="미디어" component={Media} />
           <Drawer.Screen name="알림" component={MainAlert} />
           <Drawer.Screen name="설정" component={Settings} />
           <Drawer.Screen name="초대코드" component={Main} />
+          <Drawer.Screen
+            name="초기"
+            component={AppMainStack}
+            options={() => ({
+              drawerLabel: () => null,
+              title: undefined,
+              drawerIcon: () => null,
+            })}
+          />
         </Drawer.Navigator>
       </NavigationContainer>
     );

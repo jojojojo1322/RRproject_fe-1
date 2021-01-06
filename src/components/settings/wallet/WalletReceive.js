@@ -13,8 +13,10 @@ import {
 } from 'react-native';
 import {Dimensions} from 'react-native';
 import PropTypes from 'prop-types';
+import Clipboard from '@react-native-community/clipboard';
 import BottomModal from '../../factory/modal/BottomModal';
 import ResetStyle from '../../../style/ResetStyle.js';
+import AuthStyle from '../../../style/AuthStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {SelectedCheckboxes, RoundCheckbox} from '../../factory/Roundcheck';
 import ResearchStyle from '../../../style/ResearchStyle.js';
@@ -47,6 +49,9 @@ export default class WalletReceive extends Component {
   setModal2Visible = (visible) => {
     this.setState({modal2Visible: visible});
   };
+  copyToClipboard = (value) => {
+    Clipboard.setString(value);
+  };
   render() {
     return (
       <SafeAreaView style={ResetStyle.container}>
@@ -66,16 +71,60 @@ export default class WalletReceive extends Component {
               </Text>
             </TouchableOpacity>
           </View>
-          <TextInput
-            onChangeText={(text) => this.setState({text: text})}
-            value={this.state.text}
-          />
-          <QRCode
-            value={this.state.text}
-            size={500}
-            bgColor="#000"
-            fgColor="white"
-          />
+          <View>
+            <Text style={[ResetStyle.fontMediumK, {marginBottom: '10%'}]}>
+              My Address
+            </Text>
+            {/* <View style={{borderWidth: 1}}> */}
+            <QRCode
+              value={this.state.text}
+              size={700}
+              bgColor="#000"
+              fgColor="white"
+            />
+            {/* </View> */}
+            <TouchableOpacity
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'center',
+                marginTop: '10%',
+                marginBottom: '10%',
+              }}>
+              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+                주소 공유하기
+              </Text>
+              <Image
+                style={{width: 30, height: 25, marginLeft: '2%'}}
+                source={require('../../../imgs/drawable-xxxhdpi/share_icon.png')}
+              />
+            </TouchableOpacity>
+          </View>
+
+          <View>
+            <TouchableOpacity
+              style={AuthStyle.walletCopy}
+              onPress={() => {
+                this.setModal2Visible(true);
+                this.copyToClipboard(this.state.text);
+              }}>
+              <Text
+                style={[
+                  ResetStyle.fontLightK,
+                  ResetStyle.fontDG,
+                  {paddingTop: 20, paddingBottom: 20},
+                ]}>
+                {this.state.text}
+              </Text>
+            </TouchableOpacity>
+            <Text
+              style={[
+                ResetStyle.fontLightK,
+                ResetStyle.fontG,
+                {marginTop: 10, marginBottom: 70},
+              ]}>
+              클릭하면 복사됩니다.
+            </Text>
+          </View>
           {/* Bottom Button */}
           <View style={{flexDirection: 'row'}}>
             <TouchableOpacity
@@ -104,8 +153,8 @@ export default class WalletReceive extends Component {
           text={`공유되었습니다.`}
         />
         <BottomModal
-          modal2Visible={this.state.modal2Visible}
-          setModal2Visible={this.setModal2Visible}
+          modalVisible={this.state.modal2Visible}
+          setModalVisible={this.setModal2Visible}
           text={`복사되었습니다.`}
         />
       </SafeAreaView>
