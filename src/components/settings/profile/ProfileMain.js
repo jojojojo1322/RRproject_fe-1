@@ -1,13 +1,9 @@
 import React, {Component} from 'react';
-
 import {
-  StyleSheet,
   View,
   Text,
   ScrollView,
-  Button,
   TouchableOpacity,
-  Alert,
   Image,
   Platform,
 } from 'react-native';
@@ -18,7 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {DrawerActions} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '../../../style/ResetStyle.js';
-import MainStyle from '../../../style/MainStyle.js';
+import ProfileStyle from '../../../style/ProfileStyle.js';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 // import {CustomDrawerContent} from '../../defined/CustomDrawerContent';
 
@@ -143,25 +139,12 @@ const kycArr = [
 
 export const ProfileMain = ({navigation}) => {
   return (
-    <SafeAreaView style={MainStyle.mainFlatlistView}>
-      <View
-        style={{
-          backgroundColor: '#f9f9f9',
-          // marginTop: StatusBar.currentHeight || 0,
-          flex: 1,
-        }}>
-        <View
-          style={{
-            backgroundColor: '#f9f9f9',
-            paddingTop: Platform.OS === 'ios' ? '15%' : '5%',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            padding: '5%',
-            paddingTop: '4%',
-            //   paddingBottom: '10%',
-          }}>
+    <SafeAreaView style={ResetStyle.container}>
+      <View style={[PersonalStyle.kycContainerInner]}>
+        {/* Top */}
+        <View style={[PersonalStyle.topView]}>
           <TouchableOpacity>
-            <View style={{flexDirection: 'row'}}>
+            <View style={[PersonalStyle.topLogoTouchView]}>
               <Image
                 source={require('../../../imgs/drawable-xxxhdpi/main_r_logo.png')}
               />
@@ -177,30 +160,22 @@ export const ProfileMain = ({navigation}) => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              // console.log(this.props.navigation.openDrawer);
-              // console.log(this.props.route.params?.openDrawer);
-              // this.props.navigation.openDrawer();
-              // this.props.route.params?.openDrawer;
               navigation.dispatch(DrawerActions.openDrawer());
             }}>
             <Image
-              source={require('../../../imgs/drawable-xxxhdpi/menu_icon.png')}
+              style={[ResetStyle.topHamburgerImg]}
+              source={require('../../../imgs/drawable-xxxhdpi/menu_2_icon.png')}
             />
           </TouchableOpacity>
         </View>
-        <View
-          style={{
-            backgroundColor: '#2d91ff',
-            padding: 20,
-            paddingTop: 25,
-            paddingBottom: 25,
-          }}>
+
+        {/* Personal Level & email */}
+        <View style={[PersonalStyle.personalBackground]}>
           <Text
             style={[
               ResetStyle.fontRegularE,
               ResetStyle.fontWhite,
-              {fontWeight: '700'},
-              {textAlign: 'left'},
+              {fontWeight: '700', textAlign: 'left'},
             ]}>
             LEVEL 2
           </Text>
@@ -213,53 +188,44 @@ export const ProfileMain = ({navigation}) => {
             tnctnctnc123@gmail.com
           </Text>
         </View>
-        <ScrollView style={{padding: '5%', marginTop: 12}}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginBottom: 30,
+
+        {/* KYC Level title & all */}
+        <View style={[PersonalStyle.kycLevelTitleView]}>
+          <Text
+            style={[
+              ResetStyle.fontMediumE,
+              {fontWeight: '300', letterSpacing: 0.5},
+            ]}>
+            KYC LEVEL
+          </Text>
+          <TouchableOpacity
+            style={[ResetStyle.buttonSmall, PersonalStyle.kycLevelAll]}
+            onPress={() => {
+              navigation.navigate('ProfileAll');
             }}>
-            <Text style={[ResetStyle.fontMediumE, {fontWeight: '400'}]}>
-              KYC LEVEL
-            </Text>
-            <TouchableOpacity
+            <Text
               style={[
-                ResetStyle.buttonSmall,
-                {width: '20%', padding: 0, paddingTop: 3},
-              ]}
-              onPress={() => {
-                navigation.navigate('ProfileAll');
-              }}>
-              <Text
-                style={[
-                  // ResetStyle.fontMediumE,
-                  ResetStyle.buttonTexts,
-                  ResetStyle.fontRegularE,
-                  {fontWeight: '500'},
-                ]}>
-                ALL
-              </Text>
-            </TouchableOpacity>
-          </View>
+                ResetStyle.fontRegularK,
+                ResetStyle.fontWhite,
+                {fontWeight: '500'},
+              ]}>
+              ALL
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* KYC Level list */}
+        <ScrollView style={[PersonalStyle.kycScrollView]}>
           {kycArr.map((data, index) => {
             return (
               <>
                 <TouchableOpacity
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    marginTop: 15,
-                  }}
+                  style={[PersonalStyle.kycTouchable]}
                   key={index}
                   onPress={() => {
                     data.status === true
                       ? navigation.navigate('ProfileCompleteDetail')
-                      : // : this.props.navigation.navigate(
-                        //     'ProfileIncompleteDetail',
-                        //   );
-                        // navigation.navigate('ProfileComplete');
-                        navigation.navigate('ProfileIncompleteDetail');
+                      : navigation.navigate('ProfileIncompleteDetail');
                   }}>
                   <Text
                     style={[
@@ -267,39 +233,32 @@ export const ProfileMain = ({navigation}) => {
                       data.status === true || kycArr[index + 1].status == true
                         ? ResetStyle.fontBlack
                         : ResetStyle.fontG,
-                      {fontWeight: '500', paddingLeft: 10, marginBottom: 20},
+                      PersonalStyle.kycLevelText,
                     ]}>
                     KYC LEVEL {data.level}
                   </Text>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      paddingRight: 10,
-                    }}>
+                  <View style={[PersonalStyle.kycLevelCheckboxView]}>
                     <Text
                       style={[
                         ResetStyle.fontLightE,
                         data.status === true || kycArr[index + 1].status == true
                           ? ResetStyle.fontBlack
                           : ResetStyle.fontG,
-                        {fontWeight: '500', paddingRight: 10},
+                        PersonalStyle.kycLevelText2,
                       ]}>
                       {data.status == true ? `완료` : `시작`}
                     </Text>
                     <Image
+                      style={[PersonalStyle.kycLevelCheckboxImg]}
                       source={
                         data.status == true
-                          ? require('../../../imgs/drawable-hdpi/icon_s_check_on.png')
-                          : require('../../../imgs/drawable-hdpi/icon_s_check_off.png')
+                          ? require('../../../imgs/drawable-xxxhdpi/icon_b_check_2_off_s.png')
+                          : require('../../../imgs/drawable-xxxhdpi/icon_w_check_2_off_s.png')
                       }
                     />
                   </View>
                 </TouchableOpacity>
-                <View
-                  style={{
-                    borderBottomColor: '#dedede',
-                    borderBottomWidth: 1.5,
-                  }}></View>
+                <View style={[PersonalStyle.kycLevelborder]} />
               </>
             );
           })}
@@ -308,176 +267,5 @@ export const ProfileMain = ({navigation}) => {
     </SafeAreaView>
   );
 };
-// export default class ProfileMainDrawer extends Component {
-//   render() {
-//     return (
-//       <SafeAreaView style={MainStyle.mainFlatlistView}>
-//         <View
-//           style={{
-//             backgroundColor: '#f9f9f9',
-//             // marginTop: StatusBar.currentHeight || 0,
-//             flex: 1,
-//           }}>
-//           <View
-//             style={{
-//               backgroundColor: '#f9f9f9',
-//               paddingTop: Platform.OS === 'ios' ? '15%' : '5%',
-//               flexDirection: 'row',
-//               justifyContent: 'space-between',
-//               padding: '5%',
-//               paddingTop: '4%',
-//               //   paddingBottom: '10%',
-//             }}>
-//             <TouchableOpacity>
-//               <View style={{flexDirection: 'row'}}>
-//                 <Image
-//                   source={require('../../../imgs/drawable-xxxhdpi/main_r_logo.png')}
-//                 />
-//                 <Text
-//                   style={[
-//                     ResetStyle.fontRegularK,
-//                     ResetStyle.fontB,
-//                     {marginLeft: 10},
-//                   ]}>
-//                   Real Research
-//                 </Text>
-//               </View>
-//             </TouchableOpacity>
-//             <TouchableOpacity
-//               onPress={() => {
-//                 // console.log(this.props.navigation.openDrawer);
-//                 // console.log(this.props.route.params?.openDrawer);
-//                 // this.props.navigation.openDrawer();
-//                 // this.props.route.params?.openDrawer;
-//                 this.props.navigation.openDrawer();
-//               }}>
-//               <Image
-//                 source={require('../../../imgs/drawable-xxxhdpi/menu_icon.png')}
-//               />
-//             </TouchableOpacity>
-//           </View>
-//           <View
-//             style={{
-//               backgroundColor: '#2d91ff',
-//               padding: 20,
-//               paddingTop: 25,
-//               paddingBottom: 25,
-//             }}>
-//             <Text
-//               style={[
-//                 ResetStyle.fontRegularE,
-//                 ResetStyle.fontWhite,
-//                 {fontWeight: '700'},
-//                 {textAlign: 'left'},
-//               ]}>
-//               LEVEL 2
-//             </Text>
-//             <Text
-//               style={[
-//                 ResetStyle.fontRegularE,
-//                 ResetStyle.fontWhite,
-//                 {textAlign: 'left'},
-//               ]}>
-//               tnctnctnc123@gmail.com
-//             </Text>
-//           </View>
-//           <ScrollView style={{padding: '5%', marginTop: 12}}>
-//             <View
-//               style={{
-//                 flexDirection: 'row',
-//                 justifyContent: 'space-between',
-//                 marginBottom: 30,
-//               }}>
-//               <Text style={[ResetStyle.fontMediumE, {fontWeight: '400'}]}>
-//                 KYC LEVEL
-//               </Text>
-//               <TouchableOpacity
-//                 style={[
-//                   ResetStyle.buttonSmall,
-//                   {width: '20%', padding: 0, paddingTop: 3},
-//                 ]}
-//                 onPress={() => {
-//                   this.props.navigation.navigate('ProfileAll');
-//                 }}>
-//                 <Text
-//                   style={[
-//                     // ResetStyle.fontMediumE,
-//                     ResetStyle.buttonTexts,
-//                     ResetStyle.fontRegularE,
-//                     {fontWeight: '500'},
-//                   ]}>
-//                   ALL
-//                 </Text>
-//               </TouchableOpacity>
-//             </View>
-//             {kycArr.map((data, index) => {
-//               return (
-//                 <>
-//                   <TouchableOpacity
-//                     style={{
-//                       flexDirection: 'row',
-//                       justifyContent: 'space-between',
-//                       marginTop: 15,
-//                     }}
-//                     key={index}
-//                     onPress={() => {
-//                       data.status === true
-//                         ? this.props.navigation.navigate(
-//                             'ProfileCompleteDetail',
-//                           )
-//                         : // : this.props.navigation.navigate(
-//                           //     'ProfileIncompleteDetail',
-//                           //   );
-//                           this.props.navigation.navigate('ProfileComplete');
-//                     }}>
-//                     <Text
-//                       style={[
-//                         ResetStyle.fontLightE,
-//                         data.status === true || kycArr[index + 1].status == true
-//                           ? ResetStyle.fontBlack
-//                           : ResetStyle.fontG,
-//                         {fontWeight: '500', paddingLeft: 10, marginBottom: 20},
-//                       ]}>
-//                       KYC LEVEL {data.level}
-//                     </Text>
-//                     <View
-//                       style={{
-//                         flexDirection: 'row',
-//                         paddingRight: 10,
-//                       }}>
-//                       <Text
-//                         style={[
-//                           ResetStyle.fontLightE,
-//                           data.status === true ||
-//                           kycArr[index + 1].status == true
-//                             ? ResetStyle.fontBlack
-//                             : ResetStyle.fontG,
-//                           {fontWeight: '500', paddingRight: 10},
-//                         ]}>
-//                         {data.status == true ? `완료` : `시작`}
-//                       </Text>
-//                       <Image
-//                         source={
-//                           data.status == true
-//                             ? require('../../../imgs/drawable-hdpi/icon_s_check_on.png')
-//                             : require('../../../imgs/drawable-hdpi/icon_s_check_off.png')
-//                         }
-//                       />
-//                     </View>
-//                   </TouchableOpacity>
-//                   <View
-//                     style={{
-//                       borderBottomColor: '#dedede',
-//                       borderBottomWidth: 1.5,
-//                     }}></View>
-//                 </>
-//               );
-//             })}
-//           </ScrollView>
-//         </View>
-//       </SafeAreaView>
-//     );
-//   }
-// }
 
 export default ProfileMain;

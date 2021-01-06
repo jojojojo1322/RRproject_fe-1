@@ -286,7 +286,6 @@ export default class ProfileIncompleteDetail extends Component {
                 style={{
                   width: 20,
                   borderWidth: 0.5,
-                  borderStyle: 'solid',
                   borderColor: '#dddddd',
                   marginRight: 4,
                   marginLeft: 4,

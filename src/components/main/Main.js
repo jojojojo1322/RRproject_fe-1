@@ -1029,21 +1029,12 @@ export const Main = ({navigation}) => {
         <View
           style={{
             flexDirection: 'row',
-            justifyContent: 'flex-start',
-            width: '100%',
+            justifyContent: 'space-between',
+            width: '90%',
             marginBottom: '5%',
-            marginLeft: '5%',
             alignItems: 'center',
+            alignSelf: 'center',
           }}>
-          <TouchableOpacity
-            onPress={() => {
-              console.log(navigation.openDrawer);
-              navigation.openDrawer();
-            }}>
-            <Image
-              source={require('../../imgs/drawable-xxxhdpi/menu_icon.png')}
-            />
-          </TouchableOpacity>
           <TouchableOpacity
             onPress={async () => {
               try {
@@ -1055,7 +1046,6 @@ export const Main = ({navigation}) => {
             <View
               style={{
                 flexDirection: 'row',
-                marginLeft: '8%',
               }}>
               <Image
                 source={require('../../imgs/drawable-xxxhdpi/rr_logo.png')}
@@ -1069,6 +1059,15 @@ export const Main = ({navigation}) => {
                 Real Research
               </Text>
             </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              console.log(navigation.openDrawer);
+              navigation.openDrawer();
+            }}>
+            <Image
+              source={require('../../imgs/drawable-xxxhdpi/menu_icon.png')}
+            />
           </TouchableOpacity>
         </View>
         <View

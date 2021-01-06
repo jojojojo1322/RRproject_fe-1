@@ -17,7 +17,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '../../../style/ResetStyle.js';
-import MainStyle from '../../../style/MainStyle.js';
+import ProfileStyle from '../../../style/ProfileStyle.js';
 
 const kycArr = [
   {
@@ -40,14 +40,24 @@ const kycArr = [
 export default class ProfileAll extends Component {
   render() {
     return (
-      <SafeAreaView style={MainStyle.mainFlatlistView}>
-        <View
-          style={{
-            backgroundColor: '#f9f9f9',
-            // marginTop: StatusBar.currentHeight || 0,
-            flex: 1,
-          }}>
-          <ScrollView style={{padding: '5%', marginTop: 12}}>
+      <SafeAreaView style={[ResetStyle.container]}>
+        <View style={[ResetStyle.containerInner]}>
+          {/* topBackButton */}
+          <View style={ResetStyle.topBackButton}>
+            <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.goBack();
+              }}>
+              <Image
+                source={require('../../../imgs/drawable-xxxhdpi/back_icon.png')}
+              />
+            </TouchableOpacity>
+            <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}></Text>
+          </View>
+
+          {/* Level List */}
+          <ScrollView>
+            {/* Level List Item */}
             {kycArr.map((data, index) => {
               let Arr = [];
               let i = 0;
@@ -57,20 +67,18 @@ export default class ProfileAll extends Component {
                 // console.log('a', Object.keys(d).length);
                 Arr.push(
                   <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'flex-start',
-                      borderBottomColor: '#dedede',
-                      borderBottomWidth: i != Object.keys(data).length ? 1 : 0,
-                      width: '100%',
-                      paddingTop: 15,
-                      paddingBottom: 15,
-                    }}>
+                    style={[
+                      ProfileStyle.kycAllLevelListItem,
+                      {
+                        borderBottomWidth:
+                          i != Object.keys(data).length ? 1 : 0,
+                      },
+                    ]}>
                     <Text
                       style={[
                         ResetStyle.fontRegularK,
                         ResetStyle.fontB,
-                        {width: '30%', textAlign: 'left'},
+                        {width: '30%', textAlign: 'left', fontWeight: '500'},
                       ]}>
                       {d}
                     </Text>
@@ -82,32 +90,21 @@ export default class ProfileAll extends Component {
               }
               return (
                 <View>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      marginBottom: 30,
-                      marginTop: 50,
-                    }}>
+                  <View style={[ProfileStyle.kycAllLevelTitle]}>
                     <Text
                       style={[ResetStyle.fontRegularE, {fontWeight: '500'}]}>
                       KYC LEVEL {index + 1}
                     </Text>
                     <TouchableOpacity>
                       <Image
+                        style={[ProfileStyle.kycAllLevelImg]}
                         source={require('../../../imgs/drawable-xxxhdpi/kyc_edit_icon.png')}
                         // source={require('../../../imgs/drawable-xxxhdpi/kyc_edit_completed_icon.png')}
                       />
                     </TouchableOpacity>
                   </View>
                   {Arr}
-                  <View
-                    style={{
-                      width: '100%',
-                      marginTop: 30,
-                      borderWidth: 1,
-                      borderColor: '#dedede',
-                    }}></View>
+                  <View style={[ProfileStyle.kycAllBorder]} />
                 </View>
               );
             })}

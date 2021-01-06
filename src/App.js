@@ -796,7 +796,7 @@ const App = () => {
         <Drawer.Navigator
           initialRouteName="초기"
           drawerContent={(props) => <CustomDrawerContent {...props} />}
-          drawerPosition="left"
+          drawerPosition="right"
           drawerStyle={{
             width: '80%',
             backgroundColor: '#FFF',
