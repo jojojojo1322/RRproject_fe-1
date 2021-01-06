@@ -395,33 +395,33 @@ export default class ResetPassword extends Component {
             onPress={async () => {
               // api 확인용
 
-              // if (
-              //   chkPW(this.state.password) &&
-              //   this.state.password == this.state.checkPassword
-              // ) {
-              //   await this.pwReSettingApi(this.state.password);
-              // } else if (this.state.password !== this.state.checkPassword) {
-              //   this.setState({
-              //     checkBoolean: false,
-              //   });
-              // }
-              // if ((await this.state.ret_val) === 0) {
-              //   this.setModalVisible(true);
-              //   this.props.navigation.navigate('Login');
-              // }
-
-              //본부장님 테스트용
               if (
                 chkPW(this.state.password) &&
                 this.state.password == this.state.checkPassword
               ) {
-                this.setModalVisible(true);
-                this.props.navigation.navigate('Login');
+                await this.pwReSettingApi(this.state.password);
               } else if (this.state.password !== this.state.checkPassword) {
                 this.setState({
                   checkBoolean: false,
                 });
               }
+              if ((await this.state.ret_val) === 0) {
+                this.setModalVisible(true);
+                this.props.navigation.navigate('Login');
+              }
+
+              //본부장님 테스트용
+              // if (
+              //   chkPW(this.state.password) &&
+              //   this.state.password == this.state.checkPassword
+              // ) {
+              //   this.setModalVisible(true);
+              //   this.props.navigation.navigate('Login');
+              // } else if (this.state.password !== this.state.checkPassword) {
+              //   this.setState({
+              //     checkBoolean: false,
+              //   });
+              // }
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontWhite]}>
               확인

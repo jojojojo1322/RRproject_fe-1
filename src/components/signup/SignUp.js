@@ -34,6 +34,7 @@ class SignUp extends Component {
   state = {
     passWord: '',
     modalVisible: false,
+    modalVisibleRe: false,
     modalVisibleNotAuth: false,
     modalVisibleNotAuthExpire: false,
     modalVisibleNotPhone: false,
@@ -49,8 +50,21 @@ class SignUp extends Component {
     timeLeftNumber: 180,
     CountDownCheck: '',
     CountDownExpireCheck: false,
-  };
 
+    countryData: [],
+  };
+  countryDataApi = async () => {
+    await axios
+      .get(`${server}/util/global/country`)
+      .then(async (response) => {
+        this.setState({
+          countryData: response.data,
+        });
+      })
+      .catch(({e}) => {
+        console.log('error', e);
+      });
+  };
   handlePassword = (text) => {
     this.setState({
       passWord: text,
@@ -59,6 +73,9 @@ class SignUp extends Component {
 
   setModalVisible = (visible) => {
     this.setState({modalVisible: visible});
+  };
+  setModalVisibleRe = (visible) => {
+    this.setState({modalVisibleRe: visible});
   };
 
   setModalVisibleNotAuth = (visible) => {
@@ -82,11 +99,14 @@ class SignUp extends Component {
       });
     }
   };
+
   componentDidMount() {
+    this.countryDataApi();
     this.setState({
       deviceKey: DeviceInfo.getUniqueId(),
     });
   }
+
   componentDidUpdate(preProps, preState) {
     if (preState.CountDownExpireCheck !== this.state.CountDownExpireCheck) {
       if (
@@ -98,6 +118,7 @@ class SignUp extends Component {
       }
     }
   }
+
   setCountry = (a, b) => {
     this.setState({
       country: a,
@@ -298,8 +319,11 @@ class SignUp extends Component {
                         this.state.deviceKey,
                         `+82${this.state.phoneNum.slice(1, undefined)}`,
                       );
+
                       if (this.state.phoneAuthCheck == '-1') {
                         this.setModalVisibleNotPhone(true);
+                      } else {
+                        this.setModalVisibleRe(true);
                       }
                     } else {
                       this.setModalVisibleNotPhoneVali(true);
@@ -454,26 +478,26 @@ class SignUp extends Component {
                 },
               ]}
               onPress={async () => {
-                // await this.smsAuthApproveApi(
-                //   this.state.passWord,
-                //   `+82${this.state.phoneNum.slice(1, undefined)}`,
-                // );
-                // if (this.state.AuthKeyCheck == '-3') {
-                //   this.setModalVisibleNotAuth(true);
-                // } else if (this.state.AuthKeyCheck == '-1') {
-                //   this.setModalVisibleNotAuthExpire(true);
-                // } else if (this.state.AuthKeyCheck == '0') {
-                //   this.props.navigation.navigate('AgreementTermsConditions', {
-                //     deviceKey: this.state.deviceKey,
-                //     phoneNum: `+82${this.state.phoneNum.slice(1, undefined)}`,
-                //   });
-                //   this.props.navigation.setOptions({title: '약관동의'});
-                // }
-                this.props.navigation.navigate('AgreementTermsConditions', {
-                  deviceKey: this.state.deviceKey,
-                  phoneNum: `+82${this.state.phoneNum.slice(1, undefined)}`,
-                });
-                this.props.navigation.setOptions({title: '약관동의'});
+                await this.smsAuthApproveApi(
+                  this.state.passWord,
+                  `+82${this.state.phoneNum.slice(1, undefined)}`,
+                );
+                if (this.state.AuthKeyCheck == '-3') {
+                  this.setModalVisibleNotAuth(true);
+                } else if (this.state.AuthKeyCheck == '-1') {
+                  this.setModalVisibleNotAuthExpire(true);
+                } else if (this.state.AuthKeyCheck == '0') {
+                  this.props.navigation.navigate('AgreementTermsConditions', {
+                    deviceKey: this.state.deviceKey,
+                    phoneNum: `+82${this.state.phoneNum.slice(1, undefined)}`,
+                  });
+                  this.props.navigation.setOptions({title: '약관동의'});
+                }
+                // this.props.navigation.navigate('AgreementTermsConditions', {
+                //   deviceKey: this.state.deviceKey,
+                //   phoneNum: `+82${this.state.phoneNum.slice(1, undefined)}`,
+                // });
+                // this.props.navigation.setOptions({title: '약관동의'});
               }}>
               <Text
                 style={[
@@ -492,30 +516,36 @@ class SignUp extends Component {
             setModalVisible={this.setModalVisible}
             setCountry={this.setCountry}
             titleText={`국가선택`}
+            list={this.state.countryData}
           />
         </View>
         <BottomModal
+          setModalVisible={this.setModalVisibleRe}
+          modalVisible={this.state.modalVisibleRe}
+          text={`인증번호가 재전송되었습니다.`}
+        />
+        <BottomModal
           setModalVisible={this.setModalVisibleNotAuth}
           modalVisible={this.state.modalVisibleNotAuth}
-          text={`인증번호가 틀렸습니다`}
+          text={`인증번호가 틀렸습니다.`}
         />
         <BottomModal
           setModalVisible={this.setModalVisibleNotAuthExpire}
           modalVisible={this.state.modalVisibleNotAuthExpire}
-          text={`만료된 인증번호입니다`}
+          text={`만료된 인증번호입니다.`}
         />
         <BottomModal
           setModalVisible={this.setModalVisibleNotPhone}
           modalVisible={this.state.modalVisibleNotPhone}
-          text={`이미 인증된 번호입니다`}
+          text={`이미 인증된 번호입니다.`}
         />
         <BottomModal
           setModalVisible={this.setModalVisibleNotPhoneVali}
           modalVisible={this.state.modalVisibleNotPhoneVali}
           text={
             this.state.country == ''
-              ? `국가를 선택해주세요`
-              : `휴대폰 번호를 정확히 입력해주세요`
+              ? `국가를 선택해주세요.`
+              : `휴대폰 번호를 정확히 입력해주세요.`
           }
         />
       </SafeAreaView>

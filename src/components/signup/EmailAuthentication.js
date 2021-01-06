@@ -217,9 +217,10 @@ class EmailAuthentication extends Component {
         phoneNum: this.props.route.params?.phoneNum,
         userPw: this.props.route.params?.password,
       })
-      .then((data) => {
+      .then(async (data) => {
         console.log('thenuserRegistApi', data);
         console.log('thenuserRegistApi', data.data.ret_val);
+        await AsyncStorage.setItem('userNo', data.data.userNo);
         this.setState({
           returnValue: data.data.ret_val,
         });
@@ -331,7 +332,8 @@ class EmailAuthentication extends Component {
                       paddingTop: '3%',
                     },
                   ]}>
-                  <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
+                  <View
+                    style={{flexDirection: 'row', alignItems: 'space-between'}}>
                     <TextInput
                       placeholder="인증번호 입력"
                       placeholderTextColor="#a9a9a9"
@@ -344,16 +346,28 @@ class EmailAuthentication extends Component {
                         ResetStyle.fontRegularK,
                         ResetStyle.fontG,
                         {textAlign: 'left'},
+                        this.state.returnApprove != '0' && {
+                          width: '80%',
+                        },
                       ]}></TextInput>
                     {this.state.returnApprove == '0' && (
                       <Image
-                        style={{marginLeft: '4%', marginBottom: '2%'}}
+                        style={{
+                          marginLeft: '4%',
+                          marginBottom: '2%',
+                        }}
                         source={require('../../imgs/drawable-xxxhdpi/verification_code_check_icon.png')}
                       />
                     )}
                   </View>
                   <TouchableOpacity
-                    style={[ResetStyle.buttonSmall, {width: '26%'}]}
+                    style={[
+                      ResetStyle.buttonSmall,
+                      {width: '20%'},
+                      this.state.returnApprove == '0' && {
+                        backgroundColor: '#e6e6e6',
+                      },
+                    ]}
                     onPress={async () => {
                       await this.userEmailApprove();
                       console.log(
@@ -480,10 +494,6 @@ class EmailAuthentication extends Component {
               const os = Platform.OS;
               await this.userRegistApi('I');
               if (this.state.returnValue === 0) {
-                this.loginApi(
-                  this.props.route.params?.email,
-                  this.props.route.params?.password,
-                );
                 this.props.navigation.navigate('CompleteAuth');
               }
               //본부장님 테스트용
