@@ -166,4 +166,11 @@ export default StyleSheet.create({
   fontR: {
     color: '#F00',
   },
+
+  // Top Hamburger Image
+  topHamburgerImg: {
+    width: 25,
+    height: 25,
+    resizeMode: 'contain',
+  },
 });
