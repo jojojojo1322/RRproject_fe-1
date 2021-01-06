@@ -160,7 +160,7 @@ export default class kycThird extends Component {
           <Text
             style={[
               ResetStyle.fontRegularK,
-              ResetStyle.fontDG,
+              ResetStyle.fontBlack,
               {textAlign: 'left'},
             ]}>
             국적 선택
@@ -185,6 +185,7 @@ export default class kycThird extends Component {
               style={[
                 ResetStyle.fontRegularK,
                 ResetStyle.fontG,
+                this.state.country !== '' && ResetStyle.fontBlack,
                 {
                   textAlign: 'left',
                   paddingTop: '6%',
@@ -214,10 +215,11 @@ export default class kycThird extends Component {
           <Text
             style={[
               ResetStyle.fontRegularK,
-              ResetStyle.fontDG,
+              ResetStyle.fontBlack,
               {textAlign: 'left'},
             ]}>
-            사용가능언어 선택 (다중 선택 가능)
+            사용가능언어 선택
+            <Text style={{fontWeight: '300'}}> (다중 선택 가능)</Text>
           </Text>
         </View>
 
@@ -230,6 +232,7 @@ export default class kycThird extends Component {
               style={[
                 ResetStyle.fontRegularK,
                 ResetStyle.fontG,
+                this.state.language !== '' && ResetStyle.fontBlack,
                 {
                   textAlign: 'left',
                   paddingTop: '6%',
@@ -260,7 +263,7 @@ export default class kycThird extends Component {
           <Text
             style={[
               ResetStyle.fontRegularK,
-              ResetStyle.fontDG,
+              ResetStyle.fontBlack,
               {textAlign: 'left'},
             ]}>
             거주국가 선택
@@ -275,6 +278,7 @@ export default class kycThird extends Component {
               style={[
                 ResetStyle.fontRegularK,
                 ResetStyle.fontG,
+                this.state.residenceCountry !== '' && ResetStyle.fontBlack,
                 {
                   textAlign: 'left',
                   paddingTop: '6%',
@@ -305,7 +309,7 @@ export default class kycThird extends Component {
           <Text
             style={[
               ResetStyle.fontRegularK,
-              ResetStyle.fontDG,
+              ResetStyle.fontBlack,
               {textAlign: 'left'},
             ]}>
             거주도시 선택
@@ -320,6 +324,7 @@ export default class kycThird extends Component {
               style={[
                 ResetStyle.fontRegularK,
                 ResetStyle.fontG,
+                this.state.residenceCity !== '' && ResetStyle.fontBlack,
                 {
                   textAlign: 'left',
                   paddingTop: '6%',

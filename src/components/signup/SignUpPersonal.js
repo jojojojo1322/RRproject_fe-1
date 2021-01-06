@@ -185,7 +185,7 @@ class SignUpPersonal extends Component {
                 <Text
                   style={[
                     ResetStyle.fontRegularK,
-                    ResetStyle.fontDG,
+                    ResetStyle.fontBlack,
                     {textAlign: 'left'},
                   ]}>
                   이메일
@@ -221,7 +221,7 @@ class SignUpPersonal extends Component {
                     autoCapitalize={'none'}
                     style={[
                       ResetStyle.fontRegularK,
-                      ResetStyle.fontG,
+                      ResetStyle.fontBlack,
                       {
                         textAlign: 'left',
                         paddingTop: '6%',
@@ -236,8 +236,8 @@ class SignUpPersonal extends Component {
                       });
                     }}>
                     <Image
-                      style={ResetStyle.smallImg}
-                      source={require('../../imgs/drawable-xhdpi/icon_x_gray.png')}
+                      style={ResetStyle.mediumImg}
+                      source={require('../../imgs/drawable-xxxhdpi/icon_x.png')}
                     />
                   </TouchableOpacity>
                 </View>
@@ -308,13 +308,13 @@ class SignUpPersonal extends Component {
               </View>
             </View>
 
-            {/* 비밀번호 */}
+            {/* 호 */}
             <View>
               <View>
                 <Text
                   style={[
                     ResetStyle.fontRegularK,
-                    ResetStyle.fontDG,
+                    ResetStyle.fontBlack,
                     {textAlign: 'left'},
                   ]}>
                   비밀번호
@@ -332,7 +332,7 @@ class SignUpPersonal extends Component {
                     value={this.state.password}
                     style={[
                       ResetStyle.fontRegularK,
-                      ResetStyle.fontG,
+                      ResetStyle.fontBlack,
                       {
                         textAlign: 'left',
                         paddingTop: '6%',
@@ -348,12 +348,12 @@ class SignUpPersonal extends Component {
                     }}>
                     {this.state.passwordBlur ? (
                       <Image
-                        style={ResetStyle.smallImg}
+                        style={ResetStyle.mediumImg}
                         source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
                       />
                     ) : (
                       <Image
-                        style={ResetStyle.smallImg}
+                        style={ResetStyle.mediumImg}
                         source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
                       />
                     )}
@@ -480,13 +480,13 @@ class SignUpPersonal extends Component {
               </View>
             </View>
 
-            {/* 비밀번호 확인 */}
+            {/* 인 */}
             <View>
               <View>
                 <Text
                   style={[
                     ResetStyle.fontRegularK,
-                    ResetStyle.fontDG,
+                    ResetStyle.fontBlack,
                     {textAlign: 'left'},
                   ]}>
                   비밀번호 확인
@@ -526,7 +526,7 @@ class SignUpPersonal extends Component {
                     value={this.state.checkPassword}
                     style={[
                       ResetStyle.fontRegularK,
-                      ResetStyle.fontG,
+                      ResetStyle.fontBlack,
                       {
                         textAlign: 'left',
                         paddingTop: '6%',
@@ -546,12 +546,12 @@ class SignUpPersonal extends Component {
                     }}>
                     {this.state.checkPasswordBlur ? (
                       <Image
-                        style={ResetStyle.smallImg}
+                        style={ResetStyle.mediumImg}
                         source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
                       />
                     ) : (
                       <Image
-                        style={ResetStyle.smallImg}
+                        style={ResetStyle.mediumImg}
                         source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
                       />
                     )}
@@ -600,7 +600,7 @@ class SignUpPersonal extends Component {
                 <Text
                   style={[
                     ResetStyle.fontRegularK,
-                    ResetStyle.fontDG,
+                    ResetStyle.fontBlack,
                     {textAlign: 'left'},
                   ]}>
                   초대코드 (선택사항)
@@ -617,7 +617,7 @@ class SignUpPersonal extends Component {
                     value={this.state.inviteCode}
                     style={[
                       ResetStyle.fontRegularK,
-                      ResetStyle.fontG,
+                      ResetStyle.fontBlack,
                       {
                         textAlign: 'left',
                         paddingTop: '6%',
@@ -631,8 +631,8 @@ class SignUpPersonal extends Component {
                       });
                     }}>
                     <Image
-                      style={ResetStyle.smallImg}
-                      source={require('../../imgs/drawable-xhdpi/icon_x_gray.png')}
+                      style={[ResetStyle.mediumImg]}
+                      source={require('../../imgs/drawable-xxxhdpi/icon_x.png')}
                     />
                   </TouchableOpacity>
                 </View>
@@ -643,6 +643,7 @@ class SignUpPersonal extends Component {
               // style={[ResetStyle.button, {backgroundColor: '#e6e6e6'}]}
               style={[
                 ResetStyle.button,
+                {marginTop: '40%'},
                 this.state.checkBoolean != true &&
                   this.state.checkEmail !== 0 && {backgroundColor: '#e6e6e6'},
               ]}

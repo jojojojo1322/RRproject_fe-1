@@ -89,6 +89,10 @@ export default StyleSheet.create({
   },
 
   //small img
+  mediumImg: {
+    width: 25,
+    height: 25,
+  },
   smallImg: {
     width: 18,
     height: 18,

@@ -121,104 +121,120 @@ export default class Login extends Component {
       <SafeAreaView style={ResetStyle.container}>
         <View style={ResetStyle.containerInner}>
           <View>
-            <View style={[{marginTop: '20%'}]}>
+            <View style={[{marginTop: '25%', marginBottom: '8%'}]}>
               <Text
                 style={[
                   ResetStyle.fontBoldE,
                   ResetStyle.fontB,
-                  {textAlign: 'center'},
+                  {textAlign: 'center', fontWeight: '600'},
                 ]}>
                 Real Research
               </Text>
+
+              <View>
+                <Text
+                  style={[
+                    ResetStyle.fontRegularE,
+                    ResetStyle.fontG,
+                    {textAlign: 'center', marginTop: '1%'},
+                  ]}>
+                  Hello there, Login to your account
+                </Text>
+              </View>
             </View>
 
-            <View>
-              <Text
+            <View style={[AuthStyle.loginBox]}>
+              <TextInput
                 style={[
-                  ResetStyle.fontRegularE,
+                  ResetStyle.buttonWhite,
+                  ResetStyle.fontLightE,
                   ResetStyle.fontG,
-                  {textAlign: 'center', marginTop: '3%'},
-                ]}>
-                Hello there, Login to your account
-              </Text>
+                  {marginBottom: '3%', marginTop: '6%', textAlign: 'left'},
+                ]}
+                placeholder="Email Address"
+                placeholderTextColor="#a9a9a9"
+                value={this.state.ID}
+                autoCapitalize={'none'}
+                // onBlur={ () => this.onBlur() }
+                onChangeText={(text) => this.handleID(text)}></TextInput>
+              <TextInput
+                style={[
+                  ResetStyle.buttonWhite,
+                  ResetStyle.fontLightE,
+                  ResetStyle.fontG,
+                  {marginBottom: '14%', textAlign: 'left'},
+                ]}
+                placeholder="Password"
+                placeholderTextColor="#a9a9a9"
+                secureTextEntry={true}
+                value={this.state.passWord}
+                // onBlur={ () => this.onBlur() }
+                onChangeText={(text) => this.handlePassword(text)}></TextInput>
+              <TouchableOpacity
+                style={ResetStyle.button}
+                activeOpacity={0.75}
+                onPress={async () => {
+                  //api용
+                  this.setState({
+                    hasWallet: '',
+                  });
+                  await this.loginApi(this.state.ID, this.state.passWord);
+                  console.log('this.state.loginCheck', this.state.loginCheck);
+
+                  if (this.state.loginCheck) {
+                    if (this.state.hasWallet === -1) {
+                      console.log('aaa');
+                      this.setModalVisible(true);
+                    } else {
+                      this.props.navigation.navigate('Main');
+                    }
+                  } else {
+                    this.setModal2Visible(true);
+                  }
+
+                  //본부장님 테스트용
+                  // this.props.navigation.navigate('WalletPassword');
+                  // await AsyncStorage.setItem('userNo', '111');
+                }}>
+                <Text
+                  style={[
+                    ResetStyle.fontRegularE,
+                    ResetStyle.fontWhite,
+                    {fontSize: 24},
+                  ]}>
+                  LOGIN
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.75}
+                onPress={() => {
+                  this.props.navigation.navigate('Reset');
+                }}>
+                <Text
+                  style={[
+                    ResetStyle.fontRegularE,
+                    ResetStyle.fontB,
+                    {marginTop: '6%', marginBottom: '3%'},
+                  ]}>
+                  Forgot Password?
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
-
-          <View style={[AuthStyle.loginBox]}>
-            <TextInput
+          <View>
+            <View
               style={[
-                ResetStyle.buttonWhite,
+                AuthStyle.loginMiddleBorder,
+                {marginBottom: '6%', width: '112%', right: '6%'},
+              ]}
+            />
+
+            <Text
+              style={[
                 ResetStyle.fontLightE,
                 ResetStyle.fontG,
-                {marginBottom: '3%', marginTop: '6%', textAlign: 'left'},
-              ]}
-              placeholder="Email Address"
-              placeholderTextColor="#a9a9a9"
-              value={this.state.ID}
-              autoCapitalize={'none'}
-              // onBlur={ () => this.onBlur() }
-              onChangeText={(text) => this.handleID(text)}></TextInput>
-            <TextInput
-              style={[
-                ResetStyle.buttonWhite,
-                ResetStyle.fontLightE,
-                ResetStyle.fontG,
-                {marginBottom: '6%', textAlign: 'left'},
-              ]}
-              placeholder="Password"
-              placeholderTextColor="#a9a9a9"
-              secureTextEntry={true}
-              value={this.state.passWord}
-              // onBlur={ () => this.onBlur() }
-              onChangeText={(text) => this.handlePassword(text)}></TextInput>
-            <TouchableOpacity
-              style={ResetStyle.button}
-              activeOpacity={0.75}
-              onPress={async () => {
-                //api용
-                this.setState({
-                  hasWallet: '',
-                });
-                await this.loginApi(this.state.ID, this.state.passWord);
-                console.log('this.state.loginCheck', this.state.loginCheck);
-
-                if (this.state.loginCheck) {
-                  if (this.state.hasWallet === -1) {
-                    console.log('aaa');
-                    this.setModalVisible(true);
-                  } else {
-                    this.props.navigation.navigate('Main');
-                  }
-                } else {
-                  this.setModal2Visible(true);
-                }
-
-                //본부장님 테스트용
-                // this.props.navigation.navigate('WalletPassword');
-                // await AsyncStorage.setItem('userNo', '111');
-              }}>
-              <Text style={[ResetStyle.fontRegularE, ResetStyle.fontWhite]}>
-                LOGIN
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={0.75}
-              onPress={() => {
-                this.props.navigation.navigate('Reset');
-              }}>
-              <Text
-                style={[
-                  ResetStyle.fontRegularE,
-                  ResetStyle.fontB,
-                  {marginTop: '6%', marginBottom: '10%'},
-                ]}>
-                Forgot Password?
-              </Text>
-            </TouchableOpacity>
-
-            <View style={[AuthStyle.loginMiddleBorder, {marginBottom: '6%'}]} />
-
-            <Text style={[ResetStyle.fontLightE, ResetStyle.fontG]}>
+                {marginBottom: '3%'},
+              ]}>
               Don't have an account?{' '}
             </Text>
 
@@ -227,12 +243,16 @@ export default class Login extends Component {
               onPress={() => {
                 this.props.navigation.navigate('SignUp');
               }}>
-              <Text style={[ResetStyle.fontMediumE, ResetStyle.fontB]}>
+              <Text
+                style={[
+                  ResetStyle.fontMediumE,
+                  ResetStyle.fontB,
+                  {fontWeight: '400'},
+                ]}>
                 SIGNUP
               </Text>
             </TouchableOpacity>
           </View>
-
           <View style={[AuthStyle.loginBottomTextBox, {marginTop: '5%'}]}>
             <Text style={[ResetStyle.fontRegularE, ResetStyle.fontB]}>
               Powered by Real Research Inc.

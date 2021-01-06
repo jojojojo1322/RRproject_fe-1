@@ -10,8 +10,8 @@ export default class KycFirst extends Component {
         <Text
           style={[
             ResetStyle.fontRegularK,
-            ResetStyle.fontDG,
-            {textAlign: 'left', marginBottom: '3%'},
+            ResetStyle.fontBlack,
+            {textAlign: 'left', marginBottom: '7%'},
           ]}>
           성별 선택
         </Text>
@@ -29,7 +29,11 @@ export default class KycFirst extends Component {
               style={
                 this.props.gender == 'male'
                   ? [ResetStyle.fontRegularK, ResetStyle.fontWhite]
-                  : [ResetStyle.fontRegularK, ResetStyle.fontDG]
+                  : [
+                      ResetStyle.fontRegularK,
+                      ResetStyle.fontBlack,
+                      {fontWeight: '300'},
+                    ]
               }>
               남성
             </Text>
@@ -47,7 +51,11 @@ export default class KycFirst extends Component {
               style={
                 this.props.gender == 'female'
                   ? [ResetStyle.fontRegularK, ResetStyle.fontWhite]
-                  : [ResetStyle.fontRegularK, ResetStyle.fontDG]
+                  : [
+                      ResetStyle.fontRegularK,
+                      ResetStyle.fontBlack,
+                      {fontWeight: '300'},
+                    ]
               }>
               여성
             </Text>
@@ -56,8 +64,8 @@ export default class KycFirst extends Component {
         <Text
           style={[
             ResetStyle.fontRegularK,
-            ResetStyle.fontDG,
-            {textAlign: 'left', marginTop: '15%', marginBottom: '3%'},
+            ResetStyle.fontBlack,
+            {textAlign: 'left', marginTop: '15%', marginBottom: '7%'},
           ]}>
           결혼 여부 선택
         </Text>
@@ -75,7 +83,11 @@ export default class KycFirst extends Component {
               style={
                 this.props.maritalStatus == 'single'
                   ? [ResetStyle.fontRegularK, ResetStyle.fontWhite]
-                  : [ResetStyle.fontRegularK, ResetStyle.fontDG]
+                  : [
+                      ResetStyle.fontRegularK,
+                      ResetStyle.fontBlack,
+                      {fontWeight: '300'},
+                    ]
               }>
               미혼
             </Text>
@@ -93,7 +105,11 @@ export default class KycFirst extends Component {
               style={
                 this.props.maritalStatus == 'marriage'
                   ? [ResetStyle.fontRegularK, ResetStyle.fontWhite]
-                  : [ResetStyle.fontRegularK, ResetStyle.fontDG]
+                  : [
+                      ResetStyle.fontRegularK,
+                      ResetStyle.fontBlack,
+                      {fontWeight: '300'},
+                    ]
               }>
               결혼
             </Text>
@@ -113,7 +129,11 @@ export default class KycFirst extends Component {
               style={
                 this.props.maritalStatus == 'liveTogether'
                   ? [ResetStyle.fontRegularK, ResetStyle.fontWhite]
-                  : [ResetStyle.fontRegularK, ResetStyle.fontDG]
+                  : [
+                      ResetStyle.fontRegularK,
+                      ResetStyle.fontBlack,
+                      {fontWeight: '300'},
+                    ]
               }>
               동거
             </Text>
@@ -131,7 +151,11 @@ export default class KycFirst extends Component {
               style={
                 this.props.maritalStatus == 'divorce'
                   ? [ResetStyle.fontRegularK, ResetStyle.fontWhite]
-                  : [ResetStyle.fontRegularK, ResetStyle.fontDG]
+                  : [
+                      ResetStyle.fontRegularK,
+                      ResetStyle.fontBlack,
+                      {fontWeight: '300'},
+                    ]
               }>
               이혼
             </Text>

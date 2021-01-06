@@ -148,7 +148,7 @@ class SignUp extends Component {
         return response.data.ret_val;
       })
       .catch((e) => {
-        console.log(e);
+        console.log('eeee>>>>', e.response);
       });
   };
   smsAuthApproveApi = async (authKey, phone) => {
@@ -246,8 +246,8 @@ class SignUp extends Component {
               <Text
                 style={[
                   ResetStyle.fontRegularK,
-                  ResetStyle.fontDG,
-                  {marginTop: '10%'},
+                  ResetStyle.fontBlack,
+                  {marginTop: '10%', fontWeight: '300'},
                 ]}>
                 원활한 서비스 제공을 위해{'\n'}휴대폰 번호를 입력해주세요
               </Text>
@@ -257,7 +257,7 @@ class SignUp extends Component {
               <Text
                 style={[
                   ResetStyle.fontRegularK,
-                  ResetStyle.fontDG,
+                  ResetStyle.fontBlack,
                   ResetStyle.textInputTitle,
                 ]}>
                 휴대폰 번호
@@ -268,24 +268,45 @@ class SignUp extends Component {
                   this.setModalVisible(true);
                 }}
                 underlayColor={'transparent'}>
-                <View style={[ResetStyle.textInputText]}>
+                <View
+                  style={[
+                    ResetStyle.textInputText,
+                    {flexDirection: 'row', justifyContent: 'space-between'},
+                  ]}>
                   <Text
                     style={[
                       ResetStyle.fontRegularK,
                       ResetStyle.fontG,
                       {textAlign: 'left'},
+                      this.state.country !== '' && ResetStyle.fontBlack,
                     ]}>
                     {this.state.country == ''
                       ? '초기나라설정'
                       : `${this.state.country} (${this.state.countryCd})`}
                   </Text>
-                  <Image
+                  {/* <Image
                     style={[
                       ResetStyle.smallImg,
                       ResetStyle.textInputTextButton,
                       {top: '100%'},
                     ]}
                     source={require('../../imgs/drawable-xhdpi/icon_more_b.png')}
+                  /> */}
+                  <View
+                    style={{
+                      width: 0,
+                      height: 0,
+                      marginTop: '1%',
+                      backgroundColor: 'transparent',
+                      borderStyle: 'solid',
+                      borderLeftWidth: 7,
+                      borderRightWidth: 7,
+                      borderBottomWidth: 10,
+                      borderLeftColor: 'transparent',
+                      borderRightColor: 'transparent',
+                      borderBottomColor: '#787878',
+                      transform: [{rotate: '180deg'}],
+                    }}
                   />
                 </View>
               </TouchableOpacity>
@@ -299,7 +320,7 @@ class SignUp extends Component {
                 value={this.state.phoneNum}
                 style={[
                   ResetStyle.fontRegularK,
-                  ResetStyle.fontG,
+                  ResetStyle.fontBlack,
                   ResetStyle.textInputText,
                   {marginBottom: '5%', width: '100%'},
                 ]}></TextInput>
@@ -388,7 +409,7 @@ class SignUp extends Component {
               <Text
                 style={[
                   ResetStyle.fontRegularK,
-                  ResetStyle.fontDG,
+                  ResetStyle.fontBlack,
                   ResetStyle.textInputTitle,
                 ]}>
                 인증 번호
@@ -404,7 +425,7 @@ class SignUp extends Component {
                   onChangeText={(text) => this.handlePassword(text)}
                   style={[
                     ResetStyle.fontRegularK,
-                    ResetStyle.fontG,
+                    ResetStyle.fontBlack,
                     ResetStyle.textInputText,
                   ]}
                 />
@@ -483,26 +504,26 @@ class SignUp extends Component {
                 },
               ]}
               onPress={async () => {
-                await this.smsAuthApproveApi(
-                  this.state.passWord,
-                  `+82${this.state.phoneNum.slice(1, undefined)}`,
-                );
-                if (this.state.AuthKeyCheck == '-3') {
-                  this.setModalVisibleNotAuth(true);
-                } else if (this.state.AuthKeyCheck == '-1') {
-                  this.setModalVisibleNotAuthExpire(true);
-                } else if (this.state.AuthKeyCheck == '0') {
-                  this.props.navigation.navigate('AgreementTermsConditions', {
-                    deviceKey: this.state.deviceKey,
-                    phoneNum: `+82${this.state.phoneNum.slice(1, undefined)}`,
-                  });
-                  this.props.navigation.setOptions({title: '약관동의'});
-                }
-                // this.props.navigation.navigate('AgreementTermsConditions', {
-                //   deviceKey: this.state.deviceKey,
-                //   phoneNum: `+82${this.state.phoneNum.slice(1, undefined)}`,
-                // });
-                // this.props.navigation.setOptions({title: '약관동의'});
+                // await this.smsAuthApproveApi(
+                //   this.state.passWord,
+                //   `+82${this.state.phoneNum.slice(1, undefined)}`,
+                // );
+                // if (this.state.AuthKeyCheck == '-3') {
+                //   this.setModalVisibleNotAuth(true);
+                // } else if (this.state.AuthKeyCheck == '-1') {
+                //   this.setModalVisibleNotAuthExpire(true);
+                // } else if (this.state.AuthKeyCheck == '0') {
+                //   this.props.navigation.navigate('AgreementTermsConditions', {
+                //     deviceKey: this.state.deviceKey,
+                //     phoneNum: `+82${this.state.phoneNum.slice(1, undefined)}`,
+                //   });
+                //   this.props.navigation.setOptions({title: '약관동의'});
+                // }
+                this.props.navigation.navigate('AgreementTermsConditions', {
+                  deviceKey: this.state.deviceKey,
+                  phoneNum: `+82${this.state.phoneNum.slice(1, undefined)}`,
+                });
+                this.props.navigation.setOptions({title: '약관동의'});
               }}>
               <Text
                 style={[
