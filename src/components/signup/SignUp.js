@@ -39,6 +39,7 @@ class SignUp extends Component {
     modalVisibleNotAuthExpire: false,
     modalVisibleNotPhone: false,
     modalVisibleNotPhoneVali: false,
+    modalVisibleResend: false,
     phoneAuthCheck: '',
     AuthKeyCheck: '',
     AuthKey: '',
@@ -89,6 +90,9 @@ class SignUp extends Component {
   };
   setModalVisibleNotPhoneVali = (visible) => {
     this.setState({modalVisibleNotPhoneVali: visible});
+  };
+  setModalVisibleResend = (visible) => {
+    this.setState({modalVisibleResend: visible});
   };
 
   // only number
@@ -315,6 +319,7 @@ class SignUp extends Component {
                     // console.log(`+82${this.state.phoneNum.slice(1, undefined)}`);
                     if (isCellPhone(this.state.phoneNum)) {
                       this.handleReCountDown();
+                      this.setModalVisibleResend();
                       await this.smsAuthApi(
                         this.state.deviceKey,
                         `+82${this.state.phoneNum.slice(1, undefined)}`,
@@ -520,9 +525,9 @@ class SignUp extends Component {
           />
         </View>
         <BottomModal
-          setModalVisible={this.setModalVisibleRe}
-          modalVisible={this.state.modalVisibleRe}
-          text={`인증번호가 재전송되었습니다.`}
+          setModalVisible={this.setModalVisibleResend}
+          modalVisible={this.state.modalVisibleResend}
+          text={`인증번호가 재요청되었습니다.`}
         />
         <BottomModal
           setModalVisible={this.setModalVisibleNotAuth}
