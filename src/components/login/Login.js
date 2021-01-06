@@ -14,11 +14,11 @@ import {
   StatusBar,
   TouchableOpacity,
 } from 'react-native';
-
-import TextConfirmModal from '../factory/modal/TextConfirmModal';
+import DeviceInfo from 'react-native-device-info';
 import {server} from '../defined/server';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import TextConfirmModal from '../factory/modal/TextConfirmModal';
 import WalletPassword from './WalletPassword';
 import WalletMasterKey from './WalletMasterKey';
 import ResetStyle from '../../style/ResetStyle.js';
@@ -91,11 +91,12 @@ export default class Login extends Component {
       .post(`${server}/user/login`, {
         email: id,
         password: pass,
+        deviceKey: DeviceInfo.getUniqueId(),
       })
       .then(async (response) => {
-        console.log('then', response);
-        console.log('then', response.data.status);
-        console.log('then', response.data.userNo);
+        console.log('loginApithen', response);
+        console.log('loginApithen', response.data.status);
+        console.log('loginApithen', response.data.userNo);
         console.log(
           'then header>>>>' +
             response.headers.authorization.slice(7, undefined),
@@ -112,7 +113,7 @@ export default class Login extends Component {
         return response.data.status;
       })
       .catch((error) => {
-        console.log('erro', error);
+        console.log('erro', error.response.data);
       });
   };
   render() {
@@ -154,6 +155,7 @@ export default class Login extends Component {
               placeholder="Email Address"
               placeholderTextColor="#a9a9a9"
               value={this.state.ID}
+              autoCapitalize={'none'}
               // onBlur={ () => this.onBlur() }
               onChangeText={(text) => this.handleID(text)}></TextInput>
             <TextInput
@@ -174,27 +176,26 @@ export default class Login extends Component {
               activeOpacity={0.75}
               onPress={async () => {
                 //api용
-                // this.setState({
-                //   hasWallet: '',
-                // });
-                // await this.loginApi(this.state.ID, this.state.passWord);
-                // console.log('notyey');
-                // console.log(this.state.loginCheck);
+                this.setState({
+                  hasWallet: '',
+                });
+                await this.loginApi(this.state.ID, this.state.passWord);
+                console.log('this.state.loginCheck', this.state.loginCheck);
 
-                // if (this.state.loginCheck) {
-                //   if (this.state.hasWallet === -1) {
-                //     console.log('aaa');
-                //     this.setModalVisible(true);
-                //   } else {
-                //     this.props.navigation.navigate('Main');
-                //   }
-                // } else {
-                //   this.setModal2Visible(true);
-                // }
+                if (this.state.loginCheck) {
+                  if (this.state.hasWallet === -1) {
+                    console.log('aaa');
+                    this.setModalVisible(true);
+                  } else {
+                    this.props.navigation.navigate('Main');
+                  }
+                } else {
+                  this.setModal2Visible(true);
+                }
 
                 //본부장님 테스트용
-                this.props.navigation.navigate('WalletPassword');
-                await AsyncStorage.setItem('userNo', '111');
+                // this.props.navigation.navigate('WalletPassword');
+                // await AsyncStorage.setItem('userNo', '111');
               }}>
               <Text style={[ResetStyle.fontRegularE, ResetStyle.fontWhite]}>
                 LOGIN

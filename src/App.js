@@ -241,7 +241,7 @@ export class AppAuthStack extends Component {
           }}
         />
         <Stack.Screen
-          name="설문조사"
+          name="Main"
           component={Main}
           options={{
             headerShown: false,
