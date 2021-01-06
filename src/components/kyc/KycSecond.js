@@ -31,7 +31,7 @@ export default class KycSecond extends Component {
           <Text
             style={[
               ResetStyle.fontRegularK,
-              ResetStyle.fontDG,
+              ResetStyle.fontBlack,
               {textAlign: 'left'},
             ]}>
             생년월일 입력
@@ -46,7 +46,7 @@ export default class KycSecond extends Component {
             value={this.props.birth}
             style={[
               ResetStyle.fontRegularK,
-              ResetStyle.fontG,
+              ResetStyle.fontBlack,
               {
                 textAlign: 'left',
                 borderBottomWidth: 1,

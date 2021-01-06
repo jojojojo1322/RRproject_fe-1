@@ -182,66 +182,103 @@ export default class Kyc extends Component {
       <SafeAreaView style={ResetStyle.container}>
         <View style={ResetStyle.containerInner}>
           <View style={styles.topAll}>
-            <Text style={[ResetStyle.fontMediumK, {marginBottom: '5%'}]}>
+            <Text
+              style={[
+                ResetStyle.fontMediumK,
+                {
+                  fontSize: 25,
+                  fontWeight: '400',
+                  marginBottom: '13%',
+                },
+              ]}>
               KYC 정보입력
             </Text>
 
-            <View style={styles.ktitAll}>
+            <View style={[styles.ktitAll, {marginBottom: '19%'}]}>
               <Image
-                style={{marginRight: 4}}
-                source={require('../../imgs/drawable-mdpi/icon_ktit_on.png')}
+                style={{
+                  marginRight: 4,
+                  height: 55,
+                  width: 55,
+                  resizeMode: 'contain',
+                }}
+                source={require('../../imgs/drawable-xxxhdpi/icon_ktit_on.png')}
               />
               <View style={styles.ktilMiddle}></View>
               {this.state.step == undefined ? (
                 <Image
-                  style={{marginRight: 4, marginLeft: 4}}
-                  source={require('../../imgs/drawable-mdpi/icon_ktit_off.png')}
+                  style={{
+                    marginRight: 4,
+                    marginLeft: 4,
+                    height: 55,
+                    width: 55,
+                    resizeMode: 'contain',
+                  }}
+                  source={require('../../imgs/drawable-xxxhdpi/icon_ktit_off.png')}
                 />
               ) : (
                 <Image
-                  style={{marginRight: 4, marginLeft: 4}}
-                  source={require('../../imgs/drawable-mdpi/icon_ktit_on.png')}
+                  style={{
+                    marginRight: 4,
+                    marginLeft: 4,
+                    height: 55,
+                    width: 55,
+                    resizeMode: 'contain',
+                  }}
+                  source={require('../../imgs/drawable-xxxhdpi/icon_ktit_on.png')}
                 />
               )}
               <View style={styles.ktilMiddle}></View>
               {this.state.step == 2 || this.state.step == undefined ? (
                 <Image
-                  style={{marginRight: 4, marginLeft: 4}}
-                  source={require('../../imgs/drawable-mdpi/icon_ktit_off.png')}
+                  style={{
+                    marginRight: 4,
+                    marginLeft: 4,
+                    height: 55,
+                    width: 55,
+                    resizeMode: 'contain',
+                  }}
+                  source={require('../../imgs/drawable-xxxhdpi/icon_ktit_off.png')}
                 />
               ) : (
                 <Image
-                  style={{marginRight: 4, marginLeft: 4}}
-                  source={require('../../imgs/drawable-mdpi/icon_ktit_on.png')}
+                  style={{
+                    marginRight: 4,
+                    marginLeft: 4,
+                    height: 55,
+                    width: 55,
+                    resizeMode: 'contain',
+                  }}
+                  source={require('../../imgs/drawable-xxxhdpi/icon_ktit_on.png')}
                 />
               )}
             </View>
+            {this.state.step == undefined && (
+              <KycFirst
+                handleMarital={this.handleMarital}
+                handleGender={this.handleGender}
+                maritalStatus={this.state.maritalStatus}
+                gender={this.state.gender}
+              />
+            )}
+            {this.state.step == 2 && (
+              <KycSecond
+                birth={this.state.birth}
+                handleBirth={this.handleBirth}
+              />
+            )}
+            {this.state.step == 3 && (
+              <KycThird
+                birth={this.state.birth}
+                handleBirth={this.handleBirth}
+                setCountry={this.setCountry}
+                setLanguage={this.setLanguage}
+                setResidenceCountry={this.setResidenceCountry}
+                setResidenceCity={this.setResidenceCity}
+              />
+            )}
           </View>
-          {this.state.step == undefined && (
-            <KycFirst
-              handleMarital={this.handleMarital}
-              handleGender={this.handleGender}
-              maritalStatus={this.state.maritalStatus}
-              gender={this.state.gender}
-            />
-          )}
-          {this.state.step == 2 && (
-            <KycSecond
-              birth={this.state.birth}
-              handleBirth={this.handleBirth}
-            />
-          )}
 
-          {this.state.step == 3 && (
-            <KycThird
-              birth={this.state.birth}
-              handleBirth={this.handleBirth}
-              setCountry={this.setCountry}
-              setLanguage={this.setLanguage}
-              setResidenceCountry={this.setResidenceCountry}
-              setResidenceCity={this.setResidenceCity}
-            />
-          )}
           <View style={styles.bottomButtonAll}>
             <TouchableOpacity
               style={
@@ -346,7 +383,7 @@ const styles = StyleSheet.create({
     width: 20,
     borderWidth: 0.5,
     borderStyle: 'solid',
-    borderColor: '#dddddd',
+    borderColor: '#a9a9a9',
   },
   topAll: {
     marginTop: 16,

@@ -305,7 +305,7 @@ class EmailAuthentication extends Component {
             <Text
               style={[
                 ResetStyle.fontRegularK,
-                ResetStyle.fontDG,
+                ResetStyle.fontBlack,
                 {marginTop: '10%', marginBottom: '10%'},
               ]}>
               {this.state.email} 으로{'\n'}6자리 인증 코드를 발송했습니다
@@ -314,7 +314,7 @@ class EmailAuthentication extends Component {
               <Text
                 style={[
                   ResetStyle.fontRegularK,
-                  ResetStyle.fontDG,
+                  ResetStyle.fontBlack,
                   {textAlign: 'left'},
                 ]}>
                 인증 번호
@@ -344,7 +344,7 @@ class EmailAuthentication extends Component {
                       onChangeText={(text) => this.handlePassword(text)}
                       style={[
                         ResetStyle.fontRegularK,
-                        ResetStyle.fontG,
+                        ResetStyle.fontBlack,
                         {textAlign: 'left'},
                         this.state.returnApprove != '0' && {
                           width: '80%',
@@ -473,7 +473,7 @@ class EmailAuthentication extends Component {
                       style={[
                         ResetStyle.fontLightK,
                         ResetStyle.fontB,
-                        {marginLeft: 5},
+                        {marginLeft: '5%', fontSize: 19, fontWeight: '600'},
                       ]}>
                       재전송
                     </Text>

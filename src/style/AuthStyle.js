@@ -138,9 +138,9 @@ export default StyleSheet.create({
   },
   kycButton: {
     backgroundColor: '#eeeeee',
-    height: 50,
+    height: 75,
     width: '48%',
-    borderRadius: 5,
+    borderRadius: 12,
     marginLeft: 5,
     alignItems: 'center',
     justifyContent: 'center',
