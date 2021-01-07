@@ -17,30 +17,26 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '../../../style/ResetStyle.js';
-import MainStyle from '../../../style/MainStyle.js';
 import {lang} from '../../defined/lang';
+import ProfileStyle from '../../../style/ProfileStyle';
 
 export default class ProfileComplete extends Component {
   render() {
     const level = 2;
     return (
-      <SafeAreaView style={ResetStyle.container}>
-        <View style={ResetStyle.containerInner}>
-          <View
-            style={{
-              flexDirection: 'column',
-              alignItems: 'center',
-              marginTop: '60%',
-            }}>
+      <SafeAreaView style={[ResetStyle.container]}>
+        <View style={[ResetStyle.containerInner]}>
+          {/* Top */}
+          <View style={[ProfileStyle.profileCompleteTopView]}>
             <Image
-              style={{width: '35%', height: '35%', resizeMode: 'contain'}}
+              style={[ProfileStyle.profileTopImg]}
               source={require('../../../imgs/drawable-xhdpi/icon_l_check.png')}
             />
             <Text
               style={[
                 ResetStyle.fontBoldK,
                 ResetStyle.fontB,
-                {marginTop: '3%'},
+                {marginTop: '5%'},
               ]}>
               KYC 인증완료
             </Text>
@@ -49,7 +45,7 @@ export default class ProfileComplete extends Component {
                 style={[
                   ResetStyle.fontRegularK,
                   ResetStyle.fontBlack,
-                  {marginTop: '3%'},
+                  {marginTop: '5%', lineHeight: 30},
                 ]}>
                 {
                   lang(2, <Text style={{color: '#2d91ff'}}>10 TNC</Text>)[0].ko
@@ -67,20 +63,19 @@ export default class ProfileComplete extends Component {
                   lang(2, <Text style={{color: '#2d91ff'}}>10 TNC</Text>)[0].ko
                     .KycComplete[4]
                 }
-                {/* {`KYC Level 2 완료 보상으로`
-                ${(<Text>ㅁㄴㅇㅁㄴㅇ</Text>)}
-                를 전송하였습니다.`} */}
               </Text>
             </View>
           </View>
-          <View style={{flexDirection: 'row', marginBottom: '20%'}}>
+
+          {/* Bottom Button */}
+          <View style={[ProfileStyle.profileBottomButtonView]}>
             <TouchableOpacity
               style={[
                 ResetStyle.buttonWhite,
-                {backgroundColor: '#ffffff', width: '49%', marginRight: '1%'},
+                {backgroundColor: '#ffffff', width: '49%'},
               ]}
               onPress={() => {
-                this.props.navigation.navigate('ProfileMain');
+                this.props.navigation.navigate('WalletMain');
                 // this.props.navigation.setOptions({ title: '약관동의' });
               }}>
               <Text
@@ -95,7 +90,7 @@ export default class ProfileComplete extends Component {
             <TouchableOpacity
               style={[
                 ResetStyle.button,
-                {backgroundColor: '#4696ff', width: '49%', marginLeft: '1%'},
+                {backgroundColor: '#4696ff', width: '49%'},
               ]}
               onPress={() => {
                 this.props.navigation.navigate('ProfileMain');

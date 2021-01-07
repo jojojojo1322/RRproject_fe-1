@@ -13,9 +13,9 @@ import {
 
 import PropTypes from 'prop-types';
 import ResetStyle from '../../../style/ResetStyle.js';
+import WalletStyle from '../../../style/WalletStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {SelectedCheckboxes, RoundCheckbox} from '../../factory/Roundcheck';
-import ResearchStyle from '../../../style/ResearchStyle.js';
 
 const TestArray = [
   {
@@ -126,7 +126,7 @@ export default class WalletMain extends Component {
           style={{
             borderBottomColor: '#dedede',
             borderBottomWidth: 1,
-            marginTop: 17,
+            marginTop: Platform.OS === 'ios' ? '4%' : '3%',
           }}
           onPress={() => {
             this.props.navigation.navigate('WalletDetail');
@@ -155,15 +155,14 @@ export default class WalletMain extends Component {
             style={{
               flexDirection: 'row',
               justifyContent: 'space-between',
-              marginTop: 3,
-              marginBottom: 17,
+              marginTop: '1%',
+              marginBottom: Platform.OS === 'ios' ? '4%' : '3%',
             }}>
             <Text
               style={[
                 ResetStyle.fontLightK,
                 ResetStyle.fontDG,
-                {fontSize: 18},
-                {fontWeight: '400'},
+                {fontWeight: '500'},
               ]}>
               {data.object.length <= 10
                 ? data.object
@@ -173,8 +172,7 @@ export default class WalletMain extends Component {
               style={[
                 ResetStyle.fontLightK,
                 ResetStyle.fontDG,
-                {fontSize: 18},
-                {fontWeight: '400'},
+                {fontWeight: '500'},
               ]}>
               {data.DATE}
             </Text>
@@ -184,17 +182,13 @@ export default class WalletMain extends Component {
     });
     return (
       <SafeAreaView style={ResetStyle.container}>
-        <View style={[ResetStyle.containerInner]}>
-          <View
-            style={{
-              backgroundColor: '#ffffff',
-              paddingTop: Platform.OS === 'ios' ? '4%' : '5%',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              paddingBottom: '5%',
-            }}>
+        <View
+          style={[ResetStyle.containerInner, {marginLeft: 0, marginRight: 0}]}>
+          {/* Top*/}
+          <View style={[WalletStyle.MainTopView]}>
+            {/* Top Logo */}
             <TouchableOpacity>
-              <View style={{flexDirection: 'row'}}>
+              <View style={[WalletStyle.TopLogoView]}>
                 <Image
                   source={require('../../../imgs/drawable-xxxhdpi/main_r_logo.png')}
                 />
@@ -208,31 +202,30 @@ export default class WalletMain extends Component {
                 </Text>
               </View>
             </TouchableOpacity>
+
+            {/* Hamburger Button */}
             <TouchableOpacity
               onPress={() => {
-                // console.log(this.props.navigation.openDrawer);
-                // console.log(this.props.route.params?.openDrawer);
                 this.props.navigation.openDrawer();
-                // this.props.route.params?.openDrawer;
-                // this.props.navigation.dispatch(DrawerActions.openDrawer());
               }}>
               <Image
-                source={require('../../../imgs/drawable-xxxhdpi/menu_icon.png')}
+                style={[ResetStyle.topHamburgerImg]}
+                source={require('../../../imgs/drawable-xxxhdpi/menu_2_icon.png')}
               />
             </TouchableOpacity>
           </View>
-          <View
-            style={{
-              position: 'relative',
-              left: '-6%',
-              width: '112%',
-              //   height: '100%',
-              padding: '5%',
-              backgroundColor: '#2d91ff',
-            }}>
-            <View
-              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-              <Text style={[ResetStyle.fontLightE, {color: '#d2e7ff'}]}>
+          {/* //Top End */}
+
+          {/* My TNC */}
+          <View style={[WalletStyle.myTncView]}>
+            {/* Title & Refresh */}
+            <View style={[WalletStyle.myTncTitleView]}>
+              <Text
+                style={[
+                  ResetStyle.fontLightK,
+                  ResetStyle.fontWhite,
+                  {fontWeight: '500'},
+                ]}>
                 Total Balance
               </Text>
               <TouchableOpacity>
@@ -241,63 +234,49 @@ export default class WalletMain extends Component {
                 />
               </TouchableOpacity>
             </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'flex-start',
-                alignItems: 'baseline',
-                marginTop: '2%',
-              }}>
-              <Text style={[ResetStyle.fontLightE, ResetStyle.fontWhite]}>
+
+            {/* My TNC Amount */}
+            <View style={[WalletStyle.myTncAmountView]}>
+              <Text
+                style={[
+                  ResetStyle.fontLightK,
+                  ResetStyle.fontWhite,
+                  {fontWeight: '500', marginBottom: '1%'},
+                ]}>
                 {`TNC `}
               </Text>
               <Text
                 style={[
                   ResetStyle.fontBoldE,
                   ResetStyle.fontWhite,
-                  {fontWeight: '400'},
+                  {fontWeight: '500'},
                 ]}>
                 123,123,456,123
               </Text>
             </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'center',
-                marginTop: '7%',
-              }}>
+
+            {/* My TNC Button */}
+            <View style={[WalletStyle.myTncButtonView]}>
+              {/* Send Button */}
               <TouchableOpacity
-                style={[
-                  ResetStyle.buttonSmall,
-                  {
-                    backgroundColor: '#fff',
-                    width: '50%',
-                    height: '100%',
-                    borderColor: '#fff',
-                    marginRight: 3,
-                  },
-                ]}
+                style={[ResetStyle.buttonSmall, WalletStyle.myTncButton]}
                 onPress={() => {
                   this.props.navigation.navigate('WalletSend');
                 }}>
-                <Text
-                  style={[
-                    ResetStyle.buttonTexts,
-                    {color: '#2d91ff', fontSize: 20, margin: 6},
-                  ]}>
+                <Text style={[ResetStyle.fontRegularK, ResetStyle.fontB]}>
                   Send
                 </Text>
               </TouchableOpacity>
+
+              {/* Receive Button */}
               <TouchableOpacity
                 style={[
                   ResetStyle.buttonSmall,
+                  WalletStyle.myTncButton,
                   {
-                    width: '50%',
-                    height: '100%',
-                    backgroundColor: '#2d91ff',
+                    backgroundColor: '#4696ff',
                     borderColor: '#fff',
                     borderWidth: 1,
-                    marginLeft: 3,
                   },
                 ]}
                 onPress={() => {
@@ -310,6 +289,8 @@ export default class WalletMain extends Component {
               </TouchableOpacity>
             </View>
           </View>
+          {/* My TNC End */}
+
           <Text
             style={[
               ResetStyle.fontBlack,
@@ -317,13 +298,16 @@ export default class WalletMain extends Component {
               {
                 textAlign: 'left',
                 fontWeight: '500',
-                marginTop: '9%',
-                marginBottom: '5%',
+                padding: '5%',
+                paddingTop: Platform.OS === 'ios' ? '5%' : '4%',
+                paddingBottom: Platform.OS === 'ios' ? '5%' : '4%',
               },
             ]}>
             Transactions
           </Text>
-          <ScrollView>{TransactionArr}</ScrollView>
+          <ScrollView style={{padding: '5%', paddingTop: 0}}>
+            {TransactionArr}
+          </ScrollView>
         </View>
       </SafeAreaView>
     );

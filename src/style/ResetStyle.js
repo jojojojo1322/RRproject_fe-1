@@ -45,6 +45,7 @@ export default StyleSheet.create({
     width: '32%',
     backgroundColor: '#4696ff',
     alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: 50,
     padding: Platform.OS === 'ios' ? '2%' : '2%',
   },
