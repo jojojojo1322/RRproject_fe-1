@@ -49,8 +49,8 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: Platform.OS === 'ios' ? '4.5%' : '3%',
-    paddingBottom: Platform.OS === 'ios' ? '4.5%' : '3%',
+    paddingTop: Platform.OS === 'ios' ? '4.5%' : '4%',
+    paddingBottom: Platform.OS === 'ios' ? '4.5%' : '4%',
   },
   kycLevelText: {
     fontWeight: '400',
@@ -67,13 +67,14 @@ export default StyleSheet.create({
     paddingRight: '3%',
   },
   kycLevelCheckboxImg: {
-    width: 30,
-    height: 30,
+    width: Platform.OS === 'ios' ? 30 : 25,
+    height: Platform.OS === 'ios' ? 30 : 25,
     resizeMode: 'contain',
   },
   kycLevelborder: {
-    borderBottomColor: '#dedede',
-    borderBottomWidth: 1.5,
+    width: '100%',
+    height: 1,
+    backgroundColor: '#dedede',
   },
 
   // KYC All
@@ -84,17 +85,17 @@ export default StyleSheet.create({
     justifyContent: 'flex-start',
     borderBottomColor: '#dedede',
     width: '100%',
-    paddingTop: '5%',
-    paddingBottom: '5%',
+    paddingTop: Platform.OS === 'ios' ? '4.5%' : '4%',
+    paddingBottom: Platform.OS === 'ios' ? '4.5%' : '4%',
   },
   kycAllLevelTitle: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: '5%',
+    marginBottom: Platform.OS === 'ios' ? '5%' : '3%',
   },
   kycAllLevelImg: {
-    width: 25,
-    height: 25,
+    width: Platform.OS === 'ios' ? 25 : 25,
+    height: Platform.OS === 'ios' ? 25 : 25,
     resizeMode: 'contain',
   },
   kycAllBorder: {
@@ -103,5 +104,38 @@ export default StyleSheet.create({
     marginBottom: '7%',
     borderBottomWidth: 0.5,
     borderBottomColor: '#dedede',
+  },
+
+  // ProfileComplete
+
+  // Top
+  profileCompleteTopView: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginTop: '50%',
+  },
+  profileTopImg: {
+    width: 130,
+    height: 130,
+    resizeMode: 'contain',
+  },
+
+  // Bottom Button
+  profileBottomButtonView: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignSelf: 'center',
+  },
+
+  // ProfileIncompleteDetail
+
+  // Top
+  incompleteTopView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignContent: 'stretch',
+    marginTop: 40,
   },
 });

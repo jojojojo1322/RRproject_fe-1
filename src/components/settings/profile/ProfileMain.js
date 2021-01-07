@@ -140,11 +140,11 @@ const kycArr = [
 export const ProfileMain = ({navigation}) => {
   return (
     <SafeAreaView style={ResetStyle.container}>
-      <View style={[PersonalStyle.kycContainerInner]}>
+      <View style={[ProfileStyle.kycContainerInner]}>
         {/* Top */}
-        <View style={[PersonalStyle.topView]}>
+        <View style={[ProfileStyle.topView]}>
           <TouchableOpacity>
-            <View style={[PersonalStyle.topLogoTouchView]}>
+            <View style={[ProfileStyle.topLogoTouchView]}>
               <Image
                 source={require('../../../imgs/drawable-xxxhdpi/main_r_logo.png')}
               />
@@ -170,7 +170,7 @@ export const ProfileMain = ({navigation}) => {
         </View>
 
         {/* Personal Level & email */}
-        <View style={[PersonalStyle.personalBackground]}>
+        <View style={[ProfileStyle.personalBackground]}>
           <Text
             style={[
               ResetStyle.fontRegularE,
@@ -190,7 +190,7 @@ export const ProfileMain = ({navigation}) => {
         </View>
 
         {/* KYC Level title & all */}
-        <View style={[PersonalStyle.kycLevelTitleView]}>
+        <View style={[ProfileStyle.kycLevelTitleView]}>
           <Text
             style={[
               ResetStyle.fontMediumE,
@@ -199,7 +199,7 @@ export const ProfileMain = ({navigation}) => {
             KYC LEVEL
           </Text>
           <TouchableOpacity
-            style={[ResetStyle.buttonSmall, PersonalStyle.kycLevelAll]}
+            style={[ResetStyle.buttonSmall, ProfileStyle.kycLevelAll]}
             onPress={() => {
               navigation.navigate('ProfileAll');
             }}>
@@ -215,12 +215,12 @@ export const ProfileMain = ({navigation}) => {
         </View>
 
         {/* KYC Level list */}
-        <ScrollView style={[PersonalStyle.kycScrollView]}>
+        <ScrollView style={[ProfileStyle.kycScrollView]}>
           {kycArr.map((data, index) => {
             return (
               <>
                 <TouchableOpacity
-                  style={[PersonalStyle.kycTouchable]}
+                  style={[ProfileStyle.kycTouchable]}
                   key={index}
                   onPress={() => {
                     data.status === true
@@ -233,23 +233,23 @@ export const ProfileMain = ({navigation}) => {
                       data.status === true || kycArr[index + 1].status == true
                         ? ResetStyle.fontBlack
                         : ResetStyle.fontG,
-                      PersonalStyle.kycLevelText,
+                      ProfileStyle.kycLevelText,
                     ]}>
                     KYC LEVEL {data.level}
                   </Text>
-                  <View style={[PersonalStyle.kycLevelCheckboxView]}>
+                  <View style={[ProfileStyle.kycLevelCheckboxView]}>
                     <Text
                       style={[
                         ResetStyle.fontLightE,
                         data.status === true || kycArr[index + 1].status == true
                           ? ResetStyle.fontBlack
                           : ResetStyle.fontG,
-                        PersonalStyle.kycLevelText2,
+                        ProfileStyle.kycLevelText2,
                       ]}>
                       {data.status == true ? `완료` : `시작`}
                     </Text>
                     <Image
-                      style={[PersonalStyle.kycLevelCheckboxImg]}
+                      style={[ProfileStyle.kycLevelCheckboxImg]}
                       source={
                         data.status == true
                           ? require('../../../imgs/drawable-xxxhdpi/icon_b_check_2_off_s.png')
@@ -258,7 +258,7 @@ export const ProfileMain = ({navigation}) => {
                     />
                   </View>
                 </TouchableOpacity>
-                <View style={[PersonalStyle.kycLevelborder]} />
+                <View style={[ProfileStyle.kycLevelborder]} />
               </>
             );
           })}

@@ -16,6 +16,7 @@ import ResetStyle from '../../../style/ResetStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {SelectedCheckboxes, RoundCheckbox} from '../../factory/Roundcheck';
 import ResearchStyle from '../../../style/ResearchStyle.js';
+import ProfileStyle from '../../../style/ProfileStyle.js';
 
 export default class ProfileIncompleteDetail extends Component {
   // CheckedArrObject = new SelectedCheckboxes();
@@ -289,7 +290,8 @@ export default class ProfileIncompleteDetail extends Component {
                   borderColor: '#dddddd',
                   marginRight: 4,
                   marginLeft: 4,
-                }}></View>
+                }}
+              />
             )}
           </>,
         )),
@@ -407,10 +409,12 @@ export default class ProfileIncompleteDetail extends Component {
     );
 
     return (
-      <SafeAreaView style={ResetStyle.container}>
+      <SafeAreaView style={[ResetStyle.container]}>
         <View
           style={[ResetStyle.containerInner, {marginLeft: 0, marginRight: 0}]}>
-          <View>
+          {/* Top */}
+          <View style={{flexDirection: 'column'}}>
+            {/* Top Title */}
             <Text
               style={[
                 ResetStyle.fontMediumK,
@@ -419,22 +423,18 @@ export default class ProfileIncompleteDetail extends Component {
               ]}>
               Level 2 KYC
             </Text>
+
             {/* 상단 체크박스 */}
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-                alignContent: 'stretch',
-                marginTop: 40,
-              }}>
+            <View style={[ProfileStyle.incompleteTopView]}>
               {researchCheck}
             </View>
           </View>
 
+          {/* Research Form */}
           {researchList[this.state.nowIndex]}
 
-          <View style={[ResearchStyle.researchBottomButton, {}]}>
+          {/* Bottom Button */}
+          <View style={[ResearchStyle.researchBottomButton]}>
             <TouchableOpacity
               style={
                 this.state.nowIndex == 0
