@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   // Settings Wallet style
 
-  // Main
+  // WalletMain.js
   MainTopView: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -48,4 +48,37 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     width: '49%',
   },
+
+  transactionsStyle: {
+    textAlign: 'left',
+    fontWeight: '500',
+    padding: '5%',
+    paddingTop: Platform.OS === 'ios' ? '5%' : '4%',
+    paddingBottom: Platform.OS === 'ios' ? '5%' : '4%',
+  },
+
+  transactionsScroll: {
+    padding: '5%',
+    paddingTop: 0,
+  },
+
+  // Transactions Item Style
+
+  transactionItemStyle: {
+    borderBottomColor: '#dedede',
+    borderBottomWidth: 1,
+    marginTop: Platform.OS === 'ios' ? '4%' : '3%',
+  },
+  transactionItemInner: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  transactionItemInnerBottom: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: '1%',
+    marginBottom: Platform.OS === 'ios' ? '4%' : '3%',
+  },
+
+  // WalletSend.js
 });

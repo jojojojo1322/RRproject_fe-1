@@ -47,7 +47,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 50,
-    padding: Platform.OS === 'ios' ? '2%' : '2%',
+    padding: Platform.OS === 'ios' ? '3.5%' : '3%',
   },
   buttonTexts: {
     color: '#FFF',

@@ -123,20 +123,16 @@ export default class WalletMain extends Component {
       TransactionArr = TransactionArr.concat(
         <TouchableOpacity
           key={index}
-          style={{
-            borderBottomColor: '#dedede',
-            borderBottomWidth: 1,
-            marginTop: Platform.OS === 'ios' ? '4%' : '3%',
-          }}
+          style={[WalletStyle.transactionItemStyle]}
           onPress={() => {
             this.props.navigation.navigate('WalletDetail');
           }}>
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <View style={[WalletStyle.transactionItemInner]}>
             <Text
               style={[
                 ResetStyle.fontRegularE,
                 ResetStyle.fontB,
-                {fontWeight: '600'},
+                {fontWeight: '500'},
                 data.statusDetail == 'SEND' && {color: '#ff9100'},
               ]}>
               {data.status}
@@ -145,19 +141,14 @@ export default class WalletMain extends Component {
               style={[
                 ResetStyle.fontRegularE,
                 ResetStyle.fontB,
-                {fontWeight: '600'},
+                {fontWeight: '500'},
                 data.statusDetail == 'SEND' && {color: '#ff9100'},
               ]}>
               {`${data.statusDetail == 'SEND' ? '-' : '+'} ${data.TNC} TNC`}
             </Text>
           </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginTop: '1%',
-              marginBottom: Platform.OS === 'ios' ? '4%' : '3%',
-            }}>
+
+          <View style={[WalletStyle.transactionItemInnerBottom]}>
             <Text
               style={[
                 ResetStyle.fontLightK,
@@ -282,8 +273,7 @@ export default class WalletMain extends Component {
                 onPress={() => {
                   this.props.navigation.navigate('WalletReceive');
                 }}>
-                <Text
-                  style={[ResetStyle.buttonTexts, {fontSize: 20, margin: 6}]}>
+                <Text style={[ResetStyle.fontRegularK, ResetStyle.fontWhite]}>
                   Receive
                 </Text>
               </TouchableOpacity>
@@ -295,17 +285,11 @@ export default class WalletMain extends Component {
             style={[
               ResetStyle.fontBlack,
               ResetStyle.fontLightE,
-              {
-                textAlign: 'left',
-                fontWeight: '500',
-                padding: '5%',
-                paddingTop: Platform.OS === 'ios' ? '5%' : '4%',
-                paddingBottom: Platform.OS === 'ios' ? '5%' : '4%',
-              },
+              WalletStyle.transactionsStyle,
             ]}>
             Transactions
           </Text>
-          <ScrollView style={{padding: '5%', paddingTop: 0}}>
+          <ScrollView style={[WalletStyle.transactionsScroll]}>
             {TransactionArr}
           </ScrollView>
         </View>

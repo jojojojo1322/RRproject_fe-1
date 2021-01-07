@@ -14,9 +14,9 @@ import {
 
 import PropTypes from 'prop-types';
 import ResetStyle from '../../../style/ResetStyle.js';
+import WalletStyle from '../../../style/WalletStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {SelectedCheckboxes, RoundCheckbox} from '../../factory/Roundcheck';
-import ResearchStyle from '../../../style/ResearchStyle.js';
 
 import WalletSendModal from '../../factory/modal/WalletSendModal';
 
@@ -83,43 +83,44 @@ export default class WalletSend extends Component {
     return (
       <SafeAreaView style={ResetStyle.container}>
         <View style={[ResetStyle.containerInner]}>
-          {/* 상단 화면 */}
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'flex-start',
-              paddingTop: Platform.OS === 'ios' ? '2%' : '5%',
-              paddingBottom: Platform.OS === 'ios' ? '4%' : '2%',
-            }}>
+          {/* Top */}
+          {/* topBackButton */}
+          <View style={ResetStyle.topBackButton}>
             <TouchableOpacity
-              style={{flexDirection: 'row'}}
               onPress={() => {
                 this.props.navigation.goBack();
               }}>
               <Image
                 source={require('../../../imgs/drawable-xxxhdpi/back_icon.png')}
               />
-              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-                보내기
-              </Text>
             </TouchableOpacity>
+            <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+              보내기
+            </Text>
           </View>
-          {/* 중단 화면 */}
+
+          {/* Body */}
           <View style={{flexDirection: 'column', alignItems: 'center'}}>
-            <Text style={[ResetStyle.fontLightK]}>Total Balance</Text>
+            <Text
+              style={[
+                ResetStyle.fontLightK,
+                ResetStyle.fontBlack,
+                {fontWeight: '400'},
+              ]}>
+              Total Balance
+            </Text>
             <Text
               style={[
                 ResetStyle.fontBoldK,
                 ResetStyle.fontB,
-                {fontWeight: '500'},
+                {fontWeight: '500', marginTop: '2%'},
               ]}>
               1,000,000 TNC
             </Text>
           </View>
 
-          <View>
-            <View>
+          <View style={{flexDirection: 'column'}}>
+            <View style={{flexDirection: 'column'}}>
               <Text
                 style={[
                   ResetStyle.fontRegularK,
@@ -134,12 +135,12 @@ export default class WalletSend extends Component {
                 <View
                   style={{
                     width: '85%',
-                    // marginRight: '5%',
                     flexDirection: 'row',
+                    alignItems: 'center',
                     justifyContent: 'space-between',
                     paddingBottom: '2%',
                     borderBottomColor: '#dedede',
-                    borderBottomWidth: 2,
+                    borderBottomWidth: 1,
                   }}>
                   <TextInput
                     style={[
@@ -159,13 +160,14 @@ export default class WalletSend extends Component {
                 </View>
                 <TouchableOpacity>
                   <Image
+                    style={{width: 32, height: 32, resizeMode: 'contain'}}
                     source={require('../../../imgs/drawable-xxxhdpi/tnc_send_qr_icon.png')}
                   />
                 </TouchableOpacity>
               </View>
             </View>
 
-            <View>
+            <View style={{flexDirection: 'column'}}>
               <Text
                 style={[
                   ResetStyle.fontRegularK,
@@ -180,7 +182,7 @@ export default class WalletSend extends Component {
                   justifyContent: 'space-between',
                   paddingBottom: '2%',
                   borderBottomColor: '#dedede',
-                  borderBottomWidth: 2,
+                  borderBottomWidth: 1,
                 }}>
                 <TextInput
                   style={[
@@ -201,8 +203,10 @@ export default class WalletSend extends Component {
               <View
                 style={{
                   flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  marginTop: '5%',
+                  justifyContent: 'center',
+                  marginTop: Platform.OS === 'ios' ? '4%' : '3%',
+                  flexWrap: 'wrap',
+                  alignItems: 'stretch',
                 }}>
                 <TouchableOpacity
                   style={[
@@ -210,8 +214,6 @@ export default class WalletSend extends Component {
                       borderRadius: 5,
                       backgroundColor: '#f9f9f9',
                       alignItems: 'center',
-                      width: '23%',
-                      padding: Platform.OS === 'ios' ? '4%' : '4%',
                     },
                     this.state.tenth === true && {backgroundColor: '#2d91ff'},
                   ]}
@@ -220,6 +222,7 @@ export default class WalletSend extends Component {
                   }}>
                   <Text
                     style={[
+                      ResetStyle.fontLightK,
                       ResetStyle.fontG,
                       this.state.tenth === true && ResetStyle.fontWhite,
                     ]}>
@@ -232,8 +235,6 @@ export default class WalletSend extends Component {
                       borderRadius: 5,
                       backgroundColor: '#f9f9f9',
                       alignItems: 'center',
-                      width: '23%',
-                      padding: Platform.OS === 'ios' ? '4%' : '4%',
                     },
                     this.state.quarter === true && {backgroundColor: '#2d91ff'},
                   ]}
@@ -242,6 +243,7 @@ export default class WalletSend extends Component {
                   }}>
                   <Text
                     style={[
+                      ResetStyle.fontLightK,
                       ResetStyle.fontG,
                       this.state.quarter === true && ResetStyle.fontWhite,
                     ]}>
@@ -254,8 +256,6 @@ export default class WalletSend extends Component {
                       borderRadius: 5,
                       backgroundColor: '#f9f9f9',
                       alignItems: 'center',
-                      width: '23%',
-                      padding: Platform.OS === 'ios' ? '4%' : '4%',
                     },
                     this.state.half === true && {backgroundColor: '#2d91ff'},
                   ]}
@@ -264,6 +264,7 @@ export default class WalletSend extends Component {
                   }}>
                   <Text
                     style={[
+                      ResetStyle.fontLightK,
                       ResetStyle.fontG,
                       this.state.half === true && ResetStyle.fontWhite,
                     ]}>
@@ -276,8 +277,6 @@ export default class WalletSend extends Component {
                       borderRadius: 5,
                       backgroundColor: '#f9f9f9',
                       alignItems: 'center',
-                      width: '23%',
-                      padding: Platform.OS === 'ios' ? '4%' : '4%',
                     },
                     this.state.max === true && {backgroundColor: '#2d91ff'},
                   ]}
@@ -286,6 +285,7 @@ export default class WalletSend extends Component {
                   }}>
                   <Text
                     style={[
+                      ResetStyle.fontLightK,
                       ResetStyle.fontG,
                       this.state.max === true && ResetStyle.fontWhite,
                     ]}>
@@ -295,7 +295,7 @@ export default class WalletSend extends Component {
               </View>
             </View>
 
-            <View>
+            <View style={{flexDirection: 'column'}}>
               <Text
                 style={[
                   ResetStyle.fontRegularK,
@@ -310,7 +310,7 @@ export default class WalletSend extends Component {
                   justifyContent: 'space-between',
                   paddingBottom: '2%',
                   borderBottomColor: '#dedede',
-                  borderBottomWidth: 2,
+                  borderBottomWidth: 1,
                 }}>
                 <TextInput
                   style={[
@@ -331,14 +331,19 @@ export default class WalletSend extends Component {
             </View>
           </View>
 
+          {/* Bottom Button */}
           <TouchableOpacity
             style={[ResetStyle.button]}
             onPress={() => {
               this.setModalVisible(true);
             }}>
-            <Text style={[ResetStyle.buttonTexts]}>보내기</Text>
+            <Text style={[ResetStyle.fontMediumK, ResetStyle.fontWhite]}>
+              보내기
+            </Text>
           </TouchableOpacity>
         </View>
+
+        {/* Modal */}
         <WalletSendModal
           modalVisible={this.state.modalVisible}
           setModalVisible={this.setModalVisible}
