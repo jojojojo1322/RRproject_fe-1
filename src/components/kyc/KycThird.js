@@ -46,14 +46,24 @@ export default class kycThird extends Component {
 
   componentDidMount() {
     this.countryDataApi();
-    this.cityDataApi();
+    // this.cityDataApi();
     this.languageDataApi();
   }
+  componentDidUpdate = (preProps, preState) => {
+    if (preState.residenceCountryCd !== this.state.residenceCountryCd) {
+      this.cityDataApi();
+      this.setState({
+        residenceCity: '',
+      });
+    }
+  };
   cityDataApi = async () => {
     await axios
-      .get(`${server}/util/global/cities`)
+      .get(
+        `${server}/util/global/cities?countryCode=${this.state.residenceCountryCd}`,
+      )
       .then(async (response) => {
-        // console.log('countryListList', response);
+        console.log('countryListList', response);
         // setCountry(response.data);
         this.setState({
           cityData: response.data,

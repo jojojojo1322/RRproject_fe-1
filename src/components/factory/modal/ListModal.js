@@ -41,10 +41,14 @@ const CountryList = (props) => {
   };
 
   if (props.searchText != '') {
-    DATA = DATA.filter(
-      (data) =>
-        data.fullName.toLowerCase().indexOf(props.searchText.toLowerCase()) !==
-        -1,
+    DATA = DATA.filter((data) =>
+      data.fullName
+        ? data.fullName
+            .toLowerCase()
+            .indexOf(props.searchText.toLowerCase()) !== -1
+        : data.cityName
+            .toLowerCase()
+            .indexOf(props.searchText.toLowerCase()) !== -1,
     );
 
     // list.custName.toLowerCase().indexOf(searchName) > -1
@@ -67,7 +71,7 @@ const CountryList = (props) => {
 
 const Item = ({item, onPress, style, handlePick}) => {
   CheckedArrObject = new SelectedCheckboxes();
-  if (item.fullName !== '') {
+  if (item.fullName) {
     return (
       <TouchableOpacity
         onPress={() => {
@@ -104,10 +108,10 @@ const Item = ({item, onPress, style, handlePick}) => {
           handlePick(item.cityName);
         }}
         style={[ModalStyle.listModalItem]}>
-        <Image
+        {/* <Image
           style={[ModalStyle.listModalImg, {marginTop: 2}]}
           source={item.emojiFlag !== '' ? item.emojiFlag : ''}
-        />
+        /> */}
         <Text
           style={[
             ResetStyle.fontRegularK,

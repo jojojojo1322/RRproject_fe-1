@@ -131,10 +131,10 @@ export default class Login extends Component {
         if (error.response.data.msg === 'KycLevel1 Not Saved') {
           console.log('진입');
           await AsyncStorage.setItem('userNo', error.response.data.userNo);
-          await AsyncStorage.setItem(
-            'hasWallet',
-            error.response.data.hasWallet,
-          );
+          // await AsyncStorage.setItem(
+          //   'hasWallet',
+          //   error.response.data.hasWallet,
+          // );
         }
       });
   };
