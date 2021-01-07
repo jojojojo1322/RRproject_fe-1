@@ -11,13 +11,12 @@ import {
   Image,
   Platform,
 } from 'react-native';
-
 import PropTypes from 'prop-types';
 import ResetStyle from '../../../style/ResetStyle.js';
 import WalletStyle from '../../../style/WalletStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {SelectedCheckboxes, RoundCheckbox} from '../../factory/Roundcheck';
-
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import WalletSendModal from '../../factory/modal/WalletSendModal';
 
 const dealDetail = {
@@ -82,75 +81,206 @@ export default class WalletSend extends Component {
   render() {
     return (
       <SafeAreaView style={ResetStyle.container}>
-        <View style={[ResetStyle.containerInner]}>
-          {/* Top */}
-          {/* topBackButton */}
-          <View style={ResetStyle.topBackButton}>
-            <TouchableOpacity
-              onPress={() => {
-                this.props.navigation.goBack();
-              }}>
-              <Image
-                source={require('../../../imgs/drawable-xxxhdpi/back_icon.png')}
-              />
-            </TouchableOpacity>
-            <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-              보내기
-            </Text>
-          </View>
+        <KeyboardAwareScrollView
+          enableOnAndroid={true}
+          contentContainerStyle={{flexGrow: 1}}>
+          <View style={[ResetStyle.containerInner]}>
+            {/* Top */}
+            {/* topBackButton */}
+            <View style={ResetStyle.topBackButton}>
+              <TouchableOpacity
+                onPress={() => {
+                  this.props.navigation.goBack();
+                }}>
+                <Image
+                  source={require('../../../imgs/drawable-xxxhdpi/back_icon.png')}
+                />
+              </TouchableOpacity>
+              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+                보내기
+              </Text>
+            </View>
 
-          {/* Body */}
-          <View style={{flexDirection: 'column', alignItems: 'center'}}>
-            <Text
-              style={[
-                ResetStyle.fontLightK,
-                ResetStyle.fontBlack,
-                {fontWeight: '400'},
-              ]}>
-              Total Balance
-            </Text>
-            <Text
-              style={[
-                ResetStyle.fontBoldK,
-                ResetStyle.fontB,
-                {fontWeight: '500', marginTop: '2%'},
-              ]}>
-              1,000,000 TNC
-            </Text>
-          </View>
-
-          <View style={{flexDirection: 'column'}}>
-            <View style={{flexDirection: 'column'}}>
+            {/* Body */}
+            <View style={[WalletStyle.sendBodyView]}>
               <Text
                 style={[
-                  ResetStyle.fontRegularK,
-                  {textAlign: 'left', marginBottom: '4%'},
+                  ResetStyle.fontLightK,
+                  ResetStyle.fontBlack,
+                  {fontWeight: '400'},
                 ]}>
-                주소
+                Total Balance
               </Text>
-              <View
+              <Text
                 style={[
-                  {flexDirection: 'row', justifyContent: 'space-between'},
+                  ResetStyle.fontBoldK,
+                  ResetStyle.fontB,
+                  {fontWeight: '500', marginTop: '2%'},
                 ]}>
-                <View
-                  style={{
-                    width: '85%',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    paddingBottom: '2%',
-                    borderBottomColor: '#dedede',
-                    borderBottomWidth: 1,
-                  }}>
+                1,000,000 TNC
+              </Text>
+            </View>
+
+            {/* Address */}
+            <View style={{flexDirection: 'column'}}>
+              <View style={{flexDirection: 'column'}}>
+                <Text
+                  style={[
+                    ResetStyle.fontRegularK,
+                    WalletStyle.sendContentTitle,
+                  ]}>
+                  주소
+                </Text>
+                <View style={[WalletStyle.sendContentInnerView]}>
+                  <View
+                    style={[
+                      WalletStyle.sendContentInnerTextView,
+                      {width: '85%'},
+                    ]}>
+                    <TextInput
+                      style={[
+                        ResetStyle.fontRegularK,
+                        WalletStyle.sendContentInnerText,
+                      ]}
+                      placeholder={`보낼 주소 입력`}
+                    />
+                    <TouchableOpacity>
+                      <Image
+                        source={require('../../../imgs/drawable-xxxhdpi/icon_x.png')}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                  <TouchableOpacity>
+                    <Image
+                      style={[WalletStyle.sendContentInnerXButton]}
+                      source={require('../../../imgs/drawable-xxxhdpi/tnc_send_qr_icon.png')}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+
+              {/* Total Amount */}
+              <View style={[WalletStyle.sendTotalAmountView]}>
+                <Text
+                  style={[
+                    ResetStyle.fontRegularK,
+                    WalletStyle.sendContentTitle,
+                    {
+                      marginTop: Platform.OS === 'ios' ? '10%' : '5%',
+                    },
+                  ]}>
+                  총액
+                </Text>
+                <View style={[WalletStyle.sendContentInnerTextView]}>
                   <TextInput
                     style={[
                       ResetStyle.fontRegularK,
-                      {
-                        textAlign: 'left',
-                        width: '90%',
+                      WalletStyle.sendContentInnerText,
+                    ]}
+                    placeholder={`보낼 수량 입력`}
+                  />
+                  <TouchableOpacity>
+                    <Image
+                      style={[WalletStyle.sendContentInnerXButton]}
+                      source={require('../../../imgs/drawable-xxxhdpi/icon_x.png')}
+                    />
+                  </TouchableOpacity>
+                </View>
+
+                {/* Percent View */}
+                <View style={[WalletStyle.sendPercentView]}>
+                  <TouchableOpacity
+                    style={[
+                      WalletStyle.sendPercentTouchable,
+                      this.state.tenth === true && {backgroundColor: '#2d91ff'},
+                    ]}
+                    onPress={() => {
+                      this.handlePer('tenth');
+                    }}>
+                    <Text
+                      style={[
+                        ResetStyle.fontLightK,
+                        ResetStyle.fontG,
+                        this.state.tenth === true && ResetStyle.fontWhite,
+                      ]}>
+                      10%
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[
+                      WalletStyle.sendPercentTouchable,
+                      this.state.quarter === true && {
+                        backgroundColor: '#2d91ff',
                       },
                     ]}
-                    placeholder={`보낼 주소 입력`}
+                    onPress={() => {
+                      this.handlePer('quarter');
+                    }}>
+                    <Text
+                      style={[
+                        ResetStyle.fontLightK,
+                        ResetStyle.fontG,
+                        this.state.quarter === true && ResetStyle.fontWhite,
+                      ]}>
+                      25%
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[
+                      WalletStyle.sendPercentTouchable,
+                      this.state.half === true && {backgroundColor: '#2d91ff'},
+                    ]}
+                    onPress={() => {
+                      this.handlePer('half');
+                    }}>
+                    <Text
+                      style={[
+                        ResetStyle.fontLightK,
+                        ResetStyle.fontG,
+                        this.state.half === true && ResetStyle.fontWhite,
+                      ]}>
+                      50%
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[
+                      WalletStyle.sendPercentTouchable,
+                      this.state.max === true && {backgroundColor: '#2d91ff'},
+                    ]}
+                    onPress={() => {
+                      this.handlePer('max');
+                    }}>
+                    <Text
+                      style={[
+                        ResetStyle.fontLightK,
+                        ResetStyle.fontG,
+                        this.state.max === true && ResetStyle.fontWhite,
+                      ]}>
+                      MAX
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+
+              {/* Comment */}
+              <View style={{flexDirection: 'column'}}>
+                <Text
+                  style={[
+                    ResetStyle.fontRegularK,
+                    WalletStyle.sendContentTitle,
+                    {
+                      marginTop: Platform.OS === 'ios' ? '10%' : '5%',
+                    },
+                  ]}>
+                  메모
+                </Text>
+                <View style={[WalletStyle.sendContentInnerTextView]}>
+                  <TextInput
+                    style={[
+                      ResetStyle.fontRegularK,
+                      WalletStyle.sendContentInnerText,
+                    ]}
+                    placeholder={`메모 입력`}
                   />
                   <TouchableOpacity>
                     <Image
@@ -158,191 +288,21 @@ export default class WalletSend extends Component {
                     />
                   </TouchableOpacity>
                 </View>
-                <TouchableOpacity>
-                  <Image
-                    style={{width: 32, height: 32, resizeMode: 'contain'}}
-                    source={require('../../../imgs/drawable-xxxhdpi/tnc_send_qr_icon.png')}
-                  />
-                </TouchableOpacity>
               </View>
             </View>
 
-            <View style={{flexDirection: 'column'}}>
-              <Text
-                style={[
-                  ResetStyle.fontRegularK,
-                  {textAlign: 'left', marginTop: '10%', marginBottom: '4%'},
-                ]}>
-                총액
+            {/* Bottom Button */}
+            <TouchableOpacity
+              style={[ResetStyle.button]}
+              onPress={() => {
+                this.setModalVisible(true);
+              }}>
+              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontWhite]}>
+                보내기
               </Text>
-              <View
-                style={{
-                  width: '100%',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  paddingBottom: '2%',
-                  borderBottomColor: '#dedede',
-                  borderBottomWidth: 1,
-                }}>
-                <TextInput
-                  style={[
-                    ResetStyle.fontRegularK,
-                    {
-                      textAlign: 'left',
-                      width: '90%',
-                    },
-                  ]}
-                  placeholder={`보낼 수량 입력`}
-                />
-                <TouchableOpacity>
-                  <Image
-                    source={require('../../../imgs/drawable-xxxhdpi/icon_x.png')}
-                  />
-                </TouchableOpacity>
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                  marginTop: Platform.OS === 'ios' ? '4%' : '3%',
-                  flexWrap: 'wrap',
-                  alignItems: 'stretch',
-                }}>
-                <TouchableOpacity
-                  style={[
-                    {
-                      borderRadius: 5,
-                      backgroundColor: '#f9f9f9',
-                      alignItems: 'center',
-                    },
-                    this.state.tenth === true && {backgroundColor: '#2d91ff'},
-                  ]}
-                  onPress={() => {
-                    this.handlePer('tenth');
-                  }}>
-                  <Text
-                    style={[
-                      ResetStyle.fontLightK,
-                      ResetStyle.fontG,
-                      this.state.tenth === true && ResetStyle.fontWhite,
-                    ]}>
-                    10%
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[
-                    {
-                      borderRadius: 5,
-                      backgroundColor: '#f9f9f9',
-                      alignItems: 'center',
-                    },
-                    this.state.quarter === true && {backgroundColor: '#2d91ff'},
-                  ]}
-                  onPress={() => {
-                    this.handlePer('quarter');
-                  }}>
-                  <Text
-                    style={[
-                      ResetStyle.fontLightK,
-                      ResetStyle.fontG,
-                      this.state.quarter === true && ResetStyle.fontWhite,
-                    ]}>
-                    25%
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[
-                    {
-                      borderRadius: 5,
-                      backgroundColor: '#f9f9f9',
-                      alignItems: 'center',
-                    },
-                    this.state.half === true && {backgroundColor: '#2d91ff'},
-                  ]}
-                  onPress={() => {
-                    this.handlePer('half');
-                  }}>
-                  <Text
-                    style={[
-                      ResetStyle.fontLightK,
-                      ResetStyle.fontG,
-                      this.state.half === true && ResetStyle.fontWhite,
-                    ]}>
-                    50%
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[
-                    {
-                      borderRadius: 5,
-                      backgroundColor: '#f9f9f9',
-                      alignItems: 'center',
-                    },
-                    this.state.max === true && {backgroundColor: '#2d91ff'},
-                  ]}
-                  onPress={() => {
-                    this.handlePer('max');
-                  }}>
-                  <Text
-                    style={[
-                      ResetStyle.fontLightK,
-                      ResetStyle.fontG,
-                      this.state.max === true && ResetStyle.fontWhite,
-                    ]}>
-                    MAX
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-
-            <View style={{flexDirection: 'column'}}>
-              <Text
-                style={[
-                  ResetStyle.fontRegularK,
-                  {textAlign: 'left', marginTop: '10%', marginBottom: '4%'},
-                ]}>
-                메모
-              </Text>
-              <View
-                style={{
-                  width: '100%',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  paddingBottom: '2%',
-                  borderBottomColor: '#dedede',
-                  borderBottomWidth: 1,
-                }}>
-                <TextInput
-                  style={[
-                    ResetStyle.fontRegularK,
-                    {
-                      textAlign: 'left',
-                      width: '90%',
-                    },
-                  ]}
-                  placeholder={`메모 입력`}
-                />
-                <TouchableOpacity>
-                  <Image
-                    source={require('../../../imgs/drawable-xxxhdpi/icon_x.png')}
-                  />
-                </TouchableOpacity>
-              </View>
-            </View>
+            </TouchableOpacity>
           </View>
-
-          {/* Bottom Button */}
-          <TouchableOpacity
-            style={[ResetStyle.button]}
-            onPress={() => {
-              this.setModalVisible(true);
-            }}>
-            <Text style={[ResetStyle.fontMediumK, ResetStyle.fontWhite]}>
-              보내기
-            </Text>
-          </TouchableOpacity>
-        </View>
-
+        </KeyboardAwareScrollView>
         {/* Modal */}
         <WalletSendModal
           modalVisible={this.state.modalVisible}

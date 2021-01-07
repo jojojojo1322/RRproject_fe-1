@@ -62,7 +62,7 @@ export default StyleSheet.create({
     // top: Platform.OS === 'ios' ? '17.5%' : '15%',
     width: '100%',
     bottom: '0%',
-    height: '65%',
+    height: Platform.OS === 'ios' ? '65%' : '80%',
     backgroundColor: '#fff',
     padding: '5%',
     shadowColor: '#000',
