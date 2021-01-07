@@ -741,12 +741,8 @@ const test = async () => {
     // if (result == 'string') {
     const result = await AsyncStorage.getItem('userNo');
     if (result === null) {
-      console.log('nullFalse');
-      console.log(result);
       return result;
     } else {
-      console.log('nullTrue');
-      console.log(result);
       return result;
     }
   } catch (e) {
@@ -787,9 +783,7 @@ const App = () => {
   useEffect(() => {
     test();
   }, []);
-  console.log('~~~~~~~', login);
   if (login !== null) {
-    console.log('notNULNULMNUL');
     return (
       <NavigationContainer>
         {/* <Main /> */}
@@ -826,7 +820,6 @@ const App = () => {
       </NavigationContainer>
     );
   } else {
-    console.log('NULBUBUBUBUBUBUBU');
     return (
       <NavigationContainer>
         {/* <Main /> */}

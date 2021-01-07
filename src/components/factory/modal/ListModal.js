@@ -23,29 +23,11 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 const window = Dimensions.get('window');
 
-// let DATA = DefineCountryList;
-// let DATA = CountryListApi();
-// let DATA = [];
-// console.log(
-//   'DATA CONSOLE>>>>>',
-//   CountryListApi()
-//     .then((data) => {
-//       data;
-//     })
-//     .catch((err) => {
-//       err;
-//     }),
-// );
-
-console.log('DATA CONSOLE>>>>>', async () => {
-  await CountryListApi();
-});
-// console.log('DATA CONSOLE>>>>>', CLA.val);
 const CountryList = (props) => {
   const [selectedId, setSelectedId] = useState(null);
   let [DATA, setDATA] = useState(props.DATA);
   const renderItem = ({item}) => {
-    // console.log('', DATA);
+    // console.log('>>>>>>>>>', DATA);
     const backgroundColor = item.id === selectedId ? '#efefef' : '#FFF';
     return (
       <Item
@@ -75,7 +57,7 @@ const CountryList = (props) => {
       <FlatList
         data={DATA}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.fullName}
         extraData={selectedId}
         style={{width: '100%', marginTop: '5%'}}
       />
@@ -117,6 +99,7 @@ const Item = ({item, onPress, style, handlePick}) => {
   } else {
     return (
       <TouchableOpacity
+        key={item.countryPhone}
         onPress={() => {
           handlePick(item.cityName);
         }}
@@ -227,7 +210,7 @@ class ListModal extends Component {
                 <TextInput
                   style={[
                     ResetStyle.fontRegularK,
-                    ResetStyle.fontG,
+                    ResetStyle.fontBlack,
                     {
                       padding: 10,
                       width: '100%',
@@ -237,6 +220,7 @@ class ListModal extends Component {
                   onChangeText={this.handleInputChange}
                   value={this.state.searchText}
                   placeholder="search"
+                  placeholderTextColor="#a9a9a9"
                 />
                 <TouchableOpacity
                   style={{position: 'absolute', right: '3%', top: '40%'}}>

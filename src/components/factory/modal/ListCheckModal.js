@@ -237,7 +237,7 @@ class ListCheckModal extends Component {
                   },
                 ]}
                 onChangeText={this.handleInputChange}
-                placeholderTextColor={ResetStyle.fontG}
+                placeholderTextColor="#a9a9a9"
                 value={this.state.searchText}
                 placeholder="search"></TextInput>
               <TouchableOpacity>

@@ -99,56 +99,79 @@ export default class Reset extends Component {
       <SafeAreaView style={ResetStyle.container}>
         <View style={ResetStyle.containerInner}>
           <View>
+            <View style={[ResetStyle.topBackButton]}>
+              <TouchableOpacity
+                style={{flexDirection: 'row'}}
+                onPress={() => {
+                  this.props.navigation.navigate('SettingsPersonal');
+                }}>
+                <Image
+                  source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
+                />
+                <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+                  이메일 인증
+                </Text>
+              </TouchableOpacity>
+            </View>
+
             <Text
               style={[
                 ResetStyle.fontMediumK,
-                ResetStyle.fontDG,
-                {marginTop: '10%'},
+                ResetStyle.fontBlack,
+                {
+                  marginTop: '17%',
+                  fontWeight: '700',
+                  fontSize: 33,
+                },
               ]}>
               비밀번호를 잊으셨나요?
             </Text>
             <Text
               style={[
                 ResetStyle.fontRegularK,
-                ResetStyle.fontG,
-                {marginTop: 20},
+                ResetStyle.fontBlack,
+                {marginTop: '5%'},
               ]}>
               비밀번호 재설정을 위해{'\n'}아이디(이메일)을 입력해 주세요.
             </Text>
-          </View>
-          <View style={[ResetStyle.textInputStyle, {marginBottom: '50%'}]}>
-            <Text
+            <View
               style={[
-                ResetStyle.fontRegularK,
-                ResetStyle.fontDG,
-                ResetStyle.textInputTitle,
+                ResetStyle.textInputStyle,
+                {marginTop: '20%', marginBottom: '0%'},
               ]}>
-              이메일
-            </Text>
-            <TextInput
-              style={[
-                ResetStyle.fontRegularK,
-                ResetStyle.fontG,
-                ResetStyle.textInputText,
-              ]}
-              placeholder="이메일 주소 입력"
-              placeholderTextColor="#a9a9a9"
-              autoCapitalize={'none'}
-              value={this.state.email}
-              onChangeText={this.handleEmail}
-            />
-            <TouchableOpacity
-              style={ResetStyle.textInputTextButton}
-              onPress={() => {
-                this.setState({
-                  email: '',
-                });
-              }}>
-              <Image
-                style={ResetStyle.smallImg}
-                source={require('../../imgs/iconXGray.png')}
+              <Text
+                style={[
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontBlack,
+                  ResetStyle.textInputTitle,
+                ]}>
+                이메일
+              </Text>
+              <TextInput
+                style={[
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontBlack,
+                  ResetStyle.textInputText,
+                ]}
+                placeholder="이메일 주소 입력"
+                placeholderTextColor="#a9a9a9"
+                autoCapitalize={'none'}
+                value={this.state.email}
+                onChangeText={this.handleEmail}
               />
-            </TouchableOpacity>
+              <TouchableOpacity
+                style={ResetStyle.textInputTextButton}
+                onPress={() => {
+                  this.setState({
+                    email: '',
+                  });
+                }}>
+                <Image
+                  style={ResetStyle.smallImg}
+                  source={require('../../imgs/drawable-xxxhdpi/icon_x.png')}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
           <TouchableOpacity
             style={
