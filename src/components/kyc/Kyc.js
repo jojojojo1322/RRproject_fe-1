@@ -125,7 +125,7 @@ export default class Kyc extends Component {
       .post(`${server}/kyc`, {
         birthday: birthday,
         countryCd: countryCd,
-        countryCity: 'countryCity',
+        countryCity: countryCity,
         countryResidence: countryResidence,
         gender: gender,
         languageCd: languageCd,
