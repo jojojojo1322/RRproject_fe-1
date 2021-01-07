@@ -15,10 +15,9 @@ import {
 import {server} from '../../defined/server';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import ModalStyle from '../../../style/ModalStyle';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '../../../style/ResetStyle.js';
-import MainStyle from '../../../style/MainStyle.js';
+import ModalStyle from '../../../style/ModalStyle';
 import {lang} from '../../defined/lang';
 
 export default class WalletSendSuccess extends Component {

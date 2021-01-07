@@ -81,4 +81,61 @@ export default StyleSheet.create({
   },
 
   // WalletSend.js
+
+  // Top
+
+  // Body
+  sendBodyView: {
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+
+  sendContentTitle: {
+    textAlign: 'left',
+    marginBottom: Platform.OS === 'ios' ? '4%' : '3%',
+  },
+  sendContentInnerView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  sendContentInnerTextView: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingBottom: Platform.OS === 'ios' ? '2%' : 0,
+    borderBottomColor: '#dedede',
+    borderBottomWidth: 1,
+  },
+  sendContentInnerText: {
+    textAlign: 'left',
+    width: '90%',
+  },
+  sendContentInnerXButton: {
+    width: 32,
+    height: 32,
+    resizeMode: 'contain',
+  },
+
+  // Total Amount
+  sendTotalAmountView: {
+    flexDirection: 'column',
+  },
+
+  sendPercentView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: Platform.OS === 'ios' ? '4%' : '3%',
+  },
+
+  sendPercentTouchable: {
+    width: '24%',
+    padding: Platform.OS === 'ios' ? '4%' : '3%',
+    borderRadius: 5,
+    backgroundColor: '#f9f9f9',
+    alignItems: 'center',
+  },
+
+  // Comment
 });

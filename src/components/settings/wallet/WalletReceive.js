@@ -18,8 +18,6 @@ import BottomModal from '../../factory/modal/BottomModal';
 import ResetStyle from '../../../style/ResetStyle.js';
 import AuthStyle from '../../../style/AuthStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {SelectedCheckboxes, RoundCheckbox} from '../../factory/Roundcheck';
-import ResearchStyle from '../../../style/ResearchStyle.js';
 import QRCode from 'react-native-qrcode2';
 
 const deviceWidth = Dimensions.get('screen').width;
