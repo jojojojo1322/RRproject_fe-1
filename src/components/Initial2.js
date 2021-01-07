@@ -8,6 +8,8 @@ import {
   TouchableOpacity,
   Animated,
   Dimensions,
+  NativeModules,
+  Platform,
 } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {useHeaderHeight} from '@react-navigation/stack';
@@ -58,11 +60,21 @@ class Initial2 extends Component {
     // Dimenssion.get('screen').height;
   }
   render() {
+    ///
+
+    const deviceLanguage =
+      Platform.OS === 'ios'
+        ? NativeModules.SettingsManager.settings.AppleLocale ||
+          NativeModules.SettingsManager.settings.AppleLanguages[0] // iOS 13
+        : NativeModules.I18nManager.localeIdentifier;
+
+    console.log('platformOS>>>>>>>>>>', deviceLanguage); //en_US
+
+    ////
     const userLang = this.state.userLang;
     const windowWidth = this.state.dimensions.window.width;
     const windowHeight = this.state.dimensions.window.height;
     const llang = lang;
-    console.log('llangngngn>>>>', llang(223)[0].ko.KycComplete);
     console.log(windowHeight);
     return (
       <SafeAreaView

@@ -58,6 +58,7 @@ export default class Login extends Component {
     text: '',
     loginCheck: false,
     hasWallet: '',
+    errorMsg: '',
   };
 
   setModalVisible = (visible) => {
@@ -112,8 +113,29 @@ export default class Login extends Component {
         });
         return response.data.status;
       })
-      .catch((error) => {
+      .catch(async (error) => {
         console.log('erro', error.response.data);
+        this.setState({
+          loginCheck: error.response.data.status,
+          hasWallet: error.response.data.hasWallet,
+          errorMsg: error.response.data.msg,
+        });
+        console.log(
+          'statestate',
+          this.state.loginCheck,
+          '--------',
+          this.state.hasWallet,
+          '--------',
+          this.state.errorMsg,
+        );
+        if (error.response.data.msg === 'KycLevel1 Not Saved') {
+          console.log('진입');
+          await AsyncStorage.setItem('userNo', error.response.data.userNo);
+          await AsyncStorage.setItem(
+            'hasWallet',
+            error.response.data.hasWallet,
+          );
+        }
       });
   };
   render() {
@@ -148,7 +170,7 @@ export default class Login extends Component {
                 style={[
                   ResetStyle.buttonWhite,
                   ResetStyle.fontLightE,
-                  ResetStyle.fontG,
+                  ResetStyle.fontBlack,
                   {marginBottom: '3%', marginTop: '6%', textAlign: 'left'},
                 ]}
                 placeholder="Email Address"
@@ -161,7 +183,7 @@ export default class Login extends Component {
                 style={[
                   ResetStyle.buttonWhite,
                   ResetStyle.fontLightE,
-                  ResetStyle.fontG,
+                  ResetStyle.fontBlack,
                   {marginBottom: '14%', textAlign: 'left'},
                 ]}
                 placeholder="Password"
