@@ -314,16 +314,6 @@ export class AppAuthStack extends Component {
             headerShown: false,
           }}
         />
-
-        {/* 작업 후 삭제 */}
-        <Stack.Screen
-          name="WalletSend"
-          component={WalletSend}
-          options={{
-            headerShown: false,
-          }}
-        />
-        {/* 작업 후 삭제 */}
       </Stack.Navigator>
     );
   }

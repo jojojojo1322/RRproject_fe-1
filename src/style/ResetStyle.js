@@ -178,4 +178,11 @@ export default StyleSheet.create({
     height: 25,
     resizeMode: 'contain',
   },
+
+  // Circle X Button
+  circleXButton: {
+    width: 22,
+    height: 22,
+    resizeMode: 'contain',
+  },
 });

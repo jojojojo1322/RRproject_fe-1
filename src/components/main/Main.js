@@ -150,6 +150,7 @@ export const Main = ({navigation}) => {
     {key: 'expired', title: '설문종료'},
   ]);
   const [canScroll, setCanScroll] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
   const [tab1Data] = useState([
     {
       id: '1',
