@@ -137,5 +137,11 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
 
-  // Comment
+  // WalletDetail
+  listView: {
+    borderBottomColor: '#dedede',
+    borderBottomWidth: 1,
+    paddingTop: '8%',
+    paddingBottom: '5%',
+  },
 });
