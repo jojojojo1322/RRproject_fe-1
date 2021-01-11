@@ -146,6 +146,7 @@ export default class WalletSend extends Component {
                     />
                     <TouchableOpacity>
                       <Image
+                        style={[ResetStyle.circleXButton]}
                         source={require('../../../imgs/drawable-xxxhdpi/icon_x.png')}
                       />
                     </TouchableOpacity>
@@ -181,7 +182,7 @@ export default class WalletSend extends Component {
                   />
                   <TouchableOpacity>
                     <Image
-                      style={[WalletStyle.sendContentInnerXButton]}
+                      style={[ResetStyle.circleXButton]}
                       source={require('../../../imgs/drawable-xxxhdpi/icon_x.png')}
                     />
                   </TouchableOpacity>
@@ -284,6 +285,7 @@ export default class WalletSend extends Component {
                   />
                   <TouchableOpacity>
                     <Image
+                      style={[ResetStyle.circleXButton]}
                       source={require('../../../imgs/drawable-xxxhdpi/icon_x.png')}
                     />
                   </TouchableOpacity>

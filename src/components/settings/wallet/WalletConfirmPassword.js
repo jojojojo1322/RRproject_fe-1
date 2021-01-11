@@ -327,16 +327,12 @@ const styles = StyleSheet.create({
   passGray: {
     backgroundColor: '#f9f9f9',
     textAlign: 'center',
-    // flex: 1,
     marginLeft: '3%',
     width: '14%',
     height: 50,
-    // height: 30,
-    // width: 10,
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    // fontSize: 20,
   },
   keyboard: {
     position: 'absolute',
