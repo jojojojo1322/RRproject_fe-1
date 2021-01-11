@@ -16,6 +16,26 @@ import ResetStyle from '../../../style/ResetStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {SelectedCheckboxes, RoundCheckbox} from '../../factory/Roundcheck';
 import ResearchStyle from '../../../style/ResearchStyle.js';
+import WalletStyle from '../../../style/WalletStyle.js';
+
+class List extends Component {
+  render() {
+    return (
+      <View style={[WalletStyle.listView]}>
+        <Text
+          style={[
+            ResetStyle.fontRegularK,
+            {textAlign: 'left', marginBottom: '2%'},
+          ]}>
+          {this.props.title}
+        </Text>
+        <Text style={[ResetStyle.fontRegularK, {textAlign: 'left'}]}>
+          {this.props.sub}
+        </Text>
+      </View>
+    );
+  }
+}
 
 const dealDetail = {
   block: '1035613',
@@ -31,201 +51,43 @@ const dealDetail = {
 export default class WalletDetail extends Component {
   render() {
     return (
-      <SafeAreaView style={ResetStyle.container}>
-        <View style={[ResetStyle.containerInner]}>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'flex-start',
-              paddingTop: Platform.OS === 'ios' ? '2%' : '5%',
-              paddingBottom: Platform.OS === 'ios' ? '6%' : '2%',
-            }}>
+      <SafeAreaView style={[ResetStyle.container]}>
+        <View
+          style={[ResetStyle.containerInner, {marginLeft: 0, marginRight: 0}]}>
+          {/* topBackButton */}
+          <View style={ResetStyle.topBackButton}>
             <TouchableOpacity
               style={{flexDirection: 'row'}}
               onPress={() => {
                 this.props.navigation.goBack();
               }}>
               <Image
-                style={{marginTop: '2%'}}
                 source={require('../../../imgs/drawable-xxxhdpi/back_icon.png')}
               />
-              <Text style={[ResetStyle.fontMediumK, {fontWeight: '500'}]}>
+              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
                 전송내역 상세
               </Text>
             </TouchableOpacity>
           </View>
           <ScrollView>
-            <View
-              style={{
-                borderBottomColor: '#dedede',
-                borderBottomWidth: 1,
-                paddingTop: '8%',
-                paddingBottom: '5%',
-              }}>
-              <Text
-                style={[
-                  ResetStyle.fontRegularK,
-                  {textAlign: 'left', marginBottom: '2%'},
-                ]}>
-                블록번호
-              </Text>
-              <Text style={[ResetStyle.fontRegularK, {textAlign: 'left'}]}>
-                {dealDetail.block}
-              </Text>
-            </View>
+            {/* 블록번호 */}
+            <List title="블록번호" sub={dealDetail.block} />
             {/* 총액 */}
-            <View
-              style={{
-                borderBottomColor: '#dedede',
-                borderBottomWidth: 1,
-                paddingTop: '5%',
-                paddingBottom: '5%',
-              }}>
-              <Text
-                style={[
-                  ResetStyle.fontRegularK,
-                  {textAlign: 'left', marginBottom: '2%'},
-                ]}>
-                총액
-              </Text>
-              <Text style={[ResetStyle.fontRegularK, {textAlign: 'left'}]}>
-                {dealDetail.total} TNC
-              </Text>
-            </View>
-            <View
-              style={{
-                borderBottomColor: '#dedede',
-                borderBottomWidth: 1,
-                paddingTop: '5%',
-                paddingBottom: '5%',
-              }}>
-              <Text
-                style={[
-                  ResetStyle.fontRegularK,
-                  {textAlign: 'left', marginBottom: '2%'},
-                ]}>
-                상태
-              </Text>
-              <Text style={[ResetStyle.fontRegularK, {textAlign: 'left'}]}>
-                {dealDetail.status}
-              </Text>
-            </View>
-
+            <List title="총액" sub={dealDetail.total} />
+            {/* 상태 */}
+            <List title="상태" sub={dealDetail.status} />
             {/* 상세내용 */}
-            <View
-              style={{
-                borderBottomColor: '#dedede',
-                borderBottomWidth: 1,
-                paddingTop: '5%',
-                paddingBottom: '5%',
-              }}>
-              <Text
-                style={[
-                  ResetStyle.fontRegularK,
-                  {textAlign: 'left', marginBottom: '2%'},
-                ]}>
-                상세내용
-              </Text>
-              <Text style={[ResetStyle.fontRegularK, {textAlign: 'left'}]}>
-                {dealDetail.object}
-              </Text>
-            </View>
+            <List title="상세내용" sub={dealDetail.object} />
             {/* 보낸사람 */}
-            <View
-              style={{
-                borderBottomColor: '#dedede',
-                borderBottomWidth: 1,
-                paddingTop: '5%',
-                paddingBottom: '5%',
-              }}>
-              <Text
-                style={[
-                  ResetStyle.fontRegularK,
-                  {textAlign: 'left', marginBottom: '2%'},
-                ]}>
-                보낸사람
-              </Text>
-              <Text style={[ResetStyle.fontRegularK, {textAlign: 'left'}]}>
-                {dealDetail.sender}
-              </Text>
-            </View>
+            <List title="보낸사람" sub={dealDetail.sender} />
             {/* 받은사람 */}
-            <View
-              style={{
-                borderBottomColor: '#dedede',
-                borderBottomWidth: 1,
-                paddingTop: '5%',
-                paddingBottom: '5%',
-              }}>
-              <Text
-                style={[
-                  ResetStyle.fontRegularK,
-                  {textAlign: 'left', marginBottom: '2%'},
-                ]}>
-                받은사람
-              </Text>
-              <Text style={[ResetStyle.fontRegularK, {textAlign: 'left'}]}>
-                {dealDetail.recipient}
-              </Text>
-            </View>
+            <List title="받은사람" sub={dealDetail.recipient} />
             {/* 메모 */}
-            <View
-              style={{
-                borderBottomColor: '#dedede',
-                borderBottomWidth: 1,
-                paddingTop: '5%',
-                paddingBottom: '5%',
-              }}>
-              <Text
-                style={[
-                  ResetStyle.fontRegularK,
-                  {textAlign: 'left', marginBottom: '2%'},
-                ]}>
-                메모
-              </Text>
-              <Text style={[ResetStyle.fontRegularK, {textAlign: 'left'}]}>
-                {dealDetail.memo}
-              </Text>
-            </View>
+            <List title="메모" sub={dealDetail.memo} />
             {/* 거래일시 */}
-            <View
-              style={{
-                borderBottomColor: '#dedede',
-                borderBottomWidth: 1,
-                paddingTop: '5%',
-                paddingBottom: '5%',
-              }}>
-              <Text
-                style={[
-                  ResetStyle.fontRegularK,
-                  {textAlign: 'left', marginBottom: '2%'},
-                ]}>
-                거래일시
-              </Text>
-              <Text style={[ResetStyle.fontRegularK, {textAlign: 'left'}]}>
-                {dealDetail.DATE}
-              </Text>
-            </View>
+            <List title="거래일시" sub={dealDetail.DATE} />
             {/* TXID */}
-            <View
-              style={{
-                borderBottomColor: '#dedede',
-                borderBottomWidth: 1,
-                paddingTop: '5%',
-                paddingBottom: '5%',
-              }}>
-              <Text
-                style={[
-                  ResetStyle.fontRegularK,
-                  {textAlign: 'left', marginBottom: '2%'},
-                ]}>
-                TXID
-              </Text>
-              <Text style={[ResetStyle.fontRegularK, {textAlign: 'left'}]}>
-                {dealDetail.TXID}
-              </Text>
-            </View>
+            <List title="TXID" sub={dealDetail.TXID} />
           </ScrollView>
         </View>
       </SafeAreaView>

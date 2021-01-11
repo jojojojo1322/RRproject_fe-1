@@ -1083,6 +1083,9 @@ export const Main = ({navigation}) => {
             borderRadius: 25,
           }}>
           <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('ProfileMain');
+            }}
             style={{
               flexDirection: 'column',
               alignItems: 'center',
@@ -1123,6 +1126,9 @@ export const Main = ({navigation}) => {
               width: '0.4%',
             }}></View>
           <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('WalletMain');
+            }}
             style={{
               flexDirection: 'column',
               alignItems: 'center',
