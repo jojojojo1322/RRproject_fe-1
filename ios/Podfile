@@ -54,11 +54,13 @@ target 'survey' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  pod 'react-native-video', :path => '../node_modules/react-native-video'
 
-  pod 'RNCPushNotificationIOS', :path => '../node_modules/@react-native-community/push-notification-ios'
 
-  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
+
+  pod 'Permission-Camera', :path => '../node_modules/react-native-permissions/ios/Camera'
+
+  pod 'react-native-camera', path: '../node_modules/react-native-camera'
+
 
   target 'surveyTests' do
     inherit! :complete
