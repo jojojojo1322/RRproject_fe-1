@@ -1,4 +1,4 @@
-package com.rrproject_fe;
+package com.realresearch.survey;
 
 import com.facebook.react.ReactActivity;
 
@@ -10,6 +10,6 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "RRproject_fe";
+    return "survey";
   }
 }

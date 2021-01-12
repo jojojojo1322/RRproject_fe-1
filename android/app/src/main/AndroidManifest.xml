@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.rrproject_fe">
+  package="com.realresearch.survey">
 
 
     <!-- API level 28+ (Uses Android native BiometricPrompt) (Reference) -->

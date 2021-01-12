@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "RRproject_fe.app"
-               BlueprintName = "RRproject_fe"
-               ReferencedContainer = "container:RRproject_fe.xcodeproj">
+               BuildableName = "survey.app"
+               BlueprintName = "survey"
+               ReferencedContainer = "container:survey.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "RRproject_feTests.xctest"
-               BlueprintName = "RRproject_feTests"
-               ReferencedContainer = "container:RRproject_fe.xcodeproj">
+               BuildableName = "surveyTests.xctest"
+               BlueprintName = "surveyTests"
+               ReferencedContainer = "container:survey.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "RRproject_fe.app"
-            BlueprintName = "RRproject_fe"
-            ReferencedContainer = "container:RRproject_fe.xcodeproj">
+            BuildableName = "survey.app"
+            BlueprintName = "survey"
+            ReferencedContainer = "container:survey.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "RRproject_fe.app"
-            BlueprintName = "RRproject_fe"
-            ReferencedContainer = "container:RRproject_fe.xcodeproj">
+            BuildableName = "survey.app"
+            BlueprintName = "survey"
+            ReferencedContainer = "container:survey.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

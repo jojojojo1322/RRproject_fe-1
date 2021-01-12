@@ -103,7 +103,7 @@ export default class Reset extends Component {
               <TouchableOpacity
                 style={{flexDirection: 'row'}}
                 onPress={() => {
-                  this.props.navigation.navigate('SettingsPersonal');
+                  this.props.navigation.goBack();
                 }}>
                 <Image
                   source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
