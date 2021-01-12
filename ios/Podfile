@@ -23,6 +23,7 @@ end
 
 target 'RRproject_fe' do
   # Pods for RRproject_fe
+
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
   pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"
@@ -54,11 +55,13 @@ target 'RRproject_fe' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  pod 'react-native-video', :path => '../node_modules/react-native-video'
 
-  pod 'RNCPushNotificationIOS', :path => '../node_modules/@react-native-community/push-notification-ios'
 
-  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
+
+  pod 'Permission-Camera', :path => '../node_modules/react-native-permissions/ios/Camera'
+
+  pod 'react-native-camera', path: '../node_modules/react-native-camera'
+
 
   target 'RRproject_feTests' do
     inherit! :complete

@@ -10,6 +10,8 @@ import {
   Alert,
   Image,
   Platform,
+  AppRegistry,
+  Linking,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import ResetStyle from '../../../style/ResetStyle.js';
@@ -30,6 +32,7 @@ const dealDetail = {
   DATE: '2020-10-30 20:16:21',
   TXID: '0x6565232c6565ed6565659desds6565c58c7',
 };
+
 export default class WalletSend extends Component {
   state = {
     tenth: false,
@@ -38,6 +41,7 @@ export default class WalletSend extends Component {
     max: false,
     modalVisible: false,
   };
+
   setModalVisible = (visible) => {
     this.setState({
       modalVisible: visible,
@@ -151,7 +155,10 @@ export default class WalletSend extends Component {
                       />
                     </TouchableOpacity>
                   </View>
-                  <TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => {
+                      this.props.navigation.navigate('WalletSendQR');
+                    }}>
                     <Image
                       style={[WalletStyle.sendContentInnerXButton]}
                       source={require('../../../imgs/drawable-xxxhdpi/tnc_send_qr_icon.png')}

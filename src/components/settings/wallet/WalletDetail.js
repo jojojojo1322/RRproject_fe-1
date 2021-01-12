@@ -15,7 +15,6 @@ import PropTypes from 'prop-types';
 import ResetStyle from '../../../style/ResetStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {SelectedCheckboxes, RoundCheckbox} from '../../factory/Roundcheck';
-import ResearchStyle from '../../../style/ResearchStyle.js';
 import WalletStyle from '../../../style/WalletStyle.js';
 
 class List extends Component {
@@ -48,14 +47,14 @@ const dealDetail = {
   DATE: '2020-10-30 20:16:21',
   TXID: '0x6565232c6565ed6565659desds6565c58c7',
 };
+
 export default class WalletDetail extends Component {
   render() {
     return (
       <SafeAreaView style={[ResetStyle.container]}>
-        <View
-          style={[ResetStyle.containerInner, {marginLeft: 0, marginRight: 0}]}>
+        <View style={[ResetStyle.containerInner, {marginHorizontal: 0}]}>
           {/* topBackButton */}
-          <View style={ResetStyle.topBackButton}>
+          <View style={[ResetStyle.topBackButton, {marginHorizontal: '5%'}]}>
             <TouchableOpacity
               style={{flexDirection: 'row'}}
               onPress={() => {
@@ -69,7 +68,7 @@ export default class WalletDetail extends Component {
               </Text>
             </TouchableOpacity>
           </View>
-          <ScrollView>
+          <ScrollView style={{paddingHorizontal: '5%'}}>
             {/* 블록번호 */}
             <List title="블록번호" sub={dealDetail.block} />
             {/* 총액 */}

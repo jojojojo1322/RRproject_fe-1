@@ -48,6 +48,7 @@ import ProfileIncompleteDetail from './components/settings/profile/ProfileIncomp
 import WalletMain from './components/settings/wallet/WalletMain';
 import WalletDetail from './components/settings/wallet/WalletDetail';
 import WalletSend from './components/settings/wallet/WalletSend';
+import WalletSendQR from './components/settings/wallet/WalletSendQR';
 import WalletSendSuccess from './components/settings/wallet/WalletSendSuccess';
 import WalletReceive from './components/settings/wallet/WalletReceive';
 import WalletConfirmPassword from './components/settings/wallet/WalletConfirmPassword';
@@ -726,6 +727,13 @@ export class AppMainStack extends Component {
         <Stack.Screen
           name="RequestResearch"
           component={RequestResearch}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="WalletSendQR"
+          component={WalletSendQR}
           options={{
             headerShown: false,
           }}
