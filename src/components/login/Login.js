@@ -150,6 +150,7 @@ export default class Login extends Component {
       });
   };
   render() {
+    console.log(DeviceInfo.getUniqueId());
     return (
       <SafeAreaView style={ResetStyle.container}>
         <View style={ResetStyle.containerInner}>
@@ -233,7 +234,7 @@ export default class Login extends Component {
 
                   //본부장님 테스트용
                   // this.props.navigation.navigate('WalletPassword');
-                  // await AsyncStorage.setItem('userNo', '111');
+                  await AsyncStorage.setItem('userNo', '111');
                 }}>
                 <Text
                   style={[
