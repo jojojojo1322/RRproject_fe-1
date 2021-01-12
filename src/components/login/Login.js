@@ -54,6 +54,8 @@ export default class Login extends Component {
     passWord: '',
     modalVisible: false,
     modal2Visible: false,
+    modal3Visible: false,
+    modal4Visible: false,
     selectedId: null,
     text: '',
     loginCheck: false,
@@ -66,6 +68,12 @@ export default class Login extends Component {
   };
   setModal2Visible = (visible) => {
     this.setState({modal2Visible: visible});
+  };
+  setModal3Visible = (visible) => {
+    this.setState({modal3Visible: visible});
+  };
+  setModal4Visible = (visible) => {
+    this.setState({modal4Visible: visible});
   };
   handleBack = () => {
     this.props.history.goBack();
@@ -84,8 +92,11 @@ export default class Login extends Component {
   handleLoginCheck = () => {
     // if(this.state.Id)
   };
-  handleNextPage = () => {
-    this.props.navigation.navigate('WalletPassword');
+  handleWalletNextPage = () => {
+    this.props.navigation.navigate('WalletPassword', {email: this.state.ID});
+  };
+  handleKycNextPage = () => {
+    this.props.navigation.navigate('Kyc');
   };
   loginApi = async (id, pass) => {
     await axios
@@ -211,7 +222,13 @@ export default class Login extends Component {
                       this.props.navigation.navigate('Main');
                     }
                   } else {
-                    this.setModal2Visible(true);
+                    if (this.state.errorMsg === 'KycLevel1 Not Saved') {
+                      this.setModal3Visible(true);
+                    } else if (this.state.errorMsg === 'DeviceKey Not Equal') {
+                      this.setModal4Visible(true);
+                    } else {
+                      this.setModal2Visible(true);
+                    }
                   }
 
                   //본부장님 테스트용
@@ -282,16 +299,28 @@ export default class Login extends Component {
           </View>
         </View>
         <TextConfirmModal
+          modalVisible={this.state.modal3Visible}
+          setModalVisible={this.setModal3Visible}
+          text={`Kyc Level 1을${'\n'}진행해주세요.`}
+          confirm={`확인`}
+          handleNextPage={this.handleKycNextPage}
+        />
+        <TextConfirmModal
           modalVisible={this.state.modalVisible}
           setModalVisible={this.setModalVisible}
-          text={`현재 지갑이 생성되어 있지 않습니다${'\n'}지갑을 만들어주세요`}
+          text={`현재 지갑이 생성되어 있지 않습니다${'\n'}지갑을 만들어주세요.`}
           confirm={`확인`}
-          handleNextPage={this.handleNextPage}
+          handleNextPage={this.handleWalletNextPage}
         />
         <BottomModal
           modalVisible={this.state.modal2Visible}
           setModalVisible={this.setModal2Visible}
-          text={`정보가 정확하지 않습니다`}
+          text={`정보가 정확하지 않습니다.`}
+        />
+        <BottomModal
+          modalVisible={this.state.modal4Visible}
+          setModalVisible={this.setModal4Visible}
+          text={`해당 계정의 디바이스가 아닙니다.`}
         />
       </SafeAreaView>
     );

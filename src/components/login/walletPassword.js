@@ -29,18 +29,53 @@ export default class WalletPassword extends Component {
     pass: '',
     modalVisible: false,
     modal2Visible: false,
+    modal3Visible: false,
     walletAddress: '',
+    walletCheck: '',
+    transCheck: '',
   };
   walletPasswordApi = async (walletPw) => {
     await axios
       .post(`${server}/wallet`, {
-        userNo: await AsyncStorage.getItem('userNo'),
+        email: this.props.route.params?.email,
         walletPw: walletPw,
+      })
+      .then(async (response) => {
+        console.log(response);
+        await this.setState({
+          walletCheck: response.data.status,
+        });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+  componentDidMount() {
+    this.walletKeyApi();
+  }
+  walletKeyApi = async () => {
+    await axios
+      .get(`${server}/wallet/${this.props.route.params?.email}`)
+      .then(async (response) => {
+        console.log('walletKeyApi', response);
+        await this.setState({
+          walletAddress: response.data.name,
+        });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+  walletTransApi = async () => {
+    await axios
+      .put(`${server}/wallet`, {
+        email: this.props.route.params?.email,
+        walletAddress: this.state.walletAddress,
       })
       .then((response) => {
         console.log(response);
         this.setState({
-          walletAddress: response.data.walletAddress,
+          transCheck: response.data.status,
         });
       })
       .catch((e) => {
@@ -82,8 +117,15 @@ export default class WalletPassword extends Component {
           console.log('1212');
           await this.walletPasswordApi(this.state.pass);
           console.log('3434');
-          console.log(this.state.walletAddress);
-          this.setModal2Visible(true);
+          console.log(this.state.walletCheck);
+          if (this.state.walletCheck == 'success') {
+            this.walletKeyApi();
+            if (this.state.walletAddress !== '') {
+              this.setModal2Visible(true);
+            }
+          } else if (this.state.walletCheck == 'fail') {
+            this.setModal3Visible(true);
+          }
         }
       }
 
@@ -108,7 +150,11 @@ export default class WalletPassword extends Component {
   setModal2Visible = (visible) => {
     this.setState({modal2Visible: visible});
   };
+  setModal3Visible = (visible) => {
+    this.setState({modal3Visible: visible});
+  };
   handleNextPage = async () => {
+    this.walletTransApi();
     this.props.navigation.navigate('WalletMasterKey', {
       walletAddress: this.state.walletAddress,
     });
@@ -305,6 +351,11 @@ export default class WalletPassword extends Component {
           modalVisible={this.state.modalVisible}
           setModalVisible={this.setModalVisible}
           text={`비밀번호가 일치하지 않습니다.`}
+        />
+        <BottomModal
+          modalVisible={this.state.modal3Visible}
+          setModalVisible={this.setModal3Visible}
+          text={`지갑 생성이 실패했습니다.`}
         />
         <TextConfirmModal
           modalVisible={this.state.modal2Visible}

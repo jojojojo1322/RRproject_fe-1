@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-               BuildableName = "RRproject_fe-tvOS.app"
-               BlueprintName = "RRproject_fe-tvOS"
-               ReferencedContainer = "container:RRproject_fe.xcodeproj">
+               BuildableName = "survey-tvOS.app"
+               BlueprintName = "survey-tvOS"
+               ReferencedContainer = "container:survey.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "RRproject_fe-tvOSTests.xctest"
-               BlueprintName = "RRproject_fe-tvOSTests"
-               ReferencedContainer = "container:RRproject_fe.xcodeproj">
+               BuildableName = "survey-tvOSTests.xctest"
+               BlueprintName = "survey-tvOSTests"
+               ReferencedContainer = "container:survey.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "RRproject_fe-tvOS.app"
-            BlueprintName = "RRproject_fe-tvOS"
-            ReferencedContainer = "container:RRproject_fe.xcodeproj">
+            BuildableName = "survey-tvOS.app"
+            BlueprintName = "survey-tvOS"
+            ReferencedContainer = "container:survey.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "RRproject_fe-tvOS.app"
-            BlueprintName = "RRproject_fe-tvOS"
-            ReferencedContainer = "container:RRproject_fe.xcodeproj">
+            BuildableName = "survey-tvOS.app"
+            BlueprintName = "survey-tvOS"
+            ReferencedContainer = "container:survey.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
