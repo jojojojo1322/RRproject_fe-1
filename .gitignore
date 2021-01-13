@@ -52,7 +52,7 @@ buck-out/
 */fastlane/Preview.html
 */fastlane/screenshots
 
-# Bundle artifact
+# Bundle artifactß
 *.jsbundle
 
 # CocoaPods
@@ -60,3 +60,6 @@ buck-out/
 
 #java hip dump file
 *.hprof
+
+#ios package manager
+project.pbxproj
