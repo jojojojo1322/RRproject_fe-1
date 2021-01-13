@@ -8,7 +8,9 @@
     "start": "react-native start --port 5050",
     "test": "jest",
     "lint": "eslint .",
-    "clean": "cd android &&./gradlew clean"
+    "clean": "cd android &&./gradlew clean",
+    "create": "npm install && cd ios && pod install && cd ..",
+    "delete": "rm -rf package-lock.json && cd ios && rm -rf Podfile.lock && cd .."
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.13.2",
@@ -35,17 +37,20 @@
     "react-native-gesture-password": "^0.4.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.3",
     "react-native-linear-gradient": "^2.5.6",
+    "react-native-passcode-auth": "^1.0.0",
     "react-native-permissions": "^3.0.0",
     "react-native-qrcode-scanner": "^1.5.1",
     "react-native-qrcode2": "^0.3.0",
     "react-native-reanimated": "^1.13.2",
     "react-native-safe-area-context": "^3.1.9",
-    "react-native-screens": "^2.15.0",
+    "react-native-screens": "^2.16.1",
     "react-native-svg": "^12.1.0",
     "react-native-svg-charts": "^5.4.0",
     "react-native-tab-view": "^2.15.2",
+    "react-native-touch-id": "^4.4.1",
     "react-native-video": "^5.1.0-alpha8",
-    "react-native-webview": "^11.0.2"
+    "react-native-webview": "^11.0.2",
+    "reanimated": "0.0.1-alpha"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
