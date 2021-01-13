@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -17,10 +17,27 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '../../../../style/ResetStyle.js';
 import TextConfirmModal from '../../../factory/modal/TextConfirmModal';
 
+import FingerprintScanner from 'react-native-fingerprint-scanner';
+import IOSTouchId from '../../../factory/tool/biometricLock/iosLock';
+import AndroidTouchId from '../../../factory/tool/biometricLock/androidLock';
+import TouchID from 'react-native-touch-id';
+// var TouchID = require('react-native-touch-id');
+
 const SettingsLock = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [isEnabled, setIsEnabled] = useState(false);
+  const [biometryType, setBiometryType] = useState(null);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+
+  useEffect(() => {
+    TouchID.isSupported()
+      .then((biometryType) => {
+        setBiometryType(biometryType);
+      })
+      .catch((e) => {
+        console.log('isSupported', e);
+      });
+  }, []);
 
   const handleNextPage = () => {
     navigation.navigate('SettingsLockPassword');
@@ -48,6 +65,54 @@ const SettingsLock = ({navigation}) => {
       title: '비밀번호 변경',
     },
   ]);
+  const handleFingerprintDismissed = () => {
+    console.log(';;;;;;;;;;;;;;');
+  };
+
+  const optionalConfigObject = {
+    // title: 'Authentication Required', // Android
+    // imageColor: '#e00606', // Android
+    // imageErrorColor: '#ff0000', // Android
+    // sensorDescription: 'Touch sensor', // Android
+    // sensorErrorDescription: 'Failed', // Android
+    // cancelText: 'Cancel', // Android
+    passcodeFallback: true, // iOS - allows the device to fall back to using the passcode, if faceid/touch is not available. this does not mean that if touchid/faceid fails the first few times it will revert to passcode, rather that if the former are not enrolled, then it will use the passcode.
+    // fallbackLabel: 'Show Passcode', // iOS (if empty, then label is hidden)
+    // unifiedErrors: false, // use unified error messages (default false)
+  };
+
+  const _clickHandler = () => {
+    TouchID.isSupported()
+      .then(authenticate)
+      .catch((error) => {
+        console.log('TouchID not supported');
+      });
+  };
+
+  const authenticate = () => {
+    return TouchID.authenticate('PAPA', optionalConfigObject)
+      .then((success) => {
+        console.log('Authenticated Successfully');
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log(error.message);
+      });
+  };
+
+  const passcodeAuth = () => {
+    return PasscodeAuth.isSupported()
+      .then(() => {
+        return PasscodeAuth.authenticate();
+      })
+      .then((success) => {
+        console.log('Authenticated Successfully');
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log(error.message);
+      });
+  };
 
   const Item = ({title, id, onPress}) => {
     CheckedArrObject = new SelectedCheckboxes();
@@ -107,9 +172,21 @@ const SettingsLock = ({navigation}) => {
             onValueChange={toggleSwitch}
             value={isEnabled}
             onChange={() => {
-              if (isEnabled === false) {
-                setModalVisible(!modalVisible);
-              }
+              console.log(Platform.OS);
+              // Platform.OS === 'ios' ? (
+              //   <IOSTouchId handlePopupDismissed={handleFingerprintDismissed} />
+              // ) : (
+              // <AndroidTouchId
+              //   handlePopupDismissed={handleFingerprintDismissed}
+              // />;
+              // );c
+              console.log(biometryType);
+              // _pressHandler();
+              _clickHandler();
+              console.log('2');
+              // if (isEnabled === false) {
+              //   setModalVisible(!modalVisible);
+              // }
             }}
           />
         </TouchableOpacity>
