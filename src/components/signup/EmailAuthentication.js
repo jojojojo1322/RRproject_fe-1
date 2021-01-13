@@ -333,7 +333,10 @@ class EmailAuthentication extends Component {
                     },
                   ]}>
                   <View
-                    style={{flexDirection: 'row', alignItems: 'space-between'}}>
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                    }}>
                     <TextInput
                       placeholder="인증번호 입력"
                       placeholderTextColor="#a9a9a9"
@@ -347,14 +350,15 @@ class EmailAuthentication extends Component {
                         ResetStyle.fontBlack,
                         {textAlign: 'left'},
                         this.state.returnApprove != '0' && {
-                          width: '80%',
+                          width: '70%',
                         },
                       ]}></TextInput>
                     {this.state.returnApprove == '0' && (
                       <Image
                         style={{
-                          marginLeft: '4%',
-                          marginBottom: '2%',
+                          position: 'absolute',
+                          top: Platform.OS === 'ios' ? '10%' : '35%',
+                          right: '45%',
                         }}
                         source={require('../../imgs/drawable-xxxhdpi/verification_code_check_icon.png')}
                       />
@@ -363,7 +367,7 @@ class EmailAuthentication extends Component {
                   <TouchableOpacity
                     style={[
                       ResetStyle.buttonSmall,
-                      {width: '20%'},
+                      {width: '25%'},
                       this.state.returnApprove == '0' && {
                         backgroundColor: '#e6e6e6',
                       },
@@ -473,7 +477,7 @@ class EmailAuthentication extends Component {
                       style={[
                         ResetStyle.fontLightK,
                         ResetStyle.fontB,
-                        {marginLeft: '5%', fontSize: 19, fontWeight: '600'},
+                        {marginLeft: '5%', fontWeight: '600'},
                       ]}>
                       재전송
                     </Text>

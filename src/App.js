@@ -3,7 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {CustomDrawerContent} from './components/defined/CustomDrawerContent';
-import {StyleSheet, ScrollView} from 'react-native';
+import {StyleSheet, ScrollView, View, Text} from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -74,6 +74,7 @@ import SettingsPersonalResetPassword from './components/settings/settingsDetail/
 import SettingsPersonalPhone from './components/settings/settingsDetail/personal/SettingsPersonalPhone';
 import SettingsPersonalMasterPhone from './components/settings/settingsDetail/personal/SettingsPersonalMasterPhone';
 import SettingsPersonalMasterKey from './components/settings/settingsDetail/personal/SettingsPersonalMasterKey';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const Stack = createStackNavigator();
 
@@ -738,6 +739,13 @@ export class AppMainStack extends Component {
             headerShown: false,
           }}
         />
+        <Stack.Screen
+          name="MainAlert"
+          component={MainAlert}
+          options={{
+            headerShown: false,
+          }}
+        />
       </Stack.Navigator>
     );
   }
@@ -809,12 +817,12 @@ const App = () => {
               margin: 0,
             },
           }}>
-          <Drawer.Screen name="설문조사" component={Main} />
+          {/* <Drawer.Screen name="설문조사" component={Main} />
           <Drawer.Screen name="설문조사 의뢰하기" component={RequestResearch} />
           <Drawer.Screen name="미디어" component={Media} />
           <Drawer.Screen name="알림" component={MainAlert} />
           <Drawer.Screen name="설정" component={Settings} />
-          <Drawer.Screen name="초대코드" component={Main} />
+          <Drawer.Screen name="초대코드" component={Main} /> */}
           <Drawer.Screen
             name="초기"
             component={AppMainStack}

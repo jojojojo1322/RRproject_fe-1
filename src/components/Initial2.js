@@ -270,7 +270,7 @@ class Initial2 extends Component {
                 {marginTop: 10, borderColor: '#FFF'},
               ]}
               onPress={() => {
-                this.props.navigation.navigate('WalletSend');
+                this.props.navigation.navigate('EmailAuthentication');
               }}>
               <Text
                 style={[

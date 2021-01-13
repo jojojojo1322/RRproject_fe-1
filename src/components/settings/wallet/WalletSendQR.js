@@ -34,23 +34,37 @@ export default class WalletSendQR extends Component {
   render() {
     return (
       <SafeAreaView style={ResetStyle.container}>
-        <View style={[ResetStyle.containerInner, {marginHorizontal: 0}]}>
-          <Text style={styles.centerText}>
-            Go to{' '}
-            <Text style={styles.textBold}>wikipedia.org/wiki/QR_code</Text> on
-            your computer and scan the QR code.
-          </Text>
+        <View
+          style={[
+            ResetStyle.containerInner,
+            {
+              marginHorizontal: 0,
+              marginBottom: 0,
+            },
+          ]}>
           {/* Top */}
+          {/* topBackButton */}
+          <View style={[ResetStyle.topBackButton, {marginLeft: '5%'}]}>
+            <TouchableOpacity
+              style={{flexDirection: 'row', alignItems: 'center'}}
+              onPress={() => {
+                this.props.navigation.goBack();
+              }}>
+              <Image
+                source={require('../../../imgs/drawable-xxxhdpi/back_icon.png')}
+              />
+              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+                돌아가기
+              </Text>
+            </TouchableOpacity>
+          </View>
           <QRCodeScanner
             onRead={this.onSuccess}
             disableVibrationByUser={false}
-            containerStyle={{width: '100%'}}
+            containerStyle={{width: '100%', height: '100%'}}
             cameraStyle={{width: '100%'}}
           />
         </View>
-        <TouchableOpacity style={styles.buttonTouchable}>
-          <Text style={styles.buttonText}>OK. Got it!</Text>
-        </TouchableOpacity>
       </SafeAreaView>
     );
   }

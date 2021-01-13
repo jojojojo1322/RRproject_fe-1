@@ -30,7 +30,7 @@ export default class MainDetailExpired extends Component {
   render() {
     return (
       <SafeAreaView style={[ResetStyle.container]}>
-        <View style={[ResetStyle.containerInner]}>
+        <ScrollView style={{paddingLeft: '5%', paddingRight: '5%'}}>
           <View
             style={{
               flexDirection: 'row',
@@ -234,7 +234,7 @@ export default class MainDetailExpired extends Component {
               EXPIRED
             </Text>
           </TouchableOpacity>
-        </View>
+        </ScrollView>
       </SafeAreaView>
     );
   }

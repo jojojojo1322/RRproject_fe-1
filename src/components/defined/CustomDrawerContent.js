@@ -1,17 +1,5 @@
-import React, {Component} from 'react';
-import {
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  TextInput,
-  FlatList,
-  TouchableOpacity,
-  SafeAreaView,
-  Image,
-  StatusBar,
-  Dimensions,
-} from 'react-native';
+import React, {Component, useState} from 'react';
+import {View, Text, TouchableOpacity, Image} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {server} from '../defined/server';
@@ -21,11 +9,11 @@ import {
   createDrawerNavigator,
   DrawerContentScrollView,
   DrawerItemList,
-  DrawerItem,
 } from '@react-navigation/drawer';
+
 import {ProgressCircle} from 'react-native-svg-charts';
 import ResetStyle from '../../style/ResetStyle.js';
-import MainDetail from '../main/MainDetail';
+import MainStyle from '../../style/MainStyle.js';
 
 const Tab = createMaterialTopTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -39,7 +27,7 @@ export function CustomDrawerContent(props) {
           alignItems: 'center',
           justifyContent: 'space-between',
           padding: '5%',
-          paddingBottom: '12%',
+          paddingBottom: Platform.OS === 'ios' ? '12%' : '8%',
         }}>
         <TouchableOpacity>
           <View style={{flexDirection: 'row'}}>
@@ -78,8 +66,8 @@ export function CustomDrawerContent(props) {
           style={{
             position: 'absolute',
             top: 0,
-            width: 130,
-            height: 135,
+            width: Platform.OS === 'ios' ? 130 : 120,
+            height: Platform.OS === 'ios' ? 135 : 120,
             backgroundColor: '#FFF',
             borderRadius: 60,
           }}
@@ -91,7 +79,7 @@ export function CustomDrawerContent(props) {
         <View
           style={{
             position: 'absolute',
-            top: 35,
+            top: Platform.OS === 'ios' ? 35 : 30,
             flexDirection: 'row',
             borderBottomWidth: 0.5,
             borderBottomColor: '#0080ff',
@@ -111,17 +99,15 @@ export function CustomDrawerContent(props) {
           style={[
             ResetStyle.fontBoldE,
             ResetStyle.fontB,
-            {fontSize: 40, marginTop: 5, position: 'absolute', top: 60},
+            {
+              fontSize: 40,
+              marginTop: 5,
+              position: 'absolute',
+              top: Platform.OS === 'ios' ? 60 : 50,
+            },
           ]}>
           2
         </Text>
-        {/* <DrawerItemList {...props} /> */}
-        {/* <DrawerItem
-          label="Help"
-          onPress={() => {
-            props.navigation.navigate('ProfileMain');
-            console.log('asdasdasdasdasd');
-          }}> */}
         <TouchableOpacity
           onPress={() => {
             console.log(props.navigation.openDrawer);
@@ -132,7 +118,7 @@ export function CustomDrawerContent(props) {
             style={{
               flexDirection: 'row',
               alignItems: 'center',
-              marginTop: 140,
+              marginTop: Platform.OS === 'ios' ? 140 : 130,
             }}>
             <Text
               style={[
@@ -154,14 +140,15 @@ export function CustomDrawerContent(props) {
         style={{
           borderBottomWidth: 0.5,
           borderBottomColor: '#dedede',
-          marginTop: 40,
+          marginTop: Platform.OS === 'ios' ? 40 : 25,
         }}></View>
       <View
         style={{
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'space-between',
-          margin: '5%',
+          margin: Platform.OS === 'ios' ? '5%' : '5%',
+          marginVertical: Platform.OS === 'ios' ? '5%' : '3%',
         }}>
         <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
           <Text style={[ResetStyle.fontMediumE, ResetStyle.fontB]}>0</Text>
@@ -189,7 +176,98 @@ export function CustomDrawerContent(props) {
           </Text>
         </TouchableOpacity>
       </View>
+      {/* //TopMenu */}
 
+      {/* Menu */}
+      <View style={{flexDirection: 'column', width: '100%'}}>
+        <TouchableOpacity
+          onPress={() => {
+            props.navigation.navigate('Main');
+          }}
+          style={MainStyle.drawerItem}>
+          <Text
+            style={[
+              ResetStyle.fontRegularK,
+              ResetStyle.fontBlack,
+              MainStyle.drawerItemText,
+            ]}>
+            설문조사
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            props.navigation.navigate('RequestResearch');
+          }}
+          style={MainStyle.drawerItem}>
+          <Text
+            style={[
+              ResetStyle.fontRegularK,
+              ResetStyle.fontBlack,
+              MainStyle.drawerItemText,
+            ]}>
+            설문조사 의뢰하기
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            props.navigation.navigate('Media');
+          }}
+          style={MainStyle.drawerItem}>
+          <Text
+            style={[
+              ResetStyle.fontRegularK,
+              ResetStyle.fontBlack,
+              MainStyle.drawerItemText,
+            ]}>
+            미디어
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            props.navigation.navigate('MainAlert');
+          }}
+          style={MainStyle.drawerItem}>
+          <Text
+            style={[
+              ResetStyle.fontRegularK,
+              ResetStyle.fontBlack,
+              MainStyle.drawerItemText,
+            ]}>
+            알림
+          </Text>
+          <TouchableOpacity style={[MainStyle.drawerItemAlert]}>
+            <Text style={[MainStyle.drawerItemAlertText]}>5</Text>
+          </TouchableOpacity>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            props.navigation.navigate('Settings');
+          }}
+          style={MainStyle.drawerItem}>
+          <Text
+            style={[
+              ResetStyle.fontRegularK,
+              ResetStyle.fontBlack,
+              MainStyle.drawerItemText,
+            ]}>
+            설정
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            props.navigation.navigate('Main');
+          }}
+          style={MainStyle.drawerItem}>
+          <Text
+            style={[
+              ResetStyle.fontRegularK,
+              ResetStyle.fontBlack,
+              MainStyle.drawerItemText,
+            ]}>
+            초대코드
+          </Text>
+        </TouchableOpacity>
+      </View>
       <DrawerItemList
         label="Research"
         itemStyle={{
@@ -207,19 +285,6 @@ export function CustomDrawerContent(props) {
         ]}
         {...props}
       />
-      {/* <DrawerItem
-        label="Close drawer"
-        onPress={() => props.navigation.closeDrawer()}
-      />
-      <DrawerItem
-        label="Toggle drawer"
-        onPress={() => props.navigation.toggleDrawer()}
-      /> */}
-      {/* <DrawerItem
-        label="change"
-        onPress={() => props.navigation.closeDrawer()}
-        {...props}
-      /> */}
     </DrawerContentScrollView>
   );
 }
