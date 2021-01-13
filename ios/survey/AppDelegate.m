@@ -12,7 +12,7 @@
 #import <SKIOSNetworkPlugin/SKIOSNetworkAdapter.h>
 #import <FlipperKitReactPlugin/FlipperKitReactPlugin.h>
 
-#import <Firebase.h> // <--- add this for react native camera firebase
+// #import <Firebase.h> // <--- add this for react native camera firebase
 
 static void InitializeFlipper(UIApplication *application) {
   FlipperClient *client = [FlipperClient sharedClient];
@@ -29,7 +29,7 @@ static void InitializeFlipper(UIApplication *application) {
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  [FIRApp configure]; // <--- add this for react native camera firebase
+  // [FIRApp configure]; // <--- add this for react native camera firebase
 #if DEBUG
   InitializeFlipper(application);
 #endif

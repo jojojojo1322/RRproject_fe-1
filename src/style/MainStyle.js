@@ -1,6 +1,34 @@
 import {Platform, StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
+  // Drawer
+  drawerItem: {
+    width: '85%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  drawerItemText: {
+    textAlign: 'left',
+    paddingLeft: '5%',
+    width: '100%',
+    paddingVertical: Platform.OS === 'ios' ? '5%' : '4%',
+  },
+  drawerItemAlert: {
+    width: 30,
+    height: 30,
+    backgroundColor: '#ff9100',
+    borderRadius: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  drawerItemAlertText: {
+    fontSize: Platform.OS === 'ios' ? 16 : 14,
+    fontWeight: '500',
+    textAlign: 'center',
+    color: '#FFF',
+  },
+
   // Item
   itemBox: {
     width: '90%',

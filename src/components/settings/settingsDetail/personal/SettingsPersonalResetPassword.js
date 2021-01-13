@@ -118,272 +118,274 @@ export default class SettingsPersonalResetPassword extends Component {
     return (
       <SafeAreaView style={ResetStyle.container}>
         <View style={ResetStyle.containerInner}>
-          {/* topBackButton */}
-          <View style={[ResetStyle.topBackButton]}>
-            <TouchableOpacity
-              style={{flexDirection: 'row'}}
-              onPress={() => {
-                this.props.navigation.goBack();
-              }}>
-              <Image
-                source={require('../../../../imgs/drawable-xxxhdpi/back_icon.png')}
-              />
-              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-                새 비밀번호 입력
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{marginTop: '10%'}}>
-            <TouchableOpacity>
-              <View style={[ResetStyle.textInputStyle]}>
-                <Text
-                  style={[
-                    ResetStyle.fontRegularK,
-                    ResetStyle.fontDG,
-                    ResetStyle.textInputTitle,
-                  ]}>
-                  비밀번호
+          <View style={{flexDirection: 'column'}}>
+            {/* topBackButton */}
+            <View style={[ResetStyle.topBackButton]}>
+              <TouchableOpacity
+                style={{flexDirection: 'row'}}
+                onPress={() => {
+                  this.props.navigation.goBack();
+                }}>
+                <Image
+                  source={require('../../../../imgs/drawable-xxxhdpi/back_icon.png')}
+                />
+                <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+                  새 비밀번호 입력
                 </Text>
-                <TextInput
-                  placeholder="아래 조합으로 입력"
-                  placeholderTextColor="#a9a9a9"
-                  // keyboardType={'numeric'}
-                  secureTextEntry={this.state.firstBlur}
-                  onChangeText={this.handlePassword}
-                  value={this.state.password}
-                  style={[
-                    ResetStyle.fontRegularK,
-                    ResetStyle.fontG,
-                    ResetStyle.textInputText,
-                  ]}></TextInput>
-                <TouchableOpacity
-                  style={[ResetStyle.textInputTextButton, {top: '45%'}]}
-                  onPress={() => {
-                    const first = this.state.firstBlur;
-                    this.setState({
-                      firstBlur: !first,
-                    });
-                  }}>
-                  {this.state.firstBlur ? (
-                    <Image
-                      style={ResetStyle.smallImg}
-                      source={require('../../../../imgs/drawable-xhdpi/ico_blind_d.png')}
-                    />
-                  ) : (
-                    <Image
-                      style={ResetStyle.smallImg}
-                      source={require('../../../../imgs/drawable-xhdpi/ico_view_d.png')}
-                    />
-                  )}
-                </TouchableOpacity>
-                <View style={[AuthStyle.resetPasswordView1]}>
-                  <View style={[AuthStyle.resetPasswordView2]}>
-                    {!chkPWRow(this.state.password) ? (
+              </TouchableOpacity>
+            </View>
+            <View style={{marginTop: '10%'}}>
+              <TouchableOpacity>
+                <View style={[ResetStyle.textInputStyle]}>
+                  <Text
+                    style={[
+                      ResetStyle.fontRegularK,
+                      ResetStyle.fontDG,
+                      ResetStyle.textInputTitle,
+                    ]}>
+                    비밀번호
+                  </Text>
+                  <TextInput
+                    placeholder="아래 조합으로 입력"
+                    placeholderTextColor="#a9a9a9"
+                    // keyboardType={'numeric'}
+                    secureTextEntry={this.state.firstBlur}
+                    onChangeText={this.handlePassword}
+                    value={this.state.password}
+                    style={[
+                      ResetStyle.fontRegularK,
+                      ResetStyle.fontG,
+                      ResetStyle.textInputText,
+                    ]}></TextInput>
+                  <TouchableOpacity
+                    style={[ResetStyle.textInputTextButton, {top: '45%'}]}
+                    onPress={() => {
+                      const first = this.state.firstBlur;
+                      this.setState({
+                        firstBlur: !first,
+                      });
+                    }}>
+                    {this.state.firstBlur ? (
                       <Image
-                        style={ResetStyle.xsmallImg}
-                        source={require('../../../../imgs/drawable-xhdpi/icon_s_check_off.png')}
+                        style={ResetStyle.smallImg}
+                        source={require('../../../../imgs/drawable-xhdpi/ico_blind_d.png')}
                       />
                     ) : (
                       <Image
-                        style={ResetStyle.xsmallImg}
-                        source={require('../../../../imgs/drawable-xhdpi/icon_s_check_on.png')}
+                        style={ResetStyle.smallImg}
+                        source={require('../../../../imgs/drawable-xhdpi/ico_view_d.png')}
                       />
                     )}
-                    <Text
-                      style={[
-                        ResetStyle.fontLightK,
-                        ResetStyle.fontG,
-                        {marginLeft: 5},
-                      ]}>
-                      영문
-                    </Text>
-                  </View>
-                  <View style={[AuthStyle.resetPasswordView2]}>
-                    {!chkPWNumber(this.state.password) ? (
-                      <Image
-                        style={ResetStyle.xsmallImg}
-                        source={require('../../../../imgs/drawable-xhdpi/icon_s_check_off.png')}
-                      />
-                    ) : (
-                      <Image
-                        style={ResetStyle.xsmallImg}
-                        source={require('../../../../imgs/drawable-xhdpi/icon_s_check_on.png')}
-                      />
-                    )}
-                    <Text
-                      style={[
-                        ResetStyle.fontLightK,
-                        ResetStyle.fontG,
-                        {marginLeft: 5},
-                      ]}>
-                      숫자
-                    </Text>
-                  </View>
-                  <View style={[AuthStyle.resetPasswordView2]}>
-                    {!chkPWHigh(this.state.password) ? (
-                      <Image
-                        style={ResetStyle.xsmallImg}
-                        source={require('../../../../imgs/drawable-xhdpi/icon_s_check_off.png')}
-                      />
-                    ) : (
-                      <Image
-                        style={ResetStyle.xsmallImg}
-                        source={require('../../../../imgs/drawable-xhdpi/icon_s_check_on.png')}
-                      />
-                    )}
-                    <Text
-                      style={[
-                        ResetStyle.fontLightK,
-                        ResetStyle.fontG,
-                        {marginLeft: 5},
-                      ]}>
-                      대문자
-                    </Text>
-                  </View>
-                  <View style={[AuthStyle.resetPasswordView2]}>
-                    {!chkPWCharacter(this.state.password) ? (
-                      <Image
-                        style={ResetStyle.xsmallImg}
-                        source={require('../../../../imgs/drawable-xhdpi/icon_s_check_off.png')}
-                      />
-                    ) : (
-                      <Image
-                        style={ResetStyle.xsmallImg}
-                        source={require('../../../../imgs/drawable-xhdpi/icon_s_check_on.png')}
-                      />
-                    )}
-                    <Text
-                      style={[
-                        ResetStyle.fontLightK,
-                        ResetStyle.fontG,
-                        {marginLeft: 5},
-                      ]}>
-                      특수문자
-                    </Text>
-                  </View>
-                  <View style={[AuthStyle.resetPasswordView2]}>
-                    {this.state.password.length < 8 ? (
-                      <Image
-                        style={ResetStyle.xsmallImg}
-                        source={require('../../../../imgs/drawable-xhdpi/icon_s_check_off.png')}
-                      />
-                    ) : (
-                      <Image
-                        style={ResetStyle.xsmallImg}
-                        source={require('../../../../imgs/drawable-xhdpi/icon_s_check_on.png')}
-                      />
-                    )}
-                    <Text
-                      style={[
-                        ResetStyle.fontLightK,
-                        ResetStyle.fontG,
-                        {marginLeft: 5},
-                      ]}>
-                      8자리 이상
-                    </Text>
+                  </TouchableOpacity>
+                  <View style={[AuthStyle.resetPasswordView1]}>
+                    <View style={[AuthStyle.resetPasswordView2]}>
+                      {!chkPWRow(this.state.password) ? (
+                        <Image
+                          style={ResetStyle.xsmallImg}
+                          source={require('../../../../imgs/drawable-xhdpi/icon_s_check_off.png')}
+                        />
+                      ) : (
+                        <Image
+                          style={ResetStyle.xsmallImg}
+                          source={require('../../../../imgs/drawable-xhdpi/icon_s_check_on.png')}
+                        />
+                      )}
+                      <Text
+                        style={[
+                          ResetStyle.fontLightK,
+                          ResetStyle.fontG,
+                          {marginLeft: 5},
+                        ]}>
+                        영문
+                      </Text>
+                    </View>
+                    <View style={[AuthStyle.resetPasswordView2]}>
+                      {!chkPWNumber(this.state.password) ? (
+                        <Image
+                          style={ResetStyle.xsmallImg}
+                          source={require('../../../../imgs/drawable-xhdpi/icon_s_check_off.png')}
+                        />
+                      ) : (
+                        <Image
+                          style={ResetStyle.xsmallImg}
+                          source={require('../../../../imgs/drawable-xhdpi/icon_s_check_on.png')}
+                        />
+                      )}
+                      <Text
+                        style={[
+                          ResetStyle.fontLightK,
+                          ResetStyle.fontG,
+                          {marginLeft: 5},
+                        ]}>
+                        숫자
+                      </Text>
+                    </View>
+                    <View style={[AuthStyle.resetPasswordView2]}>
+                      {!chkPWHigh(this.state.password) ? (
+                        <Image
+                          style={ResetStyle.xsmallImg}
+                          source={require('../../../../imgs/drawable-xhdpi/icon_s_check_off.png')}
+                        />
+                      ) : (
+                        <Image
+                          style={ResetStyle.xsmallImg}
+                          source={require('../../../../imgs/drawable-xhdpi/icon_s_check_on.png')}
+                        />
+                      )}
+                      <Text
+                        style={[
+                          ResetStyle.fontLightK,
+                          ResetStyle.fontG,
+                          {marginLeft: 5},
+                        ]}>
+                        대문자
+                      </Text>
+                    </View>
+                    <View style={[AuthStyle.resetPasswordView2]}>
+                      {!chkPWCharacter(this.state.password) ? (
+                        <Image
+                          style={ResetStyle.xsmallImg}
+                          source={require('../../../../imgs/drawable-xhdpi/icon_s_check_off.png')}
+                        />
+                      ) : (
+                        <Image
+                          style={ResetStyle.xsmallImg}
+                          source={require('../../../../imgs/drawable-xhdpi/icon_s_check_on.png')}
+                        />
+                      )}
+                      <Text
+                        style={[
+                          ResetStyle.fontLightK,
+                          ResetStyle.fontG,
+                          {marginLeft: 5},
+                        ]}>
+                        특수문자
+                      </Text>
+                    </View>
+                    <View style={[AuthStyle.resetPasswordView2]}>
+                      {this.state.password.length < 8 ? (
+                        <Image
+                          style={ResetStyle.xsmallImg}
+                          source={require('../../../../imgs/drawable-xhdpi/icon_s_check_off.png')}
+                        />
+                      ) : (
+                        <Image
+                          style={ResetStyle.xsmallImg}
+                          source={require('../../../../imgs/drawable-xhdpi/icon_s_check_on.png')}
+                        />
+                      )}
+                      <Text
+                        style={[
+                          ResetStyle.fontLightK,
+                          ResetStyle.fontG,
+                          {marginLeft: 5},
+                        ]}>
+                        8자리 이상
+                      </Text>
+                    </View>
                   </View>
                 </View>
-              </View>
-            </TouchableOpacity>
+              </TouchableOpacity>
 
-            {/* 비밀번호 확인 */}
-            <TouchableOpacity>
-              <View style={[ResetStyle.textInputStyle, {marginTop: '10%'}]}>
-                <Text
-                  style={[
-                    ResetStyle.fontRegularK,
-                    ResetStyle.fontDG,
-                    ResetStyle.textInputTitle,
-                  ]}>
-                  비밀번호 확인
-                </Text>
-                <TextInput
-                  secureTextEntry={this.state.secondBlur}
-                  placeholder="비밀번호 다시 입력"
-                  placeholderTextColor="#a9a9a9"
-                  // keyboardType={'numeric'}
-                  onBlur={() => {
-                    if (
-                      this.state.checkPassword == '' ||
-                      this.state.password == ''
-                    ) {
-                      this.setState({
-                        checkBoolean: '',
-                      });
-                    } else if (
-                      this.state.checkPassword == this.state.password
-                    ) {
-                      this.setState({
-                        checkBoolean: true,
-                      });
-                    } else if (
-                      this.state.checkPassword != this.state.password
-                    ) {
-                      this.setState({
-                        checkBoolean: false,
-                      });
-                    }
-                  }}
-                  onChangeText={this.handleCheckPassword}
-                  value={this.state.checkPassword}
-                  style={[
-                    ResetStyle.fontRegularK,
-                    ResetStyle.fontG,
-                    ResetStyle.textInputText,
-                  ]}></TextInput>
-                {/* <Image
+              {/* 비밀번호 확인 */}
+              <TouchableOpacity>
+                <View style={[ResetStyle.textInputStyle, {marginTop: '10%'}]}>
+                  <Text
+                    style={[
+                      ResetStyle.fontRegularK,
+                      ResetStyle.fontDG,
+                      ResetStyle.textInputTitle,
+                    ]}>
+                    비밀번호 확인
+                  </Text>
+                  <TextInput
+                    secureTextEntry={this.state.secondBlur}
+                    placeholder="비밀번호 다시 입력"
+                    placeholderTextColor="#a9a9a9"
+                    // keyboardType={'numeric'}
+                    onBlur={() => {
+                      if (
+                        this.state.checkPassword == '' ||
+                        this.state.password == ''
+                      ) {
+                        this.setState({
+                          checkBoolean: '',
+                        });
+                      } else if (
+                        this.state.checkPassword == this.state.password
+                      ) {
+                        this.setState({
+                          checkBoolean: true,
+                        });
+                      } else if (
+                        this.state.checkPassword != this.state.password
+                      ) {
+                        this.setState({
+                          checkBoolean: false,
+                        });
+                      }
+                    }}
+                    onChangeText={this.handleCheckPassword}
+                    value={this.state.checkPassword}
+                    style={[
+                      ResetStyle.fontRegularK,
+                      ResetStyle.fontG,
+                      ResetStyle.textInputText,
+                    ]}></TextInput>
+                  {/* <Image
                     style={ResetStyle.smallImg}
                     source={require('../../../imgs/drawable-xhdpi/ico_view_d.png')}
                   /> */}
-                <TouchableOpacity
-                  style={[ResetStyle.textInputTextButton]}
-                  onPress={() => {
-                    const second = this.state.secondBlur;
-                    this.setState({
-                      secondBlur: !second,
-                    });
-                  }}>
-                  {this.state.secondBlur ? (
-                    <Image
-                      style={ResetStyle.smallImg}
-                      source={require('../../../../imgs/drawable-xhdpi/ico_blind_d.png')}
-                    />
-                  ) : (
-                    <Image
-                      style={ResetStyle.smallImg}
-                      source={require('../../../../imgs/drawable-xhdpi/ico_view_d.png')}
-                    />
-                  )}
-                </TouchableOpacity>
-              </View>
-            </TouchableOpacity>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginTop: '3%',
-              }}>
-              {this.state.checkBoolean !== '' &&
-                this.state.checkBoolean == false && (
-                  <>
-                    <Image
-                      style={ResetStyle.smallImg}
-                      source={require('../../../../imgs/drawable-xhdpi/icon_x_red.png')}
-                    />
+                  <TouchableOpacity
+                    style={[ResetStyle.textInputTextButton]}
+                    onPress={() => {
+                      const second = this.state.secondBlur;
+                      this.setState({
+                        secondBlur: !second,
+                      });
+                    }}>
+                    {this.state.secondBlur ? (
+                      <Image
+                        style={ResetStyle.smallImg}
+                        source={require('../../../../imgs/drawable-xhdpi/ico_blind_d.png')}
+                      />
+                    ) : (
+                      <Image
+                        style={ResetStyle.smallImg}
+                        source={require('../../../../imgs/drawable-xhdpi/ico_view_d.png')}
+                      />
+                    )}
+                  </TouchableOpacity>
+                </View>
+              </TouchableOpacity>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginTop: '3%',
+                }}>
+                {this.state.checkBoolean !== '' &&
+                  this.state.checkBoolean == false && (
+                    <>
+                      <Image
+                        style={ResetStyle.smallImg}
+                        source={require('../../../../imgs/drawable-xhdpi/icon_x_red.png')}
+                      />
 
-                    <Text
-                      style={[
-                        ResetStyle.fontLightK,
-                        ResetStyle.fontR,
-                        {marginLeft: 5},
-                      ]}>
-                      비밀번호가 일치하지 않습니다.
-                    </Text>
-                  </>
-                )}
+                      <Text
+                        style={[
+                          ResetStyle.fontLightK,
+                          ResetStyle.fontR,
+                          {marginLeft: 5},
+                        ]}>
+                        비밀번호가 일치하지 않습니다.
+                      </Text>
+                    </>
+                  )}
+              </View>
             </View>
+            {/* 비밀번호 */}
           </View>
-          {/* 비밀번호 */}
 
           {/* 확인버튼 */}
           <TouchableOpacity

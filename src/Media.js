@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {
+  StatusBar,
   View,
   Text,
   TextInput,
@@ -17,6 +18,7 @@ import {WebView} from 'react-native-webview';
 export const Media = ({navigation}) => {
   return (
     <SafeAreaView style={[ResetStyle.container]}>
+      <StatusBar barStyle="dark-content" />
       <View
         style={[ResetStyle.containerInner, {marginLeft: 0, marginRight: 0}]}>
         {/* topBackButton */}
@@ -30,7 +32,9 @@ export const Media = ({navigation}) => {
                 source={require('./imgs/drawable-xxxhdpi/back_icon.png')}
               />
             </TouchableOpacity>
-            <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}></Text>
+            <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+              미디어
+            </Text>
           </View>
         </View>
         <WebView source={{uri: 'https://media.realresearcher.com'}} />
