@@ -21,6 +21,7 @@ import FingerprintScanner from 'react-native-fingerprint-scanner';
 import IOSTouchId from '../../../factory/tool/biometricLock/iosLock';
 import AndroidTouchId from '../../../factory/tool/biometricLock/androidLock';
 import TouchID from 'react-native-touch-id';
+import PasscodeAuth from 'react-native-passcode-auth';
 // var TouchID = require('react-native-touch-id');
 
 const SettingsLock = ({navigation}) => {

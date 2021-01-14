@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -11,75 +11,20 @@ import {
   Keyboard,
   Image,
 } from 'react-native';
+import axios from 'axios';
+import {server} from '../defined/server';
 import {ScrollView} from 'react-native-gesture-handler';
 import ResetStyle from '../../style/ResetStyle.js';
 import ResearchStyle from '../../style/ResearchStyle.js';
 
-const data = [
-  {
-    id: '1',
-    status: false,
-    category: 'survey',
-    title: '설문조사 제목 1',
-    contents: '새로운 설문조사 등록되었습니다.',
-    date: '2020-10-30 12:30',
-  },
-  {
-    id: '2',
-    status: false,
-    category: 'wallet',
-    title: '설문조사 제목 2',
-    contents: '설문조사 참여로 10 TNC 지급되었습니다.',
-    date: '2020-10-30 12:30',
-  },
-  {
-    id: '3',
-    status: false,
-    category: 'wallet',
-    title: 'SEND',
-    contents: '지갑에서 10,000 TNC를 송금하였습니다.',
-    date: '2020-10-30 12:30',
-  },
-  {
-    id: '4',
-    status: false,
-    category: 'wallet',
-    title: '설문조사 제목 3',
-    contents: '설문조사 참여로 10 TNC 지급되었습니다.',
-    date: '2020-10-30 12:30',
-  },
-  {
-    id: '5',
-    status: true,
-    category: 'wallet',
-    title: 'SEND',
-    contents: '지갑에서 10,000 TNC를 송금하였습니다.',
-    date: '2020-10-30 12:30',
-  },
-  {
-    id: '6',
-    status: true,
-    category: 'survey',
-    title: '설문조사 제목 4',
-    contents: '새로운 설문조사 등록되었습니다.',
-    date: '2020-10-30 12:30',
-  },
-  {
-    id: '7',
-    status: true,
-    category: 'wallet',
-    title: '설문조사 제목 5',
-    contents: '설문조사 참여로 10 TNC 지급되었습니다.',
-    date: '2020-10-30 12:30',
-  },
-];
-
-const Item = (data, navigation) => (
+const Item = (data) => (
   <TouchableOpacity
     onPress={() => {
-      data.category === 'survey'
-        ? navigation.navigate('Main')
-        : navigation.navigate('MainDetail');
+      console.log('data', data.id);
+      data.status === false && data.alertCheckApi(data.id);
+      data.category === 'SURVEY'
+        ? data.navigation.navigate('Main')
+        : data.navigation.navigate('WalletMain');
     }}
     style={{
       borderTopWidth: 1,
@@ -103,13 +48,13 @@ const Item = (data, navigation) => (
         ResetStyle.fontBlack,
         {textAlign: 'left', marginTop: '2%', marginBottom: '2%'},
       ]}>
-      {data.contents}
+      {data.body}
     </Text>
     <Text
       style={[ResetStyle.fontLightK, ResetStyle.fontG, {textAlign: 'left'}]}>
-      {data.date}
+      {data.createTime}
     </Text>
-    {data.status === true ? (
+    {data.status === false ? (
       <View
         style={{
           position: 'absolute',
@@ -124,14 +69,46 @@ const Item = (data, navigation) => (
   </TouchableOpacity>
 );
 
-export const MainAlert = ({navigation}) => {
+export const MainAlert = (props) => {
+  const [alertData, setAlertData] = useState(props.route.params?.alertData);
+  useEffect(() => {
+    // console.log('MAINALERT', props.route.params?.alertData);
+    console.log('MAINALERT', alertData);
+  }, []);
+  // useEffect(()=>{
+  //   axios
+  //   .post(`${server}/kyc`, {
+  //       birthday: birthday,
+  //       countryCd: countryCd,
+  //       countryCity: countryCity,
+  //       countryResidence: countryResidence,
+  //       gender: gender,
+  //       languageCd: languageCd,
+  //       marriageStatus: marriageStatus,
+  //       userNo: userNo,
+  //     })
+  //     .then((response) => {
+  //       console.log(response);
+  //       console.log(response.data.ret_val);
+  //       this.setState({
+  //         returnValue: response.data.ret_val,
+  //       });
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
+  // },[])
+
   const renderItem = ({item}) => (
     <Item
       title={item.title}
-      contents={item.contents}
-      date={item.date}
+      body={item.body}
+      createTime={item.createTime}
       status={item.status}
-      navigation={navigation}
+      id={item.id}
+      category={item.category}
+      navigation={props.navigation}
+      alertCheckApi={props.route.params?.alertCheckApi}
     />
   );
   return (
@@ -143,7 +120,7 @@ export const MainAlert = ({navigation}) => {
           <View style={ResetStyle.topBackButton}>
             <TouchableOpacity
               onPress={() => {
-                navigation.goBack();
+                props.navigation.goBack();
               }}>
               <Image
                 source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
@@ -155,7 +132,7 @@ export const MainAlert = ({navigation}) => {
           </View>
         </View>
         <FlatList
-          data={data}
+          data={alertData}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
           contentContainerStyle={{

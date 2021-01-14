@@ -234,7 +234,10 @@ export default class Login extends Component {
 
                   //본부장님 테스트용
                   // this.props.navigation.navigate('WalletPassword');
-                  await AsyncStorage.setItem('userNo', '111');
+                  await AsyncStorage.setItem(
+                    'userNo',
+                    '5fd188217878d135df02c1bd',
+                  );
                 }}>
                 <Text
                   style={[
