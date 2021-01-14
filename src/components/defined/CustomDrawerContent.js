@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import {View, Text, TouchableOpacity, Image} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
@@ -19,6 +19,46 @@ const Tab = createMaterialTopTabNavigator();
 const Drawer = createDrawerNavigator();
 
 export function CustomDrawerContent(props) {
+  const [alertData, setAlertData] = useState([]);
+  const [alertDataNot, setAlertDataNot] = useState(0);
+  useEffect(() => {
+    alertDataApi();
+  }, []);
+
+  // alert API
+  const alertDataApi = async () => {
+    await axios
+      .get(`${server}/noti/${await AsyncStorage.getItem('userNo')}`)
+      .then((response) => {
+        console.log('notiGetTHEN', response.data);
+        setAlertData(response.data);
+        setAlertDataNot(response.data.filter((data) => data.status == false));
+        // var arr = response.data.filter((data) => {
+        //   console.log(data.status);
+        //   data.status === false;
+        // });
+        // setAlertDataNot(arr);
+      })
+      .catch((e) => {
+        console.log('notiGetError', e);
+      });
+  };
+
+  // alertCheck API
+  const alertCheckApi = (id) => {
+    console.log(`${server}/noti/${id}`);
+    console.log('pre>>>>>');
+    axios
+      .patch(`${server}/noti/${id}`)
+      .then((response) => {
+        console.log('notiCheckTHEN', response.data);
+        alertDataApi();
+      })
+      .catch((e) => {
+        console.log('notiCheckError', e);
+      });
+  };
+
   return (
     <DrawerContentScrollView {...props}>
       <View
@@ -224,7 +264,10 @@ export function CustomDrawerContent(props) {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            props.navigation.navigate('MainAlert');
+            props.navigation.navigate('MainAlert', {
+              alertData: alertData,
+              alertCheckApi: alertCheckApi,
+            });
           }}
           style={MainStyle.drawerItem}>
           <Text
@@ -235,9 +278,13 @@ export function CustomDrawerContent(props) {
             ]}>
             알림
           </Text>
-          <TouchableOpacity style={[MainStyle.drawerItemAlert]}>
-            <Text style={[MainStyle.drawerItemAlertText]}>5</Text>
-          </TouchableOpacity>
+          {alertDataNot.length !== 0 && (
+            <TouchableOpacity style={[MainStyle.drawerItemAlert]}>
+              <Text style={[MainStyle.drawerItemAlertText]}>
+                {alertDataNot.length}
+              </Text>
+            </TouchableOpacity>
+          )}
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
