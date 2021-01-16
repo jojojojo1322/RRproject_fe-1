@@ -9,6 +9,7 @@ import {
   Alert,
   Image,
   Platform,
+  FlatList,
 } from 'react-native';
 
 import PropTypes from 'prop-types';
@@ -17,24 +18,38 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {SelectedCheckboxes, RoundCheckbox} from '../../factory/Roundcheck';
 import WalletStyle from '../../../style/WalletStyle.js';
 
-class List extends Component {
-  render() {
-    return (
-      <View style={[WalletStyle.listView]}>
-        <Text
-          style={[
-            ResetStyle.fontRegularK,
-            {textAlign: 'left', marginBottom: '2%'},
-          ]}>
-          {this.props.title}
-        </Text>
-        <Text style={[ResetStyle.fontRegularK, {textAlign: 'left'}]}>
-          {this.props.sub}
-        </Text>
-      </View>
-    );
-  }
-}
+// const Item = (data) => {
+//   return (
+//     <View style={[WalletStyle.listView]}>
+//       <Text
+//         style={[
+//           ResetStyle.fontRegularK,
+//           {textAlign: 'left', marginBottom: '2%'},
+//         ]}>
+//         {data.title}
+//       </Text>
+//       <Text style={[ResetStyle.fontRegularK, {textAlign: 'left'}]}>
+//         {data.sub}
+//       </Text>
+//     </View>
+//   );
+// };
+const List = (data) => {
+  return (
+    <View style={[WalletStyle.listView]}>
+      <Text
+        style={[
+          ResetStyle.fontRegularK,
+          {textAlign: 'left', marginBottom: '2%'},
+        ]}>
+        {data.title}
+      </Text>
+      <Text style={[ResetStyle.fontRegularK, {textAlign: 'left'}]}>
+        {data.sub}
+      </Text>
+    </View>
+  );
+};
 
 const dealDetail = {
   block: '1035613',
@@ -48,48 +63,78 @@ const dealDetail = {
   TXID: '0x6565232c6565ed6565659desds6565c58c7',
 };
 
-export default class WalletDetail extends Component {
-  render() {
-    return (
-      <SafeAreaView style={[ResetStyle.container]}>
-        <View style={[ResetStyle.containerInner, {marginHorizontal: 0}]}>
-          {/* topBackButton */}
-          <View style={[ResetStyle.topBackButton, {marginHorizontal: '5%'}]}>
-            <TouchableOpacity
-              style={{flexDirection: 'row'}}
-              onPress={() => {
-                this.props.navigation.goBack();
-              }}>
-              <Image
-                source={require('../../../imgs/drawable-xxxhdpi/back_icon.png')}
-              />
-              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-                전송내역 상세
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <ScrollView style={{paddingHorizontal: '5%'}}>
-            {/* 블록번호 */}
-            <List title="블록번호" sub={dealDetail.block} />
-            {/* 총액 */}
-            <List title="총액" sub={dealDetail.total} />
-            {/* 상태 */}
-            <List title="상태" sub={dealDetail.status} />
-            {/* 상세내용 */}
-            <List title="상세내용" sub={dealDetail.object} />
-            {/* 보낸사람 */}
-            <List title="보낸사람" sub={dealDetail.sender} />
-            {/* 받은사람 */}
-            <List title="받은사람" sub={dealDetail.recipient} />
-            {/* 메모 */}
-            <List title="메모" sub={dealDetail.memo} />
-            {/* 거래일시 */}
-            <List title="거래일시" sub={dealDetail.DATE} />
-            {/* TXID */}
-            <List title="TXID" sub={dealDetail.TXID} />
-          </ScrollView>
+const WalletDetail = (props) => {
+  // const renderItem = ({item}) => {
+  //   <Item
+  //     content={item.content}
+  //     block={item.block}
+  //     status={item.status}
+  //     timestamp={item.timestamp}
+  //     txid={item.txid}
+  //     index={item.index}
+  //   />;
+  // };
+  console.log('array length', props.route.params?.data.content.length);
+  return (
+    <SafeAreaView style={[ResetStyle.container]}>
+      <View style={[ResetStyle.containerInner, {marginHorizontal: 0}]}>
+        {/* topBackButton */}
+        <View style={[ResetStyle.topBackButton, {marginHorizontal: '5%'}]}>
+          <TouchableOpacity
+            style={{flexDirection: 'row'}}
+            onPress={() => {
+              props.navigation.goBack();
+            }}>
+            <Image
+              source={require('../../../imgs/drawable-xxxhdpi/back_icon.png')}
+            />
+            <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+              전송내역 상세
+            </Text>
+          </TouchableOpacity>
         </View>
-      </SafeAreaView>
-    );
-  }
-}
+        <ScrollView style={{paddingHorizontal: '5%'}}>
+          {/* 블록번호 */}
+          <List title="블록번호" sub={props.route.params?.data.block} />
+          {/* 총액 */}
+          {props.route.params?.data.content.to && (
+            <List title="총액" sub={props.route.params?.data.content.amount} />
+          )}
+          {/* 상태 */}
+          <List title="상태" sub={props.route.params?.data.status} />
+          {/* 상세내용 */}
+          {/* <List title="상세내용" sub={props.route.params?.data.object} /> */}
+          {/* 보낸사람 */}
+          {props.route.params?.data.content.to && (
+            <List
+              title="보낸사람"
+              sub={props.route.params?.data.content.from}
+            />
+          )}
+          {/* 받은사람 */}
+          {props.route.params?.data.content.to && (
+            <List title="받은사람" sub={props.route.params?.data.content.to} />
+          )}
+          {/* 메모 */}
+          {props.route.params?.data.content.to && (
+            <List title="메모" sub={props.route.params?.data.content.memo} />
+          )}
+          {/* 거래일시 */}
+          <List title="거래일시" sub={props.route.params?.data.timestamp} />
+          {/* TXID */}
+          <List title="TXID" sub={props.route.params?.data.txid} />
+        </ScrollView>
+        {/* <FlatList
+          data={props.data}
+          keyExtractor={(item) => item.idx}
+          renderItem={renderItem}
+          contentContainerStyle={{
+            justifyContent: 'flex-start',
+          }}
+        /> */}
+      </View>
+    </SafeAreaView>
+  );
+};
+
+export default WalletDetail;

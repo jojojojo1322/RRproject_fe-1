@@ -71,33 +71,11 @@ const Item = (data) => (
 
 export const MainAlert = (props) => {
   const [alertData, setAlertData] = useState(props.route.params?.alertData);
+
   useEffect(() => {
     // console.log('MAINALERT', props.route.params?.alertData);
     console.log('MAINALERT', alertData);
   }, []);
-  // useEffect(()=>{
-  //   axios
-  //   .post(`${server}/kyc`, {
-  //       birthday: birthday,
-  //       countryCd: countryCd,
-  //       countryCity: countryCity,
-  //       countryResidence: countryResidence,
-  //       gender: gender,
-  //       languageCd: languageCd,
-  //       marriageStatus: marriageStatus,
-  //       userNo: userNo,
-  //     })
-  //     .then((response) => {
-  //       console.log(response);
-  //       console.log(response.data.ret_val);
-  //       this.setState({
-  //         returnValue: response.data.ret_val,
-  //       });
-  //     })
-  //     .catch((e) => {
-  //       console.log(e);
-  //     });
-  // },[])
 
   const renderItem = ({item}) => (
     <Item
