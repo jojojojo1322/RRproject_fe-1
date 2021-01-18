@@ -37,6 +37,7 @@
     "react-native-gesture-password": "^0.4.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.3",
     "react-native-linear-gradient": "^2.5.6",
+    "react-native-orientation-locker": "^1.2.0",
     "react-native-passcode-auth": "^1.0.0",
     "react-native-permissions": "^3.0.0",
     "react-native-qrcode-scanner": "^1.5.1",
@@ -49,6 +50,7 @@
     "react-native-tab-view": "^2.15.2",
     "react-native-touch-id": "^4.4.1",
     "react-native-video": "^5.1.0-alpha8",
+    "react-native-video-controls": "^2.7.1",
     "react-native-webview": "^11.0.2",
     "reanimated": "0.0.1-alpha"
   },
