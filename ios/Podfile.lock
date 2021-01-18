@@ -249,6 +249,8 @@ PODS:
     - React
   - react-native-fingerprint-scanner (6.0.0):
     - React
+  - react-native-orientation-locker (1.2.0):
+    - React
   - react-native-safe-area-context (3.1.9):
     - React-Core
   - react-native-video (5.1.0-alpha8):
@@ -370,6 +372,7 @@ DEPENDENCIES:
   - react-native-camera (from `../node_modules/react-native-camera`)
   - react-native-carrier-info (from `../node_modules/react-native-carrier-info`)
   - react-native-fingerprint-scanner (from `../node_modules/react-native-fingerprint-scanner`)
+  - react-native-orientation-locker (from `../node_modules/react-native-orientation-locker`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-video (from `../node_modules/react-native-video`)
   - react-native-webview (from `../node_modules/react-native-webview`)
@@ -451,6 +454,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-carrier-info"
   react-native-fingerprint-scanner:
     :path: "../node_modules/react-native-fingerprint-scanner"
+  react-native-orientation-locker:
+    :path: "../node_modules/react-native-orientation-locker"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-video:
@@ -533,6 +538,7 @@ SPEC CHECKSUMS:
   react-native-camera: 32a00b742e747487d633fce357290aff9049da01
   react-native-carrier-info: 1e6299256bd7ceaa36f851b30e071b2b4fc406ad
   react-native-fingerprint-scanner: c68136ca57e3704d7bdf5faa554ea535ce15b1d0
+  react-native-orientation-locker: 47aaa55d59bfc1613804dc22f159e6bb1cca5f30
   react-native-safe-area-context: 86612d2c9a9e94e288319262d10b5f93f0b395f5
   react-native-video: 8d97379f3c2322a569f1e27542ad1a646cad9444
   react-native-webview: b2542d6fd424bcc3e3b2ec5f854f0abb4ec86c87
@@ -560,6 +566,6 @@ SPEC CHECKSUMS:
   Yoga: 9db9ff2025ad21d1ac0a8b3c85d5ac4e7c29d525
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 4449f91e98f6a21990bf5e77306373a103bda0f2
+PODFILE CHECKSUM: 3ff39beeb391d257e46d190a456971899f199aaf
 
 COCOAPODS: 1.10.0

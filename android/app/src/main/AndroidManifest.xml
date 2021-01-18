@@ -38,7 +38,7 @@
         android:label="@string/app_name"
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
         android:launchMode="singleTask"
-        android:windowSoftInputMode="adjustPan"
+        android:windowSoftInputMode="adjustResize"
         >
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
@@ -49,3 +49,5 @@
     </application>
 
 </manifest>
+
+<!-- android:windowSoftInputMode="adjustPan" // adjustResize값 넣기 이전 값-->

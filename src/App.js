@@ -1,4 +1,6 @@
 import React, {Component, useEffect, useState} from 'react';
+import Orientation from 'react-native-orientation-locker';
+
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
@@ -270,13 +272,6 @@ export class AppAuthStack extends Component {
         <Stack.Screen
           name="MainDetailExpired"
           component={MainDetailExpired}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="MainVideo"
-          component={MainVideo}
           options={{
             headerShown: false,
           }}
@@ -798,6 +793,7 @@ const App = () => {
   };
   useEffect(() => {
     test();
+    Orientation.lockToPortrait();
   }, []);
   if (login !== null) {
     return (
