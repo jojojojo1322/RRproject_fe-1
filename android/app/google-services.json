@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "807554042212",
-    "project_id": "rrproject-601cc",
-    "storage_bucket": "rrproject-601cc.appspot.com"
+    "project_number": "190963241748",
+    "project_id": "survey-2faa2",
+    "storage_bucket": "survey-2faa2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:807554042212:android:48e479970ddec526b0d271",
+        "mobilesdk_app_id": "1:190963241748:android:4bc2145faccbdfb684a801",
         "android_client_info": {
           "package_name": "com.realresearch.survey"
         }
       },
       "oauth_client": [
         {
-          "client_id": "807554042212-5vf3tshfmckeffn1irm3rc9bh584k51q.apps.googleusercontent.com",
+          "client_id": "190963241748-pi7f6dhhvp3csfrp7jp3kml5b4ldj22k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.realresearch.survey",
+            "certificate_hash": "77490fd98a6af28f9df98819d6537e26a64d052a"
+          }
+        },
+        {
+          "client_id": "190963241748-flk4a6e82k4238v7n7vmip6s455rn378.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDUOmem24qr-e_nkDkv_mizNhr0L0on2ps"
+          "current_key": "AIzaSyDkPEeMT8-hDJGtoIZ06CLNo80LzDlSHW0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "807554042212-5vf3tshfmckeffn1irm3rc9bh584k51q.apps.googleusercontent.com",
+              "client_id": "190963241748-flk4a6e82k4238v7n7vmip6s455rn378.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

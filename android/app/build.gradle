@@ -1,4 +1,7 @@
 apply plugin: "com.android.application"
+//googleFirebase
+apply plugin: 'com.google.gms.google-services'
+
 
 import com.android.build.OutputFile
 
@@ -136,7 +139,7 @@ android {
         versionName "1.0"
         //  Addition for QR Code Scan
         missingDimensionStrategy 'react-native-camera', 'general'
-        missingDimensionStrategy 'react-native-camera', 'mlkit'
+        // missingDimensionStrategy 'react-native-camera', 'mlkit'
         multiDexEnabled true
     }
     splits {
@@ -202,8 +205,23 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    // Import the Firebase BoM
+
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
+    implementation platform('com.google.firebase:firebase-bom:26.3.0')
+
+    // Add the dependency for the Firebase SDK for Google Analytics
+    // When using the BoM, don't specify versions in Firebase dependencies
+    implementation 'com.google.firebase:firebase-analytics'
+    // implementation 'com.google.android.gms:play-services-vision:19.1.1'
+    // implementation 'com.android.support:multidex:1.0.3'
+
+//    implementation 'com.google.android.gms:play-services-vision:20.1.1'
+//    implementation 'com.google.android.gms:play-services-vision-common:19.1.1'
+//    implementation "com.google.firebase:firebase-ml-vision:24.1.0"
+
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
@@ -236,3 +254,6 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+
+//firebase version crash
+googleServices { disableVersionCheck = true }
