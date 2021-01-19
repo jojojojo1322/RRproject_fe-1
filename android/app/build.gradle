@@ -1,7 +1,7 @@
 apply plugin: "com.android.application"
+
 //googleFirebase
 apply plugin: 'com.google.gms.google-services'
-
 
 import com.android.build.OutputFile
 

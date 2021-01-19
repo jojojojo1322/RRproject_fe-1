@@ -184,6 +184,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				8286F1B5432B6D089DA20AB7 /* Pods */,
+				CCA2590504FF405FADCBB675 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -199,6 +200,14 @@
 				2D02E4901E0B4A5D006451C7 /* survey-tvOSTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		CCA2590504FF405FADCBB675 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			path = "";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

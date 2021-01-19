@@ -60,7 +60,9 @@ target 'survey' do
   pod 'Permission-Camera', :path => '../node_modules/react-native-permissions/ios/Camera'
 
   pod 'react-native-camera', path: '../node_modules/react-native-camera'
-  pod 'TouchID', :path => "../node_modules/react-native-touch-id"
+
+
+
 
   target 'surveyTests' do
     inherit! :complete

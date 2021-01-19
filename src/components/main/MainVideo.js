@@ -1,4 +1,4 @@
-import React, {useState, Component} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -8,14 +8,17 @@ import {
   Image,
   SafeAreaView,
   TouchableOpacity,
+  StatusBar,
 } from 'react-native';
 import ResetStyle from '../../style/ResetStyle.js';
 import MainStyle from '../../style/MainStyle.js';
 import AuthStyle from '../../style/AuthStyle.js';
-import Video from 'react-native-video';
+// import Video from 'react-native-video';
 import Clipboard from '@react-native-community/clipboard';
 import BottomModal from '../factory/modal/BottomModal';
 import {ProgressCircle} from 'react-native-svg-charts';
+import VideoPlayer from 'react-native-video-controls';
+import Orientation from 'react-native-orientation-locker';
 
 const data = [
   {
@@ -72,7 +75,7 @@ const Item = ({videoUri, videoTitle, videoSub, videoDate, onPress}) => (
       marginBottom: 15,
     }}>
     <View style={{width: '45%', height: '15%', marginRight: '5%'}}>
-      <Video
+      <VideoPlayer
         source={{
           uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
         }} // Can be a URL or a local file.
@@ -123,7 +126,7 @@ const Item = ({videoUri, videoTitle, videoSub, videoDate, onPress}) => (
   </TouchableOpacity>
 );
 
-function VideoList({navigation}) {
+const VideoList = ({navigation}) => {
   console.log(navigation);
   const renderItem = ({item}) => (
     <Item
@@ -149,9 +152,9 @@ function VideoList({navigation}) {
       {/* </ScrollView> */}
     </SafeAreaView>
   );
-}
+};
 
-function VideoTXID(props) {
+const VideoTXID = (props) => {
   copyToClipboard = (value) => {
     Clipboard.setString(value);
   };
@@ -164,6 +167,11 @@ function VideoTXID(props) {
           alignItems: 'center',
         }}>
         <Image
+          style={{
+            width: Platform.OS === 'ios' ? 70 : 50,
+            height: Platform.OS === 'ios' ? 60 : 50,
+            resizeMode: 'contain',
+          }}
           source={require('../../imgs/drawable-xxxhdpi/ad_wallet_icon.png')}
         />
         <Text
@@ -180,8 +188,8 @@ function VideoTXID(props) {
       <View
         style={{
           width: '90%',
-          marginTop: '6%',
-          marginBottom: '6%',
+          marginTop: Platform.OS === 'ios' ? '6%' : '3%',
+          marginBottom: Platform.OS === 'ios' ? '6%' : '3%',
           borderBottomWidth: 1,
           borderBottomColor: '#dedede',
           alignSelf: 'center',
@@ -207,8 +215,8 @@ function VideoTXID(props) {
             {
               width: '90%',
               alignSelf: 'center',
-              marginTop: '5%',
-              marginBottom: '5%',
+              marginTop: Platform.OS === 'ios' ? '5%' : '2%',
+              marginBottom: Platform.OS === 'ios' ? '5%' : '2%',
             },
           ]}
           onPress={() => {
@@ -221,7 +229,7 @@ function VideoTXID(props) {
             style={[
               ResetStyle.fontLightK,
               ResetStyle.fontDG,
-              {paddingTop: 20, paddingBottom: 20, textAlign: 'left'},
+              {paddingTop: '4%', paddingBottom: '4%', textAlign: 'left'},
             ]}>
             {/* {this.props.route.params?.walletAddress} */}123
           </Text>
@@ -230,16 +238,16 @@ function VideoTXID(props) {
           style={[
             ResetStyle.fontLightK,
             ResetStyle.fontG,
-            {marginTop: 10, marginBottom: 70},
+            {marginBottom: '10%'},
           ]}>
           클릭하면 복사됩니다.
         </Text>
       </View>
     </SafeAreaView>
   );
-}
+};
 
-function VideoKYC({navigation}) {
+const VideoKYC = ({navigation}) => {
   return (
     <SafeAreaView
       style={[MainStyle.mainFlatlistView, {backgroundColor: '#fff'}]}>
@@ -250,7 +258,7 @@ function VideoKYC({navigation}) {
         style={[
           ResetStyle.fontMediumK,
           ResetStyle.fontDG,
-          {marginTop: '6%', marginBottom: '6%'},
+          {marginTop: Platform.OS === 'ios' ? '6%' : '3%', marginBottom: '6%'},
         ]}>
         지금 당장 KYC LEVEL UP 하고{'\n'}더 많은 설문조사를 시작하세요!
       </Text>
@@ -302,85 +310,168 @@ function VideoKYC({navigation}) {
       </View>
     </SafeAreaView>
   );
-}
+};
 
-export default class MainVideo extends Component {
-  state = {
-    modalVisible: false,
-  };
-  setModalVisible = (visible) => {
-    this.setState({
-      modalVisible: visible,
+const MainVideo = () => {
+  const [screenState, setScreenState] = useState({
+    fullScreen: false,
+    Width_Layout: '',
+    Height_Layout: '',
+    potraitMode: true,
+  });
+
+  // useEffect(() => {
+  //   detectOrientation();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [screenState.Width_Layout]);
+
+  // useEffect(() => {
+  //   Orientation.unlockAllOrientations();
+  //   return () => {
+  //     Orientation.lockToPortrait();
+  //   };
+  // }, []);
+
+  useEffect(() => {
+    let {fullScreen, potraitMode} = screenState;
+    !fullScreen && !potraitMode ? Orientation.lockToPortrait() : '';
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [screenState.fullScreen]);
+
+  const changeState = (values) => {
+    setScreenState((prevState) => {
+      return {
+        ...prevState,
+        ...values,
+      };
     });
   };
-  // copyToClipboard = (value) => {
-  //   Clipboard.setString(value);
+
+  // const detectOrientation = () => {
+  //   if (screenState.Width_Layout > screenState.Height_Layout) {
+  //     // Write code here, which you want to execute on Landscape Mode.
+  //     changeState({fullScreen: true, potraitMode: false});
+  //   } else {
+  //     // Write code here, which you want to execute on Portrait Mode.
+  //     changeState({fullScreen: false, potraitMode: true});
+  //   }
   // };
-  render() {
-    return (
-      <SafeAreaView style={[ResetStyle.container, {backgroundColor: '#fff'}]}>
+
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleModalVisible = (visible) => {
+    setModalVisible(true);
+  };
+
+  let {fullScreen} = screenState;
+
+  return (
+    <View style={{flex: 1}}>
+      <View
+        supportedOrientations={['portrait', 'landscape']}
+        onLayout={(event) => {
+          const {layout} = event.nativeEvent;
+          changeState({
+            Width_Layout: layout.width,
+            Height_Layout: layout.height,
+          });
+        }}
+        style={[
+          ResetStyle.container,
+          {
+            backgroundColor: '#fff',
+            paddingTop:
+              screenState.fullScreen === true
+                ? 0
+                : Platform.OS === 'ios'
+                ? '12%'
+                : 0,
+          },
+        ]}>
+        {screenState.fullScreen === true ? (
+          <StatusBar hidden={true} />
+        ) : (
+          <StatusBar hidden={false} />
+        )}
         <View
           style={{
-            width: '100%',
-            height: '27%',
-            marginBottom: '5%',
+            width: fullScreen === true ? screenState.Width_Layout : '100%',
+            height: fullScreen === true ? screenState.Height_Layout : '27%',
+            marginBottom: Platform.OS === 'ios' ? '5%' : 0,
           }}>
-          <Video
+          <VideoPlayer
             source={{
               uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
             }}
             ref={(ref) => {
-              this.player = ref;
+              player = ref;
             }}
             rate={1.0}
             volume={0.0}
             isMuted={true}
-            resizeMode="cover"
+            resizeMode="contain"
             shouldPlay
-            isLooping
-            // onBuffer={this.onBuffer}
-            // onError={this.videoError}
+            // isLooping
+            // onBuffer={onBuffer}
+            // onError={videoError}
+            toggleResizeModeOnFullscreen={false}
             style={{width: '100%', height: '100%'}}
-            controls={false}
             fullscreenOrientation={'landscape'}
+            onEnterFullscreen={() => {
+              changeState({fullScreen: !fullScreen});
+              Orientation.unlockAllOrientations();
+              console.log(fullScreen);
+            }}
+            onExitFullscreen={() => {
+              changeState({fullScreen: fullScreen});
+              Orientation.lockToPortrait();
+              console.log(fullScreen);
+            }}
+            disablePlayPause
+            disableSeekbar
+            disableBack
           />
         </View>
         {/* <VideoList /> */}
-        <VideoTXID
-          setModalVisible={this.setModalVisible}
-          modalVisible={this.state.modalVisible}
-        />
-        {/* <VideoKYC /> */}
-        <TouchableOpacity
-          style={[
-            ResetStyle.button,
-            {
-              position: 'absolute',
-              bottom: '5%',
-              left: '5%',
-              width: '90%',
-              alignSelf: 'center',
-            },
-          ]}
-          activeOpacity={0.75}
-          onPress={() => {
-            this.props.navigation.navigate('WalletMain');
-          }}>
-          <Text
+        {/* <VideoTXID
+          setModalVisible={setModalVisible}
+          modalVisible={modalVisible}
+        /> */}
+        {screenState.fullScreen === true ? null : <VideoKYC />}
+        {screenState.fullScreen === true ? null : (
+          <TouchableOpacity
             style={[
-              ResetStyle.fontMediumK,
-              ResetStyle.fontWhite,
-              {fontWeight: '600'},
-            ]}>
-            리워드 받기
-          </Text>
-        </TouchableOpacity>
+              ResetStyle.button,
+              {
+                position: 'absolute',
+                bottom: '5%',
+                left: '5%',
+                width: '90%',
+                alignSelf: 'center',
+              },
+            ]}
+            activeOpacity={0.75}
+            onPress={() => {
+              navigation.navigate('WalletMain');
+            }}>
+            <Text
+              style={[
+                ResetStyle.fontMediumK,
+                ResetStyle.fontWhite,
+                {fontWeight: '600'},
+              ]}>
+              리워드 받기
+            </Text>
+          </TouchableOpacity>
+        )}
         <BottomModal
-          setModalVisible={this.setModalVisible}
-          modalVisible={this.state.modalVisible}
+          setModalVisible={handleModalVisible}
+          modalVisible={modalVisible}
           text={`복사되었습니다.`}
         />
-      </SafeAreaView>
-    );
-  }
-}
+      </View>
+    </View>
+  );
+};
+
+export default MainVideo;

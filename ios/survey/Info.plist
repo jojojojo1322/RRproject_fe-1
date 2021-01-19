@@ -42,7 +42,7 @@
 	<key>NSFaceIDUsageDescription</key>
 	<string>$(PRODUCT_NAME) requires FaceID access to allows you quick and secure access.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Your message to user when the microphone is accessed for the first time</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
@@ -63,5 +63,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UIAppFonts</key>
+	<array/>
 </dict>
 </plist>
