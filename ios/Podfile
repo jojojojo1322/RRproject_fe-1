@@ -54,11 +54,7 @@ target 'survey' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-
-
-
   pod 'Permission-Camera', :path => '../node_modules/react-native-permissions/ios/Camera'
-
   pod 'react-native-camera', path: '../node_modules/react-native-camera'
 
 

@@ -1,6 +1,8 @@
 import React, {Component, useEffect, useState} from 'react';
 import Orientation from 'react-native-orientation-locker';
 
+import SplashScreen from 'react-native-splash-screen';
+
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
@@ -794,6 +796,7 @@ const App = () => {
   useEffect(() => {
     test();
     Orientation.lockToPortrait();
+    SplashScreen.hide();
   }, []);
   if (login !== null) {
     return (

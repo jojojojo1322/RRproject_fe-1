@@ -312,7 +312,7 @@ const VideoKYC = ({navigation}) => {
   );
 };
 
-const MainVideo = () => {
+const MainVideo = ({navigation}) => {
   const [screenState, setScreenState] = useState({
     fullScreen: false,
     Width_Layout: '',
