@@ -1,3 +1,21 @@
+var __rest =
+  (this && this.__rest) ||
+  function (s, e) {
+    var t = {};
+    for (var p in s)
+      if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === 'function')
+      for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+        if (
+          e.indexOf(p[i]) < 0 &&
+          Object.prototype.propertyIsEnumerable.call(s, p[i])
+        )
+          t[p[i]] = s[p[i]];
+      }
+    return t;
+  };
+
 import React, {Component, useState, useEffect, useRef} from 'react';
 import {
   StyleSheet,
@@ -33,19 +51,97 @@ import LinearGradient from 'react-native-linear-gradient';
 
 const {height: wHeight} = Dimensions.get('window');
 const height = wHeight;
-interface VegaScrollItemProps {
-  y: Animated.Value;
-  index: number;
-  distanceBetweenItem: number;
-  item: React.ReactElement;
-}
+// interface VegaScrollItemProps {
+//   y: Animated.Value;
+//   index: number;
+//   distanceBetweenItem: number;
+//   item: React.ReactElement;
+// }
 
-const VegaScrollItem = ({
-  y,
-  index,
-  distanceBetweenItem,
-  item,
-}: VegaScrollItemProps) => {
+// const VegaScrollItem = ({
+//   y,
+//   index,
+//   distanceBetweenItem,
+//   item,
+// }: VegaScrollItemProps) => {
+//   const [cardHeight, setCardHeight] = useState(0);
+//   const position = Animated.subtract(index * cardHeight, y);
+//   const isDisappearing = -cardHeight;
+//   const isTop = 0;
+//   const isBottom = height - cardHeight;
+//   const isAppearing = height;
+//   const translateY = Animated.add(
+//     y,
+//     y.interpolate({
+//       inputRange: [0, 0.00001 + index * cardHeight],
+//       outputRange: [0, -index * cardHeight],
+//       extrapolateRight: 'clamp',
+//     }),
+//   );
+//   const scale = position.interpolate({
+//     // inputRange: [isDisappearing, isTop, isBottom, isAppearing],
+//     inputRange: [-500, -50, 0, 50],
+//     outputRange: [0.85, 1, 1, 1],
+//     extrapolate: 'clamp',
+//   });
+//   const opacity = position.interpolate({
+//     // inputRange: [isDisappearing, isTop, isBottom, isAppearing],
+//     inputRange: [-500, -50, 0, 50],
+//     outputRange: [0.5, 1, 1, 1],
+//   });
+//   return (
+//     <Animated.View
+//       style={[
+//         {
+//           width: '90%',
+//           marginVertical: distanceBetweenItem,
+//           alignSelf: 'center',
+//         },
+//         {opacity, transform: [{translateY}, {scale}]},
+//       ]}
+//       key={index}>
+//       <View
+//         onLayout={(event) => {
+//           var {height} = event.nativeEvent.layout;
+//           setCardHeight(height + distanceBetweenItem * 2);
+//         }}>
+//         {item}
+//       </View>
+//     </Animated.View>
+//   );
+// };
+
+// const VegaScrollList = (props) => {
+//   const {
+//     data,
+//     renderItem,
+//     distanceBetweenItem: distance,
+//     ...otherProps
+//   } = props;
+//   const y = new Animated.Value(0);
+//   const onScroll = Animated.event([{nativeEvent: {contentOffset: {y}}}], {
+//     useNativeDriver: true,
+//   });
+
+//   let distanceBetweenItem: number = distance || 8;
+//   return (
+//     <Animated.FlatList
+//       scrollEventThrottle={16}
+//       bounces={false}
+//       data={data}
+//       style={{marginTop: '14%'}}
+//       renderItem={(data) => {
+//         let item = renderItem(data);
+//         const {index} = data;
+//         return <VegaScrollItem {...{index, y, item, distanceBetweenItem}} />;
+//       }}
+//       {...{onScroll}}
+//       {...otherProps}
+//     />
+//   );
+// };
+
+const VegaScrollItem = ({y, index, distanceBetweenItem, item}) => {
   const [cardHeight, setCardHeight] = useState(0);
   const position = Animated.subtract(index * cardHeight, y);
   const isDisappearing = -cardHeight;
@@ -62,62 +158,68 @@ const VegaScrollItem = ({
   );
   const scale = position.interpolate({
     inputRange: [isDisappearing, isTop, isBottom, isAppearing],
+    // inputRange: [-500, -50, 0, 50],
     outputRange: [0.85, 1, 1, 1],
     extrapolate: 'clamp',
   });
   const opacity = position.interpolate({
     inputRange: [isDisappearing, isTop, isBottom, isAppearing],
+    // inputRange: [-500, -50, 0, 50],
     outputRange: [0.5, 1, 1, 1],
   });
-  return (
-    <Animated.View
-      style={[
+  return React.createElement(
+    Animated.View,
+    {
+      style: [
         {
           width: '90%',
           marginVertical: distanceBetweenItem,
           alignSelf: 'center',
         },
         {opacity, transform: [{translateY}, {scale}]},
-      ]}
-      key={index}>
-      <View
-        onLayout={(event) => {
+      ],
+      key: index,
+    },
+    React.createElement(
+      View,
+      {
+        onLayout: (event) => {
           var {height} = event.nativeEvent.layout;
           setCardHeight(height + distanceBetweenItem * 2);
-        }}>
-        {item}
-      </View>
-    </Animated.View>
+        },
+      },
+      item,
+    ),
   );
 };
-
 const VegaScrollList = (props) => {
-  const {
-    data,
-    renderItem,
-    distanceBetweenItem: distance,
-    ...otherProps
-  } = props;
+  const {data, renderItem, distanceBetweenItem: distance} = props,
+    otherProps = __rest(props, ['data', 'renderItem', 'distanceBetweenItem']);
   const y = new Animated.Value(0);
   const onScroll = Animated.event([{nativeEvent: {contentOffset: {y}}}], {
     useNativeDriver: true,
   });
-
-  let distanceBetweenItem: number = distance || 8;
-  return (
-    <Animated.FlatList
-      scrollEventThrottle={16}
-      bounces={false}
-      data={data}
-      style={{marginTop: '14%'}}
-      renderItem={(data) => {
-        let item = renderItem(data);
-        const {index} = data;
-        return <VegaScrollItem {...{index, y, item, distanceBetweenItem}} />;
-      }}
-      {...{onScroll}}
-      {...otherProps}
-    />
+  let distanceBetweenItem = distance || 8;
+  return React.createElement(
+    Animated.FlatList,
+    Object.assign(
+      {
+        scrollEventThrottle: 16,
+        bounces: false,
+        data: data,
+        style: {marginTop: '14%'},
+        renderItem: (data) => {
+          let item = renderItem(data);
+          const {index} = data;
+          return React.createElement(
+            VegaScrollItem,
+            Object.assign({}, {index, y, item, distanceBetweenItem}),
+          );
+        },
+      },
+      {onScroll},
+      otherProps,
+    ),
   );
 };
 
