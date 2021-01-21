@@ -1,6 +1,8 @@
 import React, {Component, useEffect, useState} from 'react';
 import Orientation from 'react-native-orientation-locker';
 
+import firebase from '@react-native-firebase/app';
+
 import SplashScreen from 'react-native-splash-screen';
 
 import {NavigationContainer} from '@react-navigation/native';
@@ -797,6 +799,31 @@ const App = () => {
     test();
     Orientation.lockToPortrait();
     SplashScreen.hide();
+    firebase
+      .messaging()
+      .hasPermission()
+      .then((enabled) => {
+        if (enabled) {
+          firebase
+            .messaging()
+            .getToken()
+            .then((token) => {
+              console.log('LOG: ', token);
+            });
+          // user has permissions
+        } else {
+          firebase
+            .messaging()
+            .requestPermission()
+            .then(() => {
+              alert('User Now Has Permission');
+            })
+            .catch((error) => {
+              alert('Error', error);
+              // User has rejected permissions
+            });
+        }
+      });
   }, []);
   if (login !== null) {
     return (

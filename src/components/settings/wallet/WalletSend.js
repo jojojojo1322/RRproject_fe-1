@@ -21,6 +21,8 @@ import {SelectedCheckboxes, RoundCheckbox} from '../../factory/Roundcheck';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import WalletSendModal from '../../factory/modal/WalletSendModal';
 
+const masterKey = 'RR6f3TBp4ckUTuWVw9Wb6akW84HgJcGZJgwnN1WNnJDy9QEBitdG';
+
 const dealDetail = {
   block: '1035613',
   total: '2',

@@ -208,6 +208,10 @@ export default class Login extends Component {
                 style={ResetStyle.button}
                 activeOpacity={0.75}
                 onPress={async () => {
+                  await AsyncStorage.setItem(
+                    'userNo',
+                    '5fd188217878d135df02c1bd',
+                  );
                   //api용
                   this.setState({
                     hasWallet: '',

@@ -17,6 +17,7 @@ import {StatusBar} from 'react-native';
 import {lang} from './defined/lang';
 import ResetStyle from '../style/ResetStyle.js';
 import AuthStyle from '../style/AuthStyle.js';
+import getPermission from '../components/defined/getPermission';
 
 const images = new Array('', '', '');
 const window = Dimensions.get('window');
@@ -60,6 +61,7 @@ class Initial2 extends Component {
     // Dimenssion.get('screen').height;
   }
   render() {
+    console.log('>>>>', getPermission);
     ///
 
     const deviceLanguage =
