@@ -7,7 +7,7 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:190963241748:android:4bc2145faccbdfb684a801",
+        "mobilesdk_app_id": "1:190963241748:android:5df2ffd49677526984a801",
         "android_client_info": {
           "package_name": "com.realresearch.survey"
         }
@@ -37,6 +37,13 @@
             {
               "client_id": "190963241748-flk4a6e82k4238v7n7vmip6s455rn378.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "190963241748-12qmiegm3r2ovcmi7qgq6buldbc9ifsa.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.realresearch.survey"
+              }
             }
           ]
         }

@@ -16,7 +16,7 @@ var __rest =
     return t;
   };
 
-import React, {Component, useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   StyleSheet,
   View,
@@ -35,18 +35,8 @@ import {
 import {TabView, TabBar} from 'react-native-tab-view';
 import ResetStyle from '../../style/ResetStyle.js';
 import MainStyle from '../../style/MainStyle.js';
-import {ProgressCircle} from 'react-native-svg-charts';
-
-import MainAlert from '../main/MainAlert';
-
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import {CustomDrawerContent} from '../defined/CustomDrawerContent';
-import App from '../../App';
-import ProfileMain from '../settings/profile/ProfileMain';
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {getFontScale} from 'react-native/Libraries/Utilities/PixelRatio';
-
 import LinearGradient from 'react-native-linear-gradient';
 
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
@@ -80,32 +70,51 @@ const VegaScrollItem = ({y, index, distanceBetweenItem, item}) => {
     inputRange: [-500, -50, 0, 50],
     outputRange: [0.5, 1, 1, 1],
   });
-  return React.createElement(
-    Animated.View,
-    {
-      style: [
-        {
+  const onSwipeUp = (gestureState) => {};
+  const config = {
+    velocityThreshold: 0.3,
+    directionalOffsetThreshold: 80,
+  };
+  return (
+    <GestureRecognizer
+      onSwipeUp={onSwipeUp}
+      config={config}
+      style={{
+        flex: 1,
+      }}>
+      <Animated.View
+        style={{
           width: '90%',
           marginVertical: distanceBetweenItem,
           alignSelf: 'center',
-        },
-        {opacity, transform: [{translateY}, {scale}]},
-      ],
-      key: index,
-    },
-    React.createElement(
-      View,
-      {
-        onLayout: (event) => {
-          var {height} = event.nativeEvent.layout;
-          setCardHeight(height + distanceBetweenItem * 2);
-        },
-      },
-      item,
-    ),
+          opacity,
+          transform: [{translateY}, {scale}],
+        }}
+        key={index}>
+        <View
+          onLayout={(event) => {
+            var {height} = event.nativeEvent.layout;
+            setCardHeight(height + distanceBetweenItem * 2);
+          }}>
+          {item}
+        </View>
+      </Animated.View>
+    </GestureRecognizer>
   );
 };
 const VegaScrollList = (props) => {
+  const [myText, setMyText] = useState("I'm ready to get swiped!");
+  const [gestureName, setGestureName] = useState('none');
+  const [backgroundColor, setBackgroundColor] = useState('#fff');
+
+  const onSwipeUp = (gestureState) => {
+    setMyText('You swiped up!');
+  };
+
+  const config = {
+    velocityThreshold: 0.3,
+    directionalOffsetThreshold: 80,
+  };
   const {data, renderItem, distanceBetweenItem: distance} = props,
     otherProps = __rest(props, ['data', 'renderItem', 'distanceBetweenItem']);
   const y = new Animated.Value(0);
@@ -136,7 +145,6 @@ const VegaScrollList = (props) => {
   );
 };
 
-const Drawer = createDrawerNavigator();
 const AnimatedIndicator = Animated.createAnimatedComponent(ActivityIndicator);
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -567,91 +575,6 @@ export const Main = ({navigation}) => {
     });
   };
 
-  /**
-   * render Helper
-   */
-  // const renderHeader = (navigation) => {
-  //   const y = scrollY.interpolate({
-  //     inputRange: [0, HeaderHeight],
-  //     outputRange: [0, -HeaderHeight],
-  //     extrapolateRight: 'clamp',
-  //     // extrapolate: 'clamp',
-  //   });
-  //   return (
-  //     <Animated.View
-  //       {...headerPanResponder.panHandlers}
-  //       style={[MainStyle.mainHeader, {transform: [{translateY: y}]}]}>
-  //       <View style={[MainStyle.mainHeaderView]}>
-  //         <View style={[MainStyle.mainHeaderViewInner]}>
-  //           <Text
-  //             style={[
-  //               ResetStyle.fontLightK,
-  //               ResetStyle.fontG,
-  //               {fontWeight: '500'},
-  //             ]}>
-  //             MY TNC
-  //           </Text>
-  //           <Text
-  //             style={[
-  //               ResetStyle.fontMediumE,
-  //               ResetStyle.fontB,
-  //               {fontWeight: '600'},
-  //             ]}>
-  //             10,000
-  //           </Text>
-  //         </View>
-
-  //         <View style={[MainStyle.mainHeaderViewInner]}>
-  //           <Text
-  //             style={[
-  //               ResetStyle.fontLightK,
-  //               ResetStyle.fontG,
-  //               {fontWeight: '500'},
-  //             ]}>
-  //             HIT
-  //           </Text>
-  //           <Text
-  //             style={[
-  //               ResetStyle.fontMediumE,
-  //               ResetStyle.fontB,
-  //               {fontWeight: '600'},
-  //             ]}>
-  //             10
-  //           </Text>
-  //         </View>
-
-  //         <View style={[MainStyle.progressCircleView]}>
-  //           {/* progress 최대 수치 1 */}
-  //           <ProgressCircle
-  //             style={[MainStyle.progressCircle]}
-  //             progress={0.086}
-  //             progressColor={'#0080ff'}
-  //             strokeWidth={Platform.OS === 'ios' ? 2.5 : 2}
-  //           />
-
-  //           <View style={[MainStyle.progressCircleInner]}>
-  //             <Text
-  //               style={[
-  //                 ResetStyle.fontLightK,
-  //                 ResetStyle.fontB,
-  //                 {fontWeight: '500', marginRight: 5},
-  //               ]}>
-  //               LEVEL
-  //             </Text>
-  //             <TouchableOpacity>
-  //               <Image
-  //                 source={require('../../imgs/drawable-xxxhdpi/main_questionmark_icon.png')}
-  //               />
-  //             </TouchableOpacity>
-  //           </View>
-
-  //           <Text style={[ResetStyle.fontBoldK, ResetStyle.fontB]}>2</Text>
-  //         </View>
-  //       </View>
-  //     </Animated.View>
-  //   );
-  // };
-
   const rednerTab1Item = ({item, index, onPress}) => {
     // console.log('>>>>>>ASDSDAsdasdas>>>>>>>', item.status);
     if (item.status === 'zero') {
@@ -874,51 +797,8 @@ export const Main = ({navigation}) => {
       default:
         return null;
     }
+
     return (
-      // <Animated.FlatList
-      //   scrollToOverflowEnabled={true}
-      //   // scrollEnabled={canScroll}
-      //   {...listPanResponder.panHandlers}
-      //   numColumns={numCols}
-      //   ref={(ref) => {
-      //     if (ref) {
-      //       const found = listRefArr.current.find((e) => e.key === route.key);
-      //       if (!found) {
-      //         listRefArr.current.push({
-      //           key: route.key,
-      //           value: ref,
-      //         });
-      //       }
-      //     }
-      //   }}
-      //   scrollEventThrottle={16}
-      //   onScroll={
-      //     focused
-      //       ? Animated.event(
-      //           [
-      //             {
-      //               nativeEvent: {contentOffset: {y: scrollY}},
-      //             },
-      //           ],
-      //           {useNativeDriver: true},
-      //         )
-      //       : null
-      //   }
-      //   onMomentumScrollBegin={onMomentumScrollBegin}
-      //   onScrollEndDrag={onScrollEndDrag}
-      //   onMomentumScrollEnd={onMomentumScrollEnd}
-      //   contentContainerStyle={{
-      //     // paddingTop: HeaderHeight + TabBarHeight,
-      //     paddingTop: TabBarHeight,
-      //     // minHeight: windowHeight - SafeStatusBar + HeaderHeight,
-      //     minHeight: windowHeight - SafeStatusBar,
-      //   }}
-      //   showsHorizontalScrollIndicator={false}
-      //   data={data}
-      //   renderItem={renderItem}
-      //   showsVerticalScrollIndicator={false}
-      //   keyExtractor={(item, index) => index.toString()}
-      // />
       <VegaScrollList
         // style={{marginTop: 50}}
         distanceBetweenItem={12}
@@ -931,12 +811,6 @@ export const Main = ({navigation}) => {
   };
 
   const renderTabBar = (props) => {
-    // const y = scrollY.interpolate({
-    //   inputRange: [0, HeaderHeight],
-    //   outputRange: [HeaderHeight, 0],
-    //   // extrapolate: 'clamp',
-    //   extrapolateRight: 'clamp',
-    // });
     console.log('props', props.navigationState.index);
     return (
       <Animated.View

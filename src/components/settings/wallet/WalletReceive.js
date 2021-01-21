@@ -22,7 +22,7 @@ import QRCode from 'react-native-qrcode2';
 
 const deviceWidth = Dimensions.get('screen').width;
 const deviceHeight = Dimensions.get('screen').height;
-
+const masterKey = 'RR6f3TBp4ckUTuWVw9Wb6akW84HgJcGZJgwnN1WNnJDy9QEBitdG';
 const dealDetail = {
   block: '1035613',
   total: '2',
@@ -75,8 +75,8 @@ export default class WalletReceive extends Component {
             </Text>
             {/* <View style={{borderWidth: 1}}> */}
             <QRCode
-              value={this.state.text}
-              size={700}
+              value={masterKey}
+              size={500}
               bgColor="#000"
               fgColor="white"
             />
@@ -103,7 +103,7 @@ export default class WalletReceive extends Component {
               style={AuthStyle.walletCopy}
               onPress={() => {
                 this.setModal2Visible(true);
-                this.copyToClipboard(this.state.text);
+                this.copyToClipboard(masterKey);
               }}>
               <Text
                 style={[
@@ -111,7 +111,7 @@ export default class WalletReceive extends Component {
                   ResetStyle.fontDG,
                   {paddingTop: 20, paddingBottom: 20},
                 ]}>
-                {this.state.text}
+                {masterKey}
               </Text>
             </TouchableOpacity>
             <Text

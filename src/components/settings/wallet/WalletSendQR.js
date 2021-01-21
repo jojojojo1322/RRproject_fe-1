@@ -60,7 +60,7 @@ export default class WalletSendQR extends Component {
           </View>
           <QRCodeScanner
             onRead={this.onSuccess}
-            disableVibrationByUser={false}
+            // disableVibrationByUser={0}
             containerStyle={{width: '100%', height: '100%'}}
             cameraStyle={{width: '100%'}}
           />

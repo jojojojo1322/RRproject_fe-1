@@ -163,8 +163,8 @@ const Item = (data) => (
           ResetStyle.fontRegularE,
           ResetStyle.fontB,
           {fontWeight: '500'},
-          // data.content.length !== 0 &&
-          data.content.to === masterKey && {color: '#ff9100'},
+          data.content.to &&
+            data.content.to !== masterKey && {color: '#ff9100'},
         ]}>
         {data.status}
       </Text>
@@ -173,11 +173,12 @@ const Item = (data) => (
           ResetStyle.fontRegularE,
           ResetStyle.fontB,
           {fontWeight: '500'},
-          // data.content.length !== 0 &&
-          data.content.to === masterKey && {color: '#ff9100'},
+          data.content.to &&
+            data.content.to !== masterKey && {color: '#ff9100'},
         ]}>
-        {`${data.content.to === masterKey ? '-' : '+'} ${data.content.amount}`}
-        {/* {`${data.content.length}`} */}d
+        {data.content.to &&
+          `${data.content.to !== masterKey ? '-' : '+'} ${data.content.amount}`}
+        {/* {`${data.content.length}`} */}
       </Text>
     </View>
 
@@ -187,11 +188,14 @@ const Item = (data) => (
         {/* {data.content.to && data.content.to.length <= 10
           ? data.content.to
           : data.content.to.slice(0, 10) + '..'} */}
-        {data.content.to}
+        {data.content.to &&
+          (data.content.to.length <= 10
+            ? data.content.to
+            : data.content.to.slice(0, 10) + '...')}
       </Text>
       <Text
         style={[ResetStyle.fontLightK, ResetStyle.fontDG, {fontWeight: '500'}]}>
-        {data.timestamp}
+        {data.timestamp.replace('T', ' ')}
       </Text>
     </View>
   </TouchableOpacity>

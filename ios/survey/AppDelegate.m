@@ -14,7 +14,8 @@
 #import <SKIOSNetworkPlugin/SKIOSNetworkAdapter.h>
 #import <FlipperKitReactPlugin/FlipperKitReactPlugin.h>
 
-// #import <Firebase.h> // <--- add this for react native camera firebase
+#import <Firebase.h> 
+#import "RNFBMessagingModule.h"
 
 static void InitializeFlipper(UIApplication *application) {
   FlipperClient *client = [FlipperClient sharedClient];
@@ -31,8 +32,13 @@ static void InitializeFlipper(UIApplication *application) {
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  
-  // [FIRApp configure]; // <--- add this for react native camera firebase
+  // <--- add this for react native camera firebase
+//if ([FIRApp defaultApp] == nil) {
+//    [FIRApp configure];
+//  }
+  [FIRApp configure];
+  // <--- add this for react native camera firebase
+//  [RNFirebaseNotifications configure];  //Add firebase noti This Line
 #if DEBUG
   InitializeFlipper(application);
 #endif
@@ -49,6 +55,7 @@ static void InitializeFlipper(UIApplication *application) {
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  [[UNUserNotificationCenter currentNotificationCenter] setDelegate:self]; //Add firebase noti This Line
   
   return YES;
 }
