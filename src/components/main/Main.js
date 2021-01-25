@@ -8,6 +8,8 @@ import {
   Dimensions,
   ActivityIndicator,
 } from 'react-native';
+import axios from 'axios';
+import {server} from '../defined/server';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import ResetStyle from '../../style/ResetStyle';
 import MainStyle from '../../style/MainStyle';
@@ -24,6 +26,26 @@ export default function MainTest({navigation}) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   };
 
+  const mainSurveyListAPI = async (surveyStatus, page) => {
+    await axios
+      .get(
+        `${server}/survey/main/status/${surveyStatus}/${await AsyncStorage.getItem(
+          'deviceLanguage',
+        )}?CurrentPageNo=${page}`,
+      )
+      .then((response) => {
+        console.log('mainSurveyListAPI SUCCESS', response.data);
+
+        // var arr = response.data.filter((data) => {
+        //   console.log(data.status);
+        //   data.status === false;
+        // });
+        // setAlertDataNot(arr);
+      })
+      .catch((e) => {
+        console.log('mainSurveyListAPI ERROR', e);
+      });
+  };
   const SLIDER_WIDTH = Dimensions.get('window').width;
   // const SLIDER_HEIGHT = Dimensions.get('window').height / 2.5;
   const SLIDER_HEIGHT = Dimensions.get('window').height / 2;
@@ -182,7 +204,6 @@ export default function MainTest({navigation}) {
         </TouchableOpacity>
       );
     } else if (item.status !== 'zero') {
-      console.log('main item?>?>?>>?>?>?>??>', item);
       return (
         <TouchableOpacity
           style={[
@@ -345,6 +366,7 @@ export default function MainTest({navigation}) {
     const [index, setIndex] = useState(0);
     // const [loading, setLoading] = useState(false);
     // console.log(navigation);
+    mainSurveyListAPI('ongoing', 1);
     return (
       <Carousel
         data={
@@ -366,7 +388,7 @@ export default function MainTest({navigation}) {
         useScrollView={true}
         vertical={true}
         layout={'stack'}
-        layoutCardOffset={`0`}
+        layoutCardOffset={0}
         // navigation={navigation}
         // ListFooterComponent={loading && <ActivityIndicator />}
       />
@@ -393,7 +415,7 @@ export default function MainTest({navigation}) {
         useScrollView={true}
         vertical={true}
         layout={'stack'}
-        layoutCardOffset={`0`}
+        layoutCardOffset={0}
       />
     );
   }
@@ -418,7 +440,7 @@ export default function MainTest({navigation}) {
         useScrollView={true}
         vertical={true}
         layout={'stack'}
-        layoutCardOffset={`0`}
+        layoutCardOffset={0}
       />
     );
   }
@@ -443,7 +465,6 @@ export default function MainTest({navigation}) {
               try {
                 console.log('USerNONONO', await AsyncStorage.getItem('userNo'));
                 await AsyncStorage.removeItem('userNo');
-                console.log('USerNONONO', await AsyncStorage.getItem('userNo'));
               } catch (e) {}
             }}>
             <View
@@ -465,7 +486,6 @@ export default function MainTest({navigation}) {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              console.log(navigation.openDrawer);
               navigation.openDrawer();
             }}>
             <Image

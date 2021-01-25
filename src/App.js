@@ -1,6 +1,7 @@
 import React, {Component, useEffect, useState} from 'react';
 import Orientation from 'react-native-orientation-locker';
-
+//언어추출
+import {NativeModules, Platform} from 'react-native';
 //파이어 베이스
 import firebase from '@react-native-firebase/app';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
@@ -867,11 +868,36 @@ const App = () => {
       return e;
     }
   };
+  // device Language AsyncStorage
+  const deviceLanguageSet = async () => {
+    var deviceLanguage =
+      Platform.OS === 'ios'
+        ? NativeModules.SettingsManager.settings.AppleLocale ||
+          NativeModules.SettingsManager.settings.AppleLanguages[0] // iOS 13
+        : NativeModules.I18nManager.localeIdentifier;
+    if (deviceLanguage.slice(0, 2) == 'en') {
+      deviceLanguage = deviceLanguage.slice(0, 2);
+    } else if (deviceLanguage.slice(0, 2) == 'ko') {
+      deviceLanguage = deviceLanguage.slice(0, 2);
+    } else if (deviceLanguage.slice(0, 2) == 'es') {
+      deviceLanguage = deviceLanguage.slice(0, 2);
+    } else if (deviceLanguage.slice(0, 2) == 'pt') {
+      deviceLanguage = deviceLanguage.slice(0, 2);
+    } else if (deviceLanguage.slice(0, 2) == 'ru') {
+      deviceLanguage = deviceLanguage.slice(0, 2);
+    } else {
+      deviceLanguage = 'en';
+    }
+    await AsyncStorage.setItem('deviceLanguage', deviceLanguage);
+  };
+
   const loginSuccess = ({userNo}) => {
     setLogin(userNo);
     // RNRestart.Restart();
   };
   useEffect(() => {
+    // console.log('device', deviceLanguageSet());
+    deviceLanguageSet();
     test();
     Orientation.lockToPortrait();
     SplashScreen.hide();
