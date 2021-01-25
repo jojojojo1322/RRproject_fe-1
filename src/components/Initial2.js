@@ -186,119 +186,72 @@ class Initial2 extends Component {
         </View>
 
         <View style={ResetStyle.containerInner}>
-          <View style={AuthStyle.initial2ButtonBox}>
-            <TouchableOpacity
-              style={[ResetStyle.button, {marginTop: 30}]}
-              activeOpacity={0.75}
-              onPress={() => {
-                this.props.navigation.navigate('SignUp');
+          <View
+            style={[
+              AuthStyle.initial2IndicatorContainer,
+              {marginBottom: '8%'},
+            ]}>
+            {images.map((image, imageIndex) => {
+              const opacity = this.scrollX.interpolate({
+                inputRange: [
+                  windowWidth * (imageIndex - 1),
+                  windowWidth * imageIndex,
+                  windowWidth * (imageIndex + 1),
+                ],
+                outputRange: [0, 1, 0],
+                extrapolate: 'clamp',
+              });
+              return (
+                <Animated.View
+                  key={imageIndex}
+                  style={(AuthStyle.initial2ButtonBox, {opacity})}>
+                  {imageIndex === 2 ? (
+                    <View
+                      style={{
+                        position: 'absolute',
+                        left: 0,
+                        width: '100%',
+                      }}>
+                      <TouchableOpacity
+                        style={[ResetStyle.button, {marginTop: 30}]}
+                        activeOpacity={0.75}
+                        onPress={() => {
+                          this.props.navigation.navigate('SignUp');
 
-                this.props.navigation.setOptions({title: '휴대폰 인증'});
-              }}>
-              <Text
-                style={[
-                  ResetStyle.fontMediumK,
-                  ResetStyle.fontWhite,
-                  {fontWeight: '600'},
-                ]}>
-                SIGN UP
-              </Text>
-            </TouchableOpacity>
+                          this.props.navigation.setOptions({
+                            title: '휴대폰 인증',
+                          });
+                        }}>
+                        <Text
+                          style={[
+                            ResetStyle.fontMediumK,
+                            ResetStyle.fontWhite,
+                            {fontWeight: '600'},
+                          ]}>
+                          SIGN UP
+                        </Text>
+                      </TouchableOpacity>
 
-            <TouchableOpacity
-              style={[ResetStyle.buttonWhite, {marginTop: 10}]}
-              activeOpacity={0.75}
-              onPress={() => {
-                this.props.navigation.navigate('Login');
-              }}>
-              <Text
-                style={[
-                  ResetStyle.fontMediumK,
-                  ResetStyle.fontB,
-                  {fontWeight: '600'},
-                ]}>
-                LOGIN
-              </Text>
-            </TouchableOpacity>
-
-            {/* <TouchableOpacity
-              style={[ResetStyle.buttonWhite, {marginTop: 10}]}
-              activeOpacity={0.75}
-              onPress={() => {
-                this.props.navigation.navigate('Kyc');
-              }}>
-              <Text
-                style={[
-                  ResetStyle.fontMediumK,
-                  ResetStyle.fontB,
-                  {fontWeight: '600'},
-                ]}>
-                Kyc
-              </Text>
-            </TouchableOpacity> */}
-            {/* <TouchableOpacity
-              style={[ResetStyle.buttonWhite, {marginTop: 10}]}
-              activeOpacity={0.75}
-              onPress={() => {
-                this.props.navigation.navigate('ProfileMain');
-              }}>
-              <Text
-                style={[
-                  ResetStyle.fontMediumK,
-                  ResetStyle.fontB,
-                  {fontWeight: '600'},
-                ]}>
-                ProfileMain
-              </Text>
-            </TouchableOpacity> */}
-            {/* <TouchableOpacity
-              style={[ResetStyle.buttonWhite, {marginTop: 10}]}
-              activeOpacity={0.75}
-              onPress={() => {
-                this.props.navigation.navigate('Initial3');
-              }}>
-              <Text
-                style={[
-                  ResetStyle.fontMediumK,
-                  ResetStyle.fontB,
-                  {fontWeight: '600'},
-                ]}>
-                Test page
-              </Text>
-            </TouchableOpacity> */}
-            <TouchableOpacity
-              style={[
-                ResetStyle.buttonWhite,
-                {marginTop: 10, borderColor: '#FFF'},
-              ]}
-              onPress={() => {
-                this.props.navigation.navigate('EmailAuthentication');
-              }}>
-              <Text
-                style={[
-                  ResetStyle.fontMediumK,
-                  ResetStyle.fontWhite,
-                  {fontWeight: '600'},
-                ]}>
-                Main
-              </Text>
-            </TouchableOpacity>
-
-            {/* <TouchableOpacity
-              style={[ResetStyle.buttonWhite, {marginTop: 10}]}
-              activeOpacity={0.75}
-              onPress={() => {
-                this.props.navigation.navigate('Kyc');
-              }}>
-              <Text
-                style={[
-                  ResetStyle.fontMediumK,
-                  ResetStyle.fontB,
-                  {fontWeight: '600'},
-                ]}>
-                Kyc
-              </Text>
-            </TouchableOpacity> */}
+                      <TouchableOpacity
+                        style={[ResetStyle.buttonWhite, {marginTop: 10}]}
+                        activeOpacity={0.75}
+                        onPress={() => {
+                          this.props.navigation.navigate('Login');
+                        }}>
+                        <Text
+                          style={[
+                            ResetStyle.fontMediumK,
+                            ResetStyle.fontB,
+                            {fontWeight: '600'},
+                          ]}>
+                          LOGIN
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                  ) : null}
+                </Animated.View>
+              );
+            })}
           </View>
         </View>
       </SafeAreaView>
