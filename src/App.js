@@ -1,8 +1,10 @@
 import React, {Component, useEffect, useState} from 'react';
 import Orientation from 'react-native-orientation-locker';
 
+//파이어 베이스
 import firebase from '@react-native-firebase/app';
-
+import dynamicLinks from '@react-native-firebase/dynamic-links';
+import buildLink from './components/defined/DynamicLinksInvite';
 import SplashScreen from 'react-native-splash-screen';
 
 import {NavigationContainer} from '@react-navigation/native';
@@ -81,7 +83,7 @@ import SettingsPersonalPhone from './components/settings/settingsDetail/personal
 import SettingsPersonalMasterPhone from './components/settings/settingsDetail/personal/SettingsPersonalMasterPhone';
 import SettingsPersonalMasterKey from './components/settings/settingsDetail/personal/SettingsPersonalMasterKey';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-
+import RNRestart from 'react-native-restart';
 const Stack = createStackNavigator();
 
 const Drawer = createDrawerNavigator();
@@ -105,8 +107,13 @@ export class AppAuthStack extends Component {
     // console.log('appppappppapppapp');
     // console.log(this.state.isLogin);
     // console.log('appppappppapppapp');
+    console.log(
+      'this.propsthis.propsthis.propsthis.propsthis.propsthis.propsthis.propsthis.props',
+      this.props.route.params?.loginSuccess,
+    );
     return (
-      <Stack.Navigator initialRouteName="Initial2">
+      // <Stack.Navigator initialRouteName="Initial2">
+      <Stack.Navigator>
         {/* // initialRouteName="Main"> */}
         <Stack.Screen
           name="Initial2"
@@ -130,6 +137,7 @@ export class AppAuthStack extends Component {
         <Stack.Screen
           name="Login"
           component={Login}
+          initialParams={{loginSuccess: this.props.route.params?.loginSuccess}}
           options={{
             headerShown: false,
           }}
@@ -323,7 +331,9 @@ export class AppMainStack extends Component {
   state = {
     isLoading: true,
     isLogin: false,
+    login: null,
   };
+
   // componentDidMount = async () => {
   //   const login = await AsyncStorage.getItem('userNo');
   //   console.log('loginConsole', login);
@@ -334,9 +344,76 @@ export class AppMainStack extends Component {
   //     });
   //   }
   // };
+  test = async () => {
+    try {
+      const result = await AsyncStorage.getItem('userNo');
+
+      console.log('login NEXT');
+      this.setState({
+        login: result,
+      });
+    } catch (e) {
+      return e;
+    }
+  };
+  loginSuccess = (userNo) => {
+    this.setState({
+      login: userNo,
+    });
+  };
+  componentDidMount() {
+    this.test();
+  }
   render() {
+    console.log('this.props.route.params?.login>?>?>', this.state.login);
     return (
+      // <Stack.Navigator initialRouteName="Main">
       <Stack.Navigator initialRouteName="Main">
+        {/* {this.state.login === null ? (
+          <Stack.Screen
+            name="Main"
+            component={Initial2}
+            options={{
+              headerShown: false,
+              // title: this.props.route.params?.step,
+              // title: route.params?.name,
+            }}
+          />
+        ) : (
+          <Stack.Screen
+            name="Main"
+            component={Main}
+            options={{
+              headerShown: false,
+            }}
+          />
+        )} */}
+        {this.state.login === null ? (
+          <Stack.Screen
+            name="Initial2"
+            component={Initial2}
+            options={{
+              headerShown: false,
+              // title: this.props.route.params?.step,
+              // title: route.params?.name,
+            }}
+          />
+        ) : (
+          <Stack.Screen
+            name="Main"
+            component={Main}
+            options={{
+              headerShown: false,
+            }}
+          />
+        )}
+        {/* <Stack.Screen
+          name="Main"
+          component={Main}
+          options={{
+            headerShown: false,
+          }}
+        />
         <Stack.Screen
           name="Initial2"
           component={Initial2}
@@ -345,12 +422,36 @@ export class AppMainStack extends Component {
             // title: this.props.route.params?.step,
             // title: route.params?.name,
           }}
-        />
+        /> */}
+        {/* {this.props.route.params?.login !== null ? (
+          <Stack.Screen
+            name="Main"
+            component={Main}
+            options={{
+              headerShown: false,
+            }}
+          />
+        ) : (
+          <Stack.Screen
+            name="Main"
+            component={Initial2}
+            options={{
+              headerShown: false,
+              // title: this.props.route.params?.step,
+              // title: route.params?.name,
+            }}
+          />
+        )} */}
+
         <Stack.Screen
           name="Login"
           component={Login}
           options={{
             headerShown: false,
+          }}
+          initialParams={{
+            loginSuccess: this.props.route.params?.loginSuccess,
+            loginSuccessAuth: this.loginSuccess,
           }}
         />
         <Stack.Screen
@@ -479,13 +580,13 @@ export class AppMainStack extends Component {
           }}
         />
 
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Main"
           component={Main}
           options={{
             headerShown: false,
           }}
-        />
+        /> */}
 
         <Stack.Screen
           name="MainDetail"
@@ -749,56 +850,33 @@ export class AppMainStack extends Component {
     );
   }
 }
-const test = async () => {
-  // return typeof (await AsyncStorage.getItem('userNo')) == String
-  try {
-    // const result = typeof (await AsyncStorage.getItem('userNo'));
-    // if (result == 'string') {
-    const result = await AsyncStorage.getItem('userNo');
-    if (result === null) {
-      return result;
-    } else {
-      return result;
-    }
-  } catch (e) {
-    return e;
-  }
-};
-
-// const getAllRedis = async (key) => {
-//   let obj = [];
-
-//   await client.hgetall(key, (err, object) => {
-//     console.log(object);
-//     _.map(object, (ob)=>{
-//       obj.push(JSON.parse(ob));
-//     })
-//     return obj;
-//     // res.send(obj);
-// });
-// }
 
 const App = () => {
   const [login, setLogin] = useState(null);
   const test = async () => {
-    // return typeof (await AsyncStorage.getItem('userNo')) == String
     try {
-      // const result = typeof (await AsyncStorage.getItem('userNo'));
-      // if (result == 'string') {
       const result = await AsyncStorage.getItem('userNo');
       if (result === null) {
+        console.log('login PREVVV');
         setLogin(result);
       } else {
+        console.log('login NEXT');
         setLogin(result);
       }
     } catch (e) {
       return e;
     }
   };
+  const loginSuccess = ({userNo}) => {
+    setLogin(userNo);
+    // RNRestart.Restart();
+  };
   useEffect(() => {
     test();
     Orientation.lockToPortrait();
     SplashScreen.hide();
+
+    //파이어베이스 알림 권환획득 및 토큰 출력
     firebase
       .messaging()
       .hasPermission()
@@ -824,50 +902,77 @@ const App = () => {
             });
         }
       });
+
+    //동적링크
+    // dynamicLinks()
+    //   .getInitialLink()
+    //   .then((link) => {
+    //     handleDynamicLink(link);
+    //   });
+    // const linkingListener = dynamicLinks().onLink(handleDynamicLink);
+    // return () => {
+    //   linkingListener();
+    // };
+    console.log('link>>>>>>>>>>>', buildLink);
   }, []);
-  if (login !== null) {
-    return (
-      <NavigationContainer>
-        {/* <Main /> */}
-        <Drawer.Navigator
-          initialRouteName="초기"
-          drawerContent={(props) => <CustomDrawerContent {...props} />}
-          drawerPosition="right"
-          drawerStyle={{
-            width: '80%',
-            backgroundColor: '#FFF',
-          }}
-          drawerContentOptions={{
-            itemStyle: {
-              marginVertical: 1,
-              margin: 0,
-            },
-          }}>
-          {/* <Drawer.Screen name="설문조사" component={Main} />
-          <Drawer.Screen name="설문조사 의뢰하기" component={RequestResearch} />
-          <Drawer.Screen name="미디어" component={Media} />
-          <Drawer.Screen name="알림" component={MainAlert} />
-          <Drawer.Screen name="설정" component={Settings} />
-          <Drawer.Screen name="초대코드" component={Main} /> */}
-          <Drawer.Screen
-            name="초기"
-            component={AppMainStack}
-            options={() => ({
-              drawerLabel: () => null,
-              title: undefined,
-              drawerIcon: () => null,
-            })}
-          />
-        </Drawer.Navigator>
-      </NavigationContainer>
-    );
-  } else {
-    return (
-      <NavigationContainer>
-        {/* <Main /> */}
-        <AppAuthStack />
-      </NavigationContainer>
-    );
-  }
+  useEffect(() => {
+    test();
+  }, [login]);
+  // if (login !== null) {
+  return (
+    <NavigationContainer>
+      {/* <Main /> */}
+      <Drawer.Navigator
+        // initialRouteName={AppAuthStack}
+        drawerContent={(props) => (
+          <CustomDrawerContent {...props} login={login} />
+        )}
+        drawerPosition="right"
+        drawerStyle={{
+          width: '80%',
+          backgroundColor: '#FFF',
+        }}
+        drawerContentOptions={{
+          drawerLockMode: 'locked-close',
+          itemStyle: {
+            marginVertical: 1,
+            margin: 0,
+          },
+        }}>
+        {/* {login !== null ? ( */}
+        <Drawer.Screen
+          name="초기"
+          component={AppMainStack}
+          initialParams={{loginSuccess: loginSuccess}}
+          // options={() => ({
+          //   drawerLabel: () => null,
+          //   title: undefined,
+          //   drawerIcon: () => null,
+          // })}
+        />
+
+        {/* <Drawer.Screen
+          name="초기"
+          // component={login !== null ? AppMainStack : AppAuthStack}
+          component={
+            login !== null ? AppMainStack : AppAuthStack
+          }
+          // options={() => ({
+          //   drawerLabel: () => null,
+          //   title: undefined,
+          //   drawerIcon: () => null,
+          // })}
+        /> */}
+      </Drawer.Navigator>
+    </NavigationContainer>
+  );
+  // } else {
+  //   return (
+  //     <NavigationContainer>
+  //       {/* <Main /> */}
+  //       <AppAuthStack />
+  //     </NavigationContainer>
+  //   );
+  // }
 };
 export default App;

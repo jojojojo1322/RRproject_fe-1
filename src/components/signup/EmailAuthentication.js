@@ -211,7 +211,7 @@ class EmailAuthentication extends Component {
     await axios
       .post(`${server}/user/register`, {
         deviceKey: this.props.route.params?.deviceKey,
-        inviteCode: this.props.route.params?.inviteCode,
+        inviteCode: '',
         mailId: this.props.route.params?.email,
         osType: osType,
         phoneNum: this.props.route.params?.phoneNum,

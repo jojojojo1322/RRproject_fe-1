@@ -58,6 +58,8 @@ target 'survey' do
   pod 'Permission-Camera', :path => '../node_modules/react-native-permissions/ios/Camera'
   pod 'react-native-camera', path: '../node_modules/react-native-camera'
   pod 'Firebase/Messaging'
+  pod 'react-native-restart', :path => '../node_modules/react-native-restart'
+
 
 
 

@@ -113,10 +113,13 @@ export default class Login extends Component {
           'then header>>>>' +
             response.headers.authorization.slice(7, undefined),
         );
-        await AsyncStorage.setItem(
-          'authToken',
-          response.headers.authorization.slice(7, undefined),
-        );
+        ///로그인 실험
+        this.props.route.params?.loginSuccess(response.data.userNo),
+          this.props.route.params?.loginSuccessAuth(response.data.userNo),
+          await AsyncStorage.setItem(
+            'authToken',
+            response.headers.authorization.slice(7, undefined),
+          );
         await AsyncStorage.setItem('userNo', response.data.userNo);
         this.setState({
           loginCheck: response.data.status,
@@ -208,23 +211,39 @@ export default class Login extends Component {
                 style={ResetStyle.button}
                 activeOpacity={0.75}
                 onPress={async () => {
-                  await AsyncStorage.setItem(
-                    'userNo',
-                    '5fd188217878d135df02c1bd',
-                  );
-                  //api용
+                  // api용;
                   this.setState({
                     hasWallet: '',
                   });
                   await this.loginApi(this.state.ID, this.state.passWord);
                   console.log('this.state.loginCheck', this.state.loginCheck);
 
+                  ///로그인 실험
+                  // this.props.route.params?.loginSuccess(
+                  //   '5fd188217878d135df02c1bd',
+                  // ),
+                  //   this.props.route.params?.loginSuccessAuth(
+                  //     '5fd188217878d135df02c1bd',
+                  //   ),
+                  // this.props.navigation.navigate('Main');
+                  // await AsyncStorage.setItem(
+                  //   'userNo',
+                  //   '5fd188217878d135df02c1bd',
+                  // );
+                  ///로그인 실험
+
+                  // return false;
                   if (this.state.loginCheck) {
                     if (this.state.hasWallet === -1) {
                       console.log('aaa');
                       this.setModalVisible(true);
                     } else {
                       this.props.navigation.navigate('Main');
+
+                      // await AsyncStorage.setItem(
+                      //   'userNo',
+                      //   '5fd188217878d135df02c1bd',
+                      // );
                     }
                   } else {
                     if (this.state.errorMsg === 'KycLevel1 Not Saved') {
@@ -238,10 +257,13 @@ export default class Login extends Component {
 
                   //본부장님 테스트용
                   // this.props.navigation.navigate('WalletPassword');
-                  await AsyncStorage.setItem(
-                    'userNo',
+                  this.props.route.params?.loginSuccess(
                     '5fd188217878d135df02c1bd',
-                  );
+                  ),
+                    await AsyncStorage.setItem(
+                      'userNo',
+                      '5fd188217878d135df02c1bd',
+                    );
                 }}>
                 <Text
                   style={[

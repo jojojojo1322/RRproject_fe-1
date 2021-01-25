@@ -595,7 +595,7 @@ class SignUpPersonal extends Component {
             </View>
 
             {/* 초대코드 */}
-            <View>
+            {/* <View>
               <View>
                 <Text
                   style={[
@@ -637,7 +637,7 @@ class SignUpPersonal extends Component {
                   </TouchableOpacity>
                 </View>
               </TouchableOpacity>
-            </View>
+            </View> */}
 
             <TouchableOpacity
               // style={[ResetStyle.button, {backgroundColor: '#e6e6e6'}]}

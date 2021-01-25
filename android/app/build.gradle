@@ -222,7 +222,8 @@ dependencies {
 //    implementation 'com.google.android.gms:play-services-vision-common:19.1.1'
 //    implementation "com.google.firebase:firebase-ml-vision:24.1.0"
 
-
+    //restart add
+    implementation project(':react-native-restart')
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
