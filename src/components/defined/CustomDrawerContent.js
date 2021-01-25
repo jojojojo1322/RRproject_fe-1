@@ -15,6 +15,22 @@ import {ProgressCircle} from 'react-native-svg-charts';
 import ResetStyle from '../../style/ResetStyle.js';
 import MainStyle from '../../style/MainStyle.js';
 
+import email from 'react-native-email';
+
+function handleEmail(status) {
+  const to = ['rrmaster@gmail.com']; // string or array of email addresses
+  email(to, {
+    // Optional additional arguments
+    // cc: ['bazzy@moo.com', 'doooo@daaa.com'],
+    // string or array of email addresses
+    // bcc: 'mee@mee.com',
+    // string or array of email addresses
+    subject: 'Real Research Support',
+    body:
+      '리얼 리서치는 회원님들의 원활한 이용을 위해 영어, 러시아어, 한국어 총 3개 언어를 지원하고 있습니다. 도움이 필요하시면 언제든 문의해주십시오.',
+  }).catch(console.error);
+}
+
 const Tab = createMaterialTopTabNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -285,6 +301,16 @@ export function CustomDrawerContent(props) {
               </Text>
             </TouchableOpacity>
           )}
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleEmail} style={MainStyle.drawerItem}>
+          <Text
+            style={[
+              ResetStyle.fontRegularK,
+              ResetStyle.fontBlack,
+              MainStyle.drawerItemText,
+            ]}>
+            1:1 문의
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
