@@ -77,7 +77,7 @@ class Initial2 extends Component {
     const windowWidth = this.state.dimensions.window.width;
     const windowHeight = this.state.dimensions.window.height;
     const llang = lang;
-    console.log(windowHeight);
+    console.log('windowHeight', windowHeight);
     return (
       <SafeAreaView
         style={[
@@ -101,6 +101,10 @@ class Initial2 extends Component {
                   },
                 },
               ],
+              {
+                // listener: (event) => console.log(event._targetInst.return.tag),
+                listener: (event) => console.log(event.currentTarget),
+              },
               {useNativeDriver: false},
             )}
             scrollEventThrottle={1}>

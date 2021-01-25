@@ -41,13 +41,13 @@ export default class WalletPassword extends Component {
         walletPw: walletPw,
       })
       .then(async (response) => {
-        console.log(response);
+        console.log('walletPasswordApi 생성 then>>>', response);
         await this.setState({
           walletCheck: response.data.status,
         });
       })
       .catch((e) => {
-        console.log(e);
+        console.log('walletPasswordApi 생성 then>>>', e);
       });
   };
   componentDidMount() {
@@ -57,13 +57,13 @@ export default class WalletPassword extends Component {
     await axios
       .get(`${server}/wallet/${this.props.route.params?.email}`)
       .then(async (response) => {
-        console.log('walletKeyApi', response);
+        console.log('walletKeyApi 지갑주소 마스터키 then >> ', response);
         await this.setState({
           walletAddress: response.data.name,
         });
       })
       .catch((e) => {
-        console.log(e);
+        console.log('walletKeyApi 지갑주소 마스터키 error >> ', e);
       });
   };
   walletTransApi = async () => {
@@ -73,13 +73,13 @@ export default class WalletPassword extends Component {
         walletAddress: this.state.walletAddress,
       })
       .then((response) => {
-        console.log(response);
+        console.log('월렛지갑주소 저장 then>>>>', response);
         this.setState({
           transCheck: response.data.status,
         });
       })
       .catch((e) => {
-        console.log(e);
+        console.log('월렛지갑주소 저장 error>>>>', e);
       });
   };
   handlePass = async (value, e) => {
@@ -112,18 +112,25 @@ export default class WalletPassword extends Component {
         });
         // console.log('비교비교>>>>', test == this.state.pass);
         if (test != this.state.pass) {
+          // 1차 2차비밀번호 틀릴시 모달
           this.setModalVisible(true);
         } else if (test == this.state.pass) {
           console.log('1212');
+          //지갑 생성
           await this.walletPasswordApi(this.state.pass);
           console.log('3434');
           console.log(this.state.walletCheck);
+
           if (this.state.walletCheck == 'success') {
+            //지갑 생성 성공시
             this.walletKeyApi();
             if (this.state.walletAddress !== '') {
+              // 지갑 생성 성공시 모달
               this.setModal2Visible(true);
+            } else if (this.state.walletAddress !== '') {
             }
           } else if (this.state.walletCheck == 'fail') {
+            //지갑 생성 실패시
             this.setModal3Visible(true);
           }
         }
