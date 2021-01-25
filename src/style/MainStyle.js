@@ -31,10 +31,9 @@ export default StyleSheet.create({
 
   // Item
   itemBox: {
-    width: '90%',
-    height: Platform.OS === 'ios' ? 500 : 360,
+    width: '85%',
+    height: Platform.OS === 'ios' ? '130%' : '130%',
     alignSelf: 'center',
-    marginTop: 15,
     borderRadius: 10,
     backgroundColor: '#fff',
     borderRadius: 10,
