@@ -103,7 +103,9 @@ const WalletDetail = (props) => {
           {/* 상태 */}
           <List title="상태" sub={props.route.params?.data.status} />
           {/* 상세내용 */}
-          {/* <List title="상세내용" sub={props.route.params?.data.object} /> */}
+          {props.route.params?.data.content.surveyName && (
+            <List title="상세내용" sub={props.route.params?.data.object} />
+          )}
           {/* 보낸사람 */}
           {props.route.params?.data.content.to && (
             <List

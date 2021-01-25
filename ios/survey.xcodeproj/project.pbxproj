@@ -36,6 +36,13 @@
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = survey;
 		};
+		0F987D9F25BD4C6500815B4B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0F987D9B25BD4C6500815B4B /* Restart.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = Restart;
+		};
 		2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
@@ -55,6 +62,7 @@
 		0F24D6D425B6D53900B6626E /* survey.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = survey.entitlements; path = survey/survey.entitlements; sourceTree = "<group>"; };
 		0F2F0CD08C96D62A86A55EBC /* Pods-survey-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-survey-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-survey-tvOSTests/Pods-survey-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		0F31B9F725AD9011001295E6 /* google-services.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "google-services.json"; path = "../../../Downloads/google-services.json"; sourceTree = "<group>"; };
+		0F987D9B25BD4C6500815B4B /* Restart.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Restart.xcodeproj; path = "../node_modules/react-native-restart/ios/Restart.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* survey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = survey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = survey/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = survey/AppDelegate.m; sourceTree = "<group>"; };
@@ -132,6 +140,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		0F987D9C25BD4C6500815B4B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0F987DA025BD4C6500815B4B /* libRestart.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		13B07FAE1A68108700A75B9A /* survey */ = {
 			isa = PBXGroup;
 			children = (
@@ -181,6 +197,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				0F987D9B25BD4C6500815B4B /* Restart.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -340,6 +357,12 @@
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 0F987D9C25BD4C6500815B4B /* Products */;
+					ProjectRef = 0F987D9B25BD4C6500815B4B /* Restart.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* survey */,
@@ -349,6 +372,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		0F987DA025BD4C6500815B4B /* libRestart.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRestart.a;
+			remoteRef = 0F987D9F25BD4C6500815B4B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		00E356EC1AD99517003FC87E /* Resources */ = {

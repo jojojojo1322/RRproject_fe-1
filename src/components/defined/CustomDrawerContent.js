@@ -21,10 +21,16 @@ const Drawer = createDrawerNavigator();
 export function CustomDrawerContent(props) {
   const [alertData, setAlertData] = useState([]);
   const [alertDataNot, setAlertDataNot] = useState(0);
+  const [loginStatus, setLoginStatus] = useState(props.login);
+
   useEffect(() => {
     alertDataApi();
   }, []);
+  useEffect(() => {
+    alertDataApi();
+  }, [props.login]);
 
+  console.log('CUSTON>>>>', props.login);
   // alert API
   const alertDataApi = async () => {
     await axios

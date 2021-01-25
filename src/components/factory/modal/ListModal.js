@@ -78,10 +78,10 @@ const Item = ({item, onPress, style, handlePick}) => {
           handlePick(item.fullName, item.countryCode);
         }}
         style={[ModalStyle.listModalItem]}>
-        <Image
+        {/* <Image
           style={[ModalStyle.listModalImg, {marginTop: 2}]}
           source={item.emojiFlag !== '' ? item.emojiFlag : ''}
-        />
+        /> */}
         <Text
           style={[
             ResetStyle.fontRegularK,
