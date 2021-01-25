@@ -101,10 +101,6 @@ class Initial2 extends Component {
                   },
                 },
               ],
-              {
-                // listener: (event) => console.log(event._targetInst.return.tag),
-                listener: (event) => console.log(event.currentTarget),
-              },
               {useNativeDriver: false},
             )}
             scrollEventThrottle={1}>
