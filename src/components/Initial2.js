@@ -5,7 +5,6 @@ import {
   View,
   Text,
   Image,
-  TouchableOpacity,
   Animated,
   Dimensions,
   NativeModules,
@@ -18,6 +17,7 @@ import {lang} from './defined/lang';
 import ResetStyle from '../style/ResetStyle.js';
 import AuthStyle from '../style/AuthStyle.js';
 import getPermission from '../components/defined/getPermission';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const images = new Array('', '', '');
 const window = Dimensions.get('window');

@@ -342,13 +342,13 @@ PODS:
     - React-cxxreact (= 0.62.0)
     - React-jsi (= 0.62.0)
   - React-jsinspector (0.62.0)
-  - react-native-camera (3.42.0):
+  - react-native-camera (3.41.0):
     - React-Core
-    - react-native-camera/RCT (= 3.42.0)
-    - react-native-camera/RN (= 3.42.0)
-  - react-native-camera/RCT (3.42.0):
+    - react-native-camera/RCT (= 3.41.0)
+    - react-native-camera/RN (= 3.41.0)
+  - react-native-camera/RCT (3.41.0):
     - React-Core
-  - react-native-camera/RN (3.42.0):
+  - react-native-camera/RN (3.41.0):
     - React-Core
   - react-native-carrier-info (1.1.2):
     - React
@@ -362,12 +362,12 @@ PODS:
     - React-Core
   - react-native-splash-screen (3.2.0):
     - React
-  - react-native-video (5.1.1):
-    - React-Core
-    - react-native-video/Video (= 5.1.1)
-  - react-native-video/Video (5.1.1):
-    - React-Core
-  - react-native-webview (11.2.0):
+  - react-native-video (5.1.0-alpha8):
+    - React
+    - react-native-video/Video (= 5.1.0-alpha8)
+  - react-native-video/Video (5.1.0-alpha8):
+    - React
+  - react-native-webview (11.0.2):
     - React-Core
   - React-RCTActionSheet (0.62.0):
     - React-Core/RCTActionSheetHeaders (= 0.62.0)
@@ -428,15 +428,15 @@ PODS:
     - React-cxxreact (= 0.62.0)
     - React-jsi (= 0.62.0)
     - ReactCommon/callinvoker (= 0.62.0)
-  - RNCAsyncStorage (1.13.3):
-    - React-Core
+  - RNCAsyncStorage (1.13.2):
+    - React
   - RNCClipboard (1.5.1):
     - React-Core
   - RNCMaskedView (0.1.10):
     - React
   - RNCPushNotificationIOS (1.8.0):
     - React-Core
-  - RNDeviceInfo (7.4.0):
+  - RNDeviceInfo (7.2.1):
     - React-Core
   - RNFBApp (10.5.0):
     - Firebase/CoreOnly (~> 7.4.0)
@@ -713,15 +713,15 @@ SPEC CHECKSUMS:
   React-jsi: bc8166d6833cdcb0848c80710b26ce63fad2c099
   React-jsiexecutor: 8bf0b2707f05865113415088c398a7f98c0cf546
   React-jsinspector: 8e5913c4c6c54f0d3f9c9fc630c465a89cded65d
-  react-native-camera: d145df27a9178041b48b839b80ad79c9ef373fbd
+  react-native-camera: 32a00b742e747487d633fce357290aff9049da01
   react-native-carrier-info: 1e6299256bd7ceaa36f851b30e071b2b4fc406ad
   react-native-fingerprint-scanner: c68136ca57e3704d7bdf5faa554ea535ce15b1d0
   react-native-orientation-locker: 47aaa55d59bfc1613804dc22f159e6bb1cca5f30
   react-native-restart: 6cc683e208c080581c147d0875609e64572a9443
   react-native-safe-area-context: 86612d2c9a9e94e288319262d10b5f93f0b395f5
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
-  react-native-video: 1574074179ecaf6a9dd067116c8f31bf9fec15c8
-  react-native-webview: c010115ea45efd0d329ac7746d0cc59579d7860c
+  react-native-video: 8d97379f3c2322a569f1e27542ad1a646cad9444
+  react-native-webview: b2542d6fd424bcc3e3b2ec5f854f0abb4ec86c87
   React-RCTActionSheet: 674afbc8b9c76e0a83520e0a51da29a70802c03f
   React-RCTAnimation: f5f24330d09ee677fb49e0782f8321868f4df431
   React-RCTBlob: b773ce6138ab0d172ebd8a455fd4efd200a92549
@@ -732,11 +732,11 @@ SPEC CHECKSUMS:
   React-RCTText: 91a0d0ae5434aa28fe0c89c03eb9d660ff53bd9b
   React-RCTVibration: 0630aeb11e22f87c180ca9c0c3a0a0aba780cc62
   ReactCommon: d22162ab8f1358c53dfcd0f9c4d82d38facdbc48
-  RNCAsyncStorage: 32c7cbe1d43dff5f03f3d0b9e9d2c44d8ec91a3a
+  RNCAsyncStorage: bc2f81cc1df90c267ce9ed30bb2dbc93b945a8ee
   RNCClipboard: 5e299c6df8e0c98f3d7416b86ae563d3a9f768a3
   RNCMaskedView: f5c7d14d6847b7b44853f7acb6284c1da30a3459
   RNCPushNotificationIOS: 5b1cf9ad2aaa107ecb92d5d2d7005ba521b2b97a
-  RNDeviceInfo: febcb25b09201a312c66c36ecc1f155c5a43eecc
+  RNDeviceInfo: 5700f88012d022ce1307f619b8c4811279b6f120
   RNFBApp: 43a062dc6a1a88edd934d2229d1ba64f25381598
   RNFBDynamicLinks: 0b7ce4fd2fef303d4e56f1b6da96f306ddd87188
   RNFBMessaging: 7ca5248796434376c186b65029b1cec7d3e0990b
