@@ -37,6 +37,7 @@ class Initial2 extends Component {
     },
     userLang: 'ko',
   };
+
   setModalVisible = (visible) => {
     this.setState({modalVisible: visible});
   };
