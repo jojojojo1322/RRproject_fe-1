@@ -970,11 +970,11 @@ const App = () => {
           name="초기"
           component={AppMainStack}
           initialParams={{loginSuccess: loginSuccess}}
-          // options={() => ({
-          //   drawerLabel: () => null,
-          //   title: undefined,
-          //   drawerIcon: () => null,
-          // })}
+          options={() => ({
+            drawerLabel: () => null,
+            title: undefined,
+            drawerIcon: () => null,
+          })}
         />
 
         {/* <Drawer.Screen

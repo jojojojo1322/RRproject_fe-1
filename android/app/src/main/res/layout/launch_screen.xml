@@ -7,8 +7,8 @@
     android:orientation="vertical">
 
     <ImageView
-        android:layout_width="115.8dp"
-        android:layout_height="146.4dp"
+        android:layout_width="77.2dp"
+        android:layout_height="97.6dp"
         android:layout_alignParentTop="false"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="150dp"

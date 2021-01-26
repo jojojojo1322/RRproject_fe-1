@@ -1,62 +1,61 @@
 import React, {useState, Component} from 'react';
 import {
-  StyleSheet,
-  ScrollView,
   View,
   Text,
-  Alert,
   Modal,
-  Button,
   Image,
   TextInput,
-  SafeAreaView,
-  TouchableOpacity,
-  FlatList,
-  StatusBar,
-  Linking,
-  Animated,
-  Dimensions,
+  TouchableWithoutFeedback,
 } from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import ResetStyle from '../../style/ResetStyle.js';
+import DatePickerModal from '../factory/modal/DatePickerModal';
 
-export default class KycSecond extends Component {
-  handleBirth = (e) => {
-    console.log(e);
-    this.props.handleBirth(e);
-  };
-  render() {
-    return (
-      <View style={{marginBottom: '40%'}}>
-        <View>
+export default function KycSecond(props) {
+  console.log('>>>?>?>?>?>?>?', props);
+  const [_date, _setDate] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
+
+  return (
+    <View style={{marginBottom: '40%'}}>
+      <View>
+        <Text
+          style={[
+            ResetStyle.fontRegularK,
+            ResetStyle.fontBlack,
+            {textAlign: 'left'},
+          ]}>
+          생년월일 입력
+        </Text>
+      </View>
+      <View>
+        <TouchableOpacity
+          onPress={() => {
+            setModalVisible(!modalVisible);
+          }}
+          style={{borderBottomWidth: 1, borderBottomColor: '#dddddd'}}>
           <Text
-            style={[
-              ResetStyle.fontRegularK,
-              ResetStyle.fontBlack,
-              {textAlign: 'left'},
-            ]}>
-            생년월일 입력
-          </Text>
-        </View>
-        <View>
-          <TextInput
-            placeholder="생일을 입력해주세요.(ex.19920101)"
-            keyboardType={'numeric'}
-            returnKeyType={'done'}
-            onChangeText={this.handleBirth}
-            value={this.props.birth}
             style={[
               ResetStyle.fontRegularK,
               ResetStyle.fontBlack,
               {
                 textAlign: 'left',
-                borderBottomWidth: 1,
-                borderBottomColor: '#dddddd',
                 paddingTop: '6%',
                 paddingBottom: '3%',
+                color: props.birth === undefined ? '#a9a9a9' : '#222222',
               },
-            ]}></TextInput>
-        </View>
+            ]}>
+            {props.birth !== undefined ? props.birth : '생일을 입력해주세요.'}
+          </Text>
+        </TouchableOpacity>
       </View>
-    );
-  }
+      <DatePickerModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        _date={_date}
+        _setDate={_setDate}
+        handleBirth={props.handleBirth}
+      />
+    </View>
+  );
 }

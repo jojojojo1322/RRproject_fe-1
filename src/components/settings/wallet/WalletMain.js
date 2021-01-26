@@ -11,13 +11,11 @@ import {
   Platform,
   FlatList,
 } from 'react-native';
-
-import PropTypes from 'prop-types';
 import ResetStyle from '../../../style/ResetStyle.js';
 import WalletStyle from '../../../style/WalletStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {SelectedCheckboxes, RoundCheckbox} from '../../factory/Roundcheck';
-// import {FlatList} from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const masterKey = 'RR6f3TBp4ckUTuWVw9Wb6akW84HgJcGZJgwnN1WNnJDy9QEBitdG';
 const TestArray = [
   {
@@ -462,6 +460,7 @@ const TestArray = [
     ],
   },
 ];
+
 const TestArrayFix = TestArray[0].transactions;
 const Item = (data) => (
   <TouchableOpacity
