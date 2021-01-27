@@ -90,6 +90,7 @@ export class RoundCheckbox extends Component {
     }
   }
   stateSwitcher(key, label, value) {
+    console.log({key: key, label: label, value: value});
     this.setState({checked: !this.state.checked}, () => {
       if (this.state.checked) {
         this.props.checkedObjArr.addItem({
@@ -132,11 +133,13 @@ export class RoundCheckbox extends Component {
           this.props.handleCheckedbox(value, 'MINUS');
         } else if (this.props.handleUnCheckedArray) {
           // 사용가능 언어 삭제
-          this.props.handleUnCheckedArray(key);
+          this.props.handleUnCheckedArray(value);
         }
 
         this.props.checkedObjArr.fetchArray().splice(
-          this.props.checkedObjArr.fetchArray().findIndex((y) => y.key == key),
+          this.props.checkedObjArr
+            .fetchArray()
+            .findIndex((y) => y.value == value),
           1,
         );
         if (label === 'all') {
@@ -152,10 +155,6 @@ export class RoundCheckbox extends Component {
     );
 
     // console.log(a);
-    if (a.length !== 0) {
-      console.log('props.>>>>>', a);
-      console.log('체크됨체크됨체크됨체크됨체크됨');
-    }
     return (
       <TouchableOpacity
         onPress={this.stateSwitcher.bind(

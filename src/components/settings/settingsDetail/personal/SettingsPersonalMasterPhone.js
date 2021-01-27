@@ -44,6 +44,7 @@ class SettingsPersonalMasterPhone extends Component {
     phoneNum: '',
     country: '',
     countryCd: '',
+    countryPhoneCode: '',
     deviceKey: '',
     isRunning: false,
     timeLeftNumber: 180,
@@ -98,10 +99,11 @@ class SettingsPersonalMasterPhone extends Component {
       }
     }
   }
-  setCountry = (a, b) => {
+  setCountry = (a, b, c) => {
     this.setState({
       country: a,
       countryCd: b,
+      countryPhoneCode: c,
     });
   };
 
