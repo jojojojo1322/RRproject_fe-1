@@ -89,7 +89,7 @@ export default class WalletMasterKey extends Component {
           <TouchableOpacity
             style={[ResetStyle.button, {backgroundColor: '#4696ff'}]}
             onPress={() => {
-              this.props.navigation.navigate('Initial2');
+              this.props.navigation.navigate('Main');
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontWhite]}>
               확인

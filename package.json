@@ -60,6 +60,7 @@
     "react-native-video": "^5.1.0-alpha8",
     "react-native-video-controls": "^2.7.1",
     "react-native-webview": "^11.0.2",
+    "react-phone-number-input": "^3.1.10",
     "reanimated": "0.0.1-alpha"
   },
   "devDependencies": {

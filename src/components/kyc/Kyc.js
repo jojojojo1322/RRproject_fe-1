@@ -92,12 +92,12 @@ export default class Kyc extends Component {
     this.props.navigation.navigate('Initial2');
   };
 
-  setCountry = (country, cd) => {
+  setCountry = (country, cd, phone) => {
     this.setState({country: country, countryCd: cd});
   };
-  setLanguage = (visible) => {
-    console.log('Language', visible);
-    this.setState({languageCd: visible});
+  setLanguage = (lang, langCd) => {
+    console.log('Language', lang);
+    this.setState({languageCd: lang});
   };
   setResidenceCountry = (countryResidence, countryResidenceCd) => {
     this.setState({
@@ -112,24 +112,44 @@ export default class Kyc extends Component {
 
   KycInsertApi = async (
     birthday,
+    country,
     countryCd,
     countryCity,
     countryResidence,
+    countryResidenceCd,
     gender,
     languageCd,
     marriageStatus,
   ) => {
     const userNo = await AsyncStorage.getItem('userNo');
     console.log('userNo', userNo);
+    console.log({
+      dateOfBirth: birthday,
+      gender: gender,
+      language: languageCd,
+
+      nationality: country,
+      nationalityCode: countryCd,
+      relationShipStatus: marriageStatus,
+      residentCity: countryCity,
+      residentCountry: countryResidence,
+      residentCountryCode: countryResidenceCd,
+
+      userNo: userNo,
+    });
     await axios
-      .post(`${server}/kyc`, {
-        birthday: birthday,
-        countryCd: countryCd,
-        countryCity: countryCity,
-        countryResidence: countryResidence,
+      .post(`${server}/kyc/1`, {
+        dateOfBirth: birthday,
         gender: gender,
-        languageCd: languageCd,
-        marriageStatus: marriageStatus,
+        language: languageCd,
+
+        nationality: country,
+        nationalityCode: countryCd,
+        relationShipStatus: marriageStatus,
+        residentCity: countryCity,
+        residentCountry: countryResidence,
+        residentCountryCode: countryResidenceCd,
+
         userNo: userNo,
       })
       .then((response) => {
@@ -286,7 +306,9 @@ export default class Kyc extends Component {
                 this.state.maritalStatus != '' &&
                 this.state.gender != ''
                   ? ResetStyle.button
-                  : this.state.step == 2 && isBirthday(this.state.birth)
+                  : this.state.step == 2 &&
+                    this.state.birth !== undefined &&
+                    isBirthday(this.state.birth.replace(/\-/g, ''))
                   ? ResetStyle.button
                   : this.state.step == 3 &&
                     this.state.countryCd !== '' &&
@@ -309,7 +331,8 @@ export default class Kyc extends Component {
                       maritalStatus: this.state.maritalStatus,
                     });
                 } else if (this.state.step == 2) {
-                  isBirthday(this.state.birth) &&
+                  console.log(this.state.birth.replace(/\-/g, ''));
+                  isBirthday(this.state.birth.replace(/\-/g, '')) &&
                     this.props.navigation.push('Kyc', {
                       step: this.state.step == undefined ? 2 : 3,
                       gender: this.state.gender,
@@ -326,12 +349,13 @@ export default class Kyc extends Component {
                   ) {
                     await this.KycInsertApi(
                       this.state.birth,
+                      this.state.country,
                       this.state.countryCd,
                       this.state.countryCity,
                       this.state.countryResidence,
+                      this.state.countryResidenceCd,
                       this.state.gender,
                       this.state.languageCd,
-                      // 'KOR',
                       this.state.maritalStatus,
                     );
                   }

@@ -19,7 +19,7 @@ import {
   Dimensions,
   TouchableOpacityBase,
 } from 'react-native';
-import {RoundCheckbox, SelectedCheckboxes} from '../Roundcheck';
+import {RoundCheckbox, SelectedCheckboxes} from '../RoundcheckLang';
 import {DefineCountryList} from '../../defined/DefineCountryList';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import ResetStyle from '../../../style/ResetStyle';
@@ -118,7 +118,7 @@ const Item = ({
   );
 };
 
-class ListCheckModal extends Component {
+class ListCheckLangModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -135,10 +135,10 @@ class ListCheckModal extends Component {
     console.log('PlusArrayLATE', this.state.checkedArray);
   };
 
-  handleUnCheckedArray = async (key) => {
+  handleUnCheckedArray = async (value) => {
     let checkedArray = this.state.checkedArray;
     checkedArray.splice(
-      checkedArray.findIndex((y) => y.key == key),
+      checkedArray.findIndex((y) => y.value == value),
       1,
     ),
       await this.setState({
@@ -289,4 +289,4 @@ class ListCheckModal extends Component {
     );
   }
 }
-export default ListCheckModal;
+export default ListCheckLangModal;

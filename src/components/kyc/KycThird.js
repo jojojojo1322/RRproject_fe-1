@@ -18,7 +18,7 @@ import {
   Dimensions,
 } from 'react-native';
 import ListModal from '../factory/modal/ListModal';
-import ListCheckModal from '../factory/modal/ListCheckModal';
+import ListCheckLangModal from '../factory/modal/ListCheckLangModal';
 import ListRoundCheckModal from '../factory/modal/ListRoundCheckModal';
 import ResetStyle from '../../style/ResetStyle.js';
 import AuthStyle from '../../style/AuthStyle.js';
@@ -124,13 +124,18 @@ export default class kycThird extends Component {
     this.setState({residenceCityModal: visible});
   };
 
-  setCountry = (country, cd) => {
+  setCountry = (country, cd, phone) => {
     this.setState({country: country, countryCd: cd});
     this.props.setCountry(country, cd);
   };
   setLanguage = (visible) => {
+    //표시용 언어 이름
     let Lang = '';
     let HighLang = '';
+    //api용 언어 코드
+    let LangCode = '';
+    let HighLangCode = '';
+
     visible.map((data, index) => {
       visible.length == index + 1
         ? (Lang += `${data.label}`)
@@ -141,8 +146,20 @@ export default class kycThird extends Component {
         ? (HighLang += `${data.label}`)
         : (HighLang += `${data.label},`);
     });
+
+    visible.map((data, index) => {
+      visible.length == index + 1
+        ? (LangCode += `${data.value}`)
+        : (LangCode += `${data.value}, `);
+    });
+    visible.map((data, index) => {
+      visible.length == index + 1
+        ? (HighLangCode += `${data.value}`)
+        : (HighLangCode += `${data.value},`);
+    });
     this.setState({language: Lang});
-    this.props.setLanguage(HighLang);
+    // this.props.setLanguage(HighLang);
+    this.props.setLanguage(HighLangCode);
   };
   setResidenceCountry = (residenceCountry, residenceCountryCd) => {
     this.setState({
@@ -262,7 +279,7 @@ export default class kycThird extends Component {
         </TouchableOpacity>
 
         {/* 사용가능언어 */}
-        <ListCheckModal
+        <ListCheckLangModal
           modalVisible={this.state.languageModal}
           setModalVisible={this.setLanguageModal}
           setLanguage={this.setLanguage}

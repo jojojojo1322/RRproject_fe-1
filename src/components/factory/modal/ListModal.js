@@ -75,7 +75,7 @@ const Item = ({item, onPress, style, handlePick}) => {
     return (
       <TouchableOpacity
         onPress={() => {
-          handlePick(item.fullName, item.countryCode);
+          handlePick(item.fullName, item.countryCode, item.countryPhone);
         }}
         style={[ModalStyle.listModalItem]}>
         {/* <Image
@@ -152,8 +152,8 @@ class ListModal extends Component {
       searchText: searchText,
     });
   };
-  handlePick = (country, cd) => {
-    this.props.setCountry(country, cd);
+  handlePick = (country, cd, phone) => {
+    this.props.setCountry(country, cd, phone);
     this.props.setModalVisible(!this.state.modalVisible);
   };
 

@@ -18,16 +18,16 @@ export default class KycFirst extends Component {
         <View style={[AuthStyle.kycBox]}>
           <TouchableOpacity
             style={
-              this.props.gender == 'male'
+              this.props.gender == '1'
                 ? [AuthStyle.kycButton, {backgroundColor: '#4696ff'}]
                 : AuthStyle.kycButton
             }
             onPress={() => {
-              this.props.handleGender('male');
+              this.props.handleGender('1');
             }}>
             <Text
               style={
-                this.props.gender == 'male'
+                this.props.gender == '1'
                   ? [ResetStyle.fontRegularK, ResetStyle.fontWhite]
                   : [
                       ResetStyle.fontRegularK,
@@ -40,16 +40,16 @@ export default class KycFirst extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={
-              this.props.gender == 'female'
+              this.props.gender == '2'
                 ? [AuthStyle.kycButton, {backgroundColor: '#4696ff'}]
                 : AuthStyle.kycButton
             }
             onPress={() => {
-              this.props.handleGender('female');
+              this.props.handleGender('2');
             }}>
             <Text
               style={
-                this.props.gender == 'female'
+                this.props.gender == '2'
                   ? [ResetStyle.fontRegularK, ResetStyle.fontWhite]
                   : [
                       ResetStyle.fontRegularK,
@@ -72,16 +72,16 @@ export default class KycFirst extends Component {
         <View style={[AuthStyle.kycBox]}>
           <TouchableOpacity
             style={
-              this.props.maritalStatus == 'single'
+              this.props.maritalStatus == '0'
                 ? [AuthStyle.kycButton, {backgroundColor: '#4696ff'}]
                 : AuthStyle.kycButton
             }
             onPress={() => {
-              this.props.handleMarital('single');
+              this.props.handleMarital('0');
             }}>
             <Text
               style={
-                this.props.maritalStatus == 'single'
+                this.props.maritalStatus == '0'
                   ? [ResetStyle.fontRegularK, ResetStyle.fontWhite]
                   : [
                       ResetStyle.fontRegularK,
@@ -94,16 +94,16 @@ export default class KycFirst extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={
-              this.props.maritalStatus == 'marriage'
+              this.props.maritalStatus == '2'
                 ? [AuthStyle.kycButton, {backgroundColor: '#4696ff'}]
                 : AuthStyle.kycButton
             }
             onPress={() => {
-              this.props.handleMarital('marriage');
+              this.props.handleMarital('2');
             }}>
             <Text
               style={
-                this.props.maritalStatus == 'marriage'
+                this.props.maritalStatus == '2'
                   ? [ResetStyle.fontRegularK, ResetStyle.fontWhite]
                   : [
                       ResetStyle.fontRegularK,
@@ -118,16 +118,16 @@ export default class KycFirst extends Component {
         <View style={[AuthStyle.kycBox, {marginTop: '3%', marginBottom: '3%'}]}>
           <TouchableOpacity
             style={
-              this.props.maritalStatus == 'liveTogether'
+              this.props.maritalStatus == '1'
                 ? [AuthStyle.kycButton, {backgroundColor: '#4696ff'}]
                 : AuthStyle.kycButton
             }
             onPress={() => {
-              this.props.handleMarital('liveTogether');
+              this.props.handleMarital('1');
             }}>
             <Text
               style={
-                this.props.maritalStatus == 'liveTogether'
+                this.props.maritalStatus == '1'
                   ? [ResetStyle.fontRegularK, ResetStyle.fontWhite]
                   : [
                       ResetStyle.fontRegularK,
@@ -140,16 +140,16 @@ export default class KycFirst extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={
-              this.props.maritalStatus == 'divorce'
+              this.props.maritalStatus == '3'
                 ? [AuthStyle.kycButton, {backgroundColor: '#4696ff'}]
                 : AuthStyle.kycButton
             }
             onPress={() => {
-              this.props.handleMarital('divorce');
+              this.props.handleMarital('3');
             }}>
             <Text
               style={
-                this.props.maritalStatus == 'divorce'
+                this.props.maritalStatus == '3'
                   ? [ResetStyle.fontRegularK, ResetStyle.fontWhite]
                   : [
                       ResetStyle.fontRegularK,

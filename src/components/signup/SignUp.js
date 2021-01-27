@@ -10,6 +10,7 @@ import {
   Keyboard,
   Image,
 } from 'react-native';
+import {isPossiblePhoneNumber} from 'react-phone-number-input';
 import ListModal from '../../components/factory/modal/ListModal';
 import CountDown from '../../components/factory/CountDown';
 import ResetStyle from '../../style/ResetStyle.js';
@@ -46,6 +47,7 @@ class SignUp extends Component {
     phoneNum: '',
     country: '',
     countryCd: '',
+    countryPhoneCode: '',
     deviceKey: '',
     isRunning: false,
     timeLeftNumber: 180,
@@ -123,10 +125,11 @@ class SignUp extends Component {
     }
   }
 
-  setCountry = (a, b) => {
+  setCountry = (a, b, c) => {
     this.setState({
       country: a,
       countryCd: b,
+      countryPhoneCode: c,
     });
   };
 
@@ -238,6 +241,7 @@ class SignUp extends Component {
                   <Image
                     source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
                   />
+
                   <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
                     휴대폰 인증
                   </Text>
@@ -329,21 +333,33 @@ class SignUp extends Component {
                 <TouchableOpacity
                   onPress={async () => {
                     // console.log(this.state.phoneNum);
-                    // console.log(this.state.countryCd);
+                    // console.log(this.state.countryPhoneCode);
                     // console.log(
-                    //   `${this.state.countryCd}${this.state.phoneNum.slice(
+                    //   `${this.state.countryPhoneCode}${this.state.phoneNum.slice(
                     //     1,
                     //     undefined,
                     //   )}`,
                     // );
 
                     // console.log(`+82${this.state.phoneNum.slice(1, undefined)}`);
-                    if (isCellPhone(this.state.phoneNum)) {
+                    console.log(
+                      `${this.state.countryPhoneCode}${this.state.phoneNum}`,
+                    );
+                    console.log(
+                      isPossiblePhoneNumber(
+                        `+${this.state.countryPhoneCode}${this.state.phoneNum}`,
+                      ),
+                    );
+                    if (
+                      isPossiblePhoneNumber(
+                        `+${this.state.countryPhoneCode}${this.state.phoneNum}`,
+                      )
+                    ) {
                       this.handleReCountDown();
                       this.setModalVisibleResend();
                       await this.smsAuthApi(
                         this.state.deviceKey,
-                        `+82${this.state.phoneNum.slice(1, undefined)}`,
+                        `${this.state.countryPhoneCode}${this.state.phoneNum}`,
                       );
 
                       if (this.state.phoneAuthCheck == '-1') {
@@ -371,14 +387,21 @@ class SignUp extends Component {
                 <TouchableOpacity
                   onPress={async () => {
                     // console.log(this.state.phoneNum);
-                    // console.log(this.state.countryCd);
+                    // console.log(this.state.countryPhoneCode);
                     // console.log(
-                    //   `${this.state.countryCd}${this.state.phoneNum.slice(
+                    //   `${this.state.countryPhoneCode}${this.state.phoneNum.slice(
                     //     1,
                     //     undefined,
                     //   )}`,
                     // );
-                    if (isCellPhone(this.state.phoneNum)) {
+                    console.log(
+                      `+${this.state.countryPhoneCode}${this.state.phoneNum}`,
+                    );
+                    if (
+                      isPossiblePhoneNumber(
+                        `+${this.state.countryPhoneCode}${this.state.phoneNum}`,
+                      )
+                    ) {
                       this.handleCountDown();
                       await this.smsAuthApi(
                         this.state.deviceKey,

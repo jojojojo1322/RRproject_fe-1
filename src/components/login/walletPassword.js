@@ -71,6 +71,7 @@ export default class WalletPassword extends Component {
       .put(`${server}/wallet`, {
         email: this.props.route.params?.email,
         walletAddress: this.state.walletAddress,
+        walletPw: this.state.pass,
       })
       .then((response) => {
         console.log('월렛지갑주소 저장 then>>>>', response);
