@@ -128,6 +128,14 @@ export default StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingHorizontal: '5%',
+  },
+
+  // Kyc
+  topCheckbutton: {
+    height: Platform.OS === 'ios' ? 55 : 50,
+    width: Platform.OS === 'ios' ? 55 : 50,
+    resizeMode: 'contain',
   },
 
   // KycFirst
@@ -138,13 +146,13 @@ export default StyleSheet.create({
   },
   kycButton: {
     backgroundColor: '#eeeeee',
-    height: 75,
     width: '48%',
     borderRadius: 12,
     marginLeft: 5,
     alignItems: 'center',
     justifyContent: 'center',
     alignContent: 'stretch',
+    padding: '5%',
   },
 
   // KycThird

@@ -11,6 +11,7 @@ import KycFirst from './KycFirst';
 import KycSecond from './KycSecond';
 import KycThird from './KycThird';
 import ResetStyle from '../../style/ResetStyle.js';
+import AuthStyle from '../../style/AuthStyle.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {server} from '../defined/server';
@@ -216,59 +217,59 @@ export default class Kyc extends Component {
 
             <View style={[styles.ktitAll, {marginBottom: '19%'}]}>
               <Image
-                style={{
-                  marginRight: 4,
-                  height: 55,
-                  width: 55,
-                  resizeMode: 'contain',
-                }}
+                style={[
+                  AuthStyle.topCheckbutton,
+                  {
+                    marginRight: 4,
+                  },
+                ]}
                 source={require('../../imgs/drawable-xxxhdpi/icon_ktit_on.png')}
               />
               <View style={styles.ktilMiddle}></View>
               {this.state.step == undefined ? (
                 <Image
-                  style={{
-                    marginRight: 4,
-                    marginLeft: 4,
-                    height: 55,
-                    width: 55,
-                    resizeMode: 'contain',
-                  }}
+                  style={[
+                    AuthStyle.topCheckbutton,
+                    {
+                      marginRight: 4,
+                      marginLeft: 4,
+                    },
+                  ]}
                   source={require('../../imgs/drawable-xxxhdpi/icon_ktit_off.png')}
                 />
               ) : (
                 <Image
-                  style={{
-                    marginRight: 4,
-                    marginLeft: 4,
-                    height: 55,
-                    width: 55,
-                    resizeMode: 'contain',
-                  }}
+                  style={[
+                    AuthStyle.topCheckbutton,
+                    {
+                      marginRight: 4,
+                      marginLeft: 4,
+                    },
+                  ]}
                   source={require('../../imgs/drawable-xxxhdpi/icon_ktit_on.png')}
                 />
               )}
               <View style={styles.ktilMiddle}></View>
               {this.state.step == 2 || this.state.step == undefined ? (
                 <Image
-                  style={{
-                    marginRight: 4,
-                    marginLeft: 4,
-                    height: 55,
-                    width: 55,
-                    resizeMode: 'contain',
-                  }}
+                  style={[
+                    AuthStyle.topCheckbutton,
+                    {
+                      marginRight: 4,
+                      marginLeft: 4,
+                    },
+                  ]}
                   source={require('../../imgs/drawable-xxxhdpi/icon_ktit_off.png')}
                 />
               ) : (
                 <Image
-                  style={{
-                    marginRight: 4,
-                    marginLeft: 4,
-                    height: 55,
-                    width: 55,
-                    resizeMode: 'contain',
-                  }}
+                  style={[
+                    AuthStyle.topCheckbutton,
+                    {
+                      marginRight: 4,
+                      marginLeft: 4,
+                    },
+                  ]}
                   source={require('../../imgs/drawable-xxxhdpi/icon_ktit_on.png')}
                 />
               )}
