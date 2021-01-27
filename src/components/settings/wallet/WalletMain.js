@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -14,7 +14,7 @@ import {
 import ResetStyle from '../../../style/ResetStyle.js';
 import WalletStyle from '../../../style/WalletStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 const masterKey = 'RR6f3TBp4ckUTuWVw9Wb6akW84HgJcGZJgwnN1WNnJDy9QEBitdG';
 const TestArray = [
@@ -518,6 +518,25 @@ const Item = (data) => (
 );
 
 const WalletMain = (props) => {
+  const [walletData, setWalletData] = useState(null);
+
+  // useEffect(() => {
+  //   await axios
+  //     .post(`${server}/wallet/history`, {
+  //       email: email,
+  //       from: from,
+  //       limit: limit
+  //     })
+  //     .then((response) => {
+  //       setWalletData({
+
+  //       });
+  //     })
+  //     .catch((e) => {
+  //       console.log('error', e);
+  //     });
+  // }, []);
+
   const renderItem = ({item}) => (
     <Item
       navigation={props.navigation}
