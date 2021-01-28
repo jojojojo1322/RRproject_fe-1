@@ -121,6 +121,7 @@ export default class Login extends Component {
             response.headers.authorization.slice(7, undefined),
           );
         await AsyncStorage.setItem('userNo', response.data.userNo);
+        await AsyncStorage.setItem('email', this.state.ID);
         this.setState({
           loginCheck: response.data.status,
           hasWallet: response.data.hasWallet,
@@ -145,10 +146,6 @@ export default class Login extends Component {
         if (error.response.data.msg === 'KycLevel1 Not Saved') {
           console.log('진입');
           await AsyncStorage.setItem('userNo', error.response.data.userNo);
-          // await AsyncStorage.setItem(
-          //   'hasWallet',
-          //   error.response.data.hasWallet,
-          // );
         }
       });
   };

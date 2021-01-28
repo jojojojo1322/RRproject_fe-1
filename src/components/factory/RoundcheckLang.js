@@ -149,11 +149,6 @@ export class RoundCheckbox extends Component {
     });
   }
   render() {
-    let a = [];
-    a = this.props.checkedArray.filter(
-      (data) => data.value == this.props.value,
-    );
-
     // console.log(a);
     return (
       <TouchableOpacity
