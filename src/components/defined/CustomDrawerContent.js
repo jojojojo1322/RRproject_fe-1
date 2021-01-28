@@ -38,12 +38,18 @@ export function CustomDrawerContent(props) {
   const [alertData, setAlertData] = useState([]);
   const [alertDataNot, setAlertDataNot] = useState(0);
   const [loginStatus, setLoginStatus] = useState(props.login);
+  const [email, setEmail] = useState('');
 
+  const emailAsyncSet = async () => {
+    setEmail(await AsyncStorage.getItem('email'));
+  };
   useEffect(() => {
     alertDataApi();
+    emailAsyncSet();
   }, []);
   useEffect(() => {
     alertDataApi();
+    emailAsyncSet();
   }, [props.login]);
 
   console.log('CUSTON>>>>', props.login);
@@ -109,7 +115,7 @@ export function CustomDrawerContent(props) {
                 textDecorationLine: 'underline',
               },
             ]}>
-            tnctnctnc123@gmail.com
+            {email}
           </Text>
         </TouchableOpacity>
       </View>

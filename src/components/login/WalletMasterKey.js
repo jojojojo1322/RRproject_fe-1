@@ -11,10 +11,17 @@ import ResetStyle from '../../style/ResetStyle.js';
 import Clipboard from '@react-native-community/clipboard';
 import BottomModal from '../factory/modal/BottomModal';
 import AuthStyle from '../../style/AuthStyle.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class WalletMasterKey extends Component {
   state = {
     modalVisible: false,
+  };
+  componentDidMount = async () => {
+    await AsyncStorage.setItem(
+      'masterKey',
+      this.props.route.params?.walletAddress,
+    );
   };
   setModalVisible = (visible) => {
     this.setState({

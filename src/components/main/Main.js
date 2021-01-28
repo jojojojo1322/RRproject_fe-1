@@ -15,6 +15,8 @@ import Carousel from 'react-native-snap-carousel';
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {scrollInterpolator2, animatedStyles2} from '../animations';
+import {server} from '../defined/server';
+import axios from 'axios';
 
 // 3자리수 콤마(,)
 const numberWithCommas = (x) => {
@@ -156,267 +158,303 @@ const DATA = [
   },
 ];
 
-const renderItem = ({item, navigation}) => {
-  if (item.status === 'zero') {
-    return (
-      <TouchableOpacity
-        style={[
-          MainStyle.itemBox,
-          {borderWidth: 0, backgroundColor: 'transparent', marginTop: '20%'},
-        ]}>
-        <Image
-          style={{alignSelf: 'center', width: 80, height: 80}}
-          source={require('../../imgs/drawable-xxxhdpi/no_data_icon.png')}
-        />
-        <Text
-          style={[ResetStyle.fontMediumK, ResetStyle.fontG, {marginTop: '5%'}]}>
-          No data!
-        </Text>
-      </TouchableOpacity>
-    );
-  } else if (item.status !== 'zero') {
-    return (
-      <TouchableOpacity
-        style={[
-          MainStyle.itemBox,
-          // {marginBottom: item.id === item.length ? 200 : 0},
-        ]}
-        onPress={() => {
-          item.status === 'expired'
-            ? navigation.navigate('MainDetailExpired')
-            : item.status === 'completed'
-            ? navigation.navigate('MainDetailCompleted')
-            : navigation.navigate('MainDetail');
-          // navigation.navigate('MainDetail');
-        }}>
-        <View
-          opacity={item.status === 'expired' ? 0.5 : 1.0}
-          style={{
-            flex: 1,
-          }}>
+export default function MainTest({navigation}) {
+  const userInfoApi = async () => {
+    await axios
+      .get(`${server}/user/info?userNo=${await AsyncStorage.getItem('userNo')}`)
+      .then(async (response) => {
+        console.log('userInfoApi Then >>', response);
+        // setCountry(response.data);
+
+        // return await response;
+      })
+      .catch(({e}) => {
+        console.log('userInfoApi Error', e);
+      });
+  };
+  const TncGetApi = async () => {
+    await axios
+      .get(`${server}/user/info?userNo=${await AsyncStorage.getItem('userNo')}`)
+      .then(async (response) => {
+        console.log('userInfoApi Then >>', response);
+        // setCountry(response.data);
+
+        // return await response;
+      })
+      .catch(({e}) => {
+        console.log('userInfoApi Error', e);
+      });
+  };
+  useEffect(async () => {
+    // userInfoApi();
+    console.log('userNo', await AsyncStorage.getItem('userNo'));
+    console.log('email', await AsyncStorage.getItem('email'));
+  }, []);
+  const renderItem = ({item}) => {
+    if (item.status === 'zero') {
+      return (
+        <TouchableOpacity
+          style={[
+            MainStyle.itemBox,
+            {borderWidth: 0, backgroundColor: 'transparent', marginTop: '20%'},
+          ]}>
           <Image
-            style={{
-              position: 'absolute',
-              left: 0,
-              top: 0,
-              width: '100%',
-              height: '115%',
-            }}
-            source={item.img}
+            style={{alignSelf: 'center', width: 80, height: 80}}
+            source={require('../../imgs/drawable-xxxhdpi/no_data_icon.png')}
           />
+          <Text
+            style={[
+              ResetStyle.fontMediumK,
+              ResetStyle.fontG,
+              {marginTop: '5%'},
+            ]}>
+            No data!
+          </Text>
+        </TouchableOpacity>
+      );
+    } else if (item.status !== 'zero') {
+      return (
+        <TouchableOpacity
+          style={[
+            MainStyle.itemBox,
+            // {marginBottom: item.id === item.length ? 200 : 0},
+          ]}
+          onPress={() => {
+            item.status === 'expired'
+              ? navigation.navigate('MainDetailExpired')
+              : item.status === 'completed'
+              ? navigation.navigate('MainDetailCompleted')
+              : navigation.navigate('MainDetail');
+            // navigation.navigate('MainDetail');
+          }}>
           <View
+            opacity={item.status === 'expired' ? 0.5 : 1.0}
             style={{
-              position: 'absolute',
-              left: 0,
-              top: 0,
-              width: '100%',
-              height: '120%',
-              backgroundColor: 'rgba(0, 0, 0, 0.1)',
-            }}></View>
-          <LinearGradient
-            colors={[
-              'rgba(0, 0, 0, 0.5)',
-              'rgba(0, 0, 0, 0)',
-              'rgba(0, 0, 0, 0)',
-              'rgba(0, 0, 0, 0.5)',
-            ]}
-            style={{
-              position: 'absolute',
-              left: 0,
-              top: 0,
-              width: '100%',
-              height: '120%',
-            }}></LinearGradient>
-          <View style={[MainStyle.itemBoxInner]}>
-            <View style={{position: 'relative'}}>
-              <Text
-                style={[
-                  ResetStyle.fontLightK,
-                  ResetStyle.fontWhite,
-                  {marginTop: '25%'},
-                ]}>
-                {item.division} | {item.host}
-              </Text>
-            </View>
-          </View>
-          <View style={MainStyle.itemTitleView}>
-            <Text
-              style={[
-                ResetStyle.fontBoldK,
-                ResetStyle.fontWhite,
-                {textAlign: 'left', marginBottom: '4%'},
-              ]}>
-              {item.title}
-            </Text>
-            <Text style={[ResetStyle.fontRegularK, ResetStyle.fontWhite]}>
-              {item.content}
-            </Text>
-          </View>
-          <View
-            style={{
-              position: 'absolute',
-              bottom: 0,
-              left: '5%',
+              flex: 1,
             }}>
-            <View style={MainStyle.itemImagenullViewInner}>
-              <Text style={[ResetStyle.fontBoldK, ResetStyle.fontWhite]}>
-                + {item.tnc}
-              </Text>
+            <Image
+              style={{
+                position: 'absolute',
+                left: 0,
+                top: 0,
+                width: '100%',
+                height: '115%',
+              }}
+              source={item.img}
+            />
+            <View
+              style={{
+                position: 'absolute',
+                left: 0,
+                top: 0,
+                width: '100%',
+                height: '120%',
+                backgroundColor: 'rgba(0, 0, 0, 0.1)',
+              }}></View>
+            <LinearGradient
+              colors={[
+                'rgba(0, 0, 0, 0.5)',
+                'rgba(0, 0, 0, 0)',
+                'rgba(0, 0, 0, 0)',
+                'rgba(0, 0, 0, 0.5)',
+              ]}
+              style={{
+                position: 'absolute',
+                left: 0,
+                top: 0,
+                width: '100%',
+                height: '120%',
+              }}></LinearGradient>
+            <View style={[MainStyle.itemBoxInner]}>
+              <View style={{position: 'relative'}}>
+                <Text
+                  style={[
+                    ResetStyle.fontLightK,
+                    ResetStyle.fontWhite,
+                    {marginTop: '25%'},
+                  ]}>
+                  {item.division} | {item.host}
+                </Text>
+              </View>
+            </View>
+            <View style={MainStyle.itemTitleView}>
               <Text
                 style={[
-                  ResetStyle.fontRegularK,
+                  ResetStyle.fontBoldK,
                   ResetStyle.fontWhite,
-                  {marginLeft: 5, paddingBottom: 5},
+                  {textAlign: 'left', marginBottom: '4%'},
                 ]}>
-                TNC
+                {item.title}
+              </Text>
+              <Text style={[ResetStyle.fontRegularK, ResetStyle.fontWhite]}>
+                {item.content}
               </Text>
             </View>
             <View
               style={{
-                height: 0.5,
-                backgroundColor: '#ffffff',
-                marginTop: '2%',
-                marginBottom: '2%',
-                width: '185%',
-              }}
-            />
-            <View style={MainStyle.itemBoxBottomTextView}>
-              <Image
-                source={require('../../imgs/drawable-xxxhdpi/user_icon.png')}
+                position: 'absolute',
+                bottom: 0,
+                left: '5%',
+              }}>
+              <View style={MainStyle.itemImagenullViewInner}>
+                <Text style={[ResetStyle.fontBoldK, ResetStyle.fontWhite]}>
+                  + {item.tnc}
+                </Text>
+                <Text
+                  style={[
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontWhite,
+                    {marginLeft: 5, paddingBottom: 5},
+                  ]}>
+                  TNC
+                </Text>
+              </View>
+              <View
+                style={{
+                  height: 0.5,
+                  backgroundColor: '#ffffff',
+                  marginTop: '2%',
+                  marginBottom: '2%',
+                  width: '185%',
+                }}
               />
-              <Text
-                style={[
-                  ResetStyle.fontRegularK,
-                  ResetStyle.fontWhite,
-                  {textAlign: 'left', marginLeft: '5%'},
-                ]}>
-                {numberWithCommas(item.participantCompleteCount)} /{' '}
-                {numberWithCommas(item.participantCount)}
-              </Text>
-            </View>
+              <View style={MainStyle.itemBoxBottomTextView}>
+                <Image
+                  source={require('../../imgs/drawable-xxxhdpi/user_icon.png')}
+                />
+                <Text
+                  style={[
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontWhite,
+                    {textAlign: 'left', marginLeft: '5%'},
+                  ]}>
+                  {numberWithCommas(item.participantCompleteCount)} /{' '}
+                  {numberWithCommas(item.participantCount)}
+                </Text>
+              </View>
 
-            <View style={MainStyle.itemBoxBottomTextView}>
-              <Image
-                source={require('../../imgs/drawable-xxxhdpi/clock_icon.png')}
-              />
+              <View style={MainStyle.itemBoxBottomTextView}>
+                <Image
+                  source={require('../../imgs/drawable-xxxhdpi/clock_icon.png')}
+                />
+                <Text
+                  style={[
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontWhite,
+                    {marginLeft: '5%'},
+                  ]}>
+                  {item.dateStart}
+                </Text>
+              </View>
+            </View>
+            <TouchableOpacity
+              style={{
+                position: 'absolute',
+                bottom: 0,
+                right: '5%',
+                width: 80,
+                backgroundColor: 'rgba(255,255,255,0.4)',
+                borderRadius: 50,
+              }}>
               <Text
                 style={[
-                  ResetStyle.fontRegularK,
+                  ResetStyle.fontLightK,
                   ResetStyle.fontWhite,
-                  {marginLeft: '5%'},
+                  {fontWeight: '900', padding: 8},
                 ]}>
-                {item.dateStart}
+                보기
               </Text>
-            </View>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            style={{
-              position: 'absolute',
-              bottom: 0,
-              right: '5%',
-              width: 80,
-              backgroundColor: 'rgba(255,255,255,0.4)',
-              borderRadius: 50,
-            }}>
-            <Text
-              style={[
-                ResetStyle.fontLightK,
-                ResetStyle.fontWhite,
-                {fontWeight: '900', padding: 8},
-              ]}>
-              보기
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      );
+    }
+  };
+
+  function Ongoing({navigation}) {
+    const [index, setIndex] = useState(0);
+    // const [loading, setLoading] = useState(false);
+
+    return (
+      <Carousel
+        data={
+          DATA.filter((item) => item.status == 'ongoing').length == 0
+            ? [{status: 'zero'}]
+            : DATA.filter((item) => item.status == 'ongoing')
+        }
+        renderItem={renderItem}
+        sliderHeight={SLIDER_HEIGHT}
+        itemHeight={ITEM_HEIGHT}
+        containerCustomStyle={{
+          flex: 1,
+          backgroundColor: '#fff',
+        }}
+        inactiveSlideShift={0}
+        onSnapToItem={(index) => setIndex(index)}
+        scrollInterpolator={scrollInterpolator2}
+        slideInterpolatedStyle={animatedStyles2}
+        useScrollView={true}
+        vertical={true}
+        layout={'stack'}
+        layoutCardOffset={`0`}
+        // ListFooterComponent={loading && <ActivityIndicator />}
+      />
     );
   }
-};
 
-function Ongoing({navigation}) {
-  const [index, setIndex] = useState(0);
-  // const [loading, setLoading] = useState(false);
+  function Completed({navigation}) {
+    const [index, setIndex] = useState(0);
+    return (
+      <Carousel
+        data={
+          DATA.filter((item) => item.status == 'completed').length == 0
+            ? [{status: 'zero'}]
+            : DATA.filter((item) => item.status == 'completed')
+        }
+        renderItem={renderItem}
+        sliderHeight={SLIDER_HEIGHT}
+        itemHeight={ITEM_HEIGHT}
+        containerCustomStyle={{flex: 1, backgroundColor: '#fff'}}
+        inactiveSlideShift={0}
+        onSnapToItem={(index) => setIndex(index)}
+        scrollInterpolator={scrollInterpolator2}
+        slideInterpolatedStyle={animatedStyles2}
+        useScrollView={true}
+        vertical={true}
+        layout={'stack'}
+        layoutCardOffset={`0`}
+      />
+    );
+  }
 
-  return (
-    <Carousel
-      data={
-        DATA.filter((item) => item.status == 'ongoing').length == 0
-          ? [{status: 'zero'}]
-          : DATA.filter((item) => item.status == 'ongoing')
-      }
-      renderItem={renderItem}
-      sliderHeight={SLIDER_HEIGHT}
-      itemHeight={ITEM_HEIGHT}
-      containerCustomStyle={{
-        flex: 1,
-        backgroundColor: '#fff',
-      }}
-      inactiveSlideShift={0}
-      onSnapToItem={(index) => setIndex(index)}
-      scrollInterpolator={scrollInterpolator2}
-      slideInterpolatedStyle={animatedStyles2}
-      useScrollView={true}
-      vertical={true}
-      layout={'stack'}
-      layoutCardOffset={`0`}
-      // ListFooterComponent={loading && <ActivityIndicator />}
-    />
-  );
-}
+  function Expired({navigation}) {
+    const [index, setIndex] = useState(0);
+    return (
+      <Carousel
+        data={
+          DATA.filter((item) => item.status == 'expired').length == 0
+            ? [{status: 'zero'}]
+            : DATA.filter((item) => item.status == 'expired')
+        }
+        renderItem={renderItem}
+        sliderHeight={SLIDER_HEIGHT}
+        itemHeight={ITEM_HEIGHT}
+        containerCustomStyle={{flex: 1, backgroundColor: '#fff'}}
+        inactiveSlideShift={0}
+        onSnapToItem={(index) => setIndex(index)}
+        scrollInterpolator={scrollInterpolator2}
+        slideInterpolatedStyle={animatedStyles2}
+        useScrollView={true}
+        vertical={true}
+        layout={'stack'}
+        layoutCardOffset={`0`}
+      />
+    );
+  }
 
-function Completed({navigation}) {
-  const [index, setIndex] = useState(0);
-  return (
-    <Carousel
-      data={
-        DATA.filter((item) => item.status == 'completed').length == 0
-          ? [{status: 'zero'}]
-          : DATA.filter((item) => item.status == 'completed')
-      }
-      renderItem={renderItem}
-      sliderHeight={SLIDER_HEIGHT}
-      itemHeight={ITEM_HEIGHT}
-      containerCustomStyle={{flex: 1, backgroundColor: '#fff'}}
-      inactiveSlideShift={0}
-      onSnapToItem={(index) => setIndex(index)}
-      scrollInterpolator={scrollInterpolator2}
-      slideInterpolatedStyle={animatedStyles2}
-      useScrollView={true}
-      vertical={true}
-      layout={'stack'}
-      layoutCardOffset={`0`}
-    />
-  );
-}
+  const Tab = createMaterialTopTabNavigator();
 
-function Expired({navigation}) {
-  const [index, setIndex] = useState(0);
-  return (
-    <Carousel
-      data={
-        DATA.filter((item) => item.status == 'expired').length == 0
-          ? [{status: 'zero'}]
-          : DATA.filter((item) => item.status == 'expired')
-      }
-      renderItem={renderItem}
-      sliderHeight={SLIDER_HEIGHT}
-      itemHeight={ITEM_HEIGHT}
-      containerCustomStyle={{flex: 1, backgroundColor: '#fff'}}
-      inactiveSlideShift={0}
-      onSnapToItem={(index) => setIndex(index)}
-      scrollInterpolator={scrollInterpolator2}
-      slideInterpolatedStyle={animatedStyles2}
-      useScrollView={true}
-      vertical={true}
-      layout={'stack'}
-      layoutCardOffset={`0`}
-    />
-  );
-}
-
-const Tab = createMaterialTopTabNavigator();
-
-export default function MainTest({navigation}) {
+  // export default function MainTest({navigation}) {
   return (
     <View style={{flex: 1, backgroundColor: '#fff'}}>
       <View style={[MainStyle.topLogoView]}>
