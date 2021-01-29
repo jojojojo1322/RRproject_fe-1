@@ -13,11 +13,35 @@ import WalletStyle from '../../../style/WalletStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import WalletSendModal from '../../factory/modal/WalletSendModal';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import BottomModal from '../../factory/modal/BottomModal';
+import axios from 'axios';
+import {server} from '../../defined/server';
 
 // 3자리수 콤마(,)
-function numberWithCommas(x) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+// function numberWithCommas(x) {
+//   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+// }
+
+// 3자리수 콤마(,) + 소수점 이하는 콤마 안 생기게
+function numberWithCommas(num) {
+  var parts = num.toString().split('.');
+  return (
+    parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',') +
+    (parts[1] ? '.' + parts[1] : '')
+  );
+}
+
+// 불필요한 마지막 소수점 0 날리기
+function ToFloat(number) {
+  var tmp = number + '';
+
+  if (tmp.indexOf('.') != -1) {
+    number = number.toFixed(4);
+    // number = number.replace(/(0+$)/, '');
+  }
+
+  return number;
 }
 
 const masterKey = 'RR6f3TBp4ckUTuWVw9Wb6akW84HgJcGZJgwnN1WNnJDy9QEBitdG';
@@ -34,42 +58,76 @@ const dealDetail = {
   TXID: '0x6565232c6565ed6565659desds6565c58c7',
 };
 
-export default function MainTest({navigation}) {
-  const [total, setTotal] = useState(1000000);
-  const [calculator, setCalulator] = useState('');
+export default function WalletSend({navigation, route}) {
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
+  const [total, setTotal] = useState(0);
   const [value, setValue] = useState(0);
+  const [calculator, setCalulator] = useState('');
   const [address, setAddress] = useState('');
   const [memo, setMemo] = useState('');
+  const [walletData, setWalletData] = useState([]);
 
+  // QR Code Address 넘어오는 부분
+  const {qrcode} = route ? route.params : '';
+  console.log('qrcode check >>>>>', qrcode);
+
+  // Calculator
   useEffect(() => {
-    handleOver();
-  });
+    handleCalculatorOver(value);
+    console.log(value);
+  }, [value]);
+
+  // Wallet Api 활성화
+  useEffect(() => {
+    // Async Test 용 dummy email 저장
+    AsyncStorage.setItem('email', 'a@c.com', () => {
+      console.log('유저 닉네임 저장 완료');
+    });
+    walletDataApi();
+  }, []);
+
+  // Call wallet Data Api
+  const walletDataApi = async () => {
+    await axios
+      .get(`${server}/wallet/${await AsyncStorage.getItem('email')}`)
+      .then((response) => {
+        // 보유한 Total value TNC
+        setTotal(Number(response.data.balance.replace(' TNC', '')));
+        // Wallet Data 전체 값
+        setWalletData(response.data);
+      })
+      .catch((e) => {
+        console.log('error', e);
+      });
+  };
+
+  // Total value TNC Check
+  console.log('total check >>>>>', total);
+  console.log('value check >>>>>', value);
 
   const setTenth = () => {
     setCalulator('tenth');
-    setValue(total / 10);
+    setValue(parseFloat((total / 10).toFixed(6)));
   };
 
   const setQuarter = () => {
     setCalulator('quarter');
-    setValue(total / 4);
+    setValue(parseFloat((total / 4).toFixed(6)));
   };
 
   const setHalf = () => {
     setCalulator('half');
-    setValue(total / 2);
+    setValue(parseFloat((total / 2).toFixed(6)));
   };
 
   const setMax = () => {
     setCalulator('max');
-    setValue(total / 1);
+    setValue(parseFloat((total / 1).toFixed(6)));
   };
 
   const setConfirm = () => {
     navigation.navigate('WalletConfirmPassword');
-    // navigation.navigate('WalletSendSuccess');
   };
 
   const handleAddress = (e) => {
@@ -80,8 +138,24 @@ export default function MainTest({navigation}) {
     setMemo(e);
   };
 
-  const handleOver = () => {
-    if (value > total) {
+  var test = 50.1562000043;
+
+  const handleCalculatorOver = () => {
+    if (
+      (calculator === 'tenth' && value > total / 10) ||
+      (calculator === 'quarter' && value > total / 4) ||
+      (calculator === 'half' && value > total / 2)
+    ) {
+      setCalulator('');
+    } else if (
+      (calculator === 'tenth' && value < total / 10) ||
+      (calculator === 'quarter' && value < total / 4) ||
+      (calculator === 'half' && value < total / 2) ||
+      (calculator === 'max' && value < total)
+    ) {
+      setCalulator('');
+    } else if ((calculator === 'max' && value > total) || value > total) {
+      setCalulator('');
       setModal2Visible(true);
       setValue(0);
     }
@@ -125,7 +199,7 @@ export default function MainTest({navigation}) {
                 ResetStyle.fontB,
                 {fontWeight: '500', marginTop: '2%'},
               ]}>
-              {numberWithCommas(total)} TNC
+              {parseFloat(total)} TNC
             </Text>
           </View>
 
@@ -156,7 +230,8 @@ export default function MainTest({navigation}) {
                     placeholderTextColor="#a9a9a9"
                     // autoCapitalize={'none'}
                     onChangeText={handleAddress}
-                    value={address}
+                    // value={address}
+                    value={qrcode === 'e.data' ? null : qrcode}
                   />
                   <TouchableOpacity
                     onPress={() => {
@@ -207,10 +282,16 @@ export default function MainTest({navigation}) {
                   placeholderTextColor="#a9a9a9"
                   autoCapitalize={'none'}
                   keyboardType={'numeric'}
-                  onChangeText={setValue}
-                  // value={value === 0 ? null : numberWithCommas(value)}
-                  value={value === 0 ? null : value.toString()}
+                  onChangeText={(e) => {
+                    setValue(e);
+                    handleCalculatorOver();
+                  }}
+                  value={value === 0 ? null : numberWithCommas(value)}
+                  // value={value === 0 ? null : value}
                 />
+                {/* <Text style={[ResetStyle.fontRegularK, ResetStyle.fontBlack]}>
+                  TNC
+                </Text> */}
                 <TouchableOpacity
                   onPress={() => {
                     setValue(0);
@@ -230,7 +311,6 @@ export default function MainTest({navigation}) {
                     calculator === 'tenth' && {backgroundColor: '#2d91ff'},
                   ]}
                   onPress={() => {
-                    setCalulator('tenth');
                     setTenth();
                   }}>
                   <Text
@@ -250,7 +330,6 @@ export default function MainTest({navigation}) {
                     },
                   ]}
                   onPress={() => {
-                    setCalulator('quarter');
                     setQuarter();
                   }}>
                   <Text
@@ -268,7 +347,6 @@ export default function MainTest({navigation}) {
                     calculator === 'half' && {backgroundColor: '#2d91ff'},
                   ]}
                   onPress={() => {
-                    setCalulator('half');
                     setHalf();
                   }}>
                   <Text
@@ -286,7 +364,6 @@ export default function MainTest({navigation}) {
                     calculator === 'max' && {backgroundColor: '#2d91ff'},
                   ]}
                   onPress={() => {
-                    setCalulator('max');
                     setMax();
                   }}>
                   <Text
@@ -299,6 +376,14 @@ export default function MainTest({navigation}) {
                   </Text>
                 </TouchableOpacity>
               </View>
+              <Text
+                style={[
+                  ResetStyle.fontLightK,
+                  ResetStyle.fontDG,
+                  {textAlign: 'left', marginTop: '2%'},
+                ]}>
+                전송 수수료 : 10 TNC
+              </Text>
             </View>
 
             {/* Comment */}
@@ -348,7 +433,12 @@ export default function MainTest({navigation}) {
             onPress={() => {
               setModalVisible(true);
             }}>
-            <Text style={[ResetStyle.fontMediumK, ResetStyle.fontWhite]}>
+            <Text
+              style={[
+                ResetStyle.fontMediumK,
+                ResetStyle.fontWhite,
+                {fontWeight: '600'},
+              ]}>
               보내기
             </Text>
           </TouchableOpacity>
@@ -359,6 +449,9 @@ export default function MainTest({navigation}) {
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         confirm={setConfirm}
+        address={address}
+        amount={value}
+        memo={memo}
       />
       <BottomModal
         modalVisible={modal2Visible}

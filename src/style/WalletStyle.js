@@ -113,8 +113,8 @@ export default StyleSheet.create({
     width: '90%',
   },
   sendContentInnerXButton: {
-    width: 32,
-    height: 32,
+    width: Platform.OS === 'ios' ? 32 : 25,
+    height: Platform.OS === 'ios' ? 32 : 25,
     resizeMode: 'contain',
   },
 

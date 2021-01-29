@@ -15,6 +15,7 @@ import ResetStyle from '../../../style/ResetStyle.js';
 import WalletStyle from '../../../style/WalletStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import axios from 'axios';
+import {server} from '../../defined/server';
 
 const masterKey = 'RR6f3TBp4ckUTuWVw9Wb6akW84HgJcGZJgwnN1WNnJDy9QEBitdG';
 const TestArray = [
@@ -634,7 +635,9 @@ const WalletMain = (props) => {
             <TouchableOpacity
               style={[ResetStyle.buttonSmall, WalletStyle.myTncButton]}
               onPress={() => {
-                props.navigation.navigate('WalletSend');
+                props.navigation.navigate('WalletSend', {
+                  qrcode: 'e.data',
+                });
               }}>
               <Text style={[ResetStyle.fontRegularK, ResetStyle.fontB]}>
                 Send

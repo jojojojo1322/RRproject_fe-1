@@ -5,15 +5,17 @@ import ResetStyle from '../../../style/ResetStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 import QRCodeScanner from 'react-native-qrcode-scanner';
-// import {RNCamera} from 'react-native-camera';
-// import {request, PERMISSIONS} from 'react-native-permissions';
 
 export default function MainTest({navigation}) {
-  const [QRAdress, setQRAdress] = useState('');
+  const [QRAdress, setQRAdress] = useState();
   const onSuccess = (e) => {
-    console.log(e.data);
-    // navigation.navigate('WalletSend');
+    console.log('console', e.data);
+    setQRAdress(e.data);
+    navigation.navigate('WalletSend', {
+      qrcode: e.data,
+    });
   };
+  console.log('QRCODEEEEEEE', QRAdress);
   return (
     <SafeAreaView style={ResetStyle.container}>
       <View
@@ -42,6 +44,7 @@ export default function MainTest({navigation}) {
         </View>
         <QRCodeScanner
           onRead={onSuccess}
+          vibrate={false}
           // disableVibrationByUser={0}
           containerStyle={{width: '100%', height: '100%'}}
           cameraStyle={{width: '100%'}}
