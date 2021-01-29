@@ -21,6 +21,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import QRCode from 'react-native-qrcode2';
 import axios from 'axios';
 import {server} from '../../defined/server';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NavigationHelpersContext} from '@react-navigation/native';
 
 const deviceWidth = Dimensions.get('screen').width;
@@ -47,9 +48,18 @@ const WalletReceive = (props) => {
     // 'RR8ERZUHNFW8mDrr6w7u9LWABNp6FnwgJ7x8gms3WUR5YpNDaRFW' 현재
   );
 
-  const getWalletAddressApi = async (email) => {
+  useEffect(() => {
+    AsyncStorage.setItem('email', 'a@c.com', () => {
+      console.log('유저 닉네임 저장 완료');
+    });
+    getWalletAddressApi();
+    setMasterKey(walletData.name);
+  }, []);
+
+  // const getWalletAddressApi = async (email) => {
+  const getWalletAddressApi = async () => {
     await axios
-      .get(`${server}/wallet/${email}`)
+      .get(`${server}/wallet/${await AsyncStorage.getItem('email')}`)
       .then((response) => {
         console.log('walletData>>>>>', response.data);
         setWalletData(response.data);
@@ -60,9 +70,7 @@ const WalletReceive = (props) => {
       });
   };
 
-  useEffect(() => {
-    getWalletAddressApi();
-  }, []);
+  console.log('walletData', walletData);
 
   const copyToClipboard = (value) => {
     Clipboard.setString(value);
@@ -90,24 +98,7 @@ const WalletReceive = (props) => {
           <Text style={[ResetStyle.fontMediumK, {marginBottom: '10%'}]}>
             My Address
           </Text>
-          {/* <View style={{borderWidth: 1}}> */}
           <QRCode value={masterKey} size={700} bgColor="#000" fgColor="white" />
-          {/* </View> */}
-          {/* <TouchableOpacity
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              marginTop: '10%',
-              marginBottom: '10%',
-            }}>
-            <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-              주소 공유하기
-            </Text>
-            <Image
-              style={{width: 30, height: 25, marginLeft: '2%'}}
-              source={require('../../../imgs/drawable-xxxhdpi/share_icon.png')}
-            />
-          </TouchableOpacity> */}
         </View>
 
         <View>

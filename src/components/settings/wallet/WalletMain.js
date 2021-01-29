@@ -16,6 +16,16 @@ import WalletStyle from '../../../style/WalletStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import axios from 'axios';
 import {server} from '../../defined/server';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// 3자리수 콤마(,) + 소수점 이하는 콤마 안 생기게
+function numberWithCommas(num) {
+  var parts = num.toString().split('.');
+  return (
+    parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',') +
+    (parts[1] ? '.' + parts[1] : '')
+  );
+}
 
 const masterKey = 'RR6f3TBp4ckUTuWVw9Wb6akW84HgJcGZJgwnN1WNnJDy9QEBitdG';
 const TestArray = [
@@ -519,7 +529,8 @@ const Item = (data) => (
 );
 
 const WalletMain = (props) => {
-  const [walletData, setWalletData] = useState(null);
+  const [walletData, setWalletData] = useState([]);
+  const [total, setTotal] = useState(0);
 
   // useEffect(() => {
   //   await axios
@@ -537,6 +548,27 @@ const WalletMain = (props) => {
   //       console.log('error', e);
   //     });
   // }, []);
+
+  useEffect(() => {
+    AsyncStorage.setItem('email', 'a@c.com', () => {
+      console.log('유저 닉네임 저장 완료');
+    });
+    getWalletApi();
+  }, []);
+
+  const getWalletApi = async () => {
+    await axios
+      .get(`${server}/wallet/${await AsyncStorage.getItem('email')}`)
+      .then((response) => {
+        console.log('walletData>>>>>', response.data);
+        setWalletData(response.data);
+        setTotal(Number(response.data.balance.replace(' TNC', '')));
+        console.log(walletData);
+      })
+      .catch((e) => {
+        console.log('error', e);
+      });
+  };
 
   const renderItem = ({item}) => (
     <Item
@@ -625,7 +657,7 @@ const WalletMain = (props) => {
                 ResetStyle.fontWhite,
                 {fontWeight: '500'},
               ]}>
-              123,123,456,123
+              {numberWithCommas(total)}
             </Text>
           </View>
 
