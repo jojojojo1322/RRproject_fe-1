@@ -7,7 +7,7 @@ import {
   Image,
   Platform,
 } from 'react-native';
-import PropTypes from 'prop-types';
+import PropTypes, {func} from 'prop-types';
 import ResetStyle from '../../../style/ResetStyle.js';
 import WalletStyle from '../../../style/WalletStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -44,14 +44,24 @@ const dealDetail = {
 export default function WalletSend({navigation, route}) {
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
+  const [modal3Visible, setModal3Visible] = useState(false);
+  const [modal4Visible, setModal4Visible] = useState(false);
   const [total, setTotal] = useState(0);
   const [value, setValue] = useState(0);
-  const [valueTnc, setValueTnc] = useState('');
   const [calculator, setCalulator] = useState('');
   const [address, setAddress] = useState('');
   const [memo, setMemo] = useState('');
   const [walletData, setWalletData] = useState([]);
   const [transfee, setTransfee] = useState('전송 수수료 : 10 TNC');
+
+  const onlyDecimalsix = (num) => {
+    var decimalSix = /^\d*[.]\d{7}$/;
+    if (decimalSix.test(num)) {
+      setModal3Visible(!modalVisible);
+      setValue(0);
+      return false;
+    }
+  };
 
   const {qrcode} = route ? route.params : '';
   console.log('qrcode check >>>>>', qrcode);
@@ -60,7 +70,7 @@ export default function WalletSend({navigation, route}) {
   useEffect(() => {
     handleCalculatorOver(value);
     handleUnderTen(value);
-
+    onlyDecimalsix(value);
     setAddress(qrcode);
     console.log(value);
   }, [value, qrcode]);
@@ -73,13 +83,6 @@ export default function WalletSend({navigation, route}) {
     });
     walletDataApi();
   }, []);
-  useEffect(() => {
-    console.log('1');
-    setValueTnc('');
-    console.log('2');
-    setValueTnc(`${numberWithCommas(value).replace(/(^0+)/, '')} TNC`);
-    console.log('3');
-  }, [value]);
 
   // Call wallet Data Api
   const walletDataApi = async () => {
@@ -97,6 +100,7 @@ export default function WalletSend({navigation, route}) {
   };
 
   // Total value TNC Check
+  console.log('wallet data check >>>>>', walletData);
   console.log('total check >>>>>', total);
   console.log('value check >>>>>', value);
 
@@ -117,7 +121,7 @@ export default function WalletSend({navigation, route}) {
 
   const setMax = () => {
     setCalulator('max');
-    setValue(parseFloat((total / 1).toFixed(6)));
+    setValue(parseFloat(((total - 10) / 1).toFixed(6)));
   };
 
   const setConfirm = () => {
@@ -142,14 +146,19 @@ export default function WalletSend({navigation, route}) {
     } else if (
       (calculator === 'tenth' && value < total / 10) ||
       (calculator === 'quarter' && value < total / 4) ||
-      (calculator === 'half' && value < total / 2) ||
-      (calculator === 'max' && value < total)
+      (calculator === 'half' && value < total / 2)
     ) {
       setCalulator('');
-    } else if ((calculator === 'max' && value > total) || value > total) {
+    } else if (
+      (calculator === 'max' && value > total - 10) ||
+      value > total - 10
+    ) {
       setCalulator('');
       setModal2Visible(true);
       setValue(0);
+    } else if (calculator === 'max' && value + 10 === total) {
+      setModal4Visible(true);
+      setCalulator('max');
     }
   };
 
@@ -284,23 +293,21 @@ export default function WalletSend({navigation, route}) {
                   autoCapitalize={'none'}
                   keyboardType={'numeric'}
                   onChangeText={(e) => {
-                    var e1 = e;
-                    console.log('eeeeeeeeee', e);
-                    console.log('eeeeeeeeee', e1.replace('TNC', ''));
-                    setValue(e1.replace('TNC', ''));
+                    setValue(e);
+                    setCalulator('');
                     handleCalculatorOver();
                   }}
                   value={
                     value === 0
                       ? null
-                      : numberWithCommas(value).replace(/(^0+)/, '') + 'TNC'
-                    // : numberWithCommas(value).replace(/(^0+)/, '')
+                      : numberWithCommas(value).replace(/(^0+)/, '')
                   }
                 />
 
                 <TouchableOpacity
                   onPress={() => {
                     setValue(0);
+                    setCalulator('');
                   }}>
                   <Image
                     style={[ResetStyle.circleXButton]}
@@ -468,7 +475,17 @@ export default function WalletSend({navigation, route}) {
       <BottomModal
         modalVisible={modal2Visible}
         setModalVisible={setModal2Visible}
-        text={'보낼 수량은 총액보다 클 수 없습니다.'}
+        text={'수수료를 제외한 총액보다 클 수 없습니다.'}
+      />
+      <BottomModal
+        modalVisible={modal3Visible}
+        setModalVisible={setModal3Visible}
+        text={'소수점 여섯자리까지만 입력가능합니다.'}
+      />
+      <BottomModal
+        modalVisible={modal4Visible}
+        setModalVisible={setModal4Visible}
+        text={'수수료를 제외한 총액이 표시됩니다.'}
       />
     </SafeAreaView>
   );
