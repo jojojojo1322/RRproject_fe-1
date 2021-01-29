@@ -62,7 +62,7 @@ export default StyleSheet.create({
     // top: Platform.OS === 'ios' ? '17.5%' : '15%',
     width: '100%',
     bottom: '0%',
-    height: Platform.OS === 'ios' ? '60%' : '80%',
+    height: Platform.OS === 'ios' ? '78%' : '80%',
     backgroundColor: '#fff',
     padding: '5%',
     shadowColor: '#000',
@@ -88,7 +88,7 @@ export default StyleSheet.create({
   },
   walletMain: {
     backgroundColor: '#f3f3f3',
-    padding: '6%',
+    padding: '5%',
     marginBottom: '3%',
     borderRadius: 10,
   },

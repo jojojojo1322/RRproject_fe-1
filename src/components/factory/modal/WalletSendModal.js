@@ -15,7 +15,7 @@ const WalletSendModal = ({
   setModalVisible,
   confirm,
   address,
-  value,
+  amount,
   memo,
 }) => {
   // const walletSendApi = async (amount, email, memo, password, to, type) => {
@@ -102,7 +102,7 @@ const WalletSendModal = ({
                   ResetStyle.fontBlack,
                   {textAlign: 'left', marginTop: '2%'},
                 ]}>
-                {address}
+                {address === 'e.data' ? null : address}
               </Text>
             </View>
             <View style={[ModalStyle.walletMain]}>
@@ -120,7 +120,43 @@ const WalletSendModal = ({
                   ResetStyle.fontBlack,
                   {textAlign: 'left', marginTop: '2%'},
                 ]}>
-                {value} TNC
+                {amount} TNC
+              </Text>
+            </View>
+            <View style={[ModalStyle.walletMain]}>
+              <Text
+                style={[
+                  ResetStyle.fontLightK,
+                  ResetStyle.fontBlack,
+                  {textAlign: 'left', fontWeight: '500'},
+                ]}>
+                송금 수수료
+              </Text>
+              <Text
+                style={[
+                  ResetStyle.fontLightK,
+                  ResetStyle.fontBlack,
+                  {textAlign: 'left', marginTop: '2%'},
+                ]}>
+                10 TNC
+              </Text>
+            </View>
+            <View style={[ModalStyle.walletMain]}>
+              <Text
+                style={[
+                  ResetStyle.fontLightK,
+                  ResetStyle.fontBlack,
+                  {textAlign: 'left', fontWeight: '500'},
+                ]}>
+                잔액
+              </Text>
+              <Text
+                style={[
+                  ResetStyle.fontLightK,
+                  ResetStyle.fontBlack,
+                  {textAlign: 'left', marginTop: '2%'},
+                ]}>
+                749,990 TNC
               </Text>
             </View>
             <View style={[ModalStyle.walletMain]}>

@@ -18,11 +18,6 @@ import BottomModal from '../../factory/modal/BottomModal';
 import axios from 'axios';
 import {server} from '../../defined/server';
 
-// 3자리수 콤마(,)
-// function numberWithCommas(x) {
-//   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-// }
-
 // 3자리수 콤마(,) + 소수점 이하는 콤마 안 생기게
 function numberWithCommas(num) {
   var parts = num.toString().split('.');
@@ -30,18 +25,6 @@ function numberWithCommas(num) {
     parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',') +
     (parts[1] ? '.' + parts[1] : '')
   );
-}
-
-// 불필요한 마지막 소수점 0 날리기
-function ToFloat(number) {
-  var tmp = number + '';
-
-  if (tmp.indexOf('.') != -1) {
-    number = number.toFixed(4);
-    // number = number.replace(/(0+$)/, '');
-  }
-
-  return number;
 }
 
 const masterKey = 'RR6f3TBp4ckUTuWVw9Wb6akW84HgJcGZJgwnN1WNnJDy9QEBitdG';
@@ -63,20 +46,24 @@ export default function WalletSend({navigation, route}) {
   const [modal2Visible, setModal2Visible] = useState(false);
   const [total, setTotal] = useState(0);
   const [value, setValue] = useState(0);
+  const [valueTnc, setValueTnc] = useState('');
   const [calculator, setCalulator] = useState('');
   const [address, setAddress] = useState('');
   const [memo, setMemo] = useState('');
   const [walletData, setWalletData] = useState([]);
+  const [transfee, setTransfee] = useState('전송 수수료 : 10 TNC');
 
-  // QR Code Address 넘어오는 부분
   const {qrcode} = route ? route.params : '';
   console.log('qrcode check >>>>>', qrcode);
 
   // Calculator
   useEffect(() => {
     handleCalculatorOver(value);
+    handleUnderTen(value);
+
+    setAddress(qrcode);
     console.log(value);
-  }, [value]);
+  }, [value, qrcode]);
 
   // Wallet Api 활성화
   useEffect(() => {
@@ -86,6 +73,13 @@ export default function WalletSend({navigation, route}) {
     });
     walletDataApi();
   }, []);
+  useEffect(() => {
+    console.log('1');
+    setValueTnc('');
+    console.log('2');
+    setValueTnc(`${numberWithCommas(value).replace(/(^0+)/, '')} TNC`);
+    console.log('3');
+  }, [value]);
 
   // Call wallet Data Api
   const walletDataApi = async () => {
@@ -138,8 +132,6 @@ export default function WalletSend({navigation, route}) {
     setMemo(e);
   };
 
-  var test = 50.1562000043;
-
   const handleCalculatorOver = () => {
     if (
       (calculator === 'tenth' && value > total / 10) ||
@@ -158,6 +150,16 @@ export default function WalletSend({navigation, route}) {
       setCalulator('');
       setModal2Visible(true);
       setValue(0);
+    }
+  };
+
+  const handleUnderTen = (value) => {
+    if (value === 0) {
+      setTransfee('전송 수수료 : 10 TNC');
+    } else if (value < 10) {
+      setTransfee('보내는 금액은 최소 10 TNC 이상이어야 합니다.');
+    } else {
+      setTransfee('전송 수수료 : 10 TNC');
     }
   };
 
@@ -222,16 +224,15 @@ export default function WalletSend({navigation, route}) {
                       ResetStyle.fontBlack,
                       {
                         textAlign: 'left',
-                        width: '90%',
-                        // borderWidth: 1,
+                        width: '70%',
                       },
                     ]}
                     placeholder={`보낼 주소 입력`}
                     placeholderTextColor="#a9a9a9"
-                    // autoCapitalize={'none'}
-                    onChangeText={handleAddress}
-                    // value={address}
-                    value={qrcode === 'e.data' ? null : qrcode}
+                    onChangeText={(e) => {
+                      handleAddress(e);
+                    }}
+                    value={address === 'e.data' ? null : address}
                   />
                   <TouchableOpacity
                     onPress={() => {
@@ -283,15 +284,20 @@ export default function WalletSend({navigation, route}) {
                   autoCapitalize={'none'}
                   keyboardType={'numeric'}
                   onChangeText={(e) => {
-                    setValue(e);
+                    var e1 = e;
+                    console.log('eeeeeeeeee', e);
+                    console.log('eeeeeeeeee', e1.replace('TNC', ''));
+                    setValue(e1.replace('TNC', ''));
                     handleCalculatorOver();
                   }}
-                  value={value === 0 ? null : numberWithCommas(value)}
-                  // value={value === 0 ? null : value}
+                  value={
+                    value === 0
+                      ? null
+                      : numberWithCommas(value).replace(/(^0+)/, '') + 'TNC'
+                    // : numberWithCommas(value).replace(/(^0+)/, '')
+                  }
                 />
-                {/* <Text style={[ResetStyle.fontRegularK, ResetStyle.fontBlack]}>
-                  TNC
-                </Text> */}
+
                 <TouchableOpacity
                   onPress={() => {
                     setValue(0);
@@ -380,9 +386,14 @@ export default function WalletSend({navigation, route}) {
                 style={[
                   ResetStyle.fontLightK,
                   ResetStyle.fontDG,
-                  {textAlign: 'left', marginTop: '2%'},
+                  {
+                    textAlign: 'left',
+                    marginTop: '2%',
+                    color:
+                      transfee === '전송 수수료 : 10 TNC' ? '#000' : '#f00',
+                  },
                 ]}>
-                전송 수수료 : 10 TNC
+                {transfee}
               </Text>
             </View>
 
@@ -405,14 +416,15 @@ export default function WalletSend({navigation, route}) {
                     ResetStyle.fontBlack,
                     {
                       textAlign: 'left',
-                      width: '90%',
+                      width: '80%',
                     },
                   ]}
-                  placeholder={`메모 입력`}
+                  placeholder={`메모 입력(15자 내외)`}
                   placeholderTextColor="#a9a9a9"
                   autoCapitalize={'none'}
                   onChangeText={handleMemo}
                   value={memo}
+                  maxLength={15}
                 />
                 <TouchableOpacity
                   onPress={() => {
