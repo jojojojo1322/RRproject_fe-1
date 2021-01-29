@@ -43,7 +43,8 @@ const WalletReceive = (props) => {
   const [modal2Visible, setModal2Visible] = useState(false);
   const [walletData, setWalletData] = useState([]);
   const [masterKey, setMasterKey] = useState(
-    'RR6f3TBp4ckUTuWVw9Wb6akW84HgJcGZJgwnN1WNnJDy9QEBitdG',
+    'RR7fLwahWqyPDVFhEQspQrRP6pLeahbmj9gxwpnuwpZLay81dLRo', //지우
+    // 'RR8ERZUHNFW8mDrr6w7u9LWABNp6FnwgJ7x8gms3WUR5YpNDaRFW' 현재
   );
 
   const getWalletAddressApi = async (email) => {
@@ -92,7 +93,7 @@ const WalletReceive = (props) => {
           {/* <View style={{borderWidth: 1}}> */}
           <QRCode value={masterKey} size={700} bgColor="#000" fgColor="white" />
           {/* </View> */}
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={{
               flexDirection: 'row',
               justifyContent: 'center',
@@ -106,7 +107,7 @@ const WalletReceive = (props) => {
               style={{width: 30, height: 25, marginLeft: '2%'}}
               source={require('../../../imgs/drawable-xxxhdpi/share_icon.png')}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
 
         <View>
@@ -156,11 +157,11 @@ const WalletReceive = (props) => {
           </TouchableOpacity>
         </View>
       </View>
-      <BottomModal
+      {/* <BottomModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         text={`공유되었습니다.`}
-      />
+      /> */}
       <BottomModal
         modalVisible={modal2Visible}
         setModalVisible={setModal2Visible}

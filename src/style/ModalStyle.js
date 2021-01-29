@@ -62,7 +62,7 @@ export default StyleSheet.create({
     // top: Platform.OS === 'ios' ? '17.5%' : '15%',
     width: '100%',
     bottom: '0%',
-    height: Platform.OS === 'ios' ? '65%' : '80%',
+    height: Platform.OS === 'ios' ? '60%' : '80%',
     backgroundColor: '#fff',
     padding: '5%',
     shadowColor: '#000',
@@ -91,14 +91,6 @@ export default StyleSheet.create({
     padding: '6%',
     marginBottom: '3%',
     borderRadius: 10,
-  },
-  walletDetailTitle: {
-    fontSize: 17,
-    fontWeight: '500',
-    marginBottom: '2%',
-  },
-  walletDetailSub: {
-    fontSize: 17,
   },
 
   // Bottom Modal
