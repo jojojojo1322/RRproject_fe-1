@@ -103,7 +103,6 @@ export default function WalletSend({navigation, route}) {
   console.log('wallet data check >>>>>', walletData);
   console.log('total check >>>>>', total);
   console.log('value check >>>>>', value);
-
   const setTenth = () => {
     setCalulator('tenth');
     setValue(parseFloat((total / 10).toFixed(6)));
@@ -151,7 +150,7 @@ export default function WalletSend({navigation, route}) {
       setCalulator('');
     } else if (
       (calculator === 'max' && value > total - 10) ||
-      value > total - 10
+      (total !== 0 && value > total - 10)
     ) {
       setCalulator('');
       setModal2Visible(true);
@@ -171,6 +170,10 @@ export default function WalletSend({navigation, route}) {
       setTransfee('전송 수수료 : 10 TNC');
     }
   };
+
+  useEffect(() => {
+    console.log('calculator', calculator);
+  }, [calculator]);
 
   return (
     <SafeAreaView style={ResetStyle.container}>
@@ -300,7 +303,8 @@ export default function WalletSend({navigation, route}) {
                   value={
                     value === 0
                       ? null
-                      : numberWithCommas(value).replace(/(^0+)/, '')
+                      : // : numberWithCommas(value).replace(/(^0+)/, '')
+                        value
                   }
                 />
 
@@ -318,6 +322,7 @@ export default function WalletSend({navigation, route}) {
 
               {/* Percent View */}
               <View style={[WalletStyle.sendPercentView]}>
+                {/* 10% button */}
                 <TouchableOpacity
                   style={[
                     WalletStyle.sendPercentTouchable,
@@ -335,6 +340,8 @@ export default function WalletSend({navigation, route}) {
                     10%
                   </Text>
                 </TouchableOpacity>
+
+                {/* 25% button */}
                 <TouchableOpacity
                   style={[
                     WalletStyle.sendPercentTouchable,
@@ -354,6 +361,8 @@ export default function WalletSend({navigation, route}) {
                     25%
                   </Text>
                 </TouchableOpacity>
+
+                {/* 50% button */}
                 <TouchableOpacity
                   style={[
                     WalletStyle.sendPercentTouchable,
@@ -371,6 +380,8 @@ export default function WalletSend({navigation, route}) {
                     50%
                   </Text>
                 </TouchableOpacity>
+
+                {/* Max button */}
                 <TouchableOpacity
                   style={[
                     WalletStyle.sendPercentTouchable,
