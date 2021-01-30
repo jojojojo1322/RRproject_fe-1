@@ -72,6 +72,50 @@ const DATA = [
     host: 'Buyaladdin',
     content: '해당 서베이에 대한 간략 설명',
   },
+
+  // {id: "54"
+  // ,legacySurveyId: "4cf355d2cc5e4fee"
+  // ,categoryId: "1"
+  // ,categoryImg: "https://real-research-resources.s3.ap-northeast-2.amazonaws.com/static/survey/category/CustomerSatisfaction.jpg"
+  // ,surveyStatus: "ongoing"
+  // ,categoryName: "Customer Satisfaction"
+  // ,startTime: "2021-01-28 14:05:00"
+  // ,endTime: "2021-01-28 14:10:00"
+  // ,surveyName: "surveyname"
+  // ,particRestrictions: 1000
+  // ,participants: 0
+  // ,reward: "10"
+  // ,sponsorName: "sponsor"
+  // ,instructions: "description"}
+
+  // ,languageCd: "en"
+  // ,createTime: "2021-01-28 16:38:50"
+  // ,estimatedTime: "20"
+  // ,allocatedBudget: "10000"
+  // ,advertiseUrl: null
+  // ,advertiseTitle: null
+  // ,redirectUrl: null
+  // ,advertiseType: null
+  // ,advertiseThumbnail: null},
+  // id: "9"
+  // legacySurveyId: "4cf355d2cc5e4fee"
+  // userNo: "210127104026300"
+  // completedOn: "2021-01-28 18:20:09"
+  // surveyStatus: "ongoing"
+  // sponsorName: "sponsor"
+  // surveyName: "surveyname"
+  // instructions: "description"
+  // createTime: "2021-01-28 16:38:50"
+  // startTime: "2021-01-28 14:05:00"
+  // endTime: "2021-01-28 14:10:00"
+  // estimatedTime: "20"
+  // participants: 0
+  // particRestrictions: 1000
+  // categoryName: "Customer Satisfaction"
+  // categoryId: "1"
+  // categoryImg: "https://real-research-resources.s3.ap-northeast-2.amazonaws.com/static/survey/category/CustomerSatisfaction.jpg"
+  // reward: "10"
+  // audienceId: null
   {
     id: '4',
     img: require('../../imgs/drawable-xxxhdpi/shutterstock_609058097.png'),
@@ -159,37 +203,91 @@ const DATA = [
 ];
 
 export default function MainTest({navigation}) {
+  console.log('main 호출');
+  const [currentTnc, setCurrentTnc] = useState(0);
+  const [kycLevel, setKycLevel] = useState(0);
+  const [ongoingData, setOngoingData] = useState([]);
+  const [completeData, setCompleteData] = useState([]);
+  const [expiredData, setExpiredData] = useState([]);
+
   const userInfoApi = async () => {
     await axios
-      .get(`${server}/user/info?userNo=${await AsyncStorage.getItem('userNo')}`)
+      .get(
+        `${server}/user/main/user?userNo=${await AsyncStorage.getItem(
+          'userNo',
+        )}`,
+      )
       .then(async (response) => {
         console.log('userInfoApi Then >>', response);
+        setKycLevel(response.data.userLevel);
+        await AsyncStorage.setItem('masterKey', response.data.wallet);
+        await AsyncStorage.setItem('inviteCode', response.data.inviteCode);
         // setCountry(response.data);
 
         // return await response;
       })
-      .catch(({e}) => {
+      .catch((e) => {
         console.log('userInfoApi Error', e);
       });
   };
+
+  // TNC 수량
   const TncGetApi = async () => {
     await axios
-      .get(`${server}/user/info?userNo=${await AsyncStorage.getItem('userNo')}`)
+      .get(`${server}/wallet/${await AsyncStorage.getItem('email')}`)
       .then(async (response) => {
-        console.log('userInfoApi Then >>', response);
-        // setCountry(response.data);
+        console.log('TncGetApi Then >>', response);
 
+        // TNC .뒤 문자열 제거 (ex 42.000000 TNC)
+        setCurrentTnc(response.data.balance.split('.')[0]);
+        setCurrentTnc(parseFloat(response.data.balance.toFixed(6)));
+        // setCountry(response.data);
+        console.log(currentTnc);
         // return await response;
       })
       .catch(({e}) => {
-        console.log('userInfoApi Error', e);
+        console.log('TncGetApi Error', e);
       });
   };
+
+  // ongoing, expired 설문조사 호출 api
+  const surveyApi = async (surveyStatus) => {
+    await axios
+      .get(
+        `${server}/survey/main/status/${surveyStatus}/${await AsyncStorage.getItem(
+          'deviceLanguage',
+        )}?CurrentPageNo=1`,
+      )
+      .then(async (response) => {
+        console.log(`surveyApi ${surveyStatus} Then >>`, response);
+      })
+      .catch((e) => {
+        console.log(`surveyApi ${surveyStatus} Error`, e);
+      });
+  };
+
+  //해당 유저 참여 설문 호출 api
+  const completeSurveyApi = async () => {
+    await axios
+      .get(`${server}/survey/main/${await AsyncStorage.getItem('userNo')}`)
+      .then(async (response) => {
+        console.log(`completeSurveyApi Then >>`, response);
+      })
+      .catch((e) => {
+        console.log(`completeSurveyApi Error`, e);
+      });
+  };
+
   useEffect(async () => {
-    // userInfoApi();
+    TncGetApi();
+    userInfoApi();
+    surveyApi('ongoing');
+    surveyApi('expired');
+    completeSurveyApi();
     console.log('userNo', await AsyncStorage.getItem('userNo'));
     console.log('email', await AsyncStorage.getItem('email'));
   }, []);
+
   const renderItem = ({item}) => {
     if (item.status === 'zero') {
       return (
@@ -372,6 +470,7 @@ export default function MainTest({navigation}) {
   };
 
   function Ongoing({navigation}) {
+    console.log('Ongoing 호출');
     const [index, setIndex] = useState(0);
     // const [loading, setLoading] = useState(false);
 
@@ -396,13 +495,14 @@ export default function MainTest({navigation}) {
         useScrollView={true}
         vertical={true}
         layout={'stack'}
-        layoutCardOffset={`0`}
+        layoutCardOffset={0}
         // ListFooterComponent={loading && <ActivityIndicator />}
       />
     );
   }
 
   function Completed({navigation}) {
+    console.log('Completed 호출');
     const [index, setIndex] = useState(0);
     return (
       <Carousel
@@ -422,12 +522,13 @@ export default function MainTest({navigation}) {
         useScrollView={true}
         vertical={true}
         layout={'stack'}
-        layoutCardOffset={`0`}
+        layoutCardOffset={0}
       />
     );
   }
 
   function Expired({navigation}) {
+    console.log('Expired 호출');
     const [index, setIndex] = useState(0);
     return (
       <Carousel
@@ -447,13 +548,12 @@ export default function MainTest({navigation}) {
         useScrollView={true}
         vertical={true}
         layout={'stack'}
-        layoutCardOffset={`0`}
+        layoutCardOffset={0}
       />
     );
   }
 
   const Tab = createMaterialTopTabNavigator();
-
   // export default function MainTest({navigation}) {
   return (
     <View style={{flex: 1, backgroundColor: '#fff'}}>
@@ -540,7 +640,7 @@ export default function MainTest({navigation}) {
                   ResetStyle.fontB,
                   {fontWeight: '500', marginLeft: '3%', marginRight: '3%'},
                 ]}>
-                4
+                {kycLevel}
               </Text>
               <TouchableOpacity>
                 <Image
@@ -574,7 +674,7 @@ export default function MainTest({navigation}) {
                 ResetStyle.fontB,
                 {fontWeight: '500'},
               ]}>
-              15
+              {currentTnc}
             </Text>
           </TouchableOpacity>
         </View>

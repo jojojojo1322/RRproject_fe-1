@@ -55,10 +55,17 @@ export default function WalletSend({navigation, route}) {
   const [transfee, setTransfee] = useState('전송 수수료 : 10 TNC');
 
   const onlyDecimalsix = (num) => {
+    // 소숫점 여섯자리 체크 --> 앞자리에 컴마가 붙을경우 작동안함 -> 검사하는동안 컴마 제거
+    // 가끔 초기화가 안되고 넘어가면 7자리만 체크를 하기 때문에 인식을 못함 -> num 타입 string 처리
+    // 6자리 넘어가면 초기화 대신 마지막 값 제거
     var decimalSix = /^\d*[.]\d{7}$/;
-    if (decimalSix.test(num)) {
+    console.log('소숫점 유형 검사', typeof num);
+
+    let fixNum = String(num).replace(/,/g, '');
+    // let fixNum = num;
+    if (decimalSix.test(String(fixNum))) {
       setModal3Visible(!modalVisible);
-      setValue(0);
+      setValue(num.slice(0, num.length - 1));
       return false;
     }
   };
@@ -103,6 +110,33 @@ export default function WalletSend({navigation, route}) {
   console.log('wallet data check >>>>>', walletData);
   console.log('total check >>>>>', total);
   console.log('value check >>>>>', value);
+  const inputValueHandle = (e) => {
+    // 컴마가 붙어있을 경우 3자리 컴마 함수 에러 -> 컴마 제거를 한 후 다시 3자리 컴마함수 씌우기
+    let ret = e.replace(/,/g, '');
+
+    // '.'를 입력했을 경우 체크
+    let match = ret.match(/\./g);
+
+    // '.' 처음 입력시 함수 진입
+    if (ret.charAt(ret.length - 1) === '.') {
+      // 처음 . 입력시 3자리함수 씌운 뒤 . 붙이기 / 3자리 컴마를 안할시 '.' 입력하면 , 사라짐 (ex 123123.)
+      if (match !== null && match.length === 1) {
+        ret = numberWithCommas(ret).replace(/(^0+)/, '');
+        ret = ret + '.';
+        setCalulator('');
+        handleCalculatorOver();
+      } else {
+        ret = numberWithCommas(ret).replace(/(^0+)/, '');
+        setCalulator('');
+        handleCalculatorOver();
+      }
+    } else {
+      ret = numberWithCommas(ret).replace(/(^0+)/, '');
+      setCalulator('');
+      handleCalculatorOver();
+    }
+    setValue(ret);
+  };
 
   const setTenth = () => {
     setCalulator('tenth');
@@ -151,7 +185,7 @@ export default function WalletSend({navigation, route}) {
       setCalulator('');
     } else if (
       (calculator === 'max' && value > total - 10) ||
-      value > total - 10
+      (total !== 0 && value > total - 10)
     ) {
       setCalulator('');
       setModal2Visible(true);
@@ -171,6 +205,10 @@ export default function WalletSend({navigation, route}) {
       setTransfee('전송 수수료 : 10 TNC');
     }
   };
+
+  useEffect(() => {
+    console.log('calculator', calculator);
+  }, [calculator]);
 
   return (
     <SafeAreaView style={ResetStyle.container}>
@@ -293,15 +331,14 @@ export default function WalletSend({navigation, route}) {
                   autoCapitalize={'none'}
                   keyboardType={'numeric'}
                   onChangeText={(e) => {
-                    setValue(e);
-                    setCalulator('');
-                    handleCalculatorOver();
+                    // 값 검사 및 3자리 컴마 등 함수화
+                    inputValueHandle(e);
+                    // setValue(e);
+
+                    // setCalulator('');
+                    // handleCalculatorOver();
                   }}
-                  value={
-                    value === 0
-                      ? null
-                      : numberWithCommas(value).replace(/(^0+)/, '')
-                  }
+                  value={value === 0 ? null : value}
                 />
 
                 <TouchableOpacity
@@ -318,6 +355,7 @@ export default function WalletSend({navigation, route}) {
 
               {/* Percent View */}
               <View style={[WalletStyle.sendPercentView]}>
+                {/* 10% button */}
                 <TouchableOpacity
                   style={[
                     WalletStyle.sendPercentTouchable,
@@ -335,6 +373,8 @@ export default function WalletSend({navigation, route}) {
                     10%
                   </Text>
                 </TouchableOpacity>
+
+                {/* 25% button */}
                 <TouchableOpacity
                   style={[
                     WalletStyle.sendPercentTouchable,
@@ -354,6 +394,8 @@ export default function WalletSend({navigation, route}) {
                     25%
                   </Text>
                 </TouchableOpacity>
+
+                {/* 50% button */}
                 <TouchableOpacity
                   style={[
                     WalletStyle.sendPercentTouchable,
@@ -371,6 +413,8 @@ export default function WalletSend({navigation, route}) {
                     50%
                   </Text>
                 </TouchableOpacity>
+
+                {/* Max button */}
                 <TouchableOpacity
                   style={[
                     WalletStyle.sendPercentTouchable,
