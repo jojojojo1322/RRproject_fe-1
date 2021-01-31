@@ -89,288 +89,32 @@ const Stack = createStackNavigator();
 
 const Drawer = createDrawerNavigator();
 
-export class AppAuthStack extends Component {
-  state = {
-    isLoading: true,
-    isLogin: false,
-  };
-  // componentDidMount = async () => {
-  //   const login = await AsyncStorage.getItem('userNo');
-  //   console.log('loginConsole', login);
-  //   if (login !== null) {
-  //     console.log('loginSuccess');
-  //     this.setState({
-  //       isLogin: true,
-  //     });
-  //   }
-  // };
-  render() {
-    // console.log('appppappppapppapp');
-    // console.log(this.state.isLogin);
-    // console.log('appppappppapppapp');
-    console.log(
-      'this.propsthis.propsthis.propsthis.propsthis.propsthis.propsthis.propsthis.props',
-      this.props.route.params?.loginSuccess,
-    );
-    return (
-      // <Stack.Navigator initialRouteName="Initial2">
-      <Stack.Navigator>
-        {/* // initialRouteName="Main"> */}
-        <Stack.Screen
-          name="Initial2"
-          component={Initial2}
-          options={{
-            headerShown: false,
-            // title: this.props.route.params?.step,
-            // title: route.params?.name,
-            // title: '',
-            // headerStyle: {
-            //   backgroundColor: '#FFF',
-            //   shadowColor: 'none',
-            //   shadowOffset: {width: 0, height: 0},
-            //   shadowOpacity: 0,
-            //   shadowRadius: 0,
-            //   elevation: 0,
-            // },
-            // headerTintColor: '#000',
-          }}
-        />
-        <Stack.Screen
-          name="Login"
-          component={Login}
-          initialParams={{loginSuccess: this.props.route.params?.loginSuccess}}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="WalletPassword"
-          component={WalletPassword}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="WalletMasterKey"
-          component={WalletMasterKey}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="Kyc"
-          component={Kyc}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="Reset"
-          component={Reset}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="ResetEmail"
-          component={ResetEmail}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="ResetPassword"
-          component={ResetPassword}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="SignUp"
-          component={SignUp}
-          options={{
-            headerShown: false,
-            // headerLeft: () => (
-            //   <TouchableOpacity activeOpacity={0.75} onPress={() => {
-            //     this.props.navigation.goBack();
-            //   }}
-            //   >
-            //     <View>
-            //       <Image />
-            //       <Text>이메일 인증</Text>
-            //     </View>
-            //   </TouchableOpacity>
-            // ),
-            // headerRight: () => (
-            //   <TouchableOpacity activeOpacity={0.75} onPress={() => {
-            //     this.props.navigation.goBack();
-            //   }}
-            //   >
-            //     <View>
-            //       <Image />
-            //       <Text>이메일 인증</Text>
-            //     </View>
-            //   </TouchableOpacity>
-            // ),
-          }}
-        />
-        <Stack.Screen
-          name="AgreementTermsConditions"
-          component={AgreementTermsConditions}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="TermsConditions"
-          component={TermsConditions}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="SignUpPersonal"
-          component={SignUpPersonal}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="EmailAuthentication"
-          component={EmailAuthentication}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="CompleteAuth"
-          component={CompleteAuth}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="ResearchForm"
-          component={ResearchForm}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="Initial3"
-          component={Initial3}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="Main"
-          component={Main}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="MainDetail"
-          component={MainDetail}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="MainDetailCompleted"
-          component={MainDetailCompleted}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="MainDetailExpired"
-          component={MainDetailExpired}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="ProfileMain"
-          component={ProfileMain}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="ProfileAll"
-          component={ProfileAll}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="ProfileCompleteDetail"
-          component={ProfileCompleteDetail}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="ProfileIncompleteDetail"
-          component={ProfileIncompleteDetail}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="ProfileComplete"
-          component={ProfileComplete}
-          options={{
-            headerShown: false,
-          }}
-        />
-      </Stack.Navigator>
-    );
-  }
-}
-export class AppMainStack extends Component {
-  state = {
-    isLoading: true,
-    isLogin: false,
-    login: null,
-  };
+export const AppMainStack = (props) => {
+  const [login, setLogin] = useState(null);
 
-  // componentDidMount = async () => {
-  //   const login = await AsyncStorage.getItem('userNo');
-  //   console.log('loginConsole', login);
-  //   if (login !== null) {
-  //     console.log('loginSuccess');
-  //     this.setState({
-  //       isLogin: true,
-  //     });
-  //   }
-  // };
-  test = async () => {
+  const test = async () => {
     try {
       const result = await AsyncStorage.getItem('userNo');
 
       console.log('login NEXT');
-      this.setState({
-        login: result,
-      });
+      setLogin(result);
     } catch (e) {
       return e;
     }
   };
-  loginSuccess = (userNo) => {
-    this.setState({
-      login: userNo,
-    });
+  const loginSuccess = (userNo) => {
+    setLogin(userNo);
   };
-  componentDidMount() {
-    this.test();
-  }
-  render() {
-    console.log('this.props.route.params?.login>?>?>', this.state.login);
-    return (
-      // <Stack.Navigator initialRouteName="Main">
-      <Stack.Navigator initialRouteName="Main">
-        {/* {this.state.login === null ? (
+
+  useEffect(() => {
+    test();
+    console.log(props);
+  }, []);
+  console.log('this.props.route.params?.login>?>?>', login);
+  return (
+    // <Stack.Navigator initialRouteName="Main">
+    <Stack.Navigator initialRouteName="Main">
+      {/* {this.state.login === null ? (
           <Stack.Screen
             name="Main"
             component={Initial2}
@@ -389,26 +133,26 @@ export class AppMainStack extends Component {
             }}
           />
         )} */}
-        {this.state.login === null ? (
-          <Stack.Screen
-            name="Initial2"
-            component={Initial2}
-            options={{
-              headerShown: false,
-              // title: this.props.route.params?.step,
-              // title: route.params?.name,
-            }}
-          />
-        ) : (
-          <Stack.Screen
-            name="Main"
-            component={Main}
-            options={{
-              headerShown: false,
-            }}
-          />
-        )}
-        {/* <Stack.Screen
+      {login === null ? (
+        <Stack.Screen
+          name="Initial2"
+          component={Initial2}
+          options={{
+            headerShown: false,
+            // title: this.props.route.params?.step,
+            // title: route.params?.name,
+          }}
+        />
+      ) : (
+        <Stack.Screen
+          name="Main"
+          component={Main}
+          options={{
+            headerShown: false,
+          }}
+        />
+      )}
+      {/* <Stack.Screen
           name="Main"
           component={Main}
           options={{
@@ -424,7 +168,7 @@ export class AppMainStack extends Component {
             // title: route.params?.name,
           }}
         /> */}
-        {/* {this.props.route.params?.login !== null ? (
+      {/* {this.props.route.params?.login !== null ? (
           <Stack.Screen
             name="Main"
             component={Main}
@@ -444,144 +188,144 @@ export class AppMainStack extends Component {
           />
         )} */}
 
-        <Stack.Screen
-          name="Login"
-          component={Login}
-          options={{
-            headerShown: false,
-          }}
-          initialParams={{
-            loginSuccess: this.props.route.params?.loginSuccess,
-            loginSuccessAuth: this.loginSuccess,
-          }}
-        />
-        <Stack.Screen
-          name="WalletPassword"
-          component={WalletPassword}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="WalletMasterKey"
-          component={WalletMasterKey}
-          options={{
-            headerShown: false,
-          }}
-        />
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{
+          headerShown: false,
+        }}
+        initialParams={{
+          loginSuccess: props.route.params?.loginSuccess,
+          loginSuccessAuth: loginSuccess,
+        }}
+      />
+      <Stack.Screen
+        name="WalletPassword"
+        component={WalletPassword}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="WalletMasterKey"
+        component={WalletMasterKey}
+        options={{
+          headerShown: false,
+        }}
+      />
 
-        <Stack.Screen
-          name="Kyc"
-          component={Kyc}
-          options={{
-            headerShown: false,
-          }}
-        />
+      <Stack.Screen
+        name="Kyc"
+        component={Kyc}
+        options={{
+          headerShown: false,
+        }}
+      />
 
-        <Stack.Screen
-          name="Reset"
-          component={Reset}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="ResetEmail"
-          component={ResetEmail}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="ResetPassword"
-          component={ResetPassword}
-          options={{
-            headerShown: false,
-          }}
-        />
+      <Stack.Screen
+        name="Reset"
+        component={Reset}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="ResetEmail"
+        component={ResetEmail}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="ResetPassword"
+        component={ResetPassword}
+        options={{
+          headerShown: false,
+        }}
+      />
 
-        <Stack.Screen
-          name="SignUp"
-          component={SignUp}
-          options={{
-            headerShown: false,
-            // headerLeft: () => (
-            //   <TouchableOpacity activeOpacity={0.75} onPress={() => {
-            //     this.props.navigation.goBack();
-            //   }}
-            //   >
-            //     <View>
-            //       <Image />
-            //       <Text>이메일 인증</Text>
-            //     </View>
-            //   </TouchableOpacity>
-            // ),
-            // headerRight: () => (
-            //   <TouchableOpacity activeOpacity={0.75} onPress={() => {
-            //     this.props.navigation.goBack();
-            //   }}
-            //   >
-            //     <View>
-            //       <Image />
-            //       <Text>이메일 인증</Text>
-            //     </View>
-            //   </TouchableOpacity>
-            // ),
-          }}
-        />
+      <Stack.Screen
+        name="SignUp"
+        component={SignUp}
+        options={{
+          headerShown: false,
+          // headerLeft: () => (
+          //   <TouchableOpacity activeOpacity={0.75} onPress={() => {
+          //     this.props.navigation.goBack();
+          //   }}
+          //   >
+          //     <View>
+          //       <Image />
+          //       <Text>이메일 인증</Text>
+          //     </View>
+          //   </TouchableOpacity>
+          // ),
+          // headerRight: () => (
+          //   <TouchableOpacity activeOpacity={0.75} onPress={() => {
+          //     this.props.navigation.goBack();
+          //   }}
+          //   >
+          //     <View>
+          //       <Image />
+          //       <Text>이메일 인증</Text>
+          //     </View>
+          //   </TouchableOpacity>
+          // ),
+        }}
+      />
 
-        <Stack.Screen
-          name="AgreementTermsConditions"
-          component={AgreementTermsConditions}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="TermsConditions"
-          component={TermsConditions}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="SignUpPersonal"
-          component={SignUpPersonal}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="EmailAuthentication"
-          component={EmailAuthentication}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="CompleteAuth"
-          component={CompleteAuth}
-          options={{
-            headerShown: false,
-          }}
-        />
+      <Stack.Screen
+        name="AgreementTermsConditions"
+        component={AgreementTermsConditions}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="TermsConditions"
+        component={TermsConditions}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="SignUpPersonal"
+        component={SignUpPersonal}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="EmailAuthentication"
+        component={EmailAuthentication}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="CompleteAuth"
+        component={CompleteAuth}
+        options={{
+          headerShown: false,
+        }}
+      />
 
-        <Stack.Screen
-          name="ResearchForm"
-          component={ResearchForm}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="Initial3"
-          component={Initial3}
-          options={{
-            headerShown: false,
-          }}
-        />
+      <Stack.Screen
+        name="ResearchForm"
+        component={ResearchForm}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Initial3"
+        component={Initial3}
+        options={{
+          headerShown: false,
+        }}
+      />
 
-        {/* <Stack.Screen
+      {/* <Stack.Screen
           name="Main"
           component={Main}
           options={{
@@ -589,268 +333,267 @@ export class AppMainStack extends Component {
           }}
         /> */}
 
-        <Stack.Screen
-          name="MainDetail"
-          component={MainDetail}
-          options={{
-            headerShown: false,
-          }}
-        />
+      <Stack.Screen
+        name="MainDetail"
+        component={MainDetail}
+        options={{
+          headerShown: false,
+        }}
+      />
 
-        <Stack.Screen
-          name="MainDetailCompleted"
-          component={MainDetailCompleted}
-          options={{
-            headerShown: false,
-          }}
-        />
+      <Stack.Screen
+        name="MainDetailCompleted"
+        component={MainDetailCompleted}
+        options={{
+          headerShown: false,
+        }}
+      />
 
-        <Stack.Screen
-          name="MainDetailExpired"
-          component={MainDetailExpired}
-          options={{
-            headerShown: false,
-          }}
-        />
+      <Stack.Screen
+        name="MainDetailExpired"
+        component={MainDetailExpired}
+        options={{
+          headerShown: false,
+        }}
+      />
 
-        <Stack.Screen
-          name="MainVideo"
-          component={MainVideo}
-          options={{
-            headerShown: false,
-          }}
-        />
+      <Stack.Screen
+        name="MainVideo"
+        component={MainVideo}
+        options={{
+          headerShown: false,
+        }}
+      />
 
-        <Stack.Screen
-          name="ProfileMain"
-          component={ProfileMain}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="ProfileAll"
-          component={ProfileAll}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="ProfileCompleteDetail"
-          component={ProfileCompleteDetail}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="ProfileIncompleteDetail"
-          component={ProfileIncompleteDetail}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="ProfileComplete"
-          component={ProfileComplete}
-          options={{
-            headerShown: false,
-          }}
-        />
+      <Stack.Screen
+        name="ProfileMain"
+        component={ProfileMain}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="ProfileAll"
+        component={ProfileAll}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="ProfileCompleteDetail"
+        component={ProfileCompleteDetail}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="ProfileIncompleteDetail"
+        component={ProfileIncompleteDetail}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="ProfileComplete"
+        component={ProfileComplete}
+        options={{
+          headerShown: false,
+        }}
+      />
 
-        {/* Wallet */}
-        <Stack.Screen
-          name="WalletMain"
-          component={WalletMain}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="WalletDetail"
-          component={WalletDetail}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="WalletSend"
-          component={WalletSend}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="WalletConfirmPassword"
-          component={WalletConfirmPassword}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="WalletReceive"
-          component={WalletReceive}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="WalletSendSuccess"
-          component={WalletSendSuccess}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="Settings"
-          component={Settings}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="SettingsLock"
-          component={SettingsLock}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="SettingsWallet"
-          component={SettingsWallet}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="SettingsWalletMasterKey"
-          component={SettingsWalletMasterKey}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="SettingsWalletPassword"
-          component={SettingsWalletPassword}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="SettingsLockPassword"
-          component={SettingsLockPassword}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="SettingsLockPattern"
-          component={SettingsLockPattern}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="SettingsPersonal"
-          component={SettingsPersonal}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="SettingsPersonalPassword"
-          component={SettingsPersonalPassword}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="SettingsPersonalPasswordChange"
-          component={SettingsPersonalPasswordChange}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="SettingsPersonalEmail"
-          component={SettingsPersonalEmail}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="SettingsPersonalResetPassword"
-          component={SettingsPersonalResetPassword}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="SettingsPersonalPhone"
-          component={SettingsPersonalPhone}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="SettingsPersonalMasterPhone"
-          component={SettingsPersonalMasterPhone}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="SettingsPersonalMasterKey"
-          component={SettingsPersonalMasterKey}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="SettingsAlert"
-          component={SettingsAlert}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="SettingsLanguage"
-          component={SettingsLanguage}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="Media"
-          component={Media}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="RequestResearch"
-          component={RequestResearch}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="WalletSendQR"
-          component={WalletSendQR}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="MainAlert"
-          component={MainAlert}
-          options={{
-            headerShown: false,
-          }}
-        />
-      </Stack.Navigator>
-    );
-  }
-}
+      {/* Wallet */}
+      <Stack.Screen
+        name="WalletMain"
+        component={WalletMain}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="WalletDetail"
+        component={WalletDetail}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="WalletSend"
+        component={WalletSend}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="WalletConfirmPassword"
+        component={WalletConfirmPassword}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="WalletReceive"
+        component={WalletReceive}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="WalletSendSuccess"
+        component={WalletSendSuccess}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Settings"
+        component={Settings}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="SettingsLock"
+        component={SettingsLock}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="SettingsWallet"
+        component={SettingsWallet}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="SettingsWalletMasterKey"
+        component={SettingsWalletMasterKey}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="SettingsWalletPassword"
+        component={SettingsWalletPassword}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="SettingsLockPassword"
+        component={SettingsLockPassword}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="SettingsLockPattern"
+        component={SettingsLockPattern}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="SettingsPersonal"
+        component={SettingsPersonal}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="SettingsPersonalPassword"
+        component={SettingsPersonalPassword}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="SettingsPersonalPasswordChange"
+        component={SettingsPersonalPasswordChange}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="SettingsPersonalEmail"
+        component={SettingsPersonalEmail}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="SettingsPersonalResetPassword"
+        component={SettingsPersonalResetPassword}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="SettingsPersonalPhone"
+        component={SettingsPersonalPhone}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="SettingsPersonalMasterPhone"
+        component={SettingsPersonalMasterPhone}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="SettingsPersonalMasterKey"
+        component={SettingsPersonalMasterKey}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="SettingsAlert"
+        component={SettingsAlert}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="SettingsLanguage"
+        component={SettingsLanguage}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Media"
+        component={Media}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="RequestResearch"
+        component={RequestResearch}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="WalletSendQR"
+        component={WalletSendQR}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="MainAlert"
+        component={MainAlert}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
 
 const App = () => {
   const [login, setLogin] = useState(null);
