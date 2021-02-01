@@ -46,6 +46,7 @@ export default function WalletSend({navigation, route}) {
   const [modal2Visible, setModal2Visible] = useState(false);
   const [modal3Visible, setModal3Visible] = useState(false);
   const [modal4Visible, setModal4Visible] = useState(false);
+  const [modal5Visible, setModal5Visible] = useState(false);
   const [total, setTotal] = useState(0);
   const [value, setValue] = useState(0);
   const [calculator, setCalulator] = useState('');
@@ -97,6 +98,10 @@ export default function WalletSend({navigation, route}) {
     walletDataApi();
   }, []);
 
+  // useEffect(() => {
+  //   console.log('calculator', calculator);
+  // }, [calculator]);
+
   // Call wallet Data Api
   const walletDataApi = async () => {
     await axios
@@ -116,6 +121,7 @@ export default function WalletSend({navigation, route}) {
   console.log('wallet data check >>>>>', walletData);
   console.log('total check >>>>>', total);
   console.log('value check >>>>>', value);
+
   const inputValueHandle = (e) => {
     // 컴마가 붙어있을 경우 3자리 컴마 함수 에러 -> 컴마 제거를 한 후 다시 3자리 컴마함수 씌우기
     let ret = e.replace(/,/g, '');
@@ -140,6 +146,7 @@ export default function WalletSend({navigation, route}) {
     handleCalculatorOver();
   };
 
+  // Calculator
   const setTenth = () => {
     setCalulator('tenth');
     setValue(parseFloat((Number(total) / 10).toFixed(6)));
@@ -172,6 +179,13 @@ export default function WalletSend({navigation, route}) {
     setMemo(e);
   };
 
+  const handleConfirm = () => {
+    if (address !== 'e.data' && value !== 0) {
+      setModalVisible(true);
+    } else {
+      setModal5Visible(!modal5Visible);
+    }
+  };
   const handleCalculatorOver = (fixValue) => {
     if (
       (calculator === 'tenth' && fixValue > total / 10) ||
@@ -498,7 +512,7 @@ export default function WalletSend({navigation, route}) {
           <TouchableOpacity
             style={[ResetStyle.button]}
             onPress={() => {
-              setModalVisible(true);
+              // handleConfirm();
             }}>
             <Text
               style={[
@@ -534,6 +548,11 @@ export default function WalletSend({navigation, route}) {
         modalVisible={modal4Visible}
         setModalVisible={setModal4Visible}
         text={'수수료를 제외한 총액이 표시됩니다.'}
+      />
+      <BottomModal
+        modalVisible={modal5Visible}
+        setModalVisible={setModal5Visible}
+        text={'내용을 올바르게 입력 해 주십시오.'}
       />
     </SafeAreaView>
   );
