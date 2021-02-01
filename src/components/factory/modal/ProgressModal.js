@@ -1,13 +1,12 @@
-import React, {useState, Component} from 'react';
+import React, {useState, Component, useEffect} from 'react';
 import {
   StyleSheet,
   View,
   Text,
   Modal,
   TouchableWithoutFeedback,
+  ActivityIndicator,
 } from 'react-native';
-import ResetStyle from '../../../style/ResetStyle';
-import ModalStyle from '../../../style/ModalStyle';
 
 class ProgressModal extends Component {
   constructor(props) {
@@ -27,27 +26,18 @@ class ProgressModal extends Component {
   render() {
     const {modalVisible} = this.state;
     return (
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        // onRequestClose={() => {
-        //   Alert.alert('Modal has been closed.');
-        // }}
-      >
-        <TouchableWithoutFeedback
-          activeOpacity={0.55}
-          onPress={() => {
-            this.setState({modalVisible: !modalVisible});
-            this.props.setModalVisible(!modalVisible);
-            console.log('aaaa');
-          }}>
-          <View style={[ModalStyle.bottomModalBG]}>
-            <View style={[ModalStyle.bottomModal]}>
-              <Text style={[ResetStyle.fontRegularK, ResetStyle.fontDG]}>
-                {this.props.text}
-              </Text>
-            </View>
+      <Modal animationType="fade" transparent={true} visible={modalVisible}>
+        <TouchableWithoutFeedback activeOpacity={0.55}>
+          <View
+            style={{
+              flex: 1,
+              height: '60%',
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: 'hsla(0, 0%, 20%, 0.1)',
+              paddingBottom: '5%',
+            }}>
+            <ActivityIndicator size="large" color="#4696ff" />
           </View>
         </TouchableWithoutFeedback>
       </Modal>

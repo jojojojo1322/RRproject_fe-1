@@ -17,6 +17,7 @@ import {
 } from 'react-native';
 import BottomModal from '../factory/modal/BottomModal';
 import TextConfirmModal from '../factory/modal/TextConfirmModal';
+import ProgressModal from '../factory/modal/ProgressModal';
 import ResetStyle from '../../style/ResetStyle.js';
 import {server} from '../defined/server';
 import axios from 'axios';
@@ -37,18 +38,21 @@ export default class WalletPassword extends Component {
     transCheck: '',
   };
   walletPasswordApi = async (walletPw) => {
+    this.setModal4Visible(true);
     await axios
       .post(`${server}/wallet`, {
         email: this.props.route.params?.email,
         walletPw: walletPw,
       })
       .then(async (response) => {
+        this.setModal4Visible(false);
         console.log('walletPasswordApi 생성 then>>>', response);
         await this.setState({
           walletCheck: response.data.status,
         });
       })
       .catch((e) => {
+        this.setModal4Visible(false);
         console.log('walletPasswordApi 생성 then>>>', e);
       });
   };
@@ -167,6 +171,9 @@ export default class WalletPassword extends Component {
   };
   setModal3Visible = (visible) => {
     this.setState({modal3Visible: visible});
+  };
+  setModal4Visible = (visible) => {
+    this.setState({modal4Visible: visible});
   };
   handleNextPage = async () => {
     this.walletTransApi();
@@ -378,6 +385,10 @@ export default class WalletPassword extends Component {
           text={`비밀번호가 설정되었습니다.`}
           confirm={`확인`}
           handleNextPage={this.handleNextPage}
+        />
+        <ProgressModal
+          modalVisible={this.state.modal4Visible}
+          setModalVisible={this.setModal4Visible}
         />
       </SafeAreaView>
     );
