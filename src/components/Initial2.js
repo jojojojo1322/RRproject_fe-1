@@ -280,21 +280,6 @@ const Initial2 = (props) => {
                         LOGIN
                       </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity
-                      style={[ResetStyle.buttonWhite, {marginTop: 10}]}
-                      activeOpacity={0.75}
-                      onPress={() => {
-                        props.navigation.navigate('WalletPassword');
-                      }}>
-                      <Text
-                        style={[
-                          ResetStyle.fontMediumK,
-                          ResetStyle.fontB,
-                          {fontWeight: '600'},
-                        ]}>
-                        WalletPassword
-                      </Text>
-                    </TouchableOpacity>
                   </View>
                 ) : null}
               </Animated.View>
