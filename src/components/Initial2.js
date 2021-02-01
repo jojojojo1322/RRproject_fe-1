@@ -198,6 +198,7 @@ const Initial2 = (props) => {
             );
           })}
         </ScrollView>
+
         <View
           style={[AuthStyle.initial2IndicatorContainer, {marginBottom: '8%'}]}>
           {images.map((image, imageIndex) => {

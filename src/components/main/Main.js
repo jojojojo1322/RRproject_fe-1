@@ -18,11 +18,6 @@ import {scrollInterpolator2, animatedStyles2} from '../animations';
 import {server} from '../defined/server';
 import axios from 'axios';
 
-// 3자리수 콤마(,)
-const numberWithCommas = (x) => {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-};
-
 const SLIDER_WIDTH = Dimensions.get('window').width;
 // const SLIDER_HEIGHT = Dimensions.get('window').height / 2.5;
 const SLIDER_HEIGHT = Dimensions.get('window').height / 2;
@@ -72,21 +67,6 @@ const DATA = [
     host: 'Buyaladdin',
     content: '해당 서베이에 대한 간략 설명',
   },
-
-  // {id: "54"
-  // ,legacySurveyId: "4cf355d2cc5e4fee"
-  // ,categoryId: "1"
-  // ,categoryImg: "https://real-research-resources.s3.ap-northeast-2.amazonaws.com/static/survey/category/CustomerSatisfaction.jpg"
-  // ,surveyStatus: "ongoing"
-  // ,categoryName: "Customer Satisfaction"
-  // ,startTime: "2021-01-28 14:05:00"
-  // ,endTime: "2021-01-28 14:10:00"
-  // ,surveyName: "surveyname"
-  // ,particRestrictions: 1000
-  // ,participants: 0
-  // ,reward: "10"
-  // ,sponsorName: "sponsor"
-  // ,instructions: "description"}
 
   // ,languageCd: "en"
   // ,createTime: "2021-01-28 16:38:50"
@@ -200,8 +180,35 @@ const DATA = [
     host: 'Samsung',
     content: '해당 서베이에 대한 간략 설명',
   },
+  // {id: "54"
+  // ,legacySurveyId: "4cf355d2cc5e4fee"
+  // ,categoryId: "1"
+  // ,categoryImg: "https://real-research-resources.s3.ap-northeast-2.amazonaws.com/static/survey/category/CustomerSatisfaction.jpg"
+  // ,surveyStatus: "ongoing"
+  // ,categoryName: "Customer Satisfaction"
+  // ,startTime: "2021-01-28 14:05:00"
+  // ,endTime: "2021-01-28 14:10:00"
+  // ,surveyName: "surveyname"
+  // ,particRestrictions: 1000
+  // ,participants: 0
+  // ,reward: "10"
+  // ,sponsorName: "sponsor"
+  // ,instructions: "description"}
 ];
-
+// function numberWithCommas(num) {
+//   // var parts = num.toString().split('.');
+//   // var parts = num.split('.');
+//   return (
+//     parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',') +
+//     (parts[1] ? '.' + parts[1] : '')
+//   );
+// }
+// const numberWithCommas = (x) => {
+//   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+// };
+const numberWithCommas = (x) => {
+  return x;
+};
 export default function MainTest({navigation}) {
   console.log('main 호출');
   const [currentTnc, setCurrentTnc] = useState(0);
@@ -213,9 +220,8 @@ export default function MainTest({navigation}) {
   const userInfoApi = async () => {
     await axios
       .get(
-        `${server}/user/main/user?userNo=${await AsyncStorage.getItem(
-          'userNo',
-        )}`,
+        `${server}/user?userNo=${await AsyncStorage.getItem('userNo')}`,
+        // `${server}/user/user?userNo=210127104026300`,
       )
       .then(async (response) => {
         console.log('userInfoApi Then >>', response);
@@ -240,7 +246,10 @@ export default function MainTest({navigation}) {
 
         // TNC .뒤 문자열 제거 (ex 42.000000 TNC)
         setCurrentTnc(response.data.balance.split('.')[0]);
-        setCurrentTnc(parseFloat(response.data.balance.toFixed(6)));
+        setCurrentTnc(
+          // numberWithCommas(parseFloat(response.data.balance.toFixed(6))),
+          parseFloat(response.data.balance.toFixed(6)),
+        );
         // setCountry(response.data);
         console.log(currentTnc);
         // return await response;
@@ -260,6 +269,11 @@ export default function MainTest({navigation}) {
       )
       .then(async (response) => {
         console.log(`surveyApi ${surveyStatus} Then >>`, response);
+        if (surveyStatus === 'ongoing') {
+          setOngoingData(response.data);
+        } else if (surveyStatus === 'expired') {
+          setExpiredData(response.data);
+        }
       })
       .catch((e) => {
         console.log(`surveyApi ${surveyStatus} Error`, e);
@@ -271,7 +285,8 @@ export default function MainTest({navigation}) {
     await axios
       .get(`${server}/survey/main/${await AsyncStorage.getItem('userNo')}`)
       .then(async (response) => {
-        console.log(`completeSurveyApi Then >>`, response);
+        console.log(`completeSurveyApi Then >>`, response.data);
+        setCompleteData(response);
       })
       .catch((e) => {
         console.log(`completeSurveyApi Error`, e);
@@ -310,7 +325,7 @@ export default function MainTest({navigation}) {
           </Text>
         </TouchableOpacity>
       );
-    } else if (item.status !== 'zero') {
+    } else {
       return (
         <TouchableOpacity
           style={[
@@ -318,15 +333,15 @@ export default function MainTest({navigation}) {
             // {marginBottom: item.id === item.length ? 200 : 0},
           ]}
           onPress={() => {
-            item.status === 'expired'
+            item.surveyStatus === 'expired'
               ? navigation.navigate('MainDetailExpired')
-              : item.status === 'completed'
+              : item.surveyStatus === 'completed'
               ? navigation.navigate('MainDetailCompleted')
               : navigation.navigate('MainDetail');
             // navigation.navigate('MainDetail');
           }}>
           <View
-            opacity={item.status === 'expired' ? 0.5 : 1.0}
+            opacity={item.surveyStatus === 'expired' ? 0.5 : 1.0}
             style={{
               flex: 1,
             }}>
@@ -338,7 +353,9 @@ export default function MainTest({navigation}) {
                 width: '100%',
                 height: '115%',
               }}
-              source={item.img}
+              source={require('../../imgs/drawable-xxxhdpi/shutterstock_1018031032.png')}
+              // source={item.categoryImg}
+              // source={require(`${item.categoryImg}`)}
             />
             <View
               style={{
@@ -371,7 +388,7 @@ export default function MainTest({navigation}) {
                     ResetStyle.fontWhite,
                     {marginTop: '25%'},
                   ]}>
-                  {item.division} | {item.host}
+                  {item.categoryName} | {item.sponsorName}
                 </Text>
               </View>
             </View>
@@ -382,10 +399,10 @@ export default function MainTest({navigation}) {
                   ResetStyle.fontWhite,
                   {textAlign: 'left', marginBottom: '4%'},
                 ]}>
-                {item.title}
+                {item.surveyName}
               </Text>
               <Text style={[ResetStyle.fontRegularK, ResetStyle.fontWhite]}>
-                {item.content}
+                {item.instructions}
               </Text>
             </View>
             <View
@@ -396,7 +413,7 @@ export default function MainTest({navigation}) {
               }}>
               <View style={MainStyle.itemImagenullViewInner}>
                 <Text style={[ResetStyle.fontBoldK, ResetStyle.fontWhite]}>
-                  + {item.tnc}
+                  + {item.reward}
                 </Text>
                 <Text
                   style={[
@@ -441,7 +458,7 @@ export default function MainTest({navigation}) {
                     ResetStyle.fontWhite,
                     {marginLeft: '5%'},
                   ]}>
-                  {item.dateStart}
+                  {item.startTime}
                 </Text>
               </View>
             </View>
@@ -477,9 +494,10 @@ export default function MainTest({navigation}) {
     return (
       <Carousel
         data={
-          DATA.filter((item) => item.status == 'ongoing').length == 0
-            ? [{status: 'zero'}]
-            : DATA.filter((item) => item.status == 'ongoing')
+          ongoingData.length == 0 ? [{status: 'zero'}] : ongoingData
+          // DATA.filter((item) => item.status == 'ongoing').length == 0
+          //   ? [{status: 'zero'}]
+          //   : DATA.filter((item) => item.status == 'ongoing')
         }
         renderItem={renderItem}
         sliderHeight={SLIDER_HEIGHT}
@@ -507,9 +525,13 @@ export default function MainTest({navigation}) {
     return (
       <Carousel
         data={
-          DATA.filter((item) => item.status == 'completed').length == 0
-            ? [{status: 'zero'}]
-            : DATA.filter((item) => item.status == 'completed')
+          // DATA.filter((item) => item.status == 'completed').length == 0
+          //   ? [{status: 'zero'}]
+          //   : DATA.filter((item) => item.status == 'completed')
+          completeData.length == 0 ? [{status: 'zero'}] : completeData
+          // DATA.filter((item) => item.status == 'completed').length == 0
+          //   ? [{status: 'zero'}]
+          //   : DATA.filter((item) => item.status == 'completed')
         }
         renderItem={renderItem}
         sliderHeight={SLIDER_HEIGHT}
@@ -533,9 +555,10 @@ export default function MainTest({navigation}) {
     return (
       <Carousel
         data={
-          DATA.filter((item) => item.status == 'expired').length == 0
-            ? [{status: 'zero'}]
-            : DATA.filter((item) => item.status == 'expired')
+          // DATA.filter((item) => item.status == 'expired').length == 0
+          //   ? [{status: 'zero'}]
+          //   : DATA.filter((item) => item.status == 'expired')
+          expiredData.length == 0 ? [{status: 'zero'}] : expiredData
         }
         renderItem={renderItem}
         sliderHeight={SLIDER_HEIGHT}
@@ -642,11 +665,6 @@ export default function MainTest({navigation}) {
                 ]}>
                 {kycLevel}
               </Text>
-              <TouchableOpacity>
-                <Image
-                  source={require('../../imgs/drawable-xxxhdpi/main_questionmark_icon.png')}
-                />
-              </TouchableOpacity>
             </View>
           </TouchableOpacity>
           <View
