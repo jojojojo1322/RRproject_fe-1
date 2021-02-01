@@ -34,10 +34,10 @@ export class RoundCheckbox extends Component {
   }
 
   componentDidMount() {
-    let a = [];
-    a = this.props.checkedArray.filter(
-      (data) => data.value == this.props.value,
-    );
+    // let a = [];
+    // a = this.props.checkedArray.filter(
+    //   (data) => data.value == this.props.value,
+    // );
     if (this.props.checked) {
       this.setState({checked: true}, () => {
         this.props.checkedObjArr.addItem({
@@ -51,20 +51,20 @@ export class RoundCheckbox extends Component {
         checked: false,
       });
     }
-    if (a.length !== 0) {
-      console.log('다시체크됨다시체크됨다시체크됨다시체크됨다시체크됨');
-      this.setState({checked: true}, () => {
-        this.props.checkedObjArr.addItem({
-          key: this.props.keyValue,
-          value: this.props.value,
-          label: this.props.label,
-        });
-      });
-    } else {
-      this.setState({
-        checked: false,
-      });
-    }
+    // if (a.length !== 0) {
+    //   console.log('다시체크됨다시체크됨다시체크됨다시체크됨다시체크됨');
+    //   this.setState({checked: true}, () => {
+    //     this.props.checkedObjArr.addItem({
+    //       key: this.props.keyValue,
+    //       value: this.props.value,
+    //       label: this.props.label,
+    //     });
+    //   });
+    // } else {
+    //   this.setState({
+    //     checked: false,
+    //   });
+    // }
   }
   componentDidUpdate(preProps, preState) {
     if (preProps.checked != this.props.checked) {
@@ -146,16 +146,16 @@ export class RoundCheckbox extends Component {
     });
   }
   render() {
-    let a = [];
-    a = this.props.checkedArray.filter(
-      (data) => data.value == this.props.value,
-    );
+    // let a = [];
+    // a = this.props.checkedArray.filter(
+    //   (data) => data.value == this.props.value,
+    // );
 
-    // console.log(a);
-    if (a.length !== 0) {
-      console.log('props.>>>>>', a);
-      console.log('체크됨체크됨체크됨체크됨체크됨');
-    }
+    // // console.log(a);
+    // if (a.length !== 0) {
+    //   console.log('props.>>>>>', a);
+    //   console.log('체크됨체크됨체크됨체크됨체크됨');
+    // }
     return (
       <TouchableOpacity
         onPress={this.stateSwitcher.bind(

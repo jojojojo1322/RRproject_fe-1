@@ -75,12 +75,18 @@ export default function WalletSend({navigation, route}) {
 
   // Calculator
   useEffect(() => {
-    handleCalculatorOver(value);
+    const fixValue = Number(String(value).replace(/,/g, ''));
+    handleCalculatorOver(fixValue);
     handleUnderTen(value);
     onlyDecimalsix(value);
+    //qrcode없을 시 지워짐
+
+    // setAddress(qrcode);
+    console.log('aaaaaaaa', value);
+  }, [value]);
+  useEffect(() => {
     setAddress(qrcode);
-    console.log(value);
-  }, [value, qrcode]);
+  }, [qrcode]);
 
   // Wallet Api 활성화
   useEffect(() => {
@@ -123,39 +129,35 @@ export default function WalletSend({navigation, route}) {
       if (match !== null && match.length === 1) {
         ret = numberWithCommas(ret).replace(/(^0+)/, '');
         ret = ret + '.';
-        setCalulator('');
-        handleCalculatorOver();
       } else {
         ret = numberWithCommas(ret).replace(/(^0+)/, '');
-        setCalulator('');
-        handleCalculatorOver();
       }
     } else {
       ret = numberWithCommas(ret).replace(/(^0+)/, '');
-      setCalulator('');
-      handleCalculatorOver();
     }
     setValue(ret);
+    setCalulator('');
+    handleCalculatorOver();
   };
 
   const setTenth = () => {
     setCalulator('tenth');
-    setValue(parseFloat((total / 10).toFixed(6)));
+    setValue(parseFloat((Number(total) / 10).toFixed(6)));
   };
 
   const setQuarter = () => {
     setCalulator('quarter');
-    setValue(parseFloat((total / 4).toFixed(6)));
+    setValue(parseFloat((Number(total) / 4).toFixed(6)));
   };
 
   const setHalf = () => {
     setCalulator('half');
-    setValue(parseFloat((total / 2).toFixed(6)));
+    setValue(parseFloat((Number(total) / 2).toFixed(6)));
   };
 
   const setMax = () => {
     setCalulator('max');
-    setValue(parseFloat(((total - 10) / 1).toFixed(6)));
+    setValue(parseFloat(((Number(total) - 10) / 1).toFixed(6)));
   };
 
   const setConfirm = () => {
@@ -170,46 +172,48 @@ export default function WalletSend({navigation, route}) {
     setMemo(e);
   };
 
-  const handleCalculatorOver = () => {
+  const handleCalculatorOver = (fixValue) => {
     if (
-      (calculator === 'tenth' && value > total / 10) ||
-      (calculator === 'quarter' && value > total / 4) ||
-      (calculator === 'half' && value > total / 2)
+      (calculator === 'tenth' && fixValue > total / 10) ||
+      (calculator === 'quarter' && fixValue > total / 4) ||
+      (calculator === 'half' && fixValue > total / 2)
     ) {
       setCalulator('');
     } else if (
-      (calculator === 'tenth' && value < total / 10) ||
-      (calculator === 'quarter' && value < total / 4) ||
-      (calculator === 'half' && value < total / 2)
+      (calculator === 'tenth' && fixValue < total / 10) ||
+      (calculator === 'quarter' && fixValue < total / 4) ||
+      (calculator === 'half' && fixValue < total / 2)
     ) {
       setCalulator('');
     } else if (
-      (calculator === 'max' && value > total - 10) ||
-      (total !== 0 && value > total - 10)
+      (calculator === 'max' && fixValue > total - 10) ||
+      (total !== 0 && fixValue > total - 10)
     ) {
       setCalulator('');
       setModal2Visible(true);
       setValue(0);
-    } else if (calculator === 'max' && value + 10 === total) {
+    } else if (calculator === 'max' && fixValue + 10 === total) {
       setModal4Visible(true);
       setCalulator('max');
     }
   };
 
   const handleUnderTen = (value) => {
-    if (value === 0) {
+    if (Number(String(value).replace(/,/g, '')) === 0) {
       setTransfee('전송 수수료 : 10 TNC');
-    } else if (value < 10) {
+    } else if (Number(String(value).replace(/,/g, '')) < 10) {
       setTransfee('보내는 금액은 최소 10 TNC 이상이어야 합니다.');
     } else {
       setTransfee('전송 수수료 : 10 TNC');
     }
   };
 
-  useEffect(() => {
-    console.log('calculator', calculator);
-  }, [calculator]);
-
+  // useEffect(() => {
+  //   console.log('calculator', calculator);
+  // }, [calculator]);
+  console.log('value check >>>>>', value);
+  console.log('value check >>>>>', value);
+  console.log('value check >>>>>', value);
   return (
     <SafeAreaView style={ResetStyle.container}>
       <KeyboardAwareScrollView
