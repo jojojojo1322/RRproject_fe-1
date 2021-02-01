@@ -13,6 +13,7 @@ import {
   SafeAreaView,
   StatusBar,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import BottomModal from '../factory/modal/BottomModal';
 import TextConfirmModal from '../factory/modal/TextConfirmModal';
@@ -30,6 +31,7 @@ export default class WalletPassword extends Component {
     modalVisible: false,
     modal2Visible: false,
     modal3Visible: false,
+    modal4Visible: false,
     walletAddress: '',
     walletCheck: '',
     transCheck: '',

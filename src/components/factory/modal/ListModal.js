@@ -82,11 +82,15 @@ const Item = ({item, onPress, style, handlePick}) => {
           style={[ModalStyle.listModalImg, {marginTop: 2}]}
           source={item.emojiFlag !== '' ? item.emojiFlag : ''}
         /> */}
+        <Image
+          style={[ModalStyle.listModalImg, {marginTop: 2}]}
+          source={require('../../../imgs/drawable-xxxhdpi/flag_angola.png')}
+        />
         <Text
           style={[
             ResetStyle.fontRegularK,
             ResetStyle.fontDG,
-            {width: '68%', textAlign: 'left', color: '#222222'},
+            {width: '60%', textAlign: 'left', color: '#222222'},
           ]}>
           {`${item.fullName}(${item.countryCode})`}
         </Text>
@@ -94,7 +98,7 @@ const Item = ({item, onPress, style, handlePick}) => {
           style={[
             ResetStyle.fontRegularK,
             ResetStyle.fontDG,
-            {color: '#222222'},
+            {width: '25%', textAlign: 'right', color: '#222222'},
           ]}>
           {`+${item.countryPhone}`}
         </Text>
@@ -116,7 +120,7 @@ const Item = ({item, onPress, style, handlePick}) => {
           style={[
             ResetStyle.fontRegularK,
             ResetStyle.fontDG,
-            {width: '68%', textAlign: 'left', color: '#222222'},
+            {width: '60%', textAlign: 'left', color: '#222222'},
           ]}>
           {`${item.cityName}`}
         </Text>
