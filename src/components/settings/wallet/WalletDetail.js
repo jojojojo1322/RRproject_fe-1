@@ -18,22 +18,6 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {SelectedCheckboxes, RoundCheckbox} from '../../factory/Roundcheck';
 import WalletStyle from '../../../style/WalletStyle.js';
 
-// const Item = (data) => {
-//   return (
-//     <View style={[WalletStyle.listView]}>
-//       <Text
-//         style={[
-//           ResetStyle.fontRegularK,
-//           {textAlign: 'left', marginBottom: '2%'},
-//         ]}>
-//         {data.title}
-//       </Text>
-//       <Text style={[ResetStyle.fontRegularK, {textAlign: 'left'}]}>
-//         {data.sub}
-//       </Text>
-//     </View>
-//   );
-// };
 const List = (data) => {
   return (
     <View style={[WalletStyle.listView]}>
@@ -51,29 +35,7 @@ const List = (data) => {
   );
 };
 
-const dealDetail = {
-  block: '1035613',
-  total: '2',
-  status: 'Receive',
-  object: '회원가입',
-  sender: '0x6565232c6565ed6565659desds6565c58s6565c58',
-  recipient: '0x6565232c6565ed6565659desds6565c58s6565c58',
-  memo: 'Test',
-  DATE: '2020-10-30 20:16:21',
-  TXID: '0x6565232c6565ed6565659desds6565c58c7',
-};
-
 const WalletDetail = (props) => {
-  // const renderItem = ({item}) => {
-  //   <Item
-  //     content={item.content}
-  //     block={item.block}
-  //     status={item.status}
-  //     timestamp={item.timestamp}
-  //     txid={item.txid}
-  //     index={item.index}
-  //   />;
-  // };
   console.log('array length', props.route.params?.data.content.length);
   return (
     <SafeAreaView style={[ResetStyle.container]}>
@@ -104,7 +66,7 @@ const WalletDetail = (props) => {
           <List title="상태" sub={props.route.params?.data.status} />
           {/* 상세내용 */}
           {props.route.params?.data.content.surveyName && (
-            <List title="상세내용" sub={props.route.params?.data.object} />
+            <List title="상세내용" sub={props.route.params?.data.surveyName} />
           )}
           {/* 보낸사람 */}
           {props.route.params?.data.content.to && (
@@ -126,14 +88,6 @@ const WalletDetail = (props) => {
           {/* TXID */}
           <List title="TXID" sub={props.route.params?.data.txid} />
         </ScrollView>
-        {/* <FlatList
-          data={props.data}
-          keyExtractor={(item) => item.idx}
-          renderItem={renderItem}
-          contentContainerStyle={{
-            justifyContent: 'flex-start',
-          }}
-        /> */}
       </View>
     </SafeAreaView>
   );
