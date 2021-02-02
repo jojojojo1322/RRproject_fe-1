@@ -294,11 +294,12 @@ export default function MainTest({navigation}) {
   };
 
   useEffect(async () => {
-    TncGetApi();
-    userInfoApi();
-    surveyApi('ongoing');
-    surveyApi('expired');
-    completeSurveyApi();
+    await TncGetApi();
+    await userInfoApi();
+    await surveyApi('ongoing');
+    await surveyApi('expired');
+    await completeSurveyApi();
+    console.log('didMountdidMountdidMount');
     console.log('userNo', await AsyncStorage.getItem('userNo'));
     console.log('email', await AsyncStorage.getItem('email'));
   }, []);

@@ -183,7 +183,7 @@ class AgreementTermsConditions extends Component {
                   value="2"
                   label="2"
                   checkedObjArr={CheckedArrObject}
-                  // // handleCheckedbox={this.handleCheckedbox}
+                  handleCheckedbox={this.handleCheckedbox}
                 />
                 <TouchableWithoutFeedback
                   onPress={() => {
@@ -239,7 +239,7 @@ class AgreementTermsConditions extends Component {
                   value="3"
                   label="3"
                   checkedObjArr={CheckedArrObject}
-                  // // handleCheckedbox={this.handleCheckedbox}
+                  handleCheckedbox={this.handleCheckedbox}
                 />
                 <TouchableWithoutFeedback
                   onPress={() => {
@@ -283,18 +283,13 @@ class AgreementTermsConditions extends Component {
               this.state.allCheck1 == false && {backgroundColor: '#e6e6e6'},
             ]}
             onPress={() => {
-              // if (this.state.allCheck1) {
-              //   this.props.navigation.navigate('SignUpPersonal', {
-              //     deviceKey: this.props.route.params?.deviceKey,
-              //     phoneNum: this.props.route.params?.phoneNum,
-              //   });
-              //   this.props.navigation.setOptions({title: '회원정보 입력'});
-              // }
-              this.props.navigation.navigate('SignUpPersonal', {
-                deviceKey: this.props.route.params?.deviceKey,
-                phoneNum: this.props.route.params?.phoneNum,
-              });
-              this.props.navigation.setOptions({title: '회원정보 입력'});
+              if (this.state.allCheck1) {
+                this.props.navigation.navigate('SignUpPersonal', {
+                  deviceKey: this.props.route.params?.deviceKey,
+                  phoneNum: this.props.route.params?.phoneNum,
+                });
+                this.props.navigation.setOptions({title: '회원정보 입력'});
+              }
             }}>
             <Text
               style={[
