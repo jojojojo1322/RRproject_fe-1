@@ -56,8 +56,9 @@ const Initial2 = (props) => {
   const [dimensions, setDimensions] = useState({window});
   const [userLang, setUserLang] = useState('ko');
   const [modalVisible, setModalVisible] = useState(false);
-  const {t, i18n} = useTranslation();
+  const [imageIndex, setImageIndex] = useState(0);
 
+  const {t, i18n} = useTranslation();
   // state = {
   //   number: 1,
   // };
@@ -125,7 +126,7 @@ const Initial2 = (props) => {
       <View style={AuthStyle.initial2ScrollContainer}>
         <ScrollView
           horizontal={true}
-          style={AuthStyle.initial2scrollViewStyle}
+          style={{}}
           pagingEnabled
           showsHorizontalScrollIndicator={false}
           onScroll={Animated.event(
@@ -142,50 +143,61 @@ const Initial2 = (props) => {
           )}
           scrollEventThrottle={1}>
           {images.map((image, imageIndex) => {
+            const opacity = scrollX.interpolate({
+              inputRange: [
+                windowWidth * (imageIndex - 1),
+                windowWidth * imageIndex,
+                windowWidth * (imageIndex + 1),
+              ],
+              outputRange: [0, 1, 0],
+              extrapolate: 'clamp',
+            });
             return (
               <View
-                style={
-                  (AuthStyle.initial2ImgBox,
-                  {width: windowWidth, height: windowHeight})
-                }
+                style={{
+                  width: windowWidth,
+                  height: windowHeight,
+                }}
                 key={imageIndex}>
-                <Image
-                  source={
-                    imageIndex == 0
-                      ? require('../imgs/drawable-xhdpi/icon_intro_research.png')
+                <View>
+                  <Image
+                    // style={{width: 200, height: 200, resizeMode: 'contain'}}
+                    source={
+                      imageIndex == 0
+                        ? require('../imgs/drawable-xhdpi/icon_intro_research.png')
+                        : imageIndex == 1
+                        ? require('../imgs/drawable-xhdpi/icon_intro_wallet.png')
+                        : require('../imgs/drawable-xhdpi/icon_intro_reward.png')
+                    }
+                    style={AuthStyle.initial2Image}
+                  />
+                  {/* <Text style={[AuthStyle.initial2TextTitle]}> */}
+                  <Text
+                    style={[
+                      ResetStyle.fontBoldK,
+                      ResetStyle.fontB,
+                      {textAlign: 'center', marginTop: '8%'},
+                    ]}>
+                    {imageIndex == 0
+                      ? 'RESEARCH'
                       : imageIndex == 1
-                      ? require('../imgs/drawable-xhdpi/icon_intro_wallet.png')
-                      : require('../imgs/drawable-xhdpi/icon_intro_reward.png')
-                  }
-                  style={AuthStyle.initial2Image}
-                />
-                {/* <Text style={[AuthStyle.initial2TextTitle]}> */}
-                <Text
-                  style={[
-                    ResetStyle.fontBoldK,
-                    ResetStyle.fontB,
-                    {textAlign: 'center', marginTop: '8%'},
-                  ]}>
-                  {imageIndex == 0
-                    ? 'RESEARCH'
-                    : imageIndex == 1
-                    ? 'WALLET'
-                    : 'REWARD'}
-                </Text>
-                <Text
-                  style={[
-                    ResetStyle.fontLightE,
-                    ResetStyle.fontDG,
-                    {textAlign: 'center', marginTop: '4%', lineHeight: 26},
-                  ]}>
-                  {imageIndex == 0
-                    ? // ? lang()[0].en.initial1
-                      t('Welcome to React')
-                    : imageIndex == 1
-                    ? lang()[0].en.initial2
-                    : lang()[0].en.initial3}
+                      ? 'WALLET'
+                      : 'REWARD'}
+                  </Text>
+                  <Text
+                    style={[
+                      ResetStyle.fontLightE,
+                      ResetStyle.fontDG,
+                      {textAlign: 'center', marginTop: '4%', lineHeight: 26},
+                    ]}>
+                    {imageIndex == 0
+                      ? // ? lang()[0].en.initial1
+                        t('Welcome to React')
+                      : imageIndex == 1
+                      ? lang()[0].en.initial2
+                      : lang()[0].en.initial3}
 
-                  {/* {
+                    {/* {
                       lang(223, <Text style={{color: 'red'}}>asd</Text>)[0].ko
                         .KycComplete[1]
                     }
@@ -193,7 +205,48 @@ const Initial2 = (props) => {
                       lang(223, <Text style={{color: 'red'}}>asd</Text>)[0].ko
                         .KycComplete[2]
                     } */}
-                </Text>
+                  </Text>
+                </View>
+
+                {imageIndex === 2 ? (
+                  <Animated.View
+                    style={{opacity, marginLeft: '5%', marginRight: '5%'}}>
+                    <TouchableOpacity
+                      style={[ResetStyle.button, {marginTop: 30}]}
+                      activeOpacity={0.75}
+                      onPress={() => {
+                        props.navigation.navigate('SignUp');
+                        props.navigation.setOptions({
+                          title: '휴대폰 인증',
+                        });
+                      }}>
+                      <Text
+                        style={[
+                          ResetStyle.fontMediumK,
+                          ResetStyle.fontWhite,
+                          {fontWeight: '600'},
+                        ]}>
+                        SIGN UP
+                      </Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                      style={[ResetStyle.buttonWhite, {marginTop: 10}]}
+                      activeOpacity={0.75}
+                      onPress={() => {
+                        props.navigation.navigate('Login');
+                      }}>
+                      <Text
+                        style={[
+                          ResetStyle.fontMediumK,
+                          ResetStyle.fontB,
+                          {fontWeight: '600'},
+                        ]}>
+                        LOGIN
+                      </Text>
+                    </TouchableOpacity>
+                  </Animated.View>
+                ) : null}
               </View>
             );
           })}
@@ -216,84 +269,6 @@ const Initial2 = (props) => {
                 key={imageIndex}
                 style={[AuthStyle.initial2NormalDot, {backgroundColor}]}
               />
-            );
-          })}
-        </View>
-      </View>
-
-      <View style={ResetStyle.containerInner}>
-        <View
-          style={[AuthStyle.initial2IndicatorContainer, {marginBottom: '8%'}]}>
-          {images.map((image, imageIndex) => {
-            const opacity = scrollX.interpolate({
-              inputRange: [
-                windowWidth * (imageIndex - 1),
-                windowWidth * imageIndex,
-                windowWidth * (imageIndex + 1),
-              ],
-              outputRange: [0, 1, 0],
-              extrapolate: 'clamp',
-            });
-            const disable = scrollX.interpolate({
-              inputRange: [
-                windowWidth * (imageIndex - 1),
-                windowWidth * imageIndex,
-                windowWidth * (imageIndex + 1),
-              ],
-              outputRange: [false, true, false],
-              extrapolate: 'clamp',
-            });
-            return (
-              <Animated.View
-                key={imageIndex}
-                style={(AuthStyle.initial2ButtonBox, {opacity})}>
-                {imageIndex === 2 ? (
-                  <View
-                    style={{
-                      position: 'absolute',
-                      left: 0,
-                      width: '100%',
-                    }}>
-                    <TouchableOpacity
-                      style={[ResetStyle.button, {marginTop: 30}]}
-                      activeOpacity={0.75}
-                      onPress={() => {
-                        props.navigation.navigate('SignUp');
-
-                        props.navigation.setOptions({
-                          title: '휴대폰 인증',
-                        });
-                      }}>
-                      <Text
-                        style={[
-                          ResetStyle.fontMediumK,
-                          ResetStyle.fontWhite,
-                          {fontWeight: '600'},
-                        ]}>
-                        SIGN UP
-                      </Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                      style={[ResetStyle.buttonWhite, {marginTop: 10}]}
-                      activeOpacity={0.75}
-                      onPress={() => {
-                        console.log('opacity>>>', {imageIndex});
-
-                        props.navigation.navigate('Login');
-                      }}>
-                      <Text
-                        style={[
-                          ResetStyle.fontMediumK,
-                          ResetStyle.fontB,
-                          {fontWeight: '600'},
-                        ]}>
-                        LOGIN
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-                ) : null}
-              </Animated.View>
             );
           })}
         </View>
