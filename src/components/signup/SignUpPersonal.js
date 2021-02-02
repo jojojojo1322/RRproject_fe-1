@@ -14,6 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {server} from '../defined/server';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {Keyboard} from 'react-native';
 
 //이메일 유효성 체크
 function CheckEmail(str) {
@@ -339,7 +340,11 @@ class SignUpPersonal extends Component {
                         paddingBottom: '3%',
                         width: '90%',
                       },
-                    ]}></TextInput>
+                    ]}
+                    blurOnSubmit={false}
+                    onSubmitEditing={() => Keyboard.dismiss()}
+                    textContentType={'oneTimeCode'}
+                  />
                   <TouchableOpacity
                     onPress={() => {
                       this.setState({
@@ -533,7 +538,11 @@ class SignUpPersonal extends Component {
                         paddingBottom: '3%',
                         width: '90%',
                       },
-                    ]}></TextInput>
+                    ]}
+                    blurOnSubmit={false}
+                    onSubmitEditing={() => Keyboard.dismiss()}
+                    textContentType={'oneTimeCode'}
+                  />
                   {/* <Image
                     style={ResetStyle.smallImg}
                     source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
