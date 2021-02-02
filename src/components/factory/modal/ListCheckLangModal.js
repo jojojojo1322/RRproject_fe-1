@@ -31,6 +31,7 @@ const window = Dimensions.get('window');
 
 const CountryList = (props) => {
   const [selectedId, setSelectedId] = useState(null);
+  const [refresh, setRefresh] = useState(false);
 
   let DATA = props.list;
   const renderItem = ({item}) => {
@@ -44,20 +45,21 @@ const CountryList = (props) => {
         CheckedArrObject={props.CheckedArrObject}
         handleCheckedArray={props.handleCheckedArray}
         handleUnCheckedArray={props.handleUnCheckedArray}
+        searchText={props.searchText}
       />
     );
   };
-  if (props.searchText != '') {
-    DATA = DATA.filter(
+  console.log('props.searchTextprops.searchText', props.searchText);
+  console.log('props.searchTextprops.searchText', props.list);
+  if (props.searchText !== '') {
+    DATA = props.list.filter(
       (data) =>
         data.nativeName
           .toLowerCase()
           .indexOf(props.searchText.toLowerCase()) !== -1,
     );
-
-    // list.custName.toLowerCase().indexOf(searchName) > -1
   } else {
-    DATA = DATA;
+    DATA = props.list;
   }
 
   return (
@@ -66,7 +68,6 @@ const CountryList = (props) => {
         data={DATA}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
-        extraData={selectedId}
         style={{
           width: '100%',
           marginTop: '5%',
@@ -87,6 +88,7 @@ const Item = ({
   CheckedArrObject,
   handleCheckedArray,
   handleUnCheckedArray,
+  searchText,
 }) => {
   // CheckedArrObject = new SelectedCheckboxes();
   return (
@@ -112,6 +114,7 @@ const Item = ({
           checkedObjArr={CheckedArrObject}
           handleCheckedArray={handleCheckedArray}
           handleUnCheckedArray={handleUnCheckedArray}
+          searchText={searchText}
         />
       </View>
     </TouchableOpacity>

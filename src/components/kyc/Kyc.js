@@ -90,7 +90,7 @@ export default class Kyc extends Component {
     });
   };
   handleNextPage = () => {
-    this.props.navigation.navigate('Initial2');
+    this.props.navigation.navigate('Login');
   };
 
   setCountry = (country, cd, phone) => {

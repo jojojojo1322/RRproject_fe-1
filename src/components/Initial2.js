@@ -234,6 +234,15 @@ const Initial2 = (props) => {
               outputRange: [0, 1, 0],
               extrapolate: 'clamp',
             });
+            const disable = scrollX.interpolate({
+              inputRange: [
+                windowWidth * (imageIndex - 1),
+                windowWidth * imageIndex,
+                windowWidth * (imageIndex + 1),
+              ],
+              outputRange: [false, true, false],
+              extrapolate: 'clamp',
+            });
             return (
               <Animated.View
                 key={imageIndex}
@@ -269,6 +278,8 @@ const Initial2 = (props) => {
                       style={[ResetStyle.buttonWhite, {marginTop: 10}]}
                       activeOpacity={0.75}
                       onPress={() => {
+                        console.log('opacity>>>', {imageIndex});
+
                         props.navigation.navigate('Login');
                       }}>
                       <Text
