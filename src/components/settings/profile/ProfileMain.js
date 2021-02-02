@@ -225,7 +225,9 @@ export const ProfileMain = ({navigation}) => {
                   onPress={() => {
                     data.status === true
                       ? navigation.navigate('ProfileCompleteDetail')
-                      : navigation.navigate('ProfileIncompleteDetail');
+                      : navigation.navigate('ProfileIncompleteDetail', {
+                          KycLevel: '3',
+                        });
                   }}>
                   <Text
                     style={[

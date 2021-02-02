@@ -352,7 +352,8 @@ class EmailAuthentication extends Component {
                         this.state.returnApprove != '0' && {
                           width: '70%',
                         },
-                      ]}></TextInput>
+                      ]}
+                    />
                     {this.state.returnApprove == '0' && (
                       <Image
                         style={{

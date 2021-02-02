@@ -36,8 +36,8 @@ export default StyleSheet.create({
   researchQuestion: {
     fontWeight: '500',
     textAlign: 'left',
-    marginTop: '6%',
-    marginBottom: '8%',
+    marginTop: '10%',
+    // marginBottom: '8%',
     lineHeight: 25,
   },
   researchQuestionLength: {
@@ -47,7 +47,9 @@ export default StyleSheet.create({
     marginRight: '5%',
   },
   researchView: {
+    maxHeight: '85%',
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    marginTop: '5%',
   },
 });
