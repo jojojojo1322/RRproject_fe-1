@@ -644,8 +644,8 @@ class SignUpPersonal extends Component {
               style={[
                 ResetStyle.button,
                 {marginTop: '40%'},
-                this.state.checkBoolean != true &&
-                  this.state.checkEmail !== 0 && {backgroundColor: '#e6e6e6'},
+                (this.state.checkBoolean !== true ||
+                  this.state.checkEmail !== 0) && {backgroundColor: '#e6e6e6'},
               ]}
               onPress={() => {
                 console.log('nextBoolean', this.state.checkBoolean);

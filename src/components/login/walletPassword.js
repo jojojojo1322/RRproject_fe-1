@@ -45,11 +45,11 @@ export default class WalletPassword extends Component {
         walletPw: walletPw,
       })
       .then(async (response) => {
-        this.setModal4Visible(false);
         console.log('walletPasswordApi 생성 then>>>', response);
         await this.setState({
           walletCheck: response.data.status,
         });
+        this.setModal4Visible(false);
       })
       .catch((e) => {
         this.setModal4Visible(false);

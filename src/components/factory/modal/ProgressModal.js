@@ -25,6 +25,8 @@ class ProgressModal extends Component {
   };
   render() {
     const {modalVisible} = this.state;
+    console.log('this.state.modalVisble', modalVisible);
+    console.log('props.modalVisiible', this.props.modalVisible);
     return (
       <Modal animationType="fade" transparent={true} visible={modalVisible}>
         <TouchableWithoutFeedback activeOpacity={0.55}>

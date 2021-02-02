@@ -24,6 +24,7 @@ import WalletMasterKey from './WalletMasterKey';
 import ResetStyle from '../../style/ResetStyle.js';
 import AuthStyle from '../../style/AuthStyle.js';
 import BottomModal from '../factory/modal/BottomModal';
+import ProgressModal from '../factory/modal/ProgressModal';
 
 // import RNPickerSelect from 'react-native-picker-select';
 
@@ -56,6 +57,7 @@ export default class Login extends Component {
     modal2Visible: false,
     modal3Visible: false,
     modal4Visible: false,
+    modal5Visible: false,
     selectedId: null,
     text: '',
     loginCheck: false,
@@ -74,6 +76,9 @@ export default class Login extends Component {
   };
   setModal4Visible = (visible) => {
     this.setState({modal4Visible: visible});
+  };
+  setModal5Visible = (visible) => {
+    this.setState({modal5Visible: visible});
   };
   handleBack = () => {
     this.props.history.goBack();
@@ -99,6 +104,7 @@ export default class Login extends Component {
     this.props.navigation.navigate('Kyc');
   };
   loginApi = async (id, pass) => {
+    // this.setModal5Visible(true);
     await axios
       .post(`${server}/user/login`, {
         email: id,
@@ -126,9 +132,11 @@ export default class Login extends Component {
           loginCheck: response.data.status,
           hasWallet: response.data.hasWallet,
         });
+        // this.setModal5Visible(false);
         return response.data.status;
       })
       .catch(async (error) => {
+        // this.setModal5Visible(false);
         console.log('erro', error.response.data);
         this.setState({
           loginCheck: error.response.data.status,
@@ -348,6 +356,10 @@ export default class Login extends Component {
           modalVisible={this.state.modal4Visible}
           setModalVisible={this.setModal4Visible}
           text={`해당 계정의 디바이스가 아닙니다.`}
+        />
+        <ProgressModal
+          modalVisible={this.state.modal5Visible}
+          setModalVisible={this.setModal5Visible}
         />
       </SafeAreaView>
     );
