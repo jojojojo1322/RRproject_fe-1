@@ -139,6 +139,7 @@ export const AppMainStack = (props) => {
           component={Initial2}
           options={{
             headerShown: false,
+
             // title: this.props.route.params?.step,
             // title: route.params?.name,
           }}
@@ -693,6 +694,13 @@ const App = () => {
       {/* <Main /> */}
       <Drawer.Navigator
         // initialRouteName={AppAuthStack}
+        // screenOptions={
+        //   {
+        //     // drawerLockMode: 'locked-open',
+        //     // gestureEnabled: false,
+        //     // swipeEnabled: false,
+        //   }
+        // }
         drawerContent={(props) => (
           <CustomDrawerContent {...props} login={login} />
         )}
@@ -717,6 +725,9 @@ const App = () => {
             drawerLabel: () => null,
             title: undefined,
             drawerIcon: () => null,
+            // drawerLockMode: 'locked-opened',
+            swipeEnabled: false,
+            // gestureEnabled: false,
           })}
         />
 

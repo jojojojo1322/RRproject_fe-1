@@ -88,6 +88,26 @@ export class RoundCheckbox extends Component {
         );
       }
     }
+    if (preProps.searchText !== this.props.searchText) {
+      let a = [];
+      a = this.props.checkedArray.filter(
+        (data) => data.value == this.props.value,
+      );
+      if (a.length !== 0) {
+        console.log('다시체크됨다시체크됨다시체크됨다시체크됨다시체크됨');
+        this.setState({checked: true}, () => {
+          this.props.checkedObjArr.addItem({
+            key: this.props.keyValue,
+            value: this.props.value,
+            label: this.props.label,
+          });
+        });
+      } else {
+        this.setState({
+          checked: false,
+        });
+      }
+    }
   }
   stateSwitcher(key, label, value) {
     console.log({key: key, label: label, value: value});
