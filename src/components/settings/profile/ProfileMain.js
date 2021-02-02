@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -16,128 +16,116 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '../../../style/ResetStyle.js';
 import ProfileStyle from '../../../style/ProfileStyle.js';
 import {createDrawerNavigator} from '@react-navigation/drawer';
+import {FlatList} from 'react-native-gesture-handler';
 // import {CustomDrawerContent} from '../../defined/CustomDrawerContent';
 
 const Drawer = createDrawerNavigator();
-const kycArr = [
-  {
-    id: 23,
-    level: 23,
-    status: null,
-  },
-  {
-    id: 22,
-    level: 22,
-    status: null,
-  },
-  {
-    id: 21,
-    level: 21,
-    status: null,
-  },
-  {
-    id: 20,
-    level: 20,
-    status: null,
-  },
-  {
-    id: 19,
-    level: 19,
-    status: null,
-  },
-  {
-    id: 18,
-    level: 18,
-    status: null,
-  },
-  {
-    id: 17,
-    level: 17,
-    status: null,
-  },
-  {
-    id: 16,
-    level: 16,
-    status: null,
-  },
-  {
-    id: 15,
-    level: 15,
-    status: null,
-  },
-  {
-    id: 14,
-    level: 14,
-    status: null,
-  },
-  {
-    id: 13,
-    level: 13,
-    status: null,
-  },
-  {
-    id: 12,
-    level: 12,
-    status: null,
-  },
-  {
-    id: 11,
-    level: 11,
-    status: null,
-  },
-  {
-    id: 10,
-    level: 10,
-    status: null,
-  },
-  {
-    id: 9,
-    level: 9,
-    status: null,
-  },
-  {
-    id: 8,
-    level: 8,
-    status: null,
-  },
-  {
-    id: 7,
-    level: 7,
-    status: null,
-  },
-  {
-    id: 6,
-    level: 6,
-    status: null,
-  },
-  {
-    id: 5,
-    level: 5,
-    status: null,
-  },
-  {
-    id: 4,
-    level: 4,
-    status: null,
-  },
-  {
-    id: 3,
-    level: 3,
-    status: null,
-  },
-  {
-    id: 2,
-    level: 2,
-    status: true,
-  },
-  {
-    id: 1,
-    level: 1,
-    status: true,
-  },
-];
 
-export const ProfileMain = ({navigation}) => {
+const ProfileMain = ({navigation}) => {
+  const DATA = [
+    {level: 1},
+    {level: 2},
+    {level: 3},
+    {level: 4},
+    {level: 5},
+    {level: 6},
+    {level: 7},
+    {level: 8},
+    {level: 9},
+    {level: 10},
+    {level: 11},
+    {level: 12},
+    {level: 13},
+    {level: 14},
+    {level: 15},
+    {level: 16},
+    {level: 17},
+    {level: 18},
+    {level: 19},
+    {level: 20},
+    {level: 21},
+    {level: 22},
+    {level: 23},
+  ];
+  const [mailId, setMailId] = useState('');
+  const [kycLevel, setKycLevel] = useState(0);
+  const [kycLevelNumber, setKycLevelNumber] = useState(0);
+
+  useEffect(() => {
+    userApi();
+  }, []);
+
+  // console.log(DATA[kycLevel - 1].level);
+  // console.log(kycLevelNumber);
+  // console.log(DATA[kycLevel - 1].level === kycLevelNumber);
+
+  const userApi = async () => {
+    await axios
+      .get(
+        `${server}/user?userNo=${await AsyncStorage.getItem('userNo')}`,
+        // `${server}/user/user?userNo=210127104026300`,
+      )
+      .then(async (response) => {
+        console.log('userApi >>>>', response);
+        setKycLevel(response.data.userLevel);
+        setKycLevelNumber(parseInt(response.data.userLevel));
+        setMailId(response.data.mailId);
+      })
+      .catch((e) => {
+        console.log('Error', e);
+      });
+  };
+
+  const Item = ({status, level, index, kycLevel}) => {
+    return (
+      <TouchableOpacity
+        style={[
+          ProfileStyle.kycTouchable,
+          {borderBottomWidth: 0.8, borderColor: '#dedede'},
+        ]}
+        key={index}
+        onPress={() => {
+          level <= kycLevel
+            ? navigation.navigate('ProfileCompleteDetail')
+            : level === 2
+            ? navigation.navigate('ProfileIncompleteLevel2')
+            : navigation.navigate('ProfileIncompleteDetail');
+        }}>
+        <Text
+          style={[
+            ResetStyle.fontLightE,
+            Number(level) <= Number(kycLevel) + 1
+              ? ResetStyle.fontBlack
+              : ResetStyle.fontG,
+            ProfileStyle.kycLevelText,
+          ]}>
+          KYC LEVEL {level}
+        </Text>
+        <View style={[ProfileStyle.kycLevelCheckboxView]}>
+          <Text
+            style={[
+              ResetStyle.fontLightE,
+              // status === true || DATA[index + 1].status == true
+              Number(level) <= Number(kycLevel) + 1
+                ? ResetStyle.fontBlack
+                : ResetStyle.fontG,
+              ProfileStyle.kycLevelText2,
+            ]}>
+            {level <= kycLevel ? `완료` : `시작`}
+          </Text>
+          <Image
+            style={[ProfileStyle.kycLevelCheckboxImg]}
+            source={
+              level <= kycLevel
+                ? require('../../../imgs/drawable-xxxhdpi/icon_b_check_2_off_s.png')
+                : require('../../../imgs/drawable-xxxhdpi/icon_w_check_2_off_s.png')
+            }
+          />
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <SafeAreaView style={ResetStyle.container}>
       <View style={[ProfileStyle.kycContainerInner]}>
@@ -177,7 +165,7 @@ export const ProfileMain = ({navigation}) => {
               ResetStyle.fontWhite,
               {fontWeight: '700', textAlign: 'left'},
             ]}>
-            LEVEL 2
+            LEVEL {kycLevel}
           </Text>
           <Text
             style={[
@@ -185,7 +173,7 @@ export const ProfileMain = ({navigation}) => {
               ResetStyle.fontWhite,
               {textAlign: 'left'},
             ]}>
-            tnctnctnc123@gmail.com
+            {mailId}
           </Text>
         </View>
 
@@ -213,58 +201,15 @@ export const ProfileMain = ({navigation}) => {
             </Text>
           </TouchableOpacity>
         </View>
-
-        {/* KYC Level list */}
-        <ScrollView style={[ProfileStyle.kycScrollView]}>
-          {kycArr.map((data, index) => {
-            return (
-              <>
-                <TouchableOpacity
-                  style={[ProfileStyle.kycTouchable]}
-                  key={index}
-                  onPress={() => {
-                    data.status === true
-                      ? navigation.navigate('ProfileCompleteDetail')
-                      : navigation.navigate('ProfileIncompleteDetail', {
-                          KycLevel: '3',
-                        });
-                  }}>
-                  <Text
-                    style={[
-                      ResetStyle.fontLightE,
-                      data.status === true || kycArr[index + 1].status == true
-                        ? ResetStyle.fontBlack
-                        : ResetStyle.fontG,
-                      ProfileStyle.kycLevelText,
-                    ]}>
-                    KYC LEVEL {data.level}
-                  </Text>
-                  <View style={[ProfileStyle.kycLevelCheckboxView]}>
-                    <Text
-                      style={[
-                        ResetStyle.fontLightE,
-                        data.status === true || kycArr[index + 1].status == true
-                          ? ResetStyle.fontBlack
-                          : ResetStyle.fontG,
-                        ProfileStyle.kycLevelText2,
-                      ]}>
-                      {data.status == true ? `완료` : `시작`}
-                    </Text>
-                    <Image
-                      style={[ProfileStyle.kycLevelCheckboxImg]}
-                      source={
-                        data.status == true
-                          ? require('../../../imgs/drawable-xxxhdpi/icon_b_check_2_off_s.png')
-                          : require('../../../imgs/drawable-xxxhdpi/icon_w_check_2_off_s.png')
-                      }
-                    />
-                  </View>
-                </TouchableOpacity>
-                <View style={[ProfileStyle.kycLevelborder]} />
-              </>
-            );
-          })}
-        </ScrollView>
+        <FlatList
+          style={{marginHorizontal: '5%'}}
+          data={DATA}
+          renderItem={({item}) => (
+            <Item status={item.status} level={item.level} kycLevel={kycLevel} />
+          )}
+          keyExtractor={(item) => item.id}
+          inverted={true}
+        />
       </View>
     </SafeAreaView>
   );
