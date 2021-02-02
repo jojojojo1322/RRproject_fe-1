@@ -97,7 +97,10 @@ export function CustomDrawerContent(props) {
           padding: '5%',
           paddingBottom: Platform.OS === 'ios' ? '12%' : '8%',
         }}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            props.navigation.closeDrawer();
+          }}>
           <View style={{flexDirection: 'row'}}>
             <Image
               source={require('../../imgs/drawable-xxxhdpi/main_r_logo.png')}

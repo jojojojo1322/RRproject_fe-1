@@ -473,6 +473,7 @@ const WalletMain = (props) => {
 
   const [walletHistoryData, setWalletHistoryData] = useState([]);
   const [walletData, setWalletData] = useState([]);
+  // const [refreshing, setRefreshing] = useState(false);
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
@@ -514,6 +515,10 @@ const WalletMain = (props) => {
       .catch((e) => {
         console.log('error', e);
       });
+  };
+
+  const handleRefresh = () => {
+    // setRefreshing(!refreshing);
   };
 
   const Item = (data) => (
@@ -719,6 +724,8 @@ const WalletMain = (props) => {
           contentContainerStyle={{
             justifyContent: 'flex-start',
           }}
+          // refreshControl={refreshing}
+          // onRefresh={handleRefresh}
         />
       </View>
     </SafeAreaView>

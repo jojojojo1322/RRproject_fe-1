@@ -4,15 +4,15 @@ export default StyleSheet.create({
   // initial2
 
   initial2ScrollContainer: {
-    marginTop: Platform.OS === 'ios' ? '45%' : '35%',
-    height: '45%',
+    width: '100%',
+    height: '100%',
     alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: Platform.OS === 'ios' ? '40%' : '35%',
   },
   initial2Image: {
     resizeMode: 'contain',
     width: '50%',
-    height: '10%',
+    height: '25%',
     alignSelf: 'center',
   },
   initial2NormalDot: {
@@ -23,6 +23,8 @@ export default StyleSheet.create({
     marginHorizontal: 6,
   },
   initial2IndicatorContainer: {
+    position: 'absolute',
+    bottom: '38%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
