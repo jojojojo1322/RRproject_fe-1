@@ -1,18 +1,5 @@
-import React, {Component, useState, useEffect} from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  ScrollView,
-  Button,
-  TouchableOpacity,
-  Alert,
-  Image,
-  Platform,
-  FlatList,
-} from 'react-native';
-
-import PropTypes from 'prop-types';
+import React, {useState, useEffect} from 'react';
+import {View, Text, TouchableOpacity, Image, FlatList} from 'react-native';
 import ResetStyle from '../../../style/ResetStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {SelectedCheckboxes, RoundCheckbox} from '../../factory/Roundcheck';
@@ -225,6 +212,8 @@ const ProfileIncompleteDetail = (props) => {
             <RoundCheckbox
               size={30}
               keyValue={Number(item.questionNumber)}
+              label={item.optionContent}
+              value={item.optionNumber}
               checked={
                 checkedArray.findIndex(
                   (y) =>
@@ -236,8 +225,6 @@ const ProfileIncompleteDetail = (props) => {
               }
               color="#164895"
               labelColor="#000000"
-              label={item.optionContent}
-              value={item.optionNumber}
               onClick={() => {
                 setIsChecked(!isChecked);
                 setCheckId(item.optionNumber);
