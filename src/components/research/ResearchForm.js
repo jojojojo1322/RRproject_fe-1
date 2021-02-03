@@ -179,7 +179,7 @@ class ResearchForm extends Component {
       });
     }
   }
-  handleQuestion = async (question, answer, status) => {
+  survey_handleQuestion = async (question, answer, status) => {
     console.log(status, '----question----', question);
     console.log(status, '----answer----', answer);
     let checkedArray = this.state.checkedArray;
@@ -276,7 +276,7 @@ class ResearchForm extends Component {
                           this.state.isChecked && this.state.checkId == 1
                         }
                         checkedObjArr={CheckedArrObject}
-                        handleQuestion={this.handleQuestion}
+                        survey_handleQuestion={this.survey_handleQuestion}
                         checkedArray={this.state.checkedArray}
                       />
                     </View>
@@ -317,7 +317,7 @@ class ResearchForm extends Component {
                           this.state.isChecked && this.state.checkId == 1
                         }
                         checkedObjArr={CheckedArrObject}
-                        handleQuestion={this.handleQuestion}
+                        survey_handleQuestion={this.survey_handleQuestion}
                         checkedArray={this.state.checkedArray}
                       />
                     </View>

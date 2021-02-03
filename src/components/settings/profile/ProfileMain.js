@@ -89,7 +89,9 @@ const ProfileMain = ({navigation}) => {
             ? navigation.navigate('ProfileCompleteDetail')
             : level === 2
             ? navigation.navigate('ProfileIncompleteLevel2')
-            : navigation.navigate('ProfileIncompleteDetail');
+            : navigation.navigate('ProfileIncompleteDetail', {
+                KycLevel: level,
+              });
         }}>
         <Text
           style={[
