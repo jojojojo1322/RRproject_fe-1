@@ -100,20 +100,24 @@ export class RoundCheckbox extends Component {
         if (label === 'all') {
           this.props.handleAll(true);
         }
+
+        // kyc 선택문항 - survey
         if (this.props.handleQuestion) {
           const index = this.props.checkedArray.findIndex(
             (y) => y.question === key,
           );
           //다중선택 금지 처리
-          if (index >= 0) {
-            this.props.handleQuestion(
-              key,
+          // if (index >= 0) {
+          //   this.props.handleQuestion(
+          //     key,
 
-              this.props.checkedArray[index].answer,
-              'MINUS',
-            );
-          }
-          this.props.handleQuestion(key, value, 'PLUS');
+          //     this.props.checkedArray[index].answer,
+          //     'MINUS',
+          //   );
+          // }
+          this.props.handleQuestion(key, value, 'PLUS', this.props.typeName);
+        } else if (this.props.survey_handleQuestion) {
+          this.props.survey_handleQuestion(key, value, 'PLUS');
         } else if (this.props.handleCheckedbox) {
           this.props.handleCheckedbox(value, 'PLUS');
         } else if (this.props.handleCheckedArray) {
@@ -126,8 +130,11 @@ export class RoundCheckbox extends Component {
       } else {
         // this.props.handleUnCheckedArray(key);
 
+        // kyc 선택문항 - survey
         if (this.props.handleQuestion) {
-          this.props.handleQuestion(key, value, 'MINUS');
+          this.props.handleQuestion(key, value, 'MINUS', this.props.typeName);
+        } else if (this.props.survey_handleQuestion) {
+          this.props.survey_handleQuestion(key, value, 'MINUS');
         } else if (this.props.handleCheckedbox) {
           this.props.handleCheckedbox(value, 'MINUS');
         } else if (this.props.handleUnCheckedArray) {

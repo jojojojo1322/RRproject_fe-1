@@ -26,6 +26,8 @@ const ProfileIncompleteDetail = (props) => {
   // CheckedArrObject = new SelectedCheckboxes();
 
   let CheckedArrObject = new SelectedCheckboxes();
+  const [deviceLanguage, setDeviceLanguage] = useState('');
+  const [userNo, setUserNo] = useState('');
 
   // 기존 포맷
   const [question, setQuestion] = useState([]);
@@ -40,6 +42,18 @@ const ProfileIncompleteDetail = (props) => {
   const [kycQuestion, setKycQuestion] = useState([]);
   const [kycOption, setKycOption] = useState([]);
 
+  // ADVANCED form
+  [
+    {
+      content: 'string',
+      kycLevel: 'string',
+      kycOption: 0,
+      kycQuestion: 0,
+      languageCode: 'string',
+      userNo: 'string',
+    },
+  ];
+
   //해당 kyc질문 api
   const getAdvancedKycQuestionListApi = async () => {
     await axios
@@ -50,12 +64,14 @@ const ProfileIncompleteDetail = (props) => {
       )
       .then(async (response) => {
         setKycQuestion(response.data.data);
+        setQuestionLength(response.data.data.length);
         console.log('getAdvancedKycQuestionListApi THEN>>', response);
       })
       .catch((e) => {
         console.log('getAdvancedKycQuestionListApi Error>>', e);
       });
   };
+
   //해당 kyc 각 질문당 문항 api
   const getAdvancedKycOptionListApi = async () => {
     await axios
@@ -66,248 +82,89 @@ const ProfileIncompleteDetail = (props) => {
       )
       .then(async (response) => {
         setKycOption(response.data.data);
+        setUserNo(await AsyncStorage.getItem('userNo'));
+        setDeviceLanguage(await AsyncStorage.getItem('deviceLanguage'));
         console.log('getAdvancedKycOptionListApi THEN>>', response);
       })
       .catch((e) => {
         console.log('getAdvancedKycOptionListApi Error>>', e);
       });
   };
-  useEffect(() => {
-    setQuestion([
-      {
-        id: 0,
-        question:
-          '첫번째 설문조사 질문입니다. 이 질문에 대해서 어떻게 생각하시나요?',
-        questionDetail: [
-          {
-            id: 1,
-            detail: '매우좋음',
-          },
-          {
-            id: 2,
-            detail: '좋음',
-          },
-          {
-            id: 3,
-            detail: '보통',
-          },
-          {
-            id: 4,
-            detail: '나쁨',
-          },
-          {
-            id: 5,
-            detail: '매우나쁨',
-          },
-        ],
-        answer: '',
-      },
-      {
-        id: 1,
-        question:
-          '두번째 설문조사 질문입니다. 이 질문에 대해서 어떻게 생각하시나요?',
-        questionDetail: [
-          {
-            id: 1,
-            detail: '매우좋음',
-          },
-          {
-            id: 2,
-            detail: '좋음',
-          },
-          {
-            id: 3,
-            detail: '보통',
-          },
-          {
-            id: 4,
-            detail: '나쁨',
-          },
-          {
-            id: 5,
-            detail: '매우나쁨',
-          },
-        ],
-        answer: '',
-      },
-      {
-        id: 2,
-        question:
-          '세번째 설문조사 질문입니다. 이 질문에 대해서 어떻게 생각하시나요?',
-        questionDetail: [
-          {
-            id: 1,
-            detail: '매우좋음',
-          },
-          {
-            id: 2,
-            detail: '좋음',
-          },
-          {
-            id: 3,
-            detail: '보통',
-          },
-          {
-            id: 4,
-            detail: '나쁨',
-          },
-          {
-            id: 5,
-            detail: '매우나쁨',
-          },
-        ],
-        answer: '',
-      },
-      {
-        id: 3,
-        question:
-          '세번째 설문조사 질문입니다. 이 질문에 대해서 어떻게 생각하시나요?',
-        questionDetail: [
-          {
-            id: 1,
-            detail: '매우좋음',
-          },
-          {
-            id: 2,
-            detail: '좋음',
-          },
-          {
-            id: 3,
-            detail: '보통',
-          },
-          {
-            id: 4,
-            detail: '나쁨',
-          },
-          {
-            id: 5,
-            detail: '매우나쁨',
-          },
-        ],
-        answer: '',
-      },
-      {
-        id: 4,
-        question:
-          '세번째 설문조사 질문입니다. 이 질문에 대해서 어떻게 생각하시나요?',
-        questionDetail: [
-          {
-            id: 1,
-            detail: '매우좋음',
-          },
-          {
-            id: 2,
-            detail: '좋음',
-          },
-          {
-            id: 3,
-            detail: '보통',
-          },
-          {
-            id: 4,
-            detail: '나쁨',
-          },
-          {
-            id: 5,
-            detail: '매우나쁨',
-          },
-        ],
-        answer: '',
-      },
-    ]);
-    setQuestionLength(5);
+  useEffect(async () => {
     getAdvancedKycQuestionListApi();
     getAdvancedKycOptionListApi();
+    // setUserNo(await AsyncStorage.getItem('userNo'));
+    // setDeviceLanguage(await AsyncStorage.get('deviceLanguage'));
   }, []);
 
   useEffect(() => {
     setCheckId(true);
   }, [checkId]);
 
-  // const handleCheckedbox = (value, status) => {
-  //   console.log(value, status);
-  // };
-
-  // const renderSelectedElements = () => {
-  //   if (CheckedArrObject.fetchArray().length == 0) {
-  //     Alert.alert('No Item Selected');
-  //   } else {
-  //     // setState(() => {
-  //     //   return {
-  //     //     pickedElements: CheckedArrObject.fetchArray()
-  //     //       .map((res) => res.value)
-  //     //       .join(),
-  //     //   };
-  //     // });
-  //     setPickedElements(
-  //       CheckedArrObject.fetchArray()
-  //         .map((res) => res.value)
-  //         .join(),
-  //     );
-  //   }
-  // };
-
+  //이전 페이지 버튼 클릭시
   const handlerPrev = (e) => {
     e.preventDefault();
     const _nowIndex = nowIndex;
     if (_nowIndex != 0) {
-      // setState({
-      //   nowIndex: nowIndex - 1,
-      //   checkId: '',
-      // });
       setNowIndex(_nowIndex - 1);
       setCheckId('');
-      // props.navigation.goBack();
     } else if (_nowIndex == 0) {
       props.navigation.goBack();
     }
   };
+  //다음 버튼 클릭시
   const handlerNext = (e) => {
     e.preventDefault();
     const _nowIndex = nowIndex;
     if (_nowIndex != questionLength - 1) {
-      // setState({
-      //   nowIndex: nowIndex + 1,
-      //   checkId: '',
-      // });
       setNowIndex(_nowIndex + 1);
       setCheckId('');
     }
     if (_nowIndex === questionLength - 1) {
-      props.navigation.navigate('ProfileComplete');
+      console.log('checkedArray', checkedArray);
+      // props.navigation.navigate('ProfileComplete');
     }
   };
-
-  const handleQuestion = async (question, answer, status) => {
-    console.log(status, '----question----', question);
-    console.log(status, '----answer----', answer);
+  //roundCheckBox 값
+  const handleQuestion = async (question, answer, status, typeName) => {
+    // radiobutton, checkbox
+    console.log({
+      question: question,
+      answer: answer,
+      status: status,
+      typeName: typeName,
+    });
     let _checkedArray = checkedArray;
+    // if (typeName === 'radiobutton') {
     if (status === 'PLUS') {
-      // await setState({
-      //   checkedArray: checkedArray.concat({
-      //     key: question,
-      //     question: question,
-      //     answer: answer,
-      //   }),
+      // var ARR = _checkedArray.concat({
+      //   key: question,
+      //   question: question,
+      //   answer: answer,
       // });
       var ARR = _checkedArray.concat({
-        key: question,
-        question: question,
-        answer: answer,
+        // key: question,
+        // question: question,
+        // answer: answer,
+
+        content: '',
+        kycLevel: String(props.route.params?.KycLevel),
+        kycOption: String(answer),
+        kycQuestion: String(question),
+        languageCode: deviceLanguage,
+        userNo: String(userNo),
       });
       setCheckedArray(ARR);
     } else if (status === 'MINUS') {
       _checkedArray.splice(
         _checkedArray.findIndex(
-          (y) => y.question === question && y.answer === answer,
+          (y) => y.kycQuestion === question && y.kycOption === answer,
         ),
         1,
       ),
-        // await setState({
-        //   checkedArray: checkedArray,
-        // });
         setCheckedArray(_checkedArray);
     }
+    // }
     console.log(checkedArray);
   };
 
@@ -346,10 +203,6 @@ const ProfileIncompleteDetail = (props) => {
       )),
   );
   const RenderItem = (item) => {
-    console.log('item>>>>', item);
-    console.log('item.questionNumber', item.questionNumber);
-    console.log('item.kycQuestion', item.kycQuestion);
-
     if (item.questionNumber === item.kycQuestion) {
       if (item.optionNumber == 1) {
         return (
@@ -371,7 +224,7 @@ const ProfileIncompleteDetail = (props) => {
             </View>
             <RoundCheckbox
               size={30}
-              keyValue={item.questionNumber}
+              keyValue={Number(item.questionNumber)}
               checked={
                 checkedArray.findIndex(
                   (y) =>
@@ -386,10 +239,6 @@ const ProfileIncompleteDetail = (props) => {
               label={item.optionContent}
               value={item.optionNumber}
               onClick={() => {
-                // setState({
-                //   isChecked: !isChecked,
-                //   checkId: item.id,
-                // });
                 setIsChecked(!isChecked);
                 setCheckId(item.optionNumber);
               }}
@@ -397,6 +246,8 @@ const ProfileIncompleteDetail = (props) => {
               checkedObjArr={CheckedArrObject}
               handleQuestion={handleQuestion}
               checkedArray={checkedArray}
+              // 단일 - 다중 선택지
+              typeName={item.typeName}
             />
           </View>
         );
@@ -417,7 +268,7 @@ const ProfileIncompleteDetail = (props) => {
             </View>
             <RoundCheckbox
               size={30}
-              keyValue={item.questionNumber}
+              keyValue={Number(item.questionNumber)}
               checked={
                 checkedArray.findIndex(
                   (y) =>
@@ -432,10 +283,6 @@ const ProfileIncompleteDetail = (props) => {
               label={item.optionContent}
               value={item.optionNumber}
               onClick={() => {
-                // setState({
-                //   isChecked: !isChecked,
-                //   checkId: data.id,
-                // });
                 setIsChecked(!isChecked);
                 setCheckId(item.optionNumber);
               }}
@@ -443,6 +290,8 @@ const ProfileIncompleteDetail = (props) => {
               checkedObjArr={CheckedArrObject}
               handleQuestion={handleQuestion}
               checkedArray={checkedArray}
+              // 단일 - 다중 선택지
+              typeName={item.typeName}
             />
           </View>
         );
@@ -476,7 +325,10 @@ const ProfileIncompleteDetail = (props) => {
             renderItem={({item}) => (
               // renderItem(questionNumber=data.questionNumber)
               <RenderItem
+                //해당 질문
                 questionNumber={data.questionNumber}
+                //해당 질문의 단일/다중선택
+                typeName={data.typeName}
                 optionContent={item.optionContent}
                 optionNumber={item.optionNumber}
                 kycQuestion={item.kycQuestion}
@@ -485,26 +337,9 @@ const ProfileIncompleteDetail = (props) => {
             keyExtractor={(item) => item.id}
             extraData={kycOption}
           />
-          {/* renderItem={({item}) => (
-            <Item
-              navigation={props.navigation}
-              index={item.index}
-              timestamp={item.timestamp}
-              status={item.status}
-              txid={item.txid}
-              block={item.block}
-              content={item.content}
-              amount={item.content.amount}
-              memo={item.content.memo}
-              from={item.content.from}
-              to={item.content.to}
-              surveyName={item.content.surveyName}
-            />
-          )} */}
         </View>,
       )),
   );
-
   return (
     <SafeAreaView style={[ResetStyle.container]}>
       <View
