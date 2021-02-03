@@ -16,6 +16,7 @@ const WalletSendModal = ({
   confirm,
   address,
   amount,
+  calculatedValue,
   memo,
 }) => {
   // const walletSendApi = async (amount, email, memo, password, to, type) => {
@@ -148,7 +149,7 @@ const WalletSendModal = ({
                   ResetStyle.fontBlack,
                   {textAlign: 'left', fontWeight: '500'},
                 ]}>
-                잔액
+                송금 후 잔액
               </Text>
               <Text
                 style={[
@@ -156,7 +157,7 @@ const WalletSendModal = ({
                   ResetStyle.fontBlack,
                   {textAlign: 'left', marginTop: '2%'},
                 ]}>
-                749,990 TNC
+                {calculatedValue.toFixed(6)} TNC
               </Text>
             </View>
             <View style={[ModalStyle.walletMain]}>

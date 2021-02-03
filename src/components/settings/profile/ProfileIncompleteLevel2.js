@@ -323,7 +323,7 @@ const ProfileIncompleteLevel2 = (props) => {
               {textAlign: 'left'},
             ]}></Text>
         </View>
-        <RoundCheckbox
+        {/* <RoundCheckbox
           size={30}
           // keyValue={item.questionNumber}
           // checked={
@@ -351,7 +351,7 @@ const ProfileIncompleteLevel2 = (props) => {
           // checkedObjArr={CheckedArrObject}
           // handleQuestion={handleQuestion}
           // checkedArray={checkedArray}
-        />
+        /> */}
       </View>
     );
   };

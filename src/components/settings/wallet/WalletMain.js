@@ -466,9 +466,7 @@ function numberWithCommas(num) {
 // ];
 
 const WalletMain = (props) => {
-  const [masterKey, setMasterKey] = useState(
-    'RR6f3TBp4ckUTuWVw9Wb6akW84HgJcGZJgwnN1WNnJDy9QEBitdG',
-  );
+  const [masterKey, setMasterKey] = useState('');
   // const TestArrayFix = TestArray[0].transactions;
 
   const [walletHistoryData, setWalletHistoryData] = useState([]);
@@ -493,6 +491,7 @@ const WalletMain = (props) => {
         setWalletData(response.data);
         setTotal(Number(response.data.balance.replace(' TNC', '')));
         console.log('wallet Data>>>>>', walletData);
+        setMasterKey(response.data.name);
       })
       .catch((e) => {
         console.log('error', e);

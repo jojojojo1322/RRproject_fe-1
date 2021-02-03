@@ -47,13 +47,17 @@ export default function WalletSend({navigation, route}) {
   const [modal3Visible, setModal3Visible] = useState(false);
   const [modal4Visible, setModal4Visible] = useState(false);
   const [modal5Visible, setModal5Visible] = useState(false);
+  const [modal6Visible, setModal6Visible] = useState(false);
   const [total, setTotal] = useState(0);
   const [value, setValue] = useState(0);
   const [calculator, setCalulator] = useState('');
   const [address, setAddress] = useState('');
   const [memo, setMemo] = useState('');
+  const [type, setType] = useState('SEND');
   const [walletData, setWalletData] = useState([]);
   const [transfee, setTransfee] = useState('전송 수수료 : 10 TNC');
+
+  const [calculatedValue, setCalculatedValue] = useState(total);
 
   const onlyDecimalsix = (num) => {
     // 소숫점 여섯자리 체크 --> 앞자리에 컴마가 붙을경우 작동안함 -> 검사하는동안 컴마 제거
@@ -81,10 +85,10 @@ export default function WalletSend({navigation, route}) {
     handleUnderTen(value);
     onlyDecimalsix(value);
     //qrcode없을 시 지워짐
-
     // setAddress(qrcode);
-    console.log('aaaaaaaa', value);
+    // console.log('aaaaaaaa', value);
   }, [value]);
+
   useEffect(() => {
     setAddress(qrcode);
   }, [qrcode]);
@@ -97,6 +101,17 @@ export default function WalletSend({navigation, route}) {
     });
     walletDataApi();
   }, []);
+
+  // 송금 후 잔액 계산 불러우기
+  useEffect(() => {
+    totalCalculator();
+    console.log('check for calculated value >>>', calculatedValue);
+  }, [calculatedValue]);
+
+  // 송금 후 잔액 계산용
+  const totalCalculator = () => {
+    setCalculatedValue(total - value - 10);
+  };
 
   // useEffect(() => {
   //   console.log('calculator', calculator);
@@ -168,7 +183,13 @@ export default function WalletSend({navigation, route}) {
   };
 
   const setConfirm = () => {
-    navigation.navigate('WalletConfirmPassword');
+    navigation.navigate('WalletConfirmPassword', {
+      amount: value,
+      email: AsyncStorage.getItem('email'),
+      memo: memo,
+      to: address,
+      type: type,
+    });
   };
 
   const handleAddress = (e) => {
@@ -182,10 +203,13 @@ export default function WalletSend({navigation, route}) {
   const handleConfirm = () => {
     if (address !== 'e.data' && value !== 0) {
       setModalVisible(true);
+    } else if (value !== 0 && value <= 10) {
+      setModal6Visible(!modal6Visible);
     } else {
       setModal5Visible(!modal5Visible);
     }
   };
+
   const handleCalculatorOver = (fixValue) => {
     if (
       (calculator === 'tenth' && fixValue > total / 10) ||
@@ -212,6 +236,7 @@ export default function WalletSend({navigation, route}) {
     }
   };
 
+  // 총액 하단 경고문구
   const handleUnderTen = (value) => {
     if (Number(String(value).replace(/,/g, '')) === 0) {
       setTransfee('전송 수수료 : 10 TNC');
@@ -222,12 +247,9 @@ export default function WalletSend({navigation, route}) {
     }
   };
 
-  // useEffect(() => {
-  //   console.log('calculator', calculator);
-  // }, [calculator]);
   console.log('value check >>>>>', value);
-  console.log('value check >>>>>', value);
-  console.log('value check >>>>>', value);
+  console.log('calculatedValue check >>>>>', calculatedValue);
+
   return (
     <SafeAreaView style={ResetStyle.container}>
       <KeyboardAwareScrollView
@@ -512,7 +534,8 @@ export default function WalletSend({navigation, route}) {
           <TouchableOpacity
             style={[ResetStyle.button]}
             onPress={() => {
-              // handleConfirm();
+              handleConfirm();
+              totalCalculator();
             }}>
             <Text
               style={[
@@ -531,6 +554,7 @@ export default function WalletSend({navigation, route}) {
         setModalVisible={setModalVisible}
         confirm={setConfirm}
         address={address}
+        calculatedValue={calculatedValue}
         amount={value}
         memo={memo}
       />
@@ -553,6 +577,11 @@ export default function WalletSend({navigation, route}) {
         modalVisible={modal5Visible}
         setModalVisible={setModal5Visible}
         text={'내용을 올바르게 입력 해 주십시오.'}
+      />
+      <BottomModal
+        modalVisible={modal6Visible}
+        setModalVisible={setModal6Visible}
+        text={'보내는 금액은 최소 10TNC 이상입니다.'}
       />
     </SafeAreaView>
   );
