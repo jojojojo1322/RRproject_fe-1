@@ -43,10 +43,7 @@ const WalletReceive = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
   const [walletData, setWalletData] = useState([]);
-  const [masterKey, setMasterKey] = useState(
-    'RR7fLwahWqyPDVFhEQspQrRP6pLeahbmj9gxwpnuwpZLay81dLRo', //지우
-    // 'RR8ERZUHNFW8mDrr6w7u9LWABNp6FnwgJ7x8gms3WUR5YpNDaRFW' 현재
-  );
+  const [masterKey, setMasterKey] = useState('');
 
   useEffect(() => {
     AsyncStorage.setItem('email', 'a@c.com', () => {
@@ -61,9 +58,10 @@ const WalletReceive = (props) => {
     await axios
       .get(`${server}/wallet/${await AsyncStorage.getItem('email')}`)
       .then((response) => {
-        console.log('walletData>>>>>', response.data);
+        console.log('getWalletAddressApi>>>>>', response.data);
         setWalletData(response.data);
-        console.log(walletData);
+        console.log('walletData>>>>>', walletData);
+        setMasterKey(response.data.name);
       })
       .catch((e) => {
         console.log('error', e);

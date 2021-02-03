@@ -17,7 +17,7 @@ export default function MainTest({navigation}) {
   };
   console.log('QRCODEEEEEEE', QRAdress);
   return (
-    <SafeAreaView style={ResetStyle.container}>
+    <SafeAreaView style={[ResetStyle.container]}>
       <View
         style={[
           ResetStyle.containerInner,
@@ -27,8 +27,9 @@ export default function MainTest({navigation}) {
           },
         ]}>
         {/* Top */}
-        {/* topBackButton */}
+
         <View style={[ResetStyle.topBackButton, {marginLeft: '5%'}]}>
+          {/* topBackButton */}
           <TouchableOpacity
             style={{flexDirection: 'row', alignItems: 'center'}}
             onPress={() => {
@@ -42,12 +43,20 @@ export default function MainTest({navigation}) {
             </Text>
           </TouchableOpacity>
         </View>
+
+        {/* QR Code Scanner */}
         <QRCodeScanner
           onRead={onSuccess}
           vibrate={false}
           // disableVibrationByUser={0}
-          containerStyle={{width: '100%', height: '100%'}}
-          cameraStyle={{width: '100%'}}
+          containerStyle={{
+            width: '100%',
+            height: '100%',
+          }}
+          cameraStyle={{
+            width: '100%',
+            height: '100%',
+          }}
         />
       </View>
     </SafeAreaView>
