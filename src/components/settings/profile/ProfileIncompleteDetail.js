@@ -5,9 +5,13 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {SelectedCheckboxes, RoundCheckbox} from '../../factory/Roundcheck';
 import ResearchStyle from '../../../style/ResearchStyle.js';
 import ProfileStyle from '../../../style/ProfileStyle.js';
+
 import {server} from '../../defined/server';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import BottomModal from '../../factory/modal/BottomModal';
+import TextConfirmModal from '../../factory/modal/TextConfirmModal';
 
 const ProfileIncompleteDetail = (props) => {
   // CheckedArrObject = new SelectedCheckboxes();
@@ -24,22 +28,27 @@ const ProfileIncompleteDetail = (props) => {
   const [nowIndex, setNowIndex] = useState(0);
   const [pickedElements, setPickedElements] = useState('');
   const [checkedArray, setCheckedArray] = useState([]);
-
+  const [nextCheck, setNextCheck] = useState(false);
   //kyc Api
   const [kycQuestion, setKycQuestion] = useState([]);
   const [kycOption, setKycOption] = useState([]);
+  const [successCheck, setSuccessCheck] = useState(0);
+
+  //modal
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modal2Visible, setModal2Visible] = useState(false);
 
   // ADVANCED form
-  [
-    {
-      content: 'string',
-      kycLevel: 'string',
-      kycOption: 0,
-      kycQuestion: 0,
-      languageCode: 'string',
-      userNo: 'string',
-    },
-  ];
+  // [
+  //   {
+  //     content: 'string',
+  //     kycLevel: 'string',
+  //     kycOption: 0,
+  //     kycQuestion: 0,
+  //     languageCode: 'string',
+  //     userNo: 'string',
+  //   },
+  // ]
 
   //해당 kyc질문 api
   const getAdvancedKycQuestionListApi = async () => {
@@ -77,16 +86,54 @@ const ProfileIncompleteDetail = (props) => {
         console.log('getAdvancedKycOptionListApi Error>>', e);
       });
   };
+
+  //해당 Kyc Level create
+  const createAdvancedKycApi = async () => {
+    console.log('createAdvancedKycApi');
+    await axios
+      .post(`${server}/kyc`, checkedArray)
+      .then(async (response) => {
+        console.log('createAdvancedKycApi THEN>>', response);
+        setSuccessCheck(response.data.ret_val);
+      })
+      .catch((e) => {
+        console.log('createAdvancedKycApi Error>>', e);
+      });
+  };
+
+  const confirm = () => {
+    props.navigation.navigate('ProfileMain');
+  };
+
   useEffect(async () => {
     getAdvancedKycQuestionListApi();
     getAdvancedKycOptionListApi();
-    // setUserNo(await AsyncStorage.getItem('userNo'));
-    // setDeviceLanguage(await AsyncStorage.get('deviceLanguage'));
   }, []);
 
   useEffect(() => {
     setCheckId(true);
   }, [checkId]);
+
+  useEffect(() => {
+    console.log(
+      'setNextCheck>>>>>>>',
+      checkedArray.findIndex(
+        (y) => String(y.kycQuestion) === String(nowIndex + 1),
+      ) >= 0 ||
+        // 아니면 questionRequiredYN -> FALSE 일경우
+        (kycQuestion[nowIndex] &&
+          kycQuestion[nowIndex].questionRequiredYN === 'FALSE'),
+    );
+    // 해당 index kyc질문에 대한 대답이 배열에 들어가있는지 체크
+    setNextCheck(
+      checkedArray.findIndex(
+        (y) => String(y.kycQuestion) === String(nowIndex + 1),
+      ) >= 0 ||
+        // 아니면 questionRequiredYN -> FALSE 일경우
+        (kycQuestion[nowIndex] &&
+          kycQuestion[nowIndex].questionRequiredYN === 'FALSE'),
+    );
+  }, [checkedArray]);
 
   //이전 페이지 버튼 클릭시
   const handlerPrev = (e) => {
@@ -99,19 +146,37 @@ const ProfileIncompleteDetail = (props) => {
       props.navigation.goBack();
     }
   };
+
   //다음 버튼 클릭시
-  const handlerNext = (e) => {
+  const handlerNext = async (e) => {
     e.preventDefault();
     const _nowIndex = nowIndex;
-    if (_nowIndex != questionLength - 1) {
+
+    if (_nowIndex !== questionLength - 1) {
+      // if(kycQuestion[_nowIndex].questionRequiredYN === 'TRUE'){
+      //   setNowIndex(_nowIndex + 1);
+      //   setCheckId('');
+      // } else {
+      //   setNowIndex(_nowIndex + 1);
+      //   setCheckId('');
+      // }
+
       setNowIndex(_nowIndex + 1);
       setCheckId('');
     }
     if (_nowIndex === questionLength - 1) {
       console.log('checkedArray', checkedArray);
+      await createAdvancedKycApi();
+      if (successCheck === 0) {
+        props.navigation.navigate('ProfileComplete', {
+          KycLevel: props.route.params?.KycLevel,
+        });
+      } else {
+      }
       // props.navigation.navigate('ProfileComplete');
     }
   };
+
   //roundCheckBox 값
   const handleQuestion = async (question, answer, status, typeName) => {
     // radiobutton, checkbox
@@ -124,16 +189,7 @@ const ProfileIncompleteDetail = (props) => {
     let _checkedArray = checkedArray;
     // if (typeName === 'radiobutton') {
     if (status === 'PLUS') {
-      // var ARR = _checkedArray.concat({
-      //   key: question,
-      //   question: question,
-      //   answer: answer,
-      // });
       var ARR = _checkedArray.concat({
-        // key: question,
-        // question: question,
-        // answer: answer,
-
         content: '',
         kycLevel: String(props.route.params?.KycLevel),
         kycOption: String(answer),
@@ -148,8 +204,16 @@ const ProfileIncompleteDetail = (props) => {
           (y) => y.kycQuestion === question && y.kycOption === answer,
         ),
         1,
-      ),
-        setCheckedArray(_checkedArray);
+      );
+      setCheckedArray(_checkedArray);
+      setNextCheck(
+        checkedArray.findIndex(
+          (y) => String(y.kycQuestion) === String(nowIndex + 1),
+        ) >= 0 ||
+          // 아니면 questionRequiredYN -> FALSE 일경우
+          (kycQuestion[nowIndex] &&
+            kycQuestion[nowIndex].questionRequiredYN === 'FALSE'),
+      );
     }
     // }
     console.log(checkedArray);
@@ -217,8 +281,8 @@ const ProfileIncompleteDetail = (props) => {
               checked={
                 checkedArray.findIndex(
                   (y) =>
-                    y.question === item.questionNumber &&
-                    y.answer === item.optionNumber,
+                    y.kycQuestion === item.questionNumber &&
+                    y.kycOption === item.optionNumber,
                 ) >= 0
                   ? true
                   : false
@@ -259,8 +323,8 @@ const ProfileIncompleteDetail = (props) => {
               checked={
                 checkedArray.findIndex(
                   (y) =>
-                    y.question === item.questionNumber &&
-                    y.answer === item.optionNumber,
+                    y.kycQuestion === item.questionNumber &&
+                    y.kycOption === item.optionNumber,
                 ) >= 0
                   ? true
                   : false
@@ -270,6 +334,7 @@ const ProfileIncompleteDetail = (props) => {
               label={item.optionContent}
               value={item.optionNumber}
               onClick={() => {
+                console.log('eeeee', e);
                 setIsChecked(!isChecked);
                 setCheckId(item.optionNumber);
               }}
@@ -279,6 +344,8 @@ const ProfileIncompleteDetail = (props) => {
               checkedArray={checkedArray}
               // 단일 - 다중 선택지
               typeName={item.typeName}
+              // 3개이상 선택지 금지
+              setModalVisible={setModalVisible}
             />
           </View>
         );
@@ -327,6 +394,7 @@ const ProfileIncompleteDetail = (props) => {
         </View>,
       )),
   );
+  console.log('modalvisbile', modalVisible);
   return (
     <SafeAreaView style={[ResetStyle.container]}>
       <View
@@ -382,11 +450,34 @@ const ProfileIncompleteDetail = (props) => {
               ResetStyle.button,
               {
                 width: '49%',
+                backgroundColor: '#e6e6e6',
+              },
+              // 해당 index kyc질문에 대한 대답이 배열에 들어가있는지 체크
+              (checkedArray.findIndex(
+                (y) => String(y.kycQuestion) === String(nowIndex + 1),
+              ) >= 0 ||
+                // 아니면 questionRequiredYN -> FALSE 일경우
+                (kycQuestion[nowIndex] &&
+                  kycQuestion[nowIndex].questionRequiredYN === 'FALSE')) && {
                 backgroundColor: '#4696ff',
               },
             ]}
             activeOpacity={0.75}
-            onPress={handlerNext}>
+            onPress={
+              // checkedArray.findIndex(
+              //   (y) => String(y.kycQuestion) === String(nowIndex + 1),
+              // ) >= 0 ||
+              // (kycQuestion[nowIndex] &&
+              //   kycQuestion[nowIndex].questionRequiredYN === 'FALSE')
+              //   ? handlerNext
+              //   : null
+              // checkedArray.findIndex(
+              //   (y) => String(y.kycQuestion) === String(nowIndex + 1),
+              // ) >= 0 ||
+              // (kycQuestion[nowIndex] &&
+              //   kycQuestion[nowIndex].questionRequiredYN === 'FALSE')
+              nextCheck ? handlerNext : null
+            }>
             <Text
               style={[
                 ResetStyle.fontMediumK,
@@ -398,6 +489,17 @@ const ProfileIncompleteDetail = (props) => {
           </TouchableOpacity>
         </View>
       </View>
+      <BottomModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        text={`선택 가능한 답변 개수를 초과했습니다.`}
+      />
+      <TextConfirmModal
+        modalVisible={modal2Visible}
+        setModalVisible={setModal2Visible}
+        text={`이미 등록 완료되었습니다.`}
+        confirm={confirm}
+      />
     </SafeAreaView>
   );
 };

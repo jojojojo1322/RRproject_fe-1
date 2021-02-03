@@ -104,17 +104,40 @@ export class RoundCheckbox extends Component {
         // kyc 선택문항 - survey
         if (this.props.handleQuestion) {
           const index = this.props.checkedArray.findIndex(
-            (y) => y.question === key,
+            (y) => String(y.kycQuestion) === String(key),
           );
-          //다중선택 금지 처리
-          // if (index >= 0) {
-          //   this.props.handleQuestion(
-          //     key,
+          let multiCnt = 0;
+          this.props.checkedArray.map((data, index) => {
+            if (String(data.kycQuestion) === String(key)) {
+              multiCnt++;
+            }
+          });
 
-          //     this.props.checkedArray[index].answer,
-          //     'MINUS',
-          //   );
-          // }
+          //checkbox - 3개 초과 금지 처리 /
+          if (this.props.typeName === 'checkbox') {
+            if (multiCnt === 3) {
+              console.log('3개초과3개초과3개초과3개초과3개초과');
+              // this.props.handleQuestion(
+              //   key,
+              //   value,
+              //   'MINUS',
+              //   this.props.typeName,
+              // );
+              this.props.setModalVisible(true);
+              return false;
+            }
+            //roundbutton - 단일 선택
+          } else if (this.props.typeName === 'radiobutton') {
+            if (index >= 0) {
+              this.props.handleQuestion(
+                key,
+                this.props.checkedArray[index].kycOption,
+                'MINUS',
+                this.props.typeName,
+              );
+            }
+          }
+          //
           this.props.handleQuestion(key, value, 'PLUS', this.props.typeName);
         } else if (this.props.survey_handleQuestion) {
           this.props.survey_handleQuestion(key, value, 'PLUS');

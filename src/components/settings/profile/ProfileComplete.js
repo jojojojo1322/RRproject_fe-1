@@ -38,33 +38,8 @@ export default class ProfileComplete extends Component {
                 ResetStyle.fontB,
                 {marginTop: '5%'},
               ]}>
-              KYC 인증완료
+              {`KYC ${this.props.route.params?.KycLevel} LEVEL\n 인증완료`}
             </Text>
-            <View>
-              <Text
-                style={[
-                  ResetStyle.fontRegularK,
-                  ResetStyle.fontBlack,
-                  {marginTop: '5%', lineHeight: 30},
-                ]}>
-                {
-                  lang(2, <Text style={{color: '#2d91ff'}}>10 TNC</Text>)[0].ko
-                    .KycComplete[1]
-                }
-                {
-                  lang(2, <Text style={{color: '#2d91ff'}}>10 TNC</Text>)[0].ko
-                    .KycComplete[2]
-                }
-                {
-                  lang(2, <Text style={{color: '#2d91ff'}}>10 TNC</Text>)[0].ko
-                    .KycComplete[3]
-                }
-                {
-                  lang(2, <Text style={{color: '#2d91ff'}}>10 TNC</Text>)[0].ko
-                    .KycComplete[4]
-                }
-              </Text>
-            </View>
           </View>
 
           {/* Bottom Button */}

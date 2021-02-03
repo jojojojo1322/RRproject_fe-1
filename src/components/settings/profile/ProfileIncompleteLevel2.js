@@ -18,7 +18,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ProfileIncompleteLevel2 = (props) => {
-  const QusetionData = [
+  const kycQuestion = [
     {
       question: 'Waht is your estimated annual revenue?',
       answers: [
@@ -230,132 +230,328 @@ const ProfileIncompleteLevel2 = (props) => {
     },
   ];
 
-  // KYC Level 2 Answers
-  const [annualRevenue, setAnnualRevenue] = useState(0);
-  const [employmentStatus, setEmploymentStatus] = useState(0);
-  const [investIn, setInvestIn] = useState(0);
-  const [netWorth, setNetWorth] = useState(0);
-  const [ownProperties, setOwnProperties] = useState(0);
+  let CheckedArrObject = new SelectedCheckboxes();
+  const [deviceLanguage, setDeviceLanguage] = useState('');
+  const [userNo, setUserNo] = useState('');
 
-  // Tools for this page
-  const [checkId, setCheckId] = useState('');
-  const [nowIndex, setNowIndex] = useState(0);
+  // 기존 포맷
+  const [question, setQuestion] = useState([]);
   const [questionLength, setQuestionLength] = useState(0);
   const [isChecked, setIsChecked] = useState(false);
+  const [checkId, setCheckId] = useState('');
+  const [nowIndex, setNowIndex] = useState(0);
+  const [pickedElements, setPickedElements] = useState('');
   const [checkedArray, setCheckedArray] = useState([]);
-  const [topCheck, setTopCheck] = useState([]);
+  const [nextCheck, setNextCheck] = useState(false);
+  //kyc Api
+  // const [kycQuestion, setKycQuestion] = useState([]);
+  const [kycOption, setKycOption] = useState([]);
+  const [successCheck, setSuccessCheck] = useState(0);
 
-  useEffect(() => {
-    setQuestionLength(5);
-    // getKycLevel2();
-    console.log(QusetionData[0].answers);
-  }, []);
+  //modal
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modal2Visible, setModal2Visible] = useState(false);
 
-  const getKycLevel2 = async (
-    annualRevenue,
-    employmentStatus,
-    investIn,
-    netWorth,
-    ownProperties,
-  ) => {
-    const userNo = await AsyncStorage.getItem('userNo');
+  // ADVANCED form
+  // [
+  //   {
+  //     content: 'string',
+  //     kycLevel: 'string',
+  //     kycOption: 0,
+  //     kycQuestion: 0,
+  //     languageCode: 'string',
+  //     userNo: 'string',
+  //   },
+  // ]
+
+  //해당 Kyc Level create
+  const createAdvancedKycApi = async () => {
+    console.log('createAdvancedKycApi');
     await axios
-      .post(`${server}/kyc/2/`, {
-        annualRevenue: annualRevenue,
-        employmentStatus: employmentStatus,
-        investIn: investIn,
-        netWorth: netWorth,
-        ownProperties: ownProperties,
-        userNo: userNo,
-      })
+      .post(`${server}/kyc`, checkedArray)
       .then(async (response) => {
-        console.log('getKycLevel2 Then>>>', response);
+        console.log('createAdvancedKycApi THEN>>', response);
+        setSuccessCheck(response.data.ret_val);
       })
       .catch((e) => {
-        console.log('getKycLevel2 Error>>', e);
+        console.log('createAdvancedKycApi Error>>', e);
       });
   };
 
+  const confirm = () => {
+    props.navigation.navigate('ProfileMain');
+  };
+
+  useEffect(async () => {}, []);
+
+  useEffect(() => {
+    setCheckId(true);
+  }, [checkId]);
+
+  useEffect(() => {
+    console.log(
+      'setNextCheck>>>>>>>',
+      checkedArray.findIndex(
+        (y) => String(y.kycQuestion) === String(nowIndex + 1),
+      ) >= 0 ||
+        // 아니면 questionRequiredYN -> FALSE 일경우
+        (kycQuestion[nowIndex] &&
+          kycQuestion[nowIndex].questionRequiredYN === 'FALSE'),
+    );
+    // 해당 index kyc질문에 대한 대답이 배열에 들어가있는지 체크
+    setNextCheck(
+      checkedArray.findIndex(
+        (y) => String(y.kycQuestion) === String(nowIndex + 1),
+      ) >= 0 ||
+        // 아니면 questionRequiredYN -> FALSE 일경우
+        (kycQuestion[nowIndex] &&
+          kycQuestion[nowIndex].questionRequiredYN === 'FALSE'),
+    );
+  }, [checkedArray]);
+
+  //이전 페이지 버튼 클릭시
   const handlerPrev = (e) => {
     e.preventDefault();
     const _nowIndex = nowIndex;
     if (_nowIndex != 0) {
-      // setState({
-      //   nowIndex: nowIndex - 1,
-      //   checkId: '',
-      // });
       setNowIndex(_nowIndex - 1);
       setCheckId('');
-      // props.navigation.goBack();
     } else if (_nowIndex == 0) {
       props.navigation.goBack();
     }
   };
 
-  const handlerNext = (e) => {
+  //다음 버튼 클릭시
+  const handlerNext = async (e) => {
     e.preventDefault();
     const _nowIndex = nowIndex;
-    if (_nowIndex != questionLength - 1) {
-      // setState({
-      //   nowIndex: nowIndex + 1,
-      //   checkId: '',
-      // });
+
+    if (_nowIndex !== questionLength - 1) {
       setNowIndex(_nowIndex + 1);
       setCheckId('');
     }
     if (_nowIndex === questionLength - 1) {
-      props.navigation.navigate('ProfileComplete');
+      console.log('checkedArray', checkedArray);
+      await createAdvancedKycApi();
+      if (successCheck === 0) {
+        props.navigation.navigate('ProfileComplete', {
+          KycLevel: props.route.params?.KycLevel,
+        });
+      } else {
+      }
     }
   };
 
-  const Item = (item) => {
-    return (
-      <View
-        style={[
-          ResearchStyle.researchAnswerStyle,
-          ResearchStyle.researchAnswerTopStyle,
-        ]}>
-        <View style={{width: '90%'}}>
-          <Text
-            style={[
-              ResetStyle.fontRegularK,
-              ResetStyle.fontBlack,
-              {textAlign: 'left'},
-            ]}></Text>
-        </View>
-        {/* <RoundCheckbox
-          size={30}
-          // keyValue={item.questionNumber}
-          // checked={
-          //   checkedArray.findIndex(
-          //     (y) =>
-          //       y.question === item.questionNumber &&
-          //       y.answer === item.optionNumber,
-          //   ) >= 0
-          //     ? true
-          //     : false
-          // }
-          color="#164895"
-          labelColor="#000000"
-          // label={item.optionContent}
-          // value={item.optionNumber}
-          onClick={() => {
-            // setState({
-            //   isChecked: !isChecked,
-            //   checkId: item.id,
-            // });
-            // setIsChecked(!isChecked);
-            // setCheckId(item.optionNumber);
-          }}
-          // isChecked={isChecked && checkId == 1}
-          // checkedObjArr={CheckedArrObject}
-          // handleQuestion={handleQuestion}
-          // checkedArray={checkedArray}
-        /> */}
-      </View>
-    );
+  //roundCheckBox 값
+  const handleQuestion = async (question, answer, status, typeName) => {
+    // radiobutton, checkbox
+    console.log({
+      question: question,
+      answer: answer,
+      status: status,
+      typeName: typeName,
+    });
+    let _checkedArray = checkedArray;
+    // if (typeName === 'radiobutton') {
+    if (status === 'PLUS') {
+      var ARR = _checkedArray.concat({
+        content: '',
+        kycLevel: String(props.route.params?.KycLevel),
+        kycOption: String(answer),
+        kycQuestion: String(question),
+        languageCode: deviceLanguage,
+        userNo: String(userNo),
+      });
+      setCheckedArray(ARR);
+    } else if (status === 'MINUS') {
+      _checkedArray.splice(
+        _checkedArray.findIndex(
+          (y) => y.kycQuestion === question && y.kycOption === answer,
+        ),
+        1,
+      );
+      setCheckedArray(_checkedArray);
+      setNextCheck(
+        checkedArray.findIndex(
+          (y) => String(y.kycQuestion) === String(nowIndex + 1),
+        ) >= 0 ||
+          // 아니면 questionRequiredYN -> FALSE 일경우
+          (kycQuestion[nowIndex] &&
+            kycQuestion[nowIndex].questionRequiredYN === 'FALSE'),
+      );
+    }
+    // }
+    console.log(checkedArray);
   };
 
+  let researchArr = question;
+  let Arr;
+  let researchCheck = [];
+  let researchList = [];
+  let i = 0;
+
+  kycQuestion.map(
+    (data, index) =>
+      (researchCheck = researchCheck.concat(
+        <>
+          {index <= [nowIndex] ? (
+            <Image
+              source={require('../../../imgs/drawable-mdpi/icon_ktit_on.png')}
+            />
+          ) : (
+            <Image
+              source={require('../../../imgs/drawable-mdpi/icon_ktit_off.png')}
+            />
+          )}
+
+          {kycQuestion.length - 1 !== index && (
+            <View
+              style={{
+                width: 20,
+                borderWidth: 0.5,
+                borderColor: '#dddddd',
+                marginRight: 4,
+                marginLeft: 4,
+              }}
+            />
+          )}
+        </>,
+      )),
+  );
+  const RenderItem = (item) => {
+    if (item.id == 1) {
+      return (
+        <View
+          style={[
+            ResearchStyle.researchAnswerStyle,
+            ResearchStyle.researchAnswerTopStyle,
+          ]}
+          key={item.id}>
+          <View style={{width: '90%'}}>
+            <Text
+              style={[
+                ResetStyle.fontRegularK,
+                ResetStyle.fontBlack,
+                {textAlign: 'left'},
+              ]}>
+              {item.answer}
+            </Text>
+          </View>
+          <RoundCheckbox
+            size={30}
+            keyValue={Number(item.id)}
+            label={item.answer}
+            value={item.answer}
+            checked={
+              checkedArray.findIndex(
+                (y) =>
+                  y.kycQuestion === item.questionNumber &&
+                  y.kycOption === item.optionNumber,
+              ) >= 0
+                ? true
+                : false
+            }
+            color="#164895"
+            labelColor="#000000"
+            onClick={() => {
+              setIsChecked(!isChecked);
+              setCheckId(item.optionNumber);
+            }}
+            isChecked={isChecked && checkId == 1}
+            checkedObjArr={CheckedArrObject}
+            handleQuestion={handleQuestion}
+            checkedArray={checkedArray}
+            // 단일 - 다중 선택지
+            typeName={item.typeName}
+          />
+        </View>
+      );
+    } else {
+      return (
+        <View style={ResearchStyle.researchAnswerStyle} key={item.optionNumber}>
+          <View style={{width: '90%'}}>
+            <Text
+              style={[
+                ResetStyle.fontRegularK,
+                ResetStyle.fontBlack,
+                {textAlign: 'left'},
+              ]}>
+              {item.optionContent}
+            </Text>
+          </View>
+          <RoundCheckbox
+            size={30}
+            keyValue={Number(item.id)}
+            checked={
+              checkedArray.findIndex(
+                (y) =>
+                  y.kycQuestion === item.questionNumber &&
+                  y.kycOption === item.optionNumber,
+              ) >= 0
+                ? true
+                : false
+            }
+            color="#164895"
+            labelColor="#000000"
+            label={item.id}
+            value={item.answer}
+            onClick={() => {
+              console.log('eeeee', e);
+              setIsChecked(!isChecked);
+              setCheckId(item.id);
+            }}
+            isChecked={isChecked && checkId == 1}
+            checkedObjArr={CheckedArrObject}
+            handleQuestion={handleQuestion}
+            checkedArray={checkedArray}
+            // 단일 - 다중 선택지
+            typeName={'radiobutton'}
+            // 3개이상 선택지 금지
+            setModalVisible={setModalVisible}
+          />
+        </View>
+      );
+    }
+  };
+  kycQuestion.map(
+    (data, index) =>
+      (researchList = researchList.concat(
+        <View style={[ResearchStyle.researchView]} key={index}>
+          <View style={[ResearchStyle.researchQuestionLength]}>
+            <Text
+              style={[
+                ResetStyle.fontRegularK,
+                ResetStyle.fontBlack,
+                ResearchStyle.researchQuestion,
+                {textAlign: 'center'},
+              ]}>
+              {data.question}
+            </Text>
+          </View>
+          <FlatList
+            style={{maxHeight: '70%', height: '70%'}}
+            data={kycQuestion[nowIndex].answers}
+            renderItem={({item}) => (
+              // renderItem(questionNumber=data.questionNumber)
+              <RenderItem
+                //해당 질문
+                question={data.question}
+                questionNumber={nowIndex}
+                //해당 질문의 단일/다중선택
+                // typeName={data.typeName}
+                id={item.id}
+                answer={item.answer}
+                // optionNumber={item.optionNumber}
+                // kycQuestion={item.kycQuestion}
+              />
+            )}
+            keyExtractor={(item) => item.id}
+            extraData={kycQuestion[nowIndex].answers}
+          />
+        </View>,
+      )),
+  );
+  console.log('modalvisbile', modalVisible);
   return (
     <SafeAreaView style={[ResetStyle.container]}>
       <View
@@ -364,6 +560,8 @@ const ProfileIncompleteLevel2 = (props) => {
         <View
           style={{
             flexDirection: 'column',
+            // justifyContent: 'flex-start',
+            // borderWidth: 1,
           }}>
           {/* Top Title */}
           <Text
@@ -372,82 +570,14 @@ const ProfileIncompleteLevel2 = (props) => {
               ResetStyle.fontBlack,
               ResearchStyle.researchTitle,
             ]}>
-            Level 2 KYC
+            Level {props.route.params?.KycLevel} KYC
           </Text>
 
           {/* 상단 체크박스 */}
-          <View style={[ProfileStyle.incompleteTopView]}>
-            <Image
-              source={require('../../../imgs/drawable-mdpi/icon_ktit_on.png')}
-            />
-            <View
-              style={{
-                width: 20,
-                borderWidth: 0.5,
-                borderColor: '#dddddd',
-                marginRight: 4,
-                marginLeft: 4,
-              }}
-            />
-            <Image
-              source={require('../../../imgs/drawable-mdpi/icon_ktit_off.png')}
-            />
-            <View
-              style={{
-                width: 20,
-                borderWidth: 0.5,
-                borderColor: '#dddddd',
-                marginRight: 4,
-                marginLeft: 4,
-              }}
-            />
-            <Image
-              source={require('../../../imgs/drawable-mdpi/icon_ktit_off.png')}
-            />
-            <View
-              style={{
-                width: 20,
-                borderWidth: 0.5,
-                borderColor: '#dddddd',
-                marginRight: 4,
-                marginLeft: 4,
-              }}
-            />
-            <Image
-              source={require('../../../imgs/drawable-mdpi/icon_ktit_off.png')}
-            />
-            <View
-              style={{
-                width: 20,
-                borderWidth: 0.5,
-                borderColor: '#dddddd',
-                marginRight: 4,
-                marginLeft: 4,
-              }}
-            />
-            <Image
-              source={require('../../../imgs/drawable-mdpi/icon_ktit_off.png')}
-            />
-          </View>
+          <View style={[ProfileStyle.incompleteTopView]}>{researchCheck}</View>
 
           {/* Research Form */}
-          <View>
-            <Text
-              style={[
-                ResetStyle.fontRegularK,
-                ResetStyle.fontBlack,
-                ResearchStyle.researchQuestion,
-                {textAlign: 'center'},
-              ]}>
-              {QusetionData[0].question}
-            </Text>
-          </View>
-          <FlatList
-            style={{maxHeight: '70%', height: '50%'}}
-            data={QusetionData[0].answers}
-            renderItem={({item}) => <Item />}
-            keyExtractor={(item) => item.id}
-          />
+          {researchList[nowIndex]}
         </View>
 
         {/* Bottom Button */}
@@ -461,7 +591,8 @@ const ProfileIncompleteLevel2 = (props) => {
                   ]
                 : [ResetStyle.button, {width: '49%'}]
             }
-            activeOpacity={0.75}>
+            activeOpacity={0.75}
+            onPress={handlerPrev}>
             <Text
               style={[
                 ResetStyle.fontMediumK,
@@ -476,10 +607,34 @@ const ProfileIncompleteLevel2 = (props) => {
               ResetStyle.button,
               {
                 width: '49%',
+                backgroundColor: '#e6e6e6',
+              },
+              // 해당 index kyc질문에 대한 대답이 배열에 들어가있는지 체크
+              (checkedArray.findIndex(
+                (y) => String(y.kycQuestion) === String(nowIndex + 1),
+              ) >= 0 ||
+                // 아니면 questionRequiredYN -> FALSE 일경우
+                (kycQuestion[nowIndex] &&
+                  kycQuestion[nowIndex].questionRequiredYN === 'FALSE')) && {
                 backgroundColor: '#4696ff',
               },
             ]}
-            activeOpacity={0.75}>
+            activeOpacity={0.75}
+            onPress={
+              // checkedArray.findIndex(
+              //   (y) => String(y.kycQuestion) === String(nowIndex + 1),
+              // ) >= 0 ||
+              // (kycQuestion[nowIndex] &&
+              //   kycQuestion[nowIndex].questionRequiredYN === 'FALSE')
+              //   ? handlerNext
+              //   : null
+              // checkedArray.findIndex(
+              //   (y) => String(y.kycQuestion) === String(nowIndex + 1),
+              // ) >= 0 ||
+              // (kycQuestion[nowIndex] &&
+              //   kycQuestion[nowIndex].questionRequiredYN === 'FALSE')
+              nextCheck ? handlerNext : null
+            }>
             <Text
               style={[
                 ResetStyle.fontMediumK,
@@ -491,6 +646,17 @@ const ProfileIncompleteLevel2 = (props) => {
           </TouchableOpacity>
         </View>
       </View>
+      <BottomModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        text={`선택 가능한 답변 개수를 초과했습니다.`}
+      />
+      <TextConfirmModal
+        modalVisible={modal2Visible}
+        setModalVisible={setModal2Visible}
+        text={`이미 등록 완료되었습니다.`}
+        confirm={confirm}
+      />
     </SafeAreaView>
   );
 };
