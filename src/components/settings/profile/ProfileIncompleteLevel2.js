@@ -20,47 +20,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const ProfileIncompleteLevel2 = (props) => {
   const kycQuestion = [
     {
-      question: 'Waht is your estimated annual revenue?',
-      answers: [
-        {
-          id: 0,
-          answer: 'Under $50,000',
-        },
-        {
-          id: 1,
-          answer: '$50,000 - $100,000',
-        },
-        {
-          id: 2,
-          answer: '$100,000- $249,000',
-        },
-        {
-          id: 3,
-          answer: '$250,000 - $499,999',
-        },
-        {
-          id: 4,
-          answer: '$500,000 - $999,999',
-        },
-        {
-          id: 5,
-          answer: '$1 million - $4.99 million',
-        },
-        {
-          id: 6,
-          answer: '$5 million or more',
-        },
-        {
-          id: 7,
-          answer: 'I don’t work / we don’t work',
-        },
-        {
-          id: 8,
-          answer: 'Prefer not to answer',
-        },
-      ],
-    },
-    {
       question: 'What is your current employment status?',
       answers: [
         {
@@ -114,38 +73,67 @@ const ProfileIncompleteLevel2 = (props) => {
       ],
     },
     {
-      question: 'Where do you invest your income?',
+      question: 'Waht is your estimated annual revenue?',
       answers: [
         {
           id: 0,
-          answer: 'Real Estate',
+          answer: 'Under $50,000',
         },
         {
           id: 1,
-          answer: 'Stock Market Investment',
+          answer: '$50,000 - $100,000',
         },
         {
           id: 2,
-          answer: 'Equity Mutual Funds',
+          answer: '$100,000- $249,000',
         },
         {
           id: 3,
-          answer: 'Cryptocurrencies',
+          answer: '$250,000 - $499,999',
         },
         {
           id: 4,
-          answer: 'Gold',
+          answer: '$500,000 - $999,999',
         },
         {
           id: 5,
-          answer: 'Savings Account (Time Deposit)',
+          answer: '$1 million - $4.99 million',
         },
         {
           id: 6,
-          answer: 'Business Capital Investment',
+          answer: '$5 million or more',
         },
         {
           id: 7,
+          answer: 'I don’t work / we don’t work',
+        },
+        {
+          id: 8,
+          answer: 'Prefer not to answer',
+        },
+      ],
+    },
+    {
+      question: 'Do you own one or more properties?',
+      answers: [
+        {
+          id: 0,
+          answer: 'Yes, I own one house',
+        },
+        {
+          id: 1,
+          answer: 'Yes, I own two houses or more',
+        },
+        {
+          id: 2,
+          answer: 'Yes, I own multiple properties',
+        },
+        {
+          id: 3,
+          answer: 'No',
+        },
+        {
+          id: 4,
           answer: 'Prefer not to answer',
         },
       ],
@@ -204,26 +192,38 @@ const ProfileIncompleteLevel2 = (props) => {
       ],
     },
     {
-      question: 'Do you own one or more properties?',
+      question: 'Where do you invest your income?',
       answers: [
         {
           id: 0,
-          answer: 'Yes, I own one house',
+          answer: 'Real Estate',
         },
         {
           id: 1,
-          answer: 'Yes, I own two houses or more',
+          answer: 'Stock Market Investment',
         },
         {
           id: 2,
-          answer: 'Yes, I own multiple properties',
+          answer: 'Equity Mutual Funds',
         },
         {
           id: 3,
-          answer: 'No',
+          answer: 'Cryptocurrencies',
         },
         {
           id: 4,
+          answer: 'Gold',
+        },
+        {
+          id: 5,
+          answer: 'Savings Account (Time Deposit)',
+        },
+        {
+          id: 6,
+          answer: 'Business Capital Investment',
+        },
+        {
+          id: 7,
           answer: 'Prefer not to answer',
         },
       ],
@@ -236,7 +236,7 @@ const ProfileIncompleteLevel2 = (props) => {
 
   // 기존 포맷
   const [question, setQuestion] = useState([]);
-  const [questionLength, setQuestionLength] = useState(0);
+  const [questionLength, setQuestionLength] = useState(5);
   const [isChecked, setIsChecked] = useState(false);
   const [checkId, setCheckId] = useState('');
   const [nowIndex, setNowIndex] = useState(0);
@@ -266,9 +266,14 @@ const ProfileIncompleteLevel2 = (props) => {
 
   //해당 Kyc Level create
   const createAdvancedKycApi = async () => {
-    console.log('createAdvancedKycApi');
     await axios
-      .post(`${server}/kyc`, checkedArray)
+      .post(`${server}/kyc/2/${await AsyncStorage.getItem('userNo')}`, {
+        employmentStatus: string,
+        annualRevenue: string,
+        ownProperties: string,
+        netWorth: string,
+        investIn: string,
+      })
       .then(async (response) => {
         console.log('createAdvancedKycApi THEN>>', response);
         setSuccessCheck(response.data.ret_val);
@@ -282,31 +287,37 @@ const ProfileIncompleteLevel2 = (props) => {
     props.navigation.navigate('ProfileMain');
   };
 
-  useEffect(async () => {}, []);
-
   useEffect(() => {
     setCheckId(true);
   }, [checkId]);
+
+  // nowIndex 변화 체크
+  useEffect(() => {
+    console.log('nowIndex 변화 체크');
+    setNextCheck(
+      checkedArray.findIndex(
+        (y) => String(y.kycQuestion) === String(nowIndex),
+      ) >= 0,
+    );
+  }, [nowIndex]);
 
   useEffect(() => {
     console.log(
       'setNextCheck>>>>>>>',
       checkedArray.findIndex(
-        (y) => String(y.kycQuestion) === String(nowIndex + 1),
-      ) >= 0 ||
-        // 아니면 questionRequiredYN -> FALSE 일경우
-        (kycQuestion[nowIndex] &&
-          kycQuestion[nowIndex].questionRequiredYN === 'FALSE'),
+        (y) => String(y.kycQuestion) === String(nowIndex),
+      ) >= 0,
     );
+    console.log('checkedArray 상태변화 체크');
+    console.log('checkedArray 상태변화 체크 checkArray', checkedArray);
+
     // 해당 index kyc질문에 대한 대답이 배열에 들어가있는지 체크
     setNextCheck(
       checkedArray.findIndex(
-        (y) => String(y.kycQuestion) === String(nowIndex + 1),
-      ) >= 0 ||
-        // 아니면 questionRequiredYN -> FALSE 일경우
-        (kycQuestion[nowIndex] &&
-          kycQuestion[nowIndex].questionRequiredYN === 'FALSE'),
+        (y) => String(y.kycQuestion) === String(nowIndex),
+      ) >= 0,
     );
+    console.log('checkedArray 상태변화 체크222');
   }, [checkedArray]);
 
   //이전 페이지 버튼 클릭시
@@ -324,6 +335,7 @@ const ProfileIncompleteLevel2 = (props) => {
   //다음 버튼 클릭시
   const handlerNext = async (e) => {
     e.preventDefault();
+    // setNextCheck(false);
     const _nowIndex = nowIndex;
 
     if (_nowIndex !== questionLength - 1) {
@@ -332,16 +344,14 @@ const ProfileIncompleteLevel2 = (props) => {
     }
     if (_nowIndex === questionLength - 1) {
       console.log('checkedArray', checkedArray);
-      await createAdvancedKycApi();
-      if (successCheck === 0) {
-        props.navigation.navigate('ProfileComplete', {
-          KycLevel: props.route.params?.KycLevel,
-        });
-      } else {
-      }
+      // if (successCheck === 0) {
+      //   props.navigation.navigate('ProfileComplete', {
+      //     KycLevel: props.route.params?.KycLevel,
+      //   });
+      // } else {
+      // }
     }
   };
-
   //roundCheckBox 값
   const handleQuestion = async (question, answer, status, typeName) => {
     // radiobutton, checkbox
@@ -351,37 +361,44 @@ const ProfileIncompleteLevel2 = (props) => {
       status: status,
       typeName: typeName,
     });
+
     let _checkedArray = checkedArray;
     // if (typeName === 'radiobutton') {
     if (status === 'PLUS') {
       var ARR = _checkedArray.concat({
-        content: '',
-        kycLevel: String(props.route.params?.KycLevel),
         kycOption: String(answer),
         kycQuestion: String(question),
-        languageCode: deviceLanguage,
-        userNo: String(userNo),
       });
       setCheckedArray(ARR);
     } else if (status === 'MINUS') {
-      _checkedArray.splice(
-        _checkedArray.findIndex(
-          (y) => y.kycQuestion === question && y.kycOption === answer,
+      console.log(
+        _checkedArray.splice(
+          _checkedArray.findIndex(
+            (y) => y.kycQuestion == question && y.kycOption == answer,
+          ),
+          1,
         ),
-        1,
       );
+      // _checkedArray.splice(
+      //   _checkedArray.findIndex(
+      //     (y) => y.kycQuestion == question && y.kycOption == answer,
+      //   ),
+      //   1,
+      // );
       setCheckedArray(_checkedArray);
+
+      // setNextCheck(
+      //   _checkedArray.findIndex(
+      //     (y) => String(y.kycQuestion) === String(nowIndex),
+      //   ) >= 0,
+      // );
       setNextCheck(
-        checkedArray.findIndex(
-          (y) => String(y.kycQuestion) === String(nowIndex + 1),
-        ) >= 0 ||
-          // 아니면 questionRequiredYN -> FALSE 일경우
-          (kycQuestion[nowIndex] &&
-            kycQuestion[nowIndex].questionRequiredYN === 'FALSE'),
+        _checkedArray.findIndex(
+          (y) => String(y.kycQuestion) === String(nowIndex),
+        ) >= 0,
       );
     }
     // }
-    console.log(checkedArray);
   };
 
   let researchArr = question;
@@ -419,7 +436,7 @@ const ProfileIncompleteLevel2 = (props) => {
       )),
   );
   const RenderItem = (item) => {
-    if (item.id == 1) {
+    if (item.id == 0) {
       return (
         <View
           style={[
@@ -439,14 +456,15 @@ const ProfileIncompleteLevel2 = (props) => {
           </View>
           <RoundCheckbox
             size={30}
-            keyValue={Number(item.id)}
+            // keyValue={item.questionNumber}
+            keyValue={nowIndex}
             label={item.answer}
-            value={item.answer}
+            value={item.id}
             checked={
               checkedArray.findIndex(
                 (y) =>
-                  y.kycQuestion === item.questionNumber &&
-                  y.kycOption === item.optionNumber,
+                  y.kycQuestion == item.questionNumber &&
+                  y.kycOption == item.id,
               ) >= 0
                 ? true
                 : false
@@ -455,20 +473,20 @@ const ProfileIncompleteLevel2 = (props) => {
             labelColor="#000000"
             onClick={() => {
               setIsChecked(!isChecked);
-              setCheckId(item.optionNumber);
+              setCheckId(item.id);
             }}
             isChecked={isChecked && checkId == 1}
             checkedObjArr={CheckedArrObject}
             handleQuestion={handleQuestion}
             checkedArray={checkedArray}
             // 단일 - 다중 선택지
-            typeName={item.typeName}
+            typeName={'radiobutton'}
           />
         </View>
       );
     } else {
       return (
-        <View style={ResearchStyle.researchAnswerStyle} key={item.optionNumber}>
+        <View style={ResearchStyle.researchAnswerStyle} key={item.id}>
           <View style={{width: '90%'}}>
             <Text
               style={[
@@ -476,27 +494,26 @@ const ProfileIncompleteLevel2 = (props) => {
                 ResetStyle.fontBlack,
                 {textAlign: 'left'},
               ]}>
-              {item.optionContent}
+              {item.answer}
             </Text>
           </View>
           <RoundCheckbox
             size={30}
-            keyValue={Number(item.id)}
+            keyValue={nowIndex}
+            label={item.answer}
+            value={item.id}
             checked={
               checkedArray.findIndex(
                 (y) =>
-                  y.kycQuestion === item.questionNumber &&
-                  y.kycOption === item.optionNumber,
+                  y.kycQuestion == item.questionNumber &&
+                  y.kycOption == item.id,
               ) >= 0
                 ? true
                 : false
             }
             color="#164895"
             labelColor="#000000"
-            label={item.id}
-            value={item.answer}
             onClick={() => {
-              console.log('eeeee', e);
               setIsChecked(!isChecked);
               setCheckId(item.id);
             }}
@@ -546,12 +563,11 @@ const ProfileIncompleteLevel2 = (props) => {
               />
             )}
             keyExtractor={(item) => item.id}
-            extraData={kycQuestion[nowIndex].answers}
+            extraData={nowIndex}
           />
         </View>,
       )),
   );
-  console.log('modalvisbile', modalVisible);
   return (
     <SafeAreaView style={[ResetStyle.container]}>
       <View
@@ -610,31 +626,17 @@ const ProfileIncompleteLevel2 = (props) => {
                 backgroundColor: '#e6e6e6',
               },
               // 해당 index kyc질문에 대한 대답이 배열에 들어가있는지 체크
-              (checkedArray.findIndex(
-                (y) => String(y.kycQuestion) === String(nowIndex + 1),
-              ) >= 0 ||
-                // 아니면 questionRequiredYN -> FALSE 일경우
-                (kycQuestion[nowIndex] &&
-                  kycQuestion[nowIndex].questionRequiredYN === 'FALSE')) && {
+              // checkedArray.findIndex(
+              //   (y) => String(y.kycQuestion) === String(nowIndex),
+              // ) >= 0 && {
+              //   backgroundColor: '#4696ff',
+              // },
+              nextCheck && {
                 backgroundColor: '#4696ff',
               },
             ]}
             activeOpacity={0.75}
-            onPress={
-              // checkedArray.findIndex(
-              //   (y) => String(y.kycQuestion) === String(nowIndex + 1),
-              // ) >= 0 ||
-              // (kycQuestion[nowIndex] &&
-              //   kycQuestion[nowIndex].questionRequiredYN === 'FALSE')
-              //   ? handlerNext
-              //   : null
-              // checkedArray.findIndex(
-              //   (y) => String(y.kycQuestion) === String(nowIndex + 1),
-              // ) >= 0 ||
-              // (kycQuestion[nowIndex] &&
-              //   kycQuestion[nowIndex].questionRequiredYN === 'FALSE')
-              nextCheck ? handlerNext : null
-            }>
+            onPress={nextCheck ? handlerNext : null}>
             <Text
               style={[
                 ResetStyle.fontMediumK,
@@ -646,7 +648,7 @@ const ProfileIncompleteLevel2 = (props) => {
           </TouchableOpacity>
         </View>
       </View>
-      <BottomModal
+      {/* <BottomModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         text={`선택 가능한 답변 개수를 초과했습니다.`}
@@ -656,7 +658,7 @@ const ProfileIncompleteLevel2 = (props) => {
         setModalVisible={setModal2Visible}
         text={`이미 등록 완료되었습니다.`}
         confirm={confirm}
-      />
+      /> */}
     </SafeAreaView>
   );
 };

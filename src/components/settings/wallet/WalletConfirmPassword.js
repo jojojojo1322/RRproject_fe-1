@@ -28,6 +28,7 @@ const WalletConfirmPassword = ({navigation, route}) => {
   const [modal2Visible, setModal2Visible] = useState(false);
   const [Tpassword, setTPassword] = useState('');
   const [apassword, setAPassword] = useState([]);
+  const [Jpassword, setJpassword] = useState([]);
   const [walletAddress, setWalletAddress] = useState('');
 
   const {amount} = route ? route.params : '';
@@ -58,7 +59,7 @@ const WalletConfirmPassword = ({navigation, route}) => {
   };
 
   const handlePassNumber = (e) => {
-    let password = '';
+    let password = Tpassword;
     overSix();
     if (buttonNumber === '1') {
       password = password + '1';
@@ -81,19 +82,55 @@ const WalletConfirmPassword = ({navigation, route}) => {
     } else if (buttonNumber === '0') {
       password = password + '0';
     }
+    setTPassword(password);
+  };
+  const handlePass = (value) => {
+    console.log('handlePass', value);
+    let passArr = Jpassword;
+    let test = '';
+    if (passArr.length <= 4) {
+      setJpassword(passArr.concat({id: passArr.length, value}));
+    } else if ((passArr.length = 5)) {
+      console.log('last');
+      setJpassword(passArr.concat({id: passArr.length, value}));
+      //first pass
+      Jpassword.map((data) => {
+        test += data.value;
+      });
+      console.log('test???????>>', test);
+      // setJpassword(test);
+
+      // this.setState({
+      //   passArr: [],
+      // });
+    }
+    // console.log('pass', pass);
   };
 
+  useEffect(() => {
+    console.log('Tpassword??', Tpassword);
+  }, [Tpassword]);
+  useEffect(() => {
+    console.log('Jpassword??', Jpassword);
+    console.log('Jpassword??', Jpassword.length);
+  }, [Jpassword]);
+
   const handlePassErase = (e) => {
-    if (apassword.length !== 1) {
-      console.log('zzzzzzzzzz');
-      let fixArr = apassword;
-      // Tpassword.slice(0, -1);
-      // console.log('zzzzzzzzzz', Tpassword);
-      fixArr = fixArr.filter((data, index) => index != apassword.length);
-      setAPassword(fixArr);
-      console.log(apassword);
-    } else {
-      Tpassword;
+    // if (apassword.length !== 1) {
+    //   console.log('zzzzzzzzzz');
+    //   let fixArr = apassword;
+    //   // Tpassword.slice(0, -1);
+    //   // console.log('zzzzzzzzzz', Tpassword);
+    //   fixArr = fixArr.filter((data, index) => index != apassword.length);
+    //   setAPassword(fixArr);
+    //   console.log(apassword);
+    // } else {
+    //   Tpassword;
+    // }
+    let passArr = Jpassword;
+
+    if (passArr.length !== 0) {
+      setJpassword(passArr.filter((data) => data.id != passArr.length - 1));
     }
   };
 
@@ -101,17 +138,17 @@ const WalletConfirmPassword = ({navigation, route}) => {
   //   console.log('password check >>>>>', password);
   // }, [password]);
   // 비밀번호 배열 텍스트
-  useEffect(() => {
-    let password = Tpassword;
-    let Arr = apassword;
-    password = String(password) + buttonNumber;
-    Arr = Arr.concat(buttonNumber);
-    setAPassword(Arr);
-    setTPassword(password);
-    console.log('dummydummydummy', password);
-    console.log('dummydummapasswordydummy', apassword);
-    console.log('Tpassword.length', Tpassword.length);
-  }, [buttonNumber]);
+  // useEffect(() => {
+
+  //   let Arr = apassword;
+
+  //   Arr = Arr.concat(buttonNumber);
+  //   setAPassword(Arr);
+  //   setTPassword(password);
+  //   console.log('dummydummydummy', password);
+  //   console.log('dummydummapasswordydummy', apassword);
+  //   console.log('Tpassword.length', Tpassword.length);
+  // }, [Tpassword]);
 
   useEffect(() => {});
 
@@ -170,9 +207,9 @@ const WalletConfirmPassword = ({navigation, route}) => {
               style={[
                 styles.passGray,
                 {marginLeft: 0},
-                apassword.length - 1 >= 1 ? {backgroundColor: '#4696ff'} : '',
+                Jpassword.length >= 1 ? {backgroundColor: '#4696ff'} : '',
               ]}>
-              {apassword.length - 1 >= 1 ? (
+              {Jpassword.length >= 1 ? (
                 <View
                   style={[
                     AuthStyle.initial2NormalDot,
@@ -184,9 +221,9 @@ const WalletConfirmPassword = ({navigation, route}) => {
               style={[
                 styles.passGray,
                 {marginLeft: '3%'},
-                apassword.length - 1 >= 2 ? {backgroundColor: '#4696ff'} : '',
+                Jpassword.length >= 2 ? {backgroundColor: '#4696ff'} : '',
               ]}>
-              {apassword.length - 1 >= 2 ? (
+              {Jpassword.length >= 2 ? (
                 <View
                   style={[
                     AuthStyle.initial2NormalDot,
@@ -198,9 +235,9 @@ const WalletConfirmPassword = ({navigation, route}) => {
               style={[
                 styles.passGray,
                 {marginLeft: '3%'},
-                apassword.length - 1 >= 3 ? {backgroundColor: '#4696ff'} : '',
+                Jpassword.length >= 3 ? {backgroundColor: '#4696ff'} : '',
               ]}>
-              {apassword.length - 1 >= 3 ? (
+              {Jpassword.length >= 3 ? (
                 <View
                   style={[
                     AuthStyle.initial2NormalDot,
@@ -212,9 +249,9 @@ const WalletConfirmPassword = ({navigation, route}) => {
               style={[
                 styles.passGray,
                 {marginLeft: '3%'},
-                apassword.length - 1 >= 4 ? {backgroundColor: '#4696ff'} : '',
+                Jpassword.length >= 4 ? {backgroundColor: '#4696ff'} : '',
               ]}>
-              {apassword.length - 1 >= 4 ? (
+              {Jpassword.length >= 4 ? (
                 <View
                   style={[
                     AuthStyle.initial2NormalDot,
@@ -226,9 +263,9 @@ const WalletConfirmPassword = ({navigation, route}) => {
               style={[
                 styles.passGray,
                 {marginLeft: '3%'},
-                apassword.length - 1 >= 5 ? {backgroundColor: '#4696ff'} : '',
+                Jpassword.length >= 5 ? {backgroundColor: '#4696ff'} : '',
               ]}>
-              {apassword.length - 1 >= 5 ? (
+              {Jpassword.length >= 5 ? (
                 <View
                   style={[
                     AuthStyle.initial2NormalDot,
@@ -240,9 +277,9 @@ const WalletConfirmPassword = ({navigation, route}) => {
               style={[
                 styles.passGray,
                 {marginLeft: '3%'},
-                apassword.length - 1 >= 6 ? {backgroundColor: '#4696ff'} : '',
+                Jpassword.length >= 6 ? {backgroundColor: '#4696ff'} : '',
               ]}>
-              {apassword.length - 1 >= 6 ? (
+              {Jpassword.length >= 6 ? (
                 <View
                   style={[
                     AuthStyle.initial2NormalDot,
@@ -258,24 +295,27 @@ const WalletConfirmPassword = ({navigation, route}) => {
           <TouchableOpacity
             style={styles.keyboardDetail}
             onPress={() => {
-              setButtonNumber('1');
-              handlePassNumber();
+              // setButtonNumber('1');
+              // handlePassNumber();
+              handlePass('1');
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>1</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.keyboardDetail}
             onPress={() => {
-              setButtonNumber('2');
-              handlePassNumber();
+              // setButtonNumber('2');
+              // handlePassNumber();
+              handlePass('2');
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>2</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.keyboardDetail}
             onPress={() => {
-              setButtonNumber('3');
-              handlePassNumber();
+              // setButtonNumber('3');
+              // handlePassNumber();
+              handlePass('3');
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>3</Text>
           </TouchableOpacity>
@@ -285,24 +325,27 @@ const WalletConfirmPassword = ({navigation, route}) => {
           <TouchableOpacity
             style={styles.keyboardDetail}
             onPress={() => {
-              setButtonNumber('4');
-              handlePassNumber();
+              // setButtonNumber('4');
+              // handlePassNumber();
+              handlePass('4');
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>4</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.keyboardDetail}
             onPress={() => {
-              setButtonNumber('5');
-              handlePassNumber();
+              // setButtonNumber('5');
+              // handlePassNumber();
+              handlePass('5');
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>5</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.keyboardDetail}
             onPress={() => {
-              setButtonNumber('6');
-              handlePassNumber();
+              // setButtonNumber('6');
+              // handlePassNumber();
+              handlePass('6');
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>6</Text>
           </TouchableOpacity>
@@ -312,24 +355,27 @@ const WalletConfirmPassword = ({navigation, route}) => {
           <TouchableOpacity
             style={styles.keyboardDetail}
             onPress={() => {
-              setButtonNumber('7');
-              handlePassNumber();
+              // setButtonNumber('7');
+              // handlePassNumber();
+              handlePass('7');
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>7</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.keyboardDetail}
             onPress={() => {
-              setButtonNumber('8');
-              handlePassNumber();
+              // setButtonNumber('8');
+              // handlePassNumber();
+              handlePass('8');
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>8</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.keyboardDetail}
             onPress={() => {
-              setButtonNumber('9');
-              handlePassNumber();
+              // setButtonNumber('9');
+              // handlePassNumber();
+              handlePass('9');
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>9</Text>
           </TouchableOpacity>
@@ -342,8 +388,9 @@ const WalletConfirmPassword = ({navigation, route}) => {
           <TouchableOpacity
             style={styles.keyboardDetail}
             onPress={() => {
-              setButtonNumber('0');
-              handlePassNumber();
+              // setButtonNumber('0');
+              // handlePassNumber();
+              handlePass('0');
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>0</Text>
           </TouchableOpacity>
