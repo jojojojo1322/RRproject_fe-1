@@ -87,8 +87,10 @@ const ProfileMain = ({navigation}) => {
         onPress={() => {
           level <= kycLevel
             ? navigation.navigate('ProfileCompleteDetail')
-            : level === 3
-            ? navigation.navigate('ProfileIncompleteLevel2')
+            : level === 2
+            ? navigation.navigate('ProfileIncompleteLevel2', {
+                KycLevel: level,
+              })
             : navigation.navigate('ProfileIncompleteDetail', {
                 KycLevel: level,
               });
