@@ -20,69 +20,63 @@ import ResetStyle from '../../../style/ResetStyle.js';
 import {lang} from '../../defined/lang';
 import ProfileStyle from '../../../style/ProfileStyle';
 
-export default class ProfileComplete extends Component {
-  render() {
-    const level = 2;
-    return (
-      <SafeAreaView style={[ResetStyle.container]}>
-        <View style={[ResetStyle.containerInner]}>
-          {/* Top */}
-          <View style={[ProfileStyle.profileCompleteTopView]}>
-            <Image
-              style={[ProfileStyle.profileTopImg]}
-              source={require('../../../imgs/drawable-xhdpi/icon_l_check.png')}
-            />
+const ProfileComplete = (props) => {
+  return (
+    <SafeAreaView style={[ResetStyle.container]}>
+      <View style={[ResetStyle.containerInner]}>
+        {/* Top */}
+        <View style={[ProfileStyle.profileCompleteTopView]}>
+          <Image
+            style={[ProfileStyle.profileTopImg]}
+            source={require('../../../imgs/drawable-xhdpi/icon_l_check.png')}
+          />
+          <Text
+            style={[ResetStyle.fontBoldK, ResetStyle.fontB, {marginTop: '5%'}]}>
+            {`KYC ${props.route.params?.KycLevel} LEVEL\n 인증완료`}
+          </Text>
+        </View>
+
+        {/* Bottom Button */}
+        <View style={[ProfileStyle.profileBottomButtonView]}>
+          <TouchableOpacity
+            style={[
+              ResetStyle.buttonWhite,
+              {backgroundColor: '#ffffff', width: '49%'},
+            ]}
+            onPress={() => {
+              props.navigation.navigate('WalletMain');
+              // props.navigation.setOptions({ title: '약관동의' });
+            }}>
             <Text
               style={[
-                ResetStyle.fontBoldK,
+                ResetStyle.fontMediumK,
                 ResetStyle.fontB,
-                {marginTop: '5%'},
+                {fontWeight: '600'},
               ]}>
-              {`KYC ${this.props.route.params?.KycLevel} LEVEL\n 인증완료`}
+              지갑 확인하기
             </Text>
-          </View>
-
-          {/* Bottom Button */}
-          <View style={[ProfileStyle.profileBottomButtonView]}>
-            <TouchableOpacity
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              ResetStyle.button,
+              {backgroundColor: '#4696ff', width: '49%'},
+            ]}
+            onPress={() => {
+              props.navigation.navigate('ProfileMain');
+              // props.navigation.setOptions({ title: '약관동의' });
+            }}>
+            <Text
               style={[
-                ResetStyle.buttonWhite,
-                {backgroundColor: '#ffffff', width: '49%'},
-              ]}
-              onPress={() => {
-                this.props.navigation.navigate('WalletMain');
-                // this.props.navigation.setOptions({ title: '약관동의' });
-              }}>
-              <Text
-                style={[
-                  ResetStyle.fontMediumK,
-                  ResetStyle.fontB,
-                  {fontWeight: '600'},
-                ]}>
-                지갑 확인하기
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[
-                ResetStyle.button,
-                {backgroundColor: '#4696ff', width: '49%'},
-              ]}
-              onPress={() => {
-                this.props.navigation.navigate('ProfileMain');
-                // this.props.navigation.setOptions({ title: '약관동의' });
-              }}>
-              <Text
-                style={[
-                  ResetStyle.fontMediumK,
-                  ResetStyle.fontWhite,
-                  {fontWeight: '600'},
-                ]}>
-                Profile 이동
-              </Text>
-            </TouchableOpacity>
-          </View>
+                ResetStyle.fontMediumK,
+                ResetStyle.fontWhite,
+                {fontWeight: '600'},
+              ]}>
+              Profile 이동
+            </Text>
+          </TouchableOpacity>
         </View>
-      </SafeAreaView>
-    );
-  }
-}
+      </View>
+    </SafeAreaView>
+  );
+};
+export default ProfileComplete;
