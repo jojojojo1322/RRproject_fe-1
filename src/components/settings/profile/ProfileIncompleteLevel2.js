@@ -17,6 +17,9 @@ import {server} from '../../defined/server';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import BottomModal from '../../factory/modal/BottomModal';
+import TextConfirmModal from '../../factory/modal/TextConfirmModal';
+
 const ProfileIncompleteLevel2 = (props) => {
   const kycQuestion = [
     {
@@ -266,13 +269,21 @@ const ProfileIncompleteLevel2 = (props) => {
 
   //해당 Kyc Level create
   const createAdvancedKycApi = async () => {
+    console.log({
+      employmentStatus: checkedArray[0].kycOption,
+      annualRevenue: checkedArray[1].kycOption,
+      ownProperties: checkedArray[2].kycOption,
+      netWorth: checkedArray[3].kycOption,
+      investIn: checkedArray[4].kycOption,
+    });
     await axios
-      .post(`${server}/kyc/2/${await AsyncStorage.getItem('userNo')}`, {
-        employmentStatus: string,
-        annualRevenue: string,
-        ownProperties: string,
-        netWorth: string,
-        investIn: string,
+      .post(`${server}/kyc/2`, {
+        employmentStatus: checkedArray[0].kycOption,
+        annualRevenue: checkedArray[1].kycOption,
+        ownProperties: checkedArray[2].kycOption,
+        netWorth: checkedArray[3].kycOption,
+        investIn: checkedArray[4].kycOption,
+        userNo: await AsyncStorage.getItem('userNo'),
       })
       .then(async (response) => {
         console.log('createAdvancedKycApi THEN>>', response);
@@ -344,12 +355,14 @@ const ProfileIncompleteLevel2 = (props) => {
     }
     if (_nowIndex === questionLength - 1) {
       console.log('checkedArray', checkedArray);
-      // if (successCheck === 0) {
-      //   props.navigation.navigate('ProfileComplete', {
-      //     KycLevel: props.route.params?.KycLevel,
-      //   });
-      // } else {
-      // }
+      createAdvancedKycApi();
+      if (successCheck === 0) {
+        props.navigation.navigate('ProfileComplete', {
+          KycLevel: props.route.params?.KycLevel,
+        });
+      } else if (successCheck === -1) {
+        setModal2Visible(!modal2Visible);
+      }
     }
   };
   //roundCheckBox 값
@@ -648,7 +661,7 @@ const ProfileIncompleteLevel2 = (props) => {
           </TouchableOpacity>
         </View>
       </View>
-      {/* <BottomModal
+      <BottomModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         text={`선택 가능한 답변 개수를 초과했습니다.`}
@@ -658,7 +671,7 @@ const ProfileIncompleteLevel2 = (props) => {
         setModalVisible={setModal2Visible}
         text={`이미 등록 완료되었습니다.`}
         confirm={confirm}
-      /> */}
+      />
     </SafeAreaView>
   );
 };

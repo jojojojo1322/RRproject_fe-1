@@ -23,133 +23,142 @@ import ProfileStyle from '../../../style/ProfileStyle.js';
 
 const kycArr = [
   {
-    나이: '25',
-    성별: 'female',
-    결혼유무: 'single',
-    국적: 'Korea',
-    거주국가: 'Korea',
-    거주도시: 'Seoul',
-    언어: 'korean',
+    employmentStatus: 'What is your current employment status?',
+    annualRevenue: 'Waht is your estimated annual revenue?',
+    ownProperties: 'Do you own one or more properties?',
+    netWorth: 'Roughly what is your net worth?',
+    investIn: 'Where do you invest your income?',
+  },
+];
+const kycQuestion = [
+  {
+    category: 'employmentStatus',
+    question: 'What is your current employment status?',
+    answers: [
+      'Employed full-time',
+
+      'Self-employed full-time',
+
+      'Active military',
+
+      'Temporarily unemployed',
+
+      'Retired',
+
+      'Disabled / Permanently unemployed',
+
+      'Employed part-time',
+
+      'Self-employed part-time',
+
+      'Inactive military / veteran',
+
+      'Full-time homemaker / family dependent',
+
+      'Student',
+
+      'Prefer not to answer',
+    ],
+  },
+  {
+    category: 'annualRevenue',
+    question: 'Waht is your estimated annual revenue?',
+    answers: [
+      'Under $50,000',
+
+      '$50,000 - $100,000',
+
+      '$100,000- $249,000',
+
+      '$250,000 - $499,999',
+
+      '$500,000 - $999,999',
+
+      '$1 million - $4.99 million',
+
+      '$5 million or more',
+
+      'I don’t work / we don’t work',
+
+      'Prefer not to answer',
+    ],
+  },
+  {
+    category: 'ownProperties',
+    question: 'Do you own one or more properties?',
+    answers: [
+      'Yes, I own one house',
+
+      'Yes, I own two houses or more',
+
+      'Yes, I own multiple properties',
+
+      'No',
+
+      'Prefer not to answer',
+    ],
+  },
+  {
+    category: 'netWorth',
+    question: 'Roughly what is your net worth?',
+    answers: [
+      'Under $50,000',
+
+      '$50,000 - $100,000',
+
+      '$100,000- $249,000',
+
+      '$250,000 - $499,999',
+
+      '$500,000 - $999,999',
+
+      '$1 million - $4.99 million',
+
+      '$5 million - $9.99 million',
+
+      '$100 million - $249.99 million',
+
+      '$250 million - $499.99 million',
+
+      '$500 million - $999.99 million',
+
+      '$1 billion or more',
+
+      'Prefer not to answer',
+    ],
+  },
+  {
+    category: 'investIn',
+    question: 'Where do you invest your income?',
+    answers: [
+      'Real Estate',
+
+      'Stock Market Investment',
+
+      'Equity Mutual Funds',
+
+      'Cryptocurrencies',
+
+      'Gold',
+
+      'Savings Account (Time Deposit)',
+
+      'Business Capital Investment',
+
+      'Prefer not to answer',
+    ],
   },
 ];
 
-const ProfileCompleteDetail = (props) => {
+const ProfileCompleteLevel2 = (props) => {
   const [question, setQuestion] = useState([]);
-  const [question1, setQuestion1] = useState([]);
-  const [question2, setQuestion2] = useState([]);
-  const [question3, setQuestion3] = useState([]);
-  const [question4, setQuestion4] = useState([]);
-  const [question5, setQuestion5] = useState([]);
+
   const getCompleteKycApi = async () => {
     await axios
-      .get(
-        `${server}/kyc/${await AsyncStorage.getItem('userNo')}/${
-          props.route.params?.KycLevel
-        }/${await AsyncStorage.getItem('deviceLanguage')}`,
-        // `${server}/user/user?userNo=210127104026300`,
-      )
+      .get(`${server}/kyc/2/${await AsyncStorage.getItem('userNo')}`)
       .then(async (response) => {
         console.log(response.data.data);
         setQuestion(response.data.data);
-        let ARR1 = response.data.data.filter(
-          (data) => data.kycQuestion === '1',
-        );
-        let ARR2 = response.data.data.filter(
-          (data) => data.kycQuestion === '2',
-        );
-        let ARR3 = response.data.data.filter(
-          (data) => data.kycQuestion === '3',
-        );
-        let ARR4 = response.data.data.filter(
-          (data) => data.kycQuestion === '4',
-        );
-        let ARR5 = response.data.data.filter(
-          (data) => data.kycQuestion === '5',
-        );
-        console.log('ARR1', ARR1);
-        console.log('ARR2', ARR2);
-        console.log('ARR3', ARR3);
-        console.log('ARR4', ARR4);
-        console.log('ARR5', ARR5);
-        let FixArr1 = {
-          kycQuestion: [],
-          kycOption: [],
-          questionContent: [],
-          optionContent: [],
-        };
-
-        let FixArr2 = {
-          kycQuestion: [],
-          kycOption: [],
-          questionContent: [],
-          optionContent: [],
-        };
-
-        let FixArr3 = {
-          kycQuestion: [],
-          kycOption: [],
-          questionContent: [],
-          optionContent: [],
-        };
-
-        let FixArr4 = {
-          kycQuestion: [],
-          kycOption: [],
-          questionContent: [],
-          optionContent: [],
-        };
-        let FixArr5 = {
-          kycQuestion: [],
-          kycOption: [],
-          questionContent: [],
-          optionContent: [],
-        };
-
-        ARR1.map((data) => {
-          if (FixArr1.questionContent == '') {
-            FixArr1.questionContent.push(data.questionContent);
-            FixArr1.kycQuestion.push(data.kycQuestion);
-          }
-          FixArr1.optionContent.push(data.optionContent);
-          FixArr1.kycOption.push(data.kycOption);
-        });
-        ARR2.map((data) => {
-          if (FixArr2.questionContent == '') {
-            FixArr2.questionContent.push(data.questionContent);
-            FixArr2.kycQuestion.push(data.kycQuestion);
-          }
-          FixArr2.optionContent.push(data.optionContent);
-          FixArr2.kycOption.push(data.kycOption);
-        });
-        ARR3.map((data) => {
-          if (FixArr3.questionContent == '') {
-            FixArr3.questionContent.push(data.questionContent);
-            FixArr3.kycQuestion.push(data.kycQuestion);
-          }
-          FixArr3.optionContent.push(data.optionContent);
-          FixArr3.kycOption.push(data.kycOption);
-        });
-        ARR4.map((data) => {
-          if (FixArr4.questionContent == '') {
-            FixArr4.questionContent.push(data.questionContent);
-            FixArr4.kycQuestion.push(data.kycQuestion);
-          }
-          FixArr4.optionContent.push(data.optionContent);
-          FixArr4.kycOption.push(data.kycOption);
-        });
-        ARR5.map((data) => {
-          if (FixArr5.questionContent == '') {
-            FixArr5.questionContent.push(data.questionContent);
-            FixArr5.kycQuestion.push(data.kycQuestion);
-          }
-          FixArr5.optionContent.push(data.optionContent);
-          FixArr5.kycOption.push(data.kycOption);
-        });
-
-        let AllARR = [];
-        AllARR.push(FixArr1, FixArr2, FixArr3, FixArr4, FixArr5);
-
-        setQuestion(AllARR);
       })
       .catch((e) => {
         console.log('Error', e);
@@ -161,6 +170,15 @@ const ProfileCompleteDetail = (props) => {
   }, []);
 
   const RenderItem = (item) => {
+    // console.log(item.answers);
+    let answerNo = 0;
+    item.category === 'employmentStatus' &&
+      (answerNo = question.employmentStatus);
+    item.category === 'annualRevenue' && (answerNo = question.annualRevenue);
+    item.category === 'ownProperties' && (answerNo = question.ownProperties);
+    item.category === 'netWorth' && (answerNo = question.netWorth);
+    item.category === 'investIn' && (answerNo = question.investIn);
+
     return (
       <View
         style={[
@@ -172,17 +190,7 @@ const ProfileCompleteDetail = (props) => {
           },
         ]}>
         <View style={{flexDirection: 'row'}}>
-          <View
-            style={{
-              backgroundColor: '#4696ff',
-              width: 6,
-              height: 6,
-              borderRadius: 50,
-              marginTop: 5,
-              marginRight: 5,
-              marginLeft: 5,
-            }}
-          />
+          <View style={[ProfileStyle.kycLevelCircle]} />
           <Text
             style={[
               ResetStyle.fontRegularK,
@@ -190,7 +198,7 @@ const ProfileCompleteDetail = (props) => {
               // {width: '30%', textAlign: 'left'},
               {width: '90%', textAlign: 'left'},
             ]}>
-            {`${item.questionContent}${'\n'}`}
+            {`${item.question}${'\n'}`}
           </Text>
         </View>
         <Text
@@ -199,12 +207,7 @@ const ProfileCompleteDetail = (props) => {
             ResetStyle.fontDG,
             {marginLeft: 15, marginTop: 3, width: '90%', textAlign: 'left'},
           ]}>
-          {Object.keys(item.optionContent).map((data) => {
-            if (Number(data) + 1 == item.optionContent.length) {
-              return `${Number(data) + 1}. ${item.optionContent[data]}`;
-            }
-            return `${Number(data) + 1}. ${item.optionContent[data]} ${'\n'}`;
-          })}
+          {item.answers[answerNo]}
         </Text>
       </View>
     );
@@ -296,15 +299,14 @@ const ProfileCompleteDetail = (props) => {
           </View>
           <FlatList
             style={{height: '80%'}}
-            data={question}
+            data={kycQuestion}
             renderItem={({item}) => (
               // renderItem(questionNumber=data.questionNumber)
               <RenderItem
                 //해당 질문
-                kycQuestion={item.kycQuestion}
-                questionContent={item.questionContent}
-                kycOption={item.kycOption}
-                optionContent={item.optionContent}
+                question={item.question}
+                category={item.category}
+                answers={item.answers}
                 //해당 질문의 단일/다중선택
                 // typeName={data.typeName}
                 // optionNumber={item.optionNumber}
@@ -351,4 +353,4 @@ const ProfileCompleteDetail = (props) => {
   );
 };
 
-export default ProfileCompleteDetail;
+export default ProfileCompleteLevel2;
