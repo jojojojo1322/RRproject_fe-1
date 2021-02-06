@@ -1,9 +1,15 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, Modal, Image, TouchableWithoutFeedback} from 'react-native';
+import {
+  View,
+  Text,
+  Modal,
+  Image,
+  TouchableWithoutFeedback,
+  TouchableOpacity,
+} from 'react-native';
 import ResetStyle from '../../../style/ResetStyle';
 import ModalStyle from '../../../style/ModalStyle';
 import DatePicker from '../../factory/tool/DatePicker';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 
 // Year-Month-Date
 function formatDate(date) {
@@ -70,7 +76,14 @@ const DatePickerModal = ({
               handleBirth(formatDate(date));
               setModalVisible(!modalVisible);
             }}>
-            <Text style={ResetStyle.buttonTexts}>확인</Text>
+            <Text
+              style={[
+                ResetStyle.fontMediumK,
+                ResetStyle.fontWhite,
+                {fontWeight: '600'},
+              ]}>
+              확인
+            </Text>
           </TouchableOpacity>
         </View>
       </View>

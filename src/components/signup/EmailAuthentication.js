@@ -19,6 +19,9 @@ import {DrawerContentScrollView} from '@react-navigation/drawer';
 import BottomModal from '../factory/modal/BottomModal';
 import TextConfirmModal from '../factory/modal/TextConfirmModal';
 
+import {withTranslation} from 'react-i18next';
+import hoistStatics from 'hoist-non-react-statics';
+
 class EmailAuthentication extends Component {
   state = {
     passWord: '',
@@ -281,6 +284,8 @@ class EmailAuthentication extends Component {
     // );
     CheckedArrObject = new SelectedCheckboxes();
     console.log('DEVICE>>>>>', this.props.route.params?.deviceKey);
+    const {t} = this.props;
+
     return (
       <SafeAreaView style={ResetStyle.container}>
         <View style={ResetStyle.containerInner}>
@@ -297,7 +302,7 @@ class EmailAuthentication extends Component {
                     source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
                   />
                   <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-                    이메일 인증
+                    {t('emailAuthenticationTitle')}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -308,7 +313,7 @@ class EmailAuthentication extends Component {
                 ResetStyle.fontBlack,
                 {marginTop: '10%', marginBottom: '10%'},
               ]}>
-              {this.state.email} 으로{'\n'}6자리 인증 코드를 발송했습니다
+              {this.state.email} {t('emailAuthentication1')}
             </Text>
             <View>
               <Text
@@ -317,7 +322,7 @@ class EmailAuthentication extends Component {
                   ResetStyle.fontBlack,
                   {textAlign: 'left'},
                 ]}>
-                인증 번호
+                {t('emailAuthentication2')}
               </Text>
 
               <View>
@@ -338,7 +343,7 @@ class EmailAuthentication extends Component {
                       alignItems: 'center',
                     }}>
                     <TextInput
-                      placeholder="인증번호 입력"
+                      placeholder={t('emailAuthentication3')}
                       placeholderTextColor="#a9a9a9"
                       value={this.state.passWord}
                       keyboardType={'numeric'}
@@ -351,15 +356,15 @@ class EmailAuthentication extends Component {
                         {textAlign: 'left'},
                         this.state.returnApprove != '0' && {
                           width: '70%',
+                          height: 40,
                         },
                       ]}
                     />
                     {this.state.returnApprove == '0' && (
                       <Image
                         style={{
-                          position: 'absolute',
-                          top: Platform.OS === 'ios' ? '10%' : '35%',
-                          right: '45%',
+                          height: 15,
+                          width: 15,
                         }}
                         source={require('../../imgs/drawable-xxxhdpi/verification_code_check_icon.png')}
                       />
@@ -386,7 +391,7 @@ class EmailAuthentication extends Component {
                       }
                     }}>
                     <Text style={[ResetStyle.fontLightK, ResetStyle.fontWhite]}>
-                      인증하기
+                      {t('emailAuthentication5')}
                     </Text>
                   </TouchableOpacity>
                 </View>
@@ -480,7 +485,7 @@ class EmailAuthentication extends Component {
                         ResetStyle.fontB,
                         {marginLeft: '5%', fontWeight: '600'},
                       ]}>
-                      재전송
+                      {t('emailAuthentication4')}
                     </Text>
                   </TouchableOpacity>
                 </View>
@@ -512,20 +517,20 @@ class EmailAuthentication extends Component {
                 ResetStyle.fontWhite,
                 {fontWeight: '600'},
               ]}>
-              회원가입
+              {t('emailAuthenticationNextButton')}
             </Text>
           </TouchableOpacity>
           <TextConfirmModal
             setModalVisible={this.setModalVisible}
             modalVisible={this.state.modalVisible}
             handleNextPage={this.handleNextPage}
-            text={`인증되었습니다.`}
-            confirm={`확인`}
+            text={t('emailAuthentication6')}
+            confirm={t('emailAuthentication7')}
           />
           <BottomModal
             setModalVisible={this.setModal2Visible}
             modalVisible={this.state.modal2Visible}
-            text={`잘못된 인증번호입니다.`}
+            text={t('emailAuthentication8')}
           />
         </View>
       </SafeAreaView>
@@ -533,4 +538,7 @@ class EmailAuthentication extends Component {
   }
 }
 
-export default EmailAuthentication;
+export default hoistStatics(
+  withTranslation()(EmailAuthentication),
+  EmailAuthentication,
+);

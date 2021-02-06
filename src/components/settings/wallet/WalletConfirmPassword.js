@@ -15,6 +15,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import BottomModal from '../../factory/modal/BottomModal';
+import ProgressModal from '../../factory/modal/ProgressModal';
 import ResetStyle from '../../../style/ResetStyle.js';
 import AuthStyle from '../../../style/AuthStyle';
 
@@ -26,6 +27,7 @@ const WalletConfirmPassword = ({navigation, route}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
   const [modal3Visible, setModal3Visible] = useState(false);
+  const [modal4Visible, setModal4Visible] = useState(false);
   const [Jpassword, setJpassword] = useState([]);
   const [password, setPassword] = useState('');
   const [walletAddress, setWalletAddress] = useState('');
@@ -49,6 +51,7 @@ const WalletConfirmPassword = ({navigation, route}) => {
   // wallet password Api 부르기
 
   const walletPasswordApi = async (password) => {
+    setModal4Visible(true);
     console.log('check passed password', password);
     await axios
       .post(`${server}/wallet/trans`, {
@@ -75,6 +78,7 @@ const WalletConfirmPassword = ({navigation, route}) => {
         navigation.navigate('WalletSend');
         console.log(e);
       });
+    setModal4Visible(false);
   };
 
   // function preModal3 (value){
@@ -396,6 +400,10 @@ const WalletConfirmPassword = ({navigation, route}) => {
         modalVisible={modal3Visible}
         setModalVisible={setModal3Visible}
         text={`전송이 실패하였습니다.`}
+      />
+      <ProgressModal
+        modalVisible={modal4Visible}
+        setModalVisible={setModal4Visible}
       />
     </SafeAreaView>
   );

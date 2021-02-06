@@ -26,6 +26,9 @@ import AuthStyle from '../../style/AuthStyle.js';
 import BottomModal from '../factory/modal/BottomModal';
 import ProgressModal from '../factory/modal/ProgressModal';
 
+import {withTranslation} from 'react-i18next';
+import hoistStatics from 'hoist-non-react-statics';
+
 // import RNPickerSelect from 'react-native-picker-select';
 
 const DATA = [
@@ -49,7 +52,7 @@ const Item = ({item, onPress, style}) => (
   </TouchableOpacity>
 );
 
-export default class Login extends Component {
+class Login extends Component {
   state = {
     ID: '',
     passWord: '',
@@ -158,6 +161,7 @@ export default class Login extends Component {
       });
   };
   render() {
+    const {t} = this.props;
     console.log(DeviceInfo.getUniqueId());
     return (
       <SafeAreaView style={ResetStyle.container}>
@@ -170,7 +174,7 @@ export default class Login extends Component {
                   ResetStyle.fontB,
                   {textAlign: 'center', fontWeight: '600'},
                 ]}>
-                Real Research
+                {t('LoginTitle')}
               </Text>
 
               <View>
@@ -180,7 +184,7 @@ export default class Login extends Component {
                     ResetStyle.fontG,
                     {textAlign: 'center', marginTop: '1%'},
                   ]}>
-                  Hello there, Login to your account
+                  {t('Login1')}
                 </Text>
               </View>
             </View>
@@ -193,7 +197,7 @@ export default class Login extends Component {
                   ResetStyle.fontBlack,
                   {marginBottom: '3%', marginTop: '6%', textAlign: 'left'},
                 ]}
-                placeholder="Email Address"
+                placeholder={t('Login2')}
                 placeholderTextColor="#a9a9a9"
                 value={this.state.ID}
                 autoCapitalize={'none'}
@@ -206,7 +210,7 @@ export default class Login extends Component {
                   ResetStyle.fontBlack,
                   {marginBottom: '14%', textAlign: 'left'},
                 ]}
-                placeholder="Password"
+                placeholder={t('Login3')}
                 placeholderTextColor="#a9a9a9"
                 secureTextEntry={true}
                 value={this.state.passWord}
@@ -276,7 +280,7 @@ export default class Login extends Component {
                     ResetStyle.fontWhite,
                     {fontSize: 24},
                   ]}>
-                  LOGIN
+                  {t('Login4')}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -290,7 +294,7 @@ export default class Login extends Component {
                     ResetStyle.fontB,
                     {marginTop: '6%', marginBottom: '3%'},
                   ]}>
-                  Forgot Password?
+                  {t('Login5')}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -309,7 +313,7 @@ export default class Login extends Component {
                 ResetStyle.fontG,
                 {marginBottom: '3%'},
               ]}>
-              Don't have an account?{' '}
+              {t('Login6')}
             </Text>
 
             <TouchableOpacity
@@ -323,13 +327,13 @@ export default class Login extends Component {
                   ResetStyle.fontB,
                   {fontWeight: '400'},
                 ]}>
-                SIGNUP
+                {t('Login7')}
               </Text>
             </TouchableOpacity>
           </View>
           <View style={[AuthStyle.loginBottomTextBox, {marginTop: '5%'}]}>
             <Text style={[ResetStyle.fontRegularE, ResetStyle.fontB]}>
-              Powered by Real Research Inc.
+              {t('Login8')}
             </Text>
           </View>
         </View>
@@ -365,3 +369,5 @@ export default class Login extends Component {
     );
   }
 }
+
+export default hoistStatics(withTranslation()(Login), Login);

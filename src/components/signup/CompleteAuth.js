@@ -3,10 +3,14 @@ import {View, Text, TouchableOpacity, SafeAreaView, Image} from 'react-native';
 import ResetStyle from '../../style/ResetStyle.js';
 import AuthStyle from '../../style/AuthStyle.js';
 
+import {withTranslation} from 'react-i18next';
+import hoistStatics from 'hoist-non-react-statics';
+
 class CompleteAuth extends Component {
   state = {};
 
   render() {
+    const {t} = this.props;
     return (
       <SafeAreaView style={ResetStyle.container}>
         <View style={ResetStyle.containerInner}>
@@ -26,7 +30,7 @@ class CompleteAuth extends Component {
                 ResetStyle.fontB,
                 {marginTop: '3%'},
               ]}>
-              회원가입 완료
+              {t('completeAuthTitle')}
             </Text>
             <Text
               style={[
@@ -34,7 +38,7 @@ class CompleteAuth extends Component {
                 ResetStyle.fontG,
                 {marginTop: '3%'},
               ]}>
-              Real Research 회원가입이 완료되었습니다
+              {t('completeAuth1')}
             </Text>
           </View>
 
@@ -53,9 +57,7 @@ class CompleteAuth extends Component {
                 ResetStyle.fontDG,
                 {lineHeight: 28, marginBottom: '10%'},
               ]}>
-              다음 단계는 KYC인증 단계입니다{'\n'}
-              KYC 인증을 등록하시면{'\n'}
-              설문조사 참여 가능합니다
+              {t('completeAuth2')}
             </Text>
             <Text
               style={[
@@ -63,7 +65,7 @@ class CompleteAuth extends Component {
                 ResetStyle.fontB,
                 {marginBottom: '10%'},
               ]}>
-              지금 시작해보세요!
+              {t('completeAuth3')}
             </Text>
           </View>
 
@@ -79,7 +81,7 @@ class CompleteAuth extends Component {
                 ResetStyle.fontWhite,
                 {fontWeight: '600'},
               ]}>
-              시작하기
+              {t('completeAuthNextButton')}
             </Text>
           </TouchableOpacity>
         </View>
@@ -88,4 +90,4 @@ class CompleteAuth extends Component {
   }
 }
 
-export default CompleteAuth;
+export default hoistStatics(withTranslation()(CompleteAuth), CompleteAuth);

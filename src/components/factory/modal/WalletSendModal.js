@@ -68,7 +68,7 @@ const WalletSendModal = ({
             style={[
               ResetStyle.fontRegularK,
               ResetStyle.fontBlack,
-              {marginTop: '7%'},
+              {marginTop: Platform.OS === 'ios' ? '7%' : '3%'},
             ]}>
             송금 하시겠습니까?
           </Text>
@@ -120,7 +120,10 @@ const WalletSendModal = ({
                 style={[
                   ResetStyle.fontLightK,
                   ResetStyle.fontBlack,
-                  {textAlign: 'left', marginTop: '2%'},
+                  {
+                    textAlign: 'left',
+                    marginTop: Platform.OS === 'ios' ? '2%' : '1%',
+                  },
                 ]}>
                 {parseFloat(amount)} TNC
               </Text>
@@ -138,7 +141,10 @@ const WalletSendModal = ({
                 style={[
                   ResetStyle.fontLightK,
                   ResetStyle.fontBlack,
-                  {textAlign: 'left', marginTop: '2%'},
+                  {
+                    textAlign: 'left',
+                    marginTop: Platform.OS === 'ios' ? '2%' : '1%',
+                  },
                 ]}>
                 10 TNC
               </Text>
@@ -156,7 +162,10 @@ const WalletSendModal = ({
                 style={[
                   ResetStyle.fontLightK,
                   ResetStyle.fontBlack,
-                  {textAlign: 'left', marginTop: '2%'},
+                  {
+                    textAlign: 'left',
+                    marginTop: Platform.OS === 'ios' ? '2%' : '1%',
+                  },
                 ]}>
                 {parseFloat(calculatedValue.toFixed(6))} TNC
               </Text>
@@ -174,7 +183,10 @@ const WalletSendModal = ({
                 style={[
                   ResetStyle.fontLightK,
                   ResetStyle.fontBlack,
-                  {textAlign: 'left', marginTop: '2%'},
+                  {
+                    textAlign: 'left',
+                    marginTop: Platform.OS === 'ios' ? '2%' : '1%',
+                  },
                 ]}>
                 {memo}
               </Text>

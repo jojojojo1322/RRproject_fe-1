@@ -24,7 +24,10 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthStyle from '../../style/AuthStyle';
 
-export default class WalletPassword extends Component {
+import {withTranslation} from 'react-i18next';
+import hoistStatics from 'hoist-non-react-statics';
+
+class WalletPassword extends Component {
   state = {
     passArr: [],
     rePassArr: [],
@@ -183,6 +186,7 @@ export default class WalletPassword extends Component {
   };
 
   render() {
+    const {t} = this.props;
     const passArr = this.state.passArr;
     return (
       <SafeAreaView style={[ResetStyle.container]}>
@@ -194,7 +198,7 @@ export default class WalletPassword extends Component {
                 ResetStyle.fontDG,
                 {marginTop: '20%'},
               ]}>
-              지갑 비밀번호
+              {t('WalletPasswordTitle')}
             </Text>
             <Text
               style={[
@@ -203,8 +207,8 @@ export default class WalletPassword extends Component {
                 {marginTop: '10%', marginBottom: '20%'},
               ]}>
               {this.state.pass == ''
-                ? `지갑 전송 시 사용할 ${'\n'}6자리 비밀번호를 입력해 주세요`
-                : `비밀번호 확인을 위해${'\n'}한번 더 입력해 주세요`}
+                ? t('WalletPassword1')
+                : t('WalletPassword2')}
             </Text>
             <View style={styles.passGrayAll}>
               <View
@@ -372,18 +376,18 @@ export default class WalletPassword extends Component {
         <BottomModal
           modalVisible={this.state.modalVisible}
           setModalVisible={this.setModalVisible}
-          text={`비밀번호가 일치하지 않습니다.`}
+          text={t('WalletPassword3')}
         />
         <BottomModal
           modalVisible={this.state.modal3Visible}
           setModalVisible={this.setModal3Visible}
-          text={`지갑 생성이 실패했습니다.`}
+          text={t('WalletPassword4')}
         />
         <TextConfirmModal
           modalVisible={this.state.modal2Visible}
           setModalVisible={this.setModal2Visible}
-          text={`비밀번호가 설정되었습니다.`}
-          confirm={`확인`}
+          text={t('WalletPassword5')}
+          confirm={t('WalletPassword6')}
           handleNextPage={this.handleNextPage}
         />
         <ProgressModal
@@ -456,3 +460,5 @@ const styles = StyleSheet.create({
     // color: '#fff',
   },
 });
+
+export default hoistStatics(withTranslation()(WalletPassword), WalletPassword);

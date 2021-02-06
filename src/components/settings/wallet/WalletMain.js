@@ -12,12 +12,17 @@ import {
   FlatList,
   Linking,
 } from 'react-native';
+
 import ResetStyle from '../../../style/ResetStyle.js';
 import WalletStyle from '../../../style/WalletStyle.js';
+
 import {SafeAreaView} from 'react-native-safe-area-context';
+
 import axios from 'axios';
 import {server} from '../../defined/server';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import ProgressModal from '../../factory/modal/ProgressModal.js';
 
 // 3자리수 콤마(,) + 소수점 이하는 콤마 안 생기게
 function numberWithCommas(num) {
@@ -32,6 +37,7 @@ const WalletMain = (props) => {
   const URL = 'https://aladdin25.com/';
 
   const [masterKey, setMasterKey] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
   // const TestArrayFix = TestArray[0].transactions;
 
   const [walletHistoryData, setWalletHistoryData] = useState([]);
@@ -50,6 +56,7 @@ const WalletMain = (props) => {
 
   // Api for Total Valance
   const getWalletApi = async () => {
+    setModalVisible(true);
     await axios
       .get(`${server}/wallet/${await AsyncStorage.getItem('email')}`)
       .then((response) => {
@@ -61,10 +68,12 @@ const WalletMain = (props) => {
       .catch((e) => {
         console.log('error', e);
       });
+    setModalVisible(false);
   };
 
   // Api for Wallet history
   const postWalletHistoryApi = async (email, from, limit) => {
+    setModalVisible(true);
     await axios
       .post(`${server}/wallet/history`, {
         email: await AsyncStorage.getItem('email'),
@@ -79,6 +88,7 @@ const WalletMain = (props) => {
       .catch((e) => {
         console.log('error', e);
       });
+    setModalVisible(false);
   };
 
   const handleRefresh = () => {
@@ -306,6 +316,10 @@ const WalletMain = (props) => {
           // onRefresh={handleRefresh}
         />
       </View>
+      <ProgressModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+      />
     </SafeAreaView>
   );
 };

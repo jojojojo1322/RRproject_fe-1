@@ -209,13 +209,17 @@ export default class Kyc extends Component {
                 {
                   fontSize: 25,
                   fontWeight: '400',
-                  marginBottom: '13%',
+                  marginBottom: Platform.OS === 'ios' ? '13%' : '9%',
                 },
               ]}>
               KYC 정보입력
             </Text>
 
-            <View style={[styles.ktitAll, {marginBottom: '19%'}]}>
+            <View
+              style={[
+                styles.ktitAll,
+                {marginBottom: Platform.OS === 'ios' ? '19%' : '10%'},
+              ]}>
               <Image
                 style={[
                   AuthStyle.topCheckbutton,
