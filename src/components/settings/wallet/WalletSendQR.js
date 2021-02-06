@@ -1,5 +1,5 @@
 'use strict';
-import React, {Component, useState} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
 import ResetStyle from '../../../style/ResetStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -8,6 +8,7 @@ import QRCodeScanner from 'react-native-qrcode-scanner';
 
 export default function MainTest({navigation}) {
   const [QRAdress, setQRAdress] = useState();
+
   const onSuccess = (e) => {
     console.log('console', e.data);
     setQRAdress(e.data);
@@ -16,6 +17,7 @@ export default function MainTest({navigation}) {
     });
   };
   console.log('QRCODEEEEEEE', QRAdress);
+
   return (
     <SafeAreaView style={[ResetStyle.container]}>
       <View

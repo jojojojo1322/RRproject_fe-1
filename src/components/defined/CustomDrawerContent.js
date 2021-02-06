@@ -36,20 +36,29 @@ const Drawer = createDrawerNavigator();
 
 export function CustomDrawerContent(props) {
   const [alertData, setAlertData] = useState([]);
+  const [walletData, setWalletData] = useState([]);
+  const [total, setTotal] = useState(0);
+
   const [alertDataNot, setAlertDataNot] = useState(0);
+  const [kycLevel, setKycLevel] = useState(0);
+
   const [loginStatus, setLoginStatus] = useState(props.login);
   const [email, setEmail] = useState('');
 
   const emailAsyncSet = async () => {
     setEmail(await AsyncStorage.getItem('email'));
   };
+
+  // useEffect(() => {
+  //   alertDataApi();
+  //   emailAsyncSet();
+  // }, []);
+
   useEffect(() => {
     alertDataApi();
     emailAsyncSet();
-  }, []);
-  useEffect(() => {
-    alertDataApi();
-    emailAsyncSet();
+    getWalletApi();
+    userApi();
   }, [props.login]);
 
   console.log('CUSTON>>>>', props.login);
@@ -84,6 +93,37 @@ export function CustomDrawerContent(props) {
       })
       .catch((e) => {
         console.log('notiCheckError', e);
+      });
+  };
+
+  // drawer User API
+  const getWalletApi = async () => {
+    await axios
+      .get(`${server}/wallet/${await AsyncStorage.getItem('email')}`)
+      .then((response) => {
+        setWalletData(response.data);
+        setTotal(Number(response.data.balance.replace(' TNC', '')));
+        console.log('drawer Data>>>>>', walletData);
+      })
+      .catch((e) => {
+        console.log('error', e);
+      });
+  };
+
+  // User Api
+  const userApi = async () => {
+    await axios
+      .get(
+        `${server}/user?userNo=${await AsyncStorage.getItem('userNo')}`,
+        // `${server}/user/user?userNo=210127104026300`,
+      )
+      .then(async (response) => {
+        console.log('userApi >>>>', response);
+        setKycLevel(response.data.userLevel);
+        // setMailId(response.data.mailId);
+      })
+      .catch((e) => {
+        console.log('Error', e);
       });
   };
 
@@ -142,7 +182,7 @@ export function CustomDrawerContent(props) {
             backgroundColor: '#FFF',
             borderRadius: 60,
           }}
-          progress={0.086}
+          progress={kycLevel * 0.04347826}
           progressColor={'#0080ff'}
           strokeWidth={3}
         />
@@ -177,7 +217,7 @@ export function CustomDrawerContent(props) {
               top: Platform.OS === 'ios' ? 60 : 50,
             },
           ]}>
-          2
+          {kycLevel}
         </Text>
         <TouchableOpacity
           onPress={() => {
@@ -222,7 +262,9 @@ export function CustomDrawerContent(props) {
           marginVertical: Platform.OS === 'ios' ? '5%' : '3%',
         }}>
         <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
-          <Text style={[ResetStyle.fontMediumE, ResetStyle.fontB]}>0</Text>
+          <Text style={[ResetStyle.fontMediumE, ResetStyle.fontB]}>
+            {total}
+          </Text>
           <Text
             style={[
               ResetStyle.fontLightK,
@@ -251,6 +293,20 @@ export function CustomDrawerContent(props) {
 
       {/* Menu */}
       <View style={{flexDirection: 'column', width: '100%'}}>
+        <TouchableOpacity
+          onPress={() => {
+            props.navigation.navigate('IdVerification');
+          }}
+          style={MainStyle.drawerItem}>
+          <Text
+            style={[
+              ResetStyle.fontRegularK,
+              ResetStyle.fontBlack,
+              MainStyle.drawerItemText,
+            ]}>
+            본인인증
+          </Text>
+        </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
             props.navigation.navigate('Main');

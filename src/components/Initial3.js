@@ -126,6 +126,7 @@ class ModalCountry extends Component {
           <View style={styles.modalInputBox}>
             <TextInput
               style={styles.searchInputText}
+              placeholderTextColor="#a9a9a9"
               placeholder="search"></TextInput>
             <TouchableOpacity style={styles.closeButton}>
               <Image

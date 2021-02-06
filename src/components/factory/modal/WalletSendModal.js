@@ -18,6 +18,7 @@ const WalletSendModal = ({
   amount,
   calculatedValue,
   memo,
+  valuePlusTen,
 }) => {
   // const walletSendApi = async (amount, email, memo, password, to, type) => {
   //   await axios
@@ -121,7 +122,7 @@ const WalletSendModal = ({
                   ResetStyle.fontBlack,
                   {textAlign: 'left', marginTop: '2%'},
                 ]}>
-                {amount} TNC
+                {parseFloat(amount)} TNC
               </Text>
             </View>
             <View style={[ModalStyle.walletMain]}>
@@ -157,7 +158,7 @@ const WalletSendModal = ({
                   ResetStyle.fontBlack,
                   {textAlign: 'left', marginTop: '2%'},
                 ]}>
-                {calculatedValue.toFixed(6)} TNC
+                {parseFloat(calculatedValue.toFixed(6))} TNC
               </Text>
             </View>
             <View style={[ModalStyle.walletMain]}>

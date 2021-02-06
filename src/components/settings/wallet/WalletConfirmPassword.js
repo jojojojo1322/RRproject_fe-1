@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -23,108 +23,124 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const WalletConfirmPassword = ({navigation, route}) => {
-  const [buttonNumber, setButtonNumber] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
-  const [Tpassword, setTPassword] = useState('');
-  const [apassword, setAPassword] = useState([]);
+  const [modal3Visible, setModal3Visible] = useState(false);
+
+  const [Jpassword, setJpassword] = useState([]);
+  const [password, setPassword] = useState('');
   const [walletAddress, setWalletAddress] = useState('');
+  const [statusCheck, setStatusCheck] = useState('');
 
   const {amount} = route ? route.params : '';
   const {email} = route ? route.params : '';
   const {memo} = route ? route.params : '';
   const {to} = route ? route.params : '';
   const {type} = route ? route.params : '';
+  const {balance} = route ? route.params : '';
+  const {valuePlusTen} = route ? route.params : '';
   // console.log('amount check >>>>>', amount);
   // console.log('email check >>>>>', email);
   // console.log('memo check >>>>>', memo);
   // console.log('to check >>>>>', to);
   // console.log('type check >>>>>', type);
+  // console.log('balance check >>>>>', balance);
+  // console.log('valuePlusTen check >>>>>', valuePlusTen);
 
   // wallet password Api 부르기
-  const walletPasswordApi = async (walletPw) => {
+
+  const walletPasswordApi = async (password) => {
+    console.log('check passed password', password);
     await axios
-      .post(`${server}/wallet`, {
-        userNo: await AsyncStorage.getItem('userNo'),
-        walletPw: walletPw,
+      .post(`${server}/wallet/trans`, {
+        amount: valuePlusTen,
+        email: email,
+        memo: memo,
+        password: password,
+        to: to,
+        type: type,
       })
-      .then((response) => {
-        console.log(response);
-        setWalletAddress(response.data.walletAddress);
+      .then(async (response) => {
+        console.log('wallet send response check  >>>>>', response);
+        // await setStatusCheck(response.data.status);
+        if (response.data.status == 'success') {
+          //TNC 전송 성공시
+          handleNextPage();
+        } else if (response.data.status == 'fail') {
+          //TNC 전송 실패시 (전송이 실패하였습니다.)
+          navigation.navigate('WalletSend');
+        }
       })
       .catch((e) => {
+        // setModal2Visible(!modal2Visible);
+        navigation.navigate('WalletSend');
         console.log(e);
       });
   };
 
-  const handlePassNumber = (e) => {
-    let password = '';
-    overSix();
-    if (buttonNumber === '1') {
-      password = password + '1';
-    } else if (buttonNumber === '2') {
-      password = password + '2';
-    } else if (buttonNumber === '3') {
-      password = password + '3';
-    } else if (buttonNumber === '4') {
-      password = password + '4';
-    } else if (buttonNumber === '5') {
-      password = password + '5';
-    } else if (buttonNumber === '6') {
-      password = password + '6';
-    } else if (buttonNumber === '7') {
-      password = password + '7';
-    } else if (buttonNumber === '8') {
-      password = password + '8';
-    } else if (buttonNumber === '9') {
-      password = password + '9';
-    } else if (buttonNumber === '0') {
-      password = password + '0';
+  // function preModal3 (value){
+
+  //   const prevModal3Ref = useRef();
+  //   useEffect(() => {
+  //     prevModal3Ref.current = value;
+  //   });
+  //   return prevModal3Ref.current
+  // }
+
+  // useEffect(() => {
+  //   if (prevModal3Ref.current === true && modal3Visible === false) {
+  //     navigation.navigate('WalletSend');
+  //   }
+  // }, [modal3Visible]);
+
+  useEffect(() => {
+    console.log('Jpassword??', Jpassword);
+    console.log('Jpassword??', Jpassword.length);
+  }, [Jpassword]);
+
+  const handlePass = async (value, e) => {
+    console.log('handlePass', value);
+    let passArr = Jpassword;
+    let test = '';
+    if (passArr.length <= 4) {
+      setJpassword(passArr.concat({id: passArr.length, value}));
+    } else if ((passArr.length = 5)) {
+      console.log('last');
+      setJpassword(passArr.concat({id: passArr.length, value}));
+      passArr = passArr.concat({id: passArr.length, value});
+
+      //first pass
+      passArr.map((data) => {
+        test += data.value;
+      });
+
+      setPassword(test);
+      console.log('마지막 비밀번호 체크 TEST', test);
+      console.log('마지막 비밀번호 체크 ARR', passArr);
+      // test <<<<<<<<<< 완성 6자리
+
+      await walletPasswordApi(test);
     }
+    console.log('test', test);
   };
 
   const handlePassErase = (e) => {
-    if (apassword.length !== 1) {
-      console.log('zzzzzzzzzz');
-      let fixArr = apassword;
-      // Tpassword.slice(0, -1);
-      // console.log('zzzzzzzzzz', Tpassword);
-      fixArr = fixArr.filter((data, index) => index != apassword.length);
-      setAPassword(fixArr);
-      console.log(apassword);
-    } else {
-      Tpassword;
+    ////////////////////
+    let passArr = Jpassword;
+
+    if (passArr.length !== 0) {
+      setJpassword(passArr.filter((data) => data.id != passArr.length - 1));
     }
-  };
-
-  // useEffect(() => {
-  //   console.log('password check >>>>>', password);
-  // }, [password]);
-  // 비밀번호 배열 텍스트
-  useEffect(() => {
-    let password = Tpassword;
-    let Arr = apassword;
-    password = String(password) + buttonNumber;
-    Arr = Arr.concat(buttonNumber);
-    setAPassword(Arr);
-    setTPassword(password);
-    console.log('dummydummydummy', password);
-    console.log('dummydummapasswordydummy', apassword);
-    console.log('Tpassword.length', Tpassword.length);
-  }, [buttonNumber]);
-
-  useEffect(() => {});
-
-  const overSix = () => {
-    if (0 < Tpassword.length <= 6) {
-    } else {
-      setTPassword('');
-    }
-    console.log('oversix check', Tpassword.length);
   };
 
   const handleNextPage = async () => {
-    navigation.navigate('WalletSendSuccess');
+    navigation.navigate('WalletSendSuccess', {
+      amount: amount,
+      email: email,
+      memo: memo,
+      to: to,
+      balance: balance,
+    });
   };
 
   return (
@@ -170,9 +186,9 @@ const WalletConfirmPassword = ({navigation, route}) => {
               style={[
                 styles.passGray,
                 {marginLeft: 0},
-                apassword.length - 1 >= 1 ? {backgroundColor: '#4696ff'} : '',
+                Jpassword.length >= 1 ? {backgroundColor: '#4696ff'} : '',
               ]}>
-              {apassword.length - 1 >= 1 ? (
+              {Jpassword.length >= 1 ? (
                 <View
                   style={[
                     AuthStyle.initial2NormalDot,
@@ -184,9 +200,9 @@ const WalletConfirmPassword = ({navigation, route}) => {
               style={[
                 styles.passGray,
                 {marginLeft: '3%'},
-                apassword.length - 1 >= 2 ? {backgroundColor: '#4696ff'} : '',
+                Jpassword.length >= 2 ? {backgroundColor: '#4696ff'} : '',
               ]}>
-              {apassword.length - 1 >= 2 ? (
+              {Jpassword.length >= 2 ? (
                 <View
                   style={[
                     AuthStyle.initial2NormalDot,
@@ -198,9 +214,9 @@ const WalletConfirmPassword = ({navigation, route}) => {
               style={[
                 styles.passGray,
                 {marginLeft: '3%'},
-                apassword.length - 1 >= 3 ? {backgroundColor: '#4696ff'} : '',
+                Jpassword.length >= 3 ? {backgroundColor: '#4696ff'} : '',
               ]}>
-              {apassword.length - 1 >= 3 ? (
+              {Jpassword.length >= 3 ? (
                 <View
                   style={[
                     AuthStyle.initial2NormalDot,
@@ -212,9 +228,9 @@ const WalletConfirmPassword = ({navigation, route}) => {
               style={[
                 styles.passGray,
                 {marginLeft: '3%'},
-                apassword.length - 1 >= 4 ? {backgroundColor: '#4696ff'} : '',
+                Jpassword.length >= 4 ? {backgroundColor: '#4696ff'} : '',
               ]}>
-              {apassword.length - 1 >= 4 ? (
+              {Jpassword.length >= 4 ? (
                 <View
                   style={[
                     AuthStyle.initial2NormalDot,
@@ -226,9 +242,9 @@ const WalletConfirmPassword = ({navigation, route}) => {
               style={[
                 styles.passGray,
                 {marginLeft: '3%'},
-                apassword.length - 1 >= 5 ? {backgroundColor: '#4696ff'} : '',
+                Jpassword.length >= 5 ? {backgroundColor: '#4696ff'} : '',
               ]}>
-              {apassword.length - 1 >= 5 ? (
+              {Jpassword.length >= 5 ? (
                 <View
                   style={[
                     AuthStyle.initial2NormalDot,
@@ -240,9 +256,9 @@ const WalletConfirmPassword = ({navigation, route}) => {
               style={[
                 styles.passGray,
                 {marginLeft: '3%'},
-                apassword.length - 1 >= 6 ? {backgroundColor: '#4696ff'} : '',
+                Jpassword.length >= 6 ? {backgroundColor: '#4696ff'} : '',
               ]}>
-              {apassword.length - 1 >= 6 ? (
+              {Jpassword.length >= 6 ? (
                 <View
                   style={[
                     AuthStyle.initial2NormalDot,
@@ -258,24 +274,27 @@ const WalletConfirmPassword = ({navigation, route}) => {
           <TouchableOpacity
             style={styles.keyboardDetail}
             onPress={() => {
-              setButtonNumber('1');
-              handlePassNumber();
+              // setButtonNumber('1');
+              // handlePassNumber();
+              handlePass('1');
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>1</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.keyboardDetail}
             onPress={() => {
-              setButtonNumber('2');
-              handlePassNumber();
+              // setButtonNumber('2');
+              // handlePassNumber();
+              handlePass('2');
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>2</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.keyboardDetail}
             onPress={() => {
-              setButtonNumber('3');
-              handlePassNumber();
+              // setButtonNumber('3');
+              // handlePassNumber();
+              handlePass('3');
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>3</Text>
           </TouchableOpacity>
@@ -285,24 +304,27 @@ const WalletConfirmPassword = ({navigation, route}) => {
           <TouchableOpacity
             style={styles.keyboardDetail}
             onPress={() => {
-              setButtonNumber('4');
-              handlePassNumber();
+              // setButtonNumber('4');
+              // handlePassNumber();
+              handlePass('4');
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>4</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.keyboardDetail}
             onPress={() => {
-              setButtonNumber('5');
-              handlePassNumber();
+              // setButtonNumber('5');
+              // handlePassNumber();
+              handlePass('5');
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>5</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.keyboardDetail}
             onPress={() => {
-              setButtonNumber('6');
-              handlePassNumber();
+              // setButtonNumber('6');
+              // handlePassNumber();
+              handlePass('6');
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>6</Text>
           </TouchableOpacity>
@@ -312,24 +334,27 @@ const WalletConfirmPassword = ({navigation, route}) => {
           <TouchableOpacity
             style={styles.keyboardDetail}
             onPress={() => {
-              setButtonNumber('7');
-              handlePassNumber();
+              // setButtonNumber('7');
+              // handlePassNumber();
+              handlePass('7');
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>7</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.keyboardDetail}
             onPress={() => {
-              setButtonNumber('8');
-              handlePassNumber();
+              // setButtonNumber('8');
+              // handlePassNumber();
+              handlePass('8');
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>8</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.keyboardDetail}
             onPress={() => {
-              setButtonNumber('9');
-              handlePassNumber();
+              // setButtonNumber('9');
+              // handlePassNumber();
+              handlePass('9');
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>9</Text>
           </TouchableOpacity>
@@ -342,8 +367,9 @@ const WalletConfirmPassword = ({navigation, route}) => {
           <TouchableOpacity
             style={styles.keyboardDetail}
             onPress={() => {
-              setButtonNumber('0');
-              handlePassNumber();
+              // setButtonNumber('0');
+              // handlePassNumber();
+              handlePass('0');
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>0</Text>
           </TouchableOpacity>
@@ -361,6 +387,16 @@ const WalletConfirmPassword = ({navigation, route}) => {
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         text={`지갑 비밀번호가 일치하지 않습니다.`}
+      />
+      <BottomModal
+        modalVisible={modal2Visible}
+        setModalVisible={setModal2Visible}
+        text={`입력 정보가 잘못되었습니다.`}
+      />
+      <BottomModal
+        modalVisible={modal3Visible}
+        setModalVisible={setModal3Visible}
+        text={`전송이 실패하였습니다.`}
       />
     </SafeAreaView>
   );
@@ -402,7 +438,6 @@ const styles = StyleSheet.create({
     width: '40%',
     height: '30%',
     resizeMode: 'contain',
-    // color: '#fff',
   },
 });
 
