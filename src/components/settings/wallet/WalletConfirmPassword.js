@@ -26,7 +26,6 @@ const WalletConfirmPassword = ({navigation, route}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
   const [modal3Visible, setModal3Visible] = useState(false);
-
   const [Jpassword, setJpassword] = useState([]);
   const [password, setPassword] = useState('');
   const [walletAddress, setWalletAddress] = useState('');

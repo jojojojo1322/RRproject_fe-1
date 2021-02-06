@@ -81,12 +81,23 @@ export default StyleSheet.create({
 
   // KYC Level List Item
   kycAllLevelListItem: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
+    flexDirection: 'column',
+    // justifyContent: 'flex-start',
+    // textAlign: 'left',
     borderBottomColor: '#dedede',
     width: '100%',
     paddingTop: Platform.OS === 'ios' ? '4.5%' : '4%',
     paddingBottom: Platform.OS === 'ios' ? '4.5%' : '4%',
+    // borderWidth: 1,
+  },
+  kycLevelCircle: {
+    backgroundColor: '#4696ff',
+    width: 6,
+    height: 6,
+    borderRadius: 50,
+    marginTop: '2%',
+    marginRight: '2%',
+    marginLeft: '2%',
   },
   kycAllLevelTitle: {
     flexDirection: 'row',

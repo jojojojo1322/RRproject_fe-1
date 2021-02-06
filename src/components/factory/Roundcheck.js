@@ -51,19 +51,27 @@ export class RoundCheckbox extends Component {
         checked: false,
       });
     }
-    // if (a.length !== 0) {
-    //   console.log('다시체크됨다시체크됨다시체크됨다시체크됨다시체크됨');
-    //   this.setState({checked: true}, () => {
-    //     this.props.checkedObjArr.addItem({
-    //       key: this.props.keyValue,
-    //       value: this.props.value,
-    //       label: this.props.label,
+    // if (this.props.typeName) {
+    //   let a = [];
+    //   a = this.props.checkedArray.filter(
+    //     (data) =>
+    //       data.kycOption == this.props.value &&
+    //       data.kycQuestion == this.props.keyValue,
+    //   );
+    //   if (a.length !== 0) {
+    //     console.log('다시체크됨다시체크됨다시체크됨다시체크됨다시체크됨');
+    //     this.setState({checked: true}, () => {
+    //       this.props.checkedObjArr.addItem({
+    //         key: this.props.keyValue,
+    //         value: this.props.value,
+    //         label: this.props.label,
+    //       });
     //     });
-    //   });
-    // } else {
-    //   this.setState({
-    //     checked: false,
-    //   });
+    //   } else {
+    //     this.setState({
+    //       checked: false,
+    //     });
+    //   }
     // }
   }
   componentDidUpdate(preProps, preState) {
@@ -88,6 +96,29 @@ export class RoundCheckbox extends Component {
         );
       }
     }
+    // if (preProps.checkedArray !== this.props.checkedArray) {
+    //   console.log('---DidUpdate----');
+    //   let a = [];
+    //   a = this.props.checkedArray.filter(
+    //     (data) =>
+    //       data.kycOption == this.props.value &&
+    //       data.kycQuestion == this.props.keyValue,
+    //   );
+    //   if (a.length !== 0) {
+    //     console.log('다시체크됨다시체크됨다시체크됨다시체크됨다시체크됨');
+    //     this.setState({checked: true}, () => {
+    //       this.props.checkedObjArr.addItem({
+    //         key: this.props.keyValue,
+    //         value: this.props.value,
+    //         label: this.props.label,
+    //       });
+    //     });
+    //   } else {
+    //     this.setState({
+    //       checked: false,
+    //     });
+    //   }
+    // }
   }
   stateSwitcher(key, label, value) {
     this.setState({checked: !this.state.checked}, () => {
@@ -104,18 +135,18 @@ export class RoundCheckbox extends Component {
         // kyc 선택문항 - survey
         if (this.props.handleQuestion) {
           const index = this.props.checkedArray.findIndex(
-            (y) => String(y.kycQuestion) === String(key),
+            (y) => String(y.kycQuestion) == String(key),
           );
           let multiCnt = 0;
           this.props.checkedArray.map((data, index) => {
-            if (String(data.kycQuestion) === String(key)) {
+            if (String(data.kycQuestion) == String(key)) {
               multiCnt++;
             }
           });
 
           //checkbox - 3개 초과 금지 처리 /
-          if (this.props.typeName === 'checkbox') {
-            if (multiCnt === 3) {
+          if (this.props.typeName == 'checkbox') {
+            if (multiCnt == 3) {
               console.log('3개초과3개초과3개초과3개초과3개초과');
               // this.props.handleQuestion(
               //   key,
@@ -127,11 +158,11 @@ export class RoundCheckbox extends Component {
               return false;
             }
             //roundbutton - 단일 선택
-          } else if (this.props.typeName === 'radiobutton') {
+          } else if (this.props.typeName == 'radiobutton') {
             if (index >= 0) {
               this.props.handleQuestion(
                 key,
-                this.props.checkedArray[index].kycOption,
+                Number(this.props.checkedArray[index].kycOption),
                 'MINUS',
                 this.props.typeName,
               );
@@ -240,7 +271,7 @@ export class RoundCheckbox extends Component {
 }
 
 RoundCheckbox.propTypes = {
-  keyValue: PropTypes.number.isRequired,
+  // keyValue: PropTypes.number.isRequired,
   size: PropTypes.number,
   color: PropTypes.string,
   borderWidth: PropTypes.number,

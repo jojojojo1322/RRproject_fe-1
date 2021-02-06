@@ -60,6 +60,8 @@ import ProfileComplete from './components/settings/profile/ProfileComplete';
 import ProfileCompleteDetail from './components/settings/profile/ProfileCompleteDetail';
 import ProfileIncompleteDetail from './components/settings/profile/ProfileIncompleteDetail';
 import ProfileIncompleteLevel2 from './components/settings/profile/ProfileIncompleteLevel2';
+import ProfileCompleteLevel1 from './components/settings/profile/ProfileCompleteLevel1';
+import ProfileCompleteLevel2 from './components/settings/profile/ProfileCompleteLevel2';
 
 import WalletMain from './components/settings/wallet/WalletMain';
 import WalletDetail from './components/settings/wallet/WalletDetail';
@@ -404,6 +406,20 @@ export const AppMainStack = (props) => {
       <Stack.Screen
         name="ProfileIncompleteLevel2"
         component={ProfileIncompleteLevel2}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="ProfileCompleteLevel2"
+        component={ProfileCompleteLevel2}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="ProfileCompleteLevel1"
+        component={ProfileCompleteLevel1}
         options={{
           headerShown: false,
         }}

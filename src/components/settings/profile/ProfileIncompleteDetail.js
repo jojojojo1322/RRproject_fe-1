@@ -114,7 +114,21 @@ const ProfileIncompleteDetail = (props) => {
     setCheckId(true);
   }, [checkId]);
 
+  // nowIndex 변화 체크
   useEffect(() => {
+    console.log('nowIndex 변화 체크');
+    setNextCheck(
+      checkedArray.findIndex(
+        (y) => String(y.kycQuestion) === String(nowIndex + 1),
+      ) >= 0 ||
+        // 아니면 questionRequiredYN -> FALSE 일경우
+        (kycQuestion[nowIndex] &&
+          kycQuestion[nowIndex].questionRequiredYN === 'FALSE'),
+    );
+  }, [nowIndex]);
+
+  useEffect(() => {
+    console.log('체크어레이 유스이펙트 진입');
     console.log(
       'setNextCheck>>>>>>>',
       checkedArray.findIndex(
@@ -127,12 +141,13 @@ const ProfileIncompleteDetail = (props) => {
     // 해당 index kyc질문에 대한 대답이 배열에 들어가있는지 체크
     setNextCheck(
       checkedArray.findIndex(
-        (y) => String(y.kycQuestion) === String(nowIndex + 1),
+        (y) => Number(y.kycQuestion) === Number(nowIndex + 1),
       ) >= 0 ||
         // 아니면 questionRequiredYN -> FALSE 일경우
         (kycQuestion[nowIndex] &&
           kycQuestion[nowIndex].questionRequiredYN === 'FALSE'),
     );
+    console.log('체크어레이 유스이펙트 끝');
   }, [checkedArray]);
 
   //이전 페이지 버튼 클릭시
@@ -143,13 +158,14 @@ const ProfileIncompleteDetail = (props) => {
       setNowIndex(_nowIndex - 1);
       setCheckId('');
     } else if (_nowIndex == 0) {
-      props.navigation.goBack();
+      props.navigation.push('ProfileMain');
     }
   };
 
   //다음 버튼 클릭시
   const handlerNext = async (e) => {
     e.preventDefault();
+    // setNextCheck(false);
     const _nowIndex = nowIndex;
 
     if (_nowIndex !== questionLength - 1) {
@@ -199,15 +215,18 @@ const ProfileIncompleteDetail = (props) => {
       });
       setCheckedArray(ARR);
     } else if (status === 'MINUS') {
-      _checkedArray.splice(
-        _checkedArray.findIndex(
-          (y) => y.kycQuestion === question && y.kycOption === answer,
+      console.log(
+        _checkedArray.splice(
+          _checkedArray.findIndex(
+            (y) => y.kycQuestion == question && y.kycOption == answer,
+          ),
+          1,
         ),
-        1,
       );
+
       setCheckedArray(_checkedArray);
       setNextCheck(
-        checkedArray.findIndex(
+        _checkedArray.findIndex(
           (y) => String(y.kycQuestion) === String(nowIndex + 1),
         ) >= 0 ||
           // 아니면 questionRequiredYN -> FALSE 일경우
@@ -216,7 +235,6 @@ const ProfileIncompleteDetail = (props) => {
       );
     }
     // }
-    console.log(checkedArray);
   };
 
   let researchArr = question;
@@ -299,6 +317,8 @@ const ProfileIncompleteDetail = (props) => {
               checkedArray={checkedArray}
               // 단일 - 다중 선택지
               typeName={item.typeName}
+              setModalVisible={setModalVisible}
+              nowIndex={nowIndex}
             />
           </View>
         );
@@ -346,6 +366,7 @@ const ProfileIncompleteDetail = (props) => {
               typeName={item.typeName}
               // 3개이상 선택지 금지
               setModalVisible={setModalVisible}
+              nowIndex={nowIndex}
             />
           </View>
         );
@@ -380,6 +401,7 @@ const ProfileIncompleteDetail = (props) => {
               // renderItem(questionNumber=data.questionNumber)
               <RenderItem
                 //해당 질문
+
                 questionNumber={data.questionNumber}
                 //해당 질문의 단일/다중선택
                 typeName={data.typeName}
@@ -453,12 +475,7 @@ const ProfileIncompleteDetail = (props) => {
                 backgroundColor: '#e6e6e6',
               },
               // 해당 index kyc질문에 대한 대답이 배열에 들어가있는지 체크
-              (checkedArray.findIndex(
-                (y) => String(y.kycQuestion) === String(nowIndex + 1),
-              ) >= 0 ||
-                // 아니면 questionRequiredYN -> FALSE 일경우
-                (kycQuestion[nowIndex] &&
-                  kycQuestion[nowIndex].questionRequiredYN === 'FALSE')) && {
+              nextCheck && {
                 backgroundColor: '#4696ff',
               },
             ]}

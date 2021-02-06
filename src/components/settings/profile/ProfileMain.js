@@ -17,6 +17,7 @@ import ResetStyle from '../../../style/ResetStyle.js';
 import ProfileStyle from '../../../style/ProfileStyle.js';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {FlatList} from 'react-native-gesture-handler';
+import BottomModal from '../../factory/modal/BottomModal';
 // import {CustomDrawerContent} from '../../defined/CustomDrawerContent';
 
 const Drawer = createDrawerNavigator();
@@ -50,6 +51,7 @@ const ProfileMain = ({navigation}) => {
   const [mailId, setMailId] = useState('');
   const [kycLevel, setKycLevel] = useState(0);
   const [kycLevelNumber, setKycLevelNumber] = useState(0);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     userApi();
@@ -85,13 +87,37 @@ const ProfileMain = ({navigation}) => {
         ]}
         key={index}
         onPress={() => {
-          level <= kycLevel
-            ? navigation.navigate('ProfileCompleteDetail')
-            : level === 2
-            ? navigation.navigate('ProfileIncompleteLevel2')
-            : navigation.navigate('ProfileIncompleteDetail', {
+          // 이미 완료한 kyc - 수정 로직
+          if (Number(level) <= Number(kycLevel)) {
+            if (Number(level) === 1) {
+              navigation.navigate('ProfileCompleteLevel1', {
                 KycLevel: level,
               });
+            } else if (Number(level) === 2) {
+              navigation.navigate('ProfileCompleteLevel2', {
+                KycLevel: level,
+              });
+            } else {
+              navigation.navigate('ProfileCompleteDetail', {
+                KycLevel: level,
+              });
+            }
+            // 현재 해야할 kyc 정상적인 클릭 (LEVEL 2 분기)
+          } else if (Number(level) === Number(kycLevel) + 1) {
+            // level 2 분기
+            if (Number(level) === 2) {
+              navigation.navigate('ProfileIncompleteLevel2', {
+                KycLevel: level,
+              });
+            } else {
+              navigation.navigate('ProfileIncompleteDetail', {
+                KycLevel: level,
+              });
+            }
+            // 아직 달성되지 않은 kyc레벨 선택시
+          } else {
+            setModalVisible(!modalVisible);
+          }
         }}>
         <Text
           style={[
@@ -212,9 +238,16 @@ const ProfileMain = ({navigation}) => {
           keyExtractor={(item) => item.id}
           inverted={true}
         />
+        <BottomModal
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+          text={`KYC LEVEL ${Number(kycLevel) + 1}을 먼저 완료해주세요.`}
+        />
       </View>
     </SafeAreaView>
   );
 };
 
 export default ProfileMain;
+
+// KYC ''LEVEL을 먼저 완료해주세요
