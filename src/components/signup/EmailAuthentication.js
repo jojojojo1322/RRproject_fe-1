@@ -350,16 +350,16 @@ class EmailAuthentication extends Component {
                         ResetStyle.fontBlack,
                         {textAlign: 'left'},
                         this.state.returnApprove != '0' && {
-                          width: '70%',
+                          width: '60%',
+                          height: 40,
                         },
                       ]}
                     />
                     {this.state.returnApprove == '0' && (
                       <Image
                         style={{
-                          position: 'absolute',
-                          top: Platform.OS === 'ios' ? '10%' : '35%',
-                          right: '45%',
+                          height: 15,
+                          width: 15,
                         }}
                         source={require('../../imgs/drawable-xxxhdpi/verification_code_check_icon.png')}
                       />

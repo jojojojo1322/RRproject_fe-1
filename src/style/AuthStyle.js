@@ -135,8 +135,8 @@ export default StyleSheet.create({
 
   // Kyc
   topCheckbutton: {
-    height: Platform.OS === 'ios' ? 55 : 50,
-    width: Platform.OS === 'ios' ? 55 : 50,
+    height: Platform.OS === 'ios' ? 55 : 45,
+    width: Platform.OS === 'ios' ? 55 : 45,
     resizeMode: 'contain',
   },
 

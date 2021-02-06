@@ -188,16 +188,12 @@ class ListModal extends Component {
 
             {/* modal view */}
             <View style={[ModalStyle.listModal]}>
-              <View
-                style={[
-                  ModalStyle.listModalBox,
-                  {marginTop: '3%', marginBottom: '4%'},
-                ]}>
+              <View style={[ModalStyle.listModalBox]}>
                 <Text
                   style={[
                     ResetStyle.fontMediumK,
                     ResetStyle.fontBlack,
-                    {fontWeight: '500', fontSize: 25},
+                    {fontWeight: '500'},
                   ]}>
                   {this.props.titleText}
                 </Text>
@@ -231,7 +227,11 @@ class ListModal extends Component {
                   placeholderTextColor="#a9a9a9"
                 />
                 <TouchableOpacity
-                  style={{position: 'absolute', right: '3%', top: '40%'}}>
+                  style={{
+                    position: 'absolute',
+                    right: '3%',
+                    top: Platform.OS === 'ios' ? '28%' : '25%',
+                  }}>
                   <Image
                     style={[ModalStyle.listModalSearch]}
                     source={require('../../../imgs/icon_search.png')}

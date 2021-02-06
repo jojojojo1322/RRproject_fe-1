@@ -36,7 +36,7 @@ export default function WalletSend({navigation, route}) {
   const [modal6Visible, setModal6Visible] = useState(false);
   const [modal7Visible, setModal7Visible] = useState(false);
   const [total, setTotal] = useState(0);
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState('');
   const [valuePlusTen, setValuePlusTen] = useState(0);
   // const [fixValue, setFixValue] = useState(0);
   const [calculator, setCalulator] = useState('');
@@ -52,11 +52,13 @@ export default function WalletSend({navigation, route}) {
     // 가끔 초기화가 안되고 넘어가면 7자리만 체크를 하기 때문에 인식을 못함 -> num 타입 string 처리
     // 6자리 넘어가면 초기화 대신 마지막 값 제거
     var decimalSix = /^\d*[.]\d{7}$/;
+
     console.log('소숫점 유형 검사', typeof num);
 
     let fixNum = String(num).replace(/,/g, '');
+
     // let fixNum = num;
-    if (decimalSix.test(String(fixNum))) {
+    if (decimalSix.test(fixNum)) {
       setModal3Visible(!modalVisible);
       setValue(num.slice(0, num.length - 1));
       return false;
@@ -74,26 +76,15 @@ export default function WalletSend({navigation, route}) {
     // console.log('aaaaaaaa', value);
   }, [value]);
 
-  let {qrcode} = route ? route.params : 'a';
-
-  // const {qrcode} = route.params?.qrcode;
-  useEffect(() => {
-    // const {qrcode} = route ? route.params : '';
-    console.log('qrcode check >>>>>', qrcode);
-  }, []);
+  const {qrcode} = route ? route.params : '';
 
   useEffect(() => {
-    console.log('useEffect?>?>?>?>?>?>?>?>?>');
-    // const {qrcode} = route ? route.params : '';
     setAddress(qrcode);
+    console.log('qrcode check >>>>>', qrcode);
   }, [qrcode]);
 
   // Wallet Api 활성화
   useEffect(() => {
-    // Async Test 용 dummy email 저장
-    // AsyncStorage.setItem('email', 'a@c.com', () => {
-    //   console.log('유저 닉네임 저장 완료');
-    // });
     walletDataApi();
   }, []);
 
@@ -102,6 +93,11 @@ export default function WalletSend({navigation, route}) {
     totalCalculator();
     console.log('check for calculated value >>>', calculatedValue);
   }, [calculatedValue]);
+
+  // caculator
+  useEffect(() => {
+    console.log('check for calculated value >>>', calculator);
+  }, [calculator]);
 
   useEffect(() => {
     valuePlusTenCalculator(value);
@@ -119,6 +115,7 @@ export default function WalletSend({navigation, route}) {
       .then((response) => {
         // 보유한 Total value TNC
         setTotal(Number(response.data.balance.replace(' TNC', '')));
+        console.log('how much balance', total);
         // Wallet Data 전체 값
         setWalletData(response.data);
       })
@@ -133,28 +130,36 @@ export default function WalletSend({navigation, route}) {
 
   // Calculator
   const setTenth = () => {
+    var calculated = parseFloat((Number(total) / 10).toFixed(6));
+
     setCalulator('tenth');
-    setValue(parseFloat((Number(total) / 10).toFixed(6)));
+    setValue(String(calculated));
     console.log('set tenth value >>>>', value);
   };
 
   const setQuarter = () => {
+    var calculated = parseFloat((Number(total) / 4).toFixed(6));
+
     setCalulator('quarter');
-    setValue(parseFloat((Number(total) / 4).toFixed(6)));
+    setValue(String(calculated));
 
     console.log('set tenth value >>>>', value);
   };
 
   const setHalf = () => {
+    var calculated = parseFloat((Number(total) / 2).toFixed(6));
+
     setCalulator('half');
-    setValue(parseFloat((Number(total) / 2).toFixed(6)));
+    setValue(String(calculated));
 
     console.log('set tenth value >>>>', value);
   };
 
   const setMax = () => {
+    var calculated = parseFloat(((Number(total) - 10) / 1).toFixed(6));
+
     setCalulator('max');
-    setValue(parseFloat(((Number(total) - 10) / 1).toFixed(6)));
+    setValue(String(calculated));
 
     console.log('set tenth value >>>>', value);
   };
@@ -195,28 +200,14 @@ export default function WalletSend({navigation, route}) {
   // 각 계산기 값에 따라 보여지는 값 함수
   const handleCalculatorOver = (fixValue) => {
     console.log('fixvalue >>>>>>>>>>>>>>>>>>>>>', fixValue);
-    if (
-      (calculator === 'tenth' && fixValue > total / 10) ||
-      (calculator === 'quarter' && fixValue > total / 4) ||
-      (calculator === 'half' && fixValue > total / 2)
-    ) {
-      setCalulator('');
-    } else if (
-      (calculator === 'tenth' && fixValue < total / 10) ||
-      (calculator === 'quarter' && fixValue < total / 4) ||
-      (calculator === 'half' && fixValue < total / 2)
-    ) {
-      setCalulator('');
+    if (calculator === 'max' && fixValue + 10 === total) {
+      setModal4Visible(!modal4Visible); // 수수료를 제외한 총액이 표시됩니다.
     } else if (
       (calculator === 'max' && fixValue > total - 10) ||
       (total !== 0 && fixValue > total - 10)
     ) {
-      setCalulator('');
-      setModal2Visible(true);
+      setModal2Visible(!modal2Visible); // 수수료를 제외한 총액보다 클 수 없습니다.
       setValue(0);
-    } else if (calculator === 'max' && fixValue + 10 === total) {
-      setModal4Visible(true);
-      setCalulator('max');
     }
     console.log('fixvalue last >>>>>>>>>>>>>>>>>>>>>', fixValue);
   };
@@ -353,7 +344,6 @@ export default function WalletSend({navigation, route}) {
                 </View>
                 <TouchableOpacity
                   onPress={() => {
-                    qrcode = '';
                     navigation.navigate('WalletSendQR');
                   }}>
                   <Image
@@ -392,7 +382,6 @@ export default function WalletSend({navigation, route}) {
                   placeholderTextColor="#a9a9a9"
                   autoCapitalize={'none'}
                   keyboardType={'numeric'}
-                  value={value}
                   onChangeText={(e) => {
                     // 값 검사 및 3자리 컴마 등 함수화
                     inputValueHandle(e);
@@ -400,7 +389,9 @@ export default function WalletSend({navigation, route}) {
                     // setCalulator('');
                     // handleCalculatorOver();
                   }}
-                  value={value === 0 ? null : String(value)}
+                  onEndEditing={() => {}}
+                  // value={value === 0 ? null : String(value)}
+                  value={value === 0 ? null : value}
                 />
                 <TouchableOpacity
                   onPress={() => {

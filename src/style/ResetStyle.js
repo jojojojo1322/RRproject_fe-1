@@ -90,8 +90,8 @@ export default StyleSheet.create({
 
   //small img
   mediumImg: {
-    width: 25,
-    height: 25,
+    width: Platform.OS === 'ios' ? 25 : 20,
+    height: Platform.OS === 'ios' ? 25 : 20,
   },
   smallImg: {
     width: 18,

@@ -62,7 +62,7 @@ export default StyleSheet.create({
     // top: Platform.OS === 'ios' ? '17.5%' : '15%',
     width: '100%',
     bottom: '0%',
-    height: Platform.OS === 'ios' ? '78%' : '80%',
+    height: Platform.OS === 'ios' ? '78%' : '88%',
     backgroundColor: '#fff',
     padding: '5%',
     shadowColor: '#000',
@@ -88,8 +88,8 @@ export default StyleSheet.create({
   },
   walletMain: {
     backgroundColor: '#f3f3f3',
-    padding: '5%',
-    marginBottom: '3%',
+    padding: Platform.OS === 'ios' ? '5%' : '4%',
+    marginBottom: Platform.OS === 'ios' ? '3%' : '2%',
     borderRadius: 10,
   },
 
@@ -195,22 +195,23 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderColor: '#dddddd',
     borderRadius: 13,
-    marginTop: 20,
-    paddingTop: '2%',
-    paddingBottom: '2%',
+    marginTop: Platform.OS === 'ios' ? 20 : 10,
+    // paddingTop: '2%',
+    // paddingBottom: '2%',
   },
   listModalBox: {
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   listModalCloseButton: {
-    width: 25,
-    height: 25,
+    width: Platform.OS === 'ios' ? 25 : 20,
+    height: Platform.OS === 'ios' ? 25 : 20,
   },
   listModalSearch: {
-    width: 25,
-    height: 25,
+    width: Platform.OS === 'ios' ? 25 : 20,
+    height: Platform.OS === 'ios' ? 25 : 20,
   },
 
   // TextConfirmCancelModal

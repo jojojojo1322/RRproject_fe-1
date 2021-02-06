@@ -135,7 +135,8 @@ export function CustomDrawerContent(props) {
           alignItems: 'center',
           justifyContent: 'space-between',
           padding: '5%',
-          paddingBottom: Platform.OS === 'ios' ? '12%' : '8%',
+          paddingtop: Platform.OS === 'ios' ? '5%' : '3%',
+          paddingBottom: Platform.OS === 'ios' ? '12%' : '5%',
         }}>
         <TouchableOpacity
           onPress={() => {
@@ -262,7 +263,7 @@ export function CustomDrawerContent(props) {
           marginVertical: Platform.OS === 'ios' ? '5%' : '3%',
         }}>
         <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
-          <Text style={[ResetStyle.fontMediumE, ResetStyle.fontB]}>
+          <Text style={[ResetStyle.fontMediumK, ResetStyle.fontB]}>
             {total}
           </Text>
           <Text

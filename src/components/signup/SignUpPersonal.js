@@ -196,6 +196,7 @@ class SignUpPersonal extends Component {
               <TouchableOpacity>
                 <View style={AuthStyle.signupInputImageAll}>
                   <TextInput
+                    keyboardType={'email-address'}
                     placeholder="이메일 주소 입력"
                     placeholderTextColor="#a9a9a9"
                     onBlur={async () => {
@@ -229,7 +230,8 @@ class SignUpPersonal extends Component {
                         paddingBottom: '3%',
                         width: '90%',
                       },
-                    ]}></TextInput>
+                    ]}
+                  />
                   <TouchableOpacity
                     onPress={() => {
                       this.setState({

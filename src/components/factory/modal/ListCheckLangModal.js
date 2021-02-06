@@ -98,12 +98,12 @@ const Item = ({
           style={[
             ResetStyle.fontRegularK,
             ResetStyle.fontBlack,
-            {width: '80%', textAlign: 'left', fontSize: 20},
+            {width: '80%', textAlign: 'left'},
           ]}>
           {item.nativeName}
         </Text>
         <RoundCheckbox
-          size={30}
+          size={25}
           keyValue={1}
           checked={false}
           color="#164895"
@@ -194,20 +194,21 @@ class ListCheckLangModal extends Component {
             <View
               style={[
                 ModalStyle.lcModalBox,
-                {marginTop: '3%', marginBottom: '5%'},
+                {
+                  marginTop: '3%',
+                  marginBottom: Platform.OS === 'ios' ? '5%' : '4%',
+                },
               ]}>
               <View
                 style={{
                   flexDirection: 'row',
-                  alignItems: 'flex-end',
-
-                  // marginTop: '3%',
+                  alignItems: 'center',
                 }}>
                 <Text
                   style={[
                     ResetStyle.fontMediumK,
                     ResetStyle.fontBlack,
-                    {fontSize: 19, fontWeight: '500'},
+                    {fontWeight: '500'},
                   ]}>
                   사용가능언어 선택
                 </Text>
@@ -239,13 +240,13 @@ class ListCheckLangModal extends Component {
                     width: '90%',
                     paddingTop: '2%',
                     paddingBottom: '2%',
-                    fontSize: 20,
                   },
                 ]}
                 onChangeText={this.handleInputChange}
                 placeholderTextColor="#a9a9a9"
                 value={this.state.searchText}
-                placeholder="search"></TextInput>
+                placeholder="search"
+              />
               <TouchableOpacity>
                 <Image
                   style={[ModalStyle.listModalSearch]}

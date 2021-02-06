@@ -234,7 +234,7 @@ class SignUp extends Component {
               {/* topBackButton */}
               <View style={ResetStyle.topBackButton}>
                 <TouchableOpacity
-                  style={{flexDirection: 'row'}}
+                  style={{flexDirection: 'row', alignItems: 'center'}}
                   onPress={() => {
                     this.props.navigation.goBack();
                   }}>
@@ -288,14 +288,8 @@ class SignUp extends Component {
                       ? '초기나라설정'
                       : `${this.state.country} (${this.state.countryCd})`}
                   </Text>
-                  {/* <Image
-                    style={[
-                      ResetStyle.smallImg,
-                      ResetStyle.textInputTextButton,
-                      {top: '100%'},
-                    ]}
-                    source={require('../../imgs/drawable-xhdpi/icon_more_b.png')}
-                  /> */}
+
+                  {/* triangle img */}
                   <View
                     style={{
                       width: 0,
@@ -314,20 +308,22 @@ class SignUp extends Component {
                   />
                 </View>
               </TouchableOpacity>
-
-              <TextInput
-                placeholder="-없이 휴대폰 번호 입력"
-                placeholderTextColor="#a9a9a9"
-                keyboardType={'numeric'}
-                returnKeyType={'done'}
-                onChangeText={this.handleInputChange}
-                value={this.state.phoneNum}
-                style={[
-                  ResetStyle.fontRegularK,
-                  ResetStyle.fontBlack,
-                  ResetStyle.textInputText,
-                  {marginBottom: '5%', width: '100%'},
-                ]}></TextInput>
+              <View>
+                <TextInput
+                  placeholder="-없이 휴대폰 번호 입력"
+                  placeholderTextColor="#a9a9a9"
+                  keyboardType={'numeric'}
+                  returnKeyType={'done'}
+                  onChangeText={this.handleInputChange}
+                  value={this.state.phoneNum}
+                  style={[
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontBlack,
+                    ResetStyle.textInputText,
+                    {marginBottom: '5%', width: '100%'},
+                  ]}
+                />
+              </View>
 
               {this.state.CountDownCheck == 'start' && (
                 <TouchableOpacity
@@ -437,7 +433,8 @@ class SignUp extends Component {
                 ]}>
                 인증 번호
               </Text>
-              <View>
+              <View
+                style={{borderBottomWidth: 1, borderBottomColor: '#e6e6e6'}}>
                 <TextInput
                   placeholder="인증번호 입력"
                   placeholderTextColor="#a9a9a9"
@@ -450,6 +447,7 @@ class SignUp extends Component {
                     ResetStyle.fontRegularK,
                     ResetStyle.fontBlack,
                     ResetStyle.textInputText,
+                    {borderBottomWidth: 0},
                   ]}
                 />
               </View>
