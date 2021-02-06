@@ -47,7 +47,7 @@ const ProfileCompleteDetail = (props) => {
         // `${server}/user/user?userNo=210127104026300`,
       )
       .then(async (response) => {
-        console.log(response.data.data);
+        console.log('ProfileCompleteDetail THEN', response.data.data);
         setQuestion(response.data.data);
         setQuestion1(
           response.data.data.filter((data) => data.kycQuestion === '1'),
@@ -66,7 +66,7 @@ const ProfileCompleteDetail = (props) => {
         );
       })
       .catch((e) => {
-        console.log('Error', e);
+        console.log('ProfileCompleteDetail ERROR', e);
       });
   };
 
@@ -145,7 +145,9 @@ const ProfileCompleteDetail = (props) => {
         <TouchableOpacity
           style={[ResetStyle.button]}
           onPress={() => {
-            props.navigation.navigate('Kyc');
+            props.navigation.navigate('ProfileIncompleteDetail', {
+              KycLevel: props.route.params?.KycLevel,
+            });
           }}>
           <Text style={[ResetStyle.buttonTexts, {fontSize: 20}]}>
             정보 수정하기

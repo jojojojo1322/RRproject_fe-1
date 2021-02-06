@@ -83,7 +83,60 @@ export default class Kyc extends Component {
     languageCd: '',
     modalVisible: false,
     returnValue: '',
+
+    updateCheck: false,
   };
+
+  kycGetApi = async () => {
+    await axios
+      .get(`${server}/kyc/1/${await AsyncStorage.getItem('userNo')}`)
+      .then((response) => {
+        console.log('kycGetApi THEN>>', response.data);
+        console.log(response.data.ret_val);
+        if (response.data.response.ret_val === 0) {
+          this.setState({
+            updateCheck: true,
+            gender: response.data.data.gender,
+            maritalStatus: response.data.data.relationShipStatus,
+            birth: response.data.data.dateOfBirth,
+            nationality: response.data.data.nationality,
+            countryCd: response.data.data.nationalityCode,
+            languageCd: response.data.data.language,
+            countryResidence: response.data.data.residentCountry,
+            countryResidenceCd: response.data.data.residentCountryCode,
+            countryCity: response.data.data.residentCity,
+
+            // this.state.birth,
+            // this.state.country,
+            // this.state.countryCd,
+            // this.state.countryCity,
+            // this.state.countryResidence,
+            // this.state.countryResidenceCd,
+            // this.state.gender,
+            // this.state.languageCd,
+            // this.state.maritalStatus,
+
+            ////
+            // dateOfBirth: birthday,
+            // gender: gender,
+            // language: languageCd,
+
+            // nationality: country,
+            // nationalityCode: countryCd,
+            // relationShipStatus: marriageStatus,
+            // residentCity: countryCity,
+            // residentCountry: countryResidence,
+            // residentCountryCode: countryResidenceCd,
+
+            // userNo: userNo,
+          });
+        }
+      })
+      .catch((e) => {
+        console.log('kycGetApi ERROR>>', e);
+      });
+  };
+
   setModalVisible = (visible) => {
     this.setState({
       modalVisible: visible,
@@ -189,6 +242,9 @@ export default class Kyc extends Component {
     if (preState.languageCd !== this.state.languageCd) {
       console.log('trans~~~~~~~~~');
     }
+  }
+  componentDidMount() {
+    this.kycGetApi();
   }
   render() {
     // const {navigation} = this.props;
@@ -300,7 +356,21 @@ export default class Kyc extends Component {
                 setLanguage={this.setLanguage}
                 setResidenceCountry={this.setResidenceCountry}
                 setResidenceCity={this.setResidenceCity}
+                Kcountry={this.state.countryCd}
+                Klanguage={this.state.languageCd}
+                KresidenceCountry={this.state.countryResidence}
+                KresidenceCity={this.state.countryCity}
               />
+              // updateCheck: true,
+              // gender: response.data.data.gender,
+              // maritalStatus: response.data.data.relationShipStatus,
+              // birth: response.data.data.dateOfBirth,
+              // nationality: response.data.data.nationality,
+              // countryCd: response.data.data.nationalityCode,
+              // languageCd: response.data.data.language,
+              // countryResidence: response.data.data.residentCountry,
+              // countryResidenceCd: response.data.data.residentCountryCode,
+              // countryCity: response.data.data.residentCity,
             )}
           </View>
 
