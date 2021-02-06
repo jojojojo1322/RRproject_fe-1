@@ -31,6 +31,12 @@ import MainDetail from './components/main/MainDetail';
 import MainDetailCompleted from './components/main/MainDetailCompleted';
 import MainDetailExpired from './components/main/MainDetailExpired';
 import MainVideo from './components/main/MainVideo';
+
+import IdVerification from './components/idVerification/IdVerification';
+import IdVerificationComplete from './components/idVerification/IdVerificationComplete';
+import IdVerificationInProgress from './components/idVerification/IdVerificationInProgress';
+import IdVerificationDecline from './components/idVerification/IdVerificationDecline';
+import IdVerificationSorry from './components/idVerification/IdVerificationSorry';
 // import MainVideoTest from './components/main/MainVideoTest';
 
 import Media from './Media';
@@ -612,6 +618,41 @@ export const AppMainStack = (props) => {
       <Stack.Screen
         name="MainAlert"
         component={MainAlert}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="IdVerification"
+        component={IdVerification}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="IdVerificationInProgress"
+        component={IdVerificationInProgress}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="IdVerificationComplete"
+        component={IdVerificationComplete}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="IdVerificationDecline"
+        component={IdVerificationDecline}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="IdVerificationSorry"
+        component={IdVerificationSorry}
         options={{
           headerShown: false,
         }}

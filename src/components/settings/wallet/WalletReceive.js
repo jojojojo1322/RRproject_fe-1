@@ -24,21 +24,6 @@ import {server} from '../../defined/server';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NavigationHelpersContext} from '@react-navigation/native';
 
-const deviceWidth = Dimensions.get('screen').width;
-const deviceHeight = Dimensions.get('screen').height;
-
-const dealDetail = {
-  block: '1035613',
-  total: '2',
-  status: 'Receive',
-  object: '회원가입',
-  sender: '0x6565232c6565ed6565659desds6565c58s6565c58',
-  recipient: '0x6565232c6565ed6565659desds6565c58s6565c58',
-  memo: 'Test',
-  DATE: '2020-10-30 20:16:21',
-  TXID: '0x6565232c6565ed6565659desds6565c58c7',
-};
-
 const WalletReceive = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);

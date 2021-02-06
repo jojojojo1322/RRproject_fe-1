@@ -84,7 +84,10 @@ const WalletDetail = (props) => {
             <List title="메모" sub={props.route.params?.data.content.memo} />
           )}
           {/* 거래일시 */}
-          <List title="거래일시" sub={props.route.params?.data.timestamp} />
+          <List
+            title="거래일시"
+            sub={(props.route.params?.data.timestamp).replace(/T/, ' ')}
+          />
           {/* TXID */}
           <List title="TXID" sub={props.route.params?.data.txid} />
         </ScrollView>

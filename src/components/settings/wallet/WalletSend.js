@@ -7,7 +7,7 @@ import {
   Image,
   Platform,
 } from 'react-native';
-import PropTypes, {func} from 'prop-types';
+import PropTypes, {func, number} from 'prop-types';
 import ResetStyle from '../../../style/ResetStyle.js';
 import WalletStyle from '../../../style/WalletStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -27,20 +27,6 @@ function numberWithCommas(num) {
   );
 }
 
-const masterKey = 'RR6f3TBp4ckUTuWVw9Wb6akW84HgJcGZJgwnN1WNnJDy9QEBitdG';
-
-const dealDetail = {
-  block: '1035613',
-  total: '2',
-  status: 'Receive',
-  object: '회원가입',
-  sender: '0x6565232c6565ed6565659desds6565c58s6565c58',
-  recipient: '0x6565232c6565ed6565659desds6565c58s6565c58',
-  memo: 'Test',
-  DATE: '2020-10-30 20:16:21',
-  TXID: '0x6565232c6565ed6565659desds6565c58c7',
-};
-
 export default function WalletSend({navigation, route}) {
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
@@ -48,15 +34,17 @@ export default function WalletSend({navigation, route}) {
   const [modal4Visible, setModal4Visible] = useState(false);
   const [modal5Visible, setModal5Visible] = useState(false);
   const [modal6Visible, setModal6Visible] = useState(false);
+  const [modal7Visible, setModal7Visible] = useState(false);
   const [total, setTotal] = useState(0);
   const [value, setValue] = useState(0);
+  const [valuePlusTen, setValuePlusTen] = useState(0);
+  // const [fixValue, setFixValue] = useState(0);
   const [calculator, setCalulator] = useState('');
   const [address, setAddress] = useState('');
   const [memo, setMemo] = useState('');
   const [type, setType] = useState('SEND');
-  const [walletData, setWalletData] = useState([]);
   const [transfee, setTransfee] = useState('전송 수수료 : 10 TNC');
-
+  const [walletData, setWalletData] = useState([]);
   const [calculatedValue, setCalculatedValue] = useState(total);
 
   const onlyDecimalsix = (num) => {
@@ -75,9 +63,6 @@ export default function WalletSend({navigation, route}) {
     }
   };
 
-  const {qrcode} = route ? route.params : '';
-  console.log('qrcode check >>>>>', qrcode);
-
   // Calculator
   useEffect(() => {
     const fixValue = Number(String(value).replace(/,/g, ''));
@@ -89,33 +74,43 @@ export default function WalletSend({navigation, route}) {
     // console.log('aaaaaaaa', value);
   }, [value]);
 
+  let {qrcode} = route ? route.params : 'a';
+
+  // const {qrcode} = route.params?.qrcode;
   useEffect(() => {
+    // const {qrcode} = route ? route.params : '';
+    console.log('qrcode check >>>>>', qrcode);
+  }, []);
+
+  useEffect(() => {
+    console.log('useEffect?>?>?>?>?>?>?>?>?>');
+    // const {qrcode} = route ? route.params : '';
     setAddress(qrcode);
   }, [qrcode]);
 
   // Wallet Api 활성화
   useEffect(() => {
     // Async Test 용 dummy email 저장
-    AsyncStorage.setItem('email', 'a@c.com', () => {
-      console.log('유저 닉네임 저장 완료');
-    });
+    // AsyncStorage.setItem('email', 'a@c.com', () => {
+    //   console.log('유저 닉네임 저장 완료');
+    // });
     walletDataApi();
   }, []);
 
-  // 송금 후 잔액 계산 불러우기
+  // 송금 후 잔액 계산 불러오기
   useEffect(() => {
     totalCalculator();
     console.log('check for calculated value >>>', calculatedValue);
   }, [calculatedValue]);
 
+  useEffect(() => {
+    valuePlusTenCalculator(value);
+  }, [value]);
+
   // 송금 후 잔액 계산용
   const totalCalculator = () => {
     setCalculatedValue(total - value - 10);
   };
-
-  // useEffect(() => {
-  //   console.log('calculator', calculator);
-  // }, [calculator]);
 
   // Call wallet Data Api
   const walletDataApi = async () => {
@@ -132,11 +127,43 @@ export default function WalletSend({navigation, route}) {
       });
   };
 
-  // Total value TNC Check
-  console.log('wallet data check >>>>>', walletData);
-  console.log('total check >>>>>', total);
-  console.log('value check >>>>>', value);
+  useEffect(() => {
+    console.log('calculator value check >>>>>>>>>>>>>>>>>>>>>>>>', calculator);
+  }, [calculator]);
 
+  // Calculator
+  const setTenth = () => {
+    setCalulator('tenth');
+    setValue(parseFloat((Number(total) / 10).toFixed(6)));
+    console.log('set tenth value >>>>', value);
+  };
+
+  const setQuarter = () => {
+    setCalulator('quarter');
+    setValue(parseFloat((Number(total) / 4).toFixed(6)));
+
+    console.log('set tenth value >>>>', value);
+  };
+
+  const setHalf = () => {
+    setCalulator('half');
+    setValue(parseFloat((Number(total) / 2).toFixed(6)));
+
+    console.log('set tenth value >>>>', value);
+  };
+
+  const setMax = () => {
+    setCalulator('max');
+    setValue(parseFloat(((Number(total) - 10) / 1).toFixed(6)));
+
+    console.log('set tenth value >>>>', value);
+  };
+
+  const valuePlusTenCalculator = (e) => {
+    setValuePlusTen(Number(e) + 10);
+  };
+
+  // textInput event 안에 들어가는 값
   const inputValueHandle = (e) => {
     // 컴마가 붙어있을 경우 3자리 컴마 함수 에러 -> 컴마 제거를 한 후 다시 3자리 컴마함수 씌우기
     let ret = e.replace(/,/g, '');
@@ -158,59 +185,16 @@ export default function WalletSend({navigation, route}) {
     }
     setValue(ret);
     setCalulator('');
-    handleCalculatorOver();
+    handleCalculatorOver(ret);
   };
+  useEffect(() => {
+    const Fvalue = value;
+    setValue(Fvalue);
+  }, [value]);
 
-  // Calculator
-  const setTenth = () => {
-    setCalulator('tenth');
-    setValue(parseFloat((Number(total) / 10).toFixed(6)));
-  };
-
-  const setQuarter = () => {
-    setCalulator('quarter');
-    setValue(parseFloat((Number(total) / 4).toFixed(6)));
-  };
-
-  const setHalf = () => {
-    setCalulator('half');
-    setValue(parseFloat((Number(total) / 2).toFixed(6)));
-  };
-
-  const setMax = () => {
-    setCalulator('max');
-    setValue(parseFloat(((Number(total) - 10) / 1).toFixed(6)));
-  };
-
-  const setConfirm = () => {
-    navigation.navigate('WalletConfirmPassword', {
-      amount: value,
-      email: AsyncStorage.getItem('email'),
-      memo: memo,
-      to: address,
-      type: type,
-    });
-  };
-
-  const handleAddress = (e) => {
-    setAddress(e);
-  };
-
-  const handleMemo = (e) => {
-    setMemo(e);
-  };
-
-  const handleConfirm = () => {
-    if (address !== 'e.data' && value !== 0) {
-      setModalVisible(true);
-    } else if (value !== 0 && value <= 10) {
-      setModal6Visible(!modal6Visible);
-    } else {
-      setModal5Visible(!modal5Visible);
-    }
-  };
-
+  // 각 계산기 값에 따라 보여지는 값 함수
   const handleCalculatorOver = (fixValue) => {
+    console.log('fixvalue >>>>>>>>>>>>>>>>>>>>>', fixValue);
     if (
       (calculator === 'tenth' && fixValue > total / 10) ||
       (calculator === 'quarter' && fixValue > total / 4) ||
@@ -234,6 +218,39 @@ export default function WalletSend({navigation, route}) {
       setModal4Visible(true);
       setCalulator('max');
     }
+    console.log('fixvalue last >>>>>>>>>>>>>>>>>>>>>', fixValue);
+  };
+
+  const handleAddress = (e) => {
+    setAddress(e);
+  };
+
+  const handleMemo = (e) => {
+    setMemo(e);
+  };
+
+  // wallet send modal 하단 전송 누를 시 동작
+  const setConfirm = async () => {
+    navigation.navigate('WalletConfirmPassword', {
+      amount: value,
+      email: await AsyncStorage.getItem('email'),
+      memo: memo,
+      to: address,
+      type: type,
+      balance: calculatedValue,
+      valuePlusTen: valuePlusTen,
+    });
+  };
+
+  // 하단 보내기 버튼 누를 시 동작
+  const handleConfirm = () => {
+    if (address !== 'e.data' && value !== 0 && value > 10) {
+      setModalVisible(!modalVisible);
+    } else if (value !== 0 && value <= 10) {
+      setModal6Visible(!modal6Visible);
+    } else {
+      setModal5Visible(!modal5Visible);
+    }
   };
 
   // 총액 하단 경고문구
@@ -247,7 +264,10 @@ export default function WalletSend({navigation, route}) {
     }
   };
 
+  // TNC Check
+  console.log('total check >>>>>', total);
   console.log('value check >>>>>', value);
+  console.log('wallet data check >>>>>', walletData);
   console.log('calculatedValue check >>>>>', calculatedValue);
 
   return (
@@ -333,8 +353,8 @@ export default function WalletSend({navigation, route}) {
                 </View>
                 <TouchableOpacity
                   onPress={() => {
+                    qrcode = '';
                     navigation.navigate('WalletSendQR');
-                    // this.props.navigation.navigate('WalletSendQR');
                   }}>
                   <Image
                     style={[WalletStyle.sendContentInnerXButton]}
@@ -357,6 +377,8 @@ export default function WalletSend({navigation, route}) {
                 총액
               </Text>
               <View style={[WalletStyle.sendContentInnerTextView]}>
+                {/* 금액 */}
+
                 <TextInput
                   style={[
                     ResetStyle.fontRegularK,
@@ -370,17 +392,16 @@ export default function WalletSend({navigation, route}) {
                   placeholderTextColor="#a9a9a9"
                   autoCapitalize={'none'}
                   keyboardType={'numeric'}
+                  value={value}
                   onChangeText={(e) => {
                     // 값 검사 및 3자리 컴마 등 함수화
                     inputValueHandle(e);
                     // setValue(e);
-
                     // setCalulator('');
                     // handleCalculatorOver();
                   }}
-                  value={value === 0 ? null : value}
+                  value={value === 0 ? null : String(value)}
                 />
-
                 <TouchableOpacity
                   onPress={() => {
                     setValue(0);
@@ -514,6 +535,7 @@ export default function WalletSend({navigation, route}) {
                   placeholderTextColor="#a9a9a9"
                   autoCapitalize={'none'}
                   onChangeText={handleMemo}
+                  // value={memo}
                   value={memo}
                   maxLength={15}
                 />
@@ -557,6 +579,7 @@ export default function WalletSend({navigation, route}) {
         calculatedValue={calculatedValue}
         amount={value}
         memo={memo}
+        valuePlusTen={valuePlusTen}
       />
       <BottomModal
         modalVisible={modal2Visible}

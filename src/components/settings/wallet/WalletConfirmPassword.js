@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -23,68 +23,81 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const WalletConfirmPassword = ({navigation, route}) => {
-  const [buttonNumber, setButtonNumber] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
-  const [Tpassword, setTPassword] = useState('');
-  const [apassword, setAPassword] = useState([]);
+  const [modal3Visible, setModal3Visible] = useState(false);
   const [Jpassword, setJpassword] = useState([]);
+  const [password, setPassword] = useState('');
   const [walletAddress, setWalletAddress] = useState('');
+  const [statusCheck, setStatusCheck] = useState('');
 
   const {amount} = route ? route.params : '';
   const {email} = route ? route.params : '';
   const {memo} = route ? route.params : '';
   const {to} = route ? route.params : '';
   const {type} = route ? route.params : '';
+  const {balance} = route ? route.params : '';
+  const {valuePlusTen} = route ? route.params : '';
   // console.log('amount check >>>>>', amount);
   // console.log('email check >>>>>', email);
   // console.log('memo check >>>>>', memo);
   // console.log('to check >>>>>', to);
   // console.log('type check >>>>>', type);
+  // console.log('balance check >>>>>', balance);
+  // console.log('valuePlusTen check >>>>>', valuePlusTen);
 
   // wallet password Api 부르기
-  const walletPasswordApi = async (walletPw) => {
+
+  const walletPasswordApi = async (password) => {
+    console.log('check passed password', password);
     await axios
-      .post(`${server}/wallet`, {
-        userNo: await AsyncStorage.getItem('userNo'),
-        walletPw: walletPw,
+      .post(`${server}/wallet/trans`, {
+        amount: valuePlusTen,
+        email: email,
+        memo: memo,
+        password: password,
+        to: to,
+        type: type,
       })
-      .then((response) => {
-        console.log(response);
-        setWalletAddress(response.data.walletAddress);
+      .then(async (response) => {
+        console.log('wallet send response check  >>>>>', response);
+        // await setStatusCheck(response.data.status);
+        if (response.data.status == 'success') {
+          //TNC 전송 성공시
+          handleNextPage();
+        } else if (response.data.status == 'fail') {
+          //TNC 전송 실패시 (전송이 실패하였습니다.)
+          navigation.navigate('WalletSend');
+        }
       })
       .catch((e) => {
+        // setModal2Visible(!modal2Visible);
+        navigation.navigate('WalletSend');
         console.log(e);
       });
   };
 
-  const handlePassNumber = (e) => {
-    let password = Tpassword;
-    overSix();
-    if (buttonNumber === '1') {
-      password = password + '1';
-    } else if (buttonNumber === '2') {
-      password = password + '2';
-    } else if (buttonNumber === '3') {
-      password = password + '3';
-    } else if (buttonNumber === '4') {
-      password = password + '4';
-    } else if (buttonNumber === '5') {
-      password = password + '5';
-    } else if (buttonNumber === '6') {
-      password = password + '6';
-    } else if (buttonNumber === '7') {
-      password = password + '7';
-    } else if (buttonNumber === '8') {
-      password = password + '8';
-    } else if (buttonNumber === '9') {
-      password = password + '9';
-    } else if (buttonNumber === '0') {
-      password = password + '0';
-    }
-    setTPassword(password);
-  };
-  const handlePass = (value) => {
+  // function preModal3 (value){
+
+  //   const prevModal3Ref = useRef();
+  //   useEffect(() => {
+  //     prevModal3Ref.current = value;
+  //   });
+  //   return prevModal3Ref.current
+  // }
+
+  // useEffect(() => {
+  //   if (prevModal3Ref.current === true && modal3Visible === false) {
+  //     navigation.navigate('WalletSend');
+  //   }
+  // }, [modal3Visible]);
+
+  useEffect(() => {
+    console.log('Jpassword??', Jpassword);
+    console.log('Jpassword??', Jpassword.length);
+  }, [Jpassword]);
+
+  const handlePass = async (value, e) => {
     console.log('handlePass', value);
     let passArr = Jpassword;
     let test = '';
@@ -93,40 +106,25 @@ const WalletConfirmPassword = ({navigation, route}) => {
     } else if ((passArr.length = 5)) {
       console.log('last');
       setJpassword(passArr.concat({id: passArr.length, value}));
+      passArr = passArr.concat({id: passArr.length, value});
+
       //first pass
-      Jpassword.map((data) => {
+      passArr.map((data) => {
         test += data.value;
       });
-      console.log('test???????>>', test);
-      // setJpassword(test);
 
-      // this.setState({
-      //   passArr: [],
-      // });
+      setPassword(test);
+      console.log('마지막 비밀번호 체크 TEST', test);
+      console.log('마지막 비밀번호 체크 ARR', passArr);
+      // test <<<<<<<<<< 완성 6자리
+
+      await walletPasswordApi(test);
     }
-    // console.log('pass', pass);
+    console.log('test', test);
   };
 
-  useEffect(() => {
-    console.log('Tpassword??', Tpassword);
-  }, [Tpassword]);
-  useEffect(() => {
-    console.log('Jpassword??', Jpassword);
-    console.log('Jpassword??', Jpassword.length);
-  }, [Jpassword]);
-
   const handlePassErase = (e) => {
-    // if (apassword.length !== 1) {
-    //   console.log('zzzzzzzzzz');
-    //   let fixArr = apassword;
-    //   // Tpassword.slice(0, -1);
-    //   // console.log('zzzzzzzzzz', Tpassword);
-    //   fixArr = fixArr.filter((data, index) => index != apassword.length);
-    //   setAPassword(fixArr);
-    //   console.log(apassword);
-    // } else {
-    //   Tpassword;
-    // }
+    ////////////////////
     let passArr = Jpassword;
 
     if (passArr.length !== 0) {
@@ -134,34 +132,14 @@ const WalletConfirmPassword = ({navigation, route}) => {
     }
   };
 
-  // useEffect(() => {
-  //   console.log('password check >>>>>', password);
-  // }, [password]);
-  // 비밀번호 배열 텍스트
-  // useEffect(() => {
-
-  //   let Arr = apassword;
-
-  //   Arr = Arr.concat(buttonNumber);
-  //   setAPassword(Arr);
-  //   setTPassword(password);
-  //   console.log('dummydummydummy', password);
-  //   console.log('dummydummapasswordydummy', apassword);
-  //   console.log('Tpassword.length', Tpassword.length);
-  // }, [Tpassword]);
-
-  useEffect(() => {});
-
-  const overSix = () => {
-    if (0 < Tpassword.length <= 6) {
-    } else {
-      setTPassword('');
-    }
-    console.log('oversix check', Tpassword.length);
-  };
-
   const handleNextPage = async () => {
-    navigation.navigate('WalletSendSuccess');
+    navigation.navigate('WalletSendSuccess', {
+      amount: amount,
+      email: email,
+      memo: memo,
+      to: to,
+      balance: balance,
+    });
   };
 
   return (
@@ -409,6 +387,16 @@ const WalletConfirmPassword = ({navigation, route}) => {
         setModalVisible={setModalVisible}
         text={`지갑 비밀번호가 일치하지 않습니다.`}
       />
+      <BottomModal
+        modalVisible={modal2Visible}
+        setModalVisible={setModal2Visible}
+        text={`입력 정보가 잘못되었습니다.`}
+      />
+      <BottomModal
+        modalVisible={modal3Visible}
+        setModalVisible={setModal3Visible}
+        text={`전송이 실패하였습니다.`}
+      />
     </SafeAreaView>
   );
 };
@@ -449,7 +437,6 @@ const styles = StyleSheet.create({
     width: '40%',
     height: '30%',
     resizeMode: 'contain',
-    // color: '#fff',
   },
 });
 

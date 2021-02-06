@@ -50,18 +50,18 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSCameraUsageDescription</key>
-	<string>Your message to user when the camera is accessed for the first time</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+  	<string>$(PRODUCT_NAME) would like access to your photo gallery</string>
+  	<key>NSCameraUsageDescription</key>
+  	<string>$(PRODUCT_NAME) would like to use your camera</string>
+  	<key>NSPhotoLibraryAddUsageDescription</key>
+  	<string>$(PRODUCT_NAME) would like to save photos to your photo gallery</string>
+  	<key>NSMicrophoneUsageDescription</key>
+  	<string>$(PRODUCT_NAME) would like to use your microphone (for videos)</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>$(PRODUCT_NAME) requires FaceID access to allows you quick and secure access.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Your message to user when the microphone is accessed for the first time</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Your message to user when the photo library is accessed for the first time</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Your message to user when the photo library is accessed for the first time</string>
 	<key>UIAppFonts</key>
 	<array/>
 	<key>UIBackgroundModes</key>
@@ -83,5 +83,6 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	
 </dict>
 </plist>

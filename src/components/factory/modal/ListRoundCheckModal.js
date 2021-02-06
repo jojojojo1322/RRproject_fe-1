@@ -254,6 +254,7 @@ class ListRoundCheckModal extends Component {
             <View style={[ModalStyle.lrcModalInput]}>
               <TextInput
                 style={[ResetStyle.fontLightK, ResetStyle.fontG, {padding: 10}]}
+                placeholderTextColor="#a9a9a9"
                 placeholder="search"></TextInput>
               <TouchableOpacity>
                 <Image
