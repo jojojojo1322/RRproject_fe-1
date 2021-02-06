@@ -29,11 +29,11 @@ import {CountryListApi} from '../defined/DefineCountryList';
 export default class kycThird extends Component {
   state = {
     country: '',
-    countryCd: '',
-    language: '',
-    residenceCountry: '',
+    countryCd: this.props.Kcountry,
+    language: this.props.Klanguage,
+    residenceCity: this.props.KresidenceCity,
+    residenceCountry: this.props.KresidenceCountry,
     residenceCountryCd: '',
-    residenceCity: '',
     countryModal: false,
     languageModal: false,
     residenceCountryModal: false,
@@ -50,11 +50,24 @@ export default class kycThird extends Component {
     this.languageDataApi();
   }
   componentDidUpdate = (preProps, preState) => {
-    if (preState.residenceCountryCd !== this.state.residenceCountryCd) {
-      this.cityDataApi();
+    if (preProps.Kcountry !== this.props.Kcountry) {
       this.setState({
-        residenceCity: '',
+        countryCd: this.props.Kcountry,
+        language: this.props.Klanguage,
+        residenceCity: this.props.KresidenceCity,
+        residenceCountry: this.props.KresidenceCountry,
       });
+      this.countryDataApi();
+    } else {
+      if (
+        preState.residenceCountryCd !== '' &&
+        preState.residenceCountryCd !== this.state.residenceCountryCd
+      ) {
+        this.cityDataApi();
+        this.setState({
+          residenceCity: '',
+        });
+      }
     }
   };
   cityDataApi = async () => {
@@ -83,6 +96,26 @@ export default class kycThird extends Component {
         this.setState({
           countryData: response.data,
         });
+        console.log(
+          'countryDataApi',
+          response.data.filter(
+            (data) => data.fullName === this.state.residenceCountry,
+          ),
+        );
+        if (
+          response.data.filter(
+            (data) => data.countryCode === this.state.countryCd,
+          ).length === 1
+        ) {
+          this.setState({
+            country: response.data.filter(
+              (data) => data.countryCode === this.state.countryCd,
+            )[0].fullName,
+            residenceCountryCd: response.data.filter(
+              (data) => data.fullName === this.state.residenceCountry,
+            )[0].countryCode,
+          });
+        }
         // return await response;
       })
       .catch(({e}) => {
@@ -179,6 +212,12 @@ export default class kycThird extends Component {
     this.props.handleBirth(e);
   };
   render() {
+    console.log({
+      countryCd: this.props.Kcountry,
+      language: this.props.Klanguage,
+      residenceCity: this.props.KresidenceCity,
+      residenceCountry: this.props.KresidenceCountry,
+    });
     // console.log('this.state.cityData');
     // console.log(this.state.cityData);
     return (
@@ -212,14 +251,14 @@ export default class kycThird extends Component {
               style={[
                 ResetStyle.fontRegularK,
                 ResetStyle.fontG,
-                this.state.country !== '' && ResetStyle.fontBlack,
+                this.state.countryCd !== '' && ResetStyle.fontBlack,
                 {
                   textAlign: 'left',
                   paddingTop: '6%',
                   paddingBottom: '3%',
                 },
               ]}>
-              {this.state.country == ''
+              {this.state.countryCd == ''
                 ? '선택해 주세요.'
                 : `${this.state.country} (${this.state.countryCd})`}
             </Text>

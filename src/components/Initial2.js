@@ -205,7 +205,7 @@ const Initial2 = (props) => {
                       style={[ResetStyle.buttonWhite, {marginTop: 10}]}
                       activeOpacity={0.75}
                       onPress={() => {
-                        props.navigation.navigate('WalletPassword');
+                        props.navigation.navigate('Kyc');
                       }}>
                       <Text
                         style={[
@@ -213,7 +213,7 @@ const Initial2 = (props) => {
                           ResetStyle.fontB,
                           {fontWeight: '600'},
                         ]}>
-                        WalletPassword
+                        Kyc
                       </Text>
                     </TouchableOpacity>
                   </Animated.View>

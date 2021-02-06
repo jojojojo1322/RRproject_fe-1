@@ -342,7 +342,9 @@ const ProfileCompleteLevel2 = (props) => {
         <TouchableOpacity
           style={[ResetStyle.button]}
           onPress={() => {
-            props.navigation.navigate('Kyc');
+            navigation.navigate('ProfileIncompleteDetail', {
+              KycLevel: props.route.params?.KycLevel,
+            });
           }}>
           <Text style={[ResetStyle.buttonTexts, {fontSize: 20}]}>
             정보 수정하기

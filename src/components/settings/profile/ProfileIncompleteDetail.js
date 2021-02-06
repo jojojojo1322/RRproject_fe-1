@@ -34,6 +34,7 @@ const ProfileIncompleteDetail = (props) => {
   const [kycOption, setKycOption] = useState([]);
   const [successCheck, setSuccessCheck] = useState(0);
 
+  const [updateCheck, setUpdateCheck] = useState(false);
   //modal
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
@@ -50,6 +51,25 @@ const ProfileIncompleteDetail = (props) => {
   //   },
   // ]
 
+  //해당 kyc질문 get check
+  const getAdvancedKyGetApi = async () => {
+    await axios
+      .get(
+        `${server}/kyc/${await AsyncStorage.getItem('userNo')}/${
+          props.route.params?.KycLevel
+        }/${await AsyncStorage.getItem('deviceLanguage')}`,
+      )
+      .then(async (response) => {
+        if (response.data.data != '') {
+          console.log('update logic>>>>>>>>>>>');
+          setCheckedArray(response.data.data);
+          setUpdateCheck(true);
+        }
+      })
+      .catch((e) => {
+        console.log('getAdvancedKyGetApi Error>>', e);
+      });
+  };
   //해당 kyc질문 api
   const getAdvancedKycQuestionListApi = async () => {
     await axios
@@ -100,59 +120,31 @@ const ProfileIncompleteDetail = (props) => {
         console.log('createAdvancedKycApi Error>>', e);
       });
   };
+  //해당 Kyc Level update
+  const updateAdvancedKycApi = async () => {
+    console.log('updateAdvancedKycApi');
+    await axios
+      .patch(
+        `${server}/kyc/${
+          props.route.params?.KycLevel
+        }/${await AsyncStorage.getItem('userNo')}`,
+        checkedArray,
+      )
+      .then(async (response) => {
+        console.log('updateAdvancedKycApi THEN>>', response);
+        setSuccessCheck(response.data.ret_val);
+      })
+      .catch((e) => {
+        console.log('updateAdvancedKycApi Error>>', e);
+      });
+  };
 
   const confirm = () => {
     props.navigation.navigate('ProfileMain');
   };
 
-  useEffect(async () => {
-    getAdvancedKycQuestionListApi();
-    getAdvancedKycOptionListApi();
-  }, []);
-
-  useEffect(() => {
-    setCheckId(true);
-  }, [checkId]);
-
-  // nowIndex 변화 체크
-  useEffect(() => {
-    console.log('nowIndex 변화 체크');
-    setNextCheck(
-      checkedArray.findIndex(
-        (y) => String(y.kycQuestion) === String(nowIndex + 1),
-      ) >= 0 ||
-        // 아니면 questionRequiredYN -> FALSE 일경우
-        (kycQuestion[nowIndex] &&
-          kycQuestion[nowIndex].questionRequiredYN === 'FALSE'),
-    );
-  }, [nowIndex]);
-
-  useEffect(() => {
-    console.log('체크어레이 유스이펙트 진입');
-    console.log(
-      'setNextCheck>>>>>>>',
-      checkedArray.findIndex(
-        (y) => String(y.kycQuestion) === String(nowIndex + 1),
-      ) >= 0 ||
-        // 아니면 questionRequiredYN -> FALSE 일경우
-        (kycQuestion[nowIndex] &&
-          kycQuestion[nowIndex].questionRequiredYN === 'FALSE'),
-    );
-    // 해당 index kyc질문에 대한 대답이 배열에 들어가있는지 체크
-    setNextCheck(
-      checkedArray.findIndex(
-        (y) => Number(y.kycQuestion) === Number(nowIndex + 1),
-      ) >= 0 ||
-        // 아니면 questionRequiredYN -> FALSE 일경우
-        (kycQuestion[nowIndex] &&
-          kycQuestion[nowIndex].questionRequiredYN === 'FALSE'),
-    );
-    console.log('체크어레이 유스이펙트 끝');
-  }, [checkedArray]);
-
   //이전 페이지 버튼 클릭시
   const handlerPrev = (e) => {
-    e.preventDefault();
     const _nowIndex = nowIndex;
     if (_nowIndex != 0) {
       setNowIndex(_nowIndex - 1);
@@ -164,7 +156,6 @@ const ProfileIncompleteDetail = (props) => {
 
   //다음 버튼 클릭시
   const handlerNext = async (e) => {
-    e.preventDefault();
     // setNextCheck(false);
     const _nowIndex = nowIndex;
 
@@ -182,14 +173,23 @@ const ProfileIncompleteDetail = (props) => {
     }
     if (_nowIndex === questionLength - 1) {
       console.log('checkedArray', checkedArray);
-      await createAdvancedKycApi();
-      if (successCheck === 0) {
-        props.navigation.navigate('ProfileComplete', {
-          KycLevel: props.route.params?.KycLevel,
-        });
+      if (updateCheck === false) {
+        await createAdvancedKycApi();
+        if (successCheck === 0) {
+          props.navigation.navigate('ProfileComplete', {
+            KycLevel: props.route.params?.KycLevel,
+          });
+        } else {
+        }
       } else {
+        await updateAdvancedKycApi();
+        if (successCheck === 0) {
+          props.navigation.navigate('ProfileComplete', {
+            KycLevel: props.route.params?.KycLevel,
+          });
+        } else {
+        }
       }
-      // props.navigation.navigate('ProfileComplete');
     }
   };
 
@@ -203,38 +203,147 @@ const ProfileIncompleteDetail = (props) => {
       typeName: typeName,
     });
     let _checkedArray = checkedArray;
-    // if (typeName === 'radiobutton') {
-    if (status === 'PLUS') {
-      var ARR = _checkedArray.concat({
-        content: '',
-        kycLevel: String(props.route.params?.KycLevel),
-        kycOption: String(answer),
-        kycQuestion: String(question),
-        languageCode: deviceLanguage,
-        userNo: String(userNo),
-      });
-      setCheckedArray(ARR);
-    } else if (status === 'MINUS') {
-      console.log(
-        _checkedArray.splice(
-          _checkedArray.findIndex(
-            (y) => y.kycQuestion == question && y.kycOption == answer,
+    if (typeName === 'radiobutton') {
+      ///// -- 배열 값 추가 삭제 --- ////
+      if (status === 'PLUS') {
+        var ARR = _checkedArray.concat({
+          content: '',
+          kycLevel: String(props.route.params?.KycLevel),
+          kycOption: String(answer),
+          kycQuestion: String(question),
+          languageCode: deviceLanguage,
+          userNo: String(userNo),
+        });
+        setCheckedArray(ARR);
+      } else if (status === 'MINUS') {
+        console.log(
+          _checkedArray.splice(
+            _checkedArray.findIndex(
+              (y) => y.kycQuestion == question && y.kycOption == answer,
+            ),
+            1,
           ),
-          1,
-        ),
-      );
+        );
+        setCheckedArray(_checkedArray);
+        setNextCheck(
+          _checkedArray.findIndex(
+            (y) => String(y.kycQuestion) === String(nowIndex + 1),
+          ) >= 0 ||
+            // 아니면 questionRequiredYN -> FALSE 일경우
+            (kycQuestion[nowIndex] &&
+              kycQuestion[nowIndex].questionRequiredYN === 'FALSE'),
+        );
+      }
+      ///// -- 배열 값 추가 삭제 --- ////
+    } else if (typeName === 'checkbox') {
+      /// 배열에 같은 kycQuestion 있으면 그 배열의 kycOption에 쉼표로 값 추가 / 쉼표 포함 값제거
 
-      setCheckedArray(_checkedArray);
-      setNextCheck(
+      // findIndex -> 값이 없다면 -1, 있다면 인덱스 넘버
+      //다중선택시 같은 질문 배열있나 체크
+      if (
         _checkedArray.findIndex(
-          (y) => String(y.kycQuestion) === String(nowIndex + 1),
-        ) >= 0 ||
-          // 아니면 questionRequiredYN -> FALSE 일경우
-          (kycQuestion[nowIndex] &&
-            kycQuestion[nowIndex].questionRequiredYN === 'FALSE'),
-      );
+          (data) => String(data.kycQuestion) === String(question),
+        ) !== -1
+      ) {
+        // 같은 값이 존재한다면
+        if (status === 'PLUS') {
+          let fixAnswer =
+            _checkedArray[
+              _checkedArray.findIndex(
+                (data) => String(data.kycQuestion) === String(question),
+              )
+            ].kycOption;
+
+          fixAnswer = `${String(fixAnswer)},${answer}`;
+
+          // console.log(
+          //   'filter return value',
+          //   _checkedArray[
+          //     _checkedArray.findIndex(
+          //       (data) => String(data.kycQuestion) === String(question),
+          //     )
+          //   ].kycOption,
+          // );
+
+          _checkedArray[
+            _checkedArray.findIndex(
+              (data) => String(data.kycQuestion) === String(question),
+            )
+          ].kycOption = fixAnswer;
+          setCheckedArray(_checkedArray);
+        } else if (status === 'MINUS') {
+          let fixAnswer =
+            _checkedArray[
+              _checkedArray.findIndex(
+                (data) => String(data.kycQuestion) === String(question),
+              )
+            ].kycOption;
+          console.log('원래 들어있는 값 체크', fixAnswer);
+          console.log('마이너스 인덱스 값 체크', fixAnswer.indexOf(answer));
+          if (fixAnswer.indexOf(answer) === 0) {
+            let text = fixAnswer.slice(0, 2);
+            fixAnswer = fixAnswer.replace(text, '');
+          } else {
+            let text = fixAnswer.slice(
+              fixAnswer.indexOf(answer) - 1,
+              fixAnswer.indexOf(answer) + 1,
+            );
+            fixAnswer = fixAnswer.replace(text, '');
+          }
+
+          console.log('마이너스 인덱스 값으로 slice', fixAnswer);
+
+          console.log('바뀐 값 들어있는 값 체크', fixAnswer);
+          _checkedArray[
+            _checkedArray.findIndex(
+              (data) => String(data.kycQuestion) === String(question),
+            )
+          ].kycOption = fixAnswer;
+
+          setCheckedArray(_checkedArray);
+          setNextCheck(
+            _checkedArray.findIndex(
+              (y) => String(y.kycQuestion) === String(nowIndex + 1),
+            ) >= 0 ||
+              // 아니면 questionRequiredYN -> FALSE 일경우
+              (kycQuestion[nowIndex] &&
+                kycQuestion[nowIndex].questionRequiredYN === 'FALSE'),
+          );
+        }
+      } else {
+        if (status === 'PLUS') {
+          var ARR = _checkedArray.concat({
+            content: '',
+            kycLevel: String(props.route.params?.KycLevel),
+            kycOption: String(answer),
+            kycQuestion: String(question),
+            languageCode: deviceLanguage,
+            userNo: String(userNo),
+          });
+          setCheckedArray(ARR);
+        } else if (status === 'MINUS') {
+          console.log(
+            _checkedArray.splice(
+              _checkedArray.findIndex(
+                (y) => y.kycQuestion == question && y.kycOption == answer,
+              ),
+              1,
+            ),
+          );
+
+          setCheckedArray(_checkedArray);
+          setNextCheck(
+            _checkedArray.findIndex(
+              (y) => String(y.kycQuestion) === String(nowIndex + 1),
+            ) >= 0 ||
+              // 아니면 questionRequiredYN -> FALSE 일경우
+              (kycQuestion[nowIndex] &&
+                kycQuestion[nowIndex].questionRequiredYN === 'FALSE'),
+          );
+        }
+      }
+      ///// -- 배열 값 추가 삭제 --- ////
     }
-    // }
   };
 
   let researchArr = question;
@@ -300,7 +409,7 @@ const ProfileIncompleteDetail = (props) => {
                 checkedArray.findIndex(
                   (y) =>
                     y.kycQuestion === item.questionNumber &&
-                    y.kycOption === item.optionNumber,
+                    y.kycOption.indexOf(item.optionNumber) !== -1,
                 ) >= 0
                   ? true
                   : false
@@ -344,7 +453,7 @@ const ProfileIncompleteDetail = (props) => {
                 checkedArray.findIndex(
                   (y) =>
                     y.kycQuestion === item.questionNumber &&
-                    y.kycOption === item.optionNumber,
+                    y.kycOption.indexOf(item.optionNumber) !== -1,
                 ) >= 0
                   ? true
                   : false
@@ -416,7 +525,39 @@ const ProfileIncompleteDetail = (props) => {
         </View>,
       )),
   );
-  console.log('modalvisbile', modalVisible);
+  useEffect(() => {
+    getAdvancedKycQuestionListApi();
+    getAdvancedKycOptionListApi();
+    getAdvancedKyGetApi();
+  }, []);
+
+  useEffect(() => {
+    setCheckId(true);
+  }, [checkId]);
+
+  // nowIndex 변화 체크
+  useEffect(() => {
+    setNextCheck(
+      checkedArray.findIndex(
+        (y) => String(y.kycQuestion) === String(nowIndex + 1),
+      ) >= 0 ||
+        // 아니면 questionRequiredYN -> FALSE 일경우
+        (kycQuestion[nowIndex] &&
+          kycQuestion[nowIndex].questionRequiredYN === 'FALSE'),
+    );
+  }, [nowIndex]);
+
+  useEffect(() => {
+    // 해당 index kyc질문에 대한 대답이 배열에 들어가있는지 체크
+    setNextCheck(
+      checkedArray.findIndex(
+        (y) => Number(y.kycQuestion) === Number(nowIndex + 1),
+      ) >= 0 ||
+        // 아니면 questionRequiredYN -> FALSE 일경우
+        (kycQuestion[nowIndex] &&
+          kycQuestion[nowIndex].questionRequiredYN === 'FALSE'),
+    );
+  }, [checkedArray]);
   return (
     <SafeAreaView style={[ResetStyle.container]}>
       <View

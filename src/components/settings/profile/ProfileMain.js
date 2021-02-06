@@ -53,14 +53,6 @@ const ProfileMain = ({navigation}) => {
   const [kycLevelNumber, setKycLevelNumber] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
 
-  useEffect(() => {
-    userApi();
-  }, []);
-
-  // console.log(DATA[kycLevel - 1].level);
-  // console.log(kycLevelNumber);
-  // console.log(DATA[kycLevel - 1].level === kycLevelNumber);
-
   const userApi = async () => {
     await axios
       .get(
@@ -153,6 +145,9 @@ const ProfileMain = ({navigation}) => {
       </TouchableOpacity>
     );
   };
+  useEffect(() => {
+    userApi();
+  }, []);
 
   return (
     <SafeAreaView style={ResetStyle.container}>

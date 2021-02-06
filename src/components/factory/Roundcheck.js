@@ -139,14 +139,31 @@ export class RoundCheckbox extends Component {
           );
           let multiCnt = 0;
           this.props.checkedArray.map((data, index) => {
-            if (String(data.kycQuestion) == String(key)) {
-              multiCnt++;
+            if (
+              String(data.kycQuestion) == String(key)
+              // String(data.kycOption).indexOf(value) !== -1
+            ) {
+              const num = data.kycOption.length;
+              // multiCnt = data.kycOption.length;
+              multiCnt = num;
             }
           });
-
+          // if (
+          //   this.props.checkedArray.findIndex(
+          //     (data) => String(data.kycQuestion) === String(key),
+          //   ) !== -1
+          // ) {
+          //   multiCnt = this.props.checkedArray[
+          //     this.props.checkedArray.findIndex(
+          //       (data) => String(data.kycQuestion) === String(key),
+          //     )
+          //   ].kycOption.length;
+          // }
+          console.log('array><>>>>>>>>>', this.props.checkedArray);
           //checkbox - 3개 초과 금지 처리 /
           if (this.props.typeName == 'checkbox') {
-            if (multiCnt == 3) {
+            console.log('multiCnt', multiCnt);
+            if (multiCnt >= 5) {
               console.log('3개초과3개초과3개초과3개초과3개초과');
               // this.props.handleQuestion(
               //   key,
@@ -168,7 +185,6 @@ export class RoundCheckbox extends Component {
               );
             }
           }
-          //
           this.props.handleQuestion(key, value, 'PLUS', this.props.typeName);
         } else if (this.props.survey_handleQuestion) {
           this.props.survey_handleQuestion(key, value, 'PLUS');
