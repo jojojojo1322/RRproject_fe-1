@@ -10,45 +10,14 @@ import {
   NativeModules,
   Platform,
 } from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {useHeaderHeight} from '@react-navigation/stack';
-import {StatusBar} from 'react-native';
-import {lang} from './defined/lang';
 import ResetStyle from '../style/ResetStyle.js';
 import AuthStyle from '../style/AuthStyle.js';
 import getPermission from '../components/defined/getPermission';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
 
-// i18n
-//   .use(initReactI18next) // passes i18n down to react-i18next
-//   .init({
-//     resources: {
-//       en: {
-//         translation: {
-//           'Welcome to React': 'Welcome to React and react-i18next',
-//         },
-//       },
-//       ko: {
-//         translation: {
-//           'Welcome to React': '안녕하세요',
-//         },
-//       },
-//     },
-//     lng: 'en',
-//     fallbackLng: 'en',
-
-//     interpolation: {
-//       escapeValue: false,
-//     },
-//   });
-
 const images = new Array('', '', '');
 const window = Dimensions.get('window');
-// const Wrapper = styled.View`
-//   // flex : 1
-//   height: Dimenssion.get('screen') .height;
-// `;
 
 const Initial2 = (props) => {
   const scrollX = new Animated.Value(0);
@@ -59,6 +28,7 @@ const Initial2 = (props) => {
   const [imageIndex, setImageIndex] = useState(0);
 
   const {t, i18n} = useTranslation();
+
   // state = {
   //   number: 1,
   // };
@@ -114,7 +84,6 @@ const Initial2 = (props) => {
   ////
   const windowWidth = dimensions.window.width;
   const windowHeight = dimensions.window.height;
-  const llang = lang;
   console.log('windowHeight', windowHeight);
   return (
     <SafeAreaView
@@ -191,20 +160,10 @@ const Initial2 = (props) => {
                       {textAlign: 'center', marginTop: '4%', lineHeight: 26},
                     ]}>
                     {imageIndex == 0
-                      ? // ? lang()[0].en.initial1
-                        t('Welcome to React')
+                      ? t('intro1')
                       : imageIndex == 1
-                      ? lang()[0].en.initial2
-                      : lang()[0].en.initial3}
-
-                    {/* {
-                      lang(223, <Text style={{color: 'red'}}>asd</Text>)[0].ko
-                        .KycComplete[1]
-                    }
-                    {
-                      lang(223, <Text style={{color: 'red'}}>asd</Text>)[0].ko
-                        .KycComplete[2]
-                    } */}
+                      ? t('intro2')
+                      : t('intro3')}
                   </Text>
                 </View>
 
@@ -216,9 +175,6 @@ const Initial2 = (props) => {
                       activeOpacity={0.75}
                       onPress={() => {
                         props.navigation.navigate('SignUp');
-                        props.navigation.setOptions({
-                          title: '휴대폰 인증',
-                        });
                       }}>
                       <Text
                         style={[
@@ -245,11 +201,11 @@ const Initial2 = (props) => {
                         LOGIN
                       </Text>
                     </TouchableOpacity>
-                    {/* <TouchableOpacity
+                    <TouchableOpacity
                       style={[ResetStyle.buttonWhite, {marginTop: 10}]}
                       activeOpacity={0.75}
                       onPress={() => {
-                        props.navigation.navigate('EmailAuthentication');
+                        props.navigation.navigate('WalletPassword');
                       }}>
                       <Text
                         style={[
@@ -257,9 +213,9 @@ const Initial2 = (props) => {
                           ResetStyle.fontB,
                           {fontWeight: '600'},
                         ]}>
-                        EmailAuthentication
+                        WalletPassword
                       </Text>
-                    </TouchableOpacity> */}
+                    </TouchableOpacity>
                   </Animated.View>
                 ) : null}
               </View>

@@ -16,6 +16,9 @@ import {server} from '../defined/server';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Keyboard} from 'react-native';
 
+import {withTranslation} from 'react-i18next';
+import hoistStatics from 'hoist-non-react-statics';
+
 //이메일 유효성 체크
 function CheckEmail(str) {
   var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
@@ -155,6 +158,7 @@ class SignUpPersonal extends Component {
   };
   render() {
     CheckedArrObject = new SelectedCheckboxes();
+    const {t} = this.props;
 
     return (
       <SafeAreaView style={ResetStyle.container}>
@@ -174,7 +178,7 @@ class SignUpPersonal extends Component {
                     source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
                   />
                   <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-                    회원정보 입력
+                    {t('signUpPersonalTitle')}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -189,7 +193,7 @@ class SignUpPersonal extends Component {
                     ResetStyle.fontBlack,
                     {textAlign: 'left'},
                   ]}>
-                  이메일
+                  {t('signUpPersonal1')}
                 </Text>
               </View>
 
@@ -197,7 +201,7 @@ class SignUpPersonal extends Component {
                 <View style={AuthStyle.signupInputImageAll}>
                   <TextInput
                     keyboardType={'email-address'}
-                    placeholder="이메일 주소 입력"
+                    placeholder={t('signUpPersonal2')}
                     placeholderTextColor="#a9a9a9"
                     onBlur={async () => {
                       console.log('>>>>>>>>>>>>>>>>>>>>aaa>>>>>>>>');
@@ -269,7 +273,7 @@ class SignUpPersonal extends Component {
                           ResetStyle.fontR,
                           {marginLeft: 5},
                         ]}>
-                        이미 사용 중인 이메일입니다.
+                        {t('signUpPersonal13')}
                       </Text>
                     </>
                   )}
@@ -287,7 +291,7 @@ class SignUpPersonal extends Component {
                         ResetStyle.fontR,
                         {marginLeft: 5},
                       ]}>
-                      이메일 형식이 맞지 않습니다.
+                      {t('signUpPersonal14')}
                     </Text>
                   </>
                 )}
@@ -304,7 +308,7 @@ class SignUpPersonal extends Component {
                           ResetStyle.fontB,
                           {marginLeft: 5},
                         ]}>
-                        등록 가능한 이메일 입니다.
+                        {t('signUpPersonal15')}
                       </Text>
                     </>
                   )}
@@ -320,14 +324,14 @@ class SignUpPersonal extends Component {
                     ResetStyle.fontBlack,
                     {textAlign: 'left'},
                   ]}>
-                  비밀번호
+                  {t('signUpPersonal3')}
                 </Text>
               </View>
 
               <TouchableOpacity>
                 <View style={AuthStyle.signupInputImageAll}>
                   <TextInput
-                    placeholder="아래 조합으로 입력"
+                    placeholder={t('signUpPersonal4')}
                     placeholderTextColor="#a9a9a9"
                     secureTextEntry={this.state.passwordBlur}
                     // keyboardType={'numeric'}
@@ -397,7 +401,7 @@ class SignUpPersonal extends Component {
                       ResetStyle.fontG,
                       {marginLeft: 5},
                     ]}>
-                    영문
+                    {t('signUpPersonal5')}
                   </Text>
                 </View>
                 <View style={[AuthStyle.signupCheckView]}>
@@ -418,7 +422,7 @@ class SignUpPersonal extends Component {
                       ResetStyle.fontG,
                       {marginLeft: 5},
                     ]}>
-                    숫자
+                    {t('signUpPersonal6')}
                   </Text>
                 </View>
                 <View style={[AuthStyle.signupCheckView]}>
@@ -439,7 +443,7 @@ class SignUpPersonal extends Component {
                       ResetStyle.fontG,
                       {marginLeft: 5},
                     ]}>
-                    대문자
+                    {t('signUpPersonal7')}
                   </Text>
                 </View>
                 <View style={[AuthStyle.signupCheckView]}>
@@ -460,7 +464,7 @@ class SignUpPersonal extends Component {
                       ResetStyle.fontG,
                       {marginLeft: 5},
                     ]}>
-                    특수문자
+                    {t('signUpPersonal8')}
                   </Text>
                 </View>
                 <View style={[AuthStyle.signupCheckView]}>
@@ -481,7 +485,7 @@ class SignUpPersonal extends Component {
                       ResetStyle.fontG,
                       {marginLeft: 5},
                     ]}>
-                    8자리 이상
+                    {t('signUpPersonal9')}
                   </Text>
                 </View>
               </View>
@@ -496,14 +500,14 @@ class SignUpPersonal extends Component {
                     ResetStyle.fontBlack,
                     {textAlign: 'left'},
                   ]}>
-                  비밀번호 확인
+                  {t('signUpPersonal10')}
                 </Text>
               </View>
 
               <TouchableOpacity>
                 <View style={AuthStyle.signupInputImageAll}>
                   <TextInput
-                    placeholder="비밀번호 다시 입력"
+                    placeholder={t('signUpPersonal12')}
                     placeholderTextColor="#a9a9a9"
                     secureTextEntry={this.state.checkPasswordBlur}
                     // keyboardType={'numeric'}
@@ -586,7 +590,7 @@ class SignUpPersonal extends Component {
                           ResetStyle.fontR,
                           {marginLeft: 5},
                         ]}>
-                        비밀번호가 일치하지 않습니다.
+                        {t('signUpPersonal16')}
                       </Text>
                     </>
                   )}
@@ -598,7 +602,7 @@ class SignUpPersonal extends Component {
                     />
                     <Text
                       style={{color: '#0080ff', fontSize: 14, marginLeft: 10}}>
-                      비밀번호가 일치합니다.
+                      {t('signUpPersonal17')}
                     </Text>
                   </>
                 )}
@@ -675,7 +679,6 @@ class SignUpPersonal extends Component {
                     phoneNum: this.props.route.params?.phoneNum,
                     inviteCode: this.state.inviteCode,
                   });
-                  this.props.navigation.setOptions({title: '약관동의'});
                 }
               }}>
               <Text
@@ -684,7 +687,7 @@ class SignUpPersonal extends Component {
                   ResetStyle.fontWhite,
                   {fontWeight: '600'},
                 ]}>
-                다음
+                {t('signUpPersonalNextButton')}
               </Text>
             </TouchableOpacity>
           </View>
@@ -694,4 +697,4 @@ class SignUpPersonal extends Component {
   }
 }
 
-export default SignUpPersonal;
+export default hoistStatics(withTranslation()(SignUpPersonal), SignUpPersonal);

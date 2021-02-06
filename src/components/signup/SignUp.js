@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -21,6 +21,8 @@ import DeviceInfo from 'react-native-device-info';
 import BottomModal from '../factory/modal/BottomModal';
 
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {withTranslation} from 'react-i18next';
+import hoistStatics from 'hoist-non-react-statics';
 
 //휴대폰 유효성 검사
 function isCellPhone(p) {
@@ -30,6 +32,75 @@ function isCellPhone(p) {
 
   return regPhone.test(p);
 }
+
+// const SignUp = () => {
+// const [password, setPassord] =  useState('');
+// const [modalVisible, setModalVisible] = useState(false);
+// const [modalVisibleRe, setModalVisibleRe] = useState(false);
+// const [modalVisibleNotAuth, setModalVisibleNotAuth] = useState(false);
+// const [modalVisibleNotAuthExpire, setModalVisibleNotAuthExpire] = useState(false);
+// const [modalVisibleNotPhone, setModalVisibleNotPhone] = useState(false);
+// const [modalVisibleNotPhoneVali, setModalVisibleNotPhoneVali] = useState(false);
+// const [modalVisibleResend, setModalVisibleResend] = useState(false);
+// const [phoneAuthCheck, setPhoneAuthCheck] = useState('');
+// const [authKeyCheck, setAuthKeyCheck] = useState('');
+// const [authKey, setAuthKey] = useState('');
+// const [phoneNum, setPhoneNum] = useState('');
+// const [country, setCountry] = useState('');
+// const [countryCd, setCountryCd] = useState('');
+// const [countryPhoneCode, setCountryPhoneCode] = useState('');
+// const [deviceKey, setDeviceKey] = useState('');
+// const [isRunning, setIsRunning] = useState(false);
+// const [timeLeftNumber, setTimeLeftNumber] = useState(180);
+// const [countDownCheck, setCountDownCheck] = useState('');
+// const [countDownExpireCheck, setCountDownExpireCheck] = useState(false);
+// const [countryData, setCountryData] = useState([]);
+
+// const countryDataApi = async () => {
+//   await axios
+//     .get(`${server}/util/global/country`)
+//     .then(async (response) => {
+//       setCountryData(response.data);
+//     })
+//     .catch(({e}) => {
+//       console.log('error', e);
+//     });
+// };
+
+// const handlePassword = (text) => {
+//   setPassord(test);
+// };
+// // only number
+// const handleInputChange = (phoneNum) => {
+//   if (/^\d+$/.test(phoneNum) || phoneNum === '') {
+//     setPhoneNum(phoneNum);
+//   }
+// };
+
+// useEffect(() => {
+//   countryDataApi();
+//   setDeviceKey(DeviceInfo.getUniqueId())
+// }, [])
+
+// useEffect(() => {
+
+// }, [])
+
+// componentDidUpdate(preProps, preState) {
+//   if (preState.CountDownExpireCheck !== this.state.CountDownExpireCheck) {
+//     if (
+//       this.state.CountDownExpireCheck === true &&
+//       this.state.AuthKeyCheck != '0'
+//     ) {
+//       console.log(this.state.AuthKey);
+//       this.smsAuthExpireApi(this.state.AuthKey);
+//     }
+//   }
+// }
+
+// }
+
+// export default SignUp;
 
 class SignUp extends Component {
   state = {
@@ -224,6 +295,7 @@ class SignUp extends Component {
   };
 
   render() {
+    const {t} = this.props;
     return (
       <SafeAreaView style={ResetStyle.container}>
         <KeyboardAwareScrollView
@@ -243,7 +315,7 @@ class SignUp extends Component {
                   />
 
                   <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-                    휴대폰 인증
+                    {t('signUpBack')}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -253,7 +325,7 @@ class SignUp extends Component {
                   ResetStyle.fontBlack,
                   {marginTop: '10%', fontWeight: '300'},
                 ]}>
-                원활한 서비스 제공을 위해{'\n'}휴대폰 번호를 입력해주세요
+                {t('signUp1')}
               </Text>
             </View>
 
@@ -264,7 +336,7 @@ class SignUp extends Component {
                   ResetStyle.fontBlack,
                   ResetStyle.textInputTitle,
                 ]}>
-                휴대폰 번호
+                {t('signUp2')}
               </Text>
 
               <TouchableOpacity
@@ -285,7 +357,7 @@ class SignUp extends Component {
                       this.state.country !== '' && ResetStyle.fontBlack,
                     ]}>
                     {this.state.country == ''
-                      ? '초기나라설정'
+                      ? t('signUp3')
                       : `${this.state.country} (${this.state.countryCd})`}
                   </Text>
 
@@ -310,7 +382,7 @@ class SignUp extends Component {
               </TouchableOpacity>
               <View>
                 <TextInput
-                  placeholder="-없이 휴대폰 번호 입력"
+                  placeholder={t('signUp4')}
                   placeholderTextColor="#a9a9a9"
                   keyboardType={'numeric'}
                   returnKeyType={'done'}
@@ -375,7 +447,7 @@ class SignUp extends Component {
                       ResetStyle.fontB,
                       {fontWeight: '600'},
                     ]}>
-                    재요청
+                    {t('signUp6')}
                   </Text>
                 </TouchableOpacity>
               )}
@@ -418,7 +490,7 @@ class SignUp extends Component {
                       ResetStyle.fontWhite,
                       {fontWeight: '600'},
                     ]}>
-                    인증요청
+                    {t('signUp5')}
                   </Text>
                 </TouchableOpacity>
               )}
@@ -431,12 +503,12 @@ class SignUp extends Component {
                   ResetStyle.fontBlack,
                   ResetStyle.textInputTitle,
                 ]}>
-                인증 번호
+                {t('signUp7')}
               </Text>
               <View
                 style={{borderBottomWidth: 1, borderBottomColor: '#e6e6e6'}}>
                 <TextInput
-                  placeholder="인증번호 입력"
+                  placeholder={t('signUp8')}
                   placeholderTextColor="#a9a9a9"
                   value={this.state.passWord}
                   keyboardType={'numeric'}
@@ -492,7 +564,7 @@ class SignUp extends Component {
                     ResetStyle.fontG,
                     {marginLeft: '2%'},
                   ]}>
-                  3분 이내에 인증번호를 입력해 주세요.
+                  {t('signUp9')}
                 </Text>
               </View>
 
@@ -512,7 +584,7 @@ class SignUp extends Component {
                     ResetStyle.fontG,
                     {marginLeft: '2%'},
                   ]}>
-                  입력시간 초과 시 ‘재요청’ 버튼을 눌려주세요.
+                  {t('signUp10')}
                 </Text>
               </View>
             </View>
@@ -552,7 +624,7 @@ class SignUp extends Component {
                   ResetStyle.fontWhite,
                   {fontWeight: '600'},
                 ]}>
-                다음
+                {t('signUpNextButton')}
               </Text>
             </TouchableOpacity>
           </View>
@@ -562,37 +634,35 @@ class SignUp extends Component {
             modalVisible={this.state.modalVisible}
             setModalVisible={this.setModalVisible}
             setCountry={this.setCountry}
-            titleText={`국가선택`}
+            titleText={t('signUpModal1')}
             list={this.state.countryData}
           />
         </View>
         <BottomModal
           setModalVisible={this.setModalVisibleResend}
           modalVisible={this.state.modalVisibleResend}
-          text={`인증번호가 재요청되었습니다.`}
+          text={t('signUpModal2')}
         />
         <BottomModal
           setModalVisible={this.setModalVisibleNotAuth}
           modalVisible={this.state.modalVisibleNotAuth}
-          text={`인증번호가 틀렸습니다.`}
+          text={t('signUpModal3')}
         />
         <BottomModal
           setModalVisible={this.setModalVisibleNotAuthExpire}
           modalVisible={this.state.modalVisibleNotAuthExpire}
-          text={`만료된 인증번호입니다.`}
+          text={t('signUpModal4')}
         />
         <BottomModal
           setModalVisible={this.setModalVisibleNotPhone}
           modalVisible={this.state.modalVisibleNotPhone}
-          text={`이미 인증된 번호입니다.`}
+          text={t('signUpModal5')}
         />
         <BottomModal
           setModalVisible={this.setModalVisibleNotPhoneVali}
           modalVisible={this.state.modalVisibleNotPhoneVali}
           text={
-            this.state.country == ''
-              ? `국가를 선택해주세요.`
-              : `휴대폰 번호를 정확히 입력해주세요.`
+            this.state.country == '' ? t('signUpModal6') : t('signUpModal7')
           }
         />
       </SafeAreaView>
@@ -600,4 +670,4 @@ class SignUp extends Component {
   }
 }
 
-export default SignUp;
+export default hoistStatics(withTranslation()(SignUp), SignUp);

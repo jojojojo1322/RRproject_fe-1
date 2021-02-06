@@ -12,6 +12,9 @@ import {RoundCheckbox} from '../factory/Roundcheck';
 import ResetStyle from '../../style/ResetStyle.js';
 import AuthStyle from '../../style/AuthStyle';
 
+import {withTranslation} from 'react-i18next';
+import hoistStatics from 'hoist-non-react-statics';
+
 class SelectedCheckboxes {
   constructor() {
     selectedCheckboxes = [];
@@ -108,6 +111,7 @@ class AgreementTermsConditions extends Component {
   };
 
   render() {
+    const {t} = this.props;
     return (
       <SafeAreaView style={ResetStyle.container}>
         <View style={ResetStyle.containerInner}>
@@ -124,7 +128,7 @@ class AgreementTermsConditions extends Component {
                     source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
                   />
                   <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-                    약관동의
+                    {t('agreementTermsConditionsTitle')}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -159,7 +163,7 @@ class AgreementTermsConditions extends Component {
                   ResetStyle.fontDG,
                   {marginLeft: 10},
                 ]}>
-                서비스 이용약관 관련 전체동의
+                {t('agreementTermsConditions1')}
               </Text>
             </View>
             <View
@@ -190,9 +194,6 @@ class AgreementTermsConditions extends Component {
                     this.props.navigation.navigate('TermsConditions', {
                       name: '이용약관',
                     });
-                    this.props.navigation.setOptions({
-                      title: '이용약관 및 개인정보처리방침',
-                    });
                   }}>
                   <Text
                     style={[
@@ -200,7 +201,7 @@ class AgreementTermsConditions extends Component {
                       ResetStyle.fontDG,
                       {marginLeft: 10},
                     ]}>
-                    이용약관 동의(필수)
+                    {t('agreementTermsConditions2')}
                   </Text>
                 </TouchableWithoutFeedback>
               </View>
@@ -208,9 +209,6 @@ class AgreementTermsConditions extends Component {
                 onPress={() => {
                   this.props.navigation.navigate('TermsConditions', {
                     name: '이용약관',
-                  });
-                  this.props.navigation.setOptions({
-                    title: '이용약관 및 개인정보처리방침',
                   });
                 }}>
                 <Image
@@ -246,9 +244,6 @@ class AgreementTermsConditions extends Component {
                     this.props.navigation.navigate('TermsConditions', {
                       name: '개인정보처리방침',
                     });
-                    this.props.navigation.setOptions({
-                      title: '이용약관 및 개인정보처리방침',
-                    });
                   }}>
                   <Text
                     style={[
@@ -256,7 +251,7 @@ class AgreementTermsConditions extends Component {
                       ResetStyle.fontDG,
                       {marginLeft: 10},
                     ]}>
-                    개인정보처리방침 동의(필수)
+                    {t('agreementTermsConditions4')}
                   </Text>
                 </TouchableWithoutFeedback>
               </View>
@@ -264,9 +259,6 @@ class AgreementTermsConditions extends Component {
                 onPress={() => {
                   this.props.navigation.navigate('TermsConditions', {
                     name: '개인정보처리방침',
-                  });
-                  this.props.navigation.setOptions({
-                    title: '이용약관 및 개인정보처리방침',
                   });
                 }}>
                 <Image
@@ -288,7 +280,6 @@ class AgreementTermsConditions extends Component {
                   deviceKey: this.props.route.params?.deviceKey,
                   phoneNum: this.props.route.params?.phoneNum,
                 });
-                this.props.navigation.setOptions({title: '회원정보 입력'});
               }
             }}>
             <Text
@@ -297,7 +288,7 @@ class AgreementTermsConditions extends Component {
                 ResetStyle.fontWhite,
                 {fontWeight: '600'},
               ]}>
-              다음
+              {t('agreementTermsConditionsNextButton')}
             </Text>
           </TouchableOpacity>
         </View>
@@ -306,4 +297,7 @@ class AgreementTermsConditions extends Component {
   }
 }
 
-export default AgreementTermsConditions;
+export default hoistStatics(
+  withTranslation()(AgreementTermsConditions),
+  AgreementTermsConditions,
+);
