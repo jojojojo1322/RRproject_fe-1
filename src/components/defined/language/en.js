@@ -87,6 +87,46 @@ export default en = {
       Login6: 'Don’t have an account?',
       Login7: 'SIGN UP',
       Login8: 'Powered by Real Research Inc.',
+      Login9: 'Kyc Level 1을\n진행해주세요.',
+      Login10: '확인',
+      Login11: '현재 지갑이 생성되어 있지 않습니다\n지갑을 만들어주세요.',
+      Login12: '확인',
+      Login13: '정보가 정확하지 않습니다.',
+      Login14: '해당 계정의 디바이스가 아닙니다.',
+
+      // CustomDrawerContent
+      customDrawerContentMail:
+        '리얼 리서치는 회원님들의 원활한 이용을 위해 영어, 러시아어, 한국어 총 3개 언어를 지원하고 있습니다. 도움이 필요하시면 언제든 문의해주십시오.',
+      customDrawerContent1: 'KYC LEVEL',
+      customDrawerContent2: '레벨업하러 가기',
+      customDrawerContent3: 'TNC',
+      customDrawerContent4: '내지갑열기',
+      customDrawerContent5: '본인인증',
+      customDrawerContent6: '설문조사',
+      customDrawerContent7: '설문조사 의뢰하기',
+      customDrawerContent8: '미디어',
+      customDrawerContent9: '알림',
+      customDrawerContent10: '1:1 문의',
+      customDrawerContent11: '설정',
+      customDrawerContent12: '초대코드',
+
+      // Main
+      mainLogo: 'Real Research',
+      main1: 'No data!',
+      main2: 'TNC',
+      main3: '보기',
+      main4: 'KYC LEVEL',
+      main5: 'LEVEL',
+      main6: 'MY TNC',
+      main7: 'ONGOING',
+      main8: 'COMPLETED',
+      main9: 'EXPIRED',
+
+      // MainDetail
+      mainDetail1: '',
+
+      // MainAlert
+      mainAlertTitle: '알림',
 
       // WalletPassword
       WalletPasswordTitle: 'Wallet password',
@@ -181,6 +221,8 @@ export default en = {
       walletSend12: '수수료를 제외한 총액이 표시됩니다.',
       walletSend13: '내용을 올바르게 입력 해 주십시오.',
       walletSend14: '보내는 금액은 최소 10TNC 이상입니다.',
+      walletSend15: '전송 수수료 : 10 TNC',
+      walletSend16: '보내는 금액은 최소 10 TNC 이상이어야 합니다.',
 
       // WalletSendQR
       walletSendQRTitle: '돌아가기',
@@ -195,6 +237,13 @@ export default en = {
       walletSendModal6: ' TNC',
       walletSendModal7: 'Memo',
       walletSendModalNextButton: 'Enter',
+
+      // WalletConfirmPassword
+      walletConfirmPasswordTitle: '지갑 비밀번호',
+      walletConfirmPassword1: '비밀번호를 입력해주세요.',
+      walletConfirmPassword2: '지갑 비밀번호가 일치하지 않습니다.',
+      walletConfirmPassword3: '입력 정보가 잘못되었습니다.',
+      walletConfirmPassword4: '전송이 실패하였습니다.',
 
       // WalletSendSuccess
       walletSendSuccessTitle: 'Transfer completed',
@@ -224,6 +273,11 @@ export default en = {
       settings5: '언어 설정',
       settings6: '이용약관',
       settings7: '개인정보처리방침',
+
+      // SettingsAlert
+      settingsAlertTitle: '알림 설정',
+      settingsAlert1: 'Research 알림',
+      settingsAlert2: '리워드 지급 알림',
 
       // SettingsLanguage
       settingsLanguageTitle: '언어 설정',
@@ -345,6 +399,33 @@ export default en = {
       settingsPersonalPhone15: '휴대폰 번호를 정확히 입력해주세요.',
       settingsPersonalPhoneNextButton: '다음',
 
+      // SettingsPersonalResetPassword
+      settingsPersonalResetPasswordTitle: '새 비밀번호 입력',
+      settingsPersonalResetPassword1: '비밀번호',
+      settingsPersonalResetPassword2: '아래 조합으로 입력',
+      settingsPersonalResetPassword3: '영문',
+      settingsPersonalResetPassword4: '숫자',
+      settingsPersonalResetPassword5: '대문자',
+      settingsPersonalResetPassword6: '특수문자',
+      settingsPersonalResetPassword7: '8자리 이상',
+      settingsPersonalResetPassword8: '비밀번호 확인',
+      settingsPersonalResetPassword9: '비밀번호 다시 입력',
+      settingsPersonalResetPassword10: '비밀번호가 일치하지 않습니다.',
+      settingsPersonalResetPassword11: '비밀번호가 변경되었습니다.',
+      settingsPersonalResetPassword12: '확인',
+      settingsPersonalResetPasswordNextButton: '확인',
+
+      // SettingsLock
+      settingsLockTitle: '잠금 설정',
+      settingsLock1: '사용 안함',
+      settingsLock2: '비밀번호',
+      settingsLock3: '패턴',
+      settingsLock4: '지문 / Face ID',
+      settingsLock5: '비밀번호 변경',
+      settingsLock6:
+        '지금부터 휴대폰에 등록된 지문으로\n잠금해제 할 수 있습니다.',
+      settingsLock7: '확인',
+
       // SettingsLockPassword
       settingsLockPasswordTitle: '비밀번호',
       settingsLockPassword1: '잠금화면 비밀번호\n4자리를 입력해 주세요.',
@@ -359,6 +440,43 @@ export default en = {
       settingsLockPattern3: '패턴 설정이 완료되었습니다.',
       settingsLockPattern4: '확인',
       settingsLockPatternNextButton: '다음',
+
+      // Idverification
+      idVerificationTitle: 'KYC 여권 인증',
+      idVerification1: '왼손에 여권을 들고 사진을 찍으세요.',
+      idVerification2:
+        '오른손엔 날짜와 Real Research, 서명을 한 종이를 들고 찍으세요.',
+      idVerification3: "Passport의 'Personal No.'는 가리셔도 됩니다.",
+      idVerification4: '사진촬영',
+      idVerification5: '이미지 업로드',
+      idVerification6: 'Passport Number',
+      idVerification7: '입력',
+      idVerification8: 'First Name',
+      idVerification9: '입력',
+      idVerification10: 'Last Name',
+      idVerification11: '입력',
+      idVerificationNextButton: '확인',
+
+      // IdVerificationComplete
+      idVerificationCompleteTitle: '인증 완료',
+      idVerificationComplete1:
+        '인증이 승인되었습니다!\nID를 제출해주셔서 감사합니다.\n귀하의 프로필이 검증되었습니다.',
+
+      // IdVerificationDecline
+      idVerificationDeclineTitle: '인증 거절',
+      idVerificationDecline1:
+        '인증이 거절되었습니다.\n여권의 더 명확한 사본을\n다시 제출해주세요.',
+      idVerificationDeclineNextButton: '확인',
+
+      // IdVerificationInProgress
+      idVerificationInProgressTitle: '인증 진행중',
+      idVerificationInProgress1:
+        '파일이 성공적으로 제출되었습니다.\n승인 여부는 Real Research 앱에서\n알림으로 확인해주세요!',
+
+      // IdVerificationSorry
+      idVerificationSorryTitle: '인증 실패',
+      idVerificationSorry1:
+        '인증이 금지되었습니다.\n제출하신 서류가 기준에 맞지 않습니다.\n자세한 사항은 CS팀에 문의해주세요.',
     },
   },
 };

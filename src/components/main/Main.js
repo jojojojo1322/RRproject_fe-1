@@ -211,6 +211,7 @@ const DATA = [
 const numberWithCommas = (x) => {
   return x;
 };
+
 function Main({navigation, t, i18n}) {
   console.log('main 호출');
   const [currentTnc, setCurrentTnc] = useState(0);
@@ -295,7 +296,7 @@ function Main({navigation, t, i18n}) {
       });
   };
 
-  useEffect(async () => {
+  useEffect(() => {
     // await TncGetApi();
     // await userInfoApi();
     // await surveyApi('ongoing');
@@ -324,7 +325,7 @@ function Main({navigation, t, i18n}) {
               ResetStyle.fontG,
               {marginTop: '5%'},
             ]}>
-            No data!
+            {t('main1')}
           </Text>
         </TouchableOpacity>
       );
@@ -424,7 +425,7 @@ function Main({navigation, t, i18n}) {
                     ResetStyle.fontWhite,
                     {marginLeft: 5, paddingBottom: 5},
                   ]}>
-                  TNC
+                  {t('main2')}
                 </Text>
               </View>
               <View
@@ -480,7 +481,7 @@ function Main({navigation, t, i18n}) {
                   ResetStyle.fontWhite,
                   {fontWeight: '900', padding: 8},
                 ]}>
-                보기
+                {t('main3')}
               </Text>
             </TouchableOpacity>
           </View>
@@ -614,7 +615,7 @@ function Main({navigation, t, i18n}) {
                   ResetStyle.fontWhite,
                   {marginLeft: '5%', fontWeight: '600'},
                 ]}>
-                Real Research
+                {t('mainLogo')}
               </Text>
             </View>
           </TouchableOpacity>
@@ -649,7 +650,7 @@ function Main({navigation, t, i18n}) {
               width: '49.3%',
             }}>
             <Text style={[ResetStyle.fontRegularK, ResetStyle.fontDG]}>
-              KYC 레벨
+              {t('main4')}
             </Text>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <Text
@@ -658,7 +659,7 @@ function Main({navigation, t, i18n}) {
                   ResetStyle.fontB,
                   {fontWeight: '500'},
                 ]}>
-                LEVEL
+                {t('main5')}
               </Text>
               <Text
                 style={[
@@ -687,7 +688,7 @@ function Main({navigation, t, i18n}) {
               width: '49.3%',
             }}>
             <Text style={[ResetStyle.fontRegularK, ResetStyle.fontDG]}>
-              MY TNC
+              {t('main6')}
             </Text>
             <Text
               style={[
@@ -718,17 +719,17 @@ function Main({navigation, t, i18n}) {
         <Tab.Screen
           name="Ongoing"
           component={Ongoing}
-          options={{tabBarLabel: '진행중'}}
+          options={{tabBarLabel: t('main7')}}
         />
         <Tab.Screen
           name="Completed"
           component={Completed}
-          options={{tabBarLabel: '참여완료'}}
+          options={{tabBarLabel: t('main8')}}
         />
         <Tab.Screen
           name="Expired"
           component={Expired}
-          options={{tabBarLabel: '설문종료'}}
+          options={{tabBarLabel: t('main9')}}
         />
       </Tab.Navigator>
     </View>

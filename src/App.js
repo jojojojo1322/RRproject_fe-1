@@ -11,7 +11,7 @@ import SplashScreen from 'react-native-splash-screen';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import {CustomDrawerContent} from './components/defined/CustomDrawerContent';
+import CustomDrawerContent from './components/defined/CustomDrawerContent';
 import {StyleSheet, ScrollView, View, Text} from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';

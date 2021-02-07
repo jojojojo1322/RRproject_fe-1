@@ -67,8 +67,8 @@ import pt from './language/pt';
 import ru from './language/ru';
 
 const resources = {
-  ...ko,
   ...en,
+  ...ko,
   ...es,
   ...pt,
   ...ru,
@@ -77,10 +77,6 @@ const resources = {
 i18n.use(initReactI18next).init({
   resources,
   lng: 'ko',
-  keySeparator: false,
-  interpolation: {
-    escapeValue: false, // react already safes from xss
-  },
 });
 
 export default i18n;

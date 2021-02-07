@@ -93,8 +93,7 @@ const ProfileCompleteLevel1 = (props) => {
                           {
                             width: '100%',
                             textAlign: 'left',
-
-                            marginBottom: '3%',
+                            // marginBottom: '3%',
                           },
                         ]}>
                         {d}
@@ -104,7 +103,12 @@ const ProfileCompleteLevel1 = (props) => {
                       style={[
                         ResetStyle.fontRegularK,
                         ResetStyle.fontDG,
-                        {width: '100%', textAlign: 'left', marginLeft: '5%'},
+                        {
+                          width: '100%',
+                          textAlign: 'left',
+                          marginLeft: '5%',
+                          marginTop: '2%',
+                        },
                       ]}>
                       {d === 'gender' && data[d] === '1' && '남자'}
                       {d === 'gender' && data[d] === '0' && '여자'}

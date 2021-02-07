@@ -340,26 +340,26 @@ class Login extends Component {
         <TextConfirmModal
           modalVisible={this.state.modal3Visible}
           setModalVisible={this.setModal3Visible}
-          text={`Kyc Level 1을${'\n'}진행해주세요.`}
-          confirm={`확인`}
+          text={t('Login9')}
+          confirm={t('Login10')}
           handleNextPage={this.handleKycNextPage}
         />
         <TextConfirmModal
           modalVisible={this.state.modalVisible}
           setModalVisible={this.setModalVisible}
-          text={`현재 지갑이 생성되어 있지 않습니다${'\n'}지갑을 만들어주세요.`}
-          confirm={`확인`}
+          text={t('Login11')}
+          confirm={t('Login12')}
           handleNextPage={this.handleWalletNextPage}
         />
         <BottomModal
           modalVisible={this.state.modal2Visible}
           setModalVisible={this.setModal2Visible}
-          text={`정보가 정확하지 않습니다.`}
+          text={t('Login13')}
         />
         <BottomModal
           modalVisible={this.state.modal4Visible}
           setModalVisible={this.setModal4Visible}
-          text={`해당 계정의 디바이스가 아닙니다.`}
+          text={t('Login14')}
         />
         <ProgressModal
           modalVisible={this.state.modal5Visible}

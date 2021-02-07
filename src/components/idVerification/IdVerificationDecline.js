@@ -11,7 +11,10 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '../../style/ResetStyle.js';
 
+import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
+
 const IdVerificationDecline = ({navigation}) => {
+  const {t, i18n} = useTranslation();
   return (
     <SafeAreaView style={[ResetStyle.container]}>
       <View style={[ResetStyle.containerInner]}>
@@ -48,7 +51,7 @@ const IdVerificationDecline = ({navigation}) => {
                 marginBottom: '5%',
               },
             ]}>
-            인증 거절
+            {t('idVerificationDeclineTitle')}
           </Text>
           <Text
             style={[
@@ -56,9 +59,7 @@ const IdVerificationDecline = ({navigation}) => {
               ResetStyle.fontBlack,
               {lineHeight: 28},
             ]}>
-            인증이 거절되었습니다.{'\n'}
-            여권의 더 명확한 사본을 {'\n'}
-            다시 제출해주세요.
+            {t('idVerificationDecline1')}
           </Text>
         </View>
 
@@ -75,7 +76,7 @@ const IdVerificationDecline = ({navigation}) => {
               ResetStyle.fontWhite,
               {fontWeight: '600'},
             ]}>
-            확인
+            {t('idVerificationDeclineNextButton')}
           </Text>
         </TouchableOpacity>
       </View>

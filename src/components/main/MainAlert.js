@@ -17,6 +17,8 @@ import {ScrollView} from 'react-native-gesture-handler';
 import ResetStyle from '../../style/ResetStyle.js';
 import ResearchStyle from '../../style/ResearchStyle.js';
 
+import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
+
 const Item = (data) => (
   <TouchableOpacity
     onPress={() => {
@@ -69,7 +71,8 @@ const Item = (data) => (
   </TouchableOpacity>
 );
 
-export const MainAlert = (props) => {
+const MainAlert = (props) => {
+  const {t, i18n} = useTranslation();
   const [alertData, setAlertData] = useState(props.route.params?.alertData);
 
   useEffect(() => {
@@ -105,7 +108,7 @@ export const MainAlert = (props) => {
               />
             </TouchableOpacity>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-              알림
+              {t('mainAlertTitle')}
             </Text>
           </View>
         </View>

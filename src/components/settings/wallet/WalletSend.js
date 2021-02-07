@@ -44,11 +44,13 @@ export default function WalletSend({navigation, route}) {
   const [address, setAddress] = useState('');
   const [memo, setMemo] = useState('');
   const [type, setType] = useState('SEND');
-  const [transfee, setTransfee] = useState('전송 수수료 : 10 TNC');
+  const [transfee, setTransfee] = useState(transactionfee);
   const [walletData, setWalletData] = useState([]);
   const [calculatedValue, setCalculatedValue] = useState(total);
 
   const {t, i18n} = useTranslation();
+
+  const transactionfee = t('walletSend15');
 
   const onlyDecimalsix = (num) => {
     // 소숫점 여섯자리 체크 --> 앞자리에 컴마가 붙을경우 작동안함 -> 검사하는동안 컴마 제거
@@ -250,11 +252,11 @@ export default function WalletSend({navigation, route}) {
   // 총액 하단 경고문구
   const handleUnderTen = (value) => {
     if (Number(String(value).replace(/,/g, '')) === 0) {
-      setTransfee('전송 수수료 : 10 TNC');
+      setTransfee(t('walletSend15'));
     } else if (Number(String(value).replace(/,/g, '')) < 10) {
-      setTransfee('보내는 금액은 최소 10 TNC 이상이어야 합니다.');
+      setTransfee(t('walletSend16'));
     } else {
-      setTransfee('전송 수수료 : 10 TNC');
+      setTransfee(t('walletSend15'));
     }
   };
 
@@ -495,8 +497,7 @@ export default function WalletSend({navigation, route}) {
                   {
                     textAlign: 'left',
                     marginTop: '2%',
-                    color:
-                      transfee === '전송 수수료 : 10 TNC' ? '#000' : '#f00',
+                    color: transfee === transactionfee ? '#000' : '#f00',
                   },
                 ]}>
                 {transfee}
