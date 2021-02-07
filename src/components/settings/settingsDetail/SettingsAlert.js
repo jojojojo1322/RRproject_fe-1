@@ -15,8 +15,10 @@ import {RoundCheckbox, SelectedCheckboxes} from '../../factory/Roundcheck';
 import {FlatList} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '../../../style/ResetStyle.js';
+import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
 
 const SettingsAlert = ({navigation}) => {
+  const {t, i18n} = useTranslation();
   const [isEnabled, setIsEnabled] = useState(false);
   const [isEnabled2, setIsEnabled2] = useState(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
@@ -25,11 +27,11 @@ const SettingsAlert = ({navigation}) => {
   const [DATA] = useState([
     {
       id: '1',
-      title: 'Research 알림',
+      title: t('settingsAlert1'),
     },
     {
       id: '2',
-      title: '리워드 지급 알림',
+      title: t('settingsAlert2'),
     },
   ]);
 
@@ -94,7 +96,7 @@ const SettingsAlert = ({navigation}) => {
               source={require('../../../imgs/drawable-xxxhdpi/back_icon.png')}
             />
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-              알림 설정
+              {t('settingsAlertTitle')}
             </Text>
           </TouchableOpacity>
         </View>

@@ -16,6 +16,9 @@ import {server} from '../../../defined/server';
 import TextConfirmModal from '../../../factory/modal/TextConfirmModal';
 import AuthStyle from '../../../../style/AuthStyle';
 
+import {withTranslation} from 'react-i18next';
+import hoistStatics from 'hoist-non-react-statics';
+
 function chkPW(password) {
   var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~!@#$%^&*()_+|<>?:{}]).{8,}$/;
   var regHigh = /^(?=.*?[A-Z])/;
@@ -50,7 +53,7 @@ function chkPWCharacter(password) {
   return regCharacters.test(pw);
 }
 
-export default class SettingsPersonalResetPassword extends Component {
+class SettingsPersonalResetPassword extends Component {
   state = {
     password: '',
     checkPassword: '',
@@ -114,6 +117,7 @@ export default class SettingsPersonalResetPassword extends Component {
       });
   };
   render() {
+    const {t} = this.props;
     CheckedArrObject = new SelectedCheckboxes();
     return (
       <SafeAreaView style={ResetStyle.container}>
@@ -130,7 +134,7 @@ export default class SettingsPersonalResetPassword extends Component {
                   source={require('../../../../imgs/drawable-xxxhdpi/back_icon.png')}
                 />
                 <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-                  새 비밀번호 입력
+                  {t('settingsPersonalResetPasswordTitle')}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -143,10 +147,10 @@ export default class SettingsPersonalResetPassword extends Component {
                       ResetStyle.fontDG,
                       ResetStyle.textInputTitle,
                     ]}>
-                    비밀번호
+                    {t('settingsPersonalResetPassword1')}
                   </Text>
                   <TextInput
-                    placeholder="아래 조합으로 입력"
+                    placeholder={t('settingsPersonalResetPassword2')}
                     placeholderTextColor="#a9a9a9"
                     // keyboardType={'numeric'}
                     secureTextEntry={this.state.firstBlur}
@@ -196,7 +200,7 @@ export default class SettingsPersonalResetPassword extends Component {
                           ResetStyle.fontG,
                           {marginLeft: 5},
                         ]}>
-                        영문
+                        {t('settingsPersonalResetPassword3')}
                       </Text>
                     </View>
                     <View style={[AuthStyle.resetPasswordView2]}>
@@ -217,7 +221,7 @@ export default class SettingsPersonalResetPassword extends Component {
                           ResetStyle.fontG,
                           {marginLeft: 5},
                         ]}>
-                        숫자
+                        {t('settingsPersonalResetPassword4')}
                       </Text>
                     </View>
                     <View style={[AuthStyle.resetPasswordView2]}>
@@ -238,7 +242,7 @@ export default class SettingsPersonalResetPassword extends Component {
                           ResetStyle.fontG,
                           {marginLeft: 5},
                         ]}>
-                        대문자
+                        {t('settingsPersonalResetPassword5')}
                       </Text>
                     </View>
                     <View style={[AuthStyle.resetPasswordView2]}>
@@ -259,7 +263,7 @@ export default class SettingsPersonalResetPassword extends Component {
                           ResetStyle.fontG,
                           {marginLeft: 5},
                         ]}>
-                        특수문자
+                        {t('settingsPersonalResetPassword6')}
                       </Text>
                     </View>
                     <View style={[AuthStyle.resetPasswordView2]}>
@@ -280,7 +284,7 @@ export default class SettingsPersonalResetPassword extends Component {
                           ResetStyle.fontG,
                           {marginLeft: 5},
                         ]}>
-                        8자리 이상
+                        {t('settingsPersonalResetPassword7')}
                       </Text>
                     </View>
                   </View>
@@ -296,11 +300,11 @@ export default class SettingsPersonalResetPassword extends Component {
                       ResetStyle.fontDG,
                       ResetStyle.textInputTitle,
                     ]}>
-                    비밀번호 확인
+                    {t('settingsPersonalResetPassword8')}
                   </Text>
                   <TextInput
                     secureTextEntry={this.state.secondBlur}
-                    placeholder="비밀번호 다시 입력"
+                    placeholder={t('settingsPersonalResetPassword9')}
                     placeholderTextColor="#a9a9a9"
                     // keyboardType={'numeric'}
                     onBlur={() => {
@@ -378,7 +382,7 @@ export default class SettingsPersonalResetPassword extends Component {
                           ResetStyle.fontR,
                           {marginLeft: 5},
                         ]}>
-                        비밀번호가 일치하지 않습니다.
+                        {t('settingsPersonalResetPassword10')}
                       </Text>
                     </>
                   )}
@@ -427,14 +431,14 @@ export default class SettingsPersonalResetPassword extends Component {
               }
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontWhite]}>
-              확인
+              {t('settingsPersonalResetPasswordNextButton')}
             </Text>
           </TouchableOpacity>
           <TextConfirmModal
             setModalVisible={this.setModalVisible}
             modalVisible={this.state.modalVisible}
-            text={`비밀번호가 변경되었습니다`}
-            confirm={`확인`}
+            text={t('settingsPersonalResetPassword11')}
+            confirm={t('settingsPersonalResetPassword12')}
             handleNextPage={this.handleNextPage}
           />
         </View>
@@ -442,3 +446,8 @@ export default class SettingsPersonalResetPassword extends Component {
     );
   }
 }
+
+export default hoistStatics(
+  withTranslation()(SettingsPersonalResetPassword),
+  SettingsPersonalResetPassword,
+);

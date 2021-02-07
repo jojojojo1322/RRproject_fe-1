@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import ResetStyle from '../../../style/ResetStyle';
 import ModalStyle from '../../../style/ModalStyle';
+import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
 
 const WalletSendModal = ({
   modalVisible,
@@ -20,6 +21,7 @@ const WalletSendModal = ({
   memo,
   valuePlusTen,
 }) => {
+  const {t, i18n} = useTranslation();
   // const walletSendApi = async (amount, email, memo, password, to, type) => {
   //   await axios
   //     .post(`${server}/wallet/trans`, {
@@ -70,7 +72,7 @@ const WalletSendModal = ({
               ResetStyle.fontBlack,
               {marginTop: Platform.OS === 'ios' ? '7%' : '3%'},
             ]}>
-            송금 하시겠습니까?
+            {t('walletSendModalTItle')}
           </Text>
           <View
             style={{
@@ -96,7 +98,7 @@ const WalletSendModal = ({
                   ResetStyle.fontBlack,
                   {textAlign: 'left', fontWeight: '500'},
                 ]}>
-                받는 주소
+                {t('walletSendModal1')}
               </Text>
               <Text
                 style={[
@@ -114,7 +116,7 @@ const WalletSendModal = ({
                   ResetStyle.fontBlack,
                   {textAlign: 'left', fontWeight: '500'},
                 ]}>
-                보낼 수량
+                {t('walletSendModal2')}
               </Text>
               <Text
                 style={[
@@ -125,7 +127,8 @@ const WalletSendModal = ({
                     marginTop: Platform.OS === 'ios' ? '2%' : '1%',
                   },
                 ]}>
-                {parseFloat(amount)} TNC
+                {parseFloat(amount)}
+                {t('walletSendModal3')}
               </Text>
             </View>
             <View style={[ModalStyle.walletMain]}>
@@ -135,7 +138,7 @@ const WalletSendModal = ({
                   ResetStyle.fontBlack,
                   {textAlign: 'left', fontWeight: '500'},
                 ]}>
-                송금 수수료
+                {t('walletSendModal4')}
               </Text>
               <Text
                 style={[
@@ -146,7 +149,7 @@ const WalletSendModal = ({
                     marginTop: Platform.OS === 'ios' ? '2%' : '1%',
                   },
                 ]}>
-                10 TNC
+                {t('walletSendModal5')}
               </Text>
             </View>
             <View style={[ModalStyle.walletMain]}>
@@ -156,7 +159,7 @@ const WalletSendModal = ({
                   ResetStyle.fontBlack,
                   {textAlign: 'left', fontWeight: '500'},
                 ]}>
-                송금 후 잔액
+                {t('walletSendModal6')}
               </Text>
               <Text
                 style={[
@@ -167,7 +170,8 @@ const WalletSendModal = ({
                     marginTop: Platform.OS === 'ios' ? '2%' : '1%',
                   },
                 ]}>
-                {parseFloat(calculatedValue.toFixed(6))} TNC
+                {parseFloat(calculatedValue.toFixed(6))}
+                {t('walletSendModal6')}
               </Text>
             </View>
             <View style={[ModalStyle.walletMain]}>
@@ -177,7 +181,7 @@ const WalletSendModal = ({
                   ResetStyle.fontBlack,
                   {textAlign: 'left', fontWeight: '500'},
                 ]}>
-                Memo
+                {t('walletSendModal7')}
               </Text>
               <Text
                 style={[
@@ -204,7 +208,7 @@ const WalletSendModal = ({
                 ResetStyle.fontWhite,
                 {fontWeight: '600'},
               ]}>
-              확인
+              {t('walletSendModalNextButton')}
             </Text>
           </TouchableOpacity>
         </View>

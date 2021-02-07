@@ -14,7 +14,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import BottomModal from '../factory/modal/BottomModal';
 import CountDown from '../../components/factory/CountDown';
 
-export default class ResetEmail extends Component {
+import {withTranslation} from 'react-i18next';
+import hoistStatics from 'hoist-non-react-statics';
+
+class ResetEmail extends Component {
   state = {
     email: this.props.route.params?.email,
     emailCode: '',
@@ -105,6 +108,7 @@ export default class ResetEmail extends Component {
   };
 
   render() {
+    const {t} = this.props;
     console.log(this.props.route.params?.userNo);
     console.log(this.props.route.params?.authKey);
     return (
@@ -113,7 +117,7 @@ export default class ResetEmail extends Component {
           <View>
             <View style={ResetStyle.topBackButton}>
               <TouchableOpacity
-                style={{flexDirection: 'row'}}
+                style={{flexDirection: 'row', alignItems: 'center'}}
                 onPress={() => {
                   this.props.navigation.goBack();
                 }}>
@@ -121,7 +125,7 @@ export default class ResetEmail extends Component {
                   source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
                 />
                 <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-                  이메일 인증
+                  {t('resetEmailTitle')}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -130,9 +134,10 @@ export default class ResetEmail extends Component {
                 ResetStyle.fontRegularK,
                 ResetStyle.fontG,
                 {marginTop: '20%'},
-              ]}>{`${
-              this.state.email
-            }으로 ${'\n'}6자리 인증 코드를 발송했습니다.`}</Text>
+              ]}>
+              {`${this.state.email}`}
+              {t('resetEmail1')}
+            </Text>
             {/* <Text style={styles.TopText2}>
               비밀번호 재설정을 위해{'\n'}아이디(이메일)을 입력해 주세요.
             </Text> */}
@@ -143,7 +148,7 @@ export default class ResetEmail extends Component {
                   ResetStyle.fontDG,
                   ResetStyle.textInputTitle,
                 ]}>
-                인증번호
+                {t('resetEmail2')}
               </Text>
               <TextInput
                 style={[
@@ -151,7 +156,7 @@ export default class ResetEmail extends Component {
                   ResetStyle.fontG,
                   ResetStyle.textInputText,
                 ]}
-                placeholder="6자리 인증번호 입력"
+                placeholder={t('resetEmail3')}
                 placeholderTextColor="#a9a9a9"
                 value={this.state.emailCode}
                 returnKeyType={'done'}
@@ -189,7 +194,7 @@ export default class ResetEmail extends Component {
                     ResetStyle.fontB,
                     {textAlign: 'left', marginTop: 10},
                   ]}>
-                  재전송
+                  {t('resetEmail4')}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -219,21 +224,23 @@ export default class ResetEmail extends Component {
               }
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontWhite]}>
-              다음
+              {t('resetEmailNextButton')}
             </Text>
           </TouchableOpacity>
           <BottomModal
             setModalVisible={this.setModalVisible}
             modalVisible={this.state.modalVisible}
-            text={`인증번호가 틀렸습니다`}
+            text={t('resetEmail5')}
           />
           <BottomModal
             setModalVisible={this.setModal2Visible}
             modalVisible={this.state.modal2Visible}
-            text={`만료된 인증번호입니다`}
+            text={t('resetEmail6')}
           />
         </View>
       </SafeAreaView>
     );
   }
 }
+
+export default hoistStatics(withTranslation()(ResetEmail), ResetEmail);

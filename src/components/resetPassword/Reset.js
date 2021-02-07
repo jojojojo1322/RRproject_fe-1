@@ -14,7 +14,10 @@ import DeviceInfo from 'react-native-device-info';
 import ResetStyle from '../../style/ResetStyle.js';
 import BottomModal from '../factory/modal/BottomModal';
 
-export default class Reset extends Component {
+import {withTranslation} from 'react-i18next';
+import hoistStatics from 'hoist-non-react-statics';
+
+class Reset extends Component {
   state = {
     email: '',
     authKey: '',
@@ -93,6 +96,7 @@ export default class Reset extends Component {
   //     });
   // };
   render() {
+    const {t} = this.props;
     console.log(DeviceInfo.getUniqueId());
     console.log('authKey', this.state.authKey);
     return (
@@ -101,7 +105,7 @@ export default class Reset extends Component {
           <View>
             <View style={[ResetStyle.topBackButton]}>
               <TouchableOpacity
-                style={{flexDirection: 'row'}}
+                style={{flexDirection: 'row', alignItems: 'center'}}
                 onPress={() => {
                   this.props.navigation.goBack();
                 }}>
@@ -109,7 +113,8 @@ export default class Reset extends Component {
                   source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
                 />
                 <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-                  이메일 인증
+                  {t('resetTitle')}
+                  {t('signUpNextButton')}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -124,7 +129,7 @@ export default class Reset extends Component {
                   fontSize: 33,
                 },
               ]}>
-              비밀번호를 잊으셨나요?
+              {t('reset1')}
             </Text>
             <Text
               style={[
@@ -132,7 +137,7 @@ export default class Reset extends Component {
                 ResetStyle.fontBlack,
                 {marginTop: '5%'},
               ]}>
-              비밀번호 재설정을 위해{'\n'}아이디(이메일)을 입력해 주세요.
+              {t('reset2')}
             </Text>
             <View
               style={[
@@ -145,7 +150,7 @@ export default class Reset extends Component {
                   ResetStyle.fontBlack,
                   ResetStyle.textInputTitle,
                 ]}>
-                이메일
+                {t('reset3')}
               </Text>
               <TextInput
                 style={[
@@ -153,7 +158,7 @@ export default class Reset extends Component {
                   ResetStyle.fontBlack,
                   ResetStyle.textInputText,
                 ]}
-                placeholder="이메일 주소 입력"
+                placeholder={t('reset4')}
                 placeholderTextColor="#a9a9a9"
                 autoCapitalize={'none'}
                 value={this.state.email}
@@ -208,16 +213,18 @@ export default class Reset extends Component {
               // });
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontWhite]}>
-              다음
+              {t('resetNextButton')}
             </Text>
           </TouchableOpacity>
           <BottomModal
             setModalVisible={this.setModalVisible}
             modalVisible={this.state.modalVisible}
-            text={`가입되지 않은 이메일입니다.`}
+            text={t('reset5')}
           />
         </View>
       </SafeAreaView>
     );
   }
 }
+
+export default hoistStatics(withTranslation()(Reset), Reset);

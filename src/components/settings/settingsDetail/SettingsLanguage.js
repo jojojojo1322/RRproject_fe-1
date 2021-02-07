@@ -15,28 +15,30 @@ import {RoundCheckbox, SelectedCheckboxes} from '../../factory/Roundcheck';
 import {FlatList} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '../../../style/ResetStyle.js';
+import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
 
 const SettingsAlert = ({navigation}) => {
+  const {t, i18n} = useTranslation();
   const [DATA] = useState([
     {
       id: '1',
-      title: '영어',
+      title: t('settingsLanguage1'),
     },
     {
       id: '2',
-      title: '한국어',
+      title: t('settingsLanguage2'),
     },
     {
       id: '3',
-      title: '포르투갈어',
+      title: t('settingsLanguage3'),
     },
     {
       id: '4',
-      title: '스페인어',
+      title: t('settingsLanguage4'),
     },
     {
       id: '5',
-      title: '러시아어',
+      title: t('settingsLanguage5'),
     },
   ]);
 
@@ -92,7 +94,7 @@ const SettingsAlert = ({navigation}) => {
               source={require('../../../imgs/drawable-xxxhdpi/back_icon.png')}
             />
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-              언어 설정
+              {t('settingsLanguageTitle')}
             </Text>
           </TouchableOpacity>
         </View>

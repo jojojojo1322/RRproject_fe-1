@@ -20,7 +20,10 @@ import ResetStyle from '../../../style/ResetStyle.js';
 import ModalStyle from '../../../style/ModalStyle';
 import {lang} from '../../defined/lang';
 
+import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
+
 const WalletSendSuccess = ({navigation, route}) => {
+  const {t, i18n} = useTranslation();
   const {amount} = route ? route.params : '';
   const {email} = route ? route.params : '';
   const {memo} = route ? route.params : '';
@@ -53,30 +56,46 @@ const WalletSendSuccess = ({navigation, route}) => {
           />
           <Text
             style={[ResetStyle.fontBoldK, ResetStyle.fontB, {marginTop: '3%'}]}>
-            송금완료
+            {t('walletSendSuccessTitle')}
           </Text>
         </View>
         <View>
           <View style={[ModalStyle.walletMain]}>
-            <Text style={[ModalStyle.walletDetailTitle]}>받는 주소</Text>
+            <Text style={[ModalStyle.walletDetailTitle]}>
+              {t('walletSendSuccess1')}
+            </Text>
             <Text style={[ModalStyle.walletDetailsub]}>{to}</Text>
           </View>
           <View style={[ModalStyle.walletMain]}>
-            <Text style={[ModalStyle.walletDetailTitle]}>보낼 수량</Text>
-            <Text style={[ModalStyle.walletDetailsub]}>{amount} TNC</Text>
-          </View>
-          <View style={[ModalStyle.walletMain]}>
-            <Text style={[ModalStyle.walletDetailTitle]}>송금 수수료</Text>
-            <Text style={[ModalStyle.walletDetailsub]}>10 TNC</Text>
-          </View>
-          <View style={[ModalStyle.walletMain]}>
-            <Text style={[ModalStyle.walletDetailTitle]}>잔액</Text>
+            <Text style={[ModalStyle.walletDetailTitle]}>
+              {t('walletSendSuccess2')}
+            </Text>
             <Text style={[ModalStyle.walletDetailsub]}>
-              {parseFloat(Number(balance).toFixed(6))} TNC
+              {amount}
+              {t('walletSendSuccess3')}
             </Text>
           </View>
           <View style={[ModalStyle.walletMain]}>
-            <Text style={[ModalStyle.walletDetailTitle]}>Memo</Text>
+            <Text style={[ModalStyle.walletDetailTitle]}>
+              {t('walletSendSuccess4')}
+            </Text>
+            <Text style={[ModalStyle.walletDetailsub]}>
+              {t('walletSendSuccess5')}
+            </Text>
+          </View>
+          <View style={[ModalStyle.walletMain]}>
+            <Text style={[ModalStyle.walletDetailTitle]}>
+              {t('walletSendSuccess6')}
+            </Text>
+            <Text style={[ModalStyle.walletDetailsub]}>
+              {parseFloat(Number(balance).toFixed(6))}
+              {t('walletSendSuccess7')}
+            </Text>
+          </View>
+          <View style={[ModalStyle.walletMain]}>
+            <Text style={[ModalStyle.walletDetailTitle]}>
+              {t('walletSendSuccess8')}
+            </Text>
             <Text style={[ModalStyle.walletDetailsub]}>{memo}</Text>
           </View>
         </View>
@@ -96,7 +115,7 @@ const WalletSendSuccess = ({navigation, route}) => {
                 ResetStyle.fontWhite,
                 {fontWeight: '600'},
               ]}>
-              확인
+              {t('walletSendSuccessNextButton')}
             </Text>
           </TouchableOpacity>
         </View>

@@ -97,6 +97,268 @@ export default en = {
       WalletPassword4: '지갑 생성이 실패했습니다.',
       WalletPassword5: '비밀번호가 설정되었습니다.',
       WalletPassword6: '확인',
+
+      // Wallet Master Key
+      WalletMasterKeyTitle: 'Wallet Creation Complete\nMaster Key Storage',
+      WalletMasterKey1:
+        'Master Key is a key that is necessary to reset the password if the password of the wallet is lost later.',
+      WalletMasterKey2:
+        'If you lose the Master Key, there is no way to find it. so make sure to save it somewhere else!',
+      WalletMasterKey3: 'Click to copy.',
+      WalletMasterKey4: 'Enter',
+
+      // Reset
+      resetTitle: 'Change password',
+      reset1: 'Forgot your password?',
+      reset2: 'Please enter your ID(Email) to reset your password.',
+      reset3: 'Email',
+      reset4: 'Email address',
+      reset5: '가입되지 않은 이메일입니다.',
+      resetNextButton: 'Next',
+
+      // ResetEmail
+      resetEmailTitle: 'Email verification',
+      resetEmail1: 'we sent you a 6-digit verification code to ',
+      resetEmail2: 'verification number',
+      resetEmail3: '6-digit verification number',
+      resetEmail4: 'Resend',
+      resetEmail5: '인증번호가 틀렸습니다.',
+      resetEmail6: '만료된 인증번호입니다.',
+      resetEmailNextButton: 'Next',
+
+      // ResetPassword
+      resetPasswordTitle: 'A new password',
+      resetPassword1: 'Password',
+      resetPassword2: 'Enter as combination below',
+      resetPassword3: 'Alphabet',
+      resetPassword4: 'Number',
+      resetPassword5: 'Capital',
+      resetPassword6: 'Special characters',
+      resetPassword7: 'more than 8-digit',
+      resetPassword8: 'Check password',
+      resetPassword9: 'Reenter password',
+      resetPassword10: 'Password do not match.',
+      resetPassword11: '비밀번호가 변경되었습니다.',
+      resetPassword12: '확인',
+      resetPasswordNextButton: 'Next',
+
+      // WalletMain
+      walletMainTitle: 'Real Research',
+      walletMain1: 'Total Balance',
+      walletMain2: 'TNC ',
+      walletMain3: 'SEND',
+      walletMain4: 'RECEIVE',
+      walletMain5: 'Transaction',
+      walletMain6: 'Receive',
+      walletMain7: '송금',
+
+      // WalletDetail
+      walletDetailTitle: 'Transaction details',
+      walletDetail1: 'Block NO',
+      walletDetail2: 'Total amount',
+      walletDetail3: 'Status',
+      walletDetail4: '상태',
+      walletDetail5: '상세 내용',
+      walletDetail6: 'Sender',
+      walletDetail7: 'Recipient',
+      walletDetail8: 'Memo',
+      walletDetail9: 'Date',
+      walletDetail10: 'TXID',
+
+      // WalletSend
+      walletSendTitle: 'Send',
+      walletSend1: 'Total Balance',
+      walletSend2: ' TNC',
+      walletSend3: 'Address',
+      walletSend4: 'Address  to send',
+      walletSend5: 'Total TNC',
+      walletSend6: 'Amount to send',
+      walletSend7: 'Memo',
+      walletSend8: '메모 입력(15자 내외)',
+      walletSend9: 'Send',
+      walletSend10: '수수료를 제외한 총액보다 클 수 없습니다.',
+      walletSend11: '소수점 여섯자리까지만 입력가능합니다.',
+      walletSend12: '수수료를 제외한 총액이 표시됩니다.',
+      walletSend13: '내용을 올바르게 입력 해 주십시오.',
+      walletSend14: '보내는 금액은 최소 10TNC 이상입니다.',
+
+      // WalletSendQR
+      walletSendQRTitle: '돌아가기',
+
+      // WalletSendModal
+      walletSendModalTItle: 'Do you want to send TNC?',
+      walletSendModal1: 'Receiving address',
+      walletSendModal2: 'Amount to send',
+      walletSendModal3: ' TNC',
+      walletSendModal4: '송금 수수료',
+      walletSendModal5: '10 TNC',
+      walletSendModal6: ' TNC',
+      walletSendModal7: 'Memo',
+      walletSendModalNextButton: 'Enter',
+
+      // WalletSendSuccess
+      walletSendSuccessTitle: 'Transfer completed',
+      walletSendSuccess1: 'Receiving address',
+      walletSendSuccess2: 'Sent amount',
+      walletSendSuccess3: ' TNC',
+      walletSendSuccess4: '송금 수수료',
+      walletSendSuccess5: '10 TNC',
+      walletSendSuccess6: '잔액',
+      walletSendSuccess7: ' TNC',
+      walletSendSuccess8: 'Memo',
+      walletSendSuccessNextButton: 'Enter',
+
+      // WalletReceive
+      walletReceiveTitle: '받기',
+      walletReceive1: 'My Address',
+      walletReceive2: 'Click to copy.',
+      walletReceive3: 'Has been copied.',
+      walletReceiveNextButton: 'Enter',
+
+      // Settings
+      settingsTitle: '설정',
+      settings1: '개인 정보 설정',
+      settings2: '지갑 설정',
+      settings3: '잠금 설정',
+      settings4: '알림 설정',
+      settings5: '언어 설정',
+      settings6: '이용약관',
+      settings7: '개인정보처리방침',
+
+      // SettingsLanguage
+      settingsLanguageTitle: '언어 설정',
+      settingsLanguage1: '영어',
+      settingsLanguage2: '한국어',
+      settingsLanguage3: '포르투갈어',
+      settingsLanguage4: '스페인어',
+      settingsLanguage5: '러시아어',
+
+      // SettingsWallet
+      settingsWalletTitle: '지갑 설정',
+      settingsWallet1: '지갑 비밀번호 변경',
+      settingsWallet2: '지갑 비밀번호 분실',
+
+      // SettingsWalletMPassword
+      settingsWalletPassword1: '새 지갑 비밀번호',
+      settingsWalletPassword2: '변경할 비밀번호 6자리를\n입력해 주세요.',
+      settingsWalletPassword3: '비밀번호 확인을 위해\n한번 더 입력해 주세요.',
+      settingsWalletPassword4: '비밀번호가 일치하지 않습니다.',
+      settingsWalletPassword5: '비밀번호가 설정되었습니다.',
+      settingsWalletPassword6: '확인',
+
+      // SettingsWalletMasterKey
+      settingsWalletMasterKeyTitle: '비밀번호 변경',
+      settingsWalletMasterKey1: '지갑 비밀번호를\n잊으셨나요?',
+      settingsWalletMasterKey2:
+        '지갑 비밀번호 재설정을 위해\nMaster Key를 입력해 주세요.',
+      settingsWalletMasterKey3: 'Master Key',
+      settingsWalletMasterKey4: 'Master Key 입력',
+      settingsWalletMasterKey5: 'Master Key가 일치하지 않습니다.',
+      settingsWalletMasterKeyNextButton: '다음',
+
+      // SettingsPersonal
+      settingsPersonalTitle: '개인정보설정',
+      settingsPersonal1: '이메일 (아이디)',
+      settingsPersonal2: '※ 아이디는 수정이 불가능합니다.',
+      settingsPersonal3: '비밀번호',
+      settingsPersonal4: '휴대폰 번호',
+      settingsPersonal5: 'Master Key',
+      settingsPersonal6: '마스터키는 꼭 저장해 주세요.',
+      settingsPersonal7: '비밀번호가 일치하지 않습니다.',
+
+      // SettingsPersonalEmail
+      settingsPersonalEmailTitle: '이메일 인증',
+      settingsPersonalEmail1: '으로\n6자리 인증 코드를 발송했습니다.',
+      settingsPersonalEmail2: '인증번호',
+      settingsPersonalEmail3: '6자리 인증번호 입력',
+      settingsPersonalEmail4: '재전송',
+      settingsPersonalEmail5: '다음',
+      settingsPersonalEmail6: '인증번호가 틀렸습니다.',
+      settingsPersonalEmail7: '만료된 인증번호입니다.',
+
+      // SettingsPersonalMasterKey
+      settingsPersonalMasterKeyTitle: 'Master Key',
+      settingsPersonalMasterKey1: 'Master Key 저장하기',
+      settingsPersonalMasterKey2:
+        'Master Key는 추후에 지갑 비밀번호 분실 시\n비밀번호 재설정에 꼭 필요한 Key입니다.',
+      settingsPersonalMasterKey3:
+        'Master Key 분실 시 찾을 방법이 없으니\n꼭 다른 곳에 저장해두세요!',
+      settingsPersonalMasterKey4: '클릭하면 복사됩니다.',
+      settingsPersonalMasterKey5: '복사되었습니다.',
+      settingsPersonalMasterKeyNextButton: '확인',
+
+      // SettingsPersonalMasterPhone
+      settinsPersonalMasterPhoneTitle: 'Master Key',
+      settinsPersonalMasterPhone1:
+        '휴대폰 번호 인증을 통해\nMaster Key를 볼 수 있습니다.',
+      settinsPersonalMasterPhone2: '휴대폰 번호',
+      settinsPersonalMasterPhone3: '-없이 휴대폰 번호 입력',
+      settinsPersonalMasterPhone4: '재요청',
+      settinsPersonalMasterPhone5: '인증요청',
+      settinsPersonalMasterPhone6: '인증 번호',
+      settinsPersonalMasterPhone7: '인증번호 입력',
+      settinsPersonalMasterPhone8: '3분 이내에 인증번호를 입력해 주세요.',
+      settinsPersonalMasterPhone9: '국가선택',
+      settinsPersonalMasterPhone10: '인증번호가 틀렸습니다.',
+      settinsPersonalMasterPhone11: '만료된 인증번호입니다.',
+      settinsPersonalMasterPhone12: '이미 인증된 번호입니다.',
+      settinsPersonalMasterPhone13: '국가를 선택해주세요.',
+      settinsPersonalMasterPhone14: '휴대폰 번호를 정확히 입력해주세요.',
+      settinsPersonalMasterPhoneNextButton: '다음',
+
+      // SettinsPersonalPassword
+      settingsPersonalPasswordTitle: '개인정보설정',
+      settingsPersonalPassword1: '비밀번호 입력',
+      settingsPersonalPassword2:
+        '개인 정보 설정을 위하여\nReal Research 비밀번호를 입력하세요.',
+      settingsPersonalPassword3: '비밀번호',
+      settingsPersonalPassword4: '비밀번호 입력',
+      settingsPersonalPassword5: '비밀번호가 일치하지 않습니다.',
+      settingsPersonalPasswordNextButton: '다음',
+
+      // SettingsPerconalPasswordChange
+      settinsPersonalPasswordChangeTitle: '개인정보설정',
+      settinsPersonalPasswordChange1: '비밀번호 변경을\n원하시나요?',
+      settinsPersonalPasswordChange2:
+        '비밀번호 재설정을 위해\n아이디(이메일)을 입력해 주세요.',
+      settinsPersonalPasswordChange3: '이메일',
+      settinsPersonalPasswordChange4: '이메일 주소 입력',
+      settinsPersonalPasswordChange5: '가입되지 않은 이메일입니다.',
+      settinsPersonalPasswordChangeNextButton: '다음',
+
+      // SettingsPersonalPhone
+      settingsPersonalPhoneTitle: '휴대폰 번호 변경',
+      settingsPersonalPhone1: '변경할 휴대폰 번호를\n입력해주세요.',
+      settingsPersonalPhone2: '휴대폰 번호',
+      settingsPersonalPhone3: '-없이 휴대폰 번호 입력',
+      settingsPersonalPhone4: '재요청',
+      settingsPersonalPhone5: '인증요청',
+      settingsPersonalPhone6: '인증 번호',
+      settingsPersonalPhone7: '인증번호 입력',
+      settingsPersonalPhone8: '3분 이내에 인증번호를 입력해 주세요.',
+      settingsPersonalPhone9: '입력시간 초과 시 ‘재요청’ 버튼을 눌려주세요.',
+      settingsPersonalPhone10: '국가선택',
+      settingsPersonalPhone11: '인증번호가 틀렸습니다.',
+      settingsPersonalPhone12: '만료된 인증번호입니다.',
+      settingsPersonalPhone13: '이미 인증된 번호입니다.',
+      settingsPersonalPhone14: '국가를 선택해주세요.',
+      settingsPersonalPhone15: '휴대폰 번호를 정확히 입력해주세요.',
+      settingsPersonalPhoneNextButton: '다음',
+
+      // SettingsLockPassword
+      settingsLockPasswordTitle: '비밀번호',
+      settingsLockPassword1: '잠금화면 비밀번호\n4자리를 입력해 주세요.',
+      settingsLockPassword2: '비밀번호 확인을 위해\n한번 더 입력해 주세요.',
+      settingsLockPassword3: '비밀번호가 일치하지 않습니다.',
+      settingsLockPassword4: '비밀번호가 설정되었습니다.',
+      settingsLockPassword5: '확인',
+
+      // SettingsLockPattern
+      settingsLockPattern1: '잠금해제 패턴을 입력해 주세요.',
+      settingsLockPattern2: '취소',
+      settingsLockPattern3: '패턴 설정이 완료되었습니다.',
+      settingsLockPattern4: '확인',
+      settingsLockPatternNextButton: '다음',
     },
   },
 };

@@ -21,6 +21,9 @@ import BottomModal from '../../../factory/modal/BottomModal';
 
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
+import {withTranslation} from 'react-i18next';
+import hoistStatics from 'hoist-non-react-statics';
+
 //휴대폰 유효성 검사
 function isCellPhone(p) {
   p = p.split('-').join('');
@@ -198,6 +201,7 @@ class SettingsPersonalPhone extends Component {
   };
 
   render() {
+    const {t} = this.props;
     return (
       <SafeAreaView style={ResetStyle.container}>
         <KeyboardAwareScrollView
@@ -216,7 +220,7 @@ class SettingsPersonalPhone extends Component {
                     source={require('../../../../imgs/drawable-xxxhdpi/back_icon.png')}
                   />
                   <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-                    휴대폰 번호 변경
+                    {t('settingsPersonalPhoneTitle')}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -226,7 +230,7 @@ class SettingsPersonalPhone extends Component {
                   ResetStyle.fontDG,
                   {marginTop: '10%'},
                 ]}>
-                변경할 휴대폰 번호를{'\n'}입력해주세요
+                {t('settingsPersonalPhone1')}
               </Text>
             </View>
 
@@ -237,7 +241,7 @@ class SettingsPersonalPhone extends Component {
                   ResetStyle.fontDG,
                   ResetStyle.textInputTitle,
                 ]}>
-                휴대폰 번호
+                {t('settingsPersonalPhone2')}
               </Text>
 
               <TouchableOpacity
@@ -268,7 +272,7 @@ class SettingsPersonalPhone extends Component {
               </TouchableOpacity>
 
               <TextInput
-                placeholder="-없이 휴대폰 번호 입력"
+                placeholder={t('settingsPersonalPhone3')}
                 placeholderTextColor="#a9a9a9"
                 keyboardType={'numeric'}
                 returnKeyType={'done'}
@@ -315,7 +319,7 @@ class SettingsPersonalPhone extends Component {
                       ResetStyle.fontB,
                       {fontWeight: '600'},
                     ]}>
-                    재요청
+                    {t('settingsPersonalPhone4')}
                   </Text>
                 </TouchableOpacity>
               )}
@@ -351,7 +355,7 @@ class SettingsPersonalPhone extends Component {
                       ResetStyle.fontWhite,
                       {fontWeight: '600'},
                     ]}>
-                    인증요청
+                    {t('settingsPersonalPhone5')}
                   </Text>
                 </TouchableOpacity>
               )}
@@ -364,11 +368,11 @@ class SettingsPersonalPhone extends Component {
                   ResetStyle.fontDG,
                   ResetStyle.textInputTitle,
                 ]}>
-                인증 번호
+                {t('settingsPersonalPhone6')}
               </Text>
               <View>
                 <TextInput
-                  placeholder="인증번호 입력"
+                  placeholder={t('settingsPersonalPhone7')}
                   placeholderTextColor="#a9a9a9"
                   value={this.state.passWord}
                   keyboardType={'numeric'}
@@ -423,7 +427,7 @@ class SettingsPersonalPhone extends Component {
                     ResetStyle.fontG,
                     {marginLeft: '2%'},
                   ]}>
-                  3분 이내에 인증번호를 입력해 주세요.
+                  {t('settingsPersonalPhone8')}
                 </Text>
               </View>
 
@@ -443,7 +447,7 @@ class SettingsPersonalPhone extends Component {
                     ResetStyle.fontG,
                     {marginLeft: '2%'},
                   ]}>
-                  입력시간 초과 시 ‘재요청’ 버튼을 눌려주세요.
+                  {t('settingsPersonalPhone9')}
                 </Text>
               </View>
             </View>
@@ -483,7 +487,7 @@ class SettingsPersonalPhone extends Component {
                   ResetStyle.fontWhite,
                   {fontWeight: '600'},
                 ]}>
-                다음
+                {t('settingsPersonalPhoneNextButton')}
               </Text>
             </TouchableOpacity>
           </View>
@@ -493,31 +497,31 @@ class SettingsPersonalPhone extends Component {
             modalVisible={this.state.modalVisible}
             setModalVisible={this.setModalVisible}
             setCountry={this.setCountry}
-            titleText={`국가선택`}
+            titleText={t('settingsPersonalPhone10')}
           />
         </View>
         <BottomModal
           setModalVisible={this.setModalVisibleNotAuth}
           modalVisible={this.state.modalVisibleNotAuth}
-          text={`인증번호가 틀렸습니다`}
+          text={t('settingsPersonalPhone11')}
         />
         <BottomModal
           setModalVisible={this.setModalVisibleNotAuthExpire}
           modalVisible={this.state.modalVisibleNotAuthExpire}
-          text={`만료된 인증번호입니다`}
+          text={t('settingsPersonalPhone12')}
         />
         <BottomModal
           setModalVisible={this.setModalVisibleNotPhone}
           modalVisible={this.state.modalVisibleNotPhone}
-          text={`이미 인증된 번호입니다`}
+          text={t('settingsPersonalPhone13')}
         />
         <BottomModal
           setModalVisible={this.setModalVisibleNotPhoneVali}
           modalVisible={this.state.modalVisibleNotPhoneVali}
           text={
             this.state.country == ''
-              ? `국가를 선택해주세요`
-              : `휴대폰 번호를 정확히 입력해주세요`
+              ? t('settingsPersonalPhone14')
+              : t('settingsPersonalPhone15')
           }
         />
       </SafeAreaView>
@@ -525,4 +529,7 @@ class SettingsPersonalPhone extends Component {
   }
 }
 
-export default SettingsPersonalPhone;
+export default hoistStatics(
+  withTranslation()(SettingsPersonalPhone),
+  SettingsPersonalPhone,
+);

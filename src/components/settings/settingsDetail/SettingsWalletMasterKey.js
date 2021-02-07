@@ -14,7 +14,10 @@ import DeviceInfo from 'react-native-device-info';
 import ResetStyle from '../../../style/ResetStyle.js';
 import BottomModal from '../../factory/modal/BottomModal';
 
-export default class SettingsWalletMasterKey extends Component {
+import {withTranslation} from 'react-i18next';
+import hoistStatics from 'hoist-non-react-statics';
+
+class SettingsWalletMasterKey extends Component {
   state = {
     email: '',
     authKey: '',
@@ -75,6 +78,7 @@ export default class SettingsWalletMasterKey extends Component {
       });
   };
   render() {
+    const {t} = this.props;
     console.log(DeviceInfo.getUniqueId());
     console.log('authKey', this.state.authKey);
     return (
@@ -92,14 +96,14 @@ export default class SettingsWalletMasterKey extends Component {
                   source={require('../../../imgs/drawable-xxxhdpi/back_icon.png')}
                 />
                 <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-                  비밀번호 변경
+                  {t('settingsWalletMasterKeyTitle')}
                 </Text>
               </TouchableOpacity>
             </View>
 
             <View style={{marginTop: '10%'}}>
               <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>
-                지갑 비밀번호를{'\n'}잊으셨나요?
+                {t('settingsWalletMasterKey1')}
               </Text>
               <Text
                 style={[
@@ -107,8 +111,7 @@ export default class SettingsWalletMasterKey extends Component {
                   ResetStyle.fontG,
                   {marginTop: 20},
                 ]}>
-                지갑 비밀번호 재설정을 위해{'\n'}
-                Master Key를 입력해 주세요.
+                {t('settingsWalletMasterKey2')}
               </Text>
             </View>
             <View style={[ResetStyle.textInputStyle, {marginTop: '15%'}]}>
@@ -118,7 +121,7 @@ export default class SettingsWalletMasterKey extends Component {
                   ResetStyle.fontDG,
                   ResetStyle.textInputTitle,
                 ]}>
-                Master Key
+                {t('settingsWalletMasterKey3')}
               </Text>
               <TextInput
                 style={[
@@ -126,7 +129,7 @@ export default class SettingsWalletMasterKey extends Component {
                   ResetStyle.fontG,
                   ResetStyle.textInputText,
                 ]}
-                placeholder="Master Key 입력"
+                placeholder={t('settingsWalletMasterKey4')}
                 placeholderTextColor="#a9a9a9"
                 value={this.state.email}
                 onChangeText={this.handlePassword}
@@ -181,16 +184,21 @@ export default class SettingsWalletMasterKey extends Component {
               });
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontWhite]}>
-              다음
+              {t('settingsWalletMasterKeyNextButton')}
             </Text>
           </TouchableOpacity>
           <BottomModal
             setModalVisible={this.setModalVisible}
             modalVisible={this.state.modalVisible}
-            text={`Master Key가 일치하지 않습니다.`}
+            text={t('settingsWalletMasterKey5')}
           />
         </View>
       </SafeAreaView>
     );
   }
 }
+
+export default hoistStatics(
+  withTranslation()(SettingsWalletMasterKey),
+  SettingsWalletMasterKey,
+);

@@ -1,4 +1,4 @@
-import React, {useState, Component} from 'react';
+import React, {Component} from 'react';
 import {
   StyleSheet,
   View,
@@ -13,7 +13,10 @@ import BottomModal from '../factory/modal/BottomModal';
 import AuthStyle from '../../style/AuthStyle.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default class WalletMasterKey extends Component {
+import {withTranslation} from 'react-i18next';
+import hoistStatics from 'hoist-non-react-statics';
+
+class WalletMasterKey extends Component {
   state = {
     modalVisible: false,
   };
@@ -32,12 +35,13 @@ export default class WalletMasterKey extends Component {
     Clipboard.setString(value);
   };
   render() {
+    const {t} = this.props;
     return (
       <SafeAreaView style={ResetStyle.container}>
         <View style={[ResetStyle.containerInner, {justifyContent: 'center'}]}>
           <View>
             <Text style={[ResetStyle.fontBoldK, ResetStyle.fontB]}>
-              지갑 생성 완료{'\n'}Master Key 저장하기
+              {t('WalletMasterKeyTitle')}
             </Text>
             <Text
               style={[
@@ -45,8 +49,7 @@ export default class WalletMasterKey extends Component {
                 ResetStyle.fontG,
                 {marginTop: 10, marginBottom: 20, lineHeight: 25},
               ]}>
-              Master Key는 추후에 지갑 비밀번호 분실 시{'\n'}비밀번호 재설정에
-              꼭 필요한 Key입니다.
+              {t('WalletMasterKey1')}
             </Text>
             <Image
               style={{
@@ -63,8 +66,7 @@ export default class WalletMasterKey extends Component {
                 ResetStyle.fontB,
                 {lineHeight: 28, fontWeight: '600', marginBottom: 50},
               ]}>
-              Master Key 분실 시 찾을 방법이 없으니{'\n'}꼭 다른 곳에 저장해
-              두세요!
+              {t('WalletMasterKey2')}
             </Text>
           </View>
           <View>
@@ -89,7 +91,7 @@ export default class WalletMasterKey extends Component {
                 ResetStyle.fontG,
                 {marginTop: 10, marginBottom: 70},
               ]}>
-              클릭하면 복사됩니다.
+              {t('WalletMasterKey3')}
             </Text>
           </View>
 
@@ -99,16 +101,20 @@ export default class WalletMasterKey extends Component {
               this.props.navigation.navigate('Main');
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontWhite]}>
-              확인
+              {t('WalletMasterKey4')}
             </Text>
           </TouchableOpacity>
         </View>
         <BottomModal
           setModalVisible={this.setModalVisible}
           modalVisible={this.state.modalVisible}
-          text={`복사되었습니다.`}
+          text={t('WalletMasterKey5')}
         />
       </SafeAreaView>
     );
   }
 }
+export default hoistStatics(
+  withTranslation()(WalletMasterKey),
+  WalletMasterKey,
+);

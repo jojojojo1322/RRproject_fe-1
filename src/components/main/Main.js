@@ -18,6 +18,8 @@ import {scrollInterpolator2, animatedStyles2} from '../animations';
 import {server} from '../defined/server';
 import axios from 'axios';
 
+import {withTranslation} from 'react-i18next';
+
 const SLIDER_WIDTH = Dimensions.get('window').width;
 // const SLIDER_HEIGHT = Dimensions.get('window').height / 2.5;
 const SLIDER_HEIGHT = Dimensions.get('window').height / 2;
@@ -209,7 +211,7 @@ const DATA = [
 const numberWithCommas = (x) => {
   return x;
 };
-export default function MainTest({navigation}) {
+function Main({navigation, t, i18n}) {
   console.log('main 호출');
   const [currentTnc, setCurrentTnc] = useState(0);
   const [kycLevel, setKycLevel] = useState(0);
@@ -732,3 +734,5 @@ export default function MainTest({navigation}) {
     </View>
   );
 }
+
+export default withTranslation()(Main);

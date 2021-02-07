@@ -24,7 +24,11 @@ import {server} from '../../defined/server';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NavigationHelpersContext} from '@react-navigation/native';
 
+import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
+
 const WalletReceive = (props) => {
+  const {t, i18n} = useTranslation();
+
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
   const [walletData, setWalletData] = useState([]);
@@ -73,13 +77,13 @@ const WalletReceive = (props) => {
               source={require('../../../imgs/drawable-xxxhdpi/back_icon.png')}
             />
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-              받기
+              {t('walletReceiveTitle')}
             </Text>
           </TouchableOpacity>
         </View>
         <View>
           <Text style={[ResetStyle.fontMediumK, {marginBottom: '10%'}]}>
-            My Address
+            {t('walletReceive1')}
           </Text>
           <QRCode value={masterKey} size={700} bgColor="#000" fgColor="white" />
         </View>
@@ -106,7 +110,7 @@ const WalletReceive = (props) => {
               ResetStyle.fontG,
               {marginTop: 10, marginBottom: 70},
             ]}>
-            클릭하면 복사됩니다.
+            {t('walletReceive2')}
           </Text>
         </View>
         {/* Bottom Button */}
@@ -126,7 +130,7 @@ const WalletReceive = (props) => {
                 ResetStyle.fontWhite,
                 {fontWeight: '600'},
               ]}>
-              확인
+              {t('walletReceiveNextButton')}
             </Text>
           </TouchableOpacity>
         </View>
@@ -139,7 +143,7 @@ const WalletReceive = (props) => {
       <BottomModal
         modalVisible={modal2Visible}
         setModalVisible={setModal2Visible}
-        text={`복사되었습니다.`}
+        text={t('walletReceive3')}
       />
     </SafeAreaView>
   );

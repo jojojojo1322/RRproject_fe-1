@@ -24,6 +24,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import ProgressModal from '../../factory/modal/ProgressModal.js';
 
+import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
+
 // 3자리수 콤마(,) + 소수점 이하는 콤마 안 생기게
 function numberWithCommas(num) {
   var parts = num.toString().split('.');
@@ -34,6 +36,8 @@ function numberWithCommas(num) {
 }
 
 const WalletMain = (props) => {
+  const {t, i18n} = useTranslation();
+
   const URL = 'https://aladdin25.com/';
 
   const [masterKey, setMasterKey] = useState('');
@@ -122,7 +126,6 @@ const WalletMain = (props) => {
             data.to && data.to !== masterKey && {color: '#ff9100'},
           ]}>
           {data.to && `${data.to !== masterKey ? '-' : '+'} ${data.amount}`}
-          {/* {`${data.content.length}`} */}
         </Text>
       </View>
 
@@ -172,7 +175,7 @@ const WalletMain = (props) => {
                   ResetStyle.fontB,
                   {marginLeft: 10},
                 ]}>
-                Real Research
+                {t('walletMainTitle')}
               </Text>
             </View>
           </TouchableOpacity>
@@ -212,7 +215,7 @@ const WalletMain = (props) => {
                 ResetStyle.fontWhite,
                 {fontWeight: '500'},
               ]}>
-              Total Balance
+              {t('walletMain1')}
             </Text>
             <TouchableOpacity
               onPress={() => {
@@ -233,7 +236,7 @@ const WalletMain = (props) => {
                 ResetStyle.fontWhite,
                 {fontWeight: '500', marginBottom: '1%'},
               ]}>
-              {`TNC `}
+              {t('walletMain2')}
             </Text>
             <Text
               style={[
@@ -256,7 +259,7 @@ const WalletMain = (props) => {
                 });
               }}>
               <Text style={[ResetStyle.fontRegularK, ResetStyle.fontB]}>
-                Send
+                {t('walletMain3')}
               </Text>
             </TouchableOpacity>
 
@@ -275,7 +278,7 @@ const WalletMain = (props) => {
                 props.navigation.navigate('WalletReceive');
               }}>
               <Text style={[ResetStyle.fontRegularK, ResetStyle.fontWhite]}>
-                Receive
+                {t('walletMain4')}
               </Text>
             </TouchableOpacity>
           </View>
@@ -288,7 +291,7 @@ const WalletMain = (props) => {
             ResetStyle.fontLightE,
             WalletStyle.transactionsStyle,
           ]}>
-          Transactions
+          {t('walletMain5')}
         </Text>
         <FlatList
           data={walletHistoryData}

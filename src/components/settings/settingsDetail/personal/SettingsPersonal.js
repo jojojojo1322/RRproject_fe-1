@@ -14,7 +14,10 @@ import DeviceInfo from 'react-native-device-info';
 import ResetStyle from '../../../../style/ResetStyle';
 import BottomModal from '../../../factory/modal/BottomModal';
 
-export default class SettingsPersonal extends Component {
+import {withTranslation} from 'react-i18next';
+import hoistStatics from 'hoist-non-react-statics';
+
+class SettingsPersonal extends Component {
   state = {
     email: '',
     authKey: '',
@@ -75,6 +78,7 @@ export default class SettingsPersonal extends Component {
       });
   };
   render() {
+    const {t} = this.props;
     console.log(DeviceInfo.getUniqueId());
     console.log('authKey', this.state.authKey);
     return (
@@ -92,7 +96,7 @@ export default class SettingsPersonal extends Component {
                   source={require('../../../../imgs/drawable-xxxhdpi/back_icon.png')}
                 />
                 <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-                  개인정보설정
+                  {t('settingsPersonalTitle')}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -106,7 +110,7 @@ export default class SettingsPersonal extends Component {
                   ResetStyle.fontDG,
                   ResetStyle.textInputTitle,
                 ]}>
-                이메일 (아이디)
+                {t('settingsPersonal1')}
               </Text>
               <View
                 style={{
@@ -126,7 +130,7 @@ export default class SettingsPersonal extends Component {
                   ResetStyle.fontB,
                   {textAlign: 'left', marginTop: '2%'},
                 ]}>
-                ※ 아이디는 수정이 불가능합니다
+                {t('settingsPersonal2')}
               </Text>
             </View>
 
@@ -138,7 +142,7 @@ export default class SettingsPersonal extends Component {
                   ResetStyle.fontDG,
                   ResetStyle.textInputTitle,
                 ]}>
-                비밀번호
+                {t('settingsPersonal3')}
               </Text>
 
               <View
@@ -186,7 +190,7 @@ export default class SettingsPersonal extends Component {
                   ResetStyle.fontDG,
                   ResetStyle.textInputTitle,
                 ]}>
-                휴대폰 번호
+                {t('settingsPersonal4')}
               </Text>
 
               <View
@@ -226,7 +230,7 @@ export default class SettingsPersonal extends Component {
                   ResetStyle.fontDG,
                   ResetStyle.textInputTitle,
                 ]}>
-                Master Key
+                {t('settingsPersonal5')}
               </Text>
               <TouchableOpacity
                 onPress={async () => {
@@ -247,7 +251,7 @@ export default class SettingsPersonal extends Component {
                     borderBottomColor: '#e6e6e6',
                   }}>
                   <Text style={[ResetStyle.fontRegularK, ResetStyle.fontG]}>
-                    마스터키는 꼭 저장해 주세요
+                    {t('settingsPersonal6')}
                   </Text>
                   <Image
                     style={{width: 30, height: 30}}
@@ -261,10 +265,14 @@ export default class SettingsPersonal extends Component {
           <BottomModal
             setModalVisible={this.setModalVisible}
             modalVisible={this.state.modalVisible}
-            text={`비밀번호가 일치하지 않습니다.`}
+            text={t('settingsPersonal7')}
           />
         </View>
       </SafeAreaView>
     );
   }
 }
+export default hoistStatics(
+  withTranslation()(SettingsPersonal),
+  SettingsPersonal,
+);

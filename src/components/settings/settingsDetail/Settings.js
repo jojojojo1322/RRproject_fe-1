@@ -15,36 +15,39 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '../../../style/ResetStyle.js';
 import {CommonActions, StackActions} from '@react-navigation/native';
 
+import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
+
 const Settings = ({navigation}) => {
+  const {t, i18n} = useTranslation();
   console.log('navigationnavigationnavigationnavigationnavigation', navigation);
   const [DATA] = useState([
     {
       id: '1',
-      title: '개인 정보 설정',
+      title: t('settings1'),
     },
     {
       id: '2',
-      title: '지갑 설정',
+      title: t('settings2'),
     },
     {
       id: '3',
-      title: '잠금 설정',
+      title: t('settings3'),
     },
     {
       id: '4',
-      title: '알림 설정',
+      title: t('settings4'),
     },
     {
       id: '5',
-      title: '언어 설정',
+      title: t('settings5'),
     },
     {
       id: '6',
-      title: '이용약관',
+      title: t('settings6'),
     },
     {
       id: '7',
-      title: '개인정보처리방침',
+      title: t('settings7'),
     },
   ]);
 
@@ -134,7 +137,7 @@ const Settings = ({navigation}) => {
               source={require('../../../imgs/drawable-xxxhdpi/back_icon.png')}
             />
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-              설정
+              {t('settingsTitle')}
             </Text>
           </TouchableOpacity>
         </View>
