@@ -26,7 +26,11 @@ import {server} from '../defined/server';
 import axios from 'axios';
 
 import {CountryListApi} from '../defined/DefineCountryList';
-export default class kycThird extends Component {
+
+import {withTranslation} from 'react-i18next';
+import hoistStatics from 'hoist-non-react-statics';
+
+class kycThird extends Component {
   state = {
     country: '',
     countryCd: this.props.Kcountry,
@@ -218,6 +222,7 @@ export default class kycThird extends Component {
     this.props.handleBirth(e);
   };
   render() {
+    const {t} = this.props;
     console.log({
       countryCd: this.props.Kcountry,
       language: this.props.Klanguage,
@@ -235,7 +240,7 @@ export default class kycThird extends Component {
               ResetStyle.fontBlack,
               {textAlign: 'left'},
             ]}>
-            국적 선택
+            {t('kycThird1')}
           </Text>
         </View>
 
@@ -265,7 +270,7 @@ export default class kycThird extends Component {
                 },
               ]}>
               {this.state.countryCd == ''
-                ? '선택해 주세요.'
+                ? t('kycThird2')
                 : `${this.state.country} (${this.state.countryCd})`}
             </Text>
             <Image
@@ -279,7 +284,7 @@ export default class kycThird extends Component {
           modalVisible={this.state.countryModal}
           setModalVisible={this.setCountryModal}
           setCountry={this.setCountry}
-          titleText={`국적선택`}
+          titleText={t('kycThird3')}
           list={this.state.countryData}
         />
 
@@ -290,8 +295,8 @@ export default class kycThird extends Component {
               ResetStyle.fontBlack,
               {textAlign: 'left'},
             ]}>
-            사용가능언어 선택
-            <Text style={{fontWeight: '300'}}> (다중 선택 가능)</Text>
+            {t('kycThird4')}
+            <Text style={{fontWeight: '300'}}>{t('kycThird5')}</Text>
           </Text>
         </View>
 
@@ -312,7 +317,7 @@ export default class kycThird extends Component {
                 },
               ]}>
               {this.state.language == ''
-                ? '선택해 주세요.'
+                ? t('kycThird6')
                 : this.state.language.length >= 20
                 ? this.state.language.slice(0, 20) + '...'
                 : this.state.language}
@@ -338,7 +343,7 @@ export default class kycThird extends Component {
               ResetStyle.fontBlack,
               {textAlign: 'left'},
             ]}>
-            거주국가 선택
+            {t('kycThird7')}
           </Text>
         </View>
         <TouchableOpacity
@@ -358,7 +363,7 @@ export default class kycThird extends Component {
                 },
               ]}>
               {this.state.residenceCountry == ''
-                ? '선택해 주세요.'
+                ? t('kycThird8')
                 : `${this.state.residenceCountry} (${this.state.residenceCountryCd})`}
             </Text>
             <Image
@@ -373,7 +378,7 @@ export default class kycThird extends Component {
           modalVisible={this.state.residenceCountryModal}
           setModalVisible={this.setResidenceCountryModal}
           setCountry={this.setResidenceCountry}
-          titleText={`거주국가선택`}
+          titleText={t('kycThird9')}
           list={this.state.countryData}
         />
 
@@ -384,7 +389,7 @@ export default class kycThird extends Component {
               ResetStyle.fontBlack,
               {textAlign: 'left'},
             ]}>
-            거주도시 선택
+            {t('kycThird10')}
           </Text>
         </View>
         <TouchableOpacity
@@ -404,7 +409,7 @@ export default class kycThird extends Component {
                 },
               ]}>
               {this.state.residenceCity == ''
-                ? '선택해 주세요.'
+                ? t('kycThird11')
                 : this.state.residenceCity}
             </Text>
             <Image
@@ -419,10 +424,12 @@ export default class kycThird extends Component {
           setModalVisible={this.setResidenceCityModal}
           setCountry={this.setResidenceCity}
           setLanguage={this.setLanguage}
-          titleText={`거주도시선택`}
+          titleText={t('kycThird12')}
           list={this.state.cityData}
         />
       </View>
     );
   }
 }
+
+export default hoistStatics(withTranslation()(kycThird), kycThird);

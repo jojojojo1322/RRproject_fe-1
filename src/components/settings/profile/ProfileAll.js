@@ -20,6 +20,8 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '../../../style/ResetStyle.js';
 import ProfileStyle from '../../../style/ProfileStyle.js';
 
+import {useTranslation} from 'react-i18next';
+
 const kycArr = [
   {
     나이: '25',
@@ -54,125 +56,7 @@ const levelMap = [
   {id: '22'},
   {id: '23'},
 ];
-const kycQuestion2 = [
-  {
-    category: 'employmentStatus',
-    question: 'What is your current employment status?',
-    answers: [
-      'Employed full-time',
 
-      'Self-employed full-time',
-
-      'Active military',
-
-      'Temporarily unemployed',
-
-      'Retired',
-
-      'Disabled / Permanently unemployed',
-
-      'Employed part-time',
-
-      'Self-employed part-time',
-
-      'Inactive military / veteran',
-
-      'Full-time homemaker / family dependent',
-
-      'Student',
-
-      'Prefer not to answer',
-    ],
-  },
-  {
-    category: 'annualRevenue',
-    question: 'Waht is your estimated annual revenue?',
-    answers: [
-      'Under $50,000',
-
-      '$50,000 - $100,000',
-
-      '$100,000- $249,000',
-
-      '$250,000 - $499,999',
-
-      '$500,000 - $999,999',
-
-      '$1 million - $4.99 million',
-
-      '$5 million or more',
-
-      'I don’t work / we don’t work',
-
-      'Prefer not to answer',
-    ],
-  },
-  {
-    category: 'ownProperties',
-    question: 'Do you own one or more properties?',
-    answers: [
-      'Yes, I own one house',
-
-      'Yes, I own two houses or more',
-
-      'Yes, I own multiple properties',
-
-      'No',
-
-      'Prefer not to answer',
-    ],
-  },
-  {
-    category: 'netWorth',
-    question: 'Roughly what is your net worth?',
-    answers: [
-      'Under $50,000',
-
-      '$50,000 - $100,000',
-
-      '$100,000- $249,000',
-
-      '$250,000 - $499,999',
-
-      '$500,000 - $999,999',
-
-      '$1 million - $4.99 million',
-
-      '$5 million - $9.99 million',
-
-      '$100 million - $249.99 million',
-
-      '$250 million - $499.99 million',
-
-      '$500 million - $999.99 million',
-
-      '$1 billion or more',
-
-      'Prefer not to answer',
-    ],
-  },
-  {
-    category: 'investIn',
-    question: 'Where do you invest your income?',
-    answers: [
-      'Real Estate',
-
-      'Stock Market Investment',
-
-      'Equity Mutual Funds',
-
-      'Cryptocurrencies',
-
-      'Gold',
-
-      'Savings Account (Time Deposit)',
-
-      'Business Capital Investment',
-
-      'Prefer not to answer',
-    ],
-  },
-];
 const ProfileAll = (props) => {
   const [question, setQuestion] = useState([]);
   const [question2, setQuestion2] = useState([]);
@@ -198,6 +82,128 @@ const ProfileAll = (props) => {
   const [question21, setQuestion21] = useState([]);
   const [question22, setQuestion22] = useState([]);
   const [question23, setQuestion23] = useState([]);
+
+  const {t, i18n} = useTranslation();
+
+  const kycQuestion2 = [
+    {
+      category: 'employmentStatus',
+      question: t('profileAllQuestion2_1'),
+      answers: [
+        t('profileAllQuestion2_1_Answer1'),
+
+        t('profileAllQuestion2_1_Answer2'),
+
+        t('profileAllQuestion2_1_Answer3'),
+
+        t('profileAllQuestion2_1_Answer4'),
+
+        t('profileAllQuestion2_1_Answer5'),
+
+        t('profileAllQuestion2_1_Answer6'),
+
+        t('profileAllQuestion2_1_Answer7'),
+
+        t('profileAllQuestion2_1_Answer8'),
+
+        t('profileAllQuestion2_1_Answer9'),
+
+        t('profileAllQuestion2_1_Answer10'),
+
+        t('profileAllQuestion2_1_Answer11'),
+
+        t('profileAllQuestion2_1_Answer12'),
+      ],
+    },
+    {
+      category: 'annualRevenue',
+      question: t('profileAllQuestion2_2'),
+      answers: [
+        t('profileAllQuestion2_2_Answer1'),
+
+        t('profileAllQuestion2_2_Answer2'),
+
+        t('profileAllQuestion2_2_Answer3'),
+
+        t('profileAllQuestion2_2_Answer4'),
+
+        t('profileAllQuestion2_2_Answer5'),
+
+        t('profileAllQuestion2_2_Answer6'),
+
+        t('profileAllQuestion2_2_Answer7'),
+
+        t('profileAllQuestion2_2_Answer8'),
+
+        t('profileAllQuestion2_2_Answer9'),
+      ],
+    },
+    {
+      category: 'ownProperties',
+      question: t('profileAllQuestion2_3'),
+      answers: [
+        t('profileAllQuestion2_3_Answer1'),
+
+        t('profileAllQuestion2_3_Answer2'),
+
+        t('profileAllQuestion2_3_Answer3'),
+
+        t('profileAllQuestion2_3_Answer4'),
+
+        t('profileAllQuestion2_3_Answer5'),
+      ],
+    },
+    {
+      category: 'netWorth',
+      question: t('profileAllQuestion2_4'),
+      answers: [
+        t('profileAllQuestion2_4_Answer1'),
+
+        t('profileAllQuestion2_4_Answer2'),
+
+        t('profileAllQuestion2_4_Answer3'),
+
+        t('profileAllQuestion2_4_Answer4'),
+
+        t('profileAllQuestion2_4_Answer5'),
+
+        t('profileAllQuestion2_4_Answer6'),
+
+        t('profileAllQuestion2_4_Answer7'),
+
+        t('profileAllQuestion2_4_Answer8'),
+
+        t('profileAllQuestion2_4_Answer9'),
+
+        t('profileAllQuestion2_4_Answer10'),
+
+        t('profileAllQuestion2_4_Answer11'),
+
+        t('profileAllQuestion2_4_Answer12'),
+      ],
+    },
+    {
+      category: 'investIn',
+      question: t('profileAllQuestion2_5'),
+      answers: [
+        t('profileAllQuestion2_5_Answer1'),
+
+        t('profileAllQuestion2_5_Answer2'),
+
+        t('profileAllQuestion2_5_Answer3'),
+
+        t('profileAllQuestion2_5_Answer4'),
+
+        t('profileAllQuestion2_5_Answer5'),
+
+        t('profileAllQuestion2_5_Answer6'),
+
+        t('profileAllQuestion2_5_Answer7'),
+
+        t('profileAllQuestion2_5_Answer8'),
+      ],
+    },
+  ];
 
   const getCompleteKycApi = async () => {
     await axios
@@ -509,8 +515,8 @@ const ProfileAll = (props) => {
                           ResetStyle.fontDG,
                           {width: '100%', textAlign: 'left', marginLeft: '5%'},
                         ]}>
-                        {d === 'gender' && data[d] === '1' && '남자'}
-                        {d === 'gender' && data[d] === '0' && '여자'}
+                        {d === 'gender' && data[d] === '1' && t('profileAll1')}
+                        {d === 'gender' && data[d] === '0' && t('profileAll2')}
                         {d === 'relationShipStatus' &&
                           data[d] === '0' &&
                           'Single'}
@@ -536,7 +542,7 @@ const ProfileAll = (props) => {
                   <View style={[ProfileStyle.kycAllLevelTitle]}>
                     <Text
                       style={[ResetStyle.fontRegularE, {fontWeight: '500'}]}>
-                      KYC LEVEL 1
+                      {t('profileAll3')}
                     </Text>
                     <TouchableOpacity
                       onPress={() => {
@@ -562,7 +568,7 @@ const ProfileAll = (props) => {
                 <View
                   style={[ProfileStyle.kycAllLevelTitle, {marginTop: '10%'}]}>
                   <Text style={[ResetStyle.fontRegularE, {fontWeight: '500'}]}>
-                    KYC LEVEL 2
+                    {t('profileAll4')}
                   </Text>
                   <TouchableOpacity
                     onPress={() => {
@@ -619,7 +625,8 @@ const ProfileAll = (props) => {
                       ]}>
                       <Text
                         style={[ResetStyle.fontRegularE, {fontWeight: '500'}]}>
-                        KYC LEVEL {data.id}
+                        {t('profileAll5')}
+                        {data.id}
                       </Text>
                       <TouchableOpacity
                         onPress={() => {

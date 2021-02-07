@@ -27,7 +27,7 @@ function handleEmail(status) {
     // bcc: 'mee@mee.com',
     // string or array of email addresses
     subject: 'Real Research Support',
-    body: t('customDrawerContentMail'),
+    // body: t('customDrawerContentMail'),
   }).catch(console.error);
 }
 

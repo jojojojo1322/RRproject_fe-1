@@ -205,7 +205,7 @@ const Initial2 = (props) => {
                       style={[ResetStyle.buttonWhite, {marginTop: 10}]}
                       activeOpacity={0.75}
                       onPress={() => {
-                        props.navigation.navigate('ResetEmail');
+                        props.navigation.navigate('Kyc');
                       }}>
                       <Text
                         style={[

@@ -18,6 +18,8 @@ import ProfileStyle from '../../../style/ProfileStyle.js';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {FlatList} from 'react-native-gesture-handler';
 import BottomModal from '../../factory/modal/BottomModal';
+
+import {useTranslation} from 'react-i18next';
 // import {CustomDrawerContent} from '../../defined/CustomDrawerContent';
 
 const Drawer = createDrawerNavigator();
@@ -52,6 +54,7 @@ const ProfileMain = ({navigation}) => {
   const [kycLevel, setKycLevel] = useState(0);
   const [kycLevelNumber, setKycLevelNumber] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
+  const {t, i18n} = useTranslation();
 
   const userApi = async () => {
     await axios
@@ -119,7 +122,8 @@ const ProfileMain = ({navigation}) => {
               : ResetStyle.fontG,
             ProfileStyle.kycLevelText,
           ]}>
-          KYC LEVEL {level}
+          {t('profileMain1')}
+          {level}
         </Text>
         <View style={[ProfileStyle.kycLevelCheckboxView]}>
           <Text
@@ -131,7 +135,7 @@ const ProfileMain = ({navigation}) => {
                 : ResetStyle.fontG,
               ProfileStyle.kycLevelText2,
             ]}>
-            {level <= kycLevel ? `완료` : `시작`}
+            {level <= kycLevel ? t('profileMain2') : t('profileMain3')}
           </Text>
           <Image
             style={[ProfileStyle.kycLevelCheckboxImg]}
@@ -166,7 +170,7 @@ const ProfileMain = ({navigation}) => {
                   ResetStyle.fontB,
                   {marginLeft: 10},
                 ]}>
-                Real Research
+                {t('profileMain4')}
               </Text>
             </View>
           </TouchableOpacity>
@@ -189,7 +193,8 @@ const ProfileMain = ({navigation}) => {
               ResetStyle.fontWhite,
               {fontWeight: '700', textAlign: 'left'},
             ]}>
-            LEVEL {kycLevel}
+            {t('profileMain5')}
+            {kycLevel}
           </Text>
           <Text
             style={[
@@ -208,7 +213,7 @@ const ProfileMain = ({navigation}) => {
               ResetStyle.fontMediumE,
               {fontWeight: '300', letterSpacing: 0.5},
             ]}>
-            KYC LEVEL
+            {t('profileMain6')}
           </Text>
           <TouchableOpacity
             style={[ResetStyle.buttonSmall, ProfileStyle.kycLevelAll]}
@@ -223,7 +228,7 @@ const ProfileMain = ({navigation}) => {
                 ResetStyle.fontWhite,
                 {fontWeight: '500'},
               ]}>
-              ALL
+              {t('profileMain7')}
             </Text>
           </TouchableOpacity>
         </View>

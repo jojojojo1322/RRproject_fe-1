@@ -10,12 +10,14 @@ import {
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import ResetStyle from '../../style/ResetStyle.js';
 import DatePickerModal from '../factory/modal/DatePickerModal';
+import {useTranslation} from 'react-i18next';
 
-export default function KycSecond(props) {
+const KycSecond = (props) => {
   console.log('>>>?>?>?>?>?>?', props);
   const [_date, _setDate] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
 
+  const {t, i18n} = useTranslation();
   return (
     <View style={{marginBottom: '40%'}}>
       <View>
@@ -25,7 +27,7 @@ export default function KycSecond(props) {
             ResetStyle.fontBlack,
             {textAlign: 'left'},
           ]}>
-          생년월일 입력
+          {t('kycSecond1')}
         </Text>
       </View>
       <View>
@@ -45,7 +47,7 @@ export default function KycSecond(props) {
                 color: props.birth === undefined ? '#a9a9a9' : '#222222',
               },
             ]}>
-            {props.birth !== undefined ? props.birth : '생일을 입력해주세요.'}
+            {props.birth !== undefined ? props.birth : t('kycSecond2')}
           </Text>
         </TouchableOpacity>
       </View>
@@ -58,4 +60,6 @@ export default function KycSecond(props) {
       />
     </View>
   );
-}
+};
+
+export default KycSecond;
