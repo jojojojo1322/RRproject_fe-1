@@ -84,6 +84,46 @@ export default ko = {
       Login6: '아직 회원이 아니십니까?',
       Login7: '회원가입',
       Login8: 'Powered by Real Research Inc.',
+      Login9: 'Kyc Level 1을\n진행해주세요.',
+      Login10: '확인',
+      Login11: '현재 지갑이 생성되어 있지 않습니다\n지갑을 만들어주세요.',
+      Login12: '확인',
+      Login13: '정보가 정확하지 않습니다.',
+      Login14: '해당 계정의 디바이스가 아닙니다.',
+
+      // CustomDrawerContent
+      customDrawerContentMail:
+        '리얼 리서치는 회원님들의 원활한 이용을 위해 영어, 러시아어, 한국어 총 3개 언어를 지원하고 있습니다. 도움이 필요하시면 언제든 문의해주십시오.',
+      customDrawerContent1: 'KYC LEVEL',
+      customDrawerContent2: '레벨업하러 가기',
+      customDrawerContent3: 'TNC',
+      customDrawerContent4: '내지갑열기',
+      customDrawerContent5: '본인인증',
+      customDrawerContent6: '설문조사',
+      customDrawerContent7: '설문조사 의뢰하기',
+      customDrawerContent8: '미디어',
+      customDrawerContent9: '알림',
+      customDrawerContent10: '1:1 문의',
+      customDrawerContent11: '설정',
+      customDrawerContent12: '초대코드',
+
+      // Main
+      mainLogo: 'Real Research',
+      main1: 'No data!',
+      main2: 'TNC',
+      main3: '보기',
+      main4: 'KYC 레벨',
+      main5: 'LEVEL',
+      main6: 'MY TNC',
+      main7: '진행중',
+      main8: '참여완료',
+      main9: '설문종료',
+
+      // MainDetail
+      mainDetail1: '',
+
+      // MainAlert
+      mainAlertTitle: '알림',
 
       // WalletPassword
       WalletPasswordTitle: '지갑 비밀번호',
@@ -178,6 +218,8 @@ export default ko = {
       walletSend12: '수수료를 제외한 총액이 표시됩니다.',
       walletSend13: '내용을 올바르게 입력 해 주십시오.',
       walletSend14: '보내는 금액은 최소 10TNC 이상입니다.',
+      walletSend15: '전송 수수료 : 10 TNC',
+      walletSend16: '보내는 금액은 최소 10 TNC 이상이어야 합니다.',
 
       // WalletSendQR
       walletSendQRTitle: '돌아가기',
@@ -397,6 +439,43 @@ export default ko = {
       settingsLockPattern3: '패턴 설정이 완료되었습니다.',
       settingsLockPattern4: '확인',
       settingsLockPatternNextButton: '다음',
+
+      // Idverification
+      idVerificationTitle: 'KYC 여권 인증',
+      idVerification1: '왼손에 여권을 들고 사진을 찍으세요.',
+      idVerification2:
+        '오른손엔 날짜와 Real Research, 서명을 한 종이를 들고 찍으세요.',
+      idVerification3: "Passport의 'Personal No.'는 가리셔도 됩니다.",
+      idVerification4: '사진촬영',
+      idVerification5: '이미지 업로드',
+      idVerification6: 'Passport Number',
+      idVerification7: '입력',
+      idVerification8: 'First Name',
+      idVerification9: '입력',
+      idVerification10: 'Last Name',
+      idVerification11: '입력',
+      idVerificationNextButton: '확인',
+
+      // IdVerificationComplete
+      idVerificationCompleteTitle: '인증 완료',
+      idVerificationComplete1:
+        '인증이 승인되었습니다!\nID를 제출해주셔서 감사합니다.\n귀하의 프로필이 검증되었습니다.',
+
+      // IdVerificationDecline
+      idVerificationDeclineTitle: '인증 거절',
+      idVerificationDecline1:
+        '인증이 거절되었습니다.\n여권의 더 명확한 사본을\n다시 제출해주세요.',
+      idVerificationDeclineNextButton: '확인',
+
+      // IdVerificationInProgress
+      idVerificationInProgressTitle: '인증 진행중',
+      idVerificationInProgress1:
+        '파일이 성공적으로 제출되었습니다.\n승인 여부는 Real Research 앱에서\n알림으로 확인해주세요!',
+
+      // IdVerificationSorry
+      idVerificationSorryTitle: '인증 실패',
+      idVerificationSorry1:
+        '인증이 금지되었습니다.\n제출하신 서류가 기준에 맞지 않습니다.\n자세한 사항은 CS팀에 문의해주세요.',
     },
   },
 };

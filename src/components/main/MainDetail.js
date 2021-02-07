@@ -20,7 +20,10 @@ import AudienceModal from '../factory/modal/AudienceModal';
 
 import CarrierInfo from 'react-native-carrier-info';
 
-export default class MainDetail extends Component {
+import {withTranslation} from 'react-i18next';
+import hoistStatics from 'hoist-non-react-statics';
+
+class MainDetail extends Component {
   state = {
     modalVisible: false,
   };
@@ -62,6 +65,7 @@ export default class MainDetail extends Component {
   }
 
   render() {
+    const {t} = this.props;
     return (
       <SafeAreaView style={[ResetStyle.container]}>
         <ScrollView style={{paddingLeft: '5%', paddingRight: '5%'}}>
@@ -273,3 +277,5 @@ export default class MainDetail extends Component {
     );
   }
 }
+
+export default hoistStatics(withTranslation()(MainDetail), MainDetail);

@@ -11,7 +11,10 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '../../style/ResetStyle.js';
 
+import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
+
 const IdVerificationInProgress = ({navigation}) => {
+  const {t, i18n} = useTranslation();
   return (
     <SafeAreaView style={[ResetStyle.container]}>
       {/* topBackButton */}
@@ -47,7 +50,7 @@ const IdVerificationInProgress = ({navigation}) => {
               marginBottom: '5%',
             },
           ]}>
-          인증 진행중
+          {t('idVerificationInProgressTitle')}
         </Text>
         <Text
           style={[
@@ -55,9 +58,7 @@ const IdVerificationInProgress = ({navigation}) => {
             ResetStyle.fontBlack,
             {lineHeight: 28},
           ]}>
-          파일이 성공적으로 제출되었습니다.{'\n'}
-          승인 여부는 Real Research 앱에서{'\n'}
-          알림으로 확인해주세요!
+          {t('idVerificationInProgress1')}
         </Text>
       </View>
 

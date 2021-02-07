@@ -16,6 +16,7 @@ import ResetStyle from '../../style/ResetStyle.js';
 import MainStyle from '../../style/MainStyle.js';
 
 import email from 'react-native-email';
+import {useTranslation} from 'react-i18next';
 
 function handleEmail(status) {
   const to = ['rrmaster@gmail.com']; // string or array of email addresses
@@ -26,15 +27,15 @@ function handleEmail(status) {
     // bcc: 'mee@mee.com',
     // string or array of email addresses
     subject: 'Real Research Support',
-    body:
-      '리얼 리서치는 회원님들의 원활한 이용을 위해 영어, 러시아어, 한국어 총 3개 언어를 지원하고 있습니다. 도움이 필요하시면 언제든 문의해주십시오.',
+    body: t('customDrawerContentMail'),
   }).catch(console.error);
 }
 
 const Tab = createMaterialTopTabNavigator();
 const Drawer = createDrawerNavigator();
 
-export function CustomDrawerContent(props) {
+const CustomDrawerContent = (props) => {
+  const {t, i18n} = useTranslation();
   const [alertData, setAlertData] = useState([]);
   const [walletData, setWalletData] = useState([]);
   const [total, setTotal] = useState(0);
@@ -44,6 +45,8 @@ export function CustomDrawerContent(props) {
 
   const [loginStatus, setLoginStatus] = useState(props.login);
   const [email, setEmail] = useState('');
+
+  console.log('커스텀 propspropspropsprops', props);
 
   const emailAsyncSet = async () => {
     setEmail(await AsyncStorage.getItem('email'));
@@ -203,7 +206,7 @@ export function CustomDrawerContent(props) {
               ResetStyle.fontB,
               {fontWeight: '500', marginRight: 5},
             ]}>
-            KYC LEVEL
+            {t('customDrawerContent1')}
           </Text>
         </View>
 
@@ -238,7 +241,7 @@ export function CustomDrawerContent(props) {
                 ResetStyle.fontB,
                 {fontWeight: '600'},
               ]}>
-              레벨업하러 가기
+              {t('customDrawerContent2')}
             </Text>
             <Image
               style={{marginLeft: 5}}
@@ -272,7 +275,7 @@ export function CustomDrawerContent(props) {
               ResetStyle.fontB,
               {fontWeight: '500', marginLeft: 5, paddingBottom: 2},
             ]}>
-            TNC
+            {t('customDrawerContent3')}
           </Text>
         </View>
         <TouchableOpacity
@@ -286,7 +289,7 @@ export function CustomDrawerContent(props) {
               ResetStyle.fontWhite,
               {padding: '10%', textAlign: 'center', fontWeight: '500'},
             ]}>
-            내지갑열기
+            {t('customDrawerContent4')}
           </Text>
         </TouchableOpacity>
       </View>
@@ -305,7 +308,7 @@ export function CustomDrawerContent(props) {
               ResetStyle.fontBlack,
               MainStyle.drawerItemText,
             ]}>
-            본인인증
+            {t('customDrawerContent5')}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -319,7 +322,7 @@ export function CustomDrawerContent(props) {
               ResetStyle.fontBlack,
               MainStyle.drawerItemText,
             ]}>
-            설문조사
+            {t('customDrawerContent6')}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -333,7 +336,7 @@ export function CustomDrawerContent(props) {
               ResetStyle.fontBlack,
               MainStyle.drawerItemText,
             ]}>
-            설문조사 의뢰하기
+            {t('customDrawerContent7')}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -347,7 +350,7 @@ export function CustomDrawerContent(props) {
               ResetStyle.fontBlack,
               MainStyle.drawerItemText,
             ]}>
-            미디어
+            {t('customDrawerContent8')}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -364,7 +367,7 @@ export function CustomDrawerContent(props) {
               ResetStyle.fontBlack,
               MainStyle.drawerItemText,
             ]}>
-            알림
+            {t('customDrawerContent9')}
           </Text>
           {alertDataNot.length !== 0 && (
             <TouchableOpacity style={[MainStyle.drawerItemAlert]}>
@@ -381,7 +384,7 @@ export function CustomDrawerContent(props) {
               ResetStyle.fontBlack,
               MainStyle.drawerItemText,
             ]}>
-            1:1 문의
+            {t('customDrawerContent10')}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -395,7 +398,7 @@ export function CustomDrawerContent(props) {
               ResetStyle.fontBlack,
               MainStyle.drawerItemText,
             ]}>
-            설정
+            {t('customDrawerContent11')}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -409,7 +412,7 @@ export function CustomDrawerContent(props) {
               ResetStyle.fontBlack,
               MainStyle.drawerItemText,
             ]}>
-            초대코드
+            {t('customDrawerContent12')}
           </Text>
         </TouchableOpacity>
       </View>
@@ -432,4 +435,6 @@ export function CustomDrawerContent(props) {
       />
     </DrawerContentScrollView>
   );
-}
+};
+
+export default CustomDrawerContent;

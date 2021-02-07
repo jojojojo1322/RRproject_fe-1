@@ -11,7 +11,10 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '../../style/ResetStyle.js';
 
+import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
+
 const IdVerificationComplete = ({navigation}) => {
+  const {t, i18n} = useTranslation();
   return (
     <SafeAreaView style={[ResetStyle.container]}>
       {/* topBackButton */}
@@ -47,7 +50,7 @@ const IdVerificationComplete = ({navigation}) => {
               marginBottom: '5%',
             },
           ]}>
-          인증 완료
+          {t('idVerificationCompleteTitle')}
         </Text>
         <Text
           style={[
@@ -55,9 +58,7 @@ const IdVerificationComplete = ({navigation}) => {
             ResetStyle.fontBlack,
             {lineHeight: 30},
           ]}>
-          인증이 승인되었습니다!{'\n'}
-          ID를 제출해주셔서 감사합니다.{'\n'}
-          귀하의 프로필이 검증되었습니다.
+          {t('idVerificationComplete1')}
         </Text>
       </View>
 

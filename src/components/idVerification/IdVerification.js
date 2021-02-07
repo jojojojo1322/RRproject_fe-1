@@ -9,6 +9,8 @@ import {TextInput} from 'react-native-gesture-handler';
 
 import * as ImagePicker from 'react-native-image-picker';
 
+import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
+
 const CheckList = ({text}) => {
   return (
     <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
@@ -34,6 +36,7 @@ const CheckList = ({text}) => {
 };
 
 const ProfileMain = ({navigation}) => {
+  const {t, i18n} = useTranslation();
   const [response, setResponse] = useState(null);
 
   useEffect(() => {
@@ -53,7 +56,7 @@ const ProfileMain = ({navigation}) => {
             source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
           />
           <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-            KYC 여권 인증
+            {t('idVerificationTitle')}
           </Text>
         </TouchableOpacity>
       </View>
@@ -110,13 +113,9 @@ const ProfileMain = ({navigation}) => {
               justifyContent: 'space-between',
               marginVertical: '5%',
             }}>
-            <CheckList text={'왼손에 여권을 들고 사진을 찍으세요.'} />
-            <CheckList
-              text={
-                '오른손엔 날짜와 Real Research, 서명을 한 종이를 들고 찍으세요.'
-              }
-            />
-            <CheckList text={"Passport의 'Personal No.'는 가리셔도 됩니다."} />
+            <CheckList text={t('idVerification1')} />
+            <CheckList text={t('idVerification2')} />
+            <CheckList text={t('idVerification3')} />
           </View>
 
           {/* buttons */}
@@ -150,7 +149,7 @@ const ProfileMain = ({navigation}) => {
                 );
               }}>
               <Text style={[ResetStyle.fontRegularK, ResetStyle.fontWhite]}>
-                사진촬영
+                {t('idVerification4')}
               </Text>
             </TouchableOpacity>
 
@@ -179,7 +178,7 @@ const ProfileMain = ({navigation}) => {
                 );
               }}>
               <Text style={[ResetStyle.fontRegularK, ResetStyle.fontWhite]}>
-                이미지 업로드
+                {t('idVerification5')}
               </Text>
             </TouchableOpacity>
           </View>
@@ -200,7 +199,7 @@ const ProfileMain = ({navigation}) => {
                 ResetStyle.fontBlack,
                 {textAlign: 'left'},
               ]}>
-              Passport Number
+              {t('idVerification6')}
             </Text>
             <View
               style={{
@@ -210,7 +209,7 @@ const ProfileMain = ({navigation}) => {
                 marginBottom: '7%',
               }}>
               <TextInput
-                placeholder={'입력'}
+                placeholder={t('idVerification7')}
                 placeholderTextColor="#a9a9a9"
                 style={[
                   ResetStyle.fontRegularK,
@@ -224,7 +223,7 @@ const ProfileMain = ({navigation}) => {
                 ResetStyle.fontBlack,
                 {textAlign: 'left'},
               ]}>
-              First Name
+              {t('idVerification8')}
             </Text>
             <View
               style={{
@@ -234,7 +233,7 @@ const ProfileMain = ({navigation}) => {
                 marginBottom: '7%',
               }}>
               <TextInput
-                placeholder={'입력'}
+                placeholder={t('idVerification9')}
                 placeholderTextColor="#a9a9a9"
                 style={[
                   ResetStyle.fontRegularK,
@@ -248,7 +247,7 @@ const ProfileMain = ({navigation}) => {
                 ResetStyle.fontBlack,
                 {textAlign: 'left'},
               ]}>
-              Last Name
+              {t('idVerification10')}
             </Text>
             <View
               style={{
@@ -258,7 +257,7 @@ const ProfileMain = ({navigation}) => {
                 marginBottom: '7%',
               }}>
               <TextInput
-                placeholder={'입력'}
+                placeholder={t('idVerification11')}
                 placeholderTextColor="#a9a9a9"
                 style={[
                   ResetStyle.fontRegularK,
@@ -291,7 +290,7 @@ const ProfileMain = ({navigation}) => {
             ResetStyle.fontWhite,
             {fontWeight: '600'},
           ]}>
-          확인
+          {t('idVerificationNextButton')}
         </Text>
       </TouchableOpacity>
     </SafeAreaView>

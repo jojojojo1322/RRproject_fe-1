@@ -17,7 +17,10 @@ import ResetStyle from '../../style/ResetStyle.js';
 import WalletStyle from '../../style/WalletStyle.js';
 import {TextInput} from 'react-native-gesture-handler';
 
+import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
+
 const IdVerificationSorry = ({navigation}) => {
+  const {t, i18n} = useTranslation();
   return (
     <SafeAreaView style={[ResetStyle.container]}>
       {/* topBackButton */}
@@ -53,7 +56,7 @@ const IdVerificationSorry = ({navigation}) => {
               marginBottom: '5%',
             },
           ]}>
-          인증 실패
+          {t('idVerificationSorryTitle')}
         </Text>
         <Text
           style={[
@@ -61,9 +64,7 @@ const IdVerificationSorry = ({navigation}) => {
             ResetStyle.fontBlack,
             {lineHeight: 28},
           ]}>
-          인증이 금지되었습니다.{'\n'}
-          제출하신 서류가 기준에 맞지 않습니다.{'\n'}
-          자세한 사항은 CS팀에 문의해주세요.
+          {t('idVerificationSorry1')}
         </Text>
       </View>
 
