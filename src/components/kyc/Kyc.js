@@ -74,6 +74,7 @@ export default class Kyc extends Component {
         : this.props.route.params?.maritalStatus,
     step: this.props.route.params?.step,
     birth: this.props.route.params?.birth,
+    // birth: '',
     country: '',
     countryCd: '',
     countryCity: '',
@@ -82,9 +83,11 @@ export default class Kyc extends Component {
 
     languageCd: '',
     modalVisible: false,
+    modal1Visible: false,
     returnValue: '',
 
     updateCheck: false,
+    updateUserData: [],
   };
 
   kycGetApi = async () => {
@@ -95,40 +98,7 @@ export default class Kyc extends Component {
         console.log(response.data.ret_val);
         if (response.data.response.ret_val === 0) {
           this.setState({
-            updateCheck: true,
-            gender: response.data.data.gender,
-            maritalStatus: response.data.data.relationShipStatus,
-            birth: response.data.data.dateOfBirth,
-            nationality: response.data.data.nationality,
-            countryCd: response.data.data.nationalityCode,
-            languageCd: response.data.data.language,
-            countryResidence: response.data.data.residentCountry,
-            countryResidenceCd: response.data.data.residentCountryCode,
-            countryCity: response.data.data.residentCity,
-
-            // this.state.birth,
-            // this.state.country,
-            // this.state.countryCd,
-            // this.state.countryCity,
-            // this.state.countryResidence,
-            // this.state.countryResidenceCd,
-            // this.state.gender,
-            // this.state.languageCd,
-            // this.state.maritalStatus,
-
-            ////
-            // dateOfBirth: birthday,
-            // gender: gender,
-            // language: languageCd,
-
-            // nationality: country,
-            // nationalityCode: countryCd,
-            // relationShipStatus: marriageStatus,
-            // residentCity: countryCity,
-            // residentCountry: countryResidence,
-            // residentCountryCode: countryResidenceCd,
-
-            // userNo: userNo,
+            updateUserData: response.data.data,
           });
         }
       })
@@ -142,8 +112,17 @@ export default class Kyc extends Component {
       modalVisible: visible,
     });
   };
+  setModal1Visible = (visible) => {
+    this.setState({
+      modal1Visible: visible,
+    });
+  };
   handleNextPage = () => {
-    this.props.navigation.navigate('Login');
+    if (this.state.updateCheck === false) {
+      this.props.navigation.navigate('Login');
+    } else if (this.state.updateCheck === true) {
+      this.props.navigation.navigate('ProfileMain');
+    }
   };
 
   setCountry = (country, cd, phone) => {
@@ -163,7 +142,54 @@ export default class Kyc extends Component {
     console.log(visible);
     this.setState({countryCity: visible});
   };
+  KycUpdateApi = async (
+    birthday,
+    country,
+    countryCd,
+    countryCity,
+    countryResidence,
+    countryResidenceCd,
+    gender,
+    languageCd,
+    marriageStatus,
+  ) => {
+    const userNo = await AsyncStorage.getItem('userNo');
+    console.log({
+      dateOfBirth: birthday,
+      gender: gender,
+      language: languageCd,
 
+      nationality: country,
+      nationalityCode: countryCd,
+      relationShipStatus: marriageStatus,
+      residentCity: countryCity,
+      residentCountry: countryResidence,
+      residentCountryCode: countryResidenceCd,
+    });
+    await axios
+      .patch(`${server}/kyc/1/${userNo}`, {
+        dateOfBirth: birthday,
+        gender: gender,
+        language: languageCd,
+
+        nationality: country,
+        nationalityCode: countryCd,
+        relationShipStatus: marriageStatus,
+        residentCity: countryCity,
+        residentCountry: countryResidence,
+        residentCountryCode: countryResidenceCd,
+      })
+      .then((response) => {
+        console.log('KycUpdateApi THEN>>>>', response);
+        console.log(response.data.ret_val);
+        this.setState({
+          returnValue: response.data.ret_val,
+        });
+      })
+      .catch((e) => {
+        console.log('KycUpdateApi Error>>>>', e);
+      });
+  };
   KycInsertApi = async (
     birthday,
     country,
@@ -242,10 +268,112 @@ export default class Kyc extends Component {
     if (preState.languageCd !== this.state.languageCd) {
       console.log('trans~~~~~~~~~');
     }
+    if (preState.updateCheck !== this.state.updateCheck) {
+      console.log('updateChecksdfk;anvk;abdjnsvk;djnsv');
+    }
+    if (this.props.route.params?.question !== undefined) {
+      if (this.state.updateCheck === false) {
+        const {updateUserData} = this.state;
+        console.log('updateUSUSUSUSUSUSU', updateUserData);
+        this.setState({
+          updateCheck: true,
+          gender: updateUserData.gender,
+          maritalStatus: updateUserData.relationShipStatus,
+          birth: updateUserData.dateOfBirth,
+          nationality: updateUserData.nationality,
+          countryCd: updateUserData.nationalityCode,
+          languageCd: updateUserData.language,
+          countryResidence: updateUserData.residentCountry,
+          countryResidenceCd: updateUserData.residentCountryCode,
+          countryCity: updateUserData.residentCity,
+        });
+      }
+    }
+    console.log('preState.step', preState.step);
+    console.log('this.state.step', this.state.step);
+    // if (preState.step !== this.state.step) {
+    //   if (preState.step === 1 && this.state.step === 2) {
+    //     const {updateUserData} = this.state;
+    //     console.log('updateUSUSUSUSUSUSU', updateUserData);
+    //     this.setState({
+    //       birth: updateUserData.dateOfBirth,
+    //     });
+    //   }
+    //   if (preState.step === 2 && this.state.step === 3) {
+    //     const {updateUserData} = this.state;
+    //     console.log('updateUSUSUSUSUSUSU', updateUserData);
+    //     this.setState({
+    //       nationality: updateUserData.nationality,
+    //       countryCd: updateUserData.nationalityCode,
+    //       languageCd: updateUserData.language,
+    //       countryResidence: updateUserData.residentCountry,
+    //       countryResidenceCd: updateUserData.residentCountryCode,
+    //       countryCity: updateUserData.residentCity,
+    //     });
+    //   }
+    // }
+    console.log('this.state.birth', this.state.birth);
+    if (this.state.step === 2 && this.state.birth === undefined) {
+      const {updateUserData} = this.state;
+      this.setState({
+        birth: updateUserData.dateOfBirth,
+      });
+    }
+    if (
+      this.state.step === 3 &&
+      this.state.country === '' &&
+      this.state.countryCity === '' &&
+      this.state.countryResidence === ''
+    ) {
+      const {updateUserData} = this.state;
+      this.setState({
+        updateCheck: true,
+        nationality: updateUserData.nationality,
+        countryCd: updateUserData.nationalityCode,
+        languageCd: updateUserData.language,
+        countryResidence: updateUserData.residentCountry,
+        countryResidenceCd: updateUserData.residentCountryCode,
+        countryCity: updateUserData.residentCity,
+      });
+    }
+    if (preProps.route.params?.question !== this.props.route.params?.question) {
+      console.log(
+        'questionasldknjsavkjanbdfvkljbnvlkjednvquestionasldknjsavkjanbdfvkljbnvlkjednvquestionasldknjsavkjanbdfvkljbnvlkjednv;jcnvs;kLDcnv',
+      );
+    }
+
+    // if (preState.updateCheck !== this.state.updateCheck) {
+    //   console.log('진입진입진입진입진입진입진입진입진입진입진입진입');
+    //   const {updateUserData} = this.state;
+    //   this.setState({
+    //     gender: updateUserData.gender,
+    //     maritalStatus: updateUserData.relationShipStatus,
+    //     birth: updateUserData.dateOfBirth,
+    //     nationality: updateUserData.nationality,
+    //     countryCd: updateUserData.nationalityCode,
+    //     languageCd: updateUserData.language,
+    //     countryResidence: updateUserData.residentCountry,
+    //     countryResidenceCd: updateUserData.residentCountryCode,
+    //     countryCity: updateUserData.residentCity,
+    //   });
+    // }
+
+    console.log({
+      birth: this.state.birth,
+      country: this.state.country,
+      countryCd: this.state.countryCd,
+      countryCity: this.state.countryCity,
+      countryResidence: this.state.countryResidence,
+      countryResidenceCd: this.state.countryResidenceCd,
+      gender: this.state.gender,
+      languageCd: this.state.languageCd,
+      maritalStatus: this.state.maritalStatus,
+    });
   }
   componentDidMount() {
     this.kycGetApi();
   }
+
   render() {
     // const {navigation} = this.props;
     // const itemId = navigation.getParam('step');
@@ -422,20 +550,53 @@ export default class Kyc extends Component {
                     this.state.countryResidence !== '' &&
                     this.state.countryCity !== ''
                   ) {
-                    await this.KycInsertApi(
-                      this.state.birth,
-                      this.state.country,
-                      this.state.countryCd,
-                      this.state.countryCity,
-                      this.state.countryResidence,
-                      this.state.countryResidenceCd,
-                      this.state.gender,
-                      this.state.languageCd,
-                      this.state.maritalStatus,
+                    console.log(
+                      'this.state.updateCheck',
+                      this.state.updateCheck,
                     );
-                  }
-                  if (this.state.returnValue == '0') {
-                    await this.setModalVisible(true);
+                    if (this.state.updateCheck === true) {
+                      await this.KycUpdateApi(
+                        this.state.birth,
+                        this.state.country,
+                        this.state.countryCd,
+                        this.state.countryCity,
+                        this.state.countryResidence,
+                        this.state.countryResidenceCd,
+                        this.state.gender,
+                        this.state.languageCd,
+                        this.state.maritalStatus,
+                      );
+                      console.log('triue진입');
+                      console.log({
+                        birth: this.state.birth,
+                        country: this.state.country,
+                        countryCd: this.state.countryCd,
+                        countryCity: this.state.countryCity,
+                        countryResidence: this.state.countryResidence,
+                        countryResidenceCd: this.state.countryResidenceCd,
+                        gender: this.state.gender,
+                        languageCd: this.state.languageCd,
+                        maritalStatus: this.state.maritalStatus,
+                      });
+                      if (this.state.returnValue == '0') {
+                        await this.setModal1Visible(true);
+                      }
+                    } else if (this.state.updateCheck === false) {
+                      await this.KycInsertApi(
+                        this.state.birth,
+                        this.state.country,
+                        this.state.countryCd,
+                        this.state.countryCity,
+                        this.state.countryResidence,
+                        this.state.countryResidenceCd,
+                        this.state.gender,
+                        this.state.languageCd,
+                        this.state.maritalStatus,
+                      );
+                      if (this.state.returnValue == '0') {
+                        await this.setModalVisible(true);
+                      }
+                    }
                   }
                   //본부장님 테스트용
                   // if (
@@ -462,6 +623,13 @@ export default class Kyc extends Component {
             setModalVisible={this.setModalVisible}
             modalVisible={this.state.modalVisible}
             text={`KYC 인증이 완료되었습니다.${'\n'}로그인하여 주시기 바랍니다.`}
+            confirm={`확인`}
+            handleNextPage={this.handleNextPage}
+          />
+          <TextConfirmModal
+            setModalVisible={this.setModal1Visible}
+            modalVisible={this.state.modal1Visible}
+            text={`KYC 수정이 완료되었습니다.`}
             confirm={`확인`}
             handleNextPage={this.handleNextPage}
           />

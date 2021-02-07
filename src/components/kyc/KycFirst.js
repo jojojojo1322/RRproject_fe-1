@@ -40,16 +40,16 @@ export default class KycFirst extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={
-              this.props.gender == '2'
+              this.props.gender == '0'
                 ? [AuthStyle.kycButton, {backgroundColor: '#4696ff'}]
                 : AuthStyle.kycButton
             }
             onPress={() => {
-              this.props.handleGender('2');
+              this.props.handleGender('0');
             }}>
             <Text
               style={
-                this.props.gender == '2'
+                this.props.gender == '0'
                   ? [ResetStyle.fontRegularK, ResetStyle.fontWhite]
                   : [
                       ResetStyle.fontRegularK,

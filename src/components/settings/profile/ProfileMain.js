@@ -147,7 +147,7 @@ const ProfileMain = ({navigation}) => {
   };
   useEffect(() => {
     userApi();
-  }, []);
+  });
 
   return (
     <SafeAreaView style={ResetStyle.container}>
@@ -212,7 +212,9 @@ const ProfileMain = ({navigation}) => {
           <TouchableOpacity
             style={[ResetStyle.buttonSmall, ProfileStyle.kycLevelAll]}
             onPress={() => {
-              navigation.navigate('ProfileAll');
+              navigation.navigate('ProfileAll', {
+                KycLevel: kycLevel,
+              });
             }}>
             <Text
               style={[

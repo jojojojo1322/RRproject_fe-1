@@ -115,6 +115,12 @@ export default class kycThird extends Component {
               (data) => data.fullName === this.state.residenceCountry,
             )[0].countryCode,
           });
+          this.props.setCountry(
+            response.data.filter(
+              (data) => data.countryCode === this.state.countryCd,
+            )[0].fullName,
+            this.state.countryCd,
+          );
         }
         // return await response;
       })
