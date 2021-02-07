@@ -16,8 +16,10 @@ import {FlatList} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '../../../style/ResetStyle.js';
 import TextConfirmModal from '../../factory/modal/TextConfirmModal';
+import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
 
 const SettingsWallet = ({navigation}) => {
+  const {t, i18n} = useTranslation();
   const [modalVisible, setModalVisible] = useState(false);
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
@@ -29,11 +31,11 @@ const SettingsWallet = ({navigation}) => {
   const [DATA] = useState([
     {
       id: '1',
-      title: '지갑 비밀번호 변경',
+      title: t('settingsWallet1'),
     },
     {
       id: '2',
-      title: '지갑 비밀번호 분실',
+      title: t('settingsWallet2'),
     },
   ]);
 
@@ -90,7 +92,7 @@ const SettingsWallet = ({navigation}) => {
               source={require('../../../imgs/drawable-xxxhdpi/back_icon.png')}
             />
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-              지갑 설정
+              {t('settingsWalletTitle')}
             </Text>
           </TouchableOpacity>
         </View>

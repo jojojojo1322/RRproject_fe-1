@@ -22,9 +22,12 @@ import IOSTouchId from '../../../factory/tool/biometricLock/iosLock';
 import AndroidTouchId from '../../../factory/tool/biometricLock/androidLock';
 import TouchID from 'react-native-touch-id';
 import PasscodeAuth from 'react-native-passcode-auth';
+
+import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
 // var TouchID = require('react-native-touch-id');
 
 const SettingsLock = ({navigation}) => {
+  const {t, i18n} = useTranslation();
   const [modalVisible, setModalVisible] = useState(false);
   const [isEnabled, setIsEnabled] = useState(false);
   const [biometryType, setBiometryType] = useState(null);
@@ -47,23 +50,23 @@ const SettingsLock = ({navigation}) => {
   const [DATA] = useState([
     {
       id: '1',
-      title: '사용 안함',
+      title: t('settingsLock1'),
     },
     {
       id: '2',
-      title: '비밀번호',
+      title: t('settingsLock2'),
     },
     {
       id: '3',
-      title: '패턴',
+      title: t('settingsLock3'),
     },
     {
       id: '4',
-      title: '지문 / Face ID',
+      title: t('settingsLock4'),
     },
     {
       id: '5',
-      title: '비밀번호 변경',
+      title: t('settingsLock5'),
     },
   ]);
   const handleFingerprintDismissed = () => {
@@ -250,7 +253,7 @@ const SettingsLock = ({navigation}) => {
             />
           </TouchableOpacity>
           <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-            잠금 설정
+            {t('settingsLockTitle')}
           </Text>
         </View>
         <FlatList
@@ -263,9 +266,8 @@ const SettingsLock = ({navigation}) => {
       <TextConfirmModal
         setModalVisible={setModalVisible}
         modalVisible={modalVisible}
-        text={`지금부터 휴대폰에 등록된 지문으로${'\n'} 
-        잠금해제 할 수 있습니다.`}
-        confirm={`확인`}
+        text={t('settingsLock6')}
+        confirm={t('settingsLock7')}
         handleNextPage={handleNextPage}
       />
     </SafeAreaView>

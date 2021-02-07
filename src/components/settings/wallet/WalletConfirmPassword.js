@@ -23,7 +23,11 @@ import {server} from '../../defined/server';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
+
 const WalletConfirmPassword = ({navigation, route}) => {
+  const {t, i18n} = useTranslation();
+
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
   const [modal3Visible, setModal3Visible] = useState(false);
@@ -167,7 +171,7 @@ const WalletConfirmPassword = ({navigation, route}) => {
               ResetStyle.fontDG,
               {marginTop: '20%'},
             ]}>
-            지갑 비밀번호
+            {t('walletConfirmPasswordTitle')}
           </Text>
           <Text
             style={[
@@ -175,7 +179,7 @@ const WalletConfirmPassword = ({navigation, route}) => {
               ResetStyle.fontG,
               {marginTop: '10%', marginBottom: '20%'},
             ]}>
-            {`비밀번호를 입력해주세요.`}
+            {t('walletConfirmPassword1')}
           </Text>
 
           {/* 5자리 비밀번호 칸 */}
@@ -389,17 +393,17 @@ const WalletConfirmPassword = ({navigation, route}) => {
       <BottomModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
-        text={`지갑 비밀번호가 일치하지 않습니다.`}
+        text={t('walletConfirmPassword2')}
       />
       <BottomModal
         modalVisible={modal2Visible}
         setModalVisible={setModal2Visible}
-        text={`입력 정보가 잘못되었습니다.`}
+        text={t('walletConfirmPassword3')}
       />
       <BottomModal
         modalVisible={modal3Visible}
         setModalVisible={setModal3Visible}
-        text={`전송이 실패하였습니다.`}
+        text={t('walletConfirmPassword4')}
       />
       <ProgressModal
         modalVisible={modal4Visible}

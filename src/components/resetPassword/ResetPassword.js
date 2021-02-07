@@ -16,6 +16,9 @@ import {server} from '../defined/server';
 import TextConfirmModal from '../factory/modal/TextConfirmModal';
 import AuthStyle from '../../style/AuthStyle';
 
+import {withTranslation} from 'react-i18next';
+import hoistStatics from 'hoist-non-react-statics';
+
 function chkPW(password) {
   var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~!@#$%^&*()_+|<>?:{}]).{8,}$/;
   var regHigh = /^(?=.*?[A-Z])/;
@@ -50,7 +53,7 @@ function chkPWCharacter(password) {
   return regCharacters.test(pw);
 }
 
-export default class ResetPassword extends Component {
+class ResetPassword extends Component {
   state = {
     password: '',
     checkPassword: '',
@@ -114,6 +117,7 @@ export default class ResetPassword extends Component {
       });
   };
   render() {
+    const {t} = this.props;
     CheckedArrObject = new SelectedCheckboxes();
     return (
       <SafeAreaView style={ResetStyle.container}>
@@ -121,7 +125,7 @@ export default class ResetPassword extends Component {
           <View>
             <View style={ResetStyle.topBackButton}>
               <TouchableOpacity
-                style={{flexDirection: 'row', marginBottom: '10%'}}
+                style={{flexDirection: 'row', alignItems: 'center'}}
                 onPress={() => {
                   this.props.navigation.goBack();
                 }}>
@@ -129,7 +133,7 @@ export default class ResetPassword extends Component {
                   source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
                 />
                 <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-                  휴대폰 인증
+                  {t('resetPasswordTitle')}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -141,10 +145,10 @@ export default class ResetPassword extends Component {
                     ResetStyle.fontDG,
                     ResetStyle.textInputTitle,
                   ]}>
-                  비밀번호
+                  {t('resetPassword1')}
                 </Text>
                 <TextInput
-                  placeholder="아래 조합으로 입력"
+                  placeholder={t('resetPassword2')}
                   placeholderTextColor="#a9a9a9"
                   // keyboardType={'numeric'}
                   secureTextEntry={this.state.firstBlur}
@@ -194,7 +198,7 @@ export default class ResetPassword extends Component {
                         ResetStyle.fontG,
                         {marginLeft: 5},
                       ]}>
-                      영문
+                      {t('resetPassword3')}
                     </Text>
                   </View>
                   <View style={[AuthStyle.resetPasswordView2]}>
@@ -215,7 +219,7 @@ export default class ResetPassword extends Component {
                         ResetStyle.fontG,
                         {marginLeft: 5},
                       ]}>
-                      숫자
+                      {t('resetPassword4')}
                     </Text>
                   </View>
                   <View style={[AuthStyle.resetPasswordView2]}>
@@ -236,7 +240,7 @@ export default class ResetPassword extends Component {
                         ResetStyle.fontG,
                         {marginLeft: 5},
                       ]}>
-                      대문자
+                      {t('resetPassword5')}
                     </Text>
                   </View>
                   <View style={[AuthStyle.resetPasswordView2]}>
@@ -257,7 +261,7 @@ export default class ResetPassword extends Component {
                         ResetStyle.fontG,
                         {marginLeft: 5},
                       ]}>
-                      특수문자
+                      {t('resetPassword6')}
                     </Text>
                   </View>
                   <View style={[AuthStyle.resetPasswordView2]}>
@@ -278,7 +282,7 @@ export default class ResetPassword extends Component {
                         ResetStyle.fontG,
                         {marginLeft: 5},
                       ]}>
-                      8자리 이상
+                      {t('resetPassword7')}
                     </Text>
                   </View>
                 </View>
@@ -294,11 +298,11 @@ export default class ResetPassword extends Component {
                     ResetStyle.fontDG,
                     ResetStyle.textInputTitle,
                   ]}>
-                  비밀번호 확인
+                  {t('resetPassword8')}
                 </Text>
                 <TextInput
                   secureTextEntry={this.state.secondBlur}
-                  placeholder="비밀번호 다시 입력"
+                  placeholder={t('resetPassword9')}
                   placeholderTextColor="#a9a9a9"
                   // keyboardType={'numeric'}
                   onBlur={() => {
@@ -376,7 +380,7 @@ export default class ResetPassword extends Component {
                         ResetStyle.fontR,
                         {marginLeft: 5},
                       ]}>
-                      비밀번호가 일치하지 않습니다.
+                      {t('resetPassword10')}
                     </Text>
                   </>
                 )}
@@ -424,14 +428,14 @@ export default class ResetPassword extends Component {
               // }
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontWhite]}>
-              확인
+              {t('resetPasswordNextButton')}
             </Text>
           </TouchableOpacity>
           <TextConfirmModal
             setModalVisible={this.setModalVisible}
             modalVisible={this.state.modalVisible}
-            text={`비밀번호가 변경되었습니다`}
-            confirm={`확인`}
+            text={t('resetPassword11')}
+            confirm={t('resetPassword12')}
             handleNextPage={this.handleNextPage}
           />
         </View>
@@ -439,3 +443,5 @@ export default class ResetPassword extends Component {
     );
   }
 }
+
+export default hoistStatics(withTranslation()(ResetPassword), ResetPassword);

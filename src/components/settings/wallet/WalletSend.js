@@ -17,6 +17,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import BottomModal from '../../factory/modal/BottomModal';
 import axios from 'axios';
 import {server} from '../../defined/server';
+import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
 
 // 3자리수 콤마(,) + 소수점 이하는 콤마 안 생기게
 function numberWithCommas(num) {
@@ -46,6 +47,8 @@ export default function WalletSend({navigation, route}) {
   const [transfee, setTransfee] = useState('전송 수수료 : 10 TNC');
   const [walletData, setWalletData] = useState([]);
   const [calculatedValue, setCalculatedValue] = useState(total);
+
+  const {t, i18n} = useTranslation();
 
   const onlyDecimalsix = (num) => {
     // 소숫점 여섯자리 체크 --> 앞자리에 컴마가 붙을경우 작동안함 -> 검사하는동안 컴마 제거
@@ -279,7 +282,7 @@ export default function WalletSend({navigation, route}) {
               />
             </TouchableOpacity>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-              보내기
+              {t('walletSendTitle')}
             </Text>
           </View>
 
@@ -291,7 +294,7 @@ export default function WalletSend({navigation, route}) {
                 ResetStyle.fontBlack,
                 {fontWeight: '400'},
               ]}>
-              Total Balance
+              {t('walletSend1')}
             </Text>
             <Text
               style={[
@@ -299,7 +302,7 @@ export default function WalletSend({navigation, route}) {
                 ResetStyle.fontB,
                 {fontWeight: '500', marginTop: '2%'},
               ]}>
-              {parseFloat(total)} TNC
+              {parseFloat(total)} {t('walletSend2')}
             </Text>
           </View>
 
@@ -308,7 +311,7 @@ export default function WalletSend({navigation, route}) {
             <View style={{flexDirection: 'column'}}>
               <Text
                 style={[ResetStyle.fontRegularK, WalletStyle.sendContentTitle]}>
-                주소
+                {t('walletSend3')}
               </Text>
               <View style={[WalletStyle.sendContentInnerView]}>
                 <View
@@ -325,7 +328,7 @@ export default function WalletSend({navigation, route}) {
                         width: '70%',
                       },
                     ]}
-                    placeholder={`보낼 주소 입력`}
+                    placeholder={t('walletSend4')}
                     placeholderTextColor="#a9a9a9"
                     onChangeText={(e) => {
                       handleAddress(e);
@@ -364,7 +367,7 @@ export default function WalletSend({navigation, route}) {
                     marginTop: Platform.OS === 'ios' ? '10%' : '5%',
                   },
                 ]}>
-                총액
+                {t('walletSend5')}
               </Text>
               <View style={[WalletStyle.sendContentInnerTextView]}>
                 {/* 금액 */}
@@ -378,7 +381,7 @@ export default function WalletSend({navigation, route}) {
                       width: '90%',
                     },
                   ]}
-                  placeholder={`보낼 수량 입력`}
+                  placeholder={t('walletSend6')}
                   placeholderTextColor="#a9a9a9"
                   autoCapitalize={'none'}
                   keyboardType={'numeric'}
@@ -510,7 +513,7 @@ export default function WalletSend({navigation, route}) {
                     marginTop: Platform.OS === 'ios' ? '10%' : '5%',
                   },
                 ]}>
-                메모
+                {t('walletSend7')}
               </Text>
               <View style={[WalletStyle.sendContentInnerTextView]}>
                 <TextInput
@@ -522,7 +525,7 @@ export default function WalletSend({navigation, route}) {
                       width: '80%',
                     },
                   ]}
-                  placeholder={`메모 입력(15자 내외)`}
+                  placeholder={t('walletSend8')}
                   placeholderTextColor="#a9a9a9"
                   autoCapitalize={'none'}
                   onChangeText={handleMemo}
@@ -556,7 +559,7 @@ export default function WalletSend({navigation, route}) {
                 ResetStyle.fontWhite,
                 {fontWeight: '600'},
               ]}>
-              보내기
+              {t('walletSend9')}
             </Text>
           </TouchableOpacity>
         </View>
@@ -575,27 +578,27 @@ export default function WalletSend({navigation, route}) {
       <BottomModal
         modalVisible={modal2Visible}
         setModalVisible={setModal2Visible}
-        text={'수수료를 제외한 총액보다 클 수 없습니다.'}
+        text={t('walletSend10')}
       />
       <BottomModal
         modalVisible={modal3Visible}
         setModalVisible={setModal3Visible}
-        text={'소수점 여섯자리까지만 입력가능합니다.'}
+        text={t('walletSend11')}
       />
       <BottomModal
         modalVisible={modal4Visible}
         setModalVisible={setModal4Visible}
-        text={'수수료를 제외한 총액이 표시됩니다.'}
+        text={t('walletSend12')}
       />
       <BottomModal
         modalVisible={modal5Visible}
         setModalVisible={setModal5Visible}
-        text={'내용을 올바르게 입력 해 주십시오.'}
+        text={t('walletSend13')}
       />
       <BottomModal
         modalVisible={modal6Visible}
         setModalVisible={setModal6Visible}
-        text={'보내는 금액은 최소 10TNC 이상입니다.'}
+        text={t('walletSend14')}
       />
     </SafeAreaView>
   );

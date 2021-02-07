@@ -19,6 +19,8 @@ import TextConfirmModal from '../../../factory/modal/TextConfirmModal';
 
 import PasswordGesture from 'react-native-gesture-password';
 
+import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
+
 var Password1 = '123';
 
 export class LockPattern extends Component {
@@ -77,6 +79,7 @@ export class LockPattern extends Component {
 }
 
 const SettingsLockPattern = ({navigation}) => {
+  const {t, i18n} = useTranslation();
   const [modalVisible, setModalVisible] = useState(false);
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
@@ -107,7 +110,7 @@ const SettingsLockPattern = ({navigation}) => {
               ResetStyle.fontBlack,
               {marginTop: '5%'},
             ]}>
-            잠금해제 패턴을 입력해 주세요.
+            {t('settingsLockPattern1')}
           </Text>
         </View>
         <LockPattern />
@@ -123,7 +126,7 @@ const SettingsLockPattern = ({navigation}) => {
                 ResetStyle.fontWhite,
                 {fontWeight: '600'},
               ]}>
-              취소
+              {t('settingsLockPattern2')}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity style={[ResetStyle.button, {width: '49%'}]}>
@@ -133,7 +136,7 @@ const SettingsLockPattern = ({navigation}) => {
                 ResetStyle.fontWhite,
                 {fontWeight: '600'},
               ]}>
-              다음
+              {t('settingsLockPatternNextButton')}
             </Text>
           </TouchableOpacity>
         </View>
@@ -141,8 +144,8 @@ const SettingsLockPattern = ({navigation}) => {
       <TextConfirmModal
         setModalVisible={setModalVisible}
         modalVisible={modalVisible}
-        text={`패턴 설정이 완료되었습니다.`}
-        confirm={`확인`}
+        text={t('settingsLockPattern3')}
+        confirm={t('settingsLockPattern4')}
         handleNextPage={handleNextPage}
       />
     </SafeAreaView>

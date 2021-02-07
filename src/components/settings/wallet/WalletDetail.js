@@ -18,6 +18,8 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {SelectedCheckboxes, RoundCheckbox} from '../../factory/Roundcheck';
 import WalletStyle from '../../../style/WalletStyle.js';
 
+import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
+
 const List = (data) => {
   return (
     <View style={[WalletStyle.listView]}>
@@ -36,6 +38,7 @@ const List = (data) => {
 };
 
 const WalletDetail = (props) => {
+  const {t, i18n} = useTranslation();
   console.log('array length', props.route.params?.data.content.length);
   return (
     <SafeAreaView style={[ResetStyle.container]}>
@@ -51,45 +54,66 @@ const WalletDetail = (props) => {
               source={require('../../../imgs/drawable-xxxhdpi/back_icon.png')}
             />
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-              전송내역 상세
+              {t('walletDetailTitle')}
             </Text>
           </TouchableOpacity>
         </View>
         <ScrollView style={{paddingHorizontal: '5%'}}>
           {/* 블록번호 */}
-          <List title="블록번호" sub={props.route.params?.data.block} />
+          <List
+            title={t('walletDetail1')}
+            sub={props.route.params?.data.block}
+          />
           {/* 총액 */}
           {props.route.params?.data.content.to && (
-            <List title="총액" sub={props.route.params?.data.content.amount} />
+            <List
+              title={t('walletDetail2')}
+              sub={props.route.params?.data.content.amount}
+            />
           )}
           {/* 상태 */}
-          <List title="상태" sub={props.route.params?.data.status} />
+          <List
+            title={t('walletDetail4')}
+            sub={props.route.params?.data.status}
+          />
           {/* 상세내용 */}
           {props.route.params?.data.content.surveyName && (
-            <List title="상세내용" sub={props.route.params?.data.surveyName} />
+            <List
+              title={t('walletDetail5')}
+              sub={props.route.params?.data.surveyName}
+            />
           )}
           {/* 보낸사람 */}
           {props.route.params?.data.content.to && (
             <List
-              title="보낸사람"
+              title={t('walletDetail6')}
               sub={props.route.params?.data.content.from}
             />
           )}
           {/* 받은사람 */}
           {props.route.params?.data.content.to && (
-            <List title="받은사람" sub={props.route.params?.data.content.to} />
+            <List
+              title={t('walletDetail7')}
+              sub={props.route.params?.data.content.to}
+            />
           )}
           {/* 메모 */}
           {props.route.params?.data.content.to && (
-            <List title="메모" sub={props.route.params?.data.content.memo} />
+            <List
+              title={t('walletDetail8')}
+              sub={props.route.params?.data.content.memo}
+            />
           )}
           {/* 거래일시 */}
           <List
-            title="거래일시"
+            title={t('walletDetail9')}
             sub={(props.route.params?.data.timestamp).replace(/T/, ' ')}
           />
           {/* TXID */}
-          <List title="TXID" sub={props.route.params?.data.txid} />
+          <List
+            title={t('walletDetail10')}
+            sub={props.route.params?.data.txid}
+          />
         </ScrollView>
       </View>
     </SafeAreaView>

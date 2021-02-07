@@ -14,7 +14,10 @@ import DeviceInfo from 'react-native-device-info';
 import ResetStyle from '../../../../style/ResetStyle.js';
 import BottomModal from '../../../factory/modal/BottomModal';
 
-export default class SettingsPersonalPasswordChange extends Component {
+import {withTranslation} from 'react-i18next';
+import hoistStatics from 'hoist-non-react-statics';
+
+class SettingsPersonalPasswordChange extends Component {
   state = {
     email: '',
     authKey: '',
@@ -93,6 +96,7 @@ export default class SettingsPersonalPasswordChange extends Component {
   //     });
   // };
   render() {
+    const {t} = this.props;
     console.log(DeviceInfo.getUniqueId());
     console.log('authKey', this.state.authKey);
     return (
@@ -109,7 +113,7 @@ export default class SettingsPersonalPasswordChange extends Component {
                 source={require('../../../../imgs/drawable-xxxhdpi/back_icon.png')}
               />
               <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-                개인정보설정
+                {t('settinsPersonalPasswordChangeTitle')}
               </Text>
             </TouchableOpacity>
           </View>
@@ -120,7 +124,7 @@ export default class SettingsPersonalPasswordChange extends Component {
                 ResetStyle.fontDG,
                 {marginTop: '10%'},
               ]}>
-              비밀번호 변경을{'\n'}원하시나요?
+              {t('settinsPersonalPasswordChange1')}
             </Text>
             <Text
               style={[
@@ -128,7 +132,7 @@ export default class SettingsPersonalPasswordChange extends Component {
                 ResetStyle.fontG,
                 {marginTop: 20},
               ]}>
-              비밀번호 재설정을 위해{'\n'}아이디(이메일)을 입력해 주세요.
+              {t('settinsPersonalPasswordChange2')}
             </Text>
           </View>
           <View style={[ResetStyle.textInputStyle, {marginBottom: '50%'}]}>
@@ -138,7 +142,7 @@ export default class SettingsPersonalPasswordChange extends Component {
                 ResetStyle.fontDG,
                 ResetStyle.textInputTitle,
               ]}>
-              이메일
+              {t('settinsPersonalPasswordChange3')}
             </Text>
             <TextInput
               style={[
@@ -146,7 +150,7 @@ export default class SettingsPersonalPasswordChange extends Component {
                 ResetStyle.fontG,
                 ResetStyle.textInputText,
               ]}
-              placeholder="이메일 주소 입력"
+              placeholder={t('settinsPersonalPasswordChange4')}
               placeholderTextColor="#a9a9a9"
               value={this.state.email}
               onChangeText={this.handleEmail}
@@ -199,16 +203,20 @@ export default class SettingsPersonalPasswordChange extends Component {
               });
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontWhite]}>
-              다음
+              {t('settinsPersonalPasswordChangeNextButton')}
             </Text>
           </TouchableOpacity>
           <BottomModal
             setModalVisible={this.setModalVisible}
             modalVisible={this.state.modalVisible}
-            text={`가입되지 않은 이메일입니다.`}
+            text={t('settinsPersonalPasswordChange5')}
           />
         </View>
       </SafeAreaView>
     );
   }
 }
+export default hoistStatics(
+  withTranslation()(SettingsPersonalPasswordChange),
+  SettingsPersonalPasswordChange,
+);

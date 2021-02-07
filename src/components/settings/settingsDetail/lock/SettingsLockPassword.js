@@ -22,7 +22,10 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthStyle from '../../../../style/AuthStyle';
 
-export default class WalletPassword extends Component {
+import {withTranslation} from 'react-i18next';
+import hoistStatics from 'hoist-non-react-statics';
+
+class WalletPassword extends Component {
   state = {
     passArr: [],
     rePassArr: [],
@@ -115,6 +118,7 @@ export default class WalletPassword extends Component {
   };
 
   render() {
+    const {t} = this.props;
     const passArr = this.state.passArr;
     return (
       <SafeAreaView style={[ResetStyle.container]}>
@@ -137,7 +141,7 @@ export default class WalletPassword extends Component {
                 ResetStyle.fontDG,
                 {marginTop: '20%'},
               ]}>
-              비밀번호
+              {t('settingsLockPasswordTitle')}
             </Text>
             <Text
               style={[
@@ -146,8 +150,8 @@ export default class WalletPassword extends Component {
                 {marginTop: '10%', marginBottom: '20%'},
               ]}>
               {this.state.pass == ''
-                ? `잠금화면 비밀번호${'\n'}4자리를 입력해 주세요.`
-                : `비밀번호 확인을 위해${'\n'}한번 더 입력해 주세요`}
+                ? t('settingsLockPassword1')
+                : t('settingsLockPassword2')}
             </Text>
             <View
               style={{
@@ -292,13 +296,13 @@ export default class WalletPassword extends Component {
         <BottomModal
           modalVisible={this.state.modalVisible}
           setModalVisible={this.setModalVisible}
-          text={`비밀번호가 일치하지 않습니다.`}
+          text={t('settingsLockPassword3')}
         />
         <TextConfirmModal
           modalVisible={this.state.modal2Visible}
           setModalVisible={this.setModal2Visible}
-          text={`비밀번호가 설정되었습니다.`}
-          confirm={`확인`}
+          text={t('settingsLockPassword4')}
+          confirm={t('settingsLockPassword5')}
           handleNextPage={this.handleNextPage}
         />
       </SafeAreaView>
@@ -348,3 +352,5 @@ const styles = StyleSheet.create({
     // color: '#fff',
   },
 });
+
+export default hoistStatics(withTranslation()(WalletPassword), WalletPassword);

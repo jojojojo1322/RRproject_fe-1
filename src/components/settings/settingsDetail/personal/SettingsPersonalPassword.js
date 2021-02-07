@@ -13,8 +13,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import DeviceInfo from 'react-native-device-info';
 import ResetStyle from '../../../../style/ResetStyle.js';
 import BottomModal from '../../../factory/modal/BottomModal';
+import {withTranslation} from 'react-i18next';
+import hoistStatics from 'hoist-non-react-statics';
 
-export default class SettingsPersonalPassword extends Component {
+class SettingsPersonalPassword extends Component {
   state = {
     email: '',
     authKey: '',
@@ -75,6 +77,7 @@ export default class SettingsPersonalPassword extends Component {
       });
   };
   render() {
+    const {t} = this.props;
     console.log(DeviceInfo.getUniqueId());
     console.log('authKey', this.state.authKey);
     return (
@@ -92,14 +95,14 @@ export default class SettingsPersonalPassword extends Component {
                   source={require('../../../../imgs/drawable-xxxhdpi/back_icon.png')}
                 />
                 <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-                  개인정보설정
+                  {t('settingsPersonalPasswordTitle')}
                 </Text>
               </TouchableOpacity>
             </View>
 
             <View style={{marginTop: '10%'}}>
               <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>
-                비밀번호 입력
+                {t('settingsPersonalPassword1')}
               </Text>
               <Text
                 style={[
@@ -107,8 +110,7 @@ export default class SettingsPersonalPassword extends Component {
                   ResetStyle.fontG,
                   {marginTop: 20},
                 ]}>
-                개인 정보 설정을 위하여{'\n'}
-                Real Research 비밀번호를 입력하세요
+                {t('settingsPersonalPassword2')}
               </Text>
             </View>
             <View style={[ResetStyle.textInputStyle, {marginTop: '15%'}]}>
@@ -118,7 +120,7 @@ export default class SettingsPersonalPassword extends Component {
                   ResetStyle.fontDG,
                   ResetStyle.textInputTitle,
                 ]}>
-                비밀번호
+                {t('settingsPersonalPassword3')}
               </Text>
               <TextInput
                 style={[
@@ -126,7 +128,7 @@ export default class SettingsPersonalPassword extends Component {
                   ResetStyle.fontG,
                   ResetStyle.textInputText,
                 ]}
-                placeholder="비밀번호 입력"
+                placeholder={t('settingsPersonalPassword4')}
                 placeholderTextColor="#a9a9a9"
                 value={this.state.email}
                 onChangeText={this.handlePassword}
@@ -181,16 +183,21 @@ export default class SettingsPersonalPassword extends Component {
               });
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontWhite]}>
-              다음
+              {t('settingsPersonalPasswordNextButton')}
             </Text>
           </TouchableOpacity>
           <BottomModal
             setModalVisible={this.setModalVisible}
             modalVisible={this.state.modalVisible}
-            text={`비밀번호가 일치하지 않습니다.`}
+            text={t('settingsPersonalPassword5')}
           />
         </View>
       </SafeAreaView>
     );
   }
 }
+
+export default hoistStatics(
+  withTranslation()(SettingsPersonalPassword),
+  SettingsPersonalPassword,
+);
