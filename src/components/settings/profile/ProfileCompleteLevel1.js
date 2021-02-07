@@ -84,19 +84,27 @@ const ProfileCompleteLevel1 = (props) => {
                           i != Object.keys(data).length ? 1 : 0,
                       },
                     ]}>
-                    <Text
-                      style={[
-                        ResetStyle.fontRegularK,
-                        ResetStyle.fontB,
-                        {width: '100%', textAlign: 'left', marginBottom: '3%'},
-                      ]}>
-                      {d}
-                    </Text>
+                    <View style={{flexDirection: 'row'}}>
+                      <View style={[ProfileStyle.kycLevelCircle]} />
+                      <Text
+                        style={[
+                          ResetStyle.fontRegularK,
+                          ResetStyle.fontB,
+                          {
+                            width: '100%',
+                            textAlign: 'left',
+
+                            marginBottom: '3%',
+                          },
+                        ]}>
+                        {d}
+                      </Text>
+                    </View>
                     <Text
                       style={[
                         ResetStyle.fontRegularK,
                         ResetStyle.fontDG,
-                        {width: '100%', textAlign: 'left'},
+                        {width: '100%', textAlign: 'left', marginLeft: '5%'},
                       ]}>
                       {d === 'gender' && data[d] === '1' && '남자'}
                       {d === 'gender' && data[d] === '0' && '여자'}
@@ -135,6 +143,7 @@ const ProfileCompleteLevel1 = (props) => {
           onPress={() => {
             props.navigation.navigate('Kyc', {
               KycLevel: props.route.params?.KycLevel,
+              question: question,
             });
           }}>
           <Text style={[ResetStyle.buttonTexts, {fontSize: 20}]}>

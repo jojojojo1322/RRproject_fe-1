@@ -35,11 +35,7 @@ const kycArr = [
 
 const ProfileCompleteDetail = (props) => {
   const [question, setQuestion] = useState([]);
-  const [question1, setQuestion1] = useState([]);
-  const [question2, setQuestion2] = useState([]);
-  const [question3, setQuestion3] = useState([]);
-  const [question4, setQuestion4] = useState([]);
-  const [question5, setQuestion5] = useState([]);
+
   const getCompleteKycApi = async () => {
     await axios
       .get(
@@ -66,11 +62,6 @@ const ProfileCompleteDetail = (props) => {
         let ARR5 = response.data.data.filter(
           (data) => data.kycQuestion === '5',
         );
-        console.log('ARR1', ARR1);
-        console.log('ARR2', ARR2);
-        console.log('ARR3', ARR3);
-        console.log('ARR4', ARR4);
-        console.log('ARR5', ARR5);
         let FixArr1 = {
           kycQuestion: [],
           kycOption: [],
@@ -172,17 +163,7 @@ const ProfileCompleteDetail = (props) => {
           },
         ]}>
         <View style={{flexDirection: 'row'}}>
-          <View
-            style={{
-              backgroundColor: '#4696ff',
-              width: 6,
-              height: 6,
-              borderRadius: 50,
-              marginTop: 5,
-              marginRight: 5,
-              marginLeft: 5,
-            }}
-          />
+          <View style={[ProfileStyle.kycLevelCircle]} />
           <Text
             style={[
               ResetStyle.fontRegularK,
@@ -200,6 +181,7 @@ const ProfileCompleteDetail = (props) => {
             {marginLeft: 15, marginTop: 3, width: '90%', textAlign: 'left'},
           ]}>
           {Object.keys(item.optionContent).map((data) => {
+            console.log('item.optionContent.length', item.optionContent.length);
             if (Number(data) + 1 == item.optionContent.length) {
               return `${Number(data) + 1}. ${item.optionContent[data]}`;
             }
@@ -226,68 +208,6 @@ const ProfileCompleteDetail = (props) => {
           <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}></Text>
         </View>
 
-        {/* Level List */}
-        {/* <ScrollView> */}
-        {/* Level List Item */}
-        {/* {question.map((data, index) => {
-            let Arr = [];
-            let i = 0;
-            for (d in data) {
-              ++i;
-              // console.log('a', Object.keys(d).length);
-              Arr.push(
-                <View
-                  style={[
-                    ProfileStyle.kycAllLevelListItem,
-                    {
-                      borderBottomWidth: i != Object.keys(data).length ? 1 : 0,
-                      alignItems: 'flex-start',
-                    },
-                  ]}>
-                  <View style={{flexDirection: 'row'}}>
-                    <View
-                      style={{
-                        backgroundColor: '#4696ff',
-                        width: 6,
-                        height: 6,
-                        borderRadius: 50,
-                        marginTop: 5,
-                        marginRight: 5,
-                        marginLeft: 5,
-                      }}
-                    />
-                    <Text
-                      style={[
-                        ResetStyle.fontRegularK,
-                        ResetStyle.fontB,
-                        // {width: '30%', textAlign: 'left'},
-                      ]}>
-                      {data}
-                    </Text>
-                  </View>
-                  <Text
-                    style={[
-                      ResetStyle.fontRegularK,
-                      ResetStyle.fontDG,
-                      {marginLeft: 15, marginTop: 3},
-                    ]}>
-                    {data[d]}
-                  </Text>
-                </View>,
-              );
-            }
-            return (
-              <View>
-                <View style={[ProfileStyle.kycAllLevelTitle]}>
-                  <Text style={[ResetStyle.fontRegularE, {fontWeight: '500'}]}>
-                    KYC LEVEL {index + 1}
-                  </Text>
-                </View>
-                {Arr}
-              </View>
-            );
-          })} */}
-        {/* </ScrollView> */}
         <View>
           <View style={[ProfileStyle.kycAllLevelTitle]}>
             <Text style={[ResetStyle.fontRegularE, {fontWeight: '500'}]}>
@@ -296,7 +216,7 @@ const ProfileCompleteDetail = (props) => {
           </View>
           <FlatList
             style={{height: '80%'}}
-            data={question}
+            data={question.length === 5 && question}
             renderItem={({item}) => (
               // renderItem(questionNumber=data.questionNumber)
               <RenderItem
@@ -317,26 +237,6 @@ const ProfileCompleteDetail = (props) => {
             showsHorizontalScrollIndicator={false}
           />
         </View>
-        {/* <FlatList
-            style={{maxHeight: '70%', height: '70%'}}
-            data={kycQuestion[nowIndex].answers}
-            renderItem={({item}) => (
-              // renderItem(questionNumber=data.questionNumber)
-              <RenderItem
-                //해당 질문
-                question={data.question}
-                questionNumber={nowIndex}
-                //해당 질문의 단일/다중선택
-                // typeName={data.typeName}
-                id={item.id}
-                answer={item.answer}
-                // optionNumber={item.optionNumber}
-                // kycQuestion={item.kycQuestion}
-              />
-            )}
-            keyExtractor={(item) => item.id}
-            extraData={nowIndex}
-          /> */}
         <TouchableOpacity
           style={[ResetStyle.button]}
           onPress={() => {

@@ -250,6 +250,7 @@ const ProfileIncompleteLevel2 = (props) => {
   // const [kycQuestion, setKycQuestion] = useState([]);
   const [kycOption, setKycOption] = useState([]);
   const [successCheck, setSuccessCheck] = useState(0);
+  const [updateCheck, setUpdateCheck] = useState(false);
 
   //modal
   const [modalVisible, setModalVisible] = useState(false);
@@ -266,6 +267,30 @@ const ProfileIncompleteLevel2 = (props) => {
   //     userNo: 'string',
   //   },
   // ]
+
+  // KYC level 2 get
+  const getAdvancedKycApi = async () => {
+    await axios
+      .get(`${server}/kyc/2/${await AsyncStorage.getItem('userNo')}`)
+      .then(async (response) => {
+        console.log('getAdvancedKycApi THEN>>', response);
+        if (response.data.response.ret_val === 0) {
+          setUpdateCheck(true);
+          const Arr = [
+            {kycQuestion: '0', kycOption: response.data.data.employmentStatus},
+            {kycQuestion: '1', kycOption: response.data.data.annualRevenue},
+            {kycQuestion: '2', kycOption: response.data.data.ownProperties},
+            {kycQuestion: '3', kycOption: response.data.data.netWorth},
+            {kycQuestion: '4', kycOption: response.data.data.investIn},
+          ];
+          setCheckedArray(Arr);
+        }
+        // setSuccessCheck(response.data.ret_val);
+      })
+      .catch((e) => {
+        console.log('getAdvancedKycApi Error>>', e);
+      });
+  };
 
   //해당 Kyc Level create
   const createAdvancedKycApi = async () => {
@@ -293,11 +318,40 @@ const ProfileIncompleteLevel2 = (props) => {
         console.log('createAdvancedKycApi Error>>', e);
       });
   };
+  //해당 Kyc Level update
+  const updateAdvancedKycApi = async () => {
+    console.log({
+      employmentStatus: checkedArray[0].kycOption,
+      annualRevenue: checkedArray[1].kycOption,
+      ownProperties: checkedArray[2].kycOption,
+      netWorth: checkedArray[3].kycOption,
+      investIn: checkedArray[4].kycOption,
+    });
+    await axios
+      .patch(`${server}/kyc/2/${await AsyncStorage.getItem('userNo')}`, {
+        employmentStatus: checkedArray[0].kycOption,
+        annualRevenue: checkedArray[1].kycOption,
+        ownProperties: checkedArray[2].kycOption,
+        netWorth: checkedArray[3].kycOption,
+        investIn: checkedArray[4].kycOption,
+        userNo: await AsyncStorage.getItem('userNo'),
+      })
+      .then(async (response) => {
+        console.log('updateAdvancedKycApi THEN>>', response);
+        setSuccessCheck(response.data.ret_val);
+      })
+      .catch((e) => {
+        console.log('updateAdvancedKycApi Error>>', e);
+      });
+  };
 
   const confirm = () => {
     props.navigation.navigate('ProfileMain');
   };
 
+  useEffect(() => {
+    getAdvancedKycApi();
+  }, []);
   useEffect(() => {
     setCheckId(true);
   }, [checkId]);
@@ -355,13 +409,24 @@ const ProfileIncompleteLevel2 = (props) => {
     }
     if (_nowIndex === questionLength - 1) {
       console.log('checkedArray', checkedArray);
-      createAdvancedKycApi();
-      if (successCheck === 0) {
-        props.navigation.navigate('ProfileComplete', {
-          KycLevel: props.route.params?.KycLevel,
-        });
-      } else if (successCheck === -1) {
-        setModal2Visible(!modal2Visible);
+      if (updateCheck === false) {
+        createAdvancedKycApi();
+        if (successCheck === 0) {
+          props.navigation.navigate('ProfileComplete', {
+            KycLevel: props.route.params?.KycLevel,
+          });
+        } else if (successCheck === -1) {
+          setModal2Visible(!modal2Visible);
+        }
+      } else {
+        updateAdvancedKycApi();
+        if (successCheck === 0) {
+          props.navigation.navigate('ProfileComplete', {
+            KycLevel: props.route.params?.KycLevel,
+          });
+        } else if (successCheck === -1) {
+          setModal2Visible(!modal2Visible);
+        }
       }
     }
   };

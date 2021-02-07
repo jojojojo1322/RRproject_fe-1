@@ -61,8 +61,38 @@ const ProfileIncompleteDetail = (props) => {
       )
       .then(async (response) => {
         if (response.data.data != '') {
+          console.log('getAdvancedKyGetApi THEN', response.data.data);
           console.log('update logic>>>>>>>>>>>');
-          setCheckedArray(response.data.data);
+          console.log(
+            response.data.data.findIndex((data) => data.kycQuestion === '2'),
+          );
+          let ARR = [
+            response.data.data[
+              response.data.data.findIndex((data) => data.kycQuestion === '1')
+            ],
+            response.data.data[
+              response.data.data.findIndex((data) => data.kycQuestion === '2')
+            ],
+            response.data.data[
+              response.data.data.findIndex((data) => data.kycQuestion === '3')
+            ],
+            response.data.data[
+              response.data.data.findIndex((data) => data.kycQuestion === '4')
+            ],
+            response.data.data[
+              response.data.data.findIndex((data) => data.kycQuestion === '5')
+            ],
+          ];
+          ARR.map((data) => {
+            delete data.id;
+            delete data.questionContent;
+            delete data.createdTime;
+            delete data.updatedTime;
+          });
+
+          console.log(ARR);
+          // let Arr1 =
+          setCheckedArray(ARR);
           setUpdateCheck(true);
         }
       })
