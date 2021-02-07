@@ -17,6 +17,9 @@ import axios from 'axios';
 import {server} from '../defined/server';
 import TextConfirmModal from '../factory/modal/TextConfirmModal';
 
+import {withTranslation} from 'react-i18next';
+import hoistStatics from 'hoist-non-react-statics';
+
 function isBirthday(dateStr) {
   if (dateStr === undefined) {
     return false;
@@ -62,7 +65,7 @@ function isBirthday(dateStr) {
   }
 }
 
-export default class Kyc extends Component {
+class Kyc extends Component {
   state = {
     gender:
       this.props.route.params?.gender == undefined
@@ -375,6 +378,7 @@ export default class Kyc extends Component {
   }
 
   render() {
+    const {t} = this.props;
     // const {navigation} = this.props;
     // const itemId = navigation.getParam('step');
     console.log('na>>>>', this.props.route.params?.step);
@@ -396,7 +400,7 @@ export default class Kyc extends Component {
                   marginBottom: Platform.OS === 'ios' ? '13%' : '9%',
                 },
               ]}>
-              KYC 정보입력
+              {t('kyc1')}
             </Text>
 
             <View
@@ -615,22 +619,22 @@ export default class Kyc extends Component {
                   ResetStyle.fontWhite,
                   {fontWeight: '600'},
                 ]}>
-                {this.state.step == 3 ? '확인' : '다음'}
+                {this.state.step == 3 ? t('kyc2') : t('kyc3')}
               </Text>
             </TouchableOpacity>
           </View>
           <TextConfirmModal
             setModalVisible={this.setModalVisible}
             modalVisible={this.state.modalVisible}
-            text={`KYC 인증이 완료되었습니다.${'\n'}로그인하여 주시기 바랍니다.`}
-            confirm={`확인`}
+            text={t('kyc4')}
+            confirm={t('kyc5')}
             handleNextPage={this.handleNextPage}
           />
           <TextConfirmModal
             setModalVisible={this.setModal1Visible}
             modalVisible={this.state.modal1Visible}
-            text={`KYC 수정이 완료되었습니다.`}
-            confirm={`확인`}
+            text={t('kyc6')}
+            confirm={t('kyc7')}
             handleNextPage={this.handleNextPage}
           />
         </View>
@@ -662,3 +666,5 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
 });
+
+export default hoistStatics(withTranslation()(Kyc), Kyc);

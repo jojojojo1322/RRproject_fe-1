@@ -3,8 +3,12 @@ import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import ResetStyle from '../../style/ResetStyle.js';
 import AuthStyle from '../../style/AuthStyle.js';
 
-export default class KycFirst extends Component {
+import {withTranslation} from 'react-i18next';
+import hoistStatics from 'hoist-non-react-statics';
+
+class KycFirst extends Component {
   render() {
+    const {t} = this.props;
     return (
       <View>
         <Text
@@ -13,7 +17,7 @@ export default class KycFirst extends Component {
             ResetStyle.fontBlack,
             {textAlign: 'left', marginBottom: '7%'},
           ]}>
-          성별 선택
+          {t('kycFirst1')}
         </Text>
         <View style={[AuthStyle.kycBox]}>
           <TouchableOpacity
@@ -35,7 +39,7 @@ export default class KycFirst extends Component {
                       {fontWeight: '300'},
                     ]
               }>
-              남성
+              {t('kycFirst2')}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -57,7 +61,7 @@ export default class KycFirst extends Component {
                       {fontWeight: '300'},
                     ]
               }>
-              여성
+              {t('kycFirst3')}
             </Text>
           </TouchableOpacity>
         </View>
@@ -67,7 +71,7 @@ export default class KycFirst extends Component {
             ResetStyle.fontBlack,
             {textAlign: 'left', marginTop: '15%', marginBottom: '7%'},
           ]}>
-          결혼 여부 선택
+          {t('kycFirst4')}
         </Text>
         <View style={[AuthStyle.kycBox]}>
           <TouchableOpacity
@@ -89,7 +93,7 @@ export default class KycFirst extends Component {
                       {fontWeight: '300'},
                     ]
               }>
-              미혼
+              {t('kycFirst5')}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -111,7 +115,7 @@ export default class KycFirst extends Component {
                       {fontWeight: '300'},
                     ]
               }>
-              결혼
+              {t('kycFirst6')}
             </Text>
           </TouchableOpacity>
         </View>
@@ -135,7 +139,7 @@ export default class KycFirst extends Component {
                       {fontWeight: '300'},
                     ]
               }>
-              동거
+              {t('kycFirst7')}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -157,7 +161,7 @@ export default class KycFirst extends Component {
                       {fontWeight: '300'},
                     ]
               }>
-              이혼
+              {t('kycFirst8')}
             </Text>
           </TouchableOpacity>
         </View>
@@ -165,3 +169,5 @@ export default class KycFirst extends Component {
     );
   }
 }
+
+export default hoistStatics(withTranslation()(KycFirst), KycFirst);
