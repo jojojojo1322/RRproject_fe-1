@@ -309,17 +309,53 @@ const ProfileIncompleteDetail = (props) => {
               )
             ].kycOption;
           console.log('원래 들어있는 값 체크', fixAnswer);
+          console.log('마이너스 값', answer);
           console.log('마이너스 인덱스 값 체크', fixAnswer.indexOf(answer));
-          if (fixAnswer.indexOf(answer) === 0) {
-            let text = fixAnswer.slice(0, 2);
-            fixAnswer = fixAnswer.replace(text, '');
-          } else {
-            let text = fixAnswer.slice(
-              fixAnswer.indexOf(answer) - 1,
-              fixAnswer.indexOf(answer) + 1,
-            );
-            fixAnswer = fixAnswer.replace(text, '');
-          }
+
+          let splitArray = fixAnswer.split(',');
+          console.log('splitArray', splitArray);
+          splitArray.map((data, index) => {
+            console.log('data', data);
+            console.log('answer', answer);
+            console.log('index', index);
+            console.log('result', data === answer);
+            if (data === answer) {
+              splitArray.splice(index, 1);
+            }
+          });
+          console.log('splitArray', splitArray);
+          splitArray.map((data, index) => {
+            if (index === 0) {
+              fixAnswer = data;
+            } else {
+              fixAnswer += `,${data}`;
+            }
+          });
+          console.log('fixAnswerfixAnswer', fixAnswer);
+
+          // if (answer.length === 1) {
+          //   if (fixAnswer.indexOf(answer) === 0) {
+          //     let text = fixAnswer.slice(0, 2);
+          //     fixAnswer = fixAnswer.replace(text, '');
+          //   } else {
+          //     let text = fixAnswer.slice(
+          //       fixAnswer.indexOf(answer) - 1,
+          //       fixAnswer.indexOf(answer) + 1,
+          //     );
+          //     fixAnswer = fixAnswer.replace(text, '');
+          //   }
+          // } else if (answer.length === 2) {
+          //   if (fixAnswer.indexOf(answer) === 0) {
+          //     let text = fixAnswer.slice(0, 3);
+          //     fixAnswer = fixAnswer.replace(text, '');
+          //   } else {
+          //     let text = fixAnswer.slice(
+          //       fixAnswer.indexOf(answer) - 1,
+          //       fixAnswer.indexOf(answer) + 2,
+          //     );
+          //     fixAnswer = fixAnswer.replace(text, '');
+          //   }
+          // }
 
           console.log('마이너스 인덱스 값으로 slice', fixAnswer);
 
@@ -360,7 +396,6 @@ const ProfileIncompleteDetail = (props) => {
               1,
             ),
           );
-
           setCheckedArray(_checkedArray);
           setNextCheck(
             _checkedArray.findIndex(
@@ -410,6 +445,7 @@ const ProfileIncompleteDetail = (props) => {
         </>,
       )),
   );
+
   const RenderItem = (item) => {
     if (item.questionNumber === item.kycQuestion) {
       if (item.optionNumber == 1) {
@@ -437,10 +473,15 @@ const ProfileIncompleteDetail = (props) => {
               value={item.optionNumber}
               checked={
                 checkedArray.findIndex(
-                  (y) =>
-                    y.kycQuestion === item.questionNumber &&
-                    y.kycOption.indexOf(item.optionNumber) !== -1,
-                ) >= 0
+                  (y) => y.kycQuestion === item.questionNumber,
+                ) >= 0 &&
+                checkedArray[
+                  checkedArray.findIndex(
+                    (y) => y.kycQuestion === item.questionNumber,
+                  )
+                ].kycOption
+                  .split(',')
+                  .includes(item.optionNumber)
                   ? true
                   : false
               }
@@ -481,10 +522,15 @@ const ProfileIncompleteDetail = (props) => {
               keyValue={Number(item.questionNumber)}
               checked={
                 checkedArray.findIndex(
-                  (y) =>
-                    y.kycQuestion === item.questionNumber &&
-                    y.kycOption.indexOf(item.optionNumber) !== -1,
-                ) >= 0
+                  (y) => y.kycQuestion === item.questionNumber,
+                ) >= 0 &&
+                checkedArray[
+                  checkedArray.findIndex(
+                    (y) => y.kycQuestion === item.questionNumber,
+                  )
+                ].kycOption
+                  .split(',')
+                  .includes(item.optionNumber)
                   ? true
                   : false
               }
@@ -555,6 +601,7 @@ const ProfileIncompleteDetail = (props) => {
         </View>,
       )),
   );
+
   useEffect(() => {
     getAdvancedKycQuestionListApi();
     getAdvancedKycOptionListApi();
@@ -579,6 +626,7 @@ const ProfileIncompleteDetail = (props) => {
 
   useEffect(() => {
     // 해당 index kyc질문에 대한 대답이 배열에 들어가있는지 체크
+
     setNextCheck(
       checkedArray.findIndex(
         (y) => Number(y.kycQuestion) === Number(nowIndex + 1),

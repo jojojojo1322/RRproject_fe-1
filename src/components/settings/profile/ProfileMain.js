@@ -146,6 +146,7 @@ const ProfileMain = ({navigation}) => {
     );
   };
   useEffect(() => {
+    console.log('실행');
     userApi();
   });
 
