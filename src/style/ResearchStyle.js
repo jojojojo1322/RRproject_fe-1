@@ -50,6 +50,6 @@ export default StyleSheet.create({
     maxHeight: '85%',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    marginTop: '5%',
+    // marginTop: '5%',
   },
 });
