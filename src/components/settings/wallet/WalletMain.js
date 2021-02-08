@@ -164,7 +164,10 @@ const WalletMain = (props) => {
 
         <View style={[WalletStyle.MainTopView]}>
           {/* Top Logo */}
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              props.navigation.navigate('Main');
+            }}>
             <View style={[WalletStyle.TopLogoView]}>
               <Image
                 source={require('../../../imgs/drawable-xxxhdpi/main_r_logo.png')}

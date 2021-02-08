@@ -19,215 +19,217 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import BottomModal from '../../factory/modal/BottomModal';
 import TextConfirmModal from '../../factory/modal/TextConfirmModal';
+import {useTranslation} from 'react-i18next';
 
 const ProfileIncompleteLevel2 = (props) => {
+  const {t, i18n} = useTranslation();
   const kycQuestion = [
     {
-      question: 'What is your current employment status?',
+      question: t('profileAllQuestion2_1'),
       answers: [
         {
           id: 0,
-          answer: 'Employed full-time',
+          answer: t('profileAllQuestion2_1_Answer1'),
         },
         {
           id: 1,
-          answer: 'Self-employed full-time',
+          answer: t('profileAllQuestion2_1_Answer2'),
         },
         {
           id: 2,
-          answer: 'Active military',
+          answer: t('profileAllQuestion2_1_Answer3'),
         },
         {
           id: 3,
-          answer: 'Temporarily unemployed',
+          answer: t('profileAllQuestion2_1_Answer4'),
         },
         {
           id: 4,
-          answer: 'Retired',
+          answer: t('profileAllQuestion2_1_Answer5'),
         },
         {
           id: 5,
-          answer: 'Disabled / Permanently unemployed',
+          answer: t('profileAllQuestion2_1_Answer6'),
         },
         {
           id: 6,
-          answer: 'Employed part-time',
+          answer: t('profileAllQuestion2_1_Answer7'),
         },
         {
           id: 7,
-          answer: 'Self-employed part-time',
+          answer: t('profileAllQuestion2_1_Answer8'),
         },
         {
           id: 8,
-          answer: 'Inactive military / veteran',
+          answer: t('profileAllQuestion2_1_Answer9'),
         },
         {
           id: 9,
-          answer: 'Full-time homemaker / family dependent',
+          answer: t('profileAllQuestion2_1_Answer10'),
         },
         {
           id: 10,
-          answer: 'Student',
+          answer: t('profileAllQuestion2_1_Answer11'),
         },
         {
           id: 11,
-          answer: 'Prefer not to answer',
+          answer: t('profileAllQuestion2_1_Answer12'),
         },
       ],
     },
     {
-      question: 'Waht is your estimated annual revenue?',
+      question: t('profileAllQuestion2_2'),
       answers: [
         {
           id: 0,
-          answer: 'Under $50,000',
+          answer: t('profileAllQuestion2_2_Answer1'),
         },
         {
           id: 1,
-          answer: '$50,000 - $100,000',
+          answer: t('profileAllQuestion2_2_Answer2'),
         },
         {
           id: 2,
-          answer: '$100,000- $249,000',
+          answer: t('profileAllQuestion2_2_Answer3'),
         },
         {
           id: 3,
-          answer: '$250,000 - $499,999',
+          answer: t('profileAllQuestion2_2_Answer4'),
         },
         {
           id: 4,
-          answer: '$500,000 - $999,999',
+          answer: t('profileAllQuestion2_2_Answer5'),
         },
         {
           id: 5,
-          answer: '$1 million - $4.99 million',
+          answer: t('profileAllQuestion2_2_Answer6'),
         },
         {
           id: 6,
-          answer: '$5 million or more',
+          answer: t('profileAllQuestion2_2_Answer7'),
         },
         {
           id: 7,
-          answer: 'I don’t work / we don’t work',
+          answer: t('profileAllQuestion2_2_Answer8'),
         },
         {
           id: 8,
-          answer: 'Prefer not to answer',
+          answer: t('profileAllQuestion2_2_Answer9'),
         },
       ],
     },
     {
-      question: 'Do you own one or more properties?',
+      question: t('profileAllQuestion2_3'),
       answers: [
         {
           id: 0,
-          answer: 'Yes, I own one house',
+          answer: t('profileAllQuestion2_3_Answer1'),
         },
         {
           id: 1,
-          answer: 'Yes, I own two houses or more',
+          answer: t('profileAllQuestion2_3_Answer2'),
         },
         {
           id: 2,
-          answer: 'Yes, I own multiple properties',
+          answer: t('profileAllQuestion2_3_Answer3'),
         },
         {
           id: 3,
-          answer: 'No',
+          answer: t('profileAllQuestion2_3_Answer4'),
         },
         {
           id: 4,
-          answer: 'Prefer not to answer',
+          answer: t('profileAllQuestion2_3_Answer5'),
         },
       ],
     },
     {
-      question: 'Roughly what is your net worth?',
+      question: t('profileAllQuestion2_4'),
       answers: [
         {
           id: 0,
-          answer: 'Under $50,000',
+          answer: t('profileAllQuestion2_4_Answer1'),
         },
         {
           id: 1,
-          answer: '$50,000 - $100,000',
+          answer: t('profileAllQuestion2_4_Answer2'),
         },
         {
           id: 2,
-          answer: '$100,000- $249,000',
+          answer: t('profileAllQuestion2_4_Answer3'),
         },
         {
           id: 3,
-          answer: '$250,000 - $499,999',
+          answer: t('profileAllQuestion2_4_Answer4'),
         },
         {
           id: 4,
-          answer: '$500,000 - $999,999',
+          answer: t('profileAllQuestion2_4_Answer5'),
         },
         {
           id: 5,
-          answer: '$1 million - $4.99 million',
+          answer: t('profileAllQuestion2_4_Answer6'),
         },
         {
           id: 6,
-          answer: '$5 million - $9.99 million',
+          answer: t('profileAllQuestion2_4_Answer7'),
         },
         {
           id: 7,
-          answer: '$100 million - $249.99 million',
+          answer: t('profileAllQuestion2_4_Answer8'),
         },
         {
           id: 8,
-          answer: '$250 million - $499.99 million',
+          answer: t('profileAllQuestion2_4_Answer9'),
         },
         {
           id: 9,
-          answer: '$500 million - $999.99 million',
+          answer: t('profileAllQuestion2_4_Answer10'),
         },
         {
           id: 10,
-          answer: '$1 billion or more',
+          answer: t('profileAllQuestion2_4_Answer11'),
         },
         {
           id: 11,
-          answer: 'Prefer not to answer',
+          answer: t('profileAllQuestion2_4_Answer12'),
         },
       ],
     },
     {
-      question: 'Where do you invest your income?',
+      question: t('profileAllQuestion2_5'),
       answers: [
         {
           id: 0,
-          answer: 'Real Estate',
+          answer: t('profileAllQuestion2_5_Answer1'),
         },
         {
           id: 1,
-          answer: 'Stock Market Investment',
+          answer: t('profileAllQuestion2_5_Answer2'),
         },
         {
           id: 2,
-          answer: 'Equity Mutual Funds',
+          answer: t('profileAllQuestion2_5_Answer3'),
         },
         {
           id: 3,
-          answer: 'Cryptocurrencies',
+          answer: t('profileAllQuestion2_5_Answer4'),
         },
         {
           id: 4,
-          answer: 'Gold',
+          answer: t('profileAllQuestion2_5_Answer5'),
         },
         {
           id: 5,
-          answer: 'Savings Account (Time Deposit)',
+          answer: t('profileAllQuestion2_5_Answer6'),
         },
         {
           id: 6,
-          answer: 'Business Capital Investment',
+          answer: t('profileAllQuestion2_5_Answer7'),
         },
         {
           id: 7,
-          answer: 'Prefer not to answer',
+          answer: t('profileAllQuestion2_5_Answer8'),
         },
       ],
     },
@@ -664,7 +666,9 @@ const ProfileIncompleteLevel2 = (props) => {
               ResetStyle.fontBlack,
               ResearchStyle.researchTitle,
             ]}>
-            Level {props.route.params?.KycLevel} KYC
+            {t('profileIncompleteDetailLevel2_Title', {
+              kycLevel: props.route.params?.KycLevel,
+            })}
           </Text>
 
           {/* 상단 체크박스 */}
@@ -693,7 +697,9 @@ const ProfileIncompleteLevel2 = (props) => {
                 ResetStyle.fontWhite,
                 {fontWeight: '600'},
               ]}>
-              {nowIndex == 0 ? '취소' : '이전'}
+              {nowIndex == 0
+                ? t('profileIncompleteDetailLevel2_1')
+                : t('profileIncompleteDetailLevel2_2')}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -721,7 +727,9 @@ const ProfileIncompleteLevel2 = (props) => {
                 ResetStyle.fontWhite,
                 {fontWeight: '600'},
               ]}>
-              {nowIndex == questionLength - 1 ? '제출' : '다음'}
+              {nowIndex == questionLength - 1
+                ? t('profileIncompleteDetailLevel2_3')
+                : t('profileIncompleteDetailLevel2_4')}
             </Text>
           </TouchableOpacity>
         </View>
@@ -729,12 +737,12 @@ const ProfileIncompleteLevel2 = (props) => {
       <BottomModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
-        text={`선택 가능한 답변 개수를 초과했습니다.`}
+        text={t('profileIncompleteDetailLevel2_5')}
       />
       <TextConfirmModal
         modalVisible={modal2Visible}
         setModalVisible={setModal2Visible}
-        text={`이미 등록 완료되었습니다.`}
+        text={t('profileIncompleteDetailLevel2_6')}
         confirm={confirm}
       />
     </SafeAreaView>

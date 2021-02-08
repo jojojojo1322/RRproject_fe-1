@@ -82,14 +82,14 @@ const Settings = ({navigation}) => {
           navigation.navigate('Settings');
           navigation.dispatch(
             StackActions.push('TermsConditions', {
-              name: '이용약관',
+              name: t('termsConditions1'),
             }),
           );
         } else if (id === '7') {
           navigation.navigate('Settings');
           navigation.dispatch(
             StackActions.push('TermsConditions', {
-              name: '개인정보처리방침',
+              name: t('termsConditions2'),
             }),
           );
         } else {
@@ -129,7 +129,7 @@ const Settings = ({navigation}) => {
             {marginLeft: '5%', marginRight: '5%'},
           ]}>
           <TouchableOpacity
-            style={{flexDirection: 'row'}}
+            style={{flexDirection: 'row', alignItems: 'center'}}
             onPress={() => {
               navigation.goBack();
             }}>

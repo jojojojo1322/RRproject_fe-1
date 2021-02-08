@@ -19,8 +19,10 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '../../../style/ResetStyle.js';
 import {lang} from '../../defined/lang';
 import ProfileStyle from '../../../style/ProfileStyle';
+import {useTranslation} from 'react-i18next';
 
 const ProfileComplete = (props) => {
+  const {t, i18n} = useTranslation();
   return (
     <SafeAreaView style={[ResetStyle.container]}>
       <View style={[ResetStyle.containerInner]}>
@@ -32,7 +34,10 @@ const ProfileComplete = (props) => {
           />
           <Text
             style={[ResetStyle.fontBoldK, ResetStyle.fontB, {marginTop: '5%'}]}>
-            {`KYC ${props.route.params?.KycLevel} LEVEL\n 인증완료`}
+            {/* {`KYC ${props.route.params?.KycLevel} LEVEL\n 인증완료`} */}
+            {t('profileCompleteTitle', {
+              kycLevel: props.route.params?.KycLevel,
+            })}
           </Text>
         </View>
 
@@ -41,7 +46,12 @@ const ProfileComplete = (props) => {
           <TouchableOpacity
             style={[
               ResetStyle.buttonWhite,
-              {backgroundColor: '#ffffff', width: '49%'},
+              {
+                backgroundColor: '#ffffff',
+                width: '49%',
+                alignItems: 'center',
+                justifyContent: 'center',
+              },
             ]}
             onPress={() => {
               props.navigation.navigate('WalletMain');
@@ -53,13 +63,18 @@ const ProfileComplete = (props) => {
                 ResetStyle.fontB,
                 {fontWeight: '600'},
               ]}>
-              지갑 확인하기
+              {t('profileComplete1')}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[
               ResetStyle.button,
-              {backgroundColor: '#4696ff', width: '49%'},
+              {
+                backgroundColor: '#4696ff',
+                width: '49%',
+                alignItems: 'center',
+                justifyContent: 'center',
+              },
             ]}
             onPress={() => {
               props.navigation.navigate('ProfileMain');
@@ -71,7 +86,7 @@ const ProfileComplete = (props) => {
                 ResetStyle.fontWhite,
                 {fontWeight: '600'},
               ]}>
-              Profile 이동
+              {t('profileComplete2')}
             </Text>
           </TouchableOpacity>
         </View>

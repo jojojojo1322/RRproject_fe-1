@@ -159,7 +159,10 @@ const ProfileMain = ({navigation}) => {
       <View style={[ProfileStyle.kycContainerInner]}>
         {/* Top */}
         <View style={[ProfileStyle.topView]}>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Main');
+            }}>
             <View style={[ProfileStyle.topLogoTouchView]}>
               <Image
                 source={require('../../../imgs/drawable-xxxhdpi/main_r_logo.png')}
@@ -244,7 +247,8 @@ const ProfileMain = ({navigation}) => {
         <BottomModal
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
-          text={`KYC LEVEL ${Number(kycLevel) + 1}을 먼저 완료해주세요.`}
+          // text={`KYC LEVEL ${Number(kycLevel) + 1}을 먼저 완료해주세요.`}
+          text={t('profileMain8', {kyclevel: Number(kycLevel) + 1})}
         />
       </View>
     </SafeAreaView>

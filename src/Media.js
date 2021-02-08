@@ -14,8 +14,10 @@ import {
 import {ScrollView} from 'react-native-gesture-handler';
 import ResetStyle from './style/ResetStyle';
 import {WebView} from 'react-native-webview';
+import {useTranslation} from 'react-i18next';
 
-export const Media = ({navigation}) => {
+const Media = ({navigation}) => {
+  const {t, i18n} = useTranslation();
   return (
     <SafeAreaView style={[ResetStyle.container]}>
       <StatusBar barStyle="dark-content" />
@@ -33,7 +35,7 @@ export const Media = ({navigation}) => {
               />
             </TouchableOpacity>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-              미디어
+              {t('mediaTitle')}
             </Text>
           </View>
         </View>

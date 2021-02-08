@@ -18,19 +18,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '../../../style/ResetStyle.js';
 import ProfileStyle from '../../../style/ProfileStyle.js';
+import {useTranslation} from 'react-i18next';
 
-const kycArr = [
-  {
-    나이: '25',
-    성별: 'female',
-    결혼유무: 'single',
-    국적: 'Korea',
-    거주국가: 'Korea',
-    거주도시: 'Seoul',
-    언어: 'korean',
-  },
-];
 const ProfileCompleteLevel1 = (props) => {
+  const {t, i18n} = useTranslation();
   const [question, setQuestion] = useState([]);
   const getCompleteKycApi = async () => {
     await axios
@@ -60,7 +51,7 @@ const ProfileCompleteLevel1 = (props) => {
               source={require('../../../imgs/drawable-xxxhdpi/back_icon.png')}
             />
           </TouchableOpacity>
-          <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}></Text>
+          {/* <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}></Text> */}
         </View>
 
         {/* Level List */}
@@ -134,7 +125,10 @@ const ProfileCompleteLevel1 = (props) => {
               <View>
                 <View style={[ProfileStyle.kycAllLevelTitle]}>
                   <Text style={[ResetStyle.fontRegularE, {fontWeight: '500'}]}>
-                    KYC LEVEL {props.route.params?.KycLevel}
+                    {/* KYC LEVEL {props.route.params?.KycLevel} */}
+                    {t('profileCompleteLevel1Title', {
+                      kycLevel: props.route.params?.KycLevel,
+                    })}
                   </Text>
                 </View>
                 {Arr}
@@ -151,7 +145,7 @@ const ProfileCompleteLevel1 = (props) => {
             });
           }}>
           <Text style={[ResetStyle.buttonTexts, {fontSize: 20}]}>
-            정보 수정하기
+            {t('profileCompleteLevel1_1')}
           </Text>
         </TouchableOpacity>
       </View>

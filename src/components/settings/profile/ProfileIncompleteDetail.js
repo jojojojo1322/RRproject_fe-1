@@ -12,8 +12,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import BottomModal from '../../factory/modal/BottomModal';
 import TextConfirmModal from '../../factory/modal/TextConfirmModal';
+import {useTranslation} from 'react-i18next';
 
 const ProfileIncompleteDetail = (props) => {
+  const {t, i18n} = useTranslation();
   // CheckedArrObject = new SelectedCheckboxes();
 
   let CheckedArrObject = new SelectedCheckboxes();
@@ -654,7 +656,9 @@ const ProfileIncompleteDetail = (props) => {
               ResetStyle.fontBlack,
               ResearchStyle.researchTitle,
             ]}>
-            Level {props.route.params?.KycLevel} KYC
+            {t('profileIncompleteDetailTitle', {
+              kycLevel: props.route.params?.KycLevel,
+            })}
           </Text>
 
           {/* 상단 체크박스 */}
@@ -683,7 +687,9 @@ const ProfileIncompleteDetail = (props) => {
                 ResetStyle.fontWhite,
                 {fontWeight: '600'},
               ]}>
-              {nowIndex == 0 ? '취소' : '이전'}
+              {nowIndex == 0
+                ? t('profileIncompleteDetail1')
+                : t('profileIncompleteDetail2')}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -720,7 +726,9 @@ const ProfileIncompleteDetail = (props) => {
                 ResetStyle.fontWhite,
                 {fontWeight: '600'},
               ]}>
-              {nowIndex == questionLength - 1 ? '제출' : '다음'}
+              {nowIndex == questionLength - 1
+                ? t('profileIncompleteDetail3')
+                : t('profileIncompleteDetail4')}
             </Text>
           </TouchableOpacity>
         </View>
@@ -728,12 +736,12 @@ const ProfileIncompleteDetail = (props) => {
       <BottomModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
-        text={`선택 가능한 답변 개수를 초과했습니다.`}
+        text={t('profileIncompleteDetail5')}
       />
       <TextConfirmModal
         modalVisible={modal2Visible}
         setModalVisible={setModal2Visible}
-        text={`이미 등록 완료되었습니다.`}
+        text={t('profileIncompleteDetail6')}
         confirm={confirm}
       />
     </SafeAreaView>

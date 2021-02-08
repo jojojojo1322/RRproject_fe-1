@@ -22,17 +22,6 @@ import ProfileStyle from '../../../style/ProfileStyle.js';
 
 import {useTranslation} from 'react-i18next';
 
-const kycArr = [
-  {
-    나이: '25',
-    성별: 'female',
-    결혼유무: 'single',
-    국적: 'Korea',
-    거주국가: 'Korea',
-    거주도시: 'Seoul',
-    언어: 'korean',
-  },
-];
 const levelMap = [
   {id: '3'},
   {id: '4'},
