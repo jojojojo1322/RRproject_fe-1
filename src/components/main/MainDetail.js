@@ -25,43 +25,162 @@ import hoistStatics from 'hoist-non-react-statics';
 
 const MainDetail = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [surveyDetail, setSurveyDetail] = useState([]);
+  const [audience, setAudience] = useState([]);
+  const [audienceLanguage, setAudienceLanguage] = useState('');
+  const [audienceAge, setAudienceAge] = useState('');
+  const [audienceCheck, setAudienceCheck] = useState(1);
 
+  const [userNo, setUserNo] = useState('');
+  // let audienceCheck = '';
   // const getSurveyDetailApi = () => {
   //   axios.get(`${server}/survey/detail`);
   // };
+  const surveyDetailApi = async () => {
+    await axios
+      .get(
+        `${server}/survey/detail?deviceLanguageCode=${await AsyncStorage.getItem(
+          'deviceLanguage',
+        )}&legacySurveyId=${
+          props.route.params?.legacySurveyId
+        }&userNo=${await AsyncStorage.getItem('userNo')}`,
+      )
+      .then(async (response) => {
+        console.log(`surveyDetailApi Then >>`, response);
+        setSurveyDetail(response.data.resSurvey);
+        setUserNo(await AsyncStorage.getItem('userNo'));
+      })
+      .catch((e) => {
+        console.log(`surveyDetailApi Error`, e);
+      });
+  };
+  const AudienceCheckApi = async () => {
+    axios
+      .post(`${server}/survey/audience`, {
+        surveyId: String(audience.surveyId),
+        userNo: String(userNo),
+      })
+      .then(async (response) => {
+        console.log(`AudienceCheckApi Then >>`, response);
+        setAudienceCheck(response.data.ret_val);
+      })
+      .catch((e) => {
+        console.log(`AudienceCheckApi Error`, e);
+      });
+  };
+  const AudienceApi = async () => {
+    await axios
+      .get(
+        `${server}/survey/audience/info?legacySurveyId=${props.route.params?.legacySurveyId}`,
+      )
+      .then(async (response) => {
+        console.log(`AudienceApi Then >>`, response);
+        setAudience(response.data);
+        if (response.data.language === 'all') {
+          setAudienceLanguage('all');
+        } else {
+          let languageFix = '';
+          let lan = response.data.language;
+          lan.split(',').map((data) => {
+            if (data === 'en') {
+              if (languageFix.length === 0) {
+                languageFix += 'English';
+              } else {
+                languageFix += ',English';
+              }
+            } else if (data === 'ko') {
+              if (languageFix.length === 0) {
+                languageFix += 'Korean';
+              } else {
+                languageFix += ',Korean';
+              }
+            } else if (data === 'es') {
+              if (languageFix.length === 0) {
+                languageFix += 'Spanish';
+              } else {
+                languageFix += ',Spanish';
+              }
+            } else if (data === 'ru') {
+              if (languageFix.length === 0) {
+                languageFix += 'Russian';
+              } else {
+                languageFix += ',Russian';
+              }
+            } else if (data === 'pt') {
+              if (languageFix.length === 0) {
+                languageFix += 'Portuguese';
+              } else {
+                languageFix += ',Portuguese';
+              }
+            }
+          });
+          setAudienceLanguage(languageFix);
+        }
+        let age = response.data.dateOfBirth;
+        let ageFix = '';
+        let ageMax = age.split(',')[0];
+        let ageMin = age.split(',')[1];
+        let ageMod = 0;
+        if (ageMax <= ageMin) {
+          let ageMode = ageMax;
+          ageMax = ageMin;
+          ageMin = ageMode;
+        }
 
+        ageFix += `${ageMin}-${ageMax}`;
+        setAudienceAge(ageFix);
+        console.log('response.data.dayOfBirth.split())= ', ageFix);
+      })
+      .catch((e) => {
+        console.log(`AudienceApi Error`, e);
+      });
+  };
   useEffect(() => {
-    CarrierInfo.allowsVOIP()
-      .then((result) => {
-        console.log('CarrierInfo>>then>>>>', result);
-      })
-      .catch((e) => {
-        console.log('error>>>>', e);
-      });
-    CarrierInfo.carrierName()
-      .then((result) => {
-        console.log('CarrierName>>then>>>>', result);
-      })
-      .catch((e) => {
-        console.log('error>>>>', e);
-      });
-    ////유심 체크 (끼어져 있는 유심이 공유심인지는 체크 불가)
-    CarrierInfo.mobileNetworkCode()
-      .then((result) => {
-        console.log('mobileNetworkCode>>then>>>>', result);
-      })
-      .catch((e) => {
-        console.log('error>>>>', e);
-      });
-    CarrierInfo.mobileNetworkOperator()
-      .then((result) => {
-        console.log('mobileNetworkOperator>>then>>>>', result);
-      })
-      .catch((e) => {
-        console.log('error>>>>', e);
-      });
+    // CarrierInfo.allowsVOIP()
+    //   .then((result) => {
+    //     console.log('CarrierInfo>>then>>>>', result);
+    //   })
+    //   .catch((e) => {
+    //     console.log('error>>>>', e);
+    //   });
+    // CarrierInfo.carrierName()
+    //   .then((result) => {
+    //     console.log('CarrierName>>then>>>>', result);
+    //   })
+    //   .catch((e) => {
+    //     console.log('error>>>>', e);
+    //   });
+    // ////유심 체크 (끼어져 있는 유심이 공유심인지는 체크 불가)
+    // CarrierInfo.mobileNetworkCode()
+    //   .then((result) => {
+    //     console.log('mobileNetworkCode>>then>>>>', result);
+    //   })
+    //   .catch((e) => {
+    //     console.log('error>>>>', e);
+    //   });
+    // CarrierInfo.mobileNetworkOperator()
+    //   .then((result) => {
+    //     console.log('mobileNetworkOperator>>then>>>>', result);
+    //   })
+    //   .catch((e) => {
+    //     console.log('error>>>>', e);
+    //   });
+    surveyDetailApi();
+    AudienceApi();
   }, []);
-
+  const audienceCheckHandle = async () => {
+    AudienceCheckApi();
+    console.log('audienceCheck', audienceCheck);
+    if (audienceCheck === 0) {
+      props.navigation.navigate('ResearchForm', {
+        // legacySurveyId: props.route.params?.legacySurveyId,
+        legacySurveyId: '5f91aad0ae28561b056e2f97',
+        surveyName: surveyDetail.surveyName,
+        sponsorName: surveyDetail.sponsorName,
+      });
+    }
+  };
+  console.log('surveyDetailsurveyDetailsurveyDetail', surveyDetail);
   return (
     <SafeAreaView style={[ResetStyle.container]}>
       <ScrollView style={{paddingLeft: '5%', paddingRight: '5%'}}>
@@ -91,11 +210,11 @@ const MainDetail = (props) => {
           }}>
           <View style={{flexDirection: 'row'}}>
             <Text style={[ResetStyle.fontLightK, ResetStyle.fontDG]}>
-              E-commerce
+              {surveyDetail.categoryName}
             </Text>
             <Text style={[ResetStyle.fontLightK, ResetStyle.fontDG]}> | </Text>
             <Text style={[ResetStyle.fontLightK, ResetStyle.fontDG]}>
-              Samsung
+              {surveyDetail.sponsorName}
             </Text>
           </View>
 
@@ -113,8 +232,7 @@ const MainDetail = (props) => {
               ResetStyle.fontBlack,
               {textAlign: 'left', marginTop: 10},
             ]}>
-            설문조사 제목입니다 설문조사 제목입니다 설문조사 제목입니다 설문조사
-            제목입니다 설문조사 제목입니다
+            {surveyDetail.surveyName}
           </Text>
         </View>
         <View
@@ -126,7 +244,9 @@ const MainDetail = (props) => {
             marginBottom: 15,
           }}>
           <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
-            <Text style={[ResetStyle.fontBoldK, ResetStyle.fontB]}>+10</Text>
+            <Text style={[ResetStyle.fontBoldK, ResetStyle.fontB]}>
+              +{surveyDetail.reward}
+            </Text>
             <Text
               style={[ResetStyle.fontRegularK, ResetStyle.fontB, {padding: 5}]}>
               TNC
@@ -141,18 +261,6 @@ const MainDetail = (props) => {
               Audience
             </Text>
           </TouchableOpacity>
-          <AudienceModal
-            setModalVisible={setModalVisible}
-            modalVisible={modalVisible}
-            level={`2`}
-            age={`25`}
-            gender={`여성`}
-            maritalStatus={`미혼`}
-            nationality={`한국`}
-            country={`한국`}
-            countryCity={`서울`}
-            language={`한국어`}
-          />
         </View>
         <View
           style={{
@@ -191,7 +299,10 @@ const MainDetail = (props) => {
               position: 'absolute',
               top: 0,
               left: 0,
-              width: '65%',
+              width: `${
+                (surveyDetail.participants / surveyDetail.particRestrictions) *
+                100
+              }%`,
               height: '100%',
               backgroundColor: '#0080ff',
             }}></View>
@@ -203,10 +314,9 @@ const MainDetail = (props) => {
             marginBottom: 30,
           }}>
           <Text style={[ResetStyle.fontLightK, ResetStyle.fontB]}>
-            12375 / 20000
-          </Text>
-          <Text style={[ResetStyle.fontLightK, ResetStyle.fontDG]}>
-            VIEW 20000
+            {`${surveyDetail.participants}/${
+              surveyDetail.particRestrictions
+            }${'\n'}`}
           </Text>
         </View>
         <View style={{position: 'relative', height: 250}}>
@@ -217,7 +327,7 @@ const MainDetail = (props) => {
               width: '112%',
               height: '100%',
             }}
-            source={require('../../imgs/shutterstock_736958713.jpg')}
+            source={{uri: surveyDetail.categoryImg}}
           />
         </View>
 
@@ -232,13 +342,7 @@ const MainDetail = (props) => {
               marginBottom: 30,
             },
           ]}>
-          설문조사 상세 내용이 노출됩니다. 리얼리서치 대박날거에요.파이팅입니다.
-          모두들 아자아자 와우 호우 요우. 예아~~ 대박대박대박 재밌는 설문조사
-          리얼리서치가 되어요. 설문조사 상세 내용이 노출됩니다. 리얼리서치
-          대박날거에요. 파이팅입니다. 모두들 아자아자 와우 호우 요우. 예아~~
-          대박대박대박 재밌는 설문조사 리얼리서치가 되어요. 설문조사 상세 내용이
-          노출됩니다. 리얼리서치 대박날거에요.파이팅입니다. 모두들 아자아자 와우
-          호우 요우. 예아~~ 대박대박대박 재밌는 설문조사 리얼리서치가 되어요.
+          {surveyDetail.instructions}
         </Text>
 
         <TouchableOpacity
@@ -246,10 +350,18 @@ const MainDetail = (props) => {
             ResetStyle.button,
             {marginBottom: Platform.OS === 'ios' ? 0 : '5%'},
           ]}
-          onPress={() => {
-            props.navigation.navigate('ResearchForm', {
-              legacySurveyId: '5fad41daa32d5a461d0b33b3',
-            });
+          onPress={async () => {
+            await AudienceCheckApi();
+            console.log('audienceCheck', audienceCheck);
+            if (audienceCheck === 0) {
+              props.navigation.navigate('ResearchForm', {
+                // legacySurveyId: props.route.params?.legacySurveyId,
+                legacySurveyId: '5f91aad0ae28561b056e2f97',
+                surveyName: surveyDetail.surveyName,
+                sponsorName: surveyDetail.sponsorName,
+              });
+            }
+            // audienceCheckHandle();
           }}>
           <Text
             style={[
@@ -262,6 +374,28 @@ const MainDetail = (props) => {
             시작하기
           </Text>
         </TouchableOpacity>
+        <AudienceModal
+          setModalVisible={setModalVisible}
+          modalVisible={modalVisible}
+          level={audience.audienceLevel}
+          age={audienceAge}
+          gender={
+            audience.gender === 'all'
+              ? '남성,여성,답변안함'
+              : audience.gender === '0'
+              ? '여성'
+              : audience.gender === '1'
+              ? '남성'
+              : audience.gender === 'all'
+              ? '답변안함'
+              : ''
+          }
+          maritalStatus={audience.relationShipStatus}
+          nationality={audience.nationality}
+          country={audience.residentCountry}
+          countryCity={audience.residentCity}
+          language={audienceLanguage}
+        />
       </ScrollView>
     </SafeAreaView>
   );
