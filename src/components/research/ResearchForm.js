@@ -45,6 +45,8 @@ const ResearchForm = (props) => {
 
   // 체크박스 배열
   const [checkedArray, setCheckedArray] = useState([]);
+  // 체크 여부 확인 후 버튼 활성회
+  const [nextCheck, setNextCheck] = useState(false);
 
   // default userNo, deviceLanguage, legacySurveyId
   const [userNo, setUserNo] = useState('');
@@ -121,24 +123,33 @@ const ResearchForm = (props) => {
     }
   };
   // 이전 버튼
-  const handlerPrev = (e) => {
+  const handlerPrev = async (e) => {
     const _nowIndex = nowIndex;
     if (_nowIndex != 0) {
       setNowIndex(_nowIndex - 1);
       setCheckId('');
-
+      await setNextCheck(
+        checkedArray.findIndex(
+          (y) => Number(y.surveyQuestionNum) === Number(_nowIndex),
+        ) !== -1,
+      );
       // props.navigation.goBack();
     } else if (_nowIndex == 0) {
       props.navigation.goBack();
     }
   };
 
-  const handlerNext = (e) => {
+  const handlerNext = async (e) => {
     const _nowIndex = nowIndex;
     if (_nowIndex != surveyLength - 1) {
       setNowIndex(_nowIndex + 1);
       setCheckId('');
       // props.navigation.push('ResearchForm');
+      await setNextCheck(
+        checkedArray.findIndex(
+          (y) => Number(y.surveyQuestionNum) === Number(_nowIndex) + 2,
+        ) !== -1,
+      );
     }
     if (_nowIndex === surveyLength - 1) {
       props.navigation.navigate('MainVideo', {
@@ -176,8 +187,8 @@ const ResearchForm = (props) => {
   ) => {
     // question,   answer,    status,  optionId,  surveyId surveyQuestionId
     // questionNum optionNum  status   optionId,  surveyId Id
-    console.log(status, '----question----', question);
-    console.log(status, '----answer----', answer);
+    // console.log(status, '----question----', question);
+    // console.log(status, '----answer----', answer);
     console.log({
       question: question,
       answer: answer,
@@ -220,6 +231,9 @@ const ResearchForm = (props) => {
       await setCheckedArray(_checkedArray);
     }
     console.log(checkedArray);
+    await setNextCheck(
+      _checkedArray.findIndex((y) => y.surveyQuestionNum === question) !== -1,
+    );
   };
 
   let researchArr = question;
@@ -236,16 +250,16 @@ const ResearchForm = (props) => {
     // surveyQuestionId={item.surveyQuestionId}
     // optionNumber={item.optionNumber}
     // optionContent={item.optionContent}
-    console.log('renderItem', item);
+    // console.log('renderItem', item);
     const surveyQuestion = survey.filter(
       (data, index) => data.questionNum == item.questionNum,
     )[0];
-    console.log('filter survey ARR', surveyQuestion);
-    console.log('filter survey ARR', surveyQuestion.surveyId);
-    console.log('filter survey ARR', surveyQuestion.id);
-    console.log('filter survey ARR', surveyQuestion.questionNum);
+    // console.log('filter survey ARR', surveyQuestion);
+    // console.log('filter survey ARR', surveyQuestion.surveyId);
+    // console.log('filter survey ARR', surveyQuestion.id);
+    // console.log('filter survey ARR', surveyQuestion.questionNum);
 
-    if (item.id == 1) {
+    if (item.optionNumber == 1) {
       return (
         <View
           style={[
@@ -258,7 +272,7 @@ const ResearchForm = (props) => {
               style={[
                 ResetStyle.fontRegularK,
                 ResetStyle.fontBlack,
-                {textAlign: 'left'},
+                {textAlign: 'left', fontWeight: '300'},
               ]}>
               {item.optionContent}
             </Text>
@@ -300,7 +314,7 @@ const ResearchForm = (props) => {
               style={[
                 ResetStyle.fontRegularK,
                 ResetStyle.fontBlack,
-                {textAlign: 'left'},
+                {textAlign: 'left', fontWeight: '300'},
               ]}>
               {item.optionContent}
             </Text>
@@ -342,7 +356,8 @@ const ResearchForm = (props) => {
       (researchList = researchList.concat(
         // <View style={[ResearchStyle.researchView]} key={index}>
         <>
-          <View style={ResearchStyle.researchQuestionLength}>
+          <View
+            style={[ResearchStyle.researchQuestionLength, {marginBottom: 30}]}>
             <Text
               style={[
                 ResetStyle.fontBoldK,
@@ -356,6 +371,7 @@ const ResearchForm = (props) => {
                 ResetStyle.fontRegularK,
                 ResetStyle.fontBlack,
                 ResearchStyle.researchQuestion,
+                {fontSize: 21},
               ]}>
               {data.questionName}
             </Text>
@@ -365,51 +381,54 @@ const ResearchForm = (props) => {
       )),
   );
   console.log('nowIndex', nowIndex);
+  console.log('checkedARRARARARARAR', checkedArray);
   return (
     <SafeAreaView style={ResetStyle.container}>
       <View
         style={[ResetStyle.containerInner, {marginLeft: 0, marginRight: 0}]}>
-        <Text
-          style={[
-            ResetStyle.fontMediumK,
-            ResetStyle.fontBlack,
-            ResearchStyle.researchTitle,
-          ]}>
-          설문조사 제목
-        </Text>
+        <View>
+          <Text
+            style={[
+              ResetStyle.fontMediumK,
+              ResetStyle.fontBlack,
+              ResearchStyle.researchTitle,
+            ]}>
+            설문조사 제목
+          </Text>
 
-        <View style={[ResearchStyle.researchView]}>
-          {/* // */}
-          {/* // */}
-          {/* // */}
-          {/* 상단 인덱스 / 질문 내용 start */}
-          {researchList[nowIndex]}
-          {/* 상단 인덱스 / 질문 내용 end */}
-          {/* // */}
-          {/* // */}
-          {/* // */}
-          {/* 해당 질문 option detail start */}
-          <FlatList
-            data={surveyOption.filter(
-              (d) => String(d.questionNum) === String(nowIndex + 1),
-            )}
-            // data={surveyOption}
-            renderItem={({item}) => (
-              <RenderItem
-                id={item.id}
-                questionNum={item.questionNum}
-                surveyQuestionId={item.surveyQuestionId}
-                optionNumber={item.optionNumber}
-                optionContent={item.optionContent}
-              />
-            )}
-            keyExtractor={(item) => item.id}
-            extraData={surveyOption}
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}
-          />
+          <View style={([ResearchStyle.researchView], {marginTop: '10%'})}>
+            {/* // */}
+            {/* // */}
+            {/* // */}
+            {/* 상단 인덱스 / 질문 내용 start */}
+            {researchList[nowIndex]}
+            {/* 상단 인덱스 / 질문 내용 end */}
+            {/* // */}
+            {/* // */}
+            {/* // */}
+            {/* 해당 질문 option detail start */}
+            <FlatList
+              style={{height: '70%'}}
+              data={surveyOption.filter(
+                (d) => String(d.questionNum) === String(nowIndex + 1),
+              )}
+              // data={surveyOption}
+              renderItem={({item}) => (
+                <RenderItem
+                  id={item.id}
+                  questionNum={item.questionNum}
+                  surveyQuestionId={item.surveyQuestionId}
+                  optionNumber={item.optionNumber}
+                  optionContent={item.optionContent}
+                />
+              )}
+              keyExtractor={(item) => item.id}
+              extraData={surveyOption}
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
+            />
 
-          {/* <FlatList
+            {/* <FlatList
                   // style={{height: '100%'}}
                   data={kycQuestion2}
                   renderItem={({item}) => (
@@ -430,10 +449,11 @@ const ResearchForm = (props) => {
                   showsVerticalScrollIndicator={false}
                   showsHorizontalScrollIndicator={false}
                 /> */}
-          {/* 해당 질문 option detail end */}
-          {/* // */}
-          {/* // */}
-          {/* // */}
+            {/* 해당 질문 option detail end */}
+            {/* // */}
+            {/* // */}
+            {/* // */}
+          </View>
         </View>
         <View style={ResearchStyle.researchBottomButton}>
           <TouchableOpacity
@@ -460,9 +480,10 @@ const ResearchForm = (props) => {
             style={[
               ResetStyle.button,
               {width: '49%', backgroundColor: '#4696ff'},
+              nextCheck === false && {backgroundColor: '#e6e6e6'},
             ]}
             activeOpacity={0.75}
-            onPress={handlerNext}>
+            onPress={nextCheck === true ? handlerNext : null}>
             <Text
               style={[
                 ResetStyle.fontMediumK,
