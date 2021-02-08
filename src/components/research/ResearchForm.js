@@ -177,6 +177,7 @@ const ResearchForm = (props) => {
         props.navigation.navigate('MainVideo', {
           legacySurveyId: legacySurveyId,
           surveyArray: checkedArray,
+          surveyId: props.route.params?.surveyId,
         });
       }
       console.log('insertSuccess', insertSuccess);

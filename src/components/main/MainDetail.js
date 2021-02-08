@@ -360,6 +360,7 @@ const MainDetail = (props) => {
                 legacySurveyId: '5f91aad0ae28561b056e2f97',
                 surveyName: surveyDetail.surveyName,
                 sponsorName: surveyDetail.sponsorName,
+                surveyId: String(audience.surveyId),
               });
             }
             // audienceCheckHandle();

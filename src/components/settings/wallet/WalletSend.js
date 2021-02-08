@@ -57,6 +57,8 @@ export default function WalletSend({navigation, route}) {
     // 가끔 초기화가 안되고 넘어가면 7자리만 체크를 하기 때문에 인식을 못함 -> num 타입 string 처리
     // 6자리 넘어가면 초기화 대신 마지막 값 제거
     var decimalSix = /^\d*[.]\d{7}$/;
+    var decimalSeven = /^\d*[.]\d{8}$/;
+    var decimalEight = /^\d*[.]\d{9}$/;
 
     console.log('소숫점 유형 검사', typeof num);
 
@@ -66,7 +68,16 @@ export default function WalletSend({navigation, route}) {
     if (decimalSix.test(fixNum)) {
       setModal3Visible(!modalVisible);
       setValue(num.slice(0, num.length - 1));
-      return false;
+
+      // await setValue('');
+    }
+    if (decimalSeven.test(fixNum)) {
+      setModal3Visible(!modalVisible);
+      setValue(num.slice(0, num.length - 2));
+    }
+    if (decimalEight.test(fixNum)) {
+      setModal3Visible(!modalVisible);
+      setValue(num.slice(0, num.length - 3));
     }
   };
 
@@ -75,11 +86,15 @@ export default function WalletSend({navigation, route}) {
     const fixValue = Number(String(value).replace(/,/g, ''));
     handleCalculatorOver(fixValue);
     handleUnderTen(value);
-    onlyDecimalsix(value);
+
     //qrcode없을 시 지워짐
     // setAddress(qrcode);
     // console.log('aaaaaaaa', value);
   }, [value]);
+
+  useEffect(() => {
+    onlyDecimalsix(value);
+  });
 
   const {qrcode} = route ? route.params : '';
 
@@ -119,7 +134,8 @@ export default function WalletSend({navigation, route}) {
       .get(`${server}/wallet/${await AsyncStorage.getItem('email')}`)
       .then((response) => {
         // 보유한 Total value TNC
-        setTotal(Number(response.data.balance.replace(' TNC', '')));
+        // setTotal(Number(response.data.balance.replace(' TNC', '')));
+        setTotal(Number(1000.123412));
         console.log('how much balance', total);
         // Wallet Data 전체 값
         setWalletData(response.data);
