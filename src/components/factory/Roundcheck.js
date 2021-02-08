@@ -186,8 +186,31 @@ export class RoundCheckbox extends Component {
             }
           }
           this.props.handleQuestion(key, value, 'PLUS', this.props.typeName);
+          //survey checkbox plus
         } else if (this.props.survey_handleQuestion) {
-          this.props.survey_handleQuestion(key, value, 'PLUS');
+          const index = this.props.checkedArray.findIndex(
+            (y) => String(y.surveyQuestionNum) == String(key),
+          );
+
+          if (index >= 0) {
+            this.props.survey_handleQuestion(
+              key,
+              value,
+              'MINUS',
+              label,
+              this.props.surveyId,
+              this.props.surveyQuestionId,
+            );
+          }
+
+          this.props.survey_handleQuestion(
+            key,
+            value,
+            'PLUS',
+            label,
+            this.props.surveyId,
+            this.props.surveyQuestionId,
+          );
         } else if (this.props.handleCheckedbox) {
           this.props.handleCheckedbox(value, 'PLUS');
         } else if (this.props.handleCheckedArray) {
@@ -203,8 +226,16 @@ export class RoundCheckbox extends Component {
         // kyc 선택문항 - survey
         if (this.props.handleQuestion) {
           this.props.handleQuestion(key, value, 'MINUS', this.props.typeName);
+          //survey checkbox plus
         } else if (this.props.survey_handleQuestion) {
-          this.props.survey_handleQuestion(key, value, 'MINUS');
+          this.props.survey_handleQuestion(
+            key,
+            value,
+            'MINUS',
+            label,
+            this.props.surveyId,
+            this.props.surveyQuestionId,
+          );
         } else if (this.props.handleCheckedbox) {
           this.props.handleCheckedbox(value, 'MINUS');
         } else if (this.props.handleUnCheckedArray) {

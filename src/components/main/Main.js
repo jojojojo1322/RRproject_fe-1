@@ -268,7 +268,7 @@ function Main({navigation, t, i18n}) {
       .get(
         `${server}/survey/main/status/${surveyStatus}/${await AsyncStorage.getItem(
           'deviceLanguage',
-        )}?CurrentPageNo=1`,
+        )}?CurrentPageNo=1&userNo=${await AsyncStorage.getItem('userNo')}`,
       )
       .then(async (response) => {
         console.log(`surveyApi ${surveyStatus} Then >>`, response);
@@ -297,17 +297,18 @@ function Main({navigation, t, i18n}) {
   };
 
   useEffect(() => {
-    // await TncGetApi();
-    // await userInfoApi();
-    // await surveyApi('ongoing');
-    // await surveyApi('expired');
-    // await completeSurveyApi();
-    // console.log('didMountdidMountdidMount');
+    TncGetApi();
+    userInfoApi();
+    surveyApi('ongoing');
+    surveyApi('expired');
+    completeSurveyApi();
+    console.log('didMountdidMountdidMount');
     // console.log('userNo', await AsyncStorage.getItem('userNo'));
     // console.log('email', await AsyncStorage.getItem('email'));
   }, []);
 
   const renderItem = ({item}) => {
+    console.log('renderItem item', item);
     if (item.status === 'zero') {
       return (
         <TouchableOpacity
@@ -338,10 +339,16 @@ function Main({navigation, t, i18n}) {
           ]}
           onPress={() => {
             item.surveyStatus === 'expired'
-              ? navigation.navigate('MainDetailExpired')
+              ? navigation.navigate('MainDetailExpired', {
+                  legacySurveyId: item.legacySurveyId,
+                })
               : item.surveyStatus === 'completed'
-              ? navigation.navigate('MainDetailCompleted')
-              : navigation.navigate('MainDetail');
+              ? navigation.navigate('MainDetailCompleted', {
+                  legacySurveyId: item.legacySurveyId,
+                })
+              : navigation.navigate('MainDetail', {
+                  legacySurveyId: item.legacySurveyId,
+                });
             // navigation.navigate('MainDetail');
           }}>
           <View
