@@ -195,7 +195,7 @@ export class RoundCheckbox extends Component {
           if (index >= 0) {
             this.props.survey_handleQuestion(
               key,
-              value,
+              this.props.checkedArray[index].surveyOptionNum,
               'MINUS',
               label,
               this.props.surveyId,

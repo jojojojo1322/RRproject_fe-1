@@ -561,7 +561,7 @@ const ProfileIncompleteDetail = (props) => {
     } else {
       return (
         <View>
-          <Text>햐</Text>
+          <Text></Text>
         </View>
       );
     }
