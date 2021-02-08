@@ -14,8 +14,10 @@ import {
 import {ScrollView} from 'react-native-gesture-handler';
 import ResetStyle from './style/ResetStyle';
 import {WebView} from 'react-native-webview';
+import {useTranslation} from 'react-i18next';
 
-export const RequestResearch = ({navigation}) => {
+const RequestResearch = ({navigation}) => {
+  const {t, i18n} = useTranslation();
   return (
     <SafeAreaView style={[ResetStyle.container]}>
       <StatusBar barStyle="dark-content" />
@@ -37,7 +39,7 @@ export const RequestResearch = ({navigation}) => {
               />
             </TouchableOpacity>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-              설문조사 의뢰하기
+              {t('')}
             </Text>
           </View>
         </View>

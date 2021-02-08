@@ -37,6 +37,11 @@ export default en = {
       agreementTermsConditions3: '개인정보처리방침동의(필수)',
       agreementTermsConditionsNextButton: '다음',
 
+      // TermsConditions
+      termsConditionsTitle: '이용약관 및 개인정보처리방침',
+      termsConditions1: 'Terms and Conditions',
+      termsConditions2: 'Privacy Policy',
+
       // SignUpPersonal
       signUpPersonalTitle: 'Member Information',
       signUpPersonal1: 'Email',
@@ -143,7 +148,7 @@ export default en = {
       customDrawerContent7: 'Request a survey',
       customDrawerContent8: 'Media',
       customDrawerContent9: 'Notice',
-      customDrawerContent10: '1:1 문의',
+      customDrawerContent10: '1:1 Q&A',
       customDrawerContent11: 'Setting',
       customDrawerContent12: 'Invitation code',
 
@@ -163,16 +168,23 @@ export default en = {
       mainDetail1: '',
 
       // MainAlert
-      mainAlertTitle: '알림',
+      mainAlertTitle: 'Notifications',
+
+      // Media
+      mediaTitle: 'Media',
+
+      // RequestResearch
+      requestResearchTitle: 'Request Research',
 
       // ProfileMain
       profileMain1: 'KYC LEVEL ',
-      profileMain2: '완료en',
-      profileMain3: '시작en',
+      profileMain2: 'Complete',
+      profileMain3: 'Start',
       profileMain4: 'Real Research',
       profileMain5: 'LEVEL ',
       profileMain6: 'KYC LEVEL',
       profileMain7: 'ALL',
+      profileMain8: 'KYC LEVEL {{kyclevel}}을 먼저 완료해주세요.',
 
       // ProfileAll
       profileAll1: '남자',
@@ -231,6 +243,45 @@ export default en = {
       profileAllQuestion2_5_Answer6: 'Savings Account (Time Deposit)',
       profileAllQuestion2_5_Answer7: 'Business Capital Investment',
       profileAllQuestion2_5_Answer8: 'Prefer not to answer',
+
+      // ProfileComplete
+      profileCompleteTitle: 'KYC {{kycLevel}} LEVEL\n verification completed',
+      profileComplete1: 'Check my wallet',
+      profileComplete2: 'Move Profile',
+
+      // ProfileCompleteDetail
+      profileCompleteDetailTitle: 'KYC LEVEL {{kycLevel}}',
+      profileCompleteDetail1: 'Edit information',
+
+      // ProfileCompleteLevel1
+      profileCompleteLevel1Title: 'KYC LEVEL {{kycLevel}}',
+      profileCompleteLevel1_1: 'Edit information',
+
+      // ProfileCompleteLevel2
+      profileCompleteLevel2Title: 'KYC LEVEL {{kycLevel}}',
+      profileCompleteLevel2_1: 'Edit information',
+
+      // ProfileCompleteDetailList
+      profileCompleteDetailList1: 'KYC LEVEL {{kycLevel}}',
+      profileCompleteDetailListNextButton: 'Edit information',
+
+      // ProfileIncompleteDetail
+      profileIncompleteDetailTitle: 'Level {{kycLevel}} KYC',
+      profileIncompleteDetail1: '취소',
+      profileIncompleteDetail2: 'Prev',
+      profileIncompleteDetail3: '제출',
+      profileIncompleteDetail4: 'Next',
+      profileIncompleteDetail5: '선택 가능한 답변 개수를 초과했습니다.',
+      profileIncompleteDetail6: '이미 등록 완료되었습니다.',
+
+      // ProfileIncompleteDetail
+      profileIncompleteDetailLevel2_Title: 'Level {{kycLevel}} KYC',
+      profileIncompleteDetailLevel2_1: '취소',
+      profileIncompleteDetailLevel2_2: '이전',
+      profileIncompleteDetailLevel2_3: '제출',
+      profileIncompleteDetailLevel2_4: '다음',
+      profileIncompleteDetailLevel2_5: '선택 가능한 답변 개수를 초과했습니다.',
+      profileIncompleteDetailLevel2_6: '이미 등록 완료되었습니다.',
 
       // WalletPassword
       WalletPasswordTitle: 'Wallet password',
@@ -362,21 +413,21 @@ export default en = {
       walletSendSuccessNextButton: 'Enter',
 
       // WalletReceive
-      walletReceiveTitle: '받기',
+      walletReceiveTitle: 'Receive',
       walletReceive1: 'My Address',
       walletReceive2: 'Click to copy.',
       walletReceive3: 'Has been copied.',
       walletReceiveNextButton: 'Enter',
 
       // Settings
-      settingsTitle: '설정en',
+      settingsTitle: 'Settings',
       settings1: '개인 정보 설정',
       settings2: '지갑 설정',
       settings3: '잠금 설정',
       settings4: '알림 설정',
       settings5: '언어 설정',
-      settings6: '이용약관',
-      settings7: '개인정보처리방침',
+      settings6: 'Terms and Conditions',
+      settings7: 'Privacy Policy',
 
       // SettingsAlert
       settingsAlertTitle: '알림 설정',
@@ -385,11 +436,11 @@ export default en = {
 
       // SettingsLanguage
       settingsLanguageTitle: '언어 설정',
-      settingsLanguage1: '영어',
+      settingsLanguage1: 'English',
       settingsLanguage2: '한국어',
-      settingsLanguage3: '포르투갈어',
-      settingsLanguage4: '스페인어',
-      settingsLanguage5: '러시아어',
+      settingsLanguage3: 'Português',
+      settingsLanguage4: 'Español',
+      settingsLanguage5: 'русский',
 
       // SettingsWallet
       settingsWalletTitle: '지갑 설정',

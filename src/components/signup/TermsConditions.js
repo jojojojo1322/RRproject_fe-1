@@ -11,6 +11,9 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import ResetStyle from '../../style/ResetStyle.js';
 import AuthStyle from '../../style/AuthStyle.js';
 
+import {withTranslation} from 'react-i18next';
+import hoistStatics from 'hoist-non-react-statics';
+
 const Tab = createMaterialTopTabNavigator();
 
 function Terms() {
@@ -1037,6 +1040,7 @@ class TermsConditions extends Component {
   state = {};
 
   render() {
+    const {t} = this.props;
     console.log('apapapapapapapap', this.props.route.params?.name);
     return (
       <SafeAreaView style={{flex: 1, backgroundColor: '#FFF'}}>
@@ -1052,7 +1056,7 @@ class TermsConditions extends Component {
               />
             </TouchableOpacity>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-              이용약관 및 개인정보처리방침
+              {t('termsConditionsTitle')}
             </Text>
           </View>
         </View>
@@ -1064,12 +1068,15 @@ class TermsConditions extends Component {
             inactiveTintColor: '#787878',
             indicatorStyle: {borderColor: '#4696ff', borderWidth: 1.5},
           }}>
-          <Tab.Screen name="이용약관" component={Terms} />
-          <Tab.Screen name="개인정보처리방침" component={Conditions} />
+          <Tab.Screen name={t('termsConditions1')} component={Terms} />
+          <Tab.Screen name={t('termsConditions2')} component={Conditions} />
         </Tab.Navigator>
       </SafeAreaView>
     );
   }
 }
 
-export default TermsConditions;
+export default hoistStatics(
+  withTranslation()(TermsConditions),
+  TermsConditions,
+);

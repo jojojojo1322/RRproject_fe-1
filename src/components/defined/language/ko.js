@@ -34,6 +34,11 @@ export default ko = {
       agreementTermsConditions3: '개인정보처리방침동의(필수)',
       agreementTermsConditionsNextButton: '다음',
 
+      // TermsConditions
+      termsConditionsTitle: '이용약관 및 개인정보처리방침',
+      termsConditions1: '이용약관',
+      termsConditions2: '개인정보처리방침',
+
       // SignUpPersonal
       signUpPersonalTitle: '회원정보 입력',
       signUpPersonal1: '이메일',
@@ -162,6 +167,12 @@ export default ko = {
       // MainAlert
       mainAlertTitle: '알림',
 
+      // Media
+      mediaTitle: '미디어',
+
+      // RequestResearch
+      requestResearchTitle: '설문조사 의뢰하기',
+
       // ProfileMain
       profileMain1: 'KYC LEVEL ',
       profileMain2: '완료',
@@ -170,6 +181,7 @@ export default ko = {
       profileMain5: 'LEVEL ',
       profileMain6: 'KYC LEVEL',
       profileMain7: 'ALL',
+      profileMain8: 'KYC LEVEL {{kyclevel}}을 먼저 완료해주세요.',
 
       // ProfileAll
       profileAll1: '남자',
@@ -228,6 +240,45 @@ export default ko = {
       profileAllQuestion2_5_Answer6: 'Savings Account (Time Deposit)',
       profileAllQuestion2_5_Answer7: 'Business Capital Investment',
       profileAllQuestion2_5_Answer8: 'Prefer not to answer',
+
+      // ProfileComplete
+      profileCompleteTitle: 'KYC {{kycLevel}} LEVEL\n 인증완료',
+      profileComplete1: '지갑 확인하기',
+      profileComplete2: 'Profile 이동',
+
+      // ProfileCompleteDetail
+      profileCompleteDetailTitle: 'KYC LEVEL {{kycLevel}}',
+      profileCompleteDetail1: 'Edit information',
+
+      // ProfileCompleteLevel1
+      profileCompleteLevel1Title: 'KYC LEVEL {{kycLevel}}',
+      profileCompleteLevel1_1: '정보 수정하기',
+
+      // ProfileCompleteLevel2
+      profileCompleteLevel2Title: 'KYC LEVEL {{kycLevel}}',
+      profileCompleteLevel2_1: '정보 수정하기',
+
+      // ProfileCompleteDetailList
+      profileCompleteDetailList1: 'KYC LEVEL {{kycLevel}}',
+      profileCompleteDetailListNextButton: '정보 수정하기',
+
+      // ProfileIncompleteDetail
+      profileIncompleteDetailTitle: 'Level {{kycLevel}} KYC',
+      profileIncompleteDetail1: '취소',
+      profileIncompleteDetail2: '이전',
+      profileIncompleteDetail3: '제출',
+      profileIncompleteDetail4: '다음',
+      profileIncompleteDetail5: '선택 가능한 답변 개수를 초과했습니다.',
+      profileIncompleteDetail6: '이미 등록 완료되었습니다.',
+
+      // ProfileIncompleteDetail
+      profileIncompleteDetailLevel2_Title: 'Level {{kycLevel}} KYC',
+      profileIncompleteDetailLevel2_1: '취소',
+      profileIncompleteDetailLevel2_2: '이전',
+      profileIncompleteDetailLevel2_3: '제출',
+      profileIncompleteDetailLevel2_4: '다음',
+      profileIncompleteDetailLevel2_5: '선택 가능한 답변 개수를 초과했습니다.',
+      profileIncompleteDetailLevel2_6: '이미 등록 완료되었습니다.',
 
       // WalletPassword
       WalletPasswordTitle: '지갑 비밀번호',
@@ -382,11 +433,11 @@ export default ko = {
 
       // SettingsLanguage
       settingsLanguageTitle: '언어 설정',
-      settingsLanguage1: '영어',
+      settingsLanguage1: 'English',
       settingsLanguage2: '한국어',
-      settingsLanguage3: '포르투갈어',
-      settingsLanguage4: '스페인어',
-      settingsLanguage5: '러시아어',
+      settingsLanguage3: 'Português',
+      settingsLanguage4: 'Español',
+      settingsLanguage5: 'русский',
 
       // SettingsWallet
       settingsWalletTitle: '지갑 설정',
