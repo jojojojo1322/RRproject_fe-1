@@ -157,7 +157,7 @@ const ResearchForm = (props) => {
       props.navigation.goBack();
     }
   };
-
+  // 다음버튼
   const handlerNext = async (e) => {
     const _nowIndex = nowIndex;
     if (_nowIndex != surveyLength - 1) {

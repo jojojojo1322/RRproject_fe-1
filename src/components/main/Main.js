@@ -557,6 +557,7 @@ function Main({navigation, t, i18n}) {
 
   function Ongoing({navigation}) {
     console.log('Ongoing 호출');
+    console.log('Ongoing 호출');
     const [index, setIndex] = useState(0);
     // const [loading, setLoading] = useState(false);
 

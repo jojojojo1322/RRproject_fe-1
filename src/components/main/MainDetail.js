@@ -114,6 +114,7 @@ const MainDetail = (props) => {
               }
             }
           });
+
           setAudienceLanguage(languageFix);
         }
         let age = response.data.dateOfBirth;
