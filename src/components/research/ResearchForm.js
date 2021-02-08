@@ -27,7 +27,6 @@ const ResearchForm = (props) => {
   const {t, i18n} = useTranslation();
   // CheckedArrObject = new SelectedCheckboxes();
 
-  CheckedArrObject = new SelectedCheckboxes();
   // state = { pickedElements: '' }
 
   const [question, setQuestion] = useState([]);
@@ -53,6 +52,23 @@ const ResearchForm = (props) => {
   const [deviceLanguage, setDeviceLanguage] = useState('');
   const [legacySurveyId, setLegacySurveyId] = useState('');
 
+  const [insertSuccess, setInsertSuccess] = useState(1);
+
+  let CheckedArrObject = new SelectedCheckboxes();
+
+  // survey insert
+  const postSurveyAnswer = async () => {
+    axios
+      .post(`${server}/survey/answer`, checkedArray)
+      .then(async (response) => {
+        console.log('postSurveyAnswer THEN >>>>', response);
+        setInsertSuccess(response.data.ret_val);
+      })
+      .catch((e) => {
+        console.log('postSurveyAnswer ERROR >>>>', e);
+      });
+  };
+  // survey question get
   const getSurveyQuestionApi = async () => {
     axios
       .get(
@@ -81,6 +97,8 @@ const ResearchForm = (props) => {
       });
   };
   let surveyOptionArr = [];
+
+  // survey question-option get
   const getSurveyOptionApi = async (questionNum) => {
     axios
       .get(
@@ -122,6 +140,7 @@ const ResearchForm = (props) => {
       );
     }
   };
+
   // 이전 버튼
   const handlerPrev = async (e) => {
     const _nowIndex = nowIndex;
@@ -152,11 +171,15 @@ const ResearchForm = (props) => {
       );
     }
     if (_nowIndex === surveyLength - 1) {
-      props.navigation.navigate('MainVideo', {
-        legacySurveyId: legacySurveyId,
-        surveyArray: checkedArray,
-      });
       console.log('lastArray', checkedArray);
+      await postSurveyAnswer();
+      if (insertSuccess === 0) {
+        props.navigation.navigate('MainVideo', {
+          legacySurveyId: legacySurveyId,
+          surveyArray: checkedArray,
+        });
+      }
+      console.log('insertSuccess', insertSuccess);
     }
   };
   useEffect(() => {
@@ -393,7 +416,7 @@ const ResearchForm = (props) => {
               ResetStyle.fontBlack,
               ResearchStyle.researchTitle,
             ]}>
-            설문조사 제목
+            {props.route.params?.surveyName}
           </Text>
 
           <View style={([ResearchStyle.researchView], {marginTop: '10%'})}>
@@ -408,7 +431,7 @@ const ResearchForm = (props) => {
             {/* // */}
             {/* 해당 질문 option detail start */}
             <FlatList
-              style={{height: '70%'}}
+              style={{height: '60%'}}
               data={surveyOption.filter(
                 (d) => String(d.questionNum) === String(nowIndex + 1),
               )}

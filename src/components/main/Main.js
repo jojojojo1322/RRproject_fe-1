@@ -205,11 +205,35 @@ const DATA = [
 //     (parts[1] ? '.' + parts[1] : '')
 //   );
 // }
-// const numberWithCommas = (x) => {
-//   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-// };
 const numberWithCommas = (x) => {
-  return x;
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};
+// const numberWithCommas = (x) => {
+//   return x;
+// };
+
+const remainDay = (num) => {
+  console.log(num);
+  var dday = new Date(num).getTime();
+
+  // setInterval(function() {
+  //   var today = new Date().getTime();
+  //   var gap = dday - today;
+  //   var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
+  //   var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  //   var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
+  //   var sec = Math.ceil((gap % (1000 * 60)) / 1000);
+
+  //   console.log(day + "일 " + hour + "시간 " + min + "분 " )
+  // }, 1000);
+  var today = new Date().getTime();
+  var gap = dday - today;
+  var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
+  var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
+  var sec = Math.ceil((gap % (1000 * 60)) / 1000);
+
+  console.log(day - 1 + '일 ' + hour + '시간 ' + min + '분 ');
 };
 
 function Main({navigation, t, i18n}) {
@@ -308,7 +332,16 @@ function Main({navigation, t, i18n}) {
   }, []);
 
   const renderItem = ({item}) => {
-    console.log('renderItem item', item);
+    // console.log('renderItem item', require("'" + item.categoryImg + "'"));
+    var today = new Date().getTime();
+    var dday = new Date(item.endTime).getTime();
+    var gap = dday - today;
+    var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
+    var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
+    var sec = Math.ceil((gap % (1000 * 60)) / 1000);
+
+    console.log(item);
     if (item.status === 'zero') {
       return (
         <TouchableOpacity
@@ -341,13 +374,19 @@ function Main({navigation, t, i18n}) {
             item.surveyStatus === 'expired'
               ? navigation.navigate('MainDetailExpired', {
                   legacySurveyId: item.legacySurveyId,
+                  // legacySurveyId: '5f91aad0ae28561b056e2f97',
+                  surveyName: item.surveyName,
                 })
               : item.surveyStatus === 'completed'
               ? navigation.navigate('MainDetailCompleted', {
                   legacySurveyId: item.legacySurveyId,
+                  // legacySurveyId: '5f91aad0ae28561b056e2f97',
+                  surveyName: item.surveyName,
                 })
               : navigation.navigate('MainDetail', {
                   legacySurveyId: item.legacySurveyId,
+                  // legacySurveyId: '5f91aad0ae28561b056e2f97',
+                  surveyName: item.surveyName,
                 });
             // navigation.navigate('MainDetail');
           }}>
@@ -364,9 +403,7 @@ function Main({navigation, t, i18n}) {
                 width: '100%',
                 height: '115%',
               }}
-              source={require('../../imgs/drawable-xxxhdpi/shutterstock_1018031032.png')}
-              // source={item.categoryImg}
-              // source={require(`${item.categoryImg}`)}
+              source={{uri: item.categoryImg}}
             />
             <View
               style={{
@@ -412,8 +449,15 @@ function Main({navigation, t, i18n}) {
                 ]}>
                 {item.surveyName}
               </Text>
-              <Text style={[ResetStyle.fontRegularK, ResetStyle.fontWhite]}>
-                {item.instructions}
+              <Text
+                style={[
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontWhite,
+                  {textAlign: 'left'},
+                ]}>
+                {item.instructions && item.instructions.length >= 80
+                  ? `${item.instructions.slice(0, 80)}...`
+                  : item.instructions}
               </Text>
             </View>
             <View
@@ -454,8 +498,8 @@ function Main({navigation, t, i18n}) {
                     ResetStyle.fontWhite,
                     {textAlign: 'left', marginLeft: '5%'},
                   ]}>
-                  {numberWithCommas(item.participantCompleteCount)} /{' '}
-                  {numberWithCommas(item.participantCount)}
+                  {numberWithCommas(item.particRestrictions)} /{' '}
+                  {numberWithCommas(item.participants)}
                 </Text>
               </View>
 
@@ -469,7 +513,21 @@ function Main({navigation, t, i18n}) {
                     ResetStyle.fontWhite,
                     {marginLeft: '5%'},
                   ]}>
-                  {item.startTime}
+                  {/* {item.endTime} */}
+                  {/* {setInterval(function () {
+                    var today = new Date().getTime();
+                    var gap = dday - today;
+                    var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
+                    var hour = Math.ceil(
+                      (gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+                    );
+                    var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
+                    var sec = Math.ceil((gap % (1000 * 60)) / 1000);
+
+                    return `${day - 1}일 ${hour}시간 ${min}분 ${sec}초`;
+                  }, 1000)} */}
+                  {`${day - 1}일 ${hour}시간 ${min}분 ${sec}초`}
+                  {/* {console.log('remainTime', remainTime)} */}
                 </Text>
               </View>
             </View>
