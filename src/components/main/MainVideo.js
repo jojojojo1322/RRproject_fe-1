@@ -19,6 +19,7 @@ import BottomModal from '../factory/modal/BottomModal';
 import {ProgressCircle} from 'react-native-svg-charts';
 import VideoPlayer from 'react-native-video-controls';
 import Orientation from 'react-native-orientation-locker';
+import {useTranslation} from 'react-i18next';
 
 const data = [
   {
@@ -313,6 +314,7 @@ const VideoKYC = ({navigation}) => {
 };
 
 const MainVideo = ({navigation}) => {
+  const {t, i18n} = useTranslation();
   const [screenState, setScreenState] = useState({
     fullScreen: false,
     Width_Layout: '',
@@ -460,6 +462,7 @@ const MainVideo = ({navigation}) => {
                 ResetStyle.fontWhite,
                 {fontWeight: '600'},
               ]}>
+              {t('')}
               리워드 받기
             </Text>
           </TouchableOpacity>

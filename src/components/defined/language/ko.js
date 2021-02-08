@@ -164,6 +164,16 @@ export default ko = {
       // MainDetail
       mainDetail1: '',
 
+      // ResearchForm
+      researchFormTitle: '설문조사 제목',
+      researchForm1: '취소',
+      researchForm2: '이전',
+      researchForm3: '제출',
+      researchForm4: '다음',
+
+      // MainVideo
+      mainvideoTitle: '',
+
       // MainAlert
       mainAlertTitle: '알림',
 
