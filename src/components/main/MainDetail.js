@@ -58,17 +58,17 @@ const MainDetail = (props) => {
         console.log(`surveyDetailApi Then >>`, response);
         setSurveyDetail(response.data.resSurvey);
         setUserNo(await AsyncStorage.getItem('userNo'));
-        AudienceCheckApi();
       })
       .catch((e) => {
         console.log(`surveyDetailApi Error`, e);
       });
   };
-  const AudienceCheckApi = async () => {
+  const AudienceCheckApi = async (surveyId) => {
+    console.log({surveyId: String(surveyId), userNo: String(userNo)});
     axios
       .post(`${server}/survey/audience`, {
-        surveyId: String(audience.surveyId),
-        userNo: String(userNo),
+        surveyId: String(surveyId),
+        userNo: await AsyncStorage.getItem('userNo'),
       })
       .then(async (response) => {
         console.log(`AudienceCheckApi Then >>`, response);
@@ -86,6 +86,7 @@ const MainDetail = (props) => {
       .then(async (response) => {
         console.log(`AudienceApi Then >>`, response);
         setAudience(response.data);
+        AudienceCheckApi(response.data.surveyId);
         if (response.data.language === 'all') {
           setAudienceLanguage('all');
         } else {
@@ -193,7 +194,7 @@ const MainDetail = (props) => {
   };
   // TextConfirmCancelModal handler
   const cancelHandle = () => {
-    props.navigation.navigate('main');
+    props.navigation.navigate('Main');
   };
   const confirmHandle = () => {
     props.navigation.navigate('ProfileMain');
@@ -369,8 +370,6 @@ const MainDetail = (props) => {
             {marginBottom: Platform.OS === 'ios' ? 0 : '5%'},
           ]}
           onPress={async () => {
-            await AudienceCheckApi();
-            console.log('audienceCheck', audienceCheck);
             if (audienceCheck === 0) {
               props.navigation.replace('ResearchForm', {
                 // legacySurveyId: props.route.params?.legacySurveyId,
@@ -379,6 +378,10 @@ const MainDetail = (props) => {
                 sponsorName: surveyDetail.sponsorName,
                 surveyId: String(audience.surveyId),
               });
+            } else if (audienceCheck === -1) {
+              setModal2Visible(true);
+            } else if (audienceCheck !== -1 && audienceCheck <= -2) {
+              setModal3Visible(true);
             }
             // audienceCheckHandle();
           }}>
