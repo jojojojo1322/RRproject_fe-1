@@ -6,7 +6,10 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Image,
+  NativeModules,
+  Platform,
 } from 'react-native';
+
 import CountDown from '../../components/factory/CountDown';
 import {RoundCheckbox, SelectedCheckboxes} from '../factory/Roundcheck';
 import ResetStyle from '../../style/ResetStyle.js';
@@ -502,7 +505,11 @@ class EmailAuthentication extends Component {
             onPress={async () => {
               //api 잠시 끄기
               const os = Platform.OS;
-              await this.userRegistApi('I');
+              if (os === 'I') {
+                await this.userRegistApi('I');
+              } else {
+                await this.userRegistApi('A');
+              }
               if (this.state.returnValue === 0) {
                 this.props.navigation.navigate('CompleteAuth');
               }

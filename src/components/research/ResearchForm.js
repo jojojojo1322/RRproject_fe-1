@@ -405,8 +405,10 @@ const ResearchForm = (props) => {
         </>,
       )),
   );
+
   console.log('nowIndex', nowIndex);
   console.log('checkedARRARARARARAR', checkedArray);
+
   return (
     <SafeAreaView style={ResetStyle.container}>
       <View

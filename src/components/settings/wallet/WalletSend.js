@@ -134,8 +134,8 @@ export default function WalletSend({navigation, route}) {
       .get(`${server}/wallet/${await AsyncStorage.getItem('email')}`)
       .then((response) => {
         // 보유한 Total value TNC
-        // setTotal(Number(response.data.balance.replace(' TNC', '')));
-        setTotal(Number(1000.123412));
+        setTotal(Number(response.data.balance.replace(' TNC', '')));
+        // setTotal(Number(1000.123412));
         console.log('how much balance', total);
         // Wallet Data 전체 값
         setWalletData(response.data);

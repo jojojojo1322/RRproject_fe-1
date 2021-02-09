@@ -20,6 +20,8 @@ import axios from 'axios';
 
 import {withTranslation} from 'react-i18next';
 
+import BottomModal from '../factory/modal/BottomModal';
+
 const SLIDER_WIDTH = Dimensions.get('window').width;
 // const SLIDER_HEIGHT = Dimensions.get('window').height / 2.5;
 const SLIDER_HEIGHT = Dimensions.get('window').height / 2;
@@ -27,147 +29,6 @@ const ITEM_WIDTH = Math.round(SLIDER_WIDTH);
 const ITEM_HEIGHT = Math.round(ITEM_WIDTH);
 
 const DATA = [
-  {
-    id: '1',
-    img: require('../../imgs/drawable-xxxhdpi/shutterstock_1018031032.png'),
-    status: 'ongoing',
-    division: 'E-commerce',
-    dateStart: '2020.12.03',
-    dateEnd: '2020.12.31',
-    title: '안드로이드 S20 만족도 조사',
-    participantCount: 20000,
-    participantCompleteCount: 12375,
-    tnc: 10,
-    host: 'Samsung',
-    content: '해당 서베이에 대한 간략 설명',
-  },
-  {
-    id: '2',
-    img: require('../../imgs/drawable-xxxhdpi/shutterstock_1687630222.png'),
-    status: 'ongoing',
-    division: 'COVID-19',
-    dateStart: '2020.12.03',
-    dateEnd: '2020.12.31',
-    title: '코로나가 가져온\n배달 문화의 변화',
-    participantCount: 20000,
-    participantCompleteCount: 1370,
-    tnc: 10,
-    host: 'LG',
-    content: '해당 서베이에 대한 간략 설명',
-  },
-  {
-    id: '3',
-    img: require('../../imgs/drawable-xxxhdpi/shutterstock_1675809577.png'),
-    status: 'ongoing',
-    division: 'Category',
-    dateStart: '2020.12.03',
-    dateEnd: '2020.12.31',
-    title: '요즘 음악\n어디서 들어요?',
-    participantCount: 20000,
-    participantCompleteCount: 0,
-    tnc: 10,
-    host: 'Buyaladdin',
-    content: '해당 서베이에 대한 간략 설명',
-  },
-
-  // ,languageCd: "en"
-  // ,createTime: "2021-01-28 16:38:50"
-  // ,estimatedTime: "20"
-  // ,allocatedBudget: "10000"
-  // ,advertiseUrl: null
-  // ,advertiseTitle: null
-  // ,redirectUrl: null
-  // ,advertiseType: null
-  // ,advertiseThumbnail: null},
-  // id: "9"
-  // legacySurveyId: "4cf355d2cc5e4fee"
-  // userNo: "210127104026300"
-  // completedOn: "2021-01-28 18:20:09"
-  // surveyStatus: "ongoing"
-  // sponsorName: "sponsor"
-  // surveyName: "surveyname"
-  // instructions: "description"
-  // createTime: "2021-01-28 16:38:50"
-  // startTime: "2021-01-28 14:05:00"
-  // endTime: "2021-01-28 14:10:00"
-  // estimatedTime: "20"
-  // participants: 0
-  // particRestrictions: 1000
-  // categoryName: "Customer Satisfaction"
-  // categoryId: "1"
-  // categoryImg: "https://real-research-resources.s3.ap-northeast-2.amazonaws.com/static/survey/category/CustomerSatisfaction.jpg"
-  // reward: "10"
-  // audienceId: null
-  {
-    id: '4',
-    img: require('../../imgs/drawable-xxxhdpi/shutterstock_609058097.png'),
-    status: 'expired',
-    division: 'Any Category1',
-    dateStart: '2020.12.03',
-    dateEnd: '2020.12.31',
-    title: '2020년 크리스마스,\n어떻게 보내실 건가요?',
-    participantCount: 20000,
-    participantCompleteCount: 12375,
-    tnc: 10,
-    host: 'Samsung',
-    content: '해당 서베이에 대한 간략 설명',
-  },
-  {
-    id: '5',
-    img: require('../../imgs/drawable-xxxhdpi/shutterstock_609058097.png'),
-    status: 'ongoing',
-    division: 'Any Category1',
-    dateStart: '2020.12.03',
-    dateEnd: '2020.12.31',
-    title: '설문조사 제목입\n니다. 설문조사 제목',
-    participantCount: 20000,
-    participantCompleteCount: 12375,
-    tnc: 10,
-    host: 'Samsung',
-    content: '해당 서베이에 대한 간략 설명',
-  },
-  {
-    id: '6',
-    img: require('../../imgs/drawable-xxxhdpi/shutterstock_1687630222.png'),
-    status: 'ongoing',
-    division: 'Any Category2',
-    dateStart: '2020.12.03',
-    dateEnd: '2020.12.31',
-    title: '코로나가 가져온\n배달 문화의 변화',
-    participantCount: 20000,
-    participantCompleteCount: 12375,
-    tnc: 10,
-    host: 'Samsung',
-    content: '해당 서베이에 대한 간략 설명',
-  },
-  {
-    id: '7',
-    img: require('../../imgs/drawable-xxxhdpi/shutterstock_1018031032.png'),
-    status: 'ongoing',
-    division: 'Any Category1',
-    dateStart: '2020.12.03',
-    dateEnd: '2020.12.31',
-    title: '2020년 크리스마스,\n어떻게 보내실 건가요?',
-    participantCount: 20000,
-    participantCompleteCount: 12375,
-    tnc: 10,
-    host: 'Samsung',
-    content: '해당 서베이에 대한 간략 설명',
-  },
-  {
-    id: '8',
-    img: require('../../imgs/drawable-xxxhdpi/shutterstock_1018031032.png'),
-    status: 'expired',
-    division: 'Any Category2',
-    dateStart: '2020.12.03',
-    dateEnd: '2020.12.31',
-    title: '결혼, 출산, 그리고 육아',
-    participantCount: 20000,
-    participantCompleteCount: 12375,
-    tnc: 10,
-    host: 'Samsung',
-    content: '해당 서베이에 대한 간략 설명',
-  },
   {
     id: '9',
     img: require('../../imgs/drawable-xxxhdpi/shutterstock_1675809577.png'),
@@ -240,9 +101,13 @@ function Main({navigation, t, i18n}) {
   console.log('main 호출');
   const [currentTnc, setCurrentTnc] = useState(0);
   const [kycLevel, setKycLevel] = useState(0);
+  const [kycUpdateTimeCheck, setKycUpdateTimeCheck] = useState('');
   const [ongoingData, setOngoingData] = useState([]);
   const [completeData, setCompleteData] = useState([]);
   const [expiredData, setExpiredData] = useState([]);
+
+  //Kyc 72시간 경고 모달
+  const [modalVisible, setModalVisible] = useState(false);
 
   const userInfoApi = async () => {
     await axios
@@ -256,7 +121,13 @@ function Main({navigation, t, i18n}) {
         await AsyncStorage.setItem('masterKey', response.data.wallet);
         await AsyncStorage.setItem('inviteCode', response.data.inviteCode);
         // setCountry(response.data);
-
+        var today = new Date();
+        var dday = new Date(response.data.kycUpdated);
+        var gap = dday - today;
+        // var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var hour = (gap / 1000 / 60 / 60).toFixed(0);
+        console.log('업데이트 시간 비교', hour);
+        setKycUpdateTimeCheck(hour);
         // return await response;
       })
       .catch((e) => {
@@ -341,7 +212,7 @@ function Main({navigation, t, i18n}) {
     var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
     var sec = Math.ceil((gap % (1000 * 60)) / 1000);
 
-    console.log(item);
+    // console.log(item);
     if (item.status === 'zero') {
       return (
         <TouchableOpacity
@@ -365,31 +236,33 @@ function Main({navigation, t, i18n}) {
       );
     } else {
       return (
-        <TouchableOpacity
+        <View
           style={[
             MainStyle.itemBox,
             // {marginBottom: item.id === item.length ? 200 : 0},
           ]}
-          onPress={() => {
-            item.surveyStatus === 'expired'
-              ? navigation.navigate('MainDetailExpired', {
-                  legacySurveyId: item.legacySurveyId,
-                  // legacySurveyId: '5f91aad0ae28561b056e2f97',
-                  surveyName: item.surveyName,
-                })
-              : item.surveyStatus === 'completed'
-              ? navigation.navigate('MainDetailCompleted', {
-                  legacySurveyId: item.legacySurveyId,
-                  // legacySurveyId: '5f91aad0ae28561b056e2f97',
-                  surveyName: item.surveyName,
-                })
-              : navigation.navigate('MainDetail', {
-                  legacySurveyId: item.legacySurveyId,
-                  // legacySurveyId: '5f91aad0ae28561b056e2f97',
-                  surveyName: item.surveyName,
-                });
-            // navigation.navigate('MainDetail');
-          }}>
+          // onPress={() => {
+          //   item.surveyStatus === 'expired'
+          //     ? navigation.navigate('MainDetailExpired', {
+          //         legacySurveyId: item.legacySurveyId,
+          //         // legacySurveyId: '5f91aad0ae28561b056e2f97',
+          //         surveyName: item.surveyName,
+          //       })
+          //     : item.surveyStatus === 'completed'
+          //     ? navigation.navigate('MainDetailCompleted', {
+          //         legacySurveyId: item.legacySurveyId,
+          //         // legacySurveyId: '5f91aad0ae28561b056e2f97',
+          //         surveyName: item.surveyName,
+          //       })
+          //     : Number(kycUpdateTimeCheck) <= -72
+          //     ? navigation.navigate('MainDetail', {
+          //         legacySurveyId: item.legacySurveyId,
+          //         // legacySurveyId: '5f91aad0ae28561b056e2f97',
+          //         surveyName: item.surveyName,
+          //       })
+          //     : setModalVisible(true);
+          // }}
+        >
           <View
             opacity={item.surveyStatus === 'expired' ? 0.5 : 1.0}
             style={{
@@ -539,6 +412,27 @@ function Main({navigation, t, i18n}) {
                 width: 80,
                 backgroundColor: 'rgba(255,255,255,0.4)',
                 borderRadius: 50,
+              }}
+              onPress={() => {
+                item.surveyStatus === 'expired'
+                  ? navigation.navigate('MainDetailExpired', {
+                      legacySurveyId: item.legacySurveyId,
+                      // legacySurveyId: '5f91aad0ae28561b056e2f97',
+                      surveyName: item.surveyName,
+                    })
+                  : item.surveyStatus === 'completed'
+                  ? navigation.navigate('MainDetailCompleted', {
+                      legacySurveyId: item.legacySurveyId,
+                      // legacySurveyId: '5f91aad0ae28561b056e2f97',
+                      surveyName: item.surveyName,
+                    })
+                  : Number(kycUpdateTimeCheck) <= -72
+                  ? navigation.navigate('MainDetail', {
+                      legacySurveyId: item.legacySurveyId,
+                      // legacySurveyId: '5f91aad0ae28561b056e2f97',
+                      surveyName: item.surveyName,
+                    })
+                  : setModalVisible(true);
               }}>
               <Text
                 style={[
@@ -550,7 +444,7 @@ function Main({navigation, t, i18n}) {
               </Text>
             </TouchableOpacity>
           </View>
-        </TouchableOpacity>
+        </View>
       );
     }
   };
@@ -798,6 +692,11 @@ function Main({navigation, t, i18n}) {
           options={{tabBarLabel: t('main9')}}
         />
       </Tab.Navigator>
+      <BottomModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        text={`kyc 업데이트 후 72시간전 입니다.`}
+      />
     </View>
   );
 }
