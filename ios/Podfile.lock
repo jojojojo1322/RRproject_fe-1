@@ -369,7 +369,7 @@ PODS:
     - react-native-video/Video (= 5.1.1)
   - react-native-video/Video (5.1.1):
     - React-Core
-  - react-native-webview (11.2.1):
+  - react-native-webview (11.2.0):
     - React-Core
   - React-RCTActionSheet (0.62.0):
     - React-Core/RCTActionSheetHeaders (= 0.62.0)
@@ -430,7 +430,7 @@ PODS:
     - React-cxxreact (= 0.62.0)
     - React-jsi (= 0.62.0)
     - ReactCommon/callinvoker (= 0.62.0)
-  - RNCAsyncStorage (1.13.4):
+  - RNCAsyncStorage (1.13.3):
     - React-Core
   - RNCClipboard (1.5.1):
     - React-Core
@@ -460,11 +460,13 @@ PODS:
     - RNFBApp
   - RNGestureHandler (1.9.0):
     - React-Core
+  - RNLocalize (2.0.1):
+    - React-Core
   - RNPermissions (3.0.0):
     - React-Core
   - RNReanimated (1.13.2):
     - React-Core
-  - RNScreens (2.17.1):
+  - RNScreens (2.16.1):
     - React-Core
   - RNSVG (12.1.0):
     - React
@@ -531,6 +533,7 @@ DEPENDENCIES:
   - "RNFBMessaging (from `../node_modules/@react-native-firebase/messaging`)"
   - "RNFBML (from `../node_modules/@react-native-firebase/ml`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNLocalize (from `../node_modules/react-native-localize`)
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -665,6 +668,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/ml"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNLocalize:
+    :path: "../node_modules/react-native-localize"
   RNPermissions:
     :path: "../node_modules/react-native-permissions"
   RNReanimated:
@@ -732,7 +737,7 @@ SPEC CHECKSUMS:
   react-native-safe-area-context: 86612d2c9a9e94e288319262d10b5f93f0b395f5
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
   react-native-video: 1574074179ecaf6a9dd067116c8f31bf9fec15c8
-  react-native-webview: dbe6c1ad149740f0e2d84a963f1d3c3e77f2d99c
+  react-native-webview: c010115ea45efd0d329ac7746d0cc59579d7860c
   React-RCTActionSheet: 674afbc8b9c76e0a83520e0a51da29a70802c03f
   React-RCTAnimation: f5f24330d09ee677fb49e0782f8321868f4df431
   React-RCTBlob: b773ce6138ab0d172ebd8a455fd4efd200a92549
@@ -743,7 +748,7 @@ SPEC CHECKSUMS:
   React-RCTText: 91a0d0ae5434aa28fe0c89c03eb9d660ff53bd9b
   React-RCTVibration: 0630aeb11e22f87c180ca9c0c3a0a0aba780cc62
   ReactCommon: d22162ab8f1358c53dfcd0f9c4d82d38facdbc48
-  RNCAsyncStorage: 0701cb7395f06d744184641241888a0eec0e2f2a
+  RNCAsyncStorage: 32c7cbe1d43dff5f03f3d0b9e9d2c44d8ec91a3a
   RNCClipboard: 5e299c6df8e0c98f3d7416b86ae563d3a9f768a3
   RNCMaskedView: f5c7d14d6847b7b44853f7acb6284c1da30a3459
   RNCPushNotificationIOS: 5b1cf9ad2aaa107ecb92d5d2d7005ba521b2b97a
@@ -754,9 +759,10 @@ SPEC CHECKSUMS:
   RNFBMessaging: 7ca5248796434376c186b65029b1cec7d3e0990b
   RNFBML: 9a2745112d5aaff5e9979563e7bdc836ec1bfb9e
   RNGestureHandler: 9b7e605a741412e20e13c512738a31bd1611759b
+  RNLocalize: dcf0fdb332b37b0d24178e876a7ce4dbbc9c838d
   RNPermissions: 350964d19150b183796a88180fb7ec62a1e41422
   RNReanimated: e03f7425cb7a38dcf1b644d680d1bfc91c3337ad
-  RNScreens: b6c9607e6fe47c1b6e2f1910d2acd46dd7ecea3a
+  RNScreens: 45c457af3d2ee9e08fc01e70da87e653d46b1198
   RNSVG: ce9d996113475209013317e48b05c21ee988d42e
   TouchID: ba4c656d849cceabc2e4eef722dea5e55959ecf4
   Yoga: 9db9ff2025ad21d1ac0a8b3c85d5ac4e7c29d525

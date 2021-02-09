@@ -11,11 +11,8 @@ import {
   Platform,
   FlatList,
 } from 'react-native';
-
-import PropTypes from 'prop-types';
 import ResetStyle from '../../../style/ResetStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {SelectedCheckboxes, RoundCheckbox} from '../../factory/Roundcheck';
 import WalletStyle from '../../../style/WalletStyle.js';
 
 import {useTranslation, initReactI18next, useSSR} from 'react-i18next';

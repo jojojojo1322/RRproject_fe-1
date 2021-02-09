@@ -156,8 +156,7 @@ const MainVideo = ({navigation, route}) => {
           flexDirection: 'row',
           alignSelf: 'center',
           marginBottom: 15,
-        }}
-        onPress={onPress}>
+        }}>
         <View style={{width: '45%', height: '15%', marginRight: '5%'}}>
           <Image
             style={{width: '100%', height: 105}}
