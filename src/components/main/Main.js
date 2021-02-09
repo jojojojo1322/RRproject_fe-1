@@ -24,11 +24,20 @@ import {withTranslation} from 'react-i18next';
 import BottomModal from '../factory/modal/BottomModal';
 import Moment from 'react-moment';
 
+import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
+
 const SLIDER_WIDTH = Dimensions.get('window').width;
 // const SLIDER_HEIGHT = Dimensions.get('window').height / 2.5;
 const SLIDER_HEIGHT = Dimensions.get('window').height / 2;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH);
 const ITEM_HEIGHT = Math.round(ITEM_WIDTH);
+
+const currentTnc = '';
+const kycLevel = '';
+const kycUpdateTimeCheck = '';
+const ongoingData = '';
+const completeData = '';
+const expiredData = '';
 
 const DATA = [
   {
@@ -75,164 +84,80 @@ const numberWithCommas = (x) => {
 //   return x;
 // };
 
-const remainDay = (num) => {
-  console.log(num);
-  var dday = new Date(num).getTime();
+// function Main({navigation, t, i18n}) {
 
-  // setInterval(function() {
-  //   var today = new Date().getTime();
-  //   var gap = dday - today;
-  //   var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
-  //   var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  //   var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
-  //   var sec = Math.ceil((gap % (1000 * 60)) / 1000);
+// const [ongoingData, setOngoingData] = useState([]);
+// const [completeData, setCompleteData] = useState([]);
+// const [expiredData, setExpiredData] = useState([]);
 
-  //   console.log(day + "일 " + hour + "시간 " + min + "분 " )
-  // }, 1000);
-  var today = new Date().getTime();
-  var gap = dday - today;
-  var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
-  var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
-  var sec = Math.ceil((gap % (1000 * 60)) / 1000);
+// //Kyc 72시간 경고 모달
+// const [modalVisible, setModalVisible] = useState(false);
 
-  console.log(day - 1 + '일 ' + hour + '시간 ' + min + '분 ');
+// TNC 수량
+const TncGetApi = async () => {
+  await axios
+    .get(`${server}/wallet/${await AsyncStorage.getItem('email')}`)
+    .then(async (response) => {
+      console.log('TncGetApi Then >>', response);
+
+      // TNC .뒤 문자열 제거 (ex 42.000000 TNC)
+      setCurrentTnc(response.data.balance.split('.')[0]);
+      setCurrentTnc(
+        // numberWithCommas(parseFloat(response.data.balance.toFixed(6))),
+        parseFloat(response.data.balance.toFixed(6)),
+      );
+      // setCountry(response.data);
+      console.log(currentTnc);
+      // return await response;
+    })
+    .catch(({e}) => {
+      console.log('TncGetApi Error', e);
+    });
 };
 
-function Main({navigation, t, i18n}) {
-  console.log('main 호출');
-  const [currentTnc, setCurrentTnc] = useState(0);
-  const [kycLevel, setKycLevel] = useState(0);
-  const [kycUpdateTimeCheck, setKycUpdateTimeCheck] = useState('');
+// ongoing, expired 설문조사 호출 api
+const surveyApi = async (surveyStatus) => {
+  await axios
+    .get(
+      `${server}/survey/main/status/${surveyStatus}/${await AsyncStorage.getItem(
+        'deviceLanguage',
+      )}?CurrentPageNo=1&userNo=${await AsyncStorage.getItem('userNo')}`,
+    )
+    .then(async (response) => {
+      console.log(`surveyApi ${surveyStatus} Then >>`, response);
+      if (surveyStatus === 'ongoing') {
+        setOngoingData(response.data);
+      } else if (surveyStatus === 'expired') {
+        setExpiredData(response.data);
+      }
+    })
+    .catch((e) => {
+      console.log(`surveyApi ${surveyStatus} Error`, e);
+    });
+};
+
+//해당 유저 참여 설문 호출 api
+const completeSurveyApi = async () => {
+  await axios
+    .get(`${server}/survey/main/${await AsyncStorage.getItem('userNo')}`)
+    .then(async (response) => {
+      console.log(`completeSurveyApi Then >>`, response.data);
+      setCompleteData(response);
+    })
+    .catch((e) => {
+      console.log(`completeSurveyApi Error`, e);
+    });
+};
+
+function Ongoing({navigation}) {
+  console.log('Ongoing 호출');
+
+  const [index, setIndex] = useState(0);
   const [ongoingData, setOngoingData] = useState([]);
-  const [completeData, setCompleteData] = useState([]);
-  const [expiredData, setExpiredData] = useState([]);
-
-  //Kyc 72시간 경고 모달
-  const [modalVisible, setModalVisible] = useState(false);
-
-  const surveyDetailApi = async (legacySurveyId) => {
-    await axios
-      .get(
-        `${server}/survey/detail?deviceLanguageCode=${await AsyncStorage.getItem(
-          'deviceLanguage',
-        )}&legacySurveyId=${legacySurveyId}&userNo=${await AsyncStorage.getItem(
-          'userNo',
-        )}`,
-      )
-      .then(async (response) => {
-        console.log(`surveyDetailApi Then >>`, response);
-      })
-      .catch((e) => {
-        console.log(`surveyDetailApi Error`, e);
-      });
-  };
-  const userInfoApi = async () => {
-    await axios
-      .get(
-        `${server}/user?userNo=${await AsyncStorage.getItem('userNo')}`,
-        // `${server}/user/user?userNo=210127104026300`,
-      )
-      .then(async (response) => {
-        console.log('userInfoApi Then >>', response);
-        setKycLevel(response.data.userLevel);
-        await AsyncStorage.setItem('masterKey', response.data.wallet);
-        await AsyncStorage.setItem('inviteCode', response.data.inviteCode);
-        // setCountry(response.data);
-
-        var today = new Date().getTime();
-        console.log('new Date()', new Date().getTime());
-        console.log('new Date()', new Date().toString());
-        console.log('today', today);
-        var dday = new Date(
-          response.data.kycUpdated.replace(' ', 'T'),
-        ).getTime();
-        console.log('response.data.kycUpdated', response.data.kycUpdated);
-        console.log('dday', dday);
-        var gap = dday - today;
-        console.log('gap', gap);
-        // var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var hour = (gap / 1000 / 60 / 60).toFixed(0);
-        console.log('업데이트 시간 비교', hour);
-
-        console.log(<Moment element={Text}>{response.data.kycUpdated}</Moment>);
-        console.log(<Moment date={response.data.kycUpdated} durationFromNow />);
-        setKycUpdateTimeCheck(hour);
-        // return await response;
-      })
-      .catch((e) => {
-        console.log('userInfoApi Error', e);
-      });
-  };
-
-  // TNC 수량
-  const TncGetApi = async () => {
-    await axios
-      .get(`${server}/wallet/${await AsyncStorage.getItem('email')}`)
-      .then(async (response) => {
-        console.log('TncGetApi Then >>', response);
-
-        // TNC .뒤 문자열 제거 (ex 42.000000 TNC)
-        setCurrentTnc(response.data.balance.split('.')[0]);
-        setCurrentTnc(
-          // numberWithCommas(parseFloat(response.data.balance.toFixed(6))),
-          parseFloat(response.data.balance.toFixed(6)),
-        );
-        // setCountry(response.data);
-        console.log(currentTnc);
-        // return await response;
-      })
-      .catch(({e}) => {
-        console.log('TncGetApi Error', e);
-      });
-  };
-
-  // ongoing, expired 설문조사 호출 api
-  const surveyApi = async (surveyStatus) => {
-    await axios
-      .get(
-        `${server}/survey/main/status/${surveyStatus}/${await AsyncStorage.getItem(
-          'deviceLanguage',
-        )}?CurrentPageNo=1&userNo=${await AsyncStorage.getItem('userNo')}`,
-      )
-      .then(async (response) => {
-        console.log(`surveyApi ${surveyStatus} Then >>`, response);
-        if (surveyStatus === 'ongoing') {
-          setOngoingData(response.data);
-        } else if (surveyStatus === 'expired') {
-          setExpiredData(response.data);
-        }
-      })
-      .catch((e) => {
-        console.log(`surveyApi ${surveyStatus} Error`, e);
-      });
-  };
-
-  //해당 유저 참여 설문 호출 api
-  const completeSurveyApi = async () => {
-    await axios
-      .get(`${server}/survey/main/${await AsyncStorage.getItem('userNo')}`)
-      .then(async (response) => {
-        console.log(`completeSurveyApi Then >>`, response.data);
-        setCompleteData(response);
-      })
-      .catch((e) => {
-        console.log(`completeSurveyApi Error`, e);
-      });
-  };
-
-  useEffect(() => {
-    TncGetApi();
-    userInfoApi();
-    surveyApi('ongoing');
-    surveyApi('expired');
-    completeSurveyApi();
-    console.log('didMountdidMountdidMount');
-    // console.log('userNo', await AsyncStorage.getItem('userNo'));
-    // console.log('email', await AsyncStorage.getItem('email'));
-  }, []);
-
+  // const [loading, setLoading] = useState(false);
+  const {t, i18n} = useTranslation();
   const renderItem = ({item}) => {
+    console.log(item);
     // console.log('renderItem item', require("'" + item.categoryImg + "'"));
     var today = new Date().getTime();
     var dday = new Date(item.endTime).getTime();
@@ -417,17 +342,17 @@ function Main({navigation, t, i18n}) {
                   ]}>
                   {/* {item.endTime} */}
                   {/* {setInterval(function () {
-                    var today = new Date().getTime();
-                    var gap = dday - today;
-                    var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
-                    var hour = Math.ceil(
-                      (gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-                    );
-                    var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
-                    var sec = Math.ceil((gap % (1000 * 60)) / 1000);
-
-                    return `${day - 1}일 ${hour}시간 ${min}분 ${sec}초`;
-                  }, 1000)} */}
+                      var today = new Date().getTime();
+                      var gap = dday - today;
+                      var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
+                      var hour = Math.ceil(
+                        (gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+                      );
+                      var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
+                      var sec = Math.ceil((gap % (1000 * 60)) / 1000);
+  
+                      return `${day - 1}일 ${hour}시간 ${min}분 ${sec}초`;
+                    }, 1000)} */}
                   {/* {`${day - 1}일 ${hour}시간 ${min}분 ${sec}초`} */}
                   {
                     <Moment
@@ -438,17 +363,353 @@ function Main({navigation, t, i18n}) {
                     />
                   }
                   {/* {setInterval(() => {
-                    var today = new Date().getTime();
-                    var dday = new Date(item.endTime).getTime();
-                    var gap = dday - today;
-                    var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
-                    var hour = Math.ceil(
-                      (gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-                    );
-                    var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
-                    var sec = Math.ceil((gap % (1000 * 60)) / 1000);
-                    return day;
-                  }, 1000)} */}
+                      var today = new Date().getTime();
+                      var dday = new Date(item.endTime).getTime();
+                      var gap = dday - today;
+                      var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
+                      var hour = Math.ceil(
+                        (gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+                      );
+                      var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
+                      var sec = Math.ceil((gap % (1000 * 60)) / 1000);
+                      return day;
+                    }, 1000)} */}
+                  {/* {console.log('remainTime', remainTime)} */}
+                </Text>
+              </View>
+            </View>
+            <TouchableOpacity
+              style={{
+                position: 'absolute',
+                bottom: 0,
+                right: '5%',
+                width: 80,
+                backgroundColor: 'rgba(255,255,255,0.4)',
+                borderRadius: 50,
+              }}
+              onPress={() => {
+                item.surveyStatus === 'expired'
+                  ? navigation.navigate('MainDetailExpired', {
+                      // legacySurveyId: item.legacySurveyId,
+                      legacySurveyId: '5fd8b08d0afe882b01307818',
+                      surveyName: item.surveyName,
+                    })
+                  : item.surveyStatus === 'completed'
+                  ? navigation.navigate('MainDetailCompleted', {
+                      // legacySurveyId: item.legacySurveyId,
+                      legacySurveyId: '5fd8b08d0afe882b01307818',
+                      surveyName: item.surveyName,
+                    })
+                  : navigation.navigate('MainDetail', {
+                      // legacySurveyId: item.legacySurveyId,
+                      legacySurveyId: '5fd8b08d0afe882b01307818',
+                      surveyName: item.surveyName,
+                    });
+              }}>
+              <Text
+                style={[
+                  ResetStyle.fontLightK,
+                  ResetStyle.fontWhite,
+                  {fontWeight: '900', padding: 8},
+                ]}>
+                {t('main3')}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      );
+    }
+  };
+
+  const surveyApi = async (surveyStatus) => {
+    await axios
+      .get(
+        `${server}/survey/main/status/${surveyStatus}/${await AsyncStorage.getItem(
+          'deviceLanguage',
+        )}?CurrentPageNo=1&userNo=${await AsyncStorage.getItem('userNo')}`,
+      )
+      .then(async (response) => {
+        console.log(`surveyApi ${surveyStatus} Then >>`, response);
+        if (surveyStatus === 'ongoing') {
+          setOngoingData(response.data);
+        } else if (surveyStatus === 'expired') {
+          setExpiredData(response.data);
+        }
+      })
+      .catch((e) => {
+        console.log(`surveyApi ${surveyStatus} Error`, e);
+      });
+  };
+  useState(() => {
+    surveyApi('ongoing');
+  }, []);
+
+  return (
+    <Carousel
+      data={
+        ongoingData.length == 0 ? [{status: 'zero'}] : ongoingData
+        // DATA.filter((item) => item.status == 'ongoing').length == 0
+        //   ? [{status: 'zero'}]
+        //   : DATA.filter((item) => item.status == 'ongoing')
+      }
+      renderItem={renderItem}
+      sliderHeight={SLIDER_HEIGHT}
+      itemHeight={ITEM_HEIGHT}
+      containerCustomStyle={{
+        flex: 1,
+        backgroundColor: '#fff',
+      }}
+      inactiveSlideShift={0}
+      onSnapToItem={(index) => setIndex(index)}
+      scrollInterpolator={scrollInterpolator2}
+      slideInterpolatedStyle={animatedStyles2}
+      useScrollView={true}
+      vertical={true}
+      layout={'stack'}
+      layoutCardOffset={0}
+      // ListFooterComponent={loading && <ActivityIndicator />}
+    />
+  );
+}
+
+function Completed({navigation}) {
+  console.log('Completed 호출');
+  const [index, setIndex] = useState(0);
+  const [completeData, setCompleteData] = useState(0);
+  const {t, i18n} = useTranslation();
+  const completeSurveyApi = async () => {
+    await axios
+      .get(`${server}/survey/main/${await AsyncStorage.getItem('userNo')}`)
+      .then(async (response) => {
+        console.log(`completeSurveyApi Then >>`, response.data);
+        setCompleteData(response);
+      })
+      .catch((e) => {
+        console.log(`completeSurveyApi Error`, e);
+      });
+  };
+  useEffect(() => {
+    completeSurveyApi();
+  }, []);
+
+  const renderItem = ({item}) => {
+    // console.log(item);
+    // console.log('renderItem item', require("'" + item.categoryImg + "'"));
+    var today = new Date().getTime();
+    var dday = new Date(item.endTime).getTime();
+    var gap = dday - today;
+    var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
+    var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
+    var sec = Math.ceil((gap % (1000 * 60)) / 1000);
+
+    if (item.status === 'zero') {
+      return (
+        <TouchableOpacity
+          style={[
+            MainStyle.itemBox,
+            {borderWidth: 0, backgroundColor: 'transparent', marginTop: '20%'},
+          ]}>
+          <Image
+            style={{alignSelf: 'center', width: 80, height: 80}}
+            source={require('../../imgs/drawable-xxxhdpi/no_data_icon.png')}
+          />
+          <Text
+            style={[
+              ResetStyle.fontMediumK,
+              ResetStyle.fontG,
+              {marginTop: '5%'},
+            ]}>
+            {t('main1')}
+          </Text>
+        </TouchableOpacity>
+      );
+    } else {
+      return (
+        <View
+          style={[
+            MainStyle.itemBox,
+            // {marginBottom: item.id === item.length ? 200 : 0},
+          ]}
+          // onPress={() => {
+          //   item.surveyStatus === 'expired'
+          //     ? navigation.navigate('MainDetailExpired', {
+          //         legacySurveyId: item.legacySurveyId,
+          //         // legacySurveyId: '5f91aad0ae28561b056e2f97',
+          //         surveyName: item.surveyName,
+          //       })
+          //     : item.surveyStatus === 'completed'
+          //     ? navigation.navigate('MainDetailCompleted', {
+          //         legacySurveyId: item.legacySurveyId,
+          //         // legacySurveyId: '5f91aad0ae28561b056e2f97',
+          //         surveyName: item.surveyName,
+          //       })
+          //     : Number(kycUpdateTimeCheck) <= -72
+          //     ? navigation.navigate('MainDetail', {
+          //         legacySurveyId: item.legacySurveyId,
+          //         // legacySurveyId: '5f91aad0ae28561b056e2f97',
+          //         surveyName: item.surveyName,
+          //       })
+          //     : setModalVisible(true);
+          // }}
+        >
+          <View
+            opacity={item.surveyStatus === 'expired' ? 0.5 : 1.0}
+            style={{
+              flex: 1,
+            }}>
+            <Image
+              style={{
+                position: 'absolute',
+                left: 0,
+                top: 0,
+                width: '100%',
+                height: '115%',
+              }}
+              source={{uri: item.categoryImg}}
+            />
+            <View
+              style={{
+                position: 'absolute',
+                left: 0,
+                top: 0,
+                width: '100%',
+                height: '120%',
+                backgroundColor: 'rgba(0, 0, 0, 0.1)',
+              }}></View>
+            <LinearGradient
+              colors={[
+                'rgba(0, 0, 0, 0.5)',
+                'rgba(0, 0, 0, 0)',
+                'rgba(0, 0, 0, 0)',
+                'rgba(0, 0, 0, 0.5)',
+              ]}
+              style={{
+                position: 'absolute',
+                left: 0,
+                top: 0,
+                width: '100%',
+                height: '120%',
+              }}></LinearGradient>
+            <View style={[MainStyle.itemBoxInner]}>
+              <View style={{position: 'relative'}}>
+                <Text
+                  style={[
+                    ResetStyle.fontLightK,
+                    ResetStyle.fontWhite,
+                    {marginTop: '25%'},
+                  ]}>
+                  {item.categoryName} | {item.sponsorName}
+                </Text>
+              </View>
+            </View>
+            <View style={MainStyle.itemTitleView}>
+              <Text
+                style={[
+                  ResetStyle.fontBoldK,
+                  ResetStyle.fontWhite,
+                  {textAlign: 'left', marginBottom: '4%'},
+                ]}>
+                {item.surveyName}
+              </Text>
+              <Text
+                style={[
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontWhite,
+                  {textAlign: 'left'},
+                ]}>
+                {item.instructions && item.instructions.length >= 80
+                  ? `${item.instructions.slice(0, 80)}...`
+                  : item.instructions}
+              </Text>
+            </View>
+            <View
+              style={{
+                position: 'absolute',
+                bottom: 0,
+                left: '5%',
+              }}>
+              <View style={MainStyle.itemImagenullViewInner}>
+                <Text style={[ResetStyle.fontBoldK, ResetStyle.fontWhite]}>
+                  + {item.reward}
+                </Text>
+                <Text
+                  style={[
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontWhite,
+                    {marginLeft: 5, paddingBottom: 5},
+                  ]}>
+                  {t('main2')}
+                </Text>
+              </View>
+              <View
+                style={{
+                  height: 0.5,
+                  backgroundColor: '#ffffff',
+                  marginTop: '2%',
+                  marginBottom: '2%',
+                  width: '185%',
+                }}
+              />
+              <View style={MainStyle.itemBoxBottomTextView}>
+                <Image
+                  source={require('../../imgs/drawable-xxxhdpi/user_icon.png')}
+                />
+                <Text
+                  style={[
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontWhite,
+                    {textAlign: 'left', marginLeft: '5%'},
+                  ]}>
+                  {numberWithCommas(item.participants)} /{' '}
+                  {numberWithCommas(item.particRestrictions)}
+                </Text>
+              </View>
+
+              <View style={MainStyle.itemBoxBottomTextView}>
+                <Image
+                  source={require('../../imgs/drawable-xxxhdpi/clock_icon.png')}
+                />
+                <Text
+                  style={[
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontWhite,
+                    {marginLeft: '5%'},
+                  ]}>
+                  {/* {item.endTime} */}
+                  {/* {setInterval(function () {
+                      var today = new Date().getTime();
+                      var gap = dday - today;
+                      var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
+                      var hour = Math.ceil(
+                        (gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+                      );
+                      var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
+                      var sec = Math.ceil((gap % (1000 * 60)) / 1000);
+  
+                      return `${day - 1}일 ${hour}시간 ${min}분 ${sec}초`;
+                    }, 1000)} */}
+                  {/* {`${day - 1}일 ${hour}시간 ${min}분 ${sec}초`} */}
+                  {
+                    <Moment
+                      element={Text}
+                      interval={1000}
+                      date={item.endTime}
+                      durationFromNow
+                    />
+                  }
+                  {/* {setInterval(() => {
+                      var today = new Date().getTime();
+                      var dday = new Date(item.endTime).getTime();
+                      var gap = dday - today;
+                      var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
+                      var hour = Math.ceil(
+                        (gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+                      );
+                      var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
+                      var sec = Math.ceil((gap % (1000 * 60)) / 1000);
+                      return day;
+                    }, 1000)} */}
                   {/* {console.log('remainTime', remainTime)} */}
                 </Text>
               </View>
@@ -475,13 +736,11 @@ function Main({navigation, t, i18n}) {
                       // legacySurveyId: '5f91aad0ae28561b056e2f97',
                       surveyName: item.surveyName,
                     })
-                  : Number(kycUpdateTimeCheck) <= -72
-                  ? navigation.navigate('MainDetail', {
+                  : navigation.navigate('MainDetail', {
                       legacySurveyId: item.legacySurveyId,
                       // legacySurveyId: '5f91aad0ae28561b056e2f97',
                       surveyName: item.surveyName,
-                    })
-                  : setModalVisible(true);
+                    });
               }}>
               <Text
                 style={[
@@ -498,99 +757,441 @@ function Main({navigation, t, i18n}) {
     }
   };
 
-  function Ongoing({navigation}) {
-    console.log('Ongoing 호출');
-    console.log('Ongoing 호출');
-    const [index, setIndex] = useState(0);
-    // const [loading, setLoading] = useState(false);
+  return (
+    <Carousel
+      data={
+        // DATA.filter((item) => item.status == 'completed').length == 0
+        //   ? [{status: 'zero'}]
+        //   : DATA.filter((item) => item.status == 'completed')
+        completeData.length == 0 ? [{status: 'zero'}] : completeData
+        // DATA.filter((item) => item.status == 'completed').length == 0
+        //   ? [{status: 'zero'}]
+        //   : DATA.filter((item) => item.status == 'completed')
+      }
+      renderItem={renderItem}
+      sliderHeight={SLIDER_HEIGHT}
+      itemHeight={ITEM_HEIGHT}
+      containerCustomStyle={{flex: 1, backgroundColor: '#fff'}}
+      inactiveSlideShift={0}
+      onSnapToItem={(index) => setIndex(index)}
+      scrollInterpolator={scrollInterpolator2}
+      slideInterpolatedStyle={animatedStyles2}
+      useScrollView={true}
+      vertical={true}
+      layout={'stack'}
+      layoutCardOffset={0}
+    />
+  );
+}
 
-    return (
-      <Carousel
-        data={
-          ongoingData.length == 0 ? [{status: 'zero'}] : ongoingData
-          // DATA.filter((item) => item.status == 'ongoing').length == 0
-          //   ? [{status: 'zero'}]
-          //   : DATA.filter((item) => item.status == 'ongoing')
+function Expired({navigation}) {
+  console.log('Expired 호출');
+
+  const [index, setIndex] = useState(0);
+  const [expiredData, setExpiredData] = useState([]);
+  // const [loading, setLoading] = useState(false);
+  const {t, i18n} = useTranslation();
+  const renderItem = ({item}) => {
+    // console.log(item);
+    // console.log('renderItem item', require("'" + item.categoryImg + "'"));
+    var today = new Date().getTime();
+    var dday = new Date(item.endTime).getTime();
+    var gap = dday - today;
+    var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
+    var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
+    var sec = Math.ceil((gap % (1000 * 60)) / 1000);
+
+    if (item.status === 'zero') {
+      return (
+        <TouchableOpacity
+          style={[
+            MainStyle.itemBox,
+            {borderWidth: 0, backgroundColor: 'transparent', marginTop: '20%'},
+          ]}>
+          <Image
+            style={{alignSelf: 'center', width: 80, height: 80}}
+            source={require('../../imgs/drawable-xxxhdpi/no_data_icon.png')}
+          />
+          <Text
+            style={[
+              ResetStyle.fontMediumK,
+              ResetStyle.fontG,
+              {marginTop: '5%'},
+            ]}>
+            {t('main1')}
+          </Text>
+        </TouchableOpacity>
+      );
+    } else {
+      return (
+        <View
+          style={[
+            MainStyle.itemBox,
+            // {marginBottom: item.id === item.length ? 200 : 0},
+          ]}
+          // onPress={() => {
+          //   item.surveyStatus === 'expired'
+          //     ? navigation.navigate('MainDetailExpired', {
+          //         legacySurveyId: item.legacySurveyId,
+          //         // legacySurveyId: '5f91aad0ae28561b056e2f97',
+          //         surveyName: item.surveyName,
+          //       })
+          //     : item.surveyStatus === 'completed'
+          //     ? navigation.navigate('MainDetailCompleted', {
+          //         legacySurveyId: item.legacySurveyId,
+          //         // legacySurveyId: '5f91aad0ae28561b056e2f97',
+          //         surveyName: item.surveyName,
+          //       })
+          //     : Number(kycUpdateTimeCheck) <= -72
+          //     ? navigation.navigate('MainDetail', {
+          //         legacySurveyId: item.legacySurveyId,
+          //         // legacySurveyId: '5f91aad0ae28561b056e2f97',
+          //         surveyName: item.surveyName,
+          //       })
+          //     : setModalVisible(true);
+          // }}
+        >
+          <View
+            opacity={item.surveyStatus === 'expired' ? 0.5 : 1.0}
+            style={{
+              flex: 1,
+            }}>
+            <Image
+              style={{
+                position: 'absolute',
+                left: 0,
+                top: 0,
+                width: '100%',
+                height: '115%',
+              }}
+              source={{uri: item.categoryImg}}
+            />
+            <View
+              style={{
+                position: 'absolute',
+                left: 0,
+                top: 0,
+                width: '100%',
+                height: '120%',
+                backgroundColor: 'rgba(0, 0, 0, 0.1)',
+              }}></View>
+            <LinearGradient
+              colors={[
+                'rgba(0, 0, 0, 0.5)',
+                'rgba(0, 0, 0, 0)',
+                'rgba(0, 0, 0, 0)',
+                'rgba(0, 0, 0, 0.5)',
+              ]}
+              style={{
+                position: 'absolute',
+                left: 0,
+                top: 0,
+                width: '100%',
+                height: '120%',
+              }}></LinearGradient>
+            <View style={[MainStyle.itemBoxInner]}>
+              <View style={{position: 'relative'}}>
+                <Text
+                  style={[
+                    ResetStyle.fontLightK,
+                    ResetStyle.fontWhite,
+                    {marginTop: '25%'},
+                  ]}>
+                  {item.categoryName} | {item.sponsorName}
+                </Text>
+              </View>
+            </View>
+            <View style={MainStyle.itemTitleView}>
+              <Text
+                style={[
+                  ResetStyle.fontBoldK,
+                  ResetStyle.fontWhite,
+                  {textAlign: 'left', marginBottom: '4%'},
+                ]}>
+                {item.surveyName}
+              </Text>
+              <Text
+                style={[
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontWhite,
+                  {textAlign: 'left'},
+                ]}>
+                {item.instructions && item.instructions.length >= 80
+                  ? `${item.instructions.slice(0, 80)}...`
+                  : item.instructions}
+              </Text>
+            </View>
+            <View
+              style={{
+                position: 'absolute',
+                bottom: 0,
+                left: '5%',
+              }}>
+              <View style={MainStyle.itemImagenullViewInner}>
+                <Text style={[ResetStyle.fontBoldK, ResetStyle.fontWhite]}>
+                  + {item.reward}
+                </Text>
+                <Text
+                  style={[
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontWhite,
+                    {marginLeft: 5, paddingBottom: 5},
+                  ]}>
+                  {t('main2')}
+                </Text>
+              </View>
+              <View
+                style={{
+                  height: 0.5,
+                  backgroundColor: '#ffffff',
+                  marginTop: '2%',
+                  marginBottom: '2%',
+                  width: '185%',
+                }}
+              />
+              <View style={MainStyle.itemBoxBottomTextView}>
+                <Image
+                  source={require('../../imgs/drawable-xxxhdpi/user_icon.png')}
+                />
+                <Text
+                  style={[
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontWhite,
+                    {textAlign: 'left', marginLeft: '5%'},
+                  ]}>
+                  {numberWithCommas(item.participants)} /{' '}
+                  {numberWithCommas(item.particRestrictions)}
+                </Text>
+              </View>
+
+              <View style={MainStyle.itemBoxBottomTextView}>
+                <Image
+                  source={require('../../imgs/drawable-xxxhdpi/clock_icon.png')}
+                />
+                <Text
+                  style={[
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontWhite,
+                    {marginLeft: '5%'},
+                  ]}>
+                  {/* {item.endTime} */}
+                  {/* {setInterval(function () {
+                      var today = new Date().getTime();
+                      var gap = dday - today;
+                      var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
+                      var hour = Math.ceil(
+                        (gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+                      );
+                      var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
+                      var sec = Math.ceil((gap % (1000 * 60)) / 1000);
+  
+                      return `${day - 1}일 ${hour}시간 ${min}분 ${sec}초`;
+                    }, 1000)} */}
+                  {/* {`${day - 1}일 ${hour}시간 ${min}분 ${sec}초`} */}
+                  {
+                    <Moment
+                      element={Text}
+                      interval={1000}
+                      date={item.endTime}
+                      durationFromNow
+                    />
+                  }
+                  {/* {setInterval(() => {
+                      var today = new Date().getTime();
+                      var dday = new Date(item.endTime).getTime();
+                      var gap = dday - today;
+                      var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
+                      var hour = Math.ceil(
+                        (gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+                      );
+                      var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
+                      var sec = Math.ceil((gap % (1000 * 60)) / 1000);
+                      return day;
+                    }, 1000)} */}
+                  {/* {console.log('remainTime', remainTime)} */}
+                </Text>
+              </View>
+            </View>
+            <TouchableOpacity
+              style={{
+                position: 'absolute',
+                bottom: 0,
+                right: '5%',
+                width: 80,
+                backgroundColor: 'rgba(255,255,255,0.4)',
+                borderRadius: 50,
+              }}
+              onPress={() => {
+                item.surveyStatus === 'expired'
+                  ? navigation.navigate('MainDetailExpired', {
+                      legacySurveyId: item.legacySurveyId,
+                      // legacySurveyId: '5f91aad0ae28561b056e2f97',
+                      surveyName: item.surveyName,
+                    })
+                  : item.surveyStatus === 'completed'
+                  ? navigation.navigate('MainDetailCompleted', {
+                      legacySurveyId: item.legacySurveyId,
+                      // legacySurveyId: '5f91aad0ae28561b056e2f97',
+                      surveyName: item.surveyName,
+                    })
+                  : navigation.navigate('MainDetail', {
+                      legacySurveyId: item.legacySurveyId,
+                      // legacySurveyId: '5f91aad0ae28561b056e2f97',
+                      surveyName: item.surveyName,
+                    });
+              }}>
+              <Text
+                style={[
+                  ResetStyle.fontLightK,
+                  ResetStyle.fontWhite,
+                  {fontWeight: '900', padding: 8},
+                ]}>
+                {t('main3')}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      );
+    }
+  };
+
+  const surveyApi = async (surveyStatus) => {
+    await axios
+      .get(
+        `${server}/survey/main/status/${surveyStatus}/${await AsyncStorage.getItem(
+          'deviceLanguage',
+        )}?CurrentPageNo=1&userNo=${await AsyncStorage.getItem('userNo')}`,
+      )
+      .then(async (response) => {
+        console.log(`surveyApi ${surveyStatus} Then >>`, response);
+        if (surveyStatus === 'ongoing') {
+          setOngoingData(response.data);
+        } else if (surveyStatus === 'expired') {
+          setExpiredData(response.data);
         }
-        renderItem={renderItem}
-        sliderHeight={SLIDER_HEIGHT}
-        itemHeight={ITEM_HEIGHT}
-        containerCustomStyle={{
-          flex: 1,
-          backgroundColor: '#fff',
-        }}
-        inactiveSlideShift={0}
-        onSnapToItem={(index) => setIndex(index)}
-        scrollInterpolator={scrollInterpolator2}
-        slideInterpolatedStyle={animatedStyles2}
-        useScrollView={true}
-        vertical={true}
-        layout={'stack'}
-        layoutCardOffset={0}
-        // ListFooterComponent={loading && <ActivityIndicator />}
-      />
-    );
-  }
+      })
+      .catch((e) => {
+        console.log(`surveyApi ${surveyStatus} Error`, e);
+      });
+  };
+  useState(() => {
+    surveyApi('expired');
+  }, []);
+  return (
+    <Carousel
+      data={
+        // DATA.filter((item) => item.status == 'expired').length == 0
+        //   ? [{status: 'zero'}]
+        //   : DATA.filter((item) => item.status == 'expired')
+        expiredData.length == 0 ? [{status: 'zero'}] : expiredData
+      }
+      renderItem={renderItem}
+      sliderHeight={SLIDER_HEIGHT}
+      itemHeight={ITEM_HEIGHT}
+      containerCustomStyle={{flex: 1, backgroundColor: '#fff'}}
+      inactiveSlideShift={0}
+      onSnapToItem={(index) => setIndex(index)}
+      scrollInterpolator={scrollInterpolator2}
+      slideInterpolatedStyle={animatedStyles2}
+      useScrollView={true}
+      vertical={true}
+      layout={'stack'}
+      layoutCardOffset={0}
+    />
+  );
+}
 
-  function Completed({navigation}) {
-    console.log('Completed 호출');
-    const [index, setIndex] = useState(0);
-    return (
-      <Carousel
-        data={
-          // DATA.filter((item) => item.status == 'completed').length == 0
-          //   ? [{status: 'zero'}]
-          //   : DATA.filter((item) => item.status == 'completed')
-          completeData.length == 0 ? [{status: 'zero'}] : completeData
-          // DATA.filter((item) => item.status == 'completed').length == 0
-          //   ? [{status: 'zero'}]
-          //   : DATA.filter((item) => item.status == 'completed')
-        }
-        renderItem={renderItem}
-        sliderHeight={SLIDER_HEIGHT}
-        itemHeight={ITEM_HEIGHT}
-        containerCustomStyle={{flex: 1, backgroundColor: '#fff'}}
-        inactiveSlideShift={0}
-        onSnapToItem={(index) => setIndex(index)}
-        scrollInterpolator={scrollInterpolator2}
-        slideInterpolatedStyle={animatedStyles2}
-        useScrollView={true}
-        vertical={true}
-        layout={'stack'}
-        layoutCardOffset={0}
-      />
-    );
-  }
+const Tab = createMaterialTopTabNavigator();
+// export default function MainTest({navigation}) {
+function Main({navigation, t, i18n}) {
+  const [currentTnc, setCurrentTnc] = useState(0);
+  const [kycLevel, setKycLevel] = useState(0);
+  const [kycUpdateTimeCheck, setKycUpdateTimeCheck] = useState('');
+  const [ongoingData, setOngoingData] = useState([]);
+  const [completeData, setCompleteData] = useState([]);
+  const [expiredData, setExpiredData] = useState([]);
 
-  function Expired({navigation}) {
-    console.log('Expired 호출');
-    const [index, setIndex] = useState(0);
-    return (
-      <Carousel
-        data={
-          // DATA.filter((item) => item.status == 'expired').length == 0
-          //   ? [{status: 'zero'}]
-          //   : DATA.filter((item) => item.status == 'expired')
-          expiredData.length == 0 ? [{status: 'zero'}] : expiredData
-        }
-        renderItem={renderItem}
-        sliderHeight={SLIDER_HEIGHT}
-        itemHeight={ITEM_HEIGHT}
-        containerCustomStyle={{flex: 1, backgroundColor: '#fff'}}
-        inactiveSlideShift={0}
-        onSnapToItem={(index) => setIndex(index)}
-        scrollInterpolator={scrollInterpolator2}
-        slideInterpolatedStyle={animatedStyles2}
-        useScrollView={true}
-        vertical={true}
-        layout={'stack'}
-        layoutCardOffset={0}
-      />
-    );
-  }
+  //Kyc 72시간 경고 모달
+  const [modalVisible, setModalVisible] = useState(false);
 
-  const Tab = createMaterialTopTabNavigator();
-  // export default function MainTest({navigation}) {
+  const surveyDetailApi = async (legacySurveyId) => {
+    await axios
+      .get(
+        `${server}/survey/detail?deviceLanguageCode=${await AsyncStorage.getItem(
+          'deviceLanguage',
+        )}&legacySurveyId=${legacySurveyId}&userNo=${await AsyncStorage.getItem(
+          'userNo',
+        )}`,
+      )
+      .then(async (response) => {
+        console.log(`surveyDetailApi Then >>`, response);
+      })
+      .catch((e) => {
+        console.log(`surveyDetailApi Error`, e);
+      });
+  };
+  const TncGetApi = async () => {
+    await axios
+      .get(`${server}/wallet/${await AsyncStorage.getItem('email')}`)
+      .then(async (response) => {
+        console.log('TncGetApi Then >>', response);
+
+        // TNC .뒤 문자열 제거 (ex 42.000000 TNC)
+        setCurrentTnc(response.data.balance.split('.')[0]);
+        setCurrentTnc(
+          // numberWithCommas(parseFloat(response.data.balance.toFixed(6))),
+          parseFloat(response.data.balance.toFixed(6)),
+        );
+        // setCountry(response.data);
+        console.log(currentTnc);
+        // return await response;
+      })
+      .catch(({e}) => {
+        console.log('TncGetApi Error', e);
+      });
+  };
+  const userInfoApi = async () => {
+    await axios
+      .get(
+        `${server}/user?userNo=${await AsyncStorage.getItem('userNo')}`,
+        // `${server}/user/user?userNo=210127104026300`,
+      )
+      .then(async (response) => {
+        console.log('userInfoApi Then >>', response);
+        setKycLevel(response.data.userLevel);
+        await AsyncStorage.setItem('masterKey', response.data.wallet);
+        await AsyncStorage.setItem('inviteCode', response.data.inviteCode);
+        // setCountry(response.data);
+
+        var today = new Date().getTime();
+        console.log('new Date()', new Date().getTime());
+        console.log('new Date()', new Date().toString());
+        console.log('today', today);
+        var dday = new Date(
+          response.data.kycUpdated.replace(' ', 'T'),
+        ).getTime();
+        console.log('response.data.kycUpdated', response.data.kycUpdated);
+        console.log('dday', dday);
+        var gap = dday - today;
+        console.log('gap', gap);
+        // var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var hour = (gap / 1000 / 60 / 60).toFixed(0);
+        console.log('업데이트 시간 비교', hour);
+
+        console.log(<Moment element={Text}>{response.data.kycUpdated}</Moment>);
+        console.log(<Moment date={response.data.kycUpdated} durationFromNow />);
+        setKycUpdateTimeCheck(hour);
+        // return await response;
+      })
+      .catch((e) => {
+        console.log('userInfoApi Error', e);
+      });
+  };
+  useEffect(() => {
+    userInfoApi();
+    TncGetApi();
+  }, []);
   return (
     <View style={{flex: 1, backgroundColor: '#fff'}}>
       <View style={[MainStyle.topLogoView]}>
@@ -604,15 +1205,12 @@ function Main({navigation, t, i18n}) {
             alignSelf: 'center',
           }}>
           <TouchableOpacity
-            // onPress={async () => {
-            //   try {
-            //     console.log('USerNONONO', await AsyncStorage.getItem('userNo'));
-            //     await AsyncStorage.removeItem('userNo');
-            //     console.log('USerNONONO', await AsyncStorage.getItem('userNo'));
-            //   } catch (e) {}
-            // }}
-            onPress={() => {
-              navigation.navigate('Kyc');
+            onPress={async () => {
+              try {
+                console.log('USerNONONO', await AsyncStorage.getItem('userNo'));
+                await AsyncStorage.removeItem('userNo');
+                console.log('USerNONONO', await AsyncStorage.getItem('userNo'));
+              } catch (e) {}
             }}>
             <View
               style={{
@@ -713,6 +1311,7 @@ function Main({navigation, t, i18n}) {
           </TouchableOpacity>
         </View>
       </View>
+
       <Tab.Navigator
         initialRouteName="Ongoing"
         lazy={false}
@@ -745,6 +1344,7 @@ function Main({navigation, t, i18n}) {
           options={{tabBarLabel: t('main9')}}
         />
       </Tab.Navigator>
+
       <BottomModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
