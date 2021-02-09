@@ -6,10 +6,11 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '../../style/ResetStyle.js';
 import WalletStyle from '../../style/WalletStyle.js';
 import {TextInput} from 'react-native-gesture-handler';
+import BottomModal from '../factory/modal/BottomModal';
 
 import * as ImagePicker from 'react-native-image-picker';
 
-import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
 const CheckList = ({text}) => {
   return (
@@ -35,13 +36,44 @@ const CheckList = ({text}) => {
   );
 };
 
-const ProfileMain = ({navigation}) => {
+const IdVerification = ({navigation}) => {
   const {t, i18n} = useTranslation();
   const [response, setResponse] = useState(null);
+  const [passportNo, setPassportNo] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastname] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modal2Visible, setModal2Visible] = useState(false);
 
   useEffect(() => {
     console.log('response>>>>>>>>>', response);
   }, [response]);
+
+  const handlePassportChange = (value) => {
+    setPassportNo(value);
+  };
+
+  const handleFirstChange = (value) => {
+    setFirstName(value);
+  };
+
+  const handleLastChange = (value) => {
+    setLastname(value);
+  };
+
+  const handleCheckValues = () => {
+    if (passportNo === '') {
+      setModalVisible(!modalVisible);
+    } else if (firstName === '') {
+      setModalVisible(!modalVisible);
+    } else if (lastName === '') {
+      setModalVisible(!modalVisible);
+    } else if (response === null) {
+      setModal2Visible(!modal2Visible);
+    } else {
+      navigation.replace('IdVerificationInProgress');
+    }
+  };
 
   return (
     <SafeAreaView style={[ResetStyle.container]}>
@@ -215,6 +247,8 @@ const ProfileMain = ({navigation}) => {
                   ResetStyle.fontRegularK,
                   {textAlign: 'left', paddingVertical: '2%'},
                 ]}
+                onChangeText={handlePassportChange}
+                value={passportNo}
               />
             </View>
             <Text
@@ -239,6 +273,8 @@ const ProfileMain = ({navigation}) => {
                   ResetStyle.fontRegularK,
                   {textAlign: 'left', paddingVertical: '2%'},
                 ]}
+                onChangeText={handleFirstChange}
+                value={firstName}
               />
             </View>
             <Text
@@ -263,6 +299,8 @@ const ProfileMain = ({navigation}) => {
                   ResetStyle.fontRegularK,
                   {textAlign: 'left', paddingVertical: '2%'},
                 ]}
+                onChangeText={handleLastChange}
+                value={lastName}
               />
             </View>
           </View>
@@ -282,7 +320,7 @@ const ProfileMain = ({navigation}) => {
         ]}
         activeOpacity={0.75}
         onPress={() => {
-          navigation.replace('IdVerificationInProgress');
+          handleCheckValues();
         }}>
         <Text
           style={[
@@ -293,8 +331,18 @@ const ProfileMain = ({navigation}) => {
           {t('idVerificationNextButton')}
         </Text>
       </TouchableOpacity>
+      <BottomModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        text={'내용을 정확하게 입력해 주십시오.'}
+      />
+      <BottomModal
+        modalVisible={modal2Visible}
+        setModalVisible={setModal2Visible}
+        text={'여권 사진을 업로드해 주십시오.'}
+      />
     </SafeAreaView>
   );
 };
 
-export default ProfileMain;
+export default IdVerification;
