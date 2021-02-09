@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+// import {TouchableOpacity} from 'react-native-gesture-handler';
 import ResetStyle from '../../style/ResetStyle';
 import MainStyle from '../../style/MainStyle';
 import Carousel from 'react-native-snap-carousel';
@@ -21,6 +22,7 @@ import axios from 'axios';
 import {withTranslation} from 'react-i18next';
 
 import BottomModal from '../factory/modal/BottomModal';
+import Moment from 'react-moment';
 
 const SLIDER_WIDTH = Dimensions.get('window').width;
 // const SLIDER_HEIGHT = Dimensions.get('window').height / 2.5;
@@ -109,6 +111,22 @@ function Main({navigation, t, i18n}) {
   //Kyc 72시간 경고 모달
   const [modalVisible, setModalVisible] = useState(false);
 
+  const surveyDetailApi = async (legacySurveyId) => {
+    await axios
+      .get(
+        `${server}/survey/detail?deviceLanguageCode=${await AsyncStorage.getItem(
+          'deviceLanguage',
+        )}&legacySurveyId=${legacySurveyId}&userNo=${await AsyncStorage.getItem(
+          'userNo',
+        )}`,
+      )
+      .then(async (response) => {
+        console.log(`surveyDetailApi Then >>`, response);
+      })
+      .catch((e) => {
+        console.log(`surveyDetailApi Error`, e);
+      });
+  };
   const userInfoApi = async () => {
     await axios
       .get(
@@ -121,15 +139,24 @@ function Main({navigation, t, i18n}) {
         await AsyncStorage.setItem('masterKey', response.data.wallet);
         await AsyncStorage.setItem('inviteCode', response.data.inviteCode);
         // setCountry(response.data);
-        var today = new Date();
+
+        var today = new Date().getTime();
+        console.log('new Date()', new Date().getTime());
+        console.log('new Date()', new Date().toString());
         console.log('today', today);
-        var dday = new Date(response.data.kycUpdated);
+        var dday = new Date(
+          response.data.kycUpdated.replace(' ', 'T'),
+        ).getTime();
+        console.log('response.data.kycUpdated', response.data.kycUpdated);
         console.log('dday', dday);
         var gap = dday - today;
         console.log('gap', gap);
         // var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         var hour = (gap / 1000 / 60 / 60).toFixed(0);
         console.log('업데이트 시간 비교', hour);
+
+        console.log(<Moment element={Text}>{response.data.kycUpdated}</Moment>);
+        console.log(<Moment date={response.data.kycUpdated} durationFromNow />);
         setKycUpdateTimeCheck(hour);
         // return await response;
       })
@@ -215,7 +242,6 @@ function Main({navigation, t, i18n}) {
     var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
     var sec = Math.ceil((gap % (1000 * 60)) / 1000);
 
-    // console.log(item);
     if (item.status === 'zero') {
       return (
         <TouchableOpacity
@@ -374,8 +400,8 @@ function Main({navigation, t, i18n}) {
                     ResetStyle.fontWhite,
                     {textAlign: 'left', marginLeft: '5%'},
                   ]}>
-                  {numberWithCommas(item.particRestrictions)} /{' '}
-                  {numberWithCommas(item.participants)}
+                  {numberWithCommas(item.participants)} /{' '}
+                  {numberWithCommas(item.particRestrictions)}
                 </Text>
               </View>
 
@@ -402,7 +428,27 @@ function Main({navigation, t, i18n}) {
 
                     return `${day - 1}일 ${hour}시간 ${min}분 ${sec}초`;
                   }, 1000)} */}
-                  {`${day - 1}일 ${hour}시간 ${min}분 ${sec}초`}
+                  {/* {`${day - 1}일 ${hour}시간 ${min}분 ${sec}초`} */}
+                  {
+                    <Moment
+                      element={Text}
+                      interval={1000}
+                      date={item.endTime}
+                      durationFromNow
+                    />
+                  }
+                  {/* {setInterval(() => {
+                    var today = new Date().getTime();
+                    var dday = new Date(item.endTime).getTime();
+                    var gap = dday - today;
+                    var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
+                    var hour = Math.ceil(
+                      (gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+                    );
+                    var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
+                    var sec = Math.ceil((gap % (1000 * 60)) / 1000);
+                    return day;
+                  }, 1000)} */}
                   {/* {console.log('remainTime', remainTime)} */}
                 </Text>
               </View>
