@@ -64,7 +64,6 @@ const MainDetail = (props) => {
       });
   };
   const AudienceCheckApi = async (surveyId) => {
-    console.log({surveyId: String(surveyId), userNo: String(userNo)});
     axios
       .post(`${server}/survey/audience`, {
         surveyId: String(surveyId),
@@ -330,7 +329,7 @@ const MainDetail = (props) => {
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
-            marginBottom: 30,
+            marginBottom: '2%',
           }}>
           <Text style={[ResetStyle.fontLightK, ResetStyle.fontB]}>
             {`${surveyDetail.participants}/${
@@ -338,13 +337,18 @@ const MainDetail = (props) => {
             }${'\n'}`}
           </Text>
         </View>
-        <View style={{position: 'relative', height: 250}}>
+        <View
+          style={{
+            position: 'relative',
+            height: 260,
+          }}>
           <Image
             style={{
               //   position: 'relative',
               left: '-6%',
               width: '112%',
               height: '100%',
+              resizeMode: 'cover',
             }}
             source={{uri: surveyDetail.categoryImg}}
           />
