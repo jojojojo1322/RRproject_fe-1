@@ -12,6 +12,9 @@ import {
 import ResetStyle from '../../../style/ResetStyle';
 import ModalStyle from '../../../style/ModalStyle';
 
+// 왼쪽 버튼 text-> cancel onPress-> cancelHandle
+// 오른쪽 버튼 text-> confirm onPress-> confirmHandle
+
 class TextConfirmCancelModal extends Component {
   constructor(props) {
     super(props);
@@ -23,6 +26,7 @@ class TextConfirmCancelModal extends Component {
   //   state = {
   //     modalVisible: this.props.modalVisible,
   //   };
+
   componentDidUpdate(preProps, preState) {
     if (preProps.modalVisible != this.props.modalVisible) {
       this.setState({modalVisible: this.props.modalVisible});
@@ -75,6 +79,7 @@ class TextConfirmCancelModal extends Component {
                 onPress={() => {
                   this.setState({modalVisible: !modalVisible});
                   this.props.setModalVisible(!modalVisible);
+                  this.props.cancelHandle();
                 }}>
                 <Text
                   style={[
@@ -82,7 +87,7 @@ class TextConfirmCancelModal extends Component {
                     ResetStyle.fontB,
                     {padding: 20},
                   ]}>
-                  취소
+                  {this.props.cancel}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -93,6 +98,7 @@ class TextConfirmCancelModal extends Component {
                 onPress={() => {
                   this.setState({modalVisible: !modalVisible});
                   this.props.setModalVisible(!modalVisible);
+                  this.props.confirmHandle();
                 }}>
                 <Text
                   style={[
@@ -100,7 +106,7 @@ class TextConfirmCancelModal extends Component {
                     ResetStyle.fontB,
                     {padding: 20},
                   ]}>
-                  확인
+                  {this.props.confirm}
                 </Text>
               </TouchableOpacity>
             </View>

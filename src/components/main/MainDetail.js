@@ -17,6 +17,8 @@ import {server} from '../defined/server';
 import Reset from '../resetPassword/Reset.js';
 
 import AudienceModal from '../factory/modal/AudienceModal';
+import TextConfirmCancelModal from '../factory/modal/TextConfirmCancelModal';
+import TextConfirmModal from '../factory/modal/TextConfirmModal';
 
 import CarrierInfo from 'react-native-carrier-info';
 
@@ -24,7 +26,14 @@ import {withTranslation} from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';
 
 const MainDetail = (props) => {
+  // audience detail modal
   const [modalVisible, setModalVisible] = useState(false);
+
+  // audience check kyc warning 경고모달
+  const [modal2Visible, setModal2Visible] = useState(false);
+  // audience check 해당인원 x warning 경고모달
+  const [modal3Visible, setModal3Visible] = useState(false);
+
   const [surveyDetail, setSurveyDetail] = useState([]);
   const [audience, setAudience] = useState([]);
   const [audienceLanguage, setAudienceLanguage] = useState('');
@@ -49,6 +58,7 @@ const MainDetail = (props) => {
         console.log(`surveyDetailApi Then >>`, response);
         setSurveyDetail(response.data.resSurvey);
         setUserNo(await AsyncStorage.getItem('userNo'));
+        AudienceCheckApi();
       })
       .catch((e) => {
         console.log(`surveyDetailApi Error`, e);
@@ -170,7 +180,7 @@ const MainDetail = (props) => {
     AudienceApi();
   }, []);
   const audienceCheckHandle = async () => {
-    AudienceCheckApi();
+    // AudienceCheckApi();
     console.log('audienceCheck', audienceCheck);
     if (audienceCheck === 0) {
       props.navigation.navigate('ResearchForm', {
@@ -180,6 +190,13 @@ const MainDetail = (props) => {
         sponsorName: surveyDetail.sponsorName,
       });
     }
+  };
+  // TextConfirmCancelModal handler
+  const cancelHandle = () => {
+    props.navigation.navigate('main');
+  };
+  const confirmHandle = () => {
+    props.navigation.navigate('ProfileMain');
   };
   console.log('surveyDetailsurveyDetailsurveyDetail', surveyDetail);
   return (
@@ -397,6 +414,22 @@ const MainDetail = (props) => {
           country={audience.residentCountry}
           countryCity={audience.residentCity}
           language={audienceLanguage}
+        />
+        <TextConfirmCancelModal
+          modalVisible={modal2Visible}
+          setModalVisible={setModal2Visible}
+          text={`해당 설문조사의 LEVEL이 맞지 않습니다.${'\n'}지금 바로 LEVEL을 올려보세요.`}
+          confirm={`LEVEL UPDATE`}
+          confirmHandle={confirmHandle}
+          cancel={`메인으로 이동`}
+          cancelHandle={cancelHandle}
+        />
+        <TextConfirmModal
+          modalVisible={modal3Visible}
+          setModalVisible={setModal3Visible}
+          text={`해당 설문조사의 대상이 아닙니다.`}
+          confirm={`메인으로 이동`}
+          handleNextPage={cancelHandle}
         />
       </ScrollView>
     </SafeAreaView>
