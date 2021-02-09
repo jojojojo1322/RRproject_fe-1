@@ -174,7 +174,7 @@ const ResearchForm = (props) => {
       console.log('lastArray', checkedArray);
       await postSurveyAnswer();
       if (insertSuccess === 0) {
-        props.navigation.navigate('MainVideo', {
+        props.navigation.replace('MainVideo', {
           legacySurveyId: legacySurveyId,
           surveyArray: checkedArray,
           surveyId: props.route.params?.surveyId,
@@ -183,6 +183,7 @@ const ResearchForm = (props) => {
       console.log('insertSuccess', insertSuccess);
     }
   };
+
   useEffect(() => {
     getSurveyQuestionApi();
   }, []);
