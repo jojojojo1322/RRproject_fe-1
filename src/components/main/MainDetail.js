@@ -355,7 +355,7 @@ const MainDetail = (props) => {
             await AudienceCheckApi();
             console.log('audienceCheck', audienceCheck);
             if (audienceCheck === 0) {
-              props.navigation.navigate('ResearchForm', {
+              props.navigation.replace('ResearchForm', {
                 // legacySurveyId: props.route.params?.legacySurveyId,
                 legacySurveyId: '5f91aad0ae28561b056e2f97',
                 surveyName: surveyDetail.surveyName,

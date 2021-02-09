@@ -31,6 +31,7 @@ import MainDetail from './components/main/MainDetail';
 import MainDetailCompleted from './components/main/MainDetailCompleted';
 import MainDetailExpired from './components/main/MainDetailExpired';
 import MainVideo from './components/main/MainVideo';
+import MainVideoComplete from './components/main/MainVideoComplete';
 
 import IdVerification from './components/idVerification/IdVerification';
 import IdVerificationComplete from './components/idVerification/IdVerificationInProgress';
@@ -325,6 +326,7 @@ export const AppMainStack = (props) => {
         component={ResearchForm}
         options={{
           headerShown: false,
+          gestureEnabled: false,
         }}
       />
       <Stack.Screen
@@ -372,6 +374,16 @@ export const AppMainStack = (props) => {
         component={MainVideo}
         options={{
           headerShown: false,
+          gestureEnabled: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="MainVideoComplete"
+        component={MainVideoComplete}
+        options={{
+          headerShown: false,
+          gestureEnabled: false,
         }}
       />
 
@@ -380,6 +392,7 @@ export const AppMainStack = (props) => {
         component={ProfileMain}
         options={{
           headerShown: false,
+          gestureEnabled: false,
         }}
       />
       <Stack.Screen
@@ -438,6 +451,7 @@ export const AppMainStack = (props) => {
         component={WalletMain}
         options={{
           headerShown: false,
+          gestureEnabled: false,
         }}
       />
       <Stack.Screen

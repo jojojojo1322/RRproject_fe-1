@@ -1,5 +1,5 @@
-export default en = {
-  en: {
+export default es = {
+  es: {
     translation: {
       // initial 2
       intro1: 'A survey that reflects my thoughts\naround the world',

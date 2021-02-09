@@ -1,7 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {
-  StyleSheet,
-  ScrollView,
   View,
   FlatList,
   Text,
@@ -12,308 +10,22 @@ import {
 } from 'react-native';
 import ResetStyle from '../../style/ResetStyle.js';
 import MainStyle from '../../style/MainStyle.js';
-import AuthStyle from '../../style/AuthStyle.js';
-// import Video from 'react-native-video';
-import Clipboard from '@react-native-community/clipboard';
 import BottomModal from '../factory/modal/BottomModal';
-import {ProgressCircle} from 'react-native-svg-charts';
+import ProgressModal from '../factory/modal/ProgressModal';
 import VideoPlayer from 'react-native-video-controls';
 import Orientation from 'react-native-orientation-locker';
 import {useTranslation} from 'react-i18next';
+import {server} from '../defined/server';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const data = [
-  {
-    id: '1',
-    videoUri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-    videoTitle: 'AD Title 1 AD Title 1 AD Title 1 AD Title 1',
-    videoSub: 'AD sub title AD sub titleAD sub title',
-    videoDate: '2020.12.03',
-  },
-  {
-    id: '2',
-    videoUri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-    videoTitle: 'AD Title 2 AD Title 2 AD Title 2 AD Title 2',
-    videoSub: 'AD sub title AD sub titleAD sub title',
-    videoDate: '2020.12.03',
-  },
-  {
-    id: '3',
-    videoUri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-    videoTitle: 'AD Title 3 AD Title 3 AD Title 3 AD Title 3',
-    videoSub: 'AD sub title AD sub titleAD sub title',
-    videoDate: '2020.12.03',
-  },
-  {
-    id: '4',
-    videoUri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-    videoTitle: 'AD Title 4 AD Title 4 AD Title 4 AD Title 4',
-    videoSub: 'AD sub title AD sub titleAD sub title',
-    videoDate: '2020.12.03',
-  },
-  {
-    id: '5',
-    videoUri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-    videoTitle: 'AD Title 5 AD Title 5 AD Title 5 AD Title 5',
-    videoSub: 'AD sub title AD sub titleAD sub title',
-    videoDate: '2020.12.03',
-  },
-  {
-    id: '6',
-    videoUri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-    videoTitle: 'AD Title 6 AD Title 6 AD Title 6 AD Title 6',
-    videoSub: 'AD sub title AD sub titleAD sub title',
-    videoDate: '2020.12.03',
-  },
-];
+const MainVideo = ({navigation, route}) => {
+  // Research Form 에서 넘어온 데이터
+  const {legacySurveyId} = route ? route.params : '';
+  const {surveyArray} = route ? route.params : '';
+  const {surveyId} = route ? route.params : '';
 
-const Item = ({videoUri, videoTitle, videoSub, videoDate, onPress}) => (
-  <TouchableOpacity
-    onPress={onPress}
-    style={{
-      width: '90%',
-      flexDirection: 'row',
-      alignSelf: 'center',
-      marginBottom: 15,
-    }}>
-    <View style={{width: '45%', height: '15%', marginRight: '5%'}}>
-      <VideoPlayer
-        source={{
-          uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-        }} // Can be a URL or a local file.
-        // ref={(ref) => {
-        //   this.player = ref;
-        // }}
-        rate={1.0}
-        volume={0.0}
-        isMuted={true}
-        resizeMode="cover"
-        // shouldPlay
-        // isLooping
-        paused={true}
-        // onBuffer={this.onBuffer}
-        // onError={this.videoError}
-        style={{width: '100%', height: 105}}
-      />
-      <TouchableOpacity
-        style={{position: 'absolute', top: '190%', left: '38%'}}>
-        <Image
-          source={require('../../imgs/drawable-xxxhdpi/ad_play_icon_s.png')}
-        />
-      </TouchableOpacity>
-    </View>
-
-    <View style={{width: '50%'}}>
-      <Text
-        style={[
-          ResetStyle.fontRegularK,
-          ResetStyle.fontBlack,
-          {textAlign: 'left', marginBottom: 2},
-        ]}>
-        {videoTitle}
-      </Text>
-      <Text
-        style={[
-          ResetStyle.fontLightK,
-          ResetStyle.fontDG,
-          {textAlign: 'left', marginBottom: 2},
-        ]}>
-        {videoSub}
-      </Text>
-      <Text
-        style={[ResetStyle.fontLightK, ResetStyle.fontG, {textAlign: 'left'}]}>
-        {videoDate}
-      </Text>
-    </View>
-  </TouchableOpacity>
-);
-
-const VideoList = ({navigation}) => {
-  console.log(navigation);
-  const renderItem = ({item}) => (
-    <Item
-      videoUri={item.videoUri}
-      videoTitle={item.videoTitle}
-      videoSub={item.videoSub}
-      videoDate={item.videoDate}
-      // onPress={() => {
-      //   navigation.navigate('MainDetail');
-      // }}
-    />
-  );
-
-  return (
-    <SafeAreaView
-      style={[MainStyle.mainFlatlistView, {backgroundColor: '#fff'}]}>
-      {/* <ScrollView style={{width: '100%'}}> */}
-      <FlatList
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
-      {/* </ScrollView> */}
-    </SafeAreaView>
-  );
-};
-
-const VideoTXID = (props) => {
-  copyToClipboard = (value) => {
-    Clipboard.setString(value);
-  };
-  return (
-    <SafeAreaView
-      style={[MainStyle.mainFlatlistView, {backgroundColor: '#fff'}]}>
-      <View
-        style={{
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}>
-        <Image
-          style={{
-            width: Platform.OS === 'ios' ? 70 : 50,
-            height: Platform.OS === 'ios' ? 60 : 50,
-            resizeMode: 'contain',
-          }}
-          source={require('../../imgs/drawable-xxxhdpi/ad_wallet_icon.png')}
-        />
-        <Text
-          style={[
-            ResetStyle.fontRegularK,
-            ResetStyle.fontBlack,
-            {marginTop: '5%', lineHeight: 25},
-          ]}>
-          설문조사를 완료해주셔서 감사합니다.{'\n'}
-          블록체인 네트워크에서 확인 완료 후{'\n'}
-          당신의 리워드 코인을 받으실 수 있습니다.
-        </Text>
-      </View>
-      <View
-        style={{
-          width: '90%',
-          marginTop: Platform.OS === 'ios' ? '6%' : '3%',
-          marginBottom: Platform.OS === 'ios' ? '6%' : '3%',
-          borderBottomWidth: 1,
-          borderBottomColor: '#dedede',
-          alignSelf: 'center',
-        }}></View>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-        <Text
-          style={[ResetStyle.fontBoldK, ResetStyle.fontB, {marginRight: '2%'}]}>
-          TXID
-        </Text>
-        <Image
-          source={require('../../imgs/drawable-xxxhdpi/txid_questionmark_icon.png')}
-        />
-      </View>
-      <View>
-        <TouchableOpacity
-          style={[
-            AuthStyle.walletCopy,
-            {
-              width: '90%',
-              alignSelf: 'center',
-              marginTop: Platform.OS === 'ios' ? '5%' : '2%',
-              marginBottom: Platform.OS === 'ios' ? '5%' : '2%',
-            },
-          ]}
-          onPress={() => {
-            props.setModalVisible(true);
-            console.log(props);
-            copyToClipboard('123');
-            // this.copyToClipboard(this.props.route.params?.walletAddress);
-          }}>
-          <Text
-            style={[
-              ResetStyle.fontLightK,
-              ResetStyle.fontDG,
-              {paddingTop: '4%', paddingBottom: '4%', textAlign: 'left'},
-            ]}>
-            {/* {this.props.route.params?.walletAddress} */}123
-          </Text>
-        </TouchableOpacity>
-        <Text
-          style={[
-            ResetStyle.fontLightK,
-            ResetStyle.fontG,
-            {marginBottom: '10%'},
-          ]}>
-          클릭하면 복사됩니다.
-        </Text>
-      </View>
-    </SafeAreaView>
-  );
-};
-
-const VideoKYC = ({navigation}) => {
-  return (
-    <SafeAreaView
-      style={[MainStyle.mainFlatlistView, {backgroundColor: '#fff'}]}>
-      <Text style={[ResetStyle.fontBoldK, ResetStyle.fontB]}>
-        안 하면 손해!
-      </Text>
-      <Text
-        style={[
-          ResetStyle.fontMediumK,
-          ResetStyle.fontDG,
-          {marginTop: Platform.OS === 'ios' ? '6%' : '3%', marginBottom: '6%'},
-        ]}>
-        지금 당장 KYC LEVEL UP 하고{'\n'}더 많은 설문조사를 시작하세요!
-      </Text>
-      <View
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column',
-        }}>
-        {/* progress 최대 수치 1 */}
-        <ProgressCircle
-          style={{
-            width: 160,
-            height: 160,
-            backgroundColor: '#FFF',
-            borderRadius: 60,
-          }}
-          progress={0.086}
-          progressColor={'#0080ff'}
-          strokeWidth={3}
-        />
-
-        <View
-          style={{
-            position: 'absolute',
-            top: 40,
-            flexDirection: 'row',
-            borderBottomWidth: 0.5,
-            borderBottomColor: '#0080ff',
-            paddingBottom: 5,
-          }}>
-          <Text
-            style={[
-              ResetStyle.fontMediumK,
-              ResetStyle.fontB,
-              {fontWeight: '500', marginRight: 5},
-            ]}>
-            KYC LEVEL
-          </Text>
-        </View>
-        <Text
-          style={[
-            ResetStyle.fontBoldE,
-            ResetStyle.fontB,
-            {fontSize: 40, marginTop: 5, position: 'absolute', top: 75},
-          ]}>
-          2
-        </Text>
-      </View>
-    </SafeAreaView>
-  );
-};
-
-const MainVideo = ({navigation}) => {
+  console.log('param data check >>>>>', legacySurveyId, surveyArray, surveyId);
   const {t, i18n} = useTranslation();
   const [screenState, setScreenState] = useState({
     fullScreen: false,
@@ -321,18 +33,19 @@ const MainVideo = ({navigation}) => {
     Height_Layout: '',
     potraitMode: true,
   });
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modal2Visible, setModal2Visible] = useState(false);
+  const [modal3Visible, setModal3Visible] = useState(false);
+  const [advertisementData, setAdvertisementData] = useState([]);
+  const [overTen, setOverTen] = useState(false);
+  const [videoUri, setVideoUri] = useState(
+    'https://real-research-resources.s3.ap-northeast-2.amazonaws.com/static/survey/advertisement/video/advertisement_210125050404494_202101281114.mp4',
+  );
+  const [masterKey, setMasterKey] = useState('');
+  const [userId, setUserId] = useState('');
+  const sponsorUserNo = '5f9677c880c3164b4b1cc398';
 
-  // useEffect(() => {
-  //   detectOrientation();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [screenState.Width_Layout]);
-
-  // useEffect(() => {
-  //   Orientation.unlockAllOrientations();
-  //   return () => {
-  //     Orientation.lockToPortrait();
-  //   };
-  // }, []);
+  let {fullScreen} = screenState;
 
   useEffect(() => {
     let {fullScreen, potraitMode} = screenState;
@@ -340,6 +53,7 @@ const MainVideo = ({navigation}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [screenState.fullScreen]);
 
+  // fullscreen state change
   const changeState = (values) => {
     setScreenState((prevState) => {
       return {
@@ -349,23 +63,154 @@ const MainVideo = ({navigation}) => {
     });
   };
 
-  // const detectOrientation = () => {
-  //   if (screenState.Width_Layout > screenState.Height_Layout) {
-  //     // Write code here, which you want to execute on Landscape Mode.
-  //     changeState({fullScreen: true, potraitMode: false});
-  //   } else {
-  //     // Write code here, which you want to execute on Portrait Mode.
-  //     changeState({fullScreen: false, potraitMode: true});
-  //   }
-  // };
+  useEffect(() => {
+    getVideoApi();
+    handleMasterKey();
+  }, []);
 
-  const [modalVisible, setModalVisible] = useState(false);
-
-  const handleModalVisible = (visible) => {
-    setModalVisible(true);
+  // Call for Master Key
+  const handleMasterKey = async () => {
+    setMasterKey(AsyncStorage.getItem('masterKey'));
   };
 
-  let {fullScreen} = screenState;
+  useEffect(() => {
+    console.log('first videouri check', videoUri);
+    console.log('why change??', overTen);
+  }, [videoUri]);
+
+  // Video Api
+  const getVideoApi = async () => {
+    setModalVisible(true);
+    axios
+      .get(`${server}/survey/advertisement?SponsorUserNo=${sponsorUserNo}`)
+      .then((response) => {
+        console.log('reponse Info >>>>', response.data.advertisementInfo);
+        setAdvertisementData(response.data.advertisementInfo);
+      })
+      .catch((e) => {
+        console.log('error', e);
+      });
+    setModalVisible(false);
+  };
+
+  // Reward Api
+  const postRewardApi = () => {
+    axios
+      .post(`${server}/wallet/trans/reward`)
+      .then((response) => {
+        console.log('postRewardApi', response);
+      })
+      .catch((e) => {
+        console.log('error', e);
+      });
+  };
+
+  // 비디오 현재 시간 catch 해서 10넘으면 overTen true값 반환
+  const checkCurrentTime = (value) => {
+    // console.log(value.currentTime);
+    if (value.currentTime < 10.25 && value.currentTime > 10) {
+      setOverTen(!overTen);
+    }
+  };
+
+  const Item = ({
+    videoUri,
+    videoTitle,
+    videoSub,
+    videoDate,
+    videoThumbnail,
+    adType,
+    onPress,
+  }) =>
+    adType === 'video' ? (
+      <TouchableOpacity
+        onPress={onPress}
+        style={{
+          width: '90%',
+          flexDirection: 'row',
+          alignSelf: 'center',
+          marginBottom: 15,
+        }}
+        onPress={onPress}>
+        <View style={{width: '45%', height: '15%', marginRight: '5%'}}>
+          <Image
+            style={{width: '100%', height: 105}}
+            source={{uri: videoThumbnail}}
+          />
+          <TouchableOpacity
+            style={{position: 'absolute', top: '190%', left: '38%'}}
+            // onPress={onPress}
+          >
+            <Image
+              source={require('../../imgs/drawable-xxxhdpi/ad_play_icon_s.png')}
+            />
+          </TouchableOpacity>
+        </View>
+
+        <View
+          style={{
+            width: '50%',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+          }}>
+          <Text
+            style={[
+              ResetStyle.fontRegularK,
+              ResetStyle.fontBlack,
+              {textAlign: 'left', marginBottom: 2},
+            ]}>
+            {videoTitle.slice(0, 30)}
+          </Text>
+          <Text
+            style={[
+              ResetStyle.fontLightK,
+              ResetStyle.fontDG,
+              {textAlign: 'left', marginBottom: 2},
+            ]}>
+            {videoSub.slice(0, 20)}
+          </Text>
+          <Text
+            style={[
+              ResetStyle.fontLightK,
+              ResetStyle.fontG,
+              {textAlign: 'left'},
+            ]}>
+            {videoDate.slice(0, 11)}
+          </Text>
+        </View>
+      </TouchableOpacity>
+    ) : null;
+
+  const VideoList = ({navigation}) => {
+    // console.log(navigation);
+    const renderItem = ({item}) => (
+      <Item
+        videoUri={item.advertiseUrl}
+        videoTitle={item.advertiseTitle}
+        videoSub={item.advertiseTitle}
+        videoDate={item.createTime}
+        videoThumbnail={item.advertiseThumbnail}
+        adType={item.advertiseType}
+        onPress={() => {
+          setVideoUri(item.advertiseUrl);
+          setOverTen(false);
+        }}
+      />
+    );
+
+    return (
+      <SafeAreaView
+        style={[MainStyle.mainFlatlistView, {backgroundColor: '#fff'}]}>
+        {/* <ScrollView style={{width: '100%'}}> */}
+        <FlatList
+          data={advertisementData}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+        />
+        {/* </ScrollView> */}
+      </SafeAreaView>
+    );
+  };
 
   return (
     <View style={{flex: 1}}>
@@ -402,9 +247,7 @@ const MainVideo = ({navigation}) => {
             marginBottom: Platform.OS === 'ios' ? '5%' : 0,
           }}>
           <VideoPlayer
-            source={{
-              uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-            }}
+            source={{uri: videoUri}}
             ref={(ref) => {
               player = ref;
             }}
@@ -422,24 +265,43 @@ const MainVideo = ({navigation}) => {
             onEnterFullscreen={() => {
               changeState({fullScreen: !fullScreen});
               Orientation.unlockAllOrientations();
-              console.log(fullScreen);
+              // console.log(fullScreen);
             }}
             onExitFullscreen={() => {
               changeState({fullScreen: fullScreen});
               Orientation.lockToPortrait();
-              console.log(fullScreen);
+              // console.log(fullScreen);
             }}
+            onProgress={checkCurrentTime}
             disablePlayPause
             disableSeekbar
             disableBack
           />
+          {overTen === true && (
+            <TouchableOpacity
+              style={{
+                position: 'absolute',
+                bottom: '7%',
+                right: '4%',
+                paddingHorizontal: '4.5%',
+                paddingVertical: '2.5%',
+                backgroundColor: '#fff',
+                opacity: 0.7,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              onPress={() => {
+                // navigation.navigate('MainVideoComplete');
+                navigation.replace('MainVideoComplete');
+              }}>
+              <Text style={(ResetStyle.fontRegularK, ResetStyle.fontBlack)}>
+                건너뛰기
+              </Text>
+            </TouchableOpacity>
+          )}
         </View>
-        {/* <VideoList /> */}
-        {/* <VideoTXID
-          setModalVisible={setModalVisible}
-          modalVisible={modalVisible}
-        /> */}
-        {screenState.fullScreen === true ? null : <VideoKYC />}
+        <VideoList />
+        {/* {screenState.fullScreen === true ? null : <VideoKYC />} */}
         {screenState.fullScreen === true ? null : (
           <TouchableOpacity
             style={[
@@ -450,11 +312,16 @@ const MainVideo = ({navigation}) => {
                 left: '5%',
                 width: '90%',
                 alignSelf: 'center',
+                backgroundColor: overTen === true ? '#4696ff' : '#e6e6e6',
               },
             ]}
             activeOpacity={0.75}
             onPress={() => {
-              navigation.navigate('WalletMain');
+              if (overTen === false) {
+                setModal2Visible(!modal2Visible);
+              } else if (overTen === true) {
+                navigation.replace('MainVideoComplete');
+              }
             }}>
             <Text
               style={[
@@ -467,10 +334,14 @@ const MainVideo = ({navigation}) => {
             </Text>
           </TouchableOpacity>
         )}
-        <BottomModal
-          setModalVisible={handleModalVisible}
+        <ProgressModal
           modalVisible={modalVisible}
-          text={`복사되었습니다.`}
+          setModalVisible={setModalVisible}
+        />
+        <BottomModal
+          modalVisible={modal2Visible}
+          setModalVisible={setModal2Visible}
+          text={'10초 이상 시청시 리워드가 지급됩니다.'}
         />
       </View>
     </View>
