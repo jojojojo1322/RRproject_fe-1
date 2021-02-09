@@ -11,109 +11,89 @@ import {
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 import ResetStyle from '../../../style/ResetStyle';
 import ModalStyle from '../../../style/ModalStyle';
+import {useTranslation} from 'react-i18next';
 
 // 왼쪽 버튼 text-> cancel onPress-> cancelHandle
 // 오른쪽 버튼 text-> confirm onPress-> confirmHandle
 
-class TextConfirmCancelModal extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      modalVisible: false,
-    };
-    // this.setModalVisible = this.setModalVisible.bind(this);
-  }
-  //   state = {
-  //     modalVisible: this.props.modalVisible,
-  //   };
+const TextConfirmCancelModal = ({
+  modalVisible,
+  setModalVisible,
+  text,
+  confirm,
+  confirmHandle,
+  cancel,
+  cancelHandle,
+}) => {
+  const {t, i18n} = useTranslation();
+  return modalVisible ? (
+    <Modal
+      animationType="fade"
+      transparent={true}
+      visible={modalVisible}
+      // onRequestClose={() => {
+      //   Alert.alert('Modal has been closed.');
+      // }}
+    >
+      <View style={{flex: 1, position: 'relative'}}>
+        {/* modal background */}
+        <TouchableWithoutFeedback
+          // style={styles.centeredView}
+          activeOpacity={0.55}
+          onPress={() => {
+            setModalVisible(!modalVisible);
+          }}>
+          <View style={[ModalStyle.modalCenteredView]}></View>
+        </TouchableWithoutFeedback>
 
-  componentDidUpdate(preProps, preState) {
-    if (preProps.modalVisible != this.props.modalVisible) {
-      this.setState({modalVisible: this.props.modalVisible});
-    }
-  }
-  setModalVisible = (visible) => {
-    this.setState({modalVisible: visible});
-    console.log('MODAL>>> ', visible);
-  };
-  render() {
-    const {modalVisible} = this.state;
-    console.log(modalVisible);
-    return (
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        // onRequestClose={() => {
-        //   Alert.alert('Modal has been closed.');
-        // }}
-      >
-        <View style={{flex: 1, position: 'relative'}}>
-          {/* modal background */}
-          <TouchableWithoutFeedback
-            // style={styles.centeredView}
-            activeOpacity={0.55}
-            onPress={() => {
-              this.setState({modalVisible: !modalVisible});
-              this.props.setModalVisible(!modalVisible);
-            }}>
-            <View style={[ModalStyle.modalCenteredView]}></View>
-          </TouchableWithoutFeedback>
-
-          {/* modal view */}
-          <View style={[ModalStyle.tccModal]}>
-            <Text
+        {/* modal view */}
+        <View style={[ModalStyle.tccModal]}>
+          <Text
+            style={[ResetStyle.fontRegularK, ResetStyle.fontDG, {padding: 40}]}>
+            {text}
+          </Text>
+          <View style={[ModalStyle.tccModalBottom]}>
+            <TouchableOpacity
               style={[
-                ResetStyle.fontRegularK,
-                ResetStyle.fontDG,
-                {padding: 40},
-              ]}>
-              {this.props.text}
-            </Text>
-            <View style={[ModalStyle.tccModalBottom]}>
-              <TouchableOpacity
+                ModalStyle.tccModalBottomButton,
+                {borderRightWidth: 0.3, borderRightColor: '#707070'},
+              ]}
+              onPress={() => {
+                setModalVisible(!modalVisible);
+                cancelHandle();
+              }}>
+              <Text
                 style={[
-                  ModalStyle.tccModalBottomButton,
-                  {borderRightWidth: 0.3, borderRightColor: '#707070'},
-                ]}
-                onPress={() => {
-                  this.setState({modalVisible: !modalVisible});
-                  this.props.setModalVisible(!modalVisible);
-                  this.props.cancelHandle();
-                }}>
-                <Text
-                  style={[
-                    ResetStyle.fontRegularK,
-                    ResetStyle.fontB,
-                    {padding: 20},
-                  ]}>
-                  {this.props.cancel}
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontB,
+                  {padding: 20},
+                ]}>
+                {cancel}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                ModalStyle.tccModalBottomButton,
+                {borderBottomRightRadius: 5},
+              ]}
+              onPress={() => {
+                setModalVisible(!modalVisible);
+                confirmHandle();
+              }}>
+              <Text
                 style={[
-                  ModalStyle.tccModalBottomButton,
-                  {borderBottomRightRadius: 5},
-                ]}
-                onPress={() => {
-                  this.setState({modalVisible: !modalVisible});
-                  this.props.setModalVisible(!modalVisible);
-                  this.props.confirmHandle();
-                }}>
-                <Text
-                  style={[
-                    ResetStyle.fontRegularK,
-                    ResetStyle.fontB,
-                    {padding: 20},
-                  ]}>
-                  {this.props.confirm}
-                </Text>
-              </TouchableOpacity>
-            </View>
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontB,
+                  {padding: 20},
+                ]}>
+                {confirm}
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
-      </Modal>
-    );
-  }
-}
+      </View>
+    </Modal>
+  ) : null;
+};
+
 export default TextConfirmCancelModal;

@@ -20,6 +20,7 @@ import ModalStyle from '../../../style/ModalStyle';
 // } from '../../defined/DefineCountryList';
 import {CountryListApi, CLA} from '../../defined/DefineCountryList';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {useTranslation} from 'react-i18next';
 
 const window = Dimensions.get('window');
 
@@ -129,125 +130,101 @@ const Item = ({item, onPress, style, handlePick}) => {
   }
 };
 
-class ListModal extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      modalVisible: false,
-      searchText: '',
-      pick: '',
-    };
-    // this.setModalVisible = this.setModalVisible.bind(this);
-  }
-  //   state = {
-  //     modalVisible: this.props.modalVisible,
-  //   };
-  componentDidUpdate(preProps, preState) {
-    if (preProps.modalVisible != this.props.modalVisible) {
-      this.setState({modalVisible: this.props.modalVisible});
-    }
-  }
-  setModalVisible = (visible) => {
-    this.setState({modalVisible: visible});
+const ListModal = ({
+  modalVisible,
+  setModalVisible,
+  setCountry,
+  titleText,
+  list,
+}) => {
+  const {t, i18n} = useTranslation();
+  const [searchText, setSearchText] = useState('');
+  const [pick, setPick] = useState('');
+
+  const handleInputChange = (searchText) => {
+    setSearchText(searchText);
   };
 
-  handleInputChange = (searchText) => {
-    this.setState({
-      searchText: searchText,
-    });
-  };
-  handlePick = (country, cd, phone) => {
-    this.props.setCountry(country, cd, phone);
-    this.props.setModalVisible(!this.state.modalVisible);
+  const handlePick = (country, cd, phone) => {
+    setCountry(country, cd, phone);
+    setModalVisible(!modalVisible);
   };
 
-  render() {
-    const {modalVisible} = this.state;
-    return (
-      <KeyboardAwareScrollView
-        enableOnAndroid={true}
-        contentContainerStyle={{flexGrow: 1}}>
-        <Modal
-          animationType="fade"
-          transparent={true}
-          visible={modalVisible}
-          // onRequestClose={() => {
-          //   Alert.alert('Modal has been closed.');
-          // }}
-        >
-          <View style={{flex: 1, position: 'relative'}}>
-            {/* modal background */}
-            <TouchableWithoutFeedback
-              activeOpacity={0.55}
-              onPress={() => {
-                this.setState({modalVisible: !modalVisible});
-                this.props.setModalVisible(!modalVisible);
-              }}>
-              <View style={[ModalStyle.modalCenteredView]}></View>
-            </TouchableWithoutFeedback>
+  return modalVisible ? (
+    <KeyboardAwareScrollView
+      enableOnAndroid={true}
+      contentContainerStyle={{flexGrow: 1}}>
+      <Modal animationType="fade" transparent={true} visible={modalVisible}>
+        <View style={{flex: 1, position: 'relative'}}>
+          {/* modal background */}
+          <TouchableWithoutFeedback
+            activeOpacity={0.55}
+            onPress={() => {
+              setModalVisible(!modalVisible);
+            }}>
+            <View style={[ModalStyle.modalCenteredView]}></View>
+          </TouchableWithoutFeedback>
 
-            {/* modal view */}
-            <View style={[ModalStyle.listModal]}>
-              <View style={[ModalStyle.listModalBox]}>
-                <Text
-                  style={[
-                    ResetStyle.fontMediumK,
-                    ResetStyle.fontBlack,
-                    {fontWeight: '500'},
-                  ]}>
-                  {this.props.titleText}
-                </Text>
-                <TouchableWithoutFeedback
-                  setModalVisible={this.props.setModalVisible}
-                  modalVisible={this.props.modalVisible}
-                  onPress={() => {
-                    this.props.setModalVisible(!modalVisible);
-                  }}>
-                  <Image
-                    style={[ModalStyle.listModalCloseButton]}
-                    source={require('../../../imgs/drawable-xxhdpi/delete_icon.png')}
-                  />
-                </TouchableWithoutFeedback>
-              </View>
-
-              <View style={[ModalStyle.listModalInputBox]}>
-                <TextInput
-                  style={[
-                    ResetStyle.fontRegularK,
-                    ResetStyle.fontBlack,
-                    {
-                      padding: 10,
-                      width: '100%',
-                      textAlign: 'left',
-                    },
-                  ]}
-                  onChangeText={this.handleInputChange}
-                  value={this.state.searchText}
-                  placeholder="search"
-                  placeholderTextColor="#a9a9a9"
+          {/* modal view */}
+          <View style={[ModalStyle.listModal]}>
+            <View style={[ModalStyle.listModalBox]}>
+              <Text
+                style={[
+                  ResetStyle.fontMediumK,
+                  ResetStyle.fontBlack,
+                  {fontWeight: '500'},
+                ]}>
+                {titleText}
+              </Text>
+              <TouchableWithoutFeedback
+                onPress={() => {
+                  setModalVisible(!modalVisible);
+                }}>
+                <Image
+                  style={[ModalStyle.listModalCloseButton]}
+                  source={require('../../../imgs/drawable-xxhdpi/delete_icon.png')}
                 />
-                <TouchableOpacity
-                  style={{
-                    position: 'absolute',
-                    right: '3%',
-                    top: Platform.OS === 'ios' ? '28%' : '25%',
-                  }}>
-                  <Image
-                    style={[ModalStyle.listModalSearch]}
-                    source={require('../../../imgs/icon_search.png')}
-                  />
-                </TouchableOpacity>
-              </View>
-              <CountryList
-                handlePick={this.handlePick}
-                searchText={this.state.searchText}
-                DATA={this.props.list}
-              />
+              </TouchableWithoutFeedback>
             </View>
+
+            <View style={[ModalStyle.listModalInputBox]}>
+              <TextInput
+                style={[
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontBlack,
+                  {
+                    padding: 10,
+                    width: '100%',
+                    textAlign: 'left',
+                  },
+                ]}
+                onChangeText={handleInputChange}
+                value={searchText}
+                placeholder="search"
+                placeholderTextColor="#a9a9a9"
+              />
+              <TouchableOpacity
+                style={{
+                  position: 'absolute',
+                  right: '3%',
+                  top: Platform.OS === 'ios' ? '28%' : '25%',
+                }}>
+                <Image
+                  style={[ModalStyle.listModalSearch]}
+                  source={require('../../../imgs/icon_search.png')}
+                />
+              </TouchableOpacity>
+            </View>
+            <CountryList
+              handlePick={handlePick}
+              searchText={searchText}
+              DATA={list}
+            />
           </View>
-        </Modal>
-      </KeyboardAwareScrollView>
-    );
-  }
-}
+        </View>
+      </Modal>
+    </KeyboardAwareScrollView>
+  ) : null;
+};
+
 export default ListModal;

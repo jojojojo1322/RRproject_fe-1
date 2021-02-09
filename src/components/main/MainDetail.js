@@ -21,11 +21,10 @@ import TextConfirmCancelModal from '../factory/modal/TextConfirmCancelModal';
 import TextConfirmModal from '../factory/modal/TextConfirmModal';
 
 import CarrierInfo from 'react-native-carrier-info';
-
-import {withTranslation} from 'react-i18next';
-import hoistStatics from 'hoist-non-react-statics';
+import {useTranslation} from 'react-i18next';
 
 const MainDetail = (props) => {
+  const {t, i18n} = useTranslation();
   // audience detail modal
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -276,6 +275,7 @@ const MainDetail = (props) => {
               setModalVisible(true);
             }}>
             <Text style={[ResetStyle.fontRegularK, ResetStyle.fontWhite]}>
+              {t('')}
               Audience
             </Text>
           </TouchableOpacity>
@@ -332,7 +332,7 @@ const MainDetail = (props) => {
             marginBottom: '2%',
           }}>
           <Text style={[ResetStyle.fontLightK, ResetStyle.fontB]}>
-            {`${surveyDetail.participants}/${
+            {`${surveyDetail.participants} / ${
               surveyDetail.particRestrictions
             }${'\n'}`}
           </Text>
@@ -397,7 +397,7 @@ const MainDetail = (props) => {
                 fontWeight: '600',
               },
             ]}>
-            시작하기
+            {t('mainDetail2')}
           </Text>
         </TouchableOpacity>
         <AudienceModal
@@ -407,13 +407,13 @@ const MainDetail = (props) => {
           age={audienceAge}
           gender={
             audience.gender === 'all'
-              ? '남성,여성,답변안함'
+              ? t('mainDetail3')
               : audience.gender === '0'
-              ? '여성'
+              ? t('mainDetail4')
               : audience.gender === '1'
-              ? '남성'
+              ? t('mainDetail5')
               : audience.gender === 'all'
-              ? '답변안함'
+              ? t('mainDetail6')
               : ''
           }
           maritalStatus={audience.relationShipStatus}
@@ -425,17 +425,17 @@ const MainDetail = (props) => {
         <TextConfirmCancelModal
           modalVisible={modal2Visible}
           setModalVisible={setModal2Visible}
-          text={`해당 설문조사의 LEVEL이 맞지 않습니다.${'\n'}지금 바로 LEVEL을 올려보세요.`}
-          confirm={`LEVEL UPDATE`}
+          text={t('mainDetail7')}
+          confirm={t('mainDetail8')}
           confirmHandle={confirmHandle}
-          cancel={`메인으로 이동`}
+          cancel={t('mainDetail9')}
           cancelHandle={cancelHandle}
         />
         <TextConfirmModal
           modalVisible={modal3Visible}
           setModalVisible={setModal3Visible}
-          text={`해당 설문조사의 대상이 아닙니다.`}
-          confirm={`메인으로 이동`}
+          text={t('mainDetail10')}
+          confirm={t('mainDetail11')}
           handleNextPage={cancelHandle}
         />
       </ScrollView>
@@ -443,4 +443,4 @@ const MainDetail = (props) => {
   );
 };
 
-export default hoistStatics(withTranslation()(MainDetail), MainDetail);
+export default MainDetail;

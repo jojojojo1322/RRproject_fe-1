@@ -59,9 +59,7 @@ const MainVideoComplete = ({navigation, route}) => {
               ResetStyle.fontBlack,
               {marginTop: '5%', lineHeight: 25},
             ]}>
-            설문조사를 완료해주셔서 감사합니다.{'\n'}
-            블록체인 네트워크에서 확인 완료 후{'\n'}
-            당신의 리워드 코인을 받으실 수 있습니다.
+            {t('mainVideoComplete1')}
           </Text>
           <View
             style={{
@@ -79,7 +77,7 @@ const MainVideoComplete = ({navigation, route}) => {
               ResetStyle.fontB,
               {marginRight: '2%'},
             ]}>
-            거래 처리 중
+            {t('mainVideoComplete2')}
           </Text>
         </View>
 
@@ -96,7 +94,7 @@ const MainVideoComplete = ({navigation, route}) => {
               ResetStyle.fontWhite,
               {fontWeight: '600'},
             ]}>
-            지갑 확인하기
+            {t('mainVideoComplete3')}
           </Text>
         </TouchableOpacity>
       </View>
