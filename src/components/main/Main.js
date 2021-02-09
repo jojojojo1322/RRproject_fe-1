@@ -712,6 +712,7 @@ function Main({navigation, t, i18n}) {
       </View>
       <Tab.Navigator
         initialRouteName="Ongoing"
+        lazy={false}
         tabBarOptions={{
           activeTintColor: '#222',
           inactiveTintColor: '#a9a9a9',

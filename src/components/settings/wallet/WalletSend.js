@@ -7,7 +7,6 @@ import {
   Image,
   Platform,
 } from 'react-native';
-import PropTypes, {func, number} from 'prop-types';
 import ResetStyle from '../../../style/ResetStyle.js';
 import WalletStyle from '../../../style/WalletStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';

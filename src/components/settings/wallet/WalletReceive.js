@@ -1,18 +1,5 @@
 import React, {Component, useEffect, useState} from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  ScrollView,
-  Button,
-  TouchableOpacity,
-  Alert,
-  Image,
-  Platform,
-  TextInput,
-} from 'react-native';
-import {Dimensions} from 'react-native';
-import PropTypes from 'prop-types';
+import {View, Text, TouchableOpacity, Image} from 'react-native';
 import Clipboard from '@react-native-community/clipboard';
 import BottomModal from '../../factory/modal/BottomModal';
 import ResetStyle from '../../../style/ResetStyle.js';

@@ -15,8 +15,6 @@ import {
 import {server} from '../defined/server';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-import PropTypes from 'prop-types';
 import ResetStyle from '../../style/ResetStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {SelectedCheckboxes, RoundCheckbox} from '../factory/Roundcheck';
