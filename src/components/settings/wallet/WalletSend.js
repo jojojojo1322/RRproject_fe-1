@@ -506,18 +506,30 @@ export default function WalletSend({navigation, route}) {
                   </Text>
                 </TouchableOpacity>
               </View>
-              <Text
-                style={[
-                  ResetStyle.fontLightK,
-                  ResetStyle.fontDG,
-                  {
-                    textAlign: 'left',
-                    marginTop: '2%',
-                    color: transfee === transactionfee ? '#000' : '#f00',
-                  },
-                ]}>
-                {transfee}
-              </Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'flex-start',
+                  marginTop: '2%',
+                }}>
+                <Image
+                  style={{width: 20, height: 20, resizeMode: 'contain'}}
+                  source={require('../../../imgs/drawable-xxxhdpi/icon_notice_check.png')}
+                />
+                <Text
+                  style={[
+                    ResetStyle.fontLightK,
+                    ResetStyle.fontDG,
+                    {
+                      textAlign: 'left',
+                      marginLeft: '2%',
+                      color: transfee === transactionfee ? '#787878' : '#f00',
+                    },
+                  ]}>
+                  {transfee}
+                </Text>
+              </View>
             </View>
 
             {/* Comment */}

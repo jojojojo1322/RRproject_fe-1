@@ -122,8 +122,11 @@ function Main({navigation, t, i18n}) {
         await AsyncStorage.setItem('inviteCode', response.data.inviteCode);
         // setCountry(response.data);
         var today = new Date();
+        console.log('today', today);
         var dday = new Date(response.data.kycUpdated);
+        console.log('dday', dday);
         var gap = dday - today;
+        console.log('gap', gap);
         // var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         var hour = (gap / 1000 / 60 / 60).toFixed(0);
         console.log('업데이트 시간 비교', hour);

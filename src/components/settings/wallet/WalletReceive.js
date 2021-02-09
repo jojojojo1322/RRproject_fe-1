@@ -35,9 +35,9 @@ const WalletReceive = (props) => {
   const [masterKey, setMasterKey] = useState('');
 
   useEffect(() => {
-    AsyncStorage.setItem('email', 'a@c.com', () => {
-      console.log('유저 닉네임 저장 완료');
-    });
+    // AsyncStorage.setItem('email', 'a@c.com', () => {
+    //   console.log('유저 닉네임 저장 완료');
+    // });
     getWalletAddressApi();
     setMasterKey(walletData.name);
   }, []);

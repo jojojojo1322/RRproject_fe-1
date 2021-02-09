@@ -160,6 +160,7 @@ export const AppMainStack = (props) => {
           component={Main}
           options={{
             headerShown: false,
+            gestureEnabled: false,
           }}
         />
       )}
@@ -741,12 +742,13 @@ const App = () => {
         } else {
           firebase
             .messaging()
+            // 안됨
             .requestPermission()
             .then(() => {
-              alert('User Now Has Permission');
+              // alert('User Now Has Permission');
             })
             .catch((error) => {
-              alert('Error', error);
+              // alert('Error', error);
               // User has rejected permissions
             });
         }
@@ -764,6 +766,7 @@ const App = () => {
     // };
     console.log('link>>>>>>>>>>>', buildLink);
   }, []);
+
   useEffect(() => {
     test();
   }, [login]);

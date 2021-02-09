@@ -5,6 +5,7 @@ import 'react-native-gesture-handler';
 import {AppRegistry} from 'react-native';
 import messaging from '@react-native-firebase/messaging';
 import App from './src/App';
+// import Splash from './src/Splash';
 
 import {name as appName} from './app.json';
 import './src/components/defined/i18n';
