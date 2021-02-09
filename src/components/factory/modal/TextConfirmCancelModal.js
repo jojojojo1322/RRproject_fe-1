@@ -68,7 +68,7 @@ class TextConfirmCancelModal extends Component {
                 ResetStyle.fontDG,
                 {padding: 40},
               ]}>
-              정말 로그아웃 하시겠습니까?
+              {this.props.text}
             </Text>
             <View style={[ModalStyle.tccModalBottom]}>
               <TouchableOpacity

@@ -62,7 +62,8 @@ const ResearchForm = (props) => {
       .post(`${server}/survey/answer`, checkedArray)
       .then(async (response) => {
         console.log('postSurveyAnswer THEN >>>>', response);
-        setInsertSuccess(response.data.ret_val);
+        const ret = response.data.ret_val;
+        await setInsertSuccess(ret);
       })
       .catch((e) => {
         console.log('postSurveyAnswer ERROR >>>>', e);
@@ -140,6 +141,18 @@ const ResearchForm = (props) => {
       );
     }
   };
+  //
+  useEffect(() => {
+    if (insertSuccess === 0) {
+      if (insertSuccess === 0) {
+        props.navigation.replace('MainVideo', {
+          legacySurveyId: legacySurveyId,
+          surveyArray: checkedArray,
+          surveyId: props.route.params?.surveyId,
+        });
+      }
+    }
+  }, [insertSuccess]);
 
   // 이전 버튼
   const handlerPrev = async (e) => {
@@ -172,14 +185,7 @@ const ResearchForm = (props) => {
     }
     if (_nowIndex === surveyLength - 1) {
       console.log('lastArray', checkedArray);
-      await postSurveyAnswer();
-      if (insertSuccess === 0) {
-        props.navigation.replace('MainVideo', {
-          legacySurveyId: legacySurveyId,
-          surveyArray: checkedArray,
-          surveyId: props.route.params?.surveyId,
-        });
-      }
+      postSurveyAnswer();
       console.log('insertSuccess', insertSuccess);
     }
   };
