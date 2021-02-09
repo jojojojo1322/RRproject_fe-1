@@ -34,8 +34,8 @@ import MainVideo from './components/main/MainVideo';
 import MainVideoComplete from './components/main/MainVideoComplete';
 
 import IdVerification from './components/idVerification/IdVerification';
-import IdVerificationComplete from './components/idVerification/IdVerificationInProgress';
-import IdVerificationInProgress from './components/idVerification/IdVerificationComplete';
+import IdVerificationInProgress from './components/idVerification/IdVerificationInProgress';
+import IdVerificationComplete from './components/idVerification/IdVerificationComplete';
 import IdVerificationDecline from './components/idVerification/IdVerificationDecline';
 import IdVerificationSorry from './components/idVerification/IdVerificationSorry';
 // import MainVideoTest from './components/main/MainVideoTest';

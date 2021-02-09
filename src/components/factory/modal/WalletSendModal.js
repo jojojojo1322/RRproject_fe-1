@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import ResetStyle from '../../../style/ResetStyle';
 import ModalStyle from '../../../style/ModalStyle';
-import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
 const WalletSendModal = ({
   modalVisible,

@@ -141,14 +141,12 @@ const ResearchForm = (props) => {
   };
   //
   useEffect(() => {
-    if (insertSuccess === 0) {
-      if (insertSuccess === 0) {
-        props.navigation.replace('MainVideo', {
-          legacySurveyId: legacySurveyId,
-          surveyArray: checkedArray,
-          surveyId: props.route.params?.surveyId,
-        });
-      }
+    if (insertSuccess === 1) {
+      props.navigation.replace('MainVideo', {
+        legacySurveyId: legacySurveyId,
+        surveyArray: checkedArray,
+        surveyId: props.route.params?.surveyId,
+      });
     }
   }, [insertSuccess]);
 
