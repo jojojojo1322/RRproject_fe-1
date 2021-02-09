@@ -11,6 +11,7 @@ import {
 import ResetStyle from '../../style/ResetStyle.js';
 import MainStyle from '../../style/MainStyle.js';
 import BottomModal from '../factory/modal/BottomModal';
+import TextConfirmModal from '../factory/modal/TextConfirmModal';
 import ProgressModal from '../factory/modal/ProgressModal';
 import VideoPlayer from 'react-native-video-controls';
 import Orientation from 'react-native-orientation-locker';
@@ -36,6 +37,8 @@ const MainVideo = ({navigation, route}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
   const [modal3Visible, setModal3Visible] = useState(false);
+  const [modal4Visible, setModal4Visible] = useState(false);
+  const [modal5Visible, setModal5Visible] = useState(false);
   const [advertisementData, setAdvertisementData] = useState([]);
   const [overTen, setOverTen] = useState(false);
   const [videoUri, setVideoUri] = useState(
@@ -94,15 +97,38 @@ const MainVideo = ({navigation, route}) => {
   };
 
   // Reward Api
-  const postRewardApi = () => {
+  const postRewardApi = async () => {
+    // setModal3Visible(true);
     axios
-      .post(`${server}/wallet/trans/reward`)
+      .post(`${server}/wallet/trans/reward`, {
+        language: await AsyncStorage.getItem('deviceLanguage'),
+        receiver: await AsyncStorage.getItem('userNo'),
+        surveyId: surveyId,
+      })
       .then((response) => {
-        console.log('postRewardApi', response);
+        console.log('postRewardApi >>>>>>>>', response);
+        if (response.data.status == 'success') {
+          navigation.navigate('MainVideoComplete');
+        } else if (response.data.status == 'fail') {
+          if (response.data.msg === 'survey already participated.') {
+            setModal4Visible(!modal4Visible);
+          } else {
+            setModal5Visible(!modal5Visible);
+          }
+        }
       })
       .catch((e) => {
         console.log('error', e);
       });
+    // setModal3Visible(false);
+  };
+
+  const handleNextPageAlready = () => {
+    navigation.navigate('Main');
+  };
+
+  const handleNextPageFail = () => {
+    navigation.navigate('Main');
   };
 
   // 비디오 현재 시간 catch 해서 10넘으면 overTen true값 반환
@@ -248,9 +274,9 @@ const MainVideo = ({navigation, route}) => {
           }}>
           <VideoPlayer
             source={{uri: videoUri}}
-            ref={(ref) => {
-              player = ref;
-            }}
+            // ref={(ref) => {
+            //   player = ref;
+            // }}
             rate={1.0}
             volume={0.0}
             isMuted={true}
@@ -291,8 +317,7 @@ const MainVideo = ({navigation, route}) => {
                 justifyContent: 'center',
               }}
               onPress={() => {
-                // navigation.navigate('MainVideoComplete');
-                navigation.replace('MainVideoComplete');
+                postRewardApi();
               }}>
               <Text style={(ResetStyle.fontRegularK, ResetStyle.fontBlack)}>
                 건너뛰기
@@ -320,7 +345,7 @@ const MainVideo = ({navigation, route}) => {
               if (overTen === false) {
                 setModal2Visible(!modal2Visible);
               } else if (overTen === true) {
-                navigation.replace('MainVideoComplete');
+                postRewardApi();
               }
             }}>
             <Text
@@ -342,6 +367,24 @@ const MainVideo = ({navigation, route}) => {
           modalVisible={modal2Visible}
           setModalVisible={setModal2Visible}
           text={'10초 이상 시청시 리워드가 지급됩니다.'}
+        />
+        <ProgressModal
+          modalVisible={modal3Visible}
+          setModalVisible={setModal3Visible}
+        />
+        <TextConfirmModal
+          setModalVisible={setModal4Visible}
+          modalVisible={modal4Visible}
+          text={'이미 참여한 설문입니다.'}
+          confirm={'확인'}
+          handleNextPage={handleNextPageAlready}
+        />
+        <TextConfirmModal
+          setModalVisible={setModal5Visible}
+          modalVisible={modal5Visible}
+          text={'리워드 지급이 실패했습니다.'}
+          confirm={'확인'}
+          handleNextPage={handleNextPageFail}
         />
       </View>
     </View>

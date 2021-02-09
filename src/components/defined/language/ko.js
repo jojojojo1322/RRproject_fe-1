@@ -383,7 +383,7 @@ export default ko = {
       walletSend12: '수수료를 제외한 총액이 표시됩니다.',
       walletSend13: '내용을 올바르게 입력 해 주십시오.',
       walletSend14: '보내는 금액은 최소 10 TNC 이상입니다.',
-      walletSend15: '전송 수수료 : 10 TNC',
+      walletSend15: '송금 수수료 : 10 TNC',
       walletSend16: '보내는 금액은 최소 10 TNC 이상이어야 합니다.',
 
       // WalletSendQR

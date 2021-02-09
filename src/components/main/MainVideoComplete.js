@@ -9,10 +9,22 @@ import {
 } from 'react-native';
 import ResetStyle from '../../style/ResetStyle.js';
 import {useTranslation} from 'react-i18next';
+import {server} from '../defined/server';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const MainVideoComplete = ({navigation}) => {
+const MainVideoComplete = ({navigation, route}) => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const {surveyId} = route ? route.params : '';
   const URL = 'https://aladdin25.com/';
   const {t, i18n} = useTranslation();
+
+  useEffect(() => {
+    postRewardApi();
+  }, []);
+
+  // Reward Api
+
   return (
     <SafeAreaView style={[ResetStyle.container]}>
       <View style={[ResetStyle.containerInner, {marginHorizontal: 0}]}>

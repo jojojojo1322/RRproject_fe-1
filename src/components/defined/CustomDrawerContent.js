@@ -143,8 +143,7 @@ const CustomDrawerContent = (props) => {
         }}>
         <TouchableOpacity
           onPress={() => {
-            // props.navigation.closeDrawer();
-            props.navigation.navigate('MainVideo');
+            props.navigation.closeDrawer();
           }}>
           <View style={{flexDirection: 'row'}}>
             <Image

@@ -251,7 +251,7 @@ class AgreementTermsConditions extends Component {
                       ResetStyle.fontDG,
                       {marginLeft: 10},
                     ]}>
-                    {t('agreementTermsConditions4')}
+                    {t('agreementTermsConditions3')}
                   </Text>
                 </TouchableWithoutFeedback>
               </View>
