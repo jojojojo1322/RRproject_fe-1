@@ -129,7 +129,8 @@ const ListCheckLangModal = ({
   list,
 }) => {
   let CheckedArrObject = new SelectedCheckboxes();
-  console.log(CheckedArrObject.fetchArray().length);
+  // console.log(CheckedArrObject.fetchArray().length);
+
   const [searchText, setSearchText] = useState('');
   const [checkedArray, setCheckedArray] = useState([]);
   const {t, i18n} = useTranslation();
@@ -189,10 +190,10 @@ const ListCheckLangModal = ({
                   ResetStyle.fontBlack,
                   {fontWeight: '500'},
                 ]}>
-                사용가능언어 선택
+                {t('listCheckLangModal1')}
               </Text>
               <Text style={[ResetStyle.fontLightK, ResetStyle.fontBlack]}>
-                (다중 선택 가능)
+                {t('listCheckLangModal2')}
               </Text>
             </View>
             <TouchableWithoutFeedback
@@ -259,7 +260,7 @@ const ListCheckLangModal = ({
               }
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontWhite]}>
-              CONFIRM
+              {t('listCheckLangModalNextButton')}
             </Text>
           </TouchableOpacity>
         </View>

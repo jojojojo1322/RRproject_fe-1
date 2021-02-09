@@ -319,7 +319,7 @@ const MainVideo = ({navigation, route}) => {
                 postRewardApi();
               }}>
               <Text style={(ResetStyle.fontRegularK, ResetStyle.fontBlack)}>
-                건너뛰기
+                {t('mainVideo1')}
               </Text>
             </TouchableOpacity>
           )}
@@ -353,8 +353,7 @@ const MainVideo = ({navigation, route}) => {
                 ResetStyle.fontWhite,
                 {fontWeight: '600'},
               ]}>
-              {t('')}
-              리워드 받기
+              {t('mainVideo2')}
             </Text>
           </TouchableOpacity>
         )}
@@ -365,7 +364,7 @@ const MainVideo = ({navigation, route}) => {
         <BottomModal
           modalVisible={modal2Visible}
           setModalVisible={setModal2Visible}
-          text={'10초 이상 시청시 리워드가 지급됩니다.'}
+          text={t('mainVideo3')}
         />
         <ProgressModal
           modalVisible={modal3Visible}
@@ -374,15 +373,15 @@ const MainVideo = ({navigation, route}) => {
         <TextConfirmModal
           setModalVisible={setModal4Visible}
           modalVisible={modal4Visible}
-          text={'이미 참여한 설문입니다.'}
-          confirm={'확인'}
+          text={t('mainVideo4')}
+          confirm={t('mainVideo5')}
           handleNextPage={handleNextPageAlready}
         />
         <TextConfirmModal
           setModalVisible={setModal5Visible}
           modalVisible={modal5Visible}
-          text={'리워드 지급이 실패했습니다.'}
-          confirm={'확인'}
+          text={t('mainVideo6')}
+          confirm={t('mainVideo7')}
           handleNextPage={handleNextPageFail}
         />
       </View>

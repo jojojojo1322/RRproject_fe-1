@@ -1205,12 +1205,15 @@ function Main({navigation, t, i18n}) {
             alignSelf: 'center',
           }}>
           <TouchableOpacity
-            onPress={async () => {
-              try {
-                console.log('USerNONONO', await AsyncStorage.getItem('userNo'));
-                await AsyncStorage.removeItem('userNo');
-                console.log('USerNONONO', await AsyncStorage.getItem('userNo'));
-              } catch (e) {}
+            // onPress={async () => {
+            //   try {
+            //     console.log('USerNONONO', await AsyncStorage.getItem('userNo'));
+            //     await AsyncStorage.removeItem('userNo');
+            //     console.log('USerNONONO', await AsyncStorage.getItem('userNo'));
+            //   } catch (e) {}
+            // }}
+            onPress={() => {
+              navigation.navigate('Kyc');
             }}>
             <View
               style={{
