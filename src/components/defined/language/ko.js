@@ -642,6 +642,32 @@ export default ko = {
       idVerificationSorryTitle: '인증 실패',
       idVerificationSorry1:
         '인증이 제한되었습니다.\n제출하신 서류가 기준에 맞지 않습니다.\n자세한 사항은 CS팀에 문의해주세요.',
+
+      // -------------------------------------------------------2021.02.10 01:05-----
+
+      // AudienceModal
+      audienceModalTitle: 'Audience',
+      audienceModal1: '참여가능 LEVEL : ',
+      audienceModal2: '나이',
+      audienceModal3: '성별',
+      audienceModal4: '결혼 유무',
+      audienceModal5: '국적',
+      audienceModal6: '거주 국가',
+      audienceModal7: '거주 도시',
+      audienceModal8: '언어',
+
+      // DatePickerModal
+      datePickerModal1: '확인',
+
+      // KycModal
+      modalModalTitle: 'KYC LEVEL이란?',
+      modalModal1: '리얼리서치 설문조사에 참여할 수 있는 LEVEL 을 의미합니다.',
+      modalModal2:
+        'LEVEL이 높아질수록 설문조사 참여가능 수와 보상이 높아집니다.',
+      modalModal3:
+        '해당 KYC 정보는 참여 조건을 확인하고 결과 리포트에 반영될 뿐 회원님을 구별할 수 있는 정보는 저장하지 않습니다.',
+      modalModal4:
+        '리얼리서치는 회원님의 KYC 정보를 블록체인에 저장하여 개인 정보를 안전하게 지켜드립니다.',
     },
   },
 };

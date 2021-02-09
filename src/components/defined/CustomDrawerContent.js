@@ -38,6 +38,7 @@ const CustomDrawerContent = (props) => {
   const {t, i18n} = useTranslation();
   const [alertData, setAlertData] = useState([]);
   const [walletData, setWalletData] = useState([]);
+  const [idData, setIdData] = useState([]);
   const [total, setTotal] = useState(0);
 
   const [alertDataNot, setAlertDataNot] = useState(0);
@@ -47,6 +48,8 @@ const CustomDrawerContent = (props) => {
   const [email, setEmail] = useState('');
 
   console.log('커스텀 propspropspropsprops', props);
+
+  // console.log(await AsyncStorage.getItem('userNo'));
 
   const emailAsyncSet = async () => {
     setEmail(await AsyncStorage.getItem('email'));
@@ -62,6 +65,7 @@ const CustomDrawerContent = (props) => {
     emailAsyncSet();
     getWalletApi();
     userApi();
+    passportApi();
   }, [props.login]);
 
   console.log('CUSTON>>>>', props.login);
@@ -81,6 +85,22 @@ const CustomDrawerContent = (props) => {
       })
       .catch((e) => {
         console.log('notiGetError', e);
+      });
+  };
+
+  const passportApi = async () => {
+    await axios
+      .get(
+        `${server}/util/passport/status?userNo=${await AsyncStorage.getItem(
+          'userNo',
+        )}`,
+      )
+      .then((response) => {
+        console.log('passportApi Then', response.data);
+        setIdData(response.data);
+      })
+      .catch((e) => {
+        console.log('passportApi', e);
       });
   };
 

@@ -10,6 +10,7 @@ import {
 import ResetStyle from '../../../style/ResetStyle';
 import ModalStyle from '../../../style/ModalStyle';
 import DatePicker from '../../factory/tool/DatePicker';
+import {useTranslation} from 'react-i18next';
 
 // Year-Month-Date
 function formatDate(date) {
@@ -32,6 +33,7 @@ const DatePickerModal = ({
   handleBirth,
 }) => {
   const [date, setDate] = useState('');
+  const {t, i18n} = useTranslation();
   return modalVisible ? (
     <Modal animationType="fade" transparent={true} visible={modalVisible}>
       <View style={{flex: 1, position: 'relative'}}>
@@ -82,7 +84,7 @@ const DatePickerModal = ({
                 ResetStyle.fontWhite,
                 {fontWeight: '600'},
               ]}>
-              확인
+              {t('datePickerModal1')}
             </Text>
           </TouchableOpacity>
         </View>

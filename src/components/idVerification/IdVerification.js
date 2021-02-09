@@ -282,7 +282,7 @@ const ProfileMain = ({navigation}) => {
         ]}
         activeOpacity={0.75}
         onPress={() => {
-          navigation.navigate('IdVerificationInProgress');
+          navigation.replace('IdVerificationInProgress');
         }}>
         <Text
           style={[
