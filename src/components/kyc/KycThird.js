@@ -62,17 +62,18 @@ class kycThird extends Component {
         residenceCountry: this.props.KresidenceCountry,
       });
       this.countryDataApi();
-    } else {
-      if (
-        preState.residenceCountryCd !== '' &&
-        preState.residenceCountryCd !== this.state.residenceCountryCd
-      ) {
-        this.cityDataApi();
-        this.setState({
-          residenceCity: '',
-        });
-      }
     }
+    // } else {
+    if (
+      preProps.Kcountry === this.props.Kcountry &&
+      preState.residenceCountryCd !== this.state.residenceCountryCd
+    ) {
+      this.cityDataApi();
+      // this.setState({
+      //   residenceCity: '',
+      // });
+    }
+    // }
   };
   cityDataApi = async () => {
     await axios

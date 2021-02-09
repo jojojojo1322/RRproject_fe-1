@@ -21,11 +21,9 @@ const Splash = () => {
       // device 확인
       const device =
         Platform.OS === 'ios' ? PERMISSIONS.IOS : PERMISSIONS.ANDROID;
-
       //if requestPermission(ios)
       requestPermission(device).then((res) => {
         console.log(res);
-
         const {DENIED, BLOCKED} = resultClassification(res);
         const notGrantedArr = [...DENIED, ...BLOCKED];
 
