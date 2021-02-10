@@ -69,14 +69,7 @@ const DATA = [
   // ,sponsorName: "sponsor"
   // ,instructions: "description"}
 ];
-// function numberWithCommas(num) {
-//   // var parts = num.toString().split('.');
-//   // var parts = num.split('.');
-//   return (
-//     parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',') +
-//     (parts[1] ? '.' + parts[1] : '')
-//   );
-// }
+
 const numberWithCommas = (x) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
@@ -115,50 +108,69 @@ const TncGetApi = async () => {
     });
 };
 
-// ongoing, expired 설문조사 호출 api
-const surveyApi = async (surveyStatus) => {
-  await axios
-    .get(
-      `${server}/survey/main/status/${surveyStatus}/${await AsyncStorage.getItem(
-        'deviceLanguage',
-      )}?CurrentPageNo=1&userNo=${await AsyncStorage.getItem('userNo')}`,
-    )
-    .then(async (response) => {
-      console.log(`surveyApi ${surveyStatus} Then >>`, response);
-      if (surveyStatus === 'ongoing') {
-        setOngoingData(response.data);
-      } else if (surveyStatus === 'expired') {
-        setExpiredData(response.data);
-      }
-    })
-    .catch((e) => {
-      console.log(`surveyApi ${surveyStatus} Error`, e);
-    });
-};
-
-//해당 유저 참여 설문 호출 api
-const completeSurveyApi = async () => {
-  await axios
-    .get(`${server}/survey/main/${await AsyncStorage.getItem('userNo')}`)
-    .then(async (response) => {
-      console.log(`completeSurveyApi Then >>`, response.data);
-      setCompleteData(response);
-    })
-    .catch((e) => {
-      console.log(`completeSurveyApi Error`, e);
-    });
-};
-
 function Ongoing({navigation}) {
   console.log('Ongoing 호출');
 
   const [index, setIndex] = useState(0);
   const [ongoingData, setOngoingData] = useState([]);
+  const [kycUpdateCheck, setKycUpdateCheck] = useState(1);
+  // //Kyc 72시간 경고 모달
+  const [modalVisible, setModalVisible] = useState(false);
+
   // const [loading, setLoading] = useState(false);
   const {t, i18n} = useTranslation();
+
+  const surveyDetailApi = async (legacySurveyId) => {
+    await axios
+      .get(
+        `${server}/survey/detail?deviceLanguageCode=${await AsyncStorage.getItem(
+          'deviceLanguage',
+        )}&legacySurveyId=${legacySurveyId}&userNo=${await AsyncStorage.getItem(
+          'userNo',
+        )}`,
+      )
+      .then(async (response) => {
+        console.log(`surveyDetailApi Then >>`, response);
+        console.log(`surveyDetailApi Then >>`, response.data.response);
+        setKycUpdateCheck(response.data.response.ret_val);
+      })
+      .catch((e) => {
+        console.log(`surveyDetailApi Error`, e);
+      });
+  };
   const renderItem = ({item}) => {
-    console.log(item);
+    let ret = 1;
+    // console.log(item);
+    // const surveyDetailApi = async (legacySurveyId) => {
+    //   await axios
+    //     .get(
+    //       `${server}/survey/detail?deviceLanguageCode=${await AsyncStorage.getItem(
+    //         'deviceLanguage',
+    //       )}&legacySurveyId=${legacySurveyId}&userNo=${await AsyncStorage.getItem(
+    //         'userNo',
+    //       )}`,
+    //     )
+    //     .then(async (response) => {
+    //       console.log(`surveyDetailApi Then >>`, response);
+
+    //       ret = response.data.response.ret_val;
+    //       return ret;
+    //     })
+    //     .catch((e) => {
+    //       console.log(`surveyDetailApi Error`, e);
+    //     });
+    //   return ret;
+    // };
+    // surveyDetailApi(item.legacySurveyId);
+    // // console.log(async () => {
+    //   await ret;
+    // });
+    // 210202131311227
+    // 5f91aad0ae28561b056e2f97
+    // "http://52.78.181.176:8091/v1/api/survey/detail?deviceLanguageCode=ko&legacySurveyId=5fd8b08d0afe882b01307818&userNo=210202131311227"
     // console.log('renderItem item', require("'" + item.categoryImg + "'"));
+    // 5f91aad0ae28561b056e2f97
+    // 5fd8b08d0afe882b01307818
     var today = new Date().getTime();
     var dday = new Date(item.endTime).getTime();
     var gap = dday - today;
@@ -166,7 +178,6 @@ function Ongoing({navigation}) {
     var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
     var sec = Math.ceil((gap % (1000 * 60)) / 1000);
-
     if (item.status === 'zero') {
       return (
         <TouchableOpacity
@@ -190,33 +201,36 @@ function Ongoing({navigation}) {
       );
     } else {
       return (
-        <View
+        <TouchableOpacity
           style={[
             MainStyle.itemBox,
             // {marginBottom: item.id === item.length ? 200 : 0},
           ]}
-          // onPress={() => {
-          //   item.surveyStatus === 'expired'
-          //     ? navigation.navigate('MainDetailExpired', {
-          //         legacySurveyId: item.legacySurveyId,
-          //         // legacySurveyId: '5f91aad0ae28561b056e2f97',
-          //         surveyName: item.surveyName,
-          //       })
-          //     : item.surveyStatus === 'completed'
-          //     ? navigation.navigate('MainDetailCompleted', {
-          //         legacySurveyId: item.legacySurveyId,
-          //         // legacySurveyId: '5f91aad0ae28561b056e2f97',
-          //         surveyName: item.surveyName,
-          //       })
-          //     : Number(kycUpdateTimeCheck) <= -72
-          //     ? navigation.navigate('MainDetail', {
-          //         legacySurveyId: item.legacySurveyId,
-          //         // legacySurveyId: '5f91aad0ae28561b056e2f97',
-          //         surveyName: item.surveyName,
-          //       })
-          //     : setModalVisible(true);
-          // }}
-        >
+          onPress={() => {
+            surveyDetailApi(item.legacySurveyId);
+            console.log(
+              'kycUpdateCheckkycUpdateCheckkycUpdateCheck',
+              kycUpdateCheck,
+            );
+            navigation.navigate('MainDetail', {
+              legacySurveyId: item.legacySurveyId,
+              // legacySurveyId: '5f91aad0ae28561b056e2f97',
+              surveyName: item.surveyName,
+            });
+            // ret === -1
+            //   ? setModalVisible(true)
+            //   : navigation.navigate('MainDetail', {
+            //       legacySurveyId: item.legacySurveyId,
+            //       // legacySurveyId: '5f91aad0ae28561b056e2f97',
+            //       surveyName: item.surveyName,
+            //     });
+
+            // : navigation.navigate('MainDetail', {
+            //     legacySurveyId: item.legacySurveyId,
+            //     // legacySurveyId: '5f91aad0ae28561b056e2f97',
+            //     surveyName: item.surveyName,
+            //   });
+          }}>
           <View
             opacity={item.surveyStatus === 'expired' ? 0.5 : 1.0}
             style={{
@@ -355,12 +369,23 @@ function Ongoing({navigation}) {
                     }, 1000)} */}
                   {/* {`${day - 1}일 ${hour}시간 ${min}분 ${sec}초`} */}
                   {
-                    <Moment
-                      element={Text}
-                      interval={1000}
-                      date={item.endTime}
-                      durationFromNow
-                    />
+                    <>
+                      <Moment
+                        element={Text}
+                        interval={100}
+                        date={item.endTime}
+                        durationFromNow
+                        format="D일 hh시간 mm분 ss초"
+                      />
+
+                      {/* <Moment
+                        element={Text}
+                        interval={1000}
+                        date={now}
+                        duration={item.endTime}
+                        format="D일 hh시간 mm분 ss초"
+                      /> */}
+                    </>
                   }
                   {/* {setInterval(() => {
                       var today = new Date().getTime();
@@ -416,7 +441,7 @@ function Ongoing({navigation}) {
               </Text>
             </TouchableOpacity>
           </View>
-        </View>
+        </TouchableOpacity>
       );
     }
   };
@@ -445,44 +470,51 @@ function Ongoing({navigation}) {
   }, []);
 
   return (
-    <Carousel
-      data={
-        ongoingData.length == 0 ? [{status: 'zero'}] : ongoingData
-        // DATA.filter((item) => item.status == 'ongoing').length == 0
-        //   ? [{status: 'zero'}]
-        //   : DATA.filter((item) => item.status == 'ongoing')
-      }
-      renderItem={renderItem}
-      sliderHeight={SLIDER_HEIGHT}
-      itemHeight={ITEM_HEIGHT}
-      containerCustomStyle={{
-        flex: 1,
-        backgroundColor: '#fff',
-      }}
-      inactiveSlideShift={0}
-      onSnapToItem={(index) => setIndex(index)}
-      scrollInterpolator={scrollInterpolator2}
-      slideInterpolatedStyle={animatedStyles2}
-      useScrollView={true}
-      vertical={true}
-      layout={'stack'}
-      layoutCardOffset={0}
-      // ListFooterComponent={loading && <ActivityIndicator />}
-    />
+    <>
+      <Carousel
+        data={
+          ongoingData.length == 0 ? [{status: 'zero'}] : ongoingData
+          // DATA.filter((item) => item.status == 'ongoing').length == 0
+          //   ? [{status: 'zero'}]
+          //   : DATA.filter((item) => item.status == 'ongoing')
+        }
+        renderItem={renderItem}
+        sliderHeight={SLIDER_HEIGHT}
+        itemHeight={ITEM_HEIGHT}
+        containerCustomStyle={{
+          flex: 1,
+          backgroundColor: '#fff',
+        }}
+        inactiveSlideShift={0}
+        onSnapToItem={(index) => setIndex(index)}
+        scrollInterpolator={scrollInterpolator2}
+        slideInterpolatedStyle={animatedStyles2}
+        useScrollView={true}
+        vertical={true}
+        layout={'stack'}
+        layoutCardOffset={0}
+        // ListFooterComponent={loading && <ActivityIndicator />}
+      />
+      <BottomModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        text={`kyc 업데이트 후 72시간전 입니다.`}
+      />
+    </>
   );
 }
 
 function Completed({navigation}) {
   console.log('Completed 호출');
   const [index, setIndex] = useState(0);
-  const [completeData, setCompleteData] = useState(0);
+  const [completeData, setCompleteData] = useState([]);
   const {t, i18n} = useTranslation();
   const completeSurveyApi = async () => {
     await axios
       .get(`${server}/survey/main/${await AsyncStorage.getItem('userNo')}`)
       .then(async (response) => {
         console.log(`completeSurveyApi Then >>`, response.data);
-        setCompleteData(response);
+        setCompleteData(response.data);
       })
       .catch((e) => {
         console.log(`completeSurveyApi Error`, e);
@@ -493,7 +525,7 @@ function Completed({navigation}) {
   }, []);
 
   const renderItem = ({item}) => {
-    // console.log(item);
+    console.log('completecompletecompletecompletecompletecomplete', item);
     // console.log('renderItem item', require("'" + item.categoryImg + "'"));
     var today = new Date().getTime();
     var dday = new Date(item.endTime).getTime();
@@ -505,7 +537,7 @@ function Completed({navigation}) {
 
     if (item.status === 'zero') {
       return (
-        <TouchableOpacity
+        <View
           style={[
             MainStyle.itemBox,
             {borderWidth: 0, backgroundColor: 'transparent', marginTop: '20%'},
@@ -522,37 +554,22 @@ function Completed({navigation}) {
             ]}>
             {t('main1')}
           </Text>
-        </TouchableOpacity>
+        </View>
       );
     } else {
       return (
-        <View
+        <TouchableOpacity
           style={[
             MainStyle.itemBox,
             // {marginBottom: item.id === item.length ? 200 : 0},
           ]}
-          // onPress={() => {
-          //   item.surveyStatus === 'expired'
-          //     ? navigation.navigate('MainDetailExpired', {
-          //         legacySurveyId: item.legacySurveyId,
-          //         // legacySurveyId: '5f91aad0ae28561b056e2f97',
-          //         surveyName: item.surveyName,
-          //       })
-          //     : item.surveyStatus === 'completed'
-          //     ? navigation.navigate('MainDetailCompleted', {
-          //         legacySurveyId: item.legacySurveyId,
-          //         // legacySurveyId: '5f91aad0ae28561b056e2f97',
-          //         surveyName: item.surveyName,
-          //       })
-          //     : Number(kycUpdateTimeCheck) <= -72
-          //     ? navigation.navigate('MainDetail', {
-          //         legacySurveyId: item.legacySurveyId,
-          //         // legacySurveyId: '5f91aad0ae28561b056e2f97',
-          //         surveyName: item.surveyName,
-          //       })
-          //     : setModalVisible(true);
-          // }}
-        >
+          onPress={() => {
+            navigation.navigate('MainDetailCompleted', {
+              legacySurveyId: item.legacySurveyId,
+              // legacySurveyId: '5f91aad0ae28561b056e2f97',
+              surveyName: item.surveyName,
+            });
+          }}>
           <View
             opacity={item.surveyStatus === 'expired' ? 0.5 : 1.0}
             style={{
@@ -695,6 +712,7 @@ function Completed({navigation}) {
                       element={Text}
                       interval={1000}
                       date={item.endTime}
+                      format="D일 hh시간 mm분 ss초"
                       durationFromNow
                     />
                   }
@@ -752,7 +770,7 @@ function Completed({navigation}) {
               </Text>
             </TouchableOpacity>
           </View>
-        </View>
+        </TouchableOpacity>
       );
     }
   };
@@ -764,6 +782,7 @@ function Completed({navigation}) {
         //   ? [{status: 'zero'}]
         //   : DATA.filter((item) => item.status == 'completed')
         completeData.length == 0 ? [{status: 'zero'}] : completeData
+        // completeData
         // DATA.filter((item) => item.status == 'completed').length == 0
         //   ? [{status: 'zero'}]
         //   : DATA.filter((item) => item.status == 'completed')
@@ -825,33 +844,32 @@ function Expired({navigation}) {
       );
     } else {
       return (
-        <View
+        <TouchableOpacity
           style={[
             MainStyle.itemBox,
             // {marginBottom: item.id === item.length ? 200 : 0},
           ]}
-          // onPress={() => {
-          //   item.surveyStatus === 'expired'
-          //     ? navigation.navigate('MainDetailExpired', {
-          //         legacySurveyId: item.legacySurveyId,
-          //         // legacySurveyId: '5f91aad0ae28561b056e2f97',
-          //         surveyName: item.surveyName,
-          //       })
-          //     : item.surveyStatus === 'completed'
-          //     ? navigation.navigate('MainDetailCompleted', {
-          //         legacySurveyId: item.legacySurveyId,
-          //         // legacySurveyId: '5f91aad0ae28561b056e2f97',
-          //         surveyName: item.surveyName,
-          //       })
-          //     : Number(kycUpdateTimeCheck) <= -72
-          //     ? navigation.navigate('MainDetail', {
-          //         legacySurveyId: item.legacySurveyId,
-          //         // legacySurveyId: '5f91aad0ae28561b056e2f97',
-          //         surveyName: item.surveyName,
-          //       })
-          //     : setModalVisible(true);
-          // }}
-        >
+          onPress={() => {
+            item.surveyStatus === 'expired'
+              ? navigation.navigate('MainDetailExpired', {
+                  legacySurveyId: item.legacySurveyId,
+                  // legacySurveyId: '5f91aad0ae28561b056e2f97',
+                  surveyName: item.surveyName,
+                })
+              : item.surveyStatus === 'completed'
+              ? navigation.navigate('MainDetailCompleted', {
+                  legacySurveyId: item.legacySurveyId,
+                  // legacySurveyId: '5f91aad0ae28561b056e2f97',
+                  surveyName: item.surveyName,
+                })
+              : Number(kycUpdateTimeCheck) <= -72
+              ? navigation.navigate('MainDetail', {
+                  legacySurveyId: item.legacySurveyId,
+                  // legacySurveyId: '5f91aad0ae28561b056e2f97',
+                  surveyName: item.surveyName,
+                })
+              : setModalVisible(true);
+          }}>
           <View
             opacity={item.surveyStatus === 'expired' ? 0.5 : 1.0}
             style={{
@@ -990,13 +1008,15 @@ function Expired({navigation}) {
                     }, 1000)} */}
                   {/* {`${day - 1}일 ${hour}시간 ${min}분 ${sec}초`} */}
                   {
-                    <Moment
-                      element={Text}
-                      interval={1000}
-                      date={item.endTime}
-                      durationFromNow
-                    />
+                    // <Moment
+                    //   element={Text}
+                    //   interval={1000}
+                    //   date={item.endTime}
+                    //   format="D일 hh시간 mm분 ss초"
+                    //   durationFromNow
+                    // />
                   }
+                  0일 0시간 0분 0초
                   {/* {setInterval(() => {
                       var today = new Date().getTime();
                       var dday = new Date(item.endTime).getTime();
@@ -1051,7 +1071,7 @@ function Expired({navigation}) {
               </Text>
             </TouchableOpacity>
           </View>
-        </View>
+        </TouchableOpacity>
       );
     }
   };
@@ -1335,6 +1355,9 @@ function Main({navigation, t, i18n}) {
           name="Ongoing"
           component={Ongoing}
           options={{tabBarLabel: t('main7')}}
+          initialParams={{
+            setModalVisible: setModalVisible,
+          }}
         />
         <Tab.Screen
           name="Completed"

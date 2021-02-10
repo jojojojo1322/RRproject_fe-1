@@ -77,7 +77,8 @@ const ProfileComplete = (props) => {
               },
             ]}
             onPress={() => {
-              props.navigation.navigate('ProfileMain');
+              // props.navigation.navigate('ProfileMain');
+              props.navigation.replace('ProfileMain');
               // props.navigation.setOptions({ title: '약관동의' });
             }}>
             <Text

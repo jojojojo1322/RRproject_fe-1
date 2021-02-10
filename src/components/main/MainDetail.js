@@ -23,6 +23,8 @@ import TextConfirmModal from '../factory/modal/TextConfirmModal';
 import CarrierInfo from 'react-native-carrier-info';
 import {useTranslation} from 'react-i18next';
 
+import Moment from 'react-moment';
+
 const MainDetail = (props) => {
   const {t, i18n} = useTranslation();
   // audience detail modal
@@ -292,7 +294,18 @@ const MainDetail = (props) => {
             ResetStyle.fontBlack,
             {textAlign: 'left'},
           ]}>
-          Ends In | 251d 22h 13m 2s
+          {`Ends In | `}
+          {
+            <>
+              <Moment
+                element={Text}
+                interval={1000}
+                date={surveyDetail.endTime}
+                format="Dd일 hh시간 mm분 ss초"
+                durationFromNow
+              />
+            </>
+          }
         </Text>
         <View
           style={{
