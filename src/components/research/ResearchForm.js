@@ -141,7 +141,22 @@ const ResearchForm = (props) => {
   };
   //
   useEffect(() => {
-    if (insertSuccess === 1) {
+    if (insertSuccess === 0) {
+      console.log({
+        legacySurveyId: legacySurveyId,
+        surveyArray: checkedArray,
+        surveyId: props.route.params?.surveyId,
+      });
+      console.log({
+        legacySurveyId: legacySurveyId,
+        surveyArray: checkedArray,
+        surveyId: props.route.params?.surveyId,
+      });
+      console.log({
+        legacySurveyId: legacySurveyId,
+        surveyArray: checkedArray,
+        surveyId: props.route.params?.surveyId,
+      });
       props.navigation.replace('MainVideo', {
         legacySurveyId: legacySurveyId,
         surveyArray: checkedArray,
@@ -437,7 +452,7 @@ const ResearchForm = (props) => {
             {/* // */}
             {/* 해당 질문 option detail start */}
             <FlatList
-              style={{height: '60%'}}
+              style={{height: '50%'}}
               data={surveyOption.filter(
                 (d) => String(d.questionNum) === String(nowIndex + 1),
               )}
