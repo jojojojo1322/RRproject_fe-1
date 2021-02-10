@@ -139,7 +139,14 @@ export class RoundCheckbox extends Component {
           this.props.handleCheckedbox(value, 'PLUS');
         } else if (this.props.handleCheckedArray) {
           // 사용가능 언어 추가
+          const handleCheckedArray = this.props.handleCheckedArray;
+          // if (
+          //   handleCheckedArray.findIndex((data) => {
+          //     data.value === value;
+          //   }) === -1
+          // ) {
           this.props.handleCheckedArray(this.props.checkedObjArr.fetchArray());
+          // }
         }
         // this.props.handleCheckedArray(this.props.checkedObjArr.fetchArray());
         // console.log(this.props.checkedObjArr.fetchArray());

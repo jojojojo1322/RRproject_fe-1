@@ -304,6 +304,9 @@ class kycThird extends Component {
         <TouchableOpacity
           onPress={() => {
             this.setLanguageModal(true);
+            this.setState({
+              language: '',
+            });
           }}>
           <View style={AuthStyle.kycInput}>
             <Text

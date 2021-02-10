@@ -107,7 +107,7 @@ class Login extends Component {
     this.props.navigation.navigate('Kyc');
   };
   loginApi = async (id, pass) => {
-    // this.setModal5Visible(true);
+    this.setModal5Visible(true);
     await axios
       .post(`${server}/user/login`, {
         email: id,
@@ -159,6 +159,7 @@ class Login extends Component {
           await AsyncStorage.setItem('userNo', error.response.data.userNo);
         }
       });
+    this.setModal5Visible(false);
   };
   render() {
     const {t} = this.props;

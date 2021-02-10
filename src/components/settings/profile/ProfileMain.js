@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   Platform,
+  BackHandler,
 } from 'react-native';
 
 import {server} from '../../defined/server';
@@ -149,10 +150,21 @@ const ProfileMain = ({navigation}) => {
       </TouchableOpacity>
     );
   };
+
+  const handleBackButtonClick = () => {
+    navigation.replace('Main');
+    return true;
+  };
   useEffect(() => {
     console.log('실행');
     userApi();
+    BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
   });
+
+  useEffect(() => {
+    console.log('[]실행');
+    userApi();
+  }, []);
 
   return (
     <SafeAreaView style={ResetStyle.container}>

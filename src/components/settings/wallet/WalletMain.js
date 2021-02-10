@@ -11,6 +11,7 @@ import {
   Platform,
   FlatList,
   Linking,
+  BackHandler,
 } from 'react-native';
 
 import ResetStyle from '../../../style/ResetStyle.js';
@@ -98,6 +99,16 @@ const WalletMain = (props) => {
   const handleRefresh = () => {
     // setRefreshing(!refreshing);
   };
+
+  const handleBackButtonClick = () => {
+    props.navigation.replace('Main');
+    return true;
+  };
+  useEffect(() => {
+    console.log('실행');
+
+    BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+  });
 
   const Item = (data) => (
     <TouchableOpacity

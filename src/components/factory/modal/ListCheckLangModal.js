@@ -137,8 +137,22 @@ const ListCheckLangModal = ({
 
   const handleCheckedArray = async (Array) => {
     let _checkedArray = checkedArray;
-    await setCheckedArray(_checkedArray.concat(Array));
-    console.log('PlusArrayLATE', _checkedArray);
+    if (
+      _checkedArray.findIndex((data) => data.value === Array[0].value) === -1
+    ) {
+      await setCheckedArray(_checkedArray.concat(Array));
+      console.log('PlusArrayLATE', _checkedArray);
+    } else {
+      console.log('중복');
+    }
+    console.log(
+      '_checkedArray.findIndex((data)=>data.value === Array.value)_checkedArray.findIndex((data)=>data.value === Array.value)',
+      _checkedArray.findIndex((data) => data.value === Array[0].value),
+    );
+    console.log(
+      '_checkedArray.findIndex((data)=>data.value === Array.value)_checkedArray.findIndex((data)=>data.value === Array.value)',
+      Array,
+    );
   };
 
   const handleUnCheckedArray = async (value) => {
@@ -154,7 +168,7 @@ const ListCheckLangModal = ({
   const handleInputChange = (searchText) => {
     setSearchText(searchText);
   };
-
+  console.log('리스트체크랭>>>>>>>>>>>>>>>>>>>>>>>', checkedArray);
   return modalVisible ? (
     <KeyboardAwareScrollView
       enableOnAndroid={true}
