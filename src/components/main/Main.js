@@ -24,13 +24,18 @@ import {withTranslation} from 'react-i18next';
 import BottomModal from '../factory/modal/BottomModal';
 import Moment from 'react-moment';
 
-import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
-const SLIDER_WIDTH = Dimensions.get('window').width;
-// const SLIDER_HEIGHT = Dimensions.get('window').height / 2.5;
-const SLIDER_HEIGHT = Dimensions.get('window').height / 2;
-const ITEM_WIDTH = Math.round(SLIDER_WIDTH);
-const ITEM_HEIGHT = Math.round(ITEM_WIDTH);
+// const SLIDER_WIDTH = Dimensions.get('window').width;
+// // const SLIDER_HEIGHT = Dimensions.get('window').height / 2.5;
+// const SLIDER_HEIGHT = Dimensions.get('window').height / 2;
+// const ITEM_WIDTH = Math.round(SLIDER_WIDTH);
+// const ITEM_HEIGHT = Math.round(ITEM_WIDTH);
+
+// const SLIDER_WIDTH = Dimensions.get('window').width;
+// const SLIDER_HEIGHT = 500;
+// const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
+// const ITEM_HEIGHT = Math.round((ITEM_WIDTH * 5.7) / 4);
 
 const currentTnc = '';
 const kycLevel = '';
@@ -479,8 +484,8 @@ function Ongoing({navigation}) {
           //   : DATA.filter((item) => item.status == 'ongoing')
         }
         renderItem={renderItem}
-        sliderHeight={SLIDER_HEIGHT}
-        itemHeight={ITEM_HEIGHT}
+        sliderHeight={500}
+        itemHeight={420}
         containerCustomStyle={{
           flex: 1,
           backgroundColor: '#fff',
@@ -788,8 +793,8 @@ function Completed({navigation}) {
         //   : DATA.filter((item) => item.status == 'completed')
       }
       renderItem={renderItem}
-      sliderHeight={SLIDER_HEIGHT}
-      itemHeight={ITEM_HEIGHT}
+      sliderHeight={500}
+      itemHeight={420}
       containerCustomStyle={{flex: 1, backgroundColor: '#fff'}}
       inactiveSlideShift={0}
       onSnapToItem={(index) => setIndex(index)}
@@ -1107,8 +1112,8 @@ function Expired({navigation}) {
         expiredData.length == 0 ? [{status: 'zero'}] : expiredData
       }
       renderItem={renderItem}
-      sliderHeight={SLIDER_HEIGHT}
-      itemHeight={ITEM_HEIGHT}
+      sliderHeight={500}
+      itemHeight={420}
       containerCustomStyle={{flex: 1, backgroundColor: '#fff'}}
       inactiveSlideShift={0}
       onSnapToItem={(index) => setIndex(index)}
