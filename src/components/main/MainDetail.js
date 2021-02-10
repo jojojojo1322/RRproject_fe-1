@@ -299,7 +299,7 @@ const MainDetail = (props) => {
             <>
               <Moment
                 element={Text}
-                interval={1000}
+                interval={100}
                 date={surveyDetail.endTime}
                 format="Dd일 hh시간 mm분 ss초"
                 durationFromNow
@@ -390,10 +390,13 @@ const MainDetail = (props) => {
             if (audienceCheck === 0) {
               props.navigation.replace('ResearchForm', {
                 // legacySurveyId: props.route.params?.legacySurveyId,
-                legacySurveyId: '5f91aad0ae28561b056e2f97',
-                surveyName: surveyDetail.surveyName,
-                sponsorName: surveyDetail.sponsorName,
-                surveyId: String(audience.surveyId),
+                legacySurveyId: '5f9835585e40b26b969fedb2',
+                // surveyName: surveyDetail.surveyName,
+                surveyName: 'COVID-19  Vaccine Survey',
+                // sponsorName: surveyDetail.sponsorName,
+                sponsorName: '5f9677c880c3164b4b1cc398',
+                // surveyId: String(audience.surveyId),
+                surveyId: 78,
               });
             } else if (audienceCheck === -1) {
               setModal2Visible(true);

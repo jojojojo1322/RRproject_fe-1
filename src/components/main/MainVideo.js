@@ -99,6 +99,8 @@ const MainVideo = ({navigation, route}) => {
   // Reward Api
   const postRewardApi = async () => {
     // setModal3Visible(true);
+    console.log('reward 호출');
+
     axios
       .post(`${server}/wallet/trans/reward`, {
         language: await AsyncStorage.getItem('deviceLanguage'),
