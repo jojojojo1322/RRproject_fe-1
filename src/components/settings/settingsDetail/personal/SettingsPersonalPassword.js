@@ -23,6 +23,7 @@ class SettingsPersonalPassword extends Component {
     ret_val: '',
     userNo: '',
     modalVisible: false,
+    password: '',
   };
   setModalVisible = (visible) => {
     this.setState({
@@ -35,47 +36,83 @@ class SettingsPersonalPassword extends Component {
   };
   handlePassword = (e) => {
     this.setState({
-      email: e,
+      password: e,
     });
   };
-  passwordApi = (email) => {
+  // passwordApi = (email) => {
+  //   axios
+  //     .post(`${server}/util/email/pw-auth`, {
+  //       email,
+  //     })
+  //     .then(async (response) => {
+  //       console.log('then', response);
+  //       console.log('then', response.data);
+  //       console.log('then', response.authKey);
+  //       this.setState({
+  //         authKey: response.data.authKey,
+  //       });
+  //       const authKey = response.data.authKey;
+  //       await AsyncStorage.setItem('authKey', authKey);
+  //       console.log('Async!~!~!~!~', await AsyncStorage.getItem('authKey'));
+  //     })
+  //     .catch(({e}) => {
+  //       console.log('error', e);
+  //     });
+  // };
+  // passwordUserCheckApi = async (email) => {
+  //   await axios
+  //     .post(`${server}/user/duplicate/mailid`, {
+  //       mailId: email,
+  //     })
+  //     .then(async (response) => {
+  //       console.log('then', response);
+  //       console.log('then', response.data);
+  //       console.log('then', response.data.userNo);
+  //       this.setState({
+  //         ret_val: response.data.ret_val,
+  //         userNo: response.data.userNo,
+  //       });
+  //     })
+  //     .catch((e) => {
+  //       console.log('error', e);
+  //     });
+  // };
+
+  loginApi = async () => {
+    console.log({
+      deviceKey: DeviceInfo.getUniqueId(),
+      email: await AsyncStorage.getItem('email'),
+      password: this.state.password,
+    });
     axios
-      .post(`${server}/util/email/pw-auth`, {
-        email,
+      .post(`${server}/user/login`, {
+        deviceKey: DeviceInfo.getUniqueId(),
+        email: await AsyncStorage.getItem('email'),
+        password: this.state.password,
       })
-      .then(async (response) => {
-        console.log('then', response);
-        console.log('then', response.data);
-        console.log('then', response.authKey);
-        this.setState({
-          authKey: response.data.authKey,
-        });
-        const authKey = response.data.authKey;
-        await AsyncStorage.setItem('authKey', authKey);
-        console.log('Async!~!~!~!~', await AsyncStorage.getItem('authKey'));
+      .then((response) => {
+        console.log('loginApi THEN>>', response);
+        this.userInfoApi();
       })
-      .catch(({e}) => {
-        console.log('error', e);
+      .catch((e) => {
+        console.log('loginApi ERROR>>', e);
+        this.setModalVisible(true);
       });
   };
-  passwordUserCheckApi = async (email) => {
-    await axios
-      .post(`${server}/user/duplicate/mailid`, {
-        mailId: email,
-      })
-      .then(async (response) => {
-        console.log('then', response);
-        console.log('then', response.data);
-        console.log('then', response.data.userNo);
-        this.setState({
-          ret_val: response.data.ret_val,
-          userNo: response.data.userNo,
+  userInfoApi = async () => {
+    axios
+      .get(`${server}/user?userNo=${await AsyncStorage.getItem('userNo')}`)
+      .then((response) => {
+        console.log('userInfoApi THEN>>', response);
+        this.props.navigation.navigate('SettingsPersonal', {
+          userInfo: response.data,
         });
       })
       .catch((e) => {
-        console.log('error', e);
+        console.log('userInfoApi ERROR>>', e);
       });
   };
+
   render() {
     const {t} = this.props;
     console.log(DeviceInfo.getUniqueId());
@@ -130,7 +167,8 @@ class SettingsPersonalPassword extends Component {
                 ]}
                 placeholder={t('settingsPersonalPassword4')}
                 placeholderTextColor="#a9a9a9"
-                value={this.state.email}
+                value={this.state.password}
+                secureTextEntry={true}
                 onChangeText={this.handlePassword}
               />
               <TouchableOpacity
@@ -174,13 +212,15 @@ class SettingsPersonalPassword extends Component {
               //   // // console.log(await AsyncStorage.getItem('authKey'));
               // }
 
+              this.loginApi();
+
               // 테스트용
-              this.passwordApi(this.state.email);
-              this.props.navigation.navigate('SettingsPersonal', {
-                email: this.state.email,
-                authKey: this.state.authKey,
-                userNo: this.state.userNo,
-              });
+              // this.passwordApi(this.state.email);
+              // this.props.navigation.navigate('SettingsPersonal', {
+              //   email: this.state.email,
+              //   authKey: this.state.authKey,
+              //   userNo: this.state.userNo,
+              // });
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontWhite]}>
               {t('settingsPersonalPasswordNextButton')}

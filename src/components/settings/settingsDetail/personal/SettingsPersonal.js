@@ -23,6 +23,7 @@ class SettingsPersonal extends Component {
     authKey: '',
     ret_val: '',
     userNo: '',
+    phoneNum: '',
     modalVisible: false,
   };
   setModalVisible = (visible) => {
@@ -77,7 +78,15 @@ class SettingsPersonal extends Component {
         console.log('error', e);
       });
   };
+  componentDidMount = () => {
+    // console.log(this.props.route.params?.userInfo.mailId);
+    this.setState({
+      email: this.props.route.params?.userInfo.mailId,
+      phoneNum: this.props.route.params?.userInfo.phoneNum,
+    });
+  };
   render() {
+    console.log(this.props.route.params?.userInfo);
     const {t} = this.props;
     console.log(DeviceInfo.getUniqueId());
     console.log('authKey', this.state.authKey);
@@ -120,8 +129,8 @@ class SettingsPersonal extends Component {
                   borderBottomWidth: 1,
                   borderBottomColor: '#e6e6e6',
                 }}>
-                <Text style={[ResetStyle.fontRegularK, ResetStyle.fontG]}>
-                  aabbcc123@tnc.com
+                <Text style={[ResetStyle.fontRegularK, ResetStyle.fontDG]}>
+                  {this.state.email}
                 </Text>
               </View>
               <Text
@@ -203,27 +212,23 @@ class SettingsPersonal extends Component {
                   borderBottomWidth: 1,
                   borderBottomColor: '#e6e6e6',
                 }}>
-                <Text style={[ResetStyle.fontRegularK, ResetStyle.fontG]}>
-                  01012345678
+                <Text style={[ResetStyle.fontRegularK, ResetStyle.fontDG]}>
+                  {this.state.phoneNum}
                 </Text>
-                <TouchableOpacity
-                  onPress={async () => {
-                    this.props.navigation.push('SettingsPersonalPhone', {
-                      email: this.state.email,
-                      authKey: this.state.authKey,
-                      userNo: this.state.userNo,
-                    });
-                  }}>
-                  <Image
-                    style={{width: 25, height: 25}}
-                    source={require('../../../../imgs/drawable-xxxhdpi/kyc_edit_icon.png')}
-                  />
-                </TouchableOpacity>
               </View>
+              <Text
+                style={[
+                  ResetStyle.fontLightK,
+                  ResetStyle.fontB,
+                  {textAlign: 'left', marginTop: '2%'},
+                ]}>
+                {/* {t('settingsPersonal2')} */}※ Phone Number cannot be
+                modified.
+              </Text>
             </View>
 
             {/* Personal Setting - Master Key */}
-            <View style={[ResetStyle.textInputStyle, {marginTop: '8%'}]}>
+            {/* <View style={[ResetStyle.textInputStyle, {marginTop: '8%'}]}>
               <Text
                 style={[
                   ResetStyle.fontRegularK,
@@ -259,7 +264,7 @@ class SettingsPersonal extends Component {
                   />
                 </View>
               </TouchableOpacity>
-            </View>
+            </View> */}
           </View>
 
           <BottomModal
