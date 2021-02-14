@@ -190,7 +190,10 @@ class SettingsPersonalPassword extends Component {
             style={
               this.validateEmail(this.state.email)
                 ? [ResetStyle.button]
-                : [ResetStyle.button, {backgroundColor: '#e6e6e6'}]
+                : [
+                    ResetStyle.button,
+                    this.state.password === '' && {backgroundColor: '#e6e6e6'},
+                  ]
             }
             onPress={async () => {
               // api 용
@@ -211,8 +214,9 @@ class SettingsPersonalPassword extends Component {
               //   // // await AsyncStorage.setItem('authKey', asy);
               //   // // console.log(await AsyncStorage.getItem('authKey'));
               // }
-
-              this.loginApi();
+              if (this.state.password !== '') {
+                this.loginApi();
+              }
 
               // 테스트용
               // this.passwordApi(this.state.email);

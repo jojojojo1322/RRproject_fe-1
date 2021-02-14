@@ -20,11 +20,13 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '../../../style/ResetStyle.js';
 import ProfileStyle from '../../../style/ProfileStyle.js';
 import {useTranslation} from 'react-i18next';
+import TextConfirmCancelModal from '../../factory/modal/TextConfirmCancelModal';
 // import {FlatList} from 'react-native-gesture-handler';
 
 const ProfileCompleteDetail = (props) => {
   const {t, i18n} = useTranslation();
   const [question, setQuestion] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const getCompleteKycApi = async () => {
     await axios
@@ -136,7 +138,14 @@ const ProfileCompleteDetail = (props) => {
         console.log('getCompleteKycApi ERROR>>>', e);
       });
   };
-
+  const cancelHandle = () => {
+    setModalVisible(false);
+  };
+  const confirmHandle = () => {
+    props.navigation.navigate('ProfileIncompleteDetail', {
+      KycLevel: props.route.params?.KycLevel,
+    });
+  };
   useEffect(() => {
     getCompleteKycApi();
   }, []);
@@ -232,14 +241,26 @@ const ProfileCompleteDetail = (props) => {
         <TouchableOpacity
           style={[ResetStyle.button]}
           onPress={() => {
-            props.navigation.navigate('ProfileIncompleteDetail', {
-              KycLevel: props.route.params?.KycLevel,
-            });
+            // props.navigation.navigate('ProfileIncompleteDetail', {
+            //   KycLevel: props.route.params?.KycLevel,
+            // });
+            setModalVisible(true);
           }}>
           <Text style={[ResetStyle.buttonTexts, {fontSize: 20}]}>
             {t('profileCompleteDetail1')}
           </Text>
         </TouchableOpacity>
+        <TextConfirmCancelModal
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+          text={`KYC업데이트 시 72시간동안 ${'\n'}설문조사에 참여하실 수 없습니다.${'\n'}KYC업데이트를 진행하시겠습니까?`}
+          cancel={t('researchForm1')}
+          cancelHandle={cancelHandle}
+          confirm={t('researchForm4')}
+          confirmHandle={confirmHandle}
+          // text={`KYC LEVEL ${Number(kycLevel) + 1}을 먼저 완료해주세요.`}
+          // text={t('profileMain8', {kyclevel: Number(kycLevel) + 1})}
+        />
       </View>
     </SafeAreaView>
   );

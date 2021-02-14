@@ -19,6 +19,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '../../../style/ResetStyle.js';
 import ProfileStyle from '../../../style/ProfileStyle.js';
+import TextConfirmCancelModal from '../../factory/modal/TextConfirmCancelModal';
 
 import {useTranslation} from 'react-i18next';
 
@@ -71,6 +72,10 @@ const ProfileAll = (props) => {
   const [question21, setQuestion21] = useState([]);
   const [question22, setQuestion22] = useState([]);
   const [question23, setQuestion23] = useState([]);
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modal2Visible, setModal2Visible] = useState(false);
+  const [modal3Visible, setModal3Visible] = useState(false);
 
   const {t, i18n} = useTranslation();
 
@@ -209,15 +214,34 @@ const ProfileAll = (props) => {
   useEffect(() => {
     getCompleteKycApi();
     get2CompleteKycApi();
-    getDynamicCompleteKycApi(3);
-    getDynamicCompleteKycApi(4);
-    getDynamicCompleteKycApi(5);
-    getDynamicCompleteKycApi(6);
-    getDynamicCompleteKycApi(7);
-    getDynamicCompleteKycApi(8);
-    getDynamicCompleteKycApi(9);
+    // getDynamicCompleteKycApi(3);
+    // getDynamicCompleteKycApi(4);
+    // getDynamicCompleteKycApi(5);
+    // getDynamicCompleteKycApi(6);
+    // getDynamicCompleteKycApi(7);
+    // getDynamicCompleteKycApi(8);
+    // getDynamicCompleteKycApi(9);
+    // getDynamicCompleteKycApi(10);
+    // getDynamicCompleteKycApi(11);
+    // getDynamicCompleteKycApi(12);
+    // getDynamicCompleteKycApi(13);
+    // getDynamicCompleteKycApi(14);
+    // getDynamicCompleteKycApi(15);
+    // getDynamicCompleteKycApi(16);
+    // getDynamicCompleteKycApi(17);
+    // getDynamicCompleteKycApi(18);
+    // getDynamicCompleteKycApi(19);
+    // getDynamicCompleteKycApi(20);
+    // getDynamicCompleteKycApi(21);
+    // getDynamicCompleteKycApi(22);
+    // getDynamicCompleteKycApi(23);
+    levelMap.map((data) => {
+      if (Number(data.id) <= Number(props.route.params?.KycLevel)) {
+        getDynamicCompleteKycApi(data.id);
+      }
+    });
   }, []);
-
+  console.log('getDynamicCompleteKycApi(23);', props.route.params?.KycLevel);
   const get2CompleteKycApi = async () => {
     await axios
       .get(`${server}/kyc/2/${await AsyncStorage.getItem('userNo')}`)
@@ -359,7 +383,25 @@ const ProfileAll = (props) => {
         console.log('getCompleteKycApi ERROR>>>', e);
       });
   };
-
+  const cancelHandle = () => {
+    setModalVisible(false);
+  };
+  const confirmHandle = () => {
+    props.navigation.navigate('Kyc', {
+      KycLevel: 1,
+      question: question,
+    });
+  };
+  const confirm2Handle = () => {
+    props.navigation.navigate('ProfileIncompleteLevel2', {
+      KycLevel: 2,
+    });
+  };
+  const confirm3Handle = () => {
+    props.navigation.navigate('ProfileIncompleteDetail', {
+      KycLevel: props.route.params?.KycLevel,
+    });
+  };
   const RenderItem = (item) => {
     // console.log(item.answers);
     let answerNo = 0;
@@ -535,10 +577,11 @@ const ProfileAll = (props) => {
                     </Text>
                     <TouchableOpacity
                       onPress={() => {
-                        props.navigation.navigate('Kyc', {
-                          KycLevel: 1,
-                          question: question,
-                        });
+                        // props.navigation.navigate('Kyc', {
+                        //   KycLevel: 1,
+                        //   question: question,
+                        // });
+                        setModalVisible(true);
                       }}>
                       <Image
                         style={[ProfileStyle.kycAllLevelImg]}
@@ -561,9 +604,10 @@ const ProfileAll = (props) => {
                   </Text>
                   <TouchableOpacity
                     onPress={() => {
-                      props.navigation.navigate('ProfileIncompleteLevel2', {
-                        KycLevel: 2,
-                      });
+                      // props.navigation.navigate('ProfileIncompleteLevel2', {
+                      //   KycLevel: 2,
+                      // });
+                      setModal2Visible(true);
                     }}>
                     <Image
                       style={[ProfileStyle.kycAllLevelImg]}
@@ -760,6 +804,39 @@ const ProfileAll = (props) => {
             정보 수정하기
           </Text>
         </TouchableOpacity> */}
+        <TextConfirmCancelModal
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+          text={`KYC업데이트 시 72시간동안 ${'\n'}설문조사에 참여하실 수 없습니다.${'\n'}KYC업데이트를 진행하시겠습니까?`}
+          cancel={t('researchForm1')}
+          cancelHandle={cancelHandle}
+          confirm={t('researchForm4')}
+          confirmHandle={confirmHandle}
+          // text={`KYC LEVEL ${Number(kycLevel) + 1}을 먼저 완료해주세요.`}
+          // text={t('profileMain8', {kyclevel: Number(kycLevel) + 1})}
+        />
+        <TextConfirmCancelModal
+          modalVisible={modal2Visible}
+          setModalVisible={setModal2Visible}
+          text={`KYC업데이트 시 72시간동안 ${'\n'}설문조사에 참여하실 수 없습니다.${'\n'}KYC업데이트를 진행하시겠습니까?`}
+          cancel={t('researchForm1')}
+          cancelHandle={cancelHandle}
+          confirm={t('researchForm4')}
+          confirmHandle={confirm2Handle}
+          // text={`KYC LEVEL ${Number(kycLevel) + 1}을 먼저 완료해주세요.`}
+          // text={t('profileMain8', {kyclevel: Number(kycLevel) + 1})}
+        />
+        <TextConfirmCancelModal
+          modalVisible={modal3Visible}
+          setModalVisible={setModal3Visible}
+          text={`KYC업데이트 시 72시간동안 ${'\n'}설문조사에 참여하실 수 없습니다.${'\n'}KYC업데이트를 진행하시겠습니까?`}
+          cancel={t('researchForm1')}
+          cancelHandle={cancelHandle}
+          confirm={t('researchForm4')}
+          confirmHandle={confirm3Handle}
+          // text={`KYC LEVEL ${Number(kycLevel) + 1}을 먼저 완료해주세요.`}
+          // text={t('profileMain8', {kyclevel: Number(kycLevel) + 1})}
+        />
       </View>
     </SafeAreaView>
   );

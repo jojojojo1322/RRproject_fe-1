@@ -40,6 +40,7 @@ class SettingsPersonal extends Component {
       email: e,
     });
   };
+
   passwordApi = (email) => {
     axios
       .post(`${server}/util/email/pw-auth`, {
@@ -60,6 +61,7 @@ class SettingsPersonal extends Component {
         console.log('error', e);
       });
   };
+
   passwordUserCheckApi = async (email) => {
     await axios
       .post(`${server}/user/duplicate/mailid`, {
@@ -78,6 +80,7 @@ class SettingsPersonal extends Component {
         console.log('error', e);
       });
   };
+
   componentDidMount = () => {
     // console.log(this.props.route.params?.userInfo.mailId);
     this.setState({
@@ -85,6 +88,7 @@ class SettingsPersonal extends Component {
       phoneNum: this.props.route.params?.userInfo.phoneNum,
     });
   };
+
   render() {
     console.log(this.props.route.params?.userInfo);
     const {t} = this.props;

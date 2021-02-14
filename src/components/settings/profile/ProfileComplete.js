@@ -35,9 +35,15 @@ const ProfileComplete = (props) => {
           <Text
             style={[ResetStyle.fontBoldK, ResetStyle.fontB, {marginTop: '5%'}]}>
             {/* {`KYC ${props.route.params?.KycLevel} LEVEL\n 인증완료`} */}
-            {t('profileCompleteTitle', {
-              kycLevel: props.route.params?.KycLevel,
-            })}
+
+            {props.route.params?.updateCheck === false &&
+              t('profileCompleteTitle', {
+                kycLevel: props.route.params?.KycLevel,
+              })}
+            {props.route.params?.updateCheck === true &&
+              t('profileCompleteFixTitle', {
+                kycLevel: props.route.params?.KycLevel,
+              })}
           </Text>
         </View>
 

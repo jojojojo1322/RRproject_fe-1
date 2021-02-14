@@ -416,6 +416,7 @@ const ProfileIncompleteLevel2 = (props) => {
         if (successCheck === 0) {
           props.navigation.navigate('ProfileComplete', {
             KycLevel: props.route.params?.KycLevel,
+            updateCheck: updateCheck,
           });
         } else if (successCheck === -1) {
           setModal2Visible(!modal2Visible);
@@ -425,6 +426,7 @@ const ProfileIncompleteLevel2 = (props) => {
         if (successCheck === 0) {
           props.navigation.navigate('ProfileComplete', {
             KycLevel: props.route.params?.KycLevel,
+            updateCheck: updateCheck,
           });
         } else if (successCheck === -1) {
           setModal2Visible(!modal2Visible);

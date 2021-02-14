@@ -255,6 +255,7 @@ export default ko = {
       profileCompleteTitle: 'KYC {{kycLevel}} LEVEL\n 인증완료',
       profileComplete1: '지갑 확인하기',
       profileComplete2: 'Profile 이동',
+      profileCompleteFixTitle: 'KYC {{kycLevel}} LEVEL\n 수정완료',
 
       // ProfileCompleteDetail
       profileCompleteDetailTitle: 'KYC LEVEL {{kycLevel}}',
@@ -461,6 +462,8 @@ export default ko = {
       settingsWalletPassword4: '비밀번호가 일치하지 않습니다.',
       settingsWalletPassword5: '비밀번호가 설정되었습니다.',
       settingsWalletPassword6: '확인',
+
+      settingsWalletPassword7: '비밀번호 설정이 실패하였습니다.',
 
       // SettingsWalletMasterKey
       settingsWalletMasterKeyTitle: '비밀번호 변경',

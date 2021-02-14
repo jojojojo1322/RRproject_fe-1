@@ -80,6 +80,7 @@ import SettingsAlert from './components/settings/settingsDetail/SettingsAlert';
 import SettingsWallet from './components/settings/settingsDetail/SettingsWallet';
 import SettingsWalletMasterKey from './components/settings/settingsDetail/SettingsWalletMasterKey';
 import SettingsWalletPassword from './components/settings/settingsDetail/SettingsWalletPassword';
+import SettingsWalletCurrentPassword from './components/settings/settingsDetail/SettingsWalletCurrentPassword';
 import SettingsLanguage from './components/settings/settingsDetail/SettingsLanguage';
 import SettingsLock from './components/settings/settingsDetail/lock/SettingsLock';
 import SettingsLockPattern from './components/settings/settingsDetail/lock/SettingsLockPattern';
@@ -521,6 +522,13 @@ export const AppMainStack = (props) => {
       <Stack.Screen
         name="SettingsWalletPassword"
         component={SettingsWalletPassword}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="SettingsWalletCurrentPassword"
+        component={SettingsWalletCurrentPassword}
         options={{
           headerShown: false,
         }}

@@ -22,6 +22,8 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthStyle from '../../../style/AuthStyle';
 
+import ProgressModal from '../../factory/modal/ProgressModal';
+
 import {withTranslation} from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';
 
@@ -32,23 +34,69 @@ class SettingsWalletPassword extends Component {
     pass: '',
     modalVisible: false,
     modal2Visible: false,
+    modal3Visible: false,
+    modal4Visible: false,
     walletAddress: '',
+    currentPw: '',
   };
-  walletPasswordApi = async (walletPw) => {
+  userInfoApi = async () => {
     await axios
-      .post(`${server}/wallet`, {
-        userNo: await AsyncStorage.getItem('userNo'),
+      .get(
+        `${server}/user?userNo=${await AsyncStorage.getItem('userNo')}`,
+        // `${server}/user/user?userNo=210127104026300`,
+      )
+      .then(async (response) => {
+        console.log('userInfoApi Then >>', response);
+      })
+      .catch((e) => {
+        console.log('userInfoApi Error', e);
+      });
+  };
+  walletPasswordTransApi = async (walletPw) => {
+    console.log({
+      currentPw: this.props.route.params?.currentPw,
+      updatePw: walletPw,
+    });
+    this.setModal3Visible(true);
+    await axios
+      .put(`${server}/wallet/password`, {
+        email: await AsyncStorage.getItem('email'),
+        currentPw: this.props.route.params?.currentPw,
+        updatePw: walletPw,
+      })
+      .then((response) => {
+        console.log('walletPasswordTransApi THEN>>', response);
+        if (response.data.status === 'success') {
+          this.walletUserUpdateApi(walletPw);
+        } else {
+          this.props.navigation.replace('SettingsWallet');
+        }
+      })
+      .catch((e) => {
+        console.log('walletPasswordTransApi ERROR>>', e);
+      });
+    this.setModal3Visible(false);
+  };
+  walletUserUpdateApi = async (walletPw) => {
+    // this.setModal3Visible(true);
+    await axios
+      .put(`${server}/wallet`, {
+        email: await AsyncStorage.getItem('email'),
+        walletAddress: await AsyncStorage.getItem('masterKey'),
         walletPw: walletPw,
       })
       .then((response) => {
-        console.log(response);
-        this.setState({
-          walletAddress: response.data.walletAddress,
-        });
+        console.log('walletUserUpdateApi THEN>>', response);
+        if (response.data.status === 'success') {
+          this.setModal2Visible(true);
+        } else {
+          this.props.navigation.replace('SettingsWallet');
+        }
       })
       .catch((e) => {
-        console.log(e);
+        console.log('walletUserUpdateApi ERROR>>', e);
       });
+    this.setModal3Visible(false);
   };
   handlePass = async (value, e) => {
     console.log(value);
@@ -82,11 +130,14 @@ class SettingsWalletPassword extends Component {
         if (test != this.state.pass) {
           this.setModalVisible(true);
         } else if (test == this.state.pass) {
-          console.log('1212');
-          await this.walletPasswordApi(this.state.pass);
-          console.log('3434');
-          console.log(this.state.walletAddress);
-          this.setModal2Visible(true);
+          // console.log('1212');
+          // await this.walletPasswordTransApi(this.state.pass);
+          // console.log('3434');
+          // console.log(this.state.walletAddress);
+          // this.setModal2Visible(true);
+
+          console.log('testtest', test);
+          this.walletPasswordTransApi(test);
         }
       }
 
@@ -111,12 +162,22 @@ class SettingsWalletPassword extends Component {
   setModal2Visible = (visible) => {
     this.setState({modal2Visible: visible});
   };
+  setModal3Visible = (visible) => {
+    this.setState({modal3Visible: visible});
+  };
+  setModal4Visible = (visible) => {
+    this.setState({modal4Visible: visible});
+  };
   handleNextPage = async () => {
-    this.props.navigation.navigate('SettingsWallet', {
-      walletAddress: this.state.walletAddress,
-    });
+    // this.props.navigation.navigate('SettingsWallet', {
+    //   walletAddress: this.state.walletAddress,
+    // });
+    this.props.navigation.replace('SettingsWallet');
   };
 
+  componentDidMount() {
+    this.userInfoApi();
+  }
   render() {
     const {t} = this.props;
     const passArr = this.state.passArr;
@@ -332,6 +393,17 @@ class SettingsWalletPassword extends Component {
           text={t('settingsWalletPassword5')}
           confirm={t('settingsWalletPassword6')}
           handleNextPage={this.handleNextPage}
+        />
+        <TextConfirmModal
+          modalVisible={this.state.modal2Visible}
+          setModalVisible={this.setModal2Visible}
+          text={t('settingsWalletPassword7')}
+          confirm={t('settingsWalletPassword6')}
+          handleNextPage={this.handleNextPage}
+        />
+        <ProgressModal
+          modalVisible={this.state.modal3Visible}
+          setModalVisible={this.setModal3Visible}
         />
       </SafeAreaView>
     );
