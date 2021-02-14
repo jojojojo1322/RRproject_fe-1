@@ -715,7 +715,7 @@ function Completed({navigation}) {
                   {
                     <Moment
                       element={Text}
-                      interval={1000}
+                      interval={100}
                       date={item.endTime}
                       format="D일 hh시간 mm분 ss초"
                       durationFromNow

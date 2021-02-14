@@ -189,7 +189,7 @@ const WalletMain = (props) => {
                   ResetStyle.fontB,
                   {marginLeft: 10},
                 ]}>
-                {t('walletMainTitle')}
+                {t('walletMainTitle')}zxzxzz
               </Text>
             </View>
           </TouchableOpacity>

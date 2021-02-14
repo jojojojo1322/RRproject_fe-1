@@ -175,7 +175,7 @@ class SettingsPersonalPasswordChange extends Component {
                 : [ResetStyle.button, {backgroundColor: '#e6e6e6'}]
             }
             onPress={async () => {
-              // api 용
+              // api 용 --이메일 체크
               // if (this.validateEmail(this.state.email)) {
               //   await this.emailUserCheckApi(this.state.email);
               //   if (this.state.ret_val == '-2') {
@@ -193,14 +193,39 @@ class SettingsPersonalPasswordChange extends Component {
               //   // // await AsyncStorage.setItem('authKey', asy);
               //   // // console.log(await AsyncStorage.getItem('authKey'));
               // }
+              // 본인 이메일인지 체크
+              if (this.validateEmail(this.state.email)) {
+                await this.emailUserCheckApi(this.state.email);
+                if (this.state.ret_val == '-2') {
+                  if (
+                    this.state.email === (await AsyncStorage.getItem('email'))
+                  ) {
+                    console.log('본인 이메일임');
+                    this.emailReAuthApi(this.state.email);
+                    this.props.navigation.push('SettingsPersonalEmail', {
+                      email: this.state.email,
+                      authKey: this.state.authKey,
+                      userNo: this.state.userNo,
+                    });
+                  } else {
+                    console.log('본인 이메일이 아님');
+                  }
+                } else if (this.state.ret_val == '0') {
+                  this.setModalVisible(true);
+                }
+                // this.emailReAuthApi(this.state.email);
+                // // const asy = 'aaaaaaa';
+                // // await AsyncStorage.setItem('authKey', asy);
+                // // console.log(await AsyncStorage.getItem('authKey'));
+              }
 
               // 본부장님 테스트용
-              this.emailReAuthApi(this.state.email);
-              this.props.navigation.push('SettingsPersonalEmail', {
-                email: this.state.email,
-                authKey: this.state.authKey,
-                userNo: this.state.userNo,
-              });
+              // this.emailReAuthApi(this.state.email);
+              // this.props.navigation.push('SettingsPersonalEmail', {
+              //   email: this.state.email,
+              //   authKey: this.state.authKey,
+              //   userNo: this.state.userNo,
+              // });
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontWhite]}>
               {t('settinsPersonalPasswordChangeNextButton')}
