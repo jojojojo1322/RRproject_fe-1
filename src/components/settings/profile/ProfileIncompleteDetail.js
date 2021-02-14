@@ -210,6 +210,7 @@ const ProfileIncompleteDetail = (props) => {
         if (successCheck === 0) {
           props.navigation.navigate('ProfileComplete', {
             KycLevel: props.route.params?.KycLevel,
+            updateCheck: updateCheck,
           });
         } else {
         }
@@ -218,6 +219,7 @@ const ProfileIncompleteDetail = (props) => {
         if (successCheck === 0) {
           props.navigation.navigate('ProfileComplete', {
             KycLevel: props.route.params?.KycLevel,
+            updateCheck: updateCheck,
           });
         } else {
         }

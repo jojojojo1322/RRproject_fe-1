@@ -24,6 +24,7 @@ class SettingsWalletMasterKey extends Component {
     ret_val: '',
     userNo: '',
     modalVisible: false,
+    masterKey: '',
   };
   setModalVisible = (visible) => {
     this.setState({
@@ -34,9 +35,9 @@ class SettingsWalletMasterKey extends Component {
     var re = /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
   };
-  handlePassword = (e) => {
+  handleMasterKey = (e) => {
     this.setState({
-      email: e,
+      masterKey: e,
     });
   };
   passwordApi = (email) => {
@@ -131,14 +132,14 @@ class SettingsWalletMasterKey extends Component {
                 ]}
                 placeholder={t('settingsWalletMasterKey4')}
                 placeholderTextColor="#a9a9a9"
-                value={this.state.email}
-                onChangeText={this.handlePassword}
+                value={this.state.masterKey}
+                onChangeText={this.handleMasterKey}
               />
               <TouchableOpacity
                 style={ResetStyle.textInputTextButton}
                 onPress={() => {
                   this.setState({
-                    email: '',
+                    masterKey: '',
                   });
                 }}>
                 <Image
@@ -153,7 +154,10 @@ class SettingsWalletMasterKey extends Component {
             style={
               this.validateEmail(this.state.email)
                 ? [ResetStyle.button]
-                : [ResetStyle.button, {backgroundColor: '#e6e6e6'}]
+                : [
+                    ResetStyle.button,
+                    this.state.masterKey === '' && {backgroundColor: '#e6e6e6'},
+                  ]
             }
             onPress={async () => {
               // api 용
@@ -176,12 +180,19 @@ class SettingsWalletMasterKey extends Component {
               // }
 
               // 테스트용
-              this.passwordApi(this.state.email);
-              this.props.navigation.navigate('SettingsWalletPassword', {
-                email: this.state.email,
-                authKey: this.state.authKey,
-                userNo: this.state.userNo,
-              });
+              // this.passwordApi(this.state.email);
+              if (
+                this.state.masterKey ===
+                (await AsyncStorage.getItem('masterKey'))
+              ) {
+                this.props.navigation.navigate('SettingsWalletPassword', {
+                  email: this.state.email,
+                  authKey: this.state.authKey,
+                  userNo: this.state.userNo,
+                });
+              } else {
+                this.setModalVisible(true);
+              }
             }}>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontWhite]}>
               {t('settingsWalletMasterKeyNextButton')}

@@ -52,8 +52,11 @@ const SettingsWallet = ({navigation}) => {
       }}
       onPress={() => {
         if (id === '1') {
-          navigation.navigate('SettingsWalletPassword');
+          // 비밀번호 변경
+          // navigation.navigate('SettingsWalletPassword');
+          navigation.navigate('SettingsWalletCurrentPassword');
         } else if (id === '2') {
+          // 비밀번호 분실
           navigation.navigate('SettingsWalletMasterKey');
         }
       }}>

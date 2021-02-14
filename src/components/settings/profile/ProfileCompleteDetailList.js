@@ -28,6 +28,7 @@ const ProfileCompleteDetail = (props) => {
   const [question3, setQuestion3] = useState([]);
   const [question4, setQuestion4] = useState([]);
   const [question5, setQuestion5] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
   const getCompleteKycApi = async () => {
     await axios
       .get(
@@ -63,6 +64,7 @@ const ProfileCompleteDetail = (props) => {
   useEffect(() => {
     getCompleteKycApi();
   }, []);
+
   const renderItem = () => {};
   return (
     <SafeAreaView style={[ResetStyle.container]}>

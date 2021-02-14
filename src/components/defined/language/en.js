@@ -255,6 +255,7 @@ export default en = {
       profileCompleteTitle: 'KYC {{kycLevel}} LEVEL\n verification completed',
       profileComplete1: 'Check my wallet',
       profileComplete2: 'Move Profile',
+      profileCompleteFixTitle: 'KYC {{kycLevel}} LEVEL\n update completed',
 
       // ProfileCompleteDetail
       profileCompleteDetailTitle: 'KYC LEVEL {{kycLevel}}',
@@ -464,6 +465,8 @@ export default en = {
       settingsWalletPassword4: 'Passwords do not match.',
       settingsWalletPassword5: 'Your password has been set.',
       settingsWalletPassword6: 'OK',
+
+      settingsWalletPassword7: 'Your password not has been set fail.',
 
       // SettingsWalletMasterKey
       settingsWalletMasterKeyTitle: 'Change password',

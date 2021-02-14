@@ -154,6 +154,7 @@ class SettingsPersonalPasswordChange extends Component {
               placeholderTextColor="#a9a9a9"
               value={this.state.email}
               onChangeText={this.handleEmail}
+              autoCapitalize={'none'}
             />
             <TouchableOpacity
               style={ResetStyle.textInputTextButton}

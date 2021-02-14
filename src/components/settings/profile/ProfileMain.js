@@ -19,6 +19,7 @@ import ProfileStyle from '../../../style/ProfileStyle.js';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {FlatList} from 'react-native-gesture-handler';
 import BottomModal from '../../factory/modal/BottomModal';
+import TextConfirmCancelModal from '../../factory/modal/TextConfirmCancelModal';
 
 import {useTranslation} from 'react-i18next';
 // import {CustomDrawerContent} from '../../defined/CustomDrawerContent';
@@ -55,6 +56,7 @@ const ProfileMain = ({navigation}) => {
   const [kycLevel, setKycLevel] = useState(0);
   const [kycLevelNumber, setKycLevelNumber] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
+
   const {t, i18n} = useTranslation();
 
   const userApi = async () => {
