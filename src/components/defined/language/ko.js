@@ -120,16 +120,16 @@ export default ko = {
       kycSecond2: '생년월일을 입력해주세요.',
 
       // KycThird
-      kycThird1: '국적',
+      kycThird1: '국적 선택',
       kycThird2: '국적을 선택해 주세요.',
-      kycThird3: '국적',
+      kycThird3: '국적 선택',
       kycThird4: '사용가능언어',
       kycThird5: ' (다중 선택 가능)',
       kycThird6: '사용가능 언어를 선택해 주세요.',
       kycThird7: '거주국가',
       kycThird8: '거주국가를 선택해 주세요.',
-      kycThird9: '거주도시',
-      kycThird10: '거주도시를 선택해주세요',
+      kycThird9: '거주국가',
+      kycThird10: '거주도시 선택',
       kycThird11: '거주도시를 선택해 주세요.',
       kycThird12: '거주도시 선택',
 

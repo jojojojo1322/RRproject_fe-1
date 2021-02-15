@@ -237,7 +237,8 @@ const WalletMain = (props) => {
                 postWalletHistoryApi();
               }}>
               <Image
-                source={require('../../../imgs/drawable-xxxhdpi/wallet_refresh_icon.png')}
+                style={{width: 30, height: 30, resizeMode: 'contain'}}
+                source={require('../../../imgs/walletRefreshIcon.png')}
               />
             </TouchableOpacity>
           </View>
