@@ -145,6 +145,10 @@ export class RoundCheckbox extends Component {
           //     data.value === value;
           //   }) === -1
           // ) {
+          console.log(
+            '라운드체크 안에서 ',
+            this.props.checkedObjArr.fetchArray(),
+          );
           this.props.handleCheckedArray(this.props.checkedObjArr.fetchArray());
           // }
         }

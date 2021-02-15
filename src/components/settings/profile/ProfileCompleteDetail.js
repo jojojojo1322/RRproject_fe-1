@@ -232,7 +232,10 @@ const ProfileCompleteDetail = (props) => {
                 // kycQuestion={item.kycQuestion}
               />
             )}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item, index) =>
+              // Number(item.level);
+              index.toString()
+            }
             extraData={question}
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}

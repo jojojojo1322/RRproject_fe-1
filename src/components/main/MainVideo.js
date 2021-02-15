@@ -232,7 +232,10 @@ const MainVideo = ({navigation, route}) => {
         <FlatList
           data={advertisementData}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item, index) =>
+            // Number(item.level);
+            index.toString()
+          }
         />
         {/* </ScrollView> */}
       </SafeAreaView>

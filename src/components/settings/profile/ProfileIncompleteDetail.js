@@ -599,7 +599,10 @@ const ProfileIncompleteDetail = (props) => {
                 kycQuestion={item.kycQuestion}
               />
             )}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item, index) =>
+              // Number(item.level);
+              index.toString()
+            }
             extraData={kycOption}
           />
         </View>,

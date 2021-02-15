@@ -48,8 +48,6 @@ const CustomDrawerContent = (props) => {
   const [loginStatus, setLoginStatus] = useState(props.login);
   const [email, setEmail] = useState('');
 
-  console.log('커스텀 propspropspropsprops', props);
-
   // console.log(await AsyncStorage.getItem('userNo'));
 
   const emailAsyncSet = async () => {

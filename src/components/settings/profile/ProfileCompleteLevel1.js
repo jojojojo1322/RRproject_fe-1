@@ -32,41 +32,41 @@ const ProfileCompleteLevel1 = (props) => {
   const [fixLang, setFixLang] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
 
-  const getLanguageApi = async () => {
-    await axios
-      .get(`${server}/util/global/languages`)
-      .then(async (response) => {
-        console.log('getLanguageApi THEN>>', response);
-        setLang(response.data);
-        getCompleteKycApi(response.data);
-      })
-      .catch((e) => {
-        console.log('getLanguageApi ERROR>>', e);
-      });
-  };
+  // const getLanguageApi = async () => {
+  //   await axios
+  //     .get(`${server}/util/global/languages`)
+  //     .then(async (response) => {
+  //       console.log('getLanguageApi THEN>>', response);
+  //       setLang(response.data);
+  //       getCompleteKycApi(response.data);
+  //     })
+  //     .catch((e) => {
+  //       console.log('getLanguageApi ERROR>>', e);
+  //     });
+  // };
 
   const getCompleteKycApi = async (lang) => {
     await axios
       .get(`${server}/kyc/1/${await AsyncStorage.getItem('userNo')}`)
       .then(async (response) => {
         console.log('getCompleteKycApi THEN>>', response.data.data);
-        let fix = response.data.data;
+        // let fix = response.data.data;
 
-        let fixQ = fix.language.split(',');
-        let fixArr = '';
+        // let fixQ = fix.language.split(',');
+        // let fixArr = '';
 
-        fixQ.map((data) => {
-          lang.map((d) => {
-            if (data === d.languageCode) {
-              fixArr += `${d.nativeName},`;
-            }
-          });
-        });
-        fixArr = fixArr.substr(0, fixArr.length - 1);
-        setFixLang(fixArr);
-        fix.language = fixArr;
+        // fixQ.map((data) => {
+        //   lang.map((d) => {
+        //     if (data === d.languageCode) {
+        //       fixArr += `${d.nativeName},`;
+        //     }
+        //   });
+        // });
+        // fixArr = fixArr.substr(0, fixArr.length - 1);
+        // setFixLang(fixArr);
+        // fix.language = fixArr;
 
-        setQuestion([fix]);
+        setQuestion([response.data.data]);
       })
       .catch((e) => {
         console.log('getCompleteKycApi ERROR>>', e);
@@ -74,7 +74,8 @@ const ProfileCompleteLevel1 = (props) => {
   };
 
   useEffect(() => {
-    getLanguageApi();
+    // getLanguageApi();
+    getCompleteKycApi();
   }, []);
 
   // useEffect(() => {
@@ -130,7 +131,7 @@ const ProfileCompleteLevel1 = (props) => {
         </View>
 
         {/* Level List */}
-        <ScrollView>
+        <ScrollView key={'1'}>
           {/* Level List Item */}
           {/* {Object.keys(question).map((data, index) => { */}
           {question.map((data, index) => {
@@ -138,11 +139,17 @@ const ProfileCompleteLevel1 = (props) => {
             let i = 0;
             for (const d in data) {
               ++i;
-              console.log('asdasd', i == Object.keys(data).length);
+              // console.log('asdasd', i == Object.keys(data).length);
               // console.log('a', Object.keys(d).length);
-              if (d !== 'userNo') {
+              if (
+                d !== 'userNo' &&
+                d !== 'residentCountryCode' &&
+                d !== 'nationalityCode' &&
+                d !== 'language'
+              ) {
                 Arr.push(
                   <View
+                    key={(i + 1).toString()}
                     style={[
                       ProfileStyle.kycAllLevelListItem,
                       {

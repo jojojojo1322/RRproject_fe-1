@@ -115,7 +115,10 @@ const MainAlert = (props) => {
         <FlatList
           data={alertData}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item, index) =>
+            // Number(item.level);
+            index.toString()
+          }
           contentContainerStyle={{
             justifyContent: 'flex-start',
             flexDirection: 'column-reverse',

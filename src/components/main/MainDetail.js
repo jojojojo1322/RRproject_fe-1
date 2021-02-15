@@ -67,7 +67,7 @@ const MainDetail = (props) => {
   const AudienceCheckApi = async (surveyId) => {
     axios
       .post(`${server}/survey/audience`, {
-        surveyId: String(surveyId),
+        legacySurveyId: String(surveyId),
         userNo: await AsyncStorage.getItem('userNo'),
       })
       .then(async (response) => {
@@ -86,7 +86,7 @@ const MainDetail = (props) => {
       .then(async (response) => {
         console.log(`AudienceApi Then >>`, response);
         setAudience(response.data);
-        AudienceCheckApi(response.data.surveyId);
+        AudienceCheckApi(response.data.legacySurveyId);
         if (response.data.language === 'all') {
           setAudienceLanguage('all');
         } else {
@@ -388,7 +388,7 @@ const MainDetail = (props) => {
           ]}
           onPress={async () => {
             console.log('시작1');
-            if (audienceCheck === 0) {
+            if (audienceCheck === 1) {
               console.log('시작2');
               props.navigation.replace('ResearchForm', {
                 // legacySurveyId: props.route.params?.legacySurveyId,
@@ -400,7 +400,7 @@ const MainDetail = (props) => {
                 // surveyId: String(audience.surveyId),
                 surveyId: 78,
               });
-            } else if (audienceCheck === -1) {
+            } else if (audienceCheck === 0) {
               console.log('시작3');
               setModal2Visible(true);
             } else if (audienceCheck !== -1 && audienceCheck <= -2) {
@@ -442,6 +442,15 @@ const MainDetail = (props) => {
           country={audience.residentCountry}
           countryCity={audience.residentCity}
           language={audienceLanguage}
+        />
+        <TextConfirmCancelModal
+          modalVisible={modal2Visible}
+          setModalVisible={setModal2Visible}
+          text={t('mainDetail7')}
+          confirm={t('mainDetail8')}
+          confirmHandle={confirmHandle}
+          cancel={t('mainDetail9')}
+          cancelHandle={cancelHandle}
         />
         <TextConfirmCancelModal
           modalVisible={modal2Visible}

@@ -35,6 +35,7 @@ class kycThird extends Component {
     country: '',
     countryCd: this.props.Kcountry,
     language: this.props.Klanguage,
+    languageCd: this.props.KlanguageCd,
     residenceCity: this.props.KresidenceCity,
     residenceCountry: this.props.KresidenceCountry,
     residenceCountryCd: '',
@@ -42,6 +43,8 @@ class kycThird extends Component {
     languageModal: false,
     residenceCountryModal: false,
     residenceCityModal: false,
+
+    originalLang: this.props.KoriginalLan,
 
     countryData: [],
     cityData: [],
@@ -54,16 +57,27 @@ class kycThird extends Component {
     this.languageDataApi();
   }
   componentDidUpdate = (preProps, preState) => {
-    if (preProps.Kcountry !== this.props.Kcountry) {
+    if (
+      preProps.Kcountry !== this.props.Kcountry &&
+      this.props.KoriginalLan != ''
+    ) {
+      console.log('this.props.KoriginalLan', this.props.KoriginalLan);
+      console.log('this.props.KoriginalLan', this.props.KoriginalLan);
+      console.log('this.props.KoriginalLan', this.props.KoriginalLan);
+      console.log('this.props.KoriginalLan', this.props.KoriginalLan);
+      console.log('this.props.KoriginalLan', this.props.KoriginalLan);
+      console.log('this.props.KoriginalLan', this.props.KoriginalLan);
       this.setState({
         countryCd: this.props.Kcountry,
         language: this.props.Klanguage,
+        languageCd: this.props.KlanguageCd,
         residenceCity: this.props.KresidenceCity,
         residenceCountry: this.props.KresidenceCountry,
+        originalLang: this.props.KoriginalLan,
       });
       this.countryDataApi();
     }
-    // } else {
+
     if (
       preProps.Kcountry === this.props.Kcountry &&
       preState.residenceCountryCd !== this.state.residenceCountryCd
@@ -172,7 +186,17 @@ class kycThird extends Component {
     this.setState({country: country, countryCd: cd});
     this.props.setCountry(country, cd);
   };
-  setLanguage = (visible) => {
+  setLanguage = (vis) => {
+    let visible = vis;
+    // visible = visible.filter((item, index) => visible.indexOf(item) === index);
+    visible = visible.filter((item, i) => {
+      return (
+        visible.findIndex((item2, j) => {
+          return item.value === item2.value;
+        }) === i
+      );
+    });
+    this.setState({originalLang: visible});
     //표시용 언어 이름
     let Lang = '';
     let HighLang = '';
@@ -180,30 +204,34 @@ class kycThird extends Component {
     let LangCode = '';
     let HighLangCode = '';
 
-    visible.map((data, index) => {
-      visible.length == index + 1
-        ? (Lang += `${data.label}`)
-        : (Lang += `${data.label}, `);
-    });
-    visible.map((data, index) => {
-      visible.length == index + 1
-        ? (HighLang += `${data.label}`)
-        : (HighLang += `${data.label},`);
-    });
+    // 언어 배열에 추가
+    if (visible) {
+      visible.map((data, index) => {
+        visible.length == index + 1
+          ? (Lang += `${data.label}`)
+          : (Lang += `${data.label},`);
+      });
+      visible.map((data, index) => {
+        visible.length == index + 1
+          ? (HighLang += `${data.label}`)
+          : (HighLang += `${data.label},`);
+      });
 
-    visible.map((data, index) => {
-      visible.length == index + 1
-        ? (LangCode += `${data.value}`)
-        : (LangCode += `${data.value}, `);
-    });
-    visible.map((data, index) => {
-      visible.length == index + 1
-        ? (HighLangCode += `${data.value}`)
-        : (HighLangCode += `${data.value},`);
-    });
+      visible.map((data, index) => {
+        visible.length == index + 1
+          ? (LangCode += `${data.value}`)
+          : (LangCode += `${data.value},`);
+      });
+      visible.map((data, index) => {
+        visible.length == index + 1
+          ? (HighLangCode += `${data.value}`)
+          : (HighLangCode += `${data.value},`);
+      });
+    }
     this.setState({language: Lang});
     // this.props.setLanguage(HighLang);
-    this.props.setLanguage(HighLangCode);
+    console.log({Lang: Lang, HighLangCode: HighLangCode});
+    this.props.setLanguage(Lang, HighLangCode);
   };
   setResidenceCountry = (residenceCountry, residenceCountryCd) => {
     this.setState({
@@ -227,6 +255,8 @@ class kycThird extends Component {
     console.log({
       countryCd: this.props.Kcountry,
       language: this.props.Klanguage,
+      languageCd: this.props.KlanguageCd,
+      originalLang: this.props.KoriginalLan,
       residenceCity: this.props.KresidenceCity,
       residenceCountry: this.props.KresidenceCountry,
     });
@@ -304,9 +334,9 @@ class kycThird extends Component {
         <TouchableOpacity
           onPress={() => {
             this.setLanguageModal(true);
-            this.setState({
-              language: '',
-            });
+            // this.setState({
+            //   language: '',
+            // });
           }}>
           <View style={AuthStyle.kycInput}>
             <Text
@@ -338,6 +368,7 @@ class kycThird extends Component {
           setModalVisible={this.setLanguageModal}
           setLanguage={this.setLanguage}
           list={this.state.languageData}
+          originalLang={this.state.originalLang}
         />
 
         <View style={{marginTop: Platform.OS === 'ios' ? '10%' : '8%'}}>

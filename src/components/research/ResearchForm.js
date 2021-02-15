@@ -18,6 +18,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import ResetStyle from '../../style/ResetStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {SelectedCheckboxes, RoundCheckbox} from '../factory/Roundcheck';
+import TextConfirmCancelModal from '../factory/modal/TextConfirmCancelModal';
 import ResearchStyle from '../../style/ResearchStyle.js';
 import {useTranslation} from 'react-i18next';
 
@@ -51,6 +52,9 @@ const ResearchForm = (props) => {
   const [legacySurveyId, setLegacySurveyId] = useState('');
 
   const [insertSuccess, setInsertSuccess] = useState(1);
+
+  //설문조사 최초페이지 이전버튼 클릭시 설문 아웃 경고 모달
+  const [modalVisible, setModalVisible] = useState(false);
 
   let CheckedArrObject = new SelectedCheckboxes();
 
@@ -164,7 +168,12 @@ const ResearchForm = (props) => {
       });
     }
   }, [insertSuccess]);
-
+  const confirmHandle = () => {
+    props.navigation.goBack();
+  };
+  const cancelHandle = () => {
+    console.log('취소');
+  };
   // 이전 버튼
   const handlerPrev = async (e) => {
     const _nowIndex = nowIndex;
@@ -178,7 +187,8 @@ const ResearchForm = (props) => {
       );
       // props.navigation.goBack();
     } else if (_nowIndex == 0) {
-      props.navigation.goBack();
+      // props.navigation.goBack();
+      setModalVisible(true);
     }
   };
   // 다음버튼
@@ -466,7 +476,10 @@ const ResearchForm = (props) => {
                   optionContent={item.optionContent}
                 />
               )}
-              keyExtractor={(item) => item.id}
+              keyExtractor={(item, index) =>
+                // Number(item.level);
+                index.toString()
+              }
               extraData={surveyOption}
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
@@ -540,6 +553,16 @@ const ResearchForm = (props) => {
             </Text>
           </TouchableOpacity>
         </View>
+        {/* 설문을 종료하시겠습니까? */}
+        <TextConfirmCancelModal
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+          text={`설문을 종료하시겠습니까?`}
+          confirm={t('confirm')}
+          confirmHandle={confirmHandle}
+          cancel={t('cancel')}
+          cancelHandle={cancelHandle}
+        />
       </View>
     </SafeAreaView>
   );

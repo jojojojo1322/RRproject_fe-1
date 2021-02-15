@@ -206,22 +206,22 @@ const ProfileAll = (props) => {
       .get(`${server}/kyc/1/${await AsyncStorage.getItem('userNo')}`)
       .then(async (response) => {
         console.log(response.data.data);
-        let fix = response.data.data;
+        // let fix = response.data.data;
 
-        let fixQ = fix.language.split(',');
-        let fixArr = '';
+        // let fixQ = fix.language.split(',');
+        // let fixArr = '';
 
-        fixQ.map((data) => {
-          lang.map((d) => {
-            if (data === d.languageCode) {
-              fixArr += `${d.nativeName},`;
-            }
-          });
-        });
-        fixArr = fixArr.substr(0, fixArr.length - 1);
-        fix.language = fixArr;
+        // fixQ.map((data) => {
+        //   lang.map((d) => {
+        //     if (data === d.languageCode) {
+        //       fixArr += `${d.nativeName},`;
+        //     }
+        //   });
+        // });
+        // fixArr = fixArr.substr(0, fixArr.length - 1);
+        // fix.language = fixArr;
 
-        setQuestion([fix]);
+        setQuestion([response.data.data]);
       })
       .catch((e) => {
         console.log('Error', e);
@@ -229,8 +229,8 @@ const ProfileAll = (props) => {
   };
 
   useEffect(() => {
-    // getCompleteKycApi();
-    getLanguageApi();
+    getCompleteKycApi();
+    // getLanguageApi();
     get2CompleteKycApi();
     levelMap.map((data) => {
       if (Number(data.id) <= Number(props.route.params?.KycLevel)) {
@@ -238,19 +238,18 @@ const ProfileAll = (props) => {
       }
     });
   }, []);
-  console.log('getDynamicCompleteKycApi(23);', props.route.params?.KycLevel);
-  const getLanguageApi = async () => {
-    await axios
-      .get(`${server}/util/global/languages`)
-      .then(async (response) => {
-        console.log('getLanguageApi THEN>>', response);
+  // const getLanguageApi = async () => {
+  //   await axios
+  //     .get(`${server}/util/global/languages`)
+  //     .then(async (response) => {
+  //       console.log('getLanguageApi THEN>>', response);
 
-        getCompleteKycApi(response.data);
-      })
-      .catch((e) => {
-        console.log('getLanguageApi ERROR>>', e);
-      });
-  };
+  //       getCompleteKycApi(response.data);
+  //     })
+  //     .catch((e) => {
+  //       console.log('getLanguageApi ERROR>>', e);
+  //     });
+  // };
   const get2CompleteKycApi = async () => {
     await axios
       .get(`${server}/kyc/2/${await AsyncStorage.getItem('userNo')}`)
@@ -272,7 +271,7 @@ const ProfileAll = (props) => {
         // `${server}/user/user?userNo=210127104026300`,
       )
       .then(async (response) => {
-        console.log('getCompleteKycApi THEN>>>', response.data.data);
+        // console.log('getCompleteKycApi THEN>>>', response.data.data);
         let ARR1 = response.data.data.filter(
           (data) => data.kycQuestion === '1',
         );
@@ -407,13 +406,11 @@ const ProfileAll = (props) => {
     });
   };
   const confirm3Handle = (level) => {
-    console.log('confirm3Handleconfirm3Handleconfirm3Handle', level);
     props.navigation.navigate('ProfileIncompleteDetail', {
       KycLevel: level,
     });
   };
   const RenderItem = (item) => {
-    // console.log(item.answers);
     let answerNo = 0;
     item.category === 'employmentStatus' &&
       (answerNo = question2.employmentStatus);
@@ -486,7 +483,6 @@ const ProfileAll = (props) => {
             {marginLeft: 15, marginTop: 3, width: '90%', textAlign: 'left'},
           ]}>
           {Object.keys(item.optionContent).map((data) => {
-            console.log('item.optionContent.length', item.optionContent.length);
             if (Number(data) + 1 == item.optionContent.length) {
               return `${Number(data) + 1}. ${item.optionContent[data]}`;
             }
@@ -524,7 +520,12 @@ const ProfileAll = (props) => {
               for (const d in data) {
                 ++i;
 
-                if (d !== 'userNo') {
+                if (
+                  d !== 'userNo' &&
+                  d !== 'residentCountryCode' &&
+                  d !== 'nationalityCode' &&
+                  d !== 'language'
+                ) {
                   Arr.push(
                     <View
                       style={[
@@ -642,7 +643,10 @@ const ProfileAll = (props) => {
                       // kycQuestion2={item.kycQuestion2}
                     />
                   )}
-                  keyExtractor={(item) => item.id}
+                  keyExtractor={(item, index) =>
+                    // Number(item.level);
+                    index.toString()
+                  }
                   extraData={question2}
                   showsVerticalScrollIndicator={false}
                   showsHorizontalScrollIndicator={false}
@@ -654,11 +658,7 @@ const ProfileAll = (props) => {
             {/* {props.route.params?.KycLevel > 2 && */}
 
             {levelMap.map((data, index) => {
-              console.log(data.id);
               if (Number(data.id) <= Number(props.route.params?.KycLevel)) {
-                console.log(question3);
-                console.log(question4);
-
                 return (
                   <View>
                     <View
@@ -748,7 +748,10 @@ const ProfileAll = (props) => {
                           // kycQuestion={item.kycQuestion}
                         />
                       )}
-                      keyExtractor={(item) => item.id}
+                      keyExtractor={(item, index) =>
+                        // Number(item.level);
+                        index.toString()
+                      }
                       extraData={questionDynamic}
                       showsVerticalScrollIndicator={false}
                       showsHorizontalScrollIndicator={false}

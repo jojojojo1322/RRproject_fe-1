@@ -380,13 +380,13 @@ function Ongoing({navigation}) {
                   {/* {`${day - 1}일 ${hour}시간 ${min}분 ${sec}초`} */}
                   {
                     <>
-                      <Moment
+                      {/* <Moment
                         element={Text}
                         interval={100}
                         date={item.endTime}
                         durationFromNow
                         format="D일 hh시간 mm분 ss초"
-                      />
+                      /> */}
 
                       {/* <Moment
                         element={Text}
@@ -718,13 +718,13 @@ function Completed({navigation}) {
                     }, 1000)} */}
                   {/* {`${day - 1}일 ${hour}시간 ${min}분 ${sec}초`} */}
                   {
-                    <Moment
-                      element={Text}
-                      interval={100}
-                      date={item.endTime}
-                      format="D일 hh시간 mm분 ss초"
-                      durationFromNow
-                    />
+                    // <Moment
+                    //   element={Text}
+                    //   interval={100}
+                    //   date={item.endTime}
+                    //   format="D일 hh시간 mm분 ss초"
+                    //   durationFromNow
+                    // />
                   }
                   {/* {setInterval(() => {
                       var today = new Date().getTime();
@@ -1208,9 +1208,6 @@ function Main({navigation, t, i18n}) {
         // var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         var hour = (gap / 1000 / 60 / 60).toFixed(0);
         console.log('업데이트 시간 비교', hour);
-
-        console.log(<Moment element={Text}>{response.data.kycUpdated}</Moment>);
-        console.log(<Moment date={response.data.kycUpdated} durationFromNow />);
         setKycUpdateTimeCheck(hour);
         // return await response;
       })
@@ -1234,6 +1231,7 @@ function Main({navigation, t, i18n}) {
             alignItems: 'center',
             alignSelf: 'center',
           }}>
+          {/* 로고 클릭 */}
           <TouchableOpacity
             onPress={async () => {
               try {
