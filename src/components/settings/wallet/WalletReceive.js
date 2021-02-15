@@ -5,7 +5,7 @@ import BottomModal from '../../factory/modal/BottomModal';
 import ResetStyle from '../../../style/ResetStyle.js';
 import AuthStyle from '../../../style/AuthStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import QRCode from 'react-native-qrcode2';
+import QRCode from '../../defined/QR/QRCode';
 import axios from 'axios';
 import {server} from '../../defined/server';
 import AsyncStorage from '@react-native-async-storage/async-storage';
