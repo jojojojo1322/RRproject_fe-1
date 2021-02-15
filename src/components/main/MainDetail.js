@@ -387,7 +387,9 @@ const MainDetail = (props) => {
             {marginBottom: Platform.OS === 'ios' ? 0 : '5%'},
           ]}
           onPress={async () => {
+            console.log('시작1');
             if (audienceCheck === 0) {
+              console.log('시작2');
               props.navigation.replace('ResearchForm', {
                 // legacySurveyId: props.route.params?.legacySurveyId,
                 legacySurveyId: '5f9835585e40b26b969fedb2',
@@ -399,10 +401,13 @@ const MainDetail = (props) => {
                 surveyId: 78,
               });
             } else if (audienceCheck === -1) {
+              console.log('시작3');
               setModal2Visible(true);
             } else if (audienceCheck !== -1 && audienceCheck <= -2) {
+              console.log('시작4');
               setModal3Visible(true);
             }
+            console.log('시작5');
             // audienceCheckHandle();
           }}>
           <Text

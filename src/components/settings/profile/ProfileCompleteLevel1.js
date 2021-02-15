@@ -25,22 +25,83 @@ import {useTranslation} from 'react-i18next';
 const ProfileCompleteLevel1 = (props) => {
   const {t, i18n} = useTranslation();
   const [question, setQuestion] = useState([]);
+
+  // 언어 api 배열
+  const [lang, setLang] = useState([]);
+  // 가져온 나열된 코드 -> 언어 native name으로 변환
+  const [fixLang, setFixLang] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
-  const getCompleteKycApi = async () => {
+
+  const getLanguageApi = async () => {
+    await axios
+      .get(`${server}/util/global/languages`)
+      .then(async (response) => {
+        console.log('getLanguageApi THEN>>', response);
+        setLang(response.data);
+        getCompleteKycApi(response.data);
+      })
+      .catch((e) => {
+        console.log('getLanguageApi ERROR>>', e);
+      });
+  };
+
+  const getCompleteKycApi = async (lang) => {
     await axios
       .get(`${server}/kyc/1/${await AsyncStorage.getItem('userNo')}`)
       .then(async (response) => {
-        console.log(response.data.data);
-        setQuestion([response.data.data]);
+        console.log('getCompleteKycApi THEN>>', response.data.data);
+        let fix = response.data.data;
+
+        let fixQ = fix.language.split(',');
+        let fixArr = '';
+
+        fixQ.map((data) => {
+          lang.map((d) => {
+            if (data === d.languageCode) {
+              fixArr += `${d.nativeName},`;
+            }
+          });
+        });
+        fixArr = fixArr.substr(0, fixArr.length - 1);
+        setFixLang(fixArr);
+        fix.language = fixArr;
+
+        setQuestion([fix]);
       })
       .catch((e) => {
-        console.log('Error', e);
+        console.log('getCompleteKycApi ERROR>>', e);
       });
   };
 
   useEffect(() => {
-    getCompleteKycApi();
+    getLanguageApi();
   }, []);
+
+  // useEffect(() => {
+  //   // console.log('lang', lang);
+  //   if (lang != '' && question != '') {
+  //     console.log('lang', lang);
+  //     console.log('question', question);
+  //     let fixQ = question[0].language.split(',');
+  //     let fixArr = '';
+  //     console.log('fixQ', fixQ);
+  //     fixQ.map((data) => {
+  //       lang.map((d) => {
+  //         console.log('data', data);
+  //         console.log('d.languageCode', d.languageCode);
+  //         if (data === d.languageCode) {
+  //           fixArr += `${d.nativeName},`;
+  //         }
+  //       });
+  //     });
+  //     fixArr = fixArr.substr(0, fixArr.length - 1);
+  //     setFixLang(fixArr);
+  //     question[0].language = fixArr;
+  //     console.log('fixArrfixArrfixArr', fixArr);
+
+  //     // question;
+  //   }
+  // }, [lang, question]);
 
   const cancelHandle = () => {
     setModalVisible(false);
