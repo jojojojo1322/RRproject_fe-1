@@ -12,6 +12,43 @@ import * as ImagePicker from 'react-native-image-picker';
 
 import {useTranslation} from 'react-i18next';
 
+// const ImgBox = ({response}) => {
+//   return response === null ? (
+//     <View
+//       style={{
+//         width: '100%',
+//         height: 230,
+//         alignItems: 'center',
+//         justifyContent: 'center',
+//         borderRadius: 15,
+//         borderColor: '#dedede',
+//         borderWidth: 2,
+//       }}>
+//       <Image
+//         style={{
+//           width: 260,
+//           height: 200,
+//           resizeMode: 'contain',
+//           // borderWidth: 1,
+//         }}
+//         source={require('../../imgs/drawable-xxxhdpi/passport_icon.png')}
+//       />
+//     </View>
+//   ) : (
+//     <Image
+//       style={{
+//         width: '100%',
+//         height: 230,
+//         borderRadius: 15,
+//         borderColor: '#dedede',
+//         borderWidth: 2,
+//         resizeMode: 'cover',
+//       }}
+//       source={{uri: response.uri}}
+//     />
+//   );
+// };
+
 const CheckList = ({text}) => {
   return (
     <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
@@ -44,6 +81,91 @@ const IdVerification = ({navigation}) => {
   const [lastName, setLastname] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
+
+  if (response === null) {
+    ImgBox = (
+      <View
+        style={{
+          width: '100%',
+          height: 230,
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderRadius: 15,
+          borderColor: '#dedede',
+          borderWidth: 2,
+        }}>
+        <Image
+          style={{
+            width: 260,
+            height: 200,
+            resizeMode: 'contain',
+            // borderWidth: 1,
+          }}
+          source={require('../../imgs/drawable-xxxhdpi/passport_icon.png')}
+        />
+      </View>
+    );
+  } else if (response.didCancel === true) {
+    ImgBox = (
+      <View
+        style={{
+          width: '100%',
+          height: 230,
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderRadius: 15,
+          borderColor: '#dedede',
+          borderWidth: 2,
+        }}>
+        <Image
+          style={{
+            width: 260,
+            height: 200,
+            resizeMode: 'contain',
+            // borderWidth: 1,
+          }}
+          source={require('../../imgs/drawable-xxxhdpi/passport_icon.png')}
+        />
+      </View>
+    );
+  } else if (response.uri !== false) {
+    ImgBox = (
+      <Image
+        style={{
+          width: '100%',
+          height: 230,
+          borderRadius: 15,
+          borderColor: '#dedede',
+          borderWidth: 2,
+          resizeMode: 'cover',
+        }}
+        source={{uri: response.uri}}
+      />
+    );
+  } else {
+    ImgBox = (
+      <View
+        style={{
+          width: '100%',
+          height: 230,
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderRadius: 15,
+          borderColor: '#dedede',
+          borderWidth: 2,
+        }}>
+        <Image
+          style={{
+            width: 260,
+            height: 200,
+            resizeMode: 'contain',
+            // borderWidth: 1,
+          }}
+          source={require('../../imgs/drawable-xxxhdpi/passport_icon.png')}
+        />
+      </View>
+    );
+  }
 
   useEffect(() => {
     console.log('response>>>>>>>>>', response);
@@ -100,40 +222,9 @@ const IdVerification = ({navigation}) => {
         }}>
         <View style={{flex: 1, paddingVertical: '5%', paddingBottom: '40%'}}>
           {/* body */}
-          {response === null ? (
-            <View
-              style={{
-                width: '100%',
-                height: 230,
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: 15,
-                borderColor: '#dedede',
-                borderWidth: 2,
-              }}>
-              <Image
-                style={{
-                  width: 260,
-                  height: 200,
-                  resizeMode: 'contain',
-                  // borderWidth: 1,
-                }}
-                source={require('../../imgs/drawable-xxxhdpi/passport_icon.png')}
-              />
-            </View>
-          ) : (
-            <Image
-              style={{
-                width: '100%',
-                height: 230,
-                borderRadius: 15,
-                borderColor: '#dedede',
-                borderWidth: 2,
-                resizeMode: 'cover',
-              }}
-              source={{uri: response.uri}}
-            />
-          )}
+
+          {/* ID Image */}
+          {ImgBox}
 
           {/* image 하단 체크 리스트 */}
           <View

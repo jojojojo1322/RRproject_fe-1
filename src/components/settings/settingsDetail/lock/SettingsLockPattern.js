@@ -1,82 +1,52 @@
 import React, {Component, useState} from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Button,
-  TouchableOpacity,
-  Image,
-  Platform,
-  Animated,
-  PanResponder,
-  Alert,
-} from 'react-native';
-import {RoundCheckbox, SelectedCheckboxes} from '../../../factory/Roundcheck';
-import {FlatList} from 'react-native-gesture-handler';
+import {View, Text, TouchableOpacity, Image} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '../../../../style/ResetStyle.js';
 import TextConfirmModal from '../../../factory/modal/TextConfirmModal';
 
-import PasswordGesture from 'react-native-gesture-password';
+// import PasswordGesture from 'react-native-gesture-password';
+import GesturePassword from '../../../defined/pattern/GesturePassword';
 
-import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
 var Password1 = '123';
 
-export class LockPattern extends Component {
-  constructor(props) {
-    super(props);
+const LockPattern = () => {
+  const [message, setMessage] = useState('Please input your password.');
+  const [status, setStatus] = useState('normal');
 
-    this.state = {
-      message: 'Please input your password.',
-      status: 'normal',
-    };
-  }
-
-  onEnd(password) {
+  const onEnd = (password) => {
     if (password == Password1) {
-      this.setState({
-        status: 'right',
-        message: 'Password is right, success.',
-      });
-
-      // your codes to close this view
+      setStatus('right');
+      setMessage('Password is right, success.');
     } else {
-      this.setState({
-        status: 'wrong',
-        message: 'Password is wrong, try again.',
-      });
+      setStatus('wrong');
+      setMessage('Password is wrong, try again.');
     }
-  }
+  };
 
-  onStart() {
-    this.setState({
-      status: 'normal',
-      message: 'Please input your password.',
-    });
-  }
+  const onStart = () => {
+    setStatus('normal');
+    setMessage('Please input your password.');
+  };
 
-  onReset() {
-    this.setState({
-      status: 'normal',
-      message: 'Please input your password (again).',
-    });
-  }
+  const onReset = () => {
+    setStatus('normal');
+    setMessage('Please input your password (again).');
+  };
 
-  render() {
-    return (
-      <PasswordGesture
-        ref="pg"
-        status={this.state.status}
-        message={this.state.message}
-        onStart={() => this.onStart()}
-        onEnd={(password) => this.onEnd(password)}
-        innerCircle={true}
-        outerCircle={false}
-      />
-    );
-  }
-}
+  return (
+    <GesturePassword
+      ref="pg"
+      status={status}
+      message={message}
+      onStart={() => onStart()}
+      onEnd={(password) => onEnd(password)}
+      innerCircle={true}
+      outerCircle={false}
+    />
+  );
+};
 
 const SettingsLockPattern = ({navigation}) => {
   const {t, i18n} = useTranslation();

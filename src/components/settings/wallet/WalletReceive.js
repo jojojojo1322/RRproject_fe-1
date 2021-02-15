@@ -18,6 +18,7 @@ const WalletReceive = (props) => {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
+  const [modal3Visible, setModal3Visible] = useState(false);
   const [walletData, setWalletData] = useState([]);
   const [masterKey, setMasterKey] = useState('');
 
@@ -27,6 +28,7 @@ const WalletReceive = (props) => {
     // });
     getWalletAddressApi();
     setMasterKey(walletData.name);
+    console.log(walletData.status);
   }, []);
 
   // const getWalletAddressApi = async (email) => {
@@ -38,9 +40,13 @@ const WalletReceive = (props) => {
         setWalletData(response.data);
         console.log('walletData>>>>>', walletData);
         setMasterKey(response.data.name);
+        if (response.data.status === 'fail') {
+          setModal3Visible(!modal3Visible);
+        }
       })
       .catch((e) => {
         console.log('error', e);
+        setModal3Visible(!modal3Visible);
       });
   };
 
@@ -72,7 +78,14 @@ const WalletReceive = (props) => {
           <Text style={[ResetStyle.fontMediumK, {marginBottom: '10%'}]}>
             {t('walletReceive1')}
           </Text>
-          <QRCode value={masterKey} size={700} bgColor="#000" fgColor="white" />
+          {masterKey === null ? null : (
+            <QRCode
+              value={masterKey}
+              size={700}
+              bgColor="#000"
+              fgColor="#FFF"
+            />
+          )}
         </View>
 
         <View>
@@ -131,6 +144,11 @@ const WalletReceive = (props) => {
         modalVisible={modal2Visible}
         setModalVisible={setModal2Visible}
         text={t('walletReceive3')}
+      />
+      <BottomModal
+        modalVisible={modal3Visible}
+        setModalVisible={setModal3Visible}
+        text={t('walletReceive4')}
       />
     </SafeAreaView>
   );

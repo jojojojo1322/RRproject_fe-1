@@ -226,8 +226,7 @@ class SettingsPersonal extends Component {
                   ResetStyle.fontB,
                   {textAlign: 'left', marginTop: '2%'},
                 ]}>
-                {/* {t('settingsPersonal2')} */}※ Phone Number cannot be
-                modified.
+                {t('settingsPersonal8')}
               </Text>
             </View>
 

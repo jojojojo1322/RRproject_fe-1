@@ -26,11 +26,11 @@ import Moment from 'react-moment';
 
 import {useTranslation} from 'react-i18next';
 
-// const SLIDER_WIDTH = Dimensions.get('window').width;
-// // const SLIDER_HEIGHT = Dimensions.get('window').height / 2.5;
-// const SLIDER_HEIGHT = Dimensions.get('window').height / 2;
-// const ITEM_WIDTH = Math.round(SLIDER_WIDTH);
-// const ITEM_HEIGHT = Math.round(ITEM_WIDTH);
+const SLIDER_WIDTH = Dimensions.get('window').width;
+// const SLIDER_HEIGHT = Dimensions.get('window').height / 2.5;
+const SLIDER_HEIGHT = Dimensions.get('window').height / 2;
+const ITEM_WIDTH = Math.round(SLIDER_WIDTH);
+const ITEM_HEIGHT = Math.round(ITEM_WIDTH);
 
 // const SLIDER_WIDTH = Dimensions.get('window').width;
 // const SLIDER_HEIGHT = 500;
@@ -1235,16 +1235,17 @@ function Main({navigation, t, i18n}) {
             alignSelf: 'center',
           }}>
           <TouchableOpacity
-            // onPress={async () => {
-            //   try {
-            //     console.log('USerNONONO', await AsyncStorage.getItem('userNo'));
-            //     await AsyncStorage.removeItem('userNo');
-            //     console.log('USerNONONO', await AsyncStorage.getItem('userNo'));
-            //   } catch (e) {}
+            onPress={async () => {
+              try {
+                console.log('USerNONONO', await AsyncStorage.getItem('userNo'));
+                await AsyncStorage.removeItem('userNo');
+                console.log('USerNONONO', await AsyncStorage.getItem('userNo'));
+              } catch (e) {}
+            }}
+            // onPress={() => {
+            //   navigation.navigate('Kyc');
             // }}
-            onPress={() => {
-              navigation.navigate('Kyc');
-            }}>
+          >
             <View
               style={{
                 flexDirection: 'row',
