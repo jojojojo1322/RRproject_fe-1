@@ -19,6 +19,7 @@ import email from 'react-native-email';
 import {useTranslation} from 'react-i18next';
 
 function handleEmail(status) {
+  const {t, i18n} = useTranslation();
   const to = ['rrmaster@gmail.com']; // string or array of email addresses
   email(to, {
     // Optional additional arguments
@@ -27,7 +28,7 @@ function handleEmail(status) {
     // bcc: 'mee@mee.com',
     // string or array of email addresses
     subject: 'Real Research Support',
-    // body: t('customDrawerContentMail'),
+    body: t('customDrawerContentMail'),
   }).catch(console.error);
 }
 
@@ -63,9 +64,10 @@ const CustomDrawerContent = (props) => {
   useEffect(() => {
     alertDataApi();
     emailAsyncSet();
-    getWalletApi();
+    // getWalletApi();
     userApi();
     passportApi();
+    console.log('????????dfsdf', idData.passPortStatus);
   }, [props.login]);
 
   console.log('CUSTON>>>>', props.login);
@@ -100,7 +102,7 @@ const CustomDrawerContent = (props) => {
         setIdData(response.data);
       })
       .catch((e) => {
-        console.log('passportApi', e);
+        console.log('passportApi error', e);
       });
   };
 
@@ -317,9 +319,21 @@ const CustomDrawerContent = (props) => {
 
       {/* Menu */}
       <View style={{flexDirection: 'column', width: '100%'}}>
+        {/* IdVerification */}
         <TouchableOpacity
           onPress={() => {
-            props.navigation.navigate('IdVerification');
+            if (idData.passPortStatus === '0') {
+              props.navigation.navigate('IdVerification');
+            } else if (idData.passPortStatus === '1') {
+              // props.navigation.navigate('IdVerificationComplete');
+              props.navigation.navigate('IdVerification');
+            } else if (idData.passPortStatus === '2') {
+              props.navigation.navigate('IdVerificationInProgress');
+            } else if (idData.passPortStatus === '3') {
+              props.navigation.navigate('IdVerificationDecline');
+            } else {
+              props.navigation.navigate('IdVerification');
+            }
           }}
           style={MainStyle.drawerItem}>
           <Text
@@ -331,6 +345,8 @@ const CustomDrawerContent = (props) => {
             {t('customDrawerContent5')}
           </Text>
         </TouchableOpacity>
+
+        {/* Main */}
         <TouchableOpacity
           onPress={() => {
             props.navigation.navigate('Main');
@@ -345,6 +361,8 @@ const CustomDrawerContent = (props) => {
             {t('customDrawerContent6')}
           </Text>
         </TouchableOpacity>
+
+        {/* RequestResearch */}
         <TouchableOpacity
           onPress={() => {
             props.navigation.navigate('RequestResearch');
@@ -359,6 +377,8 @@ const CustomDrawerContent = (props) => {
             {t('customDrawerContent7')}
           </Text>
         </TouchableOpacity>
+
+        {/* Media */}
         <TouchableOpacity
           onPress={() => {
             props.navigation.navigate('Media');
@@ -373,6 +393,8 @@ const CustomDrawerContent = (props) => {
             {t('customDrawerContent8')}
           </Text>
         </TouchableOpacity>
+
+        {/* MainAlert */}
         <TouchableOpacity
           onPress={() => {
             props.navigation.navigate('MainAlert', {
@@ -397,6 +419,8 @@ const CustomDrawerContent = (props) => {
             </TouchableOpacity>
           )}
         </TouchableOpacity>
+
+        {/* Email form */}
         <TouchableOpacity onPress={handleEmail} style={MainStyle.drawerItem}>
           <Text
             style={[
@@ -407,6 +431,8 @@ const CustomDrawerContent = (props) => {
             {t('customDrawerContent10')}
           </Text>
         </TouchableOpacity>
+
+        {/* Settings */}
         <TouchableOpacity
           onPress={() => {
             props.navigation.navigate('Settings');
@@ -421,6 +447,8 @@ const CustomDrawerContent = (props) => {
             {t('customDrawerContent11')}
           </Text>
         </TouchableOpacity>
+
+        {/* Invitaion code */}
         <TouchableOpacity
           onPress={() => {
             props.navigation.navigate('Main');

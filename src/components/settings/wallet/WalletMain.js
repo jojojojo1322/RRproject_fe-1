@@ -1,31 +1,21 @@
 import React, {useState, useEffect} from 'react';
 import {
-  StyleSheet,
   View,
   Text,
-  ScrollView,
-  Button,
   TouchableOpacity,
-  Alert,
   Image,
-  Platform,
   FlatList,
   Linking,
   BackHandler,
 } from 'react-native';
-
 import ResetStyle from '../../../style/ResetStyle.js';
 import WalletStyle from '../../../style/WalletStyle.js';
-
 import {SafeAreaView} from 'react-native-safe-area-context';
-
 import axios from 'axios';
 import {server} from '../../defined/server';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import ProgressModal from '../../factory/modal/ProgressModal.js';
-
-import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
 // 3자리수 콤마(,) + 소수점 이하는 콤마 안 생기게
 function numberWithCommas(num) {
@@ -38,13 +28,11 @@ function numberWithCommas(num) {
 
 const WalletMain = (props) => {
   const {t, i18n} = useTranslation();
-
   const URL = 'https://aladdin25.com/';
 
   const [masterKey, setMasterKey] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   // const TestArrayFix = TestArray[0].transactions;
-
   const [walletHistoryData, setWalletHistoryData] = useState([]);
   const [walletData, setWalletData] = useState([]);
   // const [refreshing, setRefreshing] = useState(false);
@@ -104,11 +92,11 @@ const WalletMain = (props) => {
     props.navigation.replace('Main');
     return true;
   };
+
   useEffect(() => {
     console.log('실행');
-
     BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
-  });
+  }, []);
 
   const Item = (data) => (
     <TouchableOpacity
@@ -189,7 +177,7 @@ const WalletMain = (props) => {
                   ResetStyle.fontB,
                   {marginLeft: 10},
                 ]}>
-                {t('walletMainTitle')}zxzxzz
+                {t('walletMainTitle')}
               </Text>
             </View>
           </TouchableOpacity>
