@@ -65,7 +65,10 @@ const CountryList = (props) => {
       <FlatList
         data={DATA}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item, index) =>
+          // Number(item.level);
+          index.toString()
+        }
         extraData={selectedId}
         style={{
           width: '100%',

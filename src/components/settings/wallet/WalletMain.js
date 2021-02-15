@@ -314,7 +314,10 @@ const WalletMain = (props) => {
               surveyName={item.content.surveyName}
             />
           )}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item, index) =>
+            // Number(item.level);
+            index.toString()
+          }
           contentContainerStyle={{
             justifyContent: 'flex-start',
           }}

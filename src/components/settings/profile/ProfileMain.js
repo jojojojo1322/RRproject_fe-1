@@ -83,7 +83,7 @@ const ProfileMain = ({navigation}) => {
           ProfileStyle.kycTouchable,
           {borderBottomWidth: 0.8, borderColor: '#dedede'},
         ]}
-        key={index}
+        key={level}
         onPress={() => {
           // 이미 완료한 kyc - 수정 로직
           if (Number(level) <= Number(kycLevel)) {
@@ -255,7 +255,10 @@ const ProfileMain = ({navigation}) => {
           renderItem={({item}) => (
             <Item status={item.status} level={item.level} kycLevel={kycLevel} />
           )}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item, index) =>
+            // Number(item.level);
+            index.toString()
+          }
           inverted={true}
         />
         <BottomModal

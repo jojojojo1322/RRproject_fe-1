@@ -144,7 +144,10 @@ const Settings = ({navigation}) => {
         <FlatList
           data={DATA}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item, index) =>
+            // Number(item.level);
+            index.toString()
+          }
           style={{borderTopWidth: 1, borderTopColor: '#dddddd'}}
         />
       </View>

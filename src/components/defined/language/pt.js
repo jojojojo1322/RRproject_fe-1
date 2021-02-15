@@ -709,6 +709,10 @@ export default pt = {
         '설문조사를 완료해주셔서 감사합니다.\n블록체인 네트워크에서 확인 완료 후\n당신의 리워드 코인을 받으실 수 있습니다.',
       mainVideoComplete2: '거래 처리 중',
       mainVideoComplete3: '지갑 확인하기',
+
+      // 모달 확인 취소 --> 임시로 만들었습니다.
+      cancel: 'cancel',
+      confirm: 'confirm',
     },
   },
 };

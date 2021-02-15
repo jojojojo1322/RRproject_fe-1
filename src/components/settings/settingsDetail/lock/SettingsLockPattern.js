@@ -37,7 +37,7 @@ const LockPattern = () => {
 
   return (
     <GesturePassword
-      ref="pg"
+      // ref="pg"
       status={status}
       message={message}
       onStart={() => onStart()}

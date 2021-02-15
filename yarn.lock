@@ -6181,13 +6181,6 @@
     "invariant" "^2.2.4"
     "prop-types" "^15.7.2"
 
-"react-native-gesture-password@^0.4.0":
-  "integrity" "sha512-QHmd7w3a7zqNl21oPyIcrL0B/LfzumEd3/LL+UajNBBRsPRoYXBy46JbzncolHzSPm8nG5xE3MfDfigI1MmU3g=="
-  "resolved" "https://registry.npmjs.org/react-native-gesture-password/-/react-native-gesture-password-0.4.0.tgz"
-  "version" "0.4.0"
-  dependencies:
-    "prop-types" "^15.6.0"
-
 "react-native-image-picker@^3.1.4":
   "integrity" "sha512-5pRmrBx+vZcf/UH6n95gxnBq5B7tRDZWIDnhvM4JxlthOChuvEEiShN+MMs7ue+lK26RXws5BOgKGd6MtQI/LQ=="
   "resolved" "https://registry.npmjs.org/react-native-image-picker/-/react-native-image-picker-3.1.4.tgz"

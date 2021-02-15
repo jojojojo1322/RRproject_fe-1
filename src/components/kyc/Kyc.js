@@ -85,6 +85,8 @@ class Kyc extends Component {
     countryResidenceCd: '',
 
     languageCd: '',
+    language: '',
+    originalLan: [],
     modalVisible: false,
     modal1Visible: false,
     returnValue: '',
@@ -103,6 +105,23 @@ class Kyc extends Component {
           this.setState({
             updateUserData: response.data.data,
           });
+        } else {
+          // this.setState({
+          //   updateUserData: [
+          //     {
+          //       gender: '',
+          //       relationShipStatus: '',
+          //       dateOfBirth: '',
+          //       nationality: '',
+          //       nationalityCode: '',
+          //       languageNativeName: '',
+          //       language: '',
+          //       residentCountry: '',
+          //       residentCountryCode: '',
+          //       residentCity: '',
+          //     },
+          //   ],
+          // });
         }
       })
       .catch((e) => {
@@ -133,7 +152,7 @@ class Kyc extends Component {
   };
   setLanguage = (lang, langCd) => {
     console.log('Language', lang);
-    this.setState({languageCd: lang});
+    this.setState({languageCd: langCd, language: lang});
   };
   setResidenceCountry = (countryResidence, countryResidenceCd) => {
     this.setState({
@@ -153,6 +172,7 @@ class Kyc extends Component {
     countryResidence,
     countryResidenceCd,
     gender,
+    language,
     languageCd,
     marriageStatus,
   ) => {
@@ -160,7 +180,8 @@ class Kyc extends Component {
     console.log({
       dateOfBirth: birthday,
       gender: gender,
-      language: languageCd,
+      language: language,
+      languageCd: languageCd,
 
       nationality: country,
       nationalityCode: countryCd,
@@ -174,7 +195,7 @@ class Kyc extends Component {
         dateOfBirth: birthday,
         gender: gender,
         language: languageCd,
-
+        languageNativeName: language,
         nationality: country,
         nationalityCode: countryCd,
         relationShipStatus: marriageStatus,
@@ -201,6 +222,7 @@ class Kyc extends Component {
     countryResidence,
     countryResidenceCd,
     gender,
+    language,
     languageCd,
     marriageStatus,
   ) => {
@@ -209,6 +231,7 @@ class Kyc extends Component {
     console.log({
       dateOfBirth: birthday,
       gender: gender,
+      language: language,
       language: languageCd,
 
       nationality: country,
@@ -225,7 +248,7 @@ class Kyc extends Component {
         dateOfBirth: birthday,
         gender: gender,
         language: languageCd,
-
+        languageNativeName: language,
         nationality: country,
         nationalityCode: countryCd,
         relationShipStatus: marriageStatus,
@@ -285,6 +308,7 @@ class Kyc extends Component {
           birth: updateUserData.dateOfBirth,
           nationality: updateUserData.nationality,
           countryCd: updateUserData.nationalityCode,
+          language: updateUserData.languageNativeName,
           languageCd: updateUserData.language,
           countryResidence: updateUserData.residentCountry,
           countryResidenceCd: updateUserData.residentCountryCode,
@@ -292,29 +316,6 @@ class Kyc extends Component {
         });
       }
     }
-    console.log('preState.step', preState.step);
-    console.log('this.state.step', this.state.step);
-    // if (preState.step !== this.state.step) {
-    //   if (preState.step === 1 && this.state.step === 2) {
-    //     const {updateUserData} = this.state;
-    //     console.log('updateUSUSUSUSUSUSU', updateUserData);
-    //     this.setState({
-    //       birth: updateUserData.dateOfBirth,
-    //     });
-    //   }
-    //   if (preState.step === 2 && this.state.step === 3) {
-    //     const {updateUserData} = this.state;
-    //     console.log('updateUSUSUSUSUSUSU', updateUserData);
-    //     this.setState({
-    //       nationality: updateUserData.nationality,
-    //       countryCd: updateUserData.nationalityCode,
-    //       languageCd: updateUserData.language,
-    //       countryResidence: updateUserData.residentCountry,
-    //       countryResidenceCd: updateUserData.residentCountryCode,
-    //       countryCity: updateUserData.residentCity,
-    //     });
-    //   }
-    // }
     console.log('this.state.birth', this.state.birth);
     if (this.state.step === 2 && this.state.birth === undefined) {
       const {updateUserData} = this.state;
@@ -329,11 +330,34 @@ class Kyc extends Component {
       this.state.countryResidence === ''
     ) {
       const {updateUserData} = this.state;
+      let fixLan = [];
+      if (updateUserData.language) {
+        let lanCd = updateUserData.language.split(',');
+        let lan = updateUserData.languageNativeName.split(',');
+
+        // {key: 1, value: "ab", label: "Аҧсуа"}
+
+        lanCd.map((data, index) => {
+          lan.map((data2, index2) => {
+            if (index === index2) {
+              fixLan = fixLan.concat({key: 1, value: data, label: data2});
+            }
+          });
+        });
+        console.log('fixLan', fixLan);
+        console.log('fixLan', fixLan);
+        console.log('fixLan', fixLan);
+        console.log('fixLan', fixLan);
+        console.log('fixLan', fixLan);
+      }
       this.setState({
         updateCheck: true,
         nationality: updateUserData.nationality,
         countryCd: updateUserData.nationalityCode,
+
+        language: updateUserData.languageNativeName,
         languageCd: updateUserData.language,
+        originalLan: fixLan,
         countryResidence: updateUserData.residentCountry,
         countryResidenceCd: updateUserData.residentCountryCode,
         countryCity: updateUserData.residentCity,
@@ -344,22 +368,6 @@ class Kyc extends Component {
         'questionasldknjsavkjanbdfvkljbnvlkjednvquestionasldknjsavkjanbdfvkljbnvlkjednvquestionasldknjsavkjanbdfvkljbnvlkjednv;jcnvs;kLDcnv',
       );
     }
-
-    // if (preState.updateCheck !== this.state.updateCheck) {
-    //   console.log('진입진입진입진입진입진입진입진입진입진입진입진입');
-    //   const {updateUserData} = this.state;
-    //   this.setState({
-    //     gender: updateUserData.gender,
-    //     maritalStatus: updateUserData.relationShipStatus,
-    //     birth: updateUserData.dateOfBirth,
-    //     nationality: updateUserData.nationality,
-    //     countryCd: updateUserData.nationalityCode,
-    //     languageCd: updateUserData.language,
-    //     countryResidence: updateUserData.residentCountry,
-    //     countryResidenceCd: updateUserData.residentCountryCode,
-    //     countryCity: updateUserData.residentCity,
-    //   });
-    // }
 
     console.log({
       birth: this.state.birth,
@@ -489,9 +497,11 @@ class Kyc extends Component {
                 setResidenceCountry={this.setResidenceCountry}
                 setResidenceCity={this.setResidenceCity}
                 Kcountry={this.state.countryCd}
-                Klanguage={this.state.languageCd}
+                Klanguage={this.state.language}
+                KlanguageCd={this.state.languageCd}
                 KresidenceCountry={this.state.countryResidence}
                 KresidenceCity={this.state.countryCity}
+                KoriginalLan={this.state.originalLan}
               />
               // updateCheck: true,
               // gender: response.data.data.gender,
@@ -567,6 +577,7 @@ class Kyc extends Component {
                         this.state.countryResidence,
                         this.state.countryResidenceCd,
                         this.state.gender,
+                        this.state.language,
                         this.state.languageCd,
                         this.state.maritalStatus,
                       );
@@ -594,6 +605,7 @@ class Kyc extends Component {
                         this.state.countryResidence,
                         this.state.countryResidenceCd,
                         this.state.gender,
+                        this.state.language,
                         this.state.languageCd,
                         this.state.maritalStatus,
                       );

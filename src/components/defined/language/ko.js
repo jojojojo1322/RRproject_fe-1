@@ -692,6 +692,10 @@ export default ko = {
       walletReceive4: '지갑을 찾을 수 없습니다.',
 
       settingsPersonal8: '※ Phone Number cannot be modified.',
+
+      // 모달 확인 취소 --> 임시로 만들었습니다.
+      cancel: '취소',
+      confirm: '확인',
     },
   },
 };

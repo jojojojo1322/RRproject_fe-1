@@ -1,4 +1,4 @@
-import React, {useState, Component} from 'react';
+import React, {useState, useEffect, Component} from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -68,7 +68,10 @@ const CountryList = (props) => {
       <FlatList
         data={DATA}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item, index) =>
+          // Number(item.level);
+          index.toString()
+        }
         style={{
           width: '100%',
           marginTop: '5%',
@@ -127,48 +130,53 @@ const ListCheckLangModal = ({
   setModalVisible,
   setLanguage,
   list,
+  originalLang,
 }) => {
   let CheckedArrObject = new SelectedCheckboxes();
   // console.log(CheckedArrObject.fetchArray().length);
-
   const [searchText, setSearchText] = useState('');
-  const [checkedArray, setCheckedArray] = useState([]);
+  const [checkedArray, setCheckedArray] = useState(originalLang);
   const {t, i18n} = useTranslation();
-
+  useEffect(() => {
+    if (modalVisible === true) {
+      setCheckedArray(originalLang);
+    }
+  }, [modalVisible]);
   const handleCheckedArray = async (Array) => {
     let _checkedArray = checkedArray;
     if (
-      _checkedArray.findIndex((data) => data.value === Array[0].value) === -1
+      _checkedArray.findIndex(
+        (data) => data.value === Array[Array.length - 1].value,
+        // (data) => data.value === Array[0].value,
+      ) === -1
     ) {
-      await setCheckedArray(_checkedArray.concat(Array));
+      _checkedArray = _checkedArray.concat(Array);
+      setCheckedArray(_checkedArray);
       console.log('PlusArrayLATE', _checkedArray);
     } else {
       console.log('중복');
     }
-    console.log(
-      '_checkedArray.findIndex((data)=>data.value === Array.value)_checkedArray.findIndex((data)=>data.value === Array.value)',
-      _checkedArray.findIndex((data) => data.value === Array[0].value),
-    );
-    console.log(
-      '_checkedArray.findIndex((data)=>data.value === Array.value)_checkedArray.findIndex((data)=>data.value === Array.value)',
-      Array,
-    );
   };
 
   const handleUnCheckedArray = async (value) => {
     let _checkedArray = checkedArray;
+
+    console.log('제거할떄 로직 타기전 _checkedArray', _checkedArray);
+    console.log('제거할떄 로직 타기전 Array[0].value', value);
     _checkedArray.splice(
       _checkedArray.findIndex((y) => y.value == value),
       1,
-    ),
-      await setCheckedArray(_checkedArray);
+    );
+    await setCheckedArray(_checkedArray);
     console.log('MinusArrayLATE', _checkedArray);
   };
 
   const handleInputChange = (searchText) => {
     setSearchText(searchText);
   };
+
   console.log('리스트체크랭>>>>>>>>>>>>>>>>>>>>>>>', checkedArray);
+
   return modalVisible ? (
     <KeyboardAwareScrollView
       enableOnAndroid={true}
@@ -252,7 +260,7 @@ const ListCheckLangModal = ({
             CheckedArrObject={CheckedArrObject}
             searchText={searchText}
             // 체크박스 유지 배열
-            checkedArray={checkedArray}
+            checkedArray={checkedArray != '' ? checkedArray : originalLang}
             // 체크박스 add / minus
             handleCheckedArray={handleCheckedArray}
             handleUnCheckedArray={handleUnCheckedArray}
@@ -284,177 +292,3 @@ const ListCheckLangModal = ({
 };
 
 export default ListCheckLangModal;
-
-// class ListCheckLangModal extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       modalVisible: false,
-//       searchText: '',
-//       checkedArray: [],
-//     };
-//   }
-//   handleCheckedArray = async (Array) => {
-//     let checkedArray = this.state.checkedArray;
-//     await this.setState({
-//       checkedArray: checkedArray.concat(Array),
-//     });
-//     console.log('PlusArrayLATE', this.state.checkedArray);
-//   };
-
-//   handleUnCheckedArray = async (value) => {
-//     let checkedArray = this.state.checkedArray;
-//     checkedArray.splice(
-//       checkedArray.findIndex((y) => y.value == value),
-//       1,
-//     ),
-//       await this.setState({
-//         checkedArray: checkedArray,
-//       });
-//     console.log('MinusArrayLATE', this.state.checkedArray);
-//   };
-
-//   componentDidUpdate(preProps, preState) {
-//     if (preProps.modalVisible != this.props.modalVisible) {
-//       this.setState({modalVisible: this.props.modalVisible});
-//     }
-//   }
-//   handleInputChange = (searchText) => {
-//     this.setState({
-//       searchText: searchText,
-//     });
-//   };
-//   setModalVisible = (visible) => {
-//     this.setState({modalVisible: visible});
-//   };
-//   render() {
-//     let CheckedArrObject = new SelectedCheckboxes();
-//     const {modalVisible} = this.state;
-//     console.log(CheckedArrObject.fetchArray().length);
-//     return (
-//       <KeyboardAwareScrollView
-//         enableOnAndroid={true}
-//         contentContainerStyle={{flexGrow: 1}}>
-//         <Modal
-//           animationType="fade"
-//           transparent={true}
-//           visible={modalVisible}
-//           // onRequestClose={() => {
-//           //   Alert.alert('Modal has been closed.');
-//           // }}
-//         >
-//           {/* modal background */}
-//           <TouchableWithoutFeedback
-//             activeOpacity={0.55}
-//             onPress={() => {
-//               this.setState({modalVisible: !modalVisible});
-//               this.props.setModalVisible(!modalVisible);
-//             }}>
-//             <View style={[ModalStyle.modalCenteredView]}></View>
-//           </TouchableWithoutFeedback>
-
-//           {/* modal view */}
-//           <View style={[ModalStyle.lcModal]}>
-//             <View
-//               style={[
-//                 ModalStyle.lcModalBox,
-//                 {
-//                   marginTop: '3%',
-//                   marginBottom: Platform.OS === 'ios' ? '5%' : '4%',
-//                 },
-//               ]}>
-//               <View
-//                 style={{
-//                   flexDirection: 'row',
-//                   alignItems: 'center',
-//                 }}>
-//                 <Text
-//                   style={[
-//                     ResetStyle.fontMediumK,
-//                     ResetStyle.fontBlack,
-//                     {fontWeight: '500'},
-//                   ]}>
-//                   사용가능언어 선택
-//                 </Text>
-//                 <Text style={[ResetStyle.fontLightK, ResetStyle.fontBlack]}>
-//                   (다중 선택 가능)
-//                 </Text>
-//               </View>
-//               <TouchableWithoutFeedback
-//                 setModalVisible={this.props.modalVisible}
-//                 modalVisible={this.props.modalVisible}
-//                 onPress={() => {
-//                   this.setState({modalVisible: !modalVisible});
-//                   this.props.setModalVisible(!modalVisible);
-//                 }}>
-//                 <Image
-//                   style={[ModalStyle.listModalCloseButton]}
-//                   source={require('../../../imgs/drawable-xxxhdpi/delete_icon.png')}
-//                 />
-//               </TouchableWithoutFeedback>
-//             </View>
-
-//             <View style={[ModalStyle.lcModalInput]}>
-//               <TextInput
-//                 style={[
-//                   ResetStyle.fontLightK,
-//                   ResetStyle.fontBlack,
-//                   {
-//                     textAlign: 'left',
-//                     width: '90%',
-//                     paddingTop: '2%',
-//                     paddingBottom: '2%',
-//                   },
-//                 ]}
-//                 onChangeText={this.handleInputChange}
-//                 placeholderTextColor="#a9a9a9"
-//                 value={this.state.searchText}
-//                 placeholder="search"
-//               />
-//               <TouchableOpacity>
-//                 <Image
-//                   style={[ModalStyle.listModalSearch]}
-//                   source={require('../../../imgs/icon_search.png')}
-//                 />
-//               </TouchableOpacity>
-//             </View>
-//             {/* <View
-//               style={{paddingLeft: '10%', paddingRight: '10%', height: '70%'}}> */}
-//             <CountryList
-//               setLanguage={this.props.setLanguage}
-//               CheckedArrObject={CheckedArrObject}
-//               searchText={this.state.searchText}
-//               // 체크박스 유지 배열
-//               checkedArray={this.state.checkedArray}
-//               // 체크박스 add / minus
-//               handleCheckedArray={this.handleCheckedArray}
-//               handleUnCheckedArray={this.handleUnCheckedArray}
-//               list={this.props.list}
-//             />
-//             {/* </View> */}
-//             <TouchableOpacity
-//               style={[
-//                 ResetStyle.button,
-
-//                 // {backgroundColor: '#c6c9cf', marginTop: 15},
-//                 this.state.checkedArray == '' && {backgroundColor: '#e6e6e6'},
-//               ]}
-//               onPress={() => {
-//                 if (this.state.checkedArray !== '') {
-//                   console.log('AKKKKAKAKAKAKAKAKAK');
-//                   this.props.setLanguage(this.state.checkedArray);
-//                   this.setState({modalVisible: !modalVisible});
-//                   this.props.setModalVisible(!modalVisible);
-//                 }
-//               }}>
-//               <Text style={[ResetStyle.fontMediumK, ResetStyle.fontWhite]}>
-//                 CONFIRM
-//               </Text>
-//             </TouchableOpacity>
-//           </View>
-//         </Modal>
-//       </KeyboardAwareScrollView>
-//     );
-//   }
-// }
-// export default ListCheckLangModal;

@@ -28,8 +28,7 @@ const TextConfirmCancelVarModal = ({
   levelCheck,
 }) => {
   const {t, i18n} = useTranslation();
-  console.log('modal KYC', kycLevel);
-  console.log('levelCheck', levelCheck);
+
   return modalVisible ? (
     <Modal
       animationType="fade"

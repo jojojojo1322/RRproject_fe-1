@@ -254,7 +254,10 @@ const ProfileCompleteLevel2 = (props) => {
                 // kycQuestion2={item.kycQuestion2}
               />
             )}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item, index) =>
+              // Number(item.level);
+              index.toString()
+            }
             extraData={question}
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}

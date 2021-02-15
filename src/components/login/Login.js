@@ -123,12 +123,13 @@ class Login extends Component {
             response.headers.authorization.slice(7, undefined),
         );
         ///로그인 실험
-        this.props.route.params?.loginSuccess(response.data.userNo),
-          this.props.route.params?.loginSuccessAuth(response.data.userNo),
-          await AsyncStorage.setItem(
-            'authToken',
-            response.headers.authorization.slice(7, undefined),
-          );
+        this.props.route.params?.loginSuccess(response.data.userNo);
+
+        this.props.route.params?.loginSuccessAuth(response.data.userNo);
+        await AsyncStorage.setItem(
+          'authToken',
+          response.headers.authorization.slice(7, undefined),
+        );
         await AsyncStorage.setItem('userNo', response.data.userNo);
         await AsyncStorage.setItem('email', this.state.ID);
         this.setState({
@@ -163,7 +164,7 @@ class Login extends Component {
   };
   render() {
     const {t} = this.props;
-    console.log(DeviceInfo.getUniqueId());
+    console.log('DeviceInfo 키>>', DeviceInfo.getUniqueId());
     return (
       <SafeAreaView style={ResetStyle.container}>
         <View style={ResetStyle.containerInner}>
