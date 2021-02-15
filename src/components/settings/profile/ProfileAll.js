@@ -20,6 +20,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '../../../style/ResetStyle.js';
 import ProfileStyle from '../../../style/ProfileStyle.js';
 import TextConfirmCancelModal from '../../factory/modal/TextConfirmCancelModal';
+import TextConfirmCancelVarModal from '../../factory/modal/TextConfirmCancelVarModal';
 
 import {useTranslation} from 'react-i18next';
 
@@ -77,6 +78,7 @@ const ProfileAll = (props) => {
   const [modal2Visible, setModal2Visible] = useState(false);
   const [modal3Visible, setModal3Visible] = useState(false);
 
+  const [levelCheck, setLevelCheck] = useState('');
   const {t, i18n} = useTranslation();
 
   const kycQuestion2 = [
@@ -199,12 +201,27 @@ const ProfileAll = (props) => {
     },
   ];
 
-  const getCompleteKycApi = async () => {
+  const getCompleteKycApi = async (lang) => {
     await axios
       .get(`${server}/kyc/1/${await AsyncStorage.getItem('userNo')}`)
       .then(async (response) => {
         console.log(response.data.data);
-        setQuestion([response.data.data]);
+        let fix = response.data.data;
+
+        let fixQ = fix.language.split(',');
+        let fixArr = '';
+
+        fixQ.map((data) => {
+          lang.map((d) => {
+            if (data === d.languageCode) {
+              fixArr += `${d.nativeName},`;
+            }
+          });
+        });
+        fixArr = fixArr.substr(0, fixArr.length - 1);
+        fix.language = fixArr;
+
+        setQuestion([fix]);
       })
       .catch((e) => {
         console.log('Error', e);
@@ -212,29 +229,9 @@ const ProfileAll = (props) => {
   };
 
   useEffect(() => {
-    getCompleteKycApi();
+    // getCompleteKycApi();
+    getLanguageApi();
     get2CompleteKycApi();
-    // getDynamicCompleteKycApi(3);
-    // getDynamicCompleteKycApi(4);
-    // getDynamicCompleteKycApi(5);
-    // getDynamicCompleteKycApi(6);
-    // getDynamicCompleteKycApi(7);
-    // getDynamicCompleteKycApi(8);
-    // getDynamicCompleteKycApi(9);
-    // getDynamicCompleteKycApi(10);
-    // getDynamicCompleteKycApi(11);
-    // getDynamicCompleteKycApi(12);
-    // getDynamicCompleteKycApi(13);
-    // getDynamicCompleteKycApi(14);
-    // getDynamicCompleteKycApi(15);
-    // getDynamicCompleteKycApi(16);
-    // getDynamicCompleteKycApi(17);
-    // getDynamicCompleteKycApi(18);
-    // getDynamicCompleteKycApi(19);
-    // getDynamicCompleteKycApi(20);
-    // getDynamicCompleteKycApi(21);
-    // getDynamicCompleteKycApi(22);
-    // getDynamicCompleteKycApi(23);
     levelMap.map((data) => {
       if (Number(data.id) <= Number(props.route.params?.KycLevel)) {
         getDynamicCompleteKycApi(data.id);
@@ -242,6 +239,18 @@ const ProfileAll = (props) => {
     });
   }, []);
   console.log('getDynamicCompleteKycApi(23);', props.route.params?.KycLevel);
+  const getLanguageApi = async () => {
+    await axios
+      .get(`${server}/util/global/languages`)
+      .then(async (response) => {
+        console.log('getLanguageApi THEN>>', response);
+
+        getCompleteKycApi(response.data);
+      })
+      .catch((e) => {
+        console.log('getLanguageApi ERROR>>', e);
+      });
+  };
   const get2CompleteKycApi = async () => {
     await axios
       .get(`${server}/kyc/2/${await AsyncStorage.getItem('userNo')}`)
@@ -397,9 +406,10 @@ const ProfileAll = (props) => {
       KycLevel: 2,
     });
   };
-  const confirm3Handle = () => {
+  const confirm3Handle = (level) => {
+    console.log('confirm3Handleconfirm3Handleconfirm3Handle', level);
     props.navigation.navigate('ProfileIncompleteDetail', {
-      KycLevel: props.route.params?.KycLevel,
+      KycLevel: level,
     });
   };
   const RenderItem = (item) => {
@@ -663,9 +673,11 @@ const ProfileAll = (props) => {
                       </Text>
                       <TouchableOpacity
                         onPress={() => {
-                          props.navigation.navigate('ProfileIncompleteDetail', {
-                            KycLevel: data.id,
-                          });
+                          // props.navigation.navigate('ProfileIncompleteDetail', {
+                          //   KycLevel: data.id,
+                          // });
+                          setLevelCheck(data.id);
+                          setModal3Visible(true);
                         }}>
                         <Image
                           style={[ProfileStyle.kycAllLevelImg]}
@@ -740,6 +752,19 @@ const ProfileAll = (props) => {
                       extraData={questionDynamic}
                       showsVerticalScrollIndicator={false}
                       showsHorizontalScrollIndicator={false}
+                    />
+                    <TextConfirmCancelVarModal
+                      modalVisible={modal3Visible}
+                      setModalVisible={setModal3Visible}
+                      text={`KYC업데이트 시 72시간동안 ${'\n'}설문조사에 참여하실 수 없습니다.${'\n'}KYC업데이트를 진행하시겠습니까?`}
+                      cancel={t('researchForm1')}
+                      cancelHandle={cancelHandle}
+                      confirm={t('researchForm4')}
+                      confirmHandle={confirm3Handle}
+                      kycLevel={data.id}
+                      levelCheck={levelCheck}
+                      // text={`KYC LEVEL ${Number(kycLevel) + 1}을 먼저 완료해주세요.`}
+                      // text={t('profileMain8', {kyclevel: Number(kycLevel) + 1})}
                     />
                   </View>
                 );
@@ -823,17 +848,6 @@ const ProfileAll = (props) => {
           cancelHandle={cancelHandle}
           confirm={t('researchForm4')}
           confirmHandle={confirm2Handle}
-          // text={`KYC LEVEL ${Number(kycLevel) + 1}을 먼저 완료해주세요.`}
-          // text={t('profileMain8', {kyclevel: Number(kycLevel) + 1})}
-        />
-        <TextConfirmCancelModal
-          modalVisible={modal3Visible}
-          setModalVisible={setModal3Visible}
-          text={`KYC업데이트 시 72시간동안 ${'\n'}설문조사에 참여하실 수 없습니다.${'\n'}KYC업데이트를 진행하시겠습니까?`}
-          cancel={t('researchForm1')}
-          cancelHandle={cancelHandle}
-          confirm={t('researchForm4')}
-          confirmHandle={confirm3Handle}
           // text={`KYC LEVEL ${Number(kycLevel) + 1}을 먼저 완료해주세요.`}
           // text={t('profileMain8', {kyclevel: Number(kycLevel) + 1})}
         />

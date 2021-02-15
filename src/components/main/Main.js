@@ -217,6 +217,11 @@ function Ongoing({navigation}) {
               'kycUpdateCheckkycUpdateCheckkycUpdateCheck',
               kycUpdateCheck,
             );
+            console.log({
+              legacySurveyId: item.legacySurveyId,
+
+              surveyName: item.surveyName,
+            });
             navigation.navigate('MainDetail', {
               legacySurveyId: item.legacySurveyId,
               // legacySurveyId: '5f91aad0ae28561b056e2f97',
