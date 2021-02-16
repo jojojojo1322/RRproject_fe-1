@@ -163,7 +163,7 @@ const ProfileMain = ({navigation}) => {
   };
   useEffect(() => {
     console.log('실행');
-    userApi();
+    // userApi();
     BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
   });
 

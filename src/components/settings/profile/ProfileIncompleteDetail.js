@@ -332,50 +332,37 @@ const ProfileIncompleteDetail = (props) => {
             console.log('result', data === answer);
             if (data === answer) {
               splitArray.splice(index, 1);
+              // console.log('들어옴??', splitArray.splice(index, 1));
             }
           });
           console.log('splitArray', splitArray);
-          splitArray.map((data, index) => {
-            if (index === 0) {
-              fixAnswer = data;
-            } else {
-              fixAnswer += `,${data}`;
-            }
-          });
+          if (splitArray.length !== 0) {
+            splitArray.map((data, index) => {
+              if (index === 0) {
+                console.log('data', data, index);
+                fixAnswer = data;
+              } else {
+                console.log('data', data, index);
+                fixAnswer += `,${data}`;
+              }
+            });
+            console.log('마이너스 인덱스 값으로 slice', fixAnswer);
+
+            console.log('바뀐 값 들어있는 값 체크', fixAnswer);
+            _checkedArray[
+              _checkedArray.findIndex(
+                (data) => String(data.kycQuestion) === String(question),
+              )
+            ].kycOption = fixAnswer;
+          } else {
+            console.log('한개밖에 없었음');
+            _checkedArray.splice(
+              _checkedArray.findIndex((y) => y.kycQuestion == question),
+              1,
+            );
+          }
+
           console.log('fixAnswerfixAnswer', fixAnswer);
-
-          // if (answer.length === 1) {
-          //   if (fixAnswer.indexOf(answer) === 0) {
-          //     let text = fixAnswer.slice(0, 2);
-          //     fixAnswer = fixAnswer.replace(text, '');
-          //   } else {
-          //     let text = fixAnswer.slice(
-          //       fixAnswer.indexOf(answer) - 1,
-          //       fixAnswer.indexOf(answer) + 1,
-          //     );
-          //     fixAnswer = fixAnswer.replace(text, '');
-          //   }
-          // } else if (answer.length === 2) {
-          //   if (fixAnswer.indexOf(answer) === 0) {
-          //     let text = fixAnswer.slice(0, 3);
-          //     fixAnswer = fixAnswer.replace(text, '');
-          //   } else {
-          //     let text = fixAnswer.slice(
-          //       fixAnswer.indexOf(answer) - 1,
-          //       fixAnswer.indexOf(answer) + 2,
-          //     );
-          //     fixAnswer = fixAnswer.replace(text, '');
-          //   }
-          // }
-
-          console.log('마이너스 인덱스 값으로 slice', fixAnswer);
-
-          console.log('바뀐 값 들어있는 값 체크', fixAnswer);
-          _checkedArray[
-            _checkedArray.findIndex(
-              (data) => String(data.kycQuestion) === String(question),
-            )
-          ].kycOption = fixAnswer;
 
           setCheckedArray(_checkedArray);
           setNextCheck(
@@ -721,21 +708,7 @@ const ProfileIncompleteDetail = (props) => {
               },
             ]}
             activeOpacity={0.75}
-            onPress={
-              // checkedArray.findIndex(
-              //   (y) => String(y.kycQuestion) === String(nowIndex + 1),
-              // ) >= 0 ||
-              // (kycQuestion[nowIndex] &&
-              //   kycQuestion[nowIndex].questionRequiredYN === 'FALSE')
-              //   ? handlerNext
-              //   : null
-              // checkedArray.findIndex(
-              //   (y) => String(y.kycQuestion) === String(nowIndex + 1),
-              // ) >= 0 ||
-              // (kycQuestion[nowIndex] &&
-              //   kycQuestion[nowIndex].questionRequiredYN === 'FALSE')
-              nextCheck ? handlerNext : null
-            }>
+            onPress={nextCheck ? handlerNext : null}>
             <Text
               style={[
                 ResetStyle.fontMediumK,
