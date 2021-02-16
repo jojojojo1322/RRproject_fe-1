@@ -60,7 +60,7 @@ const ProfileComplete = (props) => {
               },
             ]}
             onPress={() => {
-              props.navigation.navigate('WalletMain');
+              props.navigation.replace('WalletMain');
               // props.navigation.setOptions({ title: '약관동의' });
             }}>
             <Text

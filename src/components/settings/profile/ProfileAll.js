@@ -237,8 +237,11 @@ const ProfileAll = (props) => {
       'Each child in a list should have a unique "key" prop.',
     ]);
     getCompleteKycApi();
+
     // getLanguageApi();
-    get2CompleteKycApi();
+    if (props.route.params?.KycLevel >= 2) {
+      get2CompleteKycApi();
+    }
     levelMap.map((data) => {
       if (Number(data.id) <= Number(props.route.params?.KycLevel)) {
         getDynamicCompleteKycApi(data.id);
@@ -502,7 +505,7 @@ const ProfileAll = (props) => {
 
   return (
     <SafeAreaView style={[ResetStyle.container]}>
-      <View style={[ResetStyle.containerInner]}>
+      <View style={[ResetStyle.containerInner, {justifyContent: 'flex-start'}]}>
         {/* topBackButton */}
         <View style={ResetStyle.topBackButton}>
           <TouchableOpacity
@@ -613,7 +616,7 @@ const ProfileAll = (props) => {
               );
             })}
             {/* level 2 start */}
-            {props.route.params?.KycLevel > 2 && (
+            {props.route.params?.KycLevel >= 2 && (
               <View>
                 <View
                   style={[ProfileStyle.kycAllLevelTitle, {marginTop: '10%'}]}>

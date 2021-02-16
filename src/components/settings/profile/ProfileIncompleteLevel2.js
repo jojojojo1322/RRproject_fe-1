@@ -395,7 +395,7 @@ const ProfileIncompleteLevel2 = (props) => {
       setNowIndex(_nowIndex - 1);
       setCheckId('');
     } else if (_nowIndex == 0) {
-      props.navigation.goBack();
+      props.navigation.replace('ProfileMain');
     }
   };
 
