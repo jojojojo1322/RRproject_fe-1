@@ -13,8 +13,11 @@ import {
   SafeAreaView,
   StatusBar,
   TouchableOpacity,
+  YellowBox,
 } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
+
+// deviceKey: DeviceInfo.getUniqueId()
 import {server} from '../defined/server';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -61,13 +64,21 @@ class Login extends Component {
     modal3Visible: false,
     modal4Visible: false,
     modal5Visible: false,
+    modal6Visible: false,
     selectedId: null,
     text: '',
     loginCheck: false,
     hasWallet: '',
     errorMsg: '',
-  };
 
+    deviceCheck: 1,
+  };
+  componentDidMount() {
+    YellowBox.ignoreWarnings([
+      'Non-serializable values were found in the navigation state.',
+    ]);
+    YellowBox.ignoreWarnings(['Can']);
+  }
   setModalVisible = (visible) => {
     this.setState({modalVisible: visible});
   };
@@ -82,6 +93,9 @@ class Login extends Component {
   };
   setModal5Visible = (visible) => {
     this.setState({modal5Visible: visible});
+  };
+  setModal6Visible = (visible) => {
+    this.setState({modal6Visible: visible});
   };
   handleBack = () => {
     this.props.history.goBack();
@@ -132,15 +146,15 @@ class Login extends Component {
         );
         await AsyncStorage.setItem('userNo', response.data.userNo);
         await AsyncStorage.setItem('email', this.state.ID);
+
         this.setState({
           loginCheck: response.data.status,
           hasWallet: response.data.hasWallet,
         });
-        // this.setModal5Visible(false);
-        return response.data.status;
+
+        // return response.data.status;
       })
       .catch(async (error) => {
-        // this.setModal5Visible(false);
         console.log('erro', error.response.data);
         this.setState({
           loginCheck: error.response.data.status,
@@ -162,6 +176,47 @@ class Login extends Component {
       });
     // this.setModal5Visible(false);
   };
+
+  /////
+  deviceKeyCheckApi = () => {
+    console.log('deviceKeyCheckApi DEVICE KEY>>', DeviceInfo.getUniqueId());
+    axios
+      .get(
+        `${server}/user/register/device-key?reqDeviceKey=${DeviceInfo.getUniqueId()}`,
+      )
+      .then((response) => {
+        console.log('deviceKeyCheckApi THEN>>', response);
+
+        this.setState({
+          deviceCheck: response.data.ret_val,
+        });
+      })
+      .catch((e) => {
+        console.log('deviceKeyCheckApi ERROR>>', e);
+        console.log('deviceKeyCheckApi ERROR>>', e.response);
+      });
+  };
+
+  // useEffect(() => {
+  //   if (deviceCheck === 0) {
+  //     props.navigation.navigate('SignUp');
+  //   } else if (deviceCheck !== 0 && deviceCheck !== 1) {
+  //     setModal2Visible(true);
+  //   }
+  // }, [deviceCheck]);
+  componentDidUpdate = (preProps, preState) => {
+    if (preState.deviceCheck !== this.state.deviceCheck) {
+      if (this.state.deviceCheck === 0) {
+        this.setState({
+          deviceCheck: 1,
+        });
+        this.props.navigation.navigate('SignUp');
+      } else if (this.state.deviceCheck !== 0 && this.state.deviceCheck !== 1) {
+        this.setModal6Visible(true);
+      }
+    }
+  };
+  /////
   render() {
     const {t} = this.props;
     console.log('DeviceInfo 키>>', DeviceInfo.getUniqueId());
@@ -229,32 +284,13 @@ class Login extends Component {
                   await this.loginApi(this.state.ID, this.state.passWord);
                   console.log('this.state.loginCheck', this.state.loginCheck);
 
-                  ///로그인 실험
-                  // this.props.route.params?.loginSuccess(
-                  //   '5fd188217878d135df02c1bd',
-                  // ),
-                  //   this.props.route.params?.loginSuccessAuth(
-                  //     '5fd188217878d135df02c1bd',
-                  //   ),
-                  // this.props.navigation.navigate('Main');
-                  // await AsyncStorage.setItem(
-                  //   'userNo',
-                  //   '5fd188217878d135df02c1bd',
-                  // );
-                  ///로그인 실험
-
-                  // return false;
                   if (this.state.loginCheck) {
                     if (this.state.hasWallet === -1) {
+                      // this.setModal5Visible(false);
                       console.log('aaa');
                       this.setModalVisible(true);
                     } else {
                       this.props.navigation.navigate('Main');
-
-                      // await AsyncStorage.setItem(
-                      //   'userNo',
-                      //   '5fd188217878d135df02c1bd',
-                      // );
                     }
                   } else {
                     if (this.state.errorMsg === 'KycLevel1 Not Saved') {
@@ -321,7 +357,8 @@ class Login extends Component {
             <TouchableOpacity
               activeOpacity={0.75}
               onPress={() => {
-                this.props.navigation.navigate('SignUp');
+                // this.props.navigation.navigate('SignUp');
+                this.deviceKeyCheckApi();
               }}>
               <Text
                 style={[
@@ -366,6 +403,11 @@ class Login extends Component {
         <ProgressModal
           modalVisible={this.state.modal5Visible}
           setModalVisible={this.setModal5Visible}
+        />
+        <BottomModal
+          modalVisible={this.state.modal6Visible}
+          setModalVisible={this.setModal6Visible}
+          text={`해당 핸드폰으로 등록된 계정이 있습니다.`}
         />
       </SafeAreaView>
     );

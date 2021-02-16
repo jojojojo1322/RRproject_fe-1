@@ -20,6 +20,7 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import {FlatList} from 'react-native-gesture-handler';
 import BottomModal from '../../factory/modal/BottomModal';
 import TextConfirmCancelModal from '../../factory/modal/TextConfirmCancelModal';
+import ProgressModal from '../../factory/modal/ProgressModal';
 
 import {useTranslation} from 'react-i18next';
 // import {CustomDrawerContent} from '../../defined/CustomDrawerContent';
@@ -56,10 +57,12 @@ const ProfileMain = ({navigation}) => {
   const [kycLevel, setKycLevel] = useState(0);
   const [kycLevelNumber, setKycLevelNumber] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
+  const [modal2Visible, setModal2Visible] = useState(false);
 
   const {t, i18n} = useTranslation();
 
   const userApi = async () => {
+    setModal2Visible(true);
     await axios
       .get(
         `${server}/user?userNo=${await AsyncStorage.getItem('userNo')}`,
@@ -74,6 +77,7 @@ const ProfileMain = ({navigation}) => {
       .catch((e) => {
         console.log('Error', e);
       });
+    setModal2Visible(false);
   };
 
   const Item = ({status, level, index, kycLevel}) => {
@@ -266,6 +270,10 @@ const ProfileMain = ({navigation}) => {
           setModalVisible={setModalVisible}
           // text={`KYC LEVEL ${Number(kycLevel) + 1}을 먼저 완료해주세요.`}
           text={t('profileMain8', {kyclevel: Number(kycLevel) + 1})}
+        />
+        <ProgressModal
+          modalVisible={modal2Visible}
+          setModalVisible={setModal2Visible}
         />
       </View>
     </SafeAreaView>

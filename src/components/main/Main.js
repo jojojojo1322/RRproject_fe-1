@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Dimensions,
   ActivityIndicator,
+  YellowBox,
 } from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 // import {TouchableOpacity} from 'react-native-gesture-handler';
@@ -16,6 +17,7 @@ import Carousel from 'react-native-snap-carousel';
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {scrollInterpolator2, animatedStyles2} from '../animations';
+import ProgressModal from '../factory/modal/ProgressModal';
 import {server} from '../defined/server';
 import axios from 'axios';
 
@@ -121,6 +123,8 @@ function Ongoing({navigation}) {
   const [kycUpdateCheck, setKycUpdateCheck] = useState(1);
   // //Kyc 72시간 경고 모달
   const [modalVisible, setModalVisible] = useState(false);
+  // progress
+  const [modal2Visible, setModal2Visible] = useState(false);
 
   // const [loading, setLoading] = useState(false);
   const {t, i18n} = useTranslation();
@@ -425,19 +429,19 @@ function Ongoing({navigation}) {
               onPress={() => {
                 item.surveyStatus === 'expired'
                   ? navigation.navigate('MainDetailExpired', {
-                      // legacySurveyId: item.legacySurveyId,
-                      legacySurveyId: '5fd8b08d0afe882b01307818',
+                      legacySurveyId: item.legacySurveyId,
+                      // legacySurveyId: '5fd8b08d0afe882b01307818',
                       surveyName: item.surveyName,
                     })
                   : item.surveyStatus === 'completed'
                   ? navigation.navigate('MainDetailCompleted', {
-                      // legacySurveyId: item.legacySurveyId,
-                      legacySurveyId: '5fd8b08d0afe882b01307818',
+                      legacySurveyId: item.legacySurveyId,
+                      // legacySurveyId: '5fd8b08d0afe882b01307818',
                       surveyName: item.surveyName,
                     })
                   : navigation.navigate('MainDetail', {
-                      // legacySurveyId: item.legacySurveyId,
-                      legacySurveyId: '5fd8b08d0afe882b01307818',
+                      legacySurveyId: item.legacySurveyId,
+                      // legacySurveyId: '5fd8b08d0afe882b01307818',
                       surveyName: item.surveyName,
                     });
               }}>
@@ -457,6 +461,9 @@ function Ongoing({navigation}) {
   };
 
   const surveyApi = async (surveyStatus) => {
+    // progress 호출
+    setModal2Visible(true);
+
     await axios
       .get(
         `${server}/survey/main/status/${surveyStatus}/${await AsyncStorage.getItem(
@@ -474,6 +481,8 @@ function Ongoing({navigation}) {
       .catch((e) => {
         console.log(`surveyApi ${surveyStatus} Error`, e);
       });
+    // progress 끔
+    setModal2Visible(false);
   };
   useState(() => {
     surveyApi('ongoing');
@@ -510,6 +519,10 @@ function Ongoing({navigation}) {
         setModalVisible={setModalVisible}
         text={`kyc 업데이트 후 72시간전 입니다.`}
       />
+      <ProgressModal
+        modalVisible={modal2Visible}
+        setModalVisible={setModal2Visible}
+      />
     </>
   );
 }
@@ -520,7 +533,7 @@ function Completed({navigation}) {
   const [completeData, setCompleteData] = useState([]);
   const {t, i18n} = useTranslation();
   const completeSurveyApi = async () => {
-    await axios
+    axios
       .get(`${server}/survey/main/${await AsyncStorage.getItem('userNo')}`)
       .then(async (response) => {
         console.log(`completeSurveyApi Then >>`, response.data);
@@ -1162,7 +1175,7 @@ function Main({navigation, t, i18n}) {
       });
   };
   const TncGetApi = async () => {
-    await axios
+    axios
       .get(`${server}/wallet/${await AsyncStorage.getItem('email')}`)
       .then(async (response) => {
         console.log('TncGetApi Then >>', response);
@@ -1182,7 +1195,7 @@ function Main({navigation, t, i18n}) {
       });
   };
   const userInfoApi = async () => {
-    await axios
+    axios
       .get(
         `${server}/user?userNo=${await AsyncStorage.getItem('userNo')}`,
         // `${server}/user/user?userNo=210127104026300`,
@@ -1218,6 +1231,10 @@ function Main({navigation, t, i18n}) {
   useEffect(() => {
     userInfoApi();
     TncGetApi();
+    YellowBox.ignoreWarnings([
+      'Non-serializable values were found in the navigation state.',
+    ]);
+    YellowBox.ignoreWarnings(['Bridge was already shutdown.']);
   }, []);
   return (
     <View style={{flex: 1, backgroundColor: '#fff'}}>

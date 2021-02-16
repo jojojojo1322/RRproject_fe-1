@@ -505,6 +505,7 @@ const ProfileIncompleteLevel2 = (props) => {
 
           {kycQuestion.length - 1 !== index && (
             <View
+              key={index.toString()}
               style={{
                 width: 20,
                 borderWidth: 0.5,
@@ -525,7 +526,7 @@ const ProfileIncompleteLevel2 = (props) => {
             ResearchStyle.researchAnswerStyle,
             ResearchStyle.researchAnswerTopStyle,
           ]}
-          key={item.id}>
+          key={item.id.toString()}>
           <View style={{width: '90%'}}>
             <Text
               style={[
@@ -541,7 +542,7 @@ const ProfileIncompleteLevel2 = (props) => {
             // keyValue={item.questionNumber}
             keyValue={nowIndex}
             label={item.answer}
-            value={item.id}
+            value={item.id.toString()}
             checked={
               checkedArray.findIndex(
                 (y) =>
@@ -568,7 +569,9 @@ const ProfileIncompleteLevel2 = (props) => {
       );
     } else {
       return (
-        <View style={ResearchStyle.researchAnswerStyle} key={item.id}>
+        <View
+          style={ResearchStyle.researchAnswerStyle}
+          key={item.id.toString()}>
           <View style={{width: '90%'}}>
             <Text
               style={[
@@ -583,7 +586,7 @@ const ProfileIncompleteLevel2 = (props) => {
             size={30}
             keyValue={nowIndex}
             label={item.answer}
-            value={item.id}
+            value={item.id.toString()}
             checked={
               checkedArray.findIndex(
                 (y) =>
@@ -615,7 +618,7 @@ const ProfileIncompleteLevel2 = (props) => {
   kycQuestion.map(
     (data, index) =>
       (researchList = researchList.concat(
-        <View style={[ResearchStyle.researchView]} key={index}>
+        <View style={[ResearchStyle.researchView]} key={index.toString()}>
           <View style={[ResearchStyle.researchQuestionLength]}>
             <Text
               style={[
@@ -654,7 +657,7 @@ const ProfileIncompleteLevel2 = (props) => {
       )),
   );
   return (
-    <SafeAreaView style={[ResetStyle.container]}>
+    <SafeAreaView style={[ResetStyle.container]} key={'1'}>
       <View
         style={[ResetStyle.containerInner, {marginLeft: 0, marginRight: 0}]}>
         {/* Top */}

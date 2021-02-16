@@ -11,6 +11,7 @@ import {
   Image,
   Platform,
   FlatList,
+  YellowBox,
 } from 'react-native';
 
 import {server} from '../../defined/server';
@@ -227,8 +228,14 @@ const ProfileAll = (props) => {
         console.log('Error', e);
       });
   };
-
+  //   useEffect(() => {
+  //     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+  // }, [])
   useEffect(() => {
+    YellowBox.ignoreWarnings(['VirtualizedLists should never be nested']);
+    YellowBox.ignoreWarnings([
+      'Each child in a list should have a unique "key" prop.',
+    ]);
     getCompleteKycApi();
     // getLanguageApi();
     get2CompleteKycApi();
@@ -580,7 +587,7 @@ const ProfileAll = (props) => {
                 }
               }
               return (
-                <View>
+                <View key={'1'}>
                   <View style={[ProfileStyle.kycAllLevelTitle]}>
                     <Text
                       style={[ResetStyle.fontRegularE, {fontWeight: '500'}]}>
@@ -637,6 +644,7 @@ const ProfileAll = (props) => {
                       question={item.question}
                       category={item.category}
                       answers={item.answers}
+
                       //해당 질문의 단일/다중선택
                       // typeName={data.typeName}
                       // optionNumber={item.optionNumber}
@@ -660,7 +668,7 @@ const ProfileAll = (props) => {
             {levelMap.map((data, index) => {
               if (Number(data.id) <= Number(props.route.params?.KycLevel)) {
                 return (
-                  <View>
+                  <View key={index.toString()}>
                     <View
                       style={[
                         ProfileStyle.kycAllLevelTitle,

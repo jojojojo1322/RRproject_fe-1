@@ -149,7 +149,7 @@ const ProfileCompleteLevel1 = (props) => {
               ) {
                 Arr.push(
                   <View
-                    key={(i + 1).toString()}
+                    key={(index + i).toString()}
                     style={[
                       ProfileStyle.kycAllLevelListItem,
                       {
@@ -204,7 +204,7 @@ const ProfileCompleteLevel1 = (props) => {
               }
             }
             return (
-              <View>
+              <View key={'1'}>
                 <View style={[ProfileStyle.kycAllLevelTitle]}>
                   <Text style={[ResetStyle.fontRegularE, {fontWeight: '500'}]}>
                     {/* KYC LEVEL {props.route.params?.KycLevel} */}
