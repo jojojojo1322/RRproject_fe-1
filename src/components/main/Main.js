@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Dimensions,
   ActivityIndicator,
+  Platform,
   YellowBox,
 } from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
@@ -25,7 +26,10 @@ import {withTranslation} from 'react-i18next';
 
 import BottomModal from '../factory/modal/BottomModal';
 import Moment from 'react-moment';
-
+import moment from 'moment';
+import 'moment-timezone';
+import DeviceInfo from 'react-native-device-info';
+import * as RNLocalize from 'react-native-localize';
 import {useTranslation} from 'react-i18next';
 
 const SLIDER_WIDTH = Dimensions.get('window').width;
@@ -149,44 +153,27 @@ function Ongoing({navigation}) {
   };
   const renderItem = ({item}) => {
     let ret = 1;
-    // console.log(item);
-    // const surveyDetailApi = async (legacySurveyId) => {
-    //   await axios
-    //     .get(
-    //       `${server}/survey/detail?deviceLanguageCode=${await AsyncStorage.getItem(
-    //         'deviceLanguage',
-    //       )}&legacySurveyId=${legacySurveyId}&userNo=${await AsyncStorage.getItem(
-    //         'userNo',
-    //       )}`,
-    //     )
-    //     .then(async (response) => {
-    //       console.log(`surveyDetailApi Then >>`, response);
 
-    //       ret = response.data.response.ret_val;
-    //       return ret;
-    //     })
-    //     .catch((e) => {
-    //       console.log(`surveyDetailApi Error`, e);
-    //     });
-    //   return ret;
-    // };
-    // surveyDetailApi(item.legacySurveyId);
-    // // console.log(async () => {
-    //   await ret;
-    // });
-    // 210202131311227
-    // 5f91aad0ae28561b056e2f97
-    // "http://52.78.181.176:8091/v1/api/survey/detail?deviceLanguageCode=ko&legacySurveyId=5fd8b08d0afe882b01307818&userNo=210202131311227"
-    // console.log('renderItem item', require("'" + item.categoryImg + "'"));
-    // 5f91aad0ae28561b056e2f97
-    // 5fd8b08d0afe882b01307818
-    var today = new Date().getTime();
-    var dday = new Date(item.endTime).getTime();
-    var gap = dday - today;
+    const today = moment().tz('Asia/Seoul');
+    const endTime = moment(item.endTime).tz('Asia/Seoul');
+
+    var gap = endTime.diff(today);
+
     var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
     var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
     var sec = Math.ceil((gap % (1000 * 60)) / 1000);
+    console.log('업데이트 시간 비교', hour);
+    console.log({
+      today: today,
+      endTime: endTime,
+      gap: gap,
+      day: day,
+      hour: hour,
+      min: min,
+      sec: sec,
+    });
+
     if (item.status === 'zero') {
       return (
         <TouchableOpacity
@@ -381,7 +368,7 @@ function Ongoing({navigation}) {
   
                       return `${day - 1}일 ${hour}시간 ${min}분 ${sec}초`;
                     }, 1000)} */}
-                  {/* {`${day - 1}일 ${hour}시간 ${min}분 ${sec}초`} */}
+                  {`${day - 1}일 ${hour}시간 ${min}분 ${sec}초`}
                   {
                     <>
                       {/* <Moment
@@ -550,13 +537,26 @@ function Completed({navigation}) {
   const renderItem = ({item}) => {
     console.log('completecompletecompletecompletecompletecomplete', item);
     // console.log('renderItem item', require("'" + item.categoryImg + "'"));
-    var today = new Date().getTime();
-    var dday = new Date(item.endTime).getTime();
-    var gap = dday - today;
+
+    const today = moment().tz('Asia/Seoul');
+    const endTime = moment(item.endTime).tz('Asia/Seoul');
+
+    var gap = endTime.diff(today);
+
     var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
     var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
     var sec = Math.ceil((gap % (1000 * 60)) / 1000);
+    console.log('업데이트 시간 비교', hour);
+    console.log({
+      today: today,
+      endTime: endTime,
+      gap: gap,
+      day: day,
+      hour: hour,
+      min: min,
+      sec: sec,
+    });
 
     if (item.status === 'zero') {
       return (
@@ -885,13 +885,11 @@ function Expired({navigation}) {
                   // legacySurveyId: '5f91aad0ae28561b056e2f97',
                   surveyName: item.surveyName,
                 })
-              : Number(kycUpdateTimeCheck) <= -72
-              ? navigation.navigate('MainDetail', {
+              : navigation.navigate('MainDetail', {
                   legacySurveyId: item.legacySurveyId,
                   // legacySurveyId: '5f91aad0ae28561b056e2f97',
                   surveyName: item.surveyName,
-                })
-              : setModalVisible(true);
+                });
           }}>
           <View
             opacity={item.surveyStatus === 'expired' ? 0.5 : 1.0}
@@ -1207,21 +1205,21 @@ function Main({navigation, t, i18n}) {
         await AsyncStorage.setItem('inviteCode', response.data.inviteCode);
         // setCountry(response.data);
 
-        var today = new Date().getTime();
-        console.log('new Date()', new Date().getTime());
-        console.log('new Date()', new Date().toString());
-        console.log('today', today);
-        var dday = new Date(
-          response.data.kycUpdated.replace(' ', 'T'),
-        ).getTime();
-        console.log('response.data.kycUpdated', response.data.kycUpdated);
-        console.log('dday', dday);
-        var gap = dday - today;
-        console.log('gap', gap);
-        // var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var hour = (gap / 1000 / 60 / 60).toFixed(0);
-        console.log('업데이트 시간 비교', hour);
-        setKycUpdateTimeCheck(hour);
+        // var today = new Date().getTime();
+        // console.log('new Date()', new Date().getTime());
+        // console.log('new Date()', new Date().toString());
+        // console.log('today', today);
+        // var dday = new Date(
+        //   response.data.kycUpdated.replace(' ', 'T'),
+        // ).getTime();
+        // console.log('response.data.kycUpdated', response.data.kycUpdated);
+        // console.log('dday', dday);
+        // var gap = dday - today;
+        // console.log('gap', gap);
+        // // var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        // var hour = (gap / 1000 / 60 / 60).toFixed(0);
+        // console.log('업데이트 시간 비교', hour);
+        // setKycUpdateTimeCheck(hour);
         // return await response;
       })
       .catch((e) => {

@@ -179,7 +179,11 @@ class ResetPassword extends Component {
                     />
                   )}
                 </TouchableOpacity>
-                <View style={[AuthStyle.resetPasswordView1]}>
+                <View
+                  style={[
+                    AuthStyle.resetPasswordView1,
+                    {flexDirection: 'row'},
+                  ]}>
                   <View style={[AuthStyle.resetPasswordView2]}>
                     {!chkPWRow(this.state.password) ? (
                       <Image
@@ -222,6 +226,7 @@ class ResetPassword extends Component {
                       {t('resetPassword4')}
                     </Text>
                   </View>
+
                   <View style={[AuthStyle.resetPasswordView2]}>
                     {!chkPWHigh(this.state.password) ? (
                       <Image
@@ -392,7 +397,8 @@ class ResetPassword extends Component {
           <TouchableOpacity
             // style={[styles.button, {backgroundColor: '#4696ff'}]}
             style={
-              true
+              chkPW(this.state.password) &&
+              this.state.password == this.state.checkPassword
                 ? [ResetStyle.button]
                 : [ResetStyle.button, {backgroundColor: '#e6e6e6'}]
             }

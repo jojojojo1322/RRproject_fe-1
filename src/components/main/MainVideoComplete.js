@@ -15,7 +15,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const MainVideoComplete = ({navigation, route}) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const {surveyId} = route ? route.params : '';
+  // const {surveyId} = route ? route.params : '';
   const URL = 'https://aladdin25.com/';
   const {t, i18n} = useTranslation();
 
