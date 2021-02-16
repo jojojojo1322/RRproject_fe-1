@@ -1,5 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, TouchableOpacity, Image, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  FlatList,
+  YellowBox,
+} from 'react-native';
 import ResetStyle from '../../../style/ResetStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {SelectedCheckboxes, RoundCheckbox} from '../../factory/Roundcheck';
@@ -455,6 +462,7 @@ const ProfileIncompleteDetail = (props) => {
       if (item.optionNumber == 1) {
         return (
           <View
+            key={item.optionNumber.toString()}
             style={[
               ResearchStyle.researchAnswerStyle,
               ResearchStyle.researchAnswerTopStyle,
@@ -510,7 +518,7 @@ const ProfileIncompleteDetail = (props) => {
         return (
           <View
             style={ResearchStyle.researchAnswerStyle}
-            key={item.optionNumber}>
+            key={item.optionNumber.toString()}>
             <View style={{width: '90%'}}>
               <Text
                 style={[
@@ -571,7 +579,7 @@ const ProfileIncompleteDetail = (props) => {
   kycQuestion.map(
     (data, index) =>
       (researchList = researchList.concat(
-        <View style={[ResearchStyle.researchView]} key={index}>
+        <View style={[ResearchStyle.researchView]} key={index.toString()}>
           <View style={[ResearchStyle.researchQuestionLength]}>
             <Text
               style={[
@@ -613,6 +621,9 @@ const ProfileIncompleteDetail = (props) => {
     getAdvancedKycQuestionListApi();
     getAdvancedKycOptionListApi();
     getAdvancedKyGetApi();
+    YellowBox.ignoreWarnings([
+      'Each child in a list should have a unique "key" prop.',
+    ]);
   }, []);
 
   useEffect(() => {

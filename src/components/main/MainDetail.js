@@ -79,6 +79,7 @@ const MainDetail = (props) => {
       });
   };
   const AudienceApi = async () => {
+    console.log('AudienceApi', props.route.params?.legacySurveyId);
     await axios
       .get(
         `${server}/survey/audience/info?legacySurveyId=${props.route.params?.legacySurveyId}`,
@@ -141,7 +142,6 @@ const MainDetail = (props) => {
 
         ageFix += `${ageMin}-${ageMax}`;
         setAudienceAge(ageFix);
-        console.log('response.data.dayOfBirth.split())= ', ageFix);
       })
       .catch((e) => {
         console.log(`AudienceApi Error`, e);
@@ -185,8 +185,8 @@ const MainDetail = (props) => {
     console.log('audienceCheck', audienceCheck);
     if (audienceCheck === 0) {
       props.navigation.navigate('ResearchForm', {
-        // legacySurveyId: props.route.params?.legacySurveyId,
-        legacySurveyId: '5f91aad0ae28561b056e2f97',
+        legacySurveyId: props.route.params?.legacySurveyId,
+        // legacySurveyId: '5f91aad0ae28561b056e2f97',
         surveyName: surveyDetail.surveyName,
         sponsorName: surveyDetail.sponsorName,
       });
@@ -388,19 +388,21 @@ const MainDetail = (props) => {
           ]}
           onPress={async () => {
             console.log('시작1');
-            if (audienceCheck === 1) {
+            if (audienceCheck === 0) {
               console.log('시작2');
               props.navigation.replace('ResearchForm', {
-                // legacySurveyId: props.route.params?.legacySurveyId,
-                legacySurveyId: '5f9835585e40b26b969fedb2',
-                // surveyName: surveyDetail.surveyName,
-                surveyName: 'COVID-19  Vaccine Survey',
-                // sponsorName: surveyDetail.sponsorName,
-                sponsorName: '5f9677c880c3164b4b1cc398',
-                // surveyId: String(audience.surveyId),
-                surveyId: 78,
+                legacySurveyId: props.route.params?.legacySurveyId,
+                // legacySurveyId: '5f9835585e40b26b969fedb2',
+                surveyName: surveyDetail.surveyName,
+                // surveyName: 'COVID-19  Vaccine Survey',
+                sponsorName: surveyDetail.sponsorName,
+                // sponsorName: '5f9677c880c3164b4b1cc398',
+                surveyId: String(audience.surveyId),
+                sponsorUserNo: surveyDetail.sponsorUserNo,
+                advertiseUrl: surveyDetail.advertiseUrl,
+                // surveyId: 78,
               });
-            } else if (audienceCheck === 0) {
+            } else if (audienceCheck === -1) {
               console.log('시작3');
               setModal2Visible(true);
             } else if (audienceCheck !== -1 && audienceCheck <= -2) {

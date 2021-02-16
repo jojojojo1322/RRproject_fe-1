@@ -19,6 +19,7 @@ import ResetStyle from '../../style/ResetStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {SelectedCheckboxes, RoundCheckbox} from '../factory/Roundcheck';
 import TextConfirmCancelModal from '../factory/modal/TextConfirmCancelModal';
+import TextConfirmModal from '../factory/modal/TextConfirmModal';
 import ResearchStyle from '../../style/ResearchStyle.js';
 import {useTranslation} from 'react-i18next';
 
@@ -56,6 +57,10 @@ const ResearchForm = (props) => {
   //설문조사 최초페이지 이전버튼 클릭시 설문 아웃 경고 모달
   const [modalVisible, setModalVisible] = useState(false);
 
+  //설문조사 마지막부분 post날렸을시 에러 처리 모달
+  const [modal2Visible, setModal2Visible] = useState(false);
+  const [modal3Visible, setModal3Visible] = useState(false);
+
   let CheckedArrObject = new SelectedCheckboxes();
 
   // survey insert
@@ -68,7 +73,17 @@ const ResearchForm = (props) => {
         await setInsertSuccess(ret);
       })
       .catch((e) => {
-        console.log('postSurveyAnswer ERROR >>>>', e);
+        console.log('postSurveyAnswer ERROR >>>>', e.response.data.message);
+        if (
+          e.response.data.message === '해당 설문의 참여인원이 초과하였습니다.'
+        ) {
+          setModal2Visible(true);
+        } else if (
+          e.response.data.message === '해당 설문에 이미 참여 하셨습니다.'
+        ) {
+          setModal3Visible(true);
+        }
+        // console.error('postSurveyAnswer ERROR >>>>', e);
       });
   };
   // survey question get
@@ -165,6 +180,18 @@ const ResearchForm = (props) => {
         legacySurveyId: legacySurveyId,
         surveyArray: checkedArray,
         surveyId: props.route.params?.surveyId,
+        sponsorUserNo: props.route.params?.sponsorUserNo,
+        advertiseUrl: props.route.params?.advertiseUrl,
+
+        // legacySurveyId: props.route.params?.legacySurveyId,
+        // // legacySurveyId: '5f9835585e40b26b969fedb2',
+        // surveyName: surveyDetail.surveyName,
+        // // surveyName: 'COVID-19  Vaccine Survey',
+        // sponsorName: surveyDetail.sponsorName,
+        // // sponsorName: '5f9677c880c3164b4b1cc398',
+        // surveyId: String(audience.surveyId),
+        // sponsorUserNo: surveyDetail.sponsorUserNo,
+        // advertiseUrl: surveyDetail.advertiseUrl,
       });
     }
   }, [insertSuccess]);
@@ -295,7 +322,10 @@ const ResearchForm = (props) => {
 
   // researchArr.map();
   // console.log('surveyOption', surveyOption);
-
+  const confirm2Handle = () => {
+    // props.navigation.replace('Main');
+    props.navigation.goBack();
+  };
   const RenderItem = (item) => {
     // id={item.id}
     // questionNum={item.questionNum}
@@ -562,6 +592,22 @@ const ResearchForm = (props) => {
           confirmHandle={confirmHandle}
           cancel={t('cancel')}
           cancelHandle={cancelHandle}
+        />
+        {/* '해당 설문의 참여인원이 초과하였습니다.' */}
+        <TextConfirmModal
+          modalVisible={modal2Visible}
+          setModalVisible={setModal2Visible}
+          text={`해당 설문의 참여인원이 초과하였습니다.`}
+          confirm={`확인`}
+          handleNextPage={confirm2Handle}
+        />
+        {/* '해당 설문에 이미 참여 하셨습니다.' */}
+        <TextConfirmModal
+          modalVisible={modal3Visible}
+          setModalVisible={setModal3Visible}
+          text={`해당 설문에 이미 참여 하셨습니다.`}
+          confirm={`확인`}
+          handleNextPage={confirm2Handle}
         />
       </View>
     </SafeAreaView>

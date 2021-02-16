@@ -182,6 +182,7 @@ const ProfileCompleteLevel2 = (props) => {
 
     return (
       <View
+        key={item.toString()}
         style={[
           ProfileStyle.kycAllLevelListItem,
           {

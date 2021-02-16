@@ -12,9 +12,16 @@ import {
 } from 'react-native';
 import ResetStyle from '../style/ResetStyle.js';
 import AuthStyle from '../style/AuthStyle.js';
+import DeviceInfo from 'react-native-device-info';
+
+import {server} from './defined/server';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import getPermission from '../components/defined/getPermission';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
+import BottomModal from './factory/modal/BottomModal';
 
 const images = new Array('', '', '');
 const window = Dimensions.get('window');
@@ -25,7 +32,10 @@ const Initial2 = (props) => {
   const [dimensions, setDimensions] = useState({window});
   const [userLang, setUserLang] = useState('ko');
   const [modalVisible, setModalVisible] = useState(false);
+  const [modal2Visible, setModal2Visible] = useState(false);
   const [imageIndex, setImageIndex] = useState(0);
+
+  const [deviceCheck, setDeviceCheck] = useState(1);
 
   const {t, i18n} = useTranslation();
 
@@ -65,12 +75,41 @@ const Initial2 = (props) => {
     };
   }, []);
 
+  const deviceKeyCheckApi = () => {
+    console.log('deviceKeyCheckApi DEVICE KEY>>', DeviceInfo.getUniqueId());
+    axios
+      .get(
+        `${server}/user/register/device-key?reqDeviceKey=${DeviceInfo.getUniqueId()}`,
+      )
+      .then((response) => {
+        console.log('deviceKeyCheckApi THEN>>', response);
+        setDeviceCheck(response.data.ret_val);
+      })
+      .catch((e) => {
+        console.log('deviceKeyCheckApi ERROR>>', e);
+        console.log('deviceKeyCheckApi ERROR>>', e.response);
+      });
+  };
+
   // const componentWillUnmount() {
   //   Dimensions.removeEventListener('change', onDimensionsChange);
   //   // Dimenssion.get('screen').height;
   // }
-  console.log('>>>>', getPermission);
+  useEffect(() => {
+    console.log('진입');
+    if (deviceCheck === 0) {
+      setDeviceCheck(1);
+      props.navigation.navigate('SignUp');
+    } else if (deviceCheck !== 0 && deviceCheck !== 1) {
+      setModal2Visible(true);
+    }
+  }, [deviceCheck]);
 
+  console.log('>>>>', getPermission);
+  console.log(
+    '// deviceKey: DeviceInfo.getUniqueId()',
+    DeviceInfo.getUniqueId(),
+  );
   ///
 
   const deviceLanguage =
@@ -174,7 +213,9 @@ const Initial2 = (props) => {
                       style={[ResetStyle.button, {marginTop: 30}]}
                       activeOpacity={0.75}
                       onPress={() => {
-                        props.navigation.navigate('SignUp');
+                        // deviceKey: DeviceInfo.getUniqueId()
+                        // props.navigation.navigate('SignUp');
+                        deviceKeyCheckApi();
                       }}>
                       <Text
                         style={[
@@ -243,6 +284,11 @@ const Initial2 = (props) => {
             );
           })}
         </View>
+        <BottomModal
+          modalVisible={modal2Visible}
+          setModalVisible={setModal2Visible}
+          text={`해당 핸드폰으로 등록된 계정이 있습니다.`}
+        />
       </View>
     </SafeAreaView>
   );

@@ -9,6 +9,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Image,
+  YellowBox,
 } from 'react-native';
 import {isPossiblePhoneNumber} from 'react-phone-number-input';
 import ListModal from '../../components/factory/modal/ListModal';
@@ -178,6 +179,10 @@ class SignUp extends Component {
   };
 
   componentDidMount() {
+    YellowBox.ignoreWarnings([
+      'Non-serializable values were found in the navigation state.',
+    ]);
+
     this.countryDataApi();
     this.setState({
       deviceKey: DeviceInfo.getUniqueId(),
