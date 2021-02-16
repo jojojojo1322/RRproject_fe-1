@@ -96,8 +96,8 @@ import SettingsPersonalMasterPhone from './components/settings/settingsDetail/pe
 import SettingsPersonalMasterKey from './components/settings/settingsDetail/personal/SettingsPersonalMasterKey';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import RNRestart from 'react-native-restart';
-const Stack = createStackNavigator();
 
+const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 export const AppMainStack = (props) => {
@@ -121,7 +121,9 @@ export const AppMainStack = (props) => {
     test();
     console.log(props);
   }, []);
+
   console.log('this.props.route.params?.login>?>?>', login);
+
   return (
     // <Stack.Navigator initialRouteName="Main">
     <Stack.Navigator initialRouteName="Main">
@@ -165,42 +167,6 @@ export const AppMainStack = (props) => {
           }}
         />
       )}
-      {/* <Stack.Screen
-          name="Main"
-          component={Main}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="Initial2"
-          component={Initial2}
-          options={{
-            headerShown: false,
-            // title: this.props.route.params?.step,
-            // title: route.params?.name,
-          }}
-        /> */}
-      {/* {this.props.route.params?.login !== null ? (
-          <Stack.Screen
-            name="Main"
-            component={Main}
-            options={{
-              headerShown: false,
-            }}
-          />
-        ) : (
-          <Stack.Screen
-            name="Main"
-            component={Initial2}
-            options={{
-              headerShown: false,
-              // title: this.props.route.params?.step,
-              // title: route.params?.name,
-            }}
-          />
-        )} */}
-
       <Stack.Screen
         name="Login"
         component={Login}
@@ -262,28 +228,6 @@ export const AppMainStack = (props) => {
         component={SignUp}
         options={{
           headerShown: false,
-          // headerLeft: () => (
-          //   <TouchableOpacity activeOpacity={0.75} onPress={() => {
-          //     this.props.navigation.goBack();
-          //   }}
-          //   >
-          //     <View>
-          //       <Image />
-          //       <Text>이메일 인증</Text>
-          //     </View>
-          //   </TouchableOpacity>
-          // ),
-          // headerRight: () => (
-          //   <TouchableOpacity activeOpacity={0.75} onPress={() => {
-          //     this.props.navigation.goBack();
-          //   }}
-          //   >
-          //     <View>
-          //       <Image />
-          //       <Text>이메일 인증</Text>
-          //     </View>
-          //   </TouchableOpacity>
-          // ),
         }}
       />
 
@@ -338,14 +282,6 @@ export const AppMainStack = (props) => {
           headerShown: false,
         }}
       />
-
-      {/* <Stack.Screen
-          name="Main"
-          component={Main}
-          options={{
-            headerShown: false,
-          }}
-        /> */}
 
       <Stack.Screen
         name="MainDetail"
@@ -732,7 +668,8 @@ const App = () => {
     deviceLanguageSet();
     test();
     Orientation.lockToPortrait();
-    SplashScreen.hide();
+
+    // SplashScreen.hide();
 
     //파이어베이스 알림 권환획득 및 토큰 출력
     firebase
@@ -836,13 +773,6 @@ const App = () => {
       </Drawer.Navigator>
     </NavigationContainer>
   );
-  // } else {
-  //   return (
-  //     <NavigationContainer>
-  //       {/* <Main /> */}
-  //       <AppAuthStack />
-  //     </NavigationContainer>
-  //   );
-  // }
 };
+
 export default App;

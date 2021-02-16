@@ -1,47 +1,134 @@
-import React, {useEffect} from 'react';
-import {View, Image, Text} from 'react-native';
-import {checkMultiple, PERMISSIONS} from 'react-native-permissions'; // permission 부르기
-import SplashScreen from 'react-native-splash-screen'; // splash screen 불러오기
-import RNExitApp from 'react-native-exit-app'; // app 종료
+import React, {useEffect, useState, useRef} from 'react';
+import {
+  View,
+  Image,
+  Alert,
+  Platform,
+  Animated,
+  Text,
+  StyleSheet,
+} from 'react-native';
+import {
+  PERMISSIONS,
+  RESULTS,
+  requestMultiple,
+  openSettings,
+  checkMultiple,
+} from 'react-native-permissions';
+import RNExitApp from 'react-native-exit-app';
+import messaging from '@react-native-firebase/messaging';
+// import Geolocation from 'react-native-geolocation-service';
+// import UpdateModal from './components/factory/modal/UpdateModal';
+
+import SplashScreen from 'react-native-splash-screen';
 import ResetStyle from './style/ResetStyle';
+import ProgressBarExample from './components/defined/ProgressBarExample';
 
-const Splash = () => {
-  const time = 2000;
+const Splash = ({loading, setLoading}) => {
+  // splash에서 보여질 gif유지 시간
+  const time = 3000;
 
-  useEffect(() => {
-    console.log('first');
-    // native splash screen 감추기
-    SplashScreen.hide();
-    // permission 부르기
-    handlePermission();
-  }, []);
+  const requestPermission = async (device) => {
+    try {
+      if (Platform.OS === 'ios') {
+        return await checkMultiple([
+          device.CAMERA,
+          device.PHOTO_LIBRARY,
+          device.FACE_ID,
+        ]);
+      } else if (Platform.OS === 'android') {
+        return await checkMultiple([
+          device.CAMERA,
+          device.READ_EXTERNAL_STORAGE,
+          device.WRITE_EXTERNAL_STORAGE,
+          device.RECORD_AUDIO,
+        ]);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const handleFirebasePermission = async () => {
+    const authorizationStatus = await messaging().requestPermission();
+    if (authorizationStatus) {
+      console.log('Permission status:', authorizationStatus);
+    }
+  };
+
+  const resultClassification = (result) => {
+    let notGrantedArr = {
+      DENIED: [],
+      BLOCKED: [],
+    };
+
+    Object.keys(result).forEach((key) => {
+      if (result[key] === RESULTS.DENIED) {
+        notGrantedArr.DENIED.push(key);
+      } else if (result[key] === RESULTS.BLOCKED) {
+        notGrantedArr.BLOCKED.push(key);
+      }
+    });
+
+    return notGrantedArr;
+  };
 
   const handlePermission = async () => {
+    // if (Platform.OS === 'ios') {
+    //   //  for ios
+    //   console.log('ios true');
+    //   setLoading(true);
+    // } else {
+    //   // for android
+    //   console.log('android true');
+    //   setLoading(true);
+    // }
+
     try {
-      // device 확인
       const device =
         Platform.OS === 'ios' ? PERMISSIONS.IOS : PERMISSIONS.ANDROID;
-      //if requestPermission(ios)
+
       requestPermission(device).then((res) => {
-        console.log(res);
         const {DENIED, BLOCKED} = resultClassification(res);
         const notGrantedArr = [...DENIED, ...BLOCKED];
 
         const reQuestion = async () => {
           if (notGrantedArr.length === 0) {
+            console.log('true로 넘어가자  notGrantedArr.length');
+            console.log('true로 넘어가자  notGrantedArr.length');
+            console.log('true로 넘어가자  notGrantedArr.length');
+            console.log('true로 넘어가자  notGrantedArr.length');
+            console.log('true로 넘어가자  notGrantedArr.length');
+
+            setLoading(true);
           } else {
             await requestMultiple(notGrantedArr).then((res) => {
+              console.log(res);
               const {DENIED, BLOCKED} = resultClassification(res);
 
               if (Platform.OS === 'ios') {
-                // for ios
+                //  for ios
+                console.log('true로 넘어가자  Platform.OS === ');
+                console.log('true로 넘어가자  Platform.OS === ');
+                console.log('true로 넘어가자  Platform.OS === ');
+                console.log('true로 넘어가자  Platform.OS === ');
+                console.log('true로 넘어가자  Platform.OS === ');
+                console.log('true로 넘어가자  Platform.OS === ');
+                setLoading(true);
               } else {
-                // for android
+                //for android
                 if (DENIED.length > 0) {
                   RNExitApp.exitApp();
                 } else if (BLOCKED.length > 0) {
                   openSettingAlert();
                 } else {
+                  console.log('true로 넘어가자 ');
+                  console.log('true로 넘어가자 ');
+                  console.log('true로 넘어가자 ');
+                  console.log('true로 넘어가자 ');
+                  console.log('true로 넘어가자 ');
+                  console.log('true로 넘어가자 ');
+                  setLoading(true);
                 }
               }
             });
@@ -70,48 +157,30 @@ const Splash = () => {
     );
   };
 
-  const resultClassification = (result) => {
-    let notGrantedArr = {
-      DENIED: [],
-      BLOCKED: [],
-    };
-
-    Object.keys(result).forEach((key) => {
-      if (result[key] === RESULTS.DENIED) {
-        // denied 되었을 때
-        notGrantedArr.DENIED.push(key);
-      } else if (result[key] === RESULTS.BLOCKED) {
-        // blocked 되었을 때
-        notGrantedArr.BLOCKED.push(key);
-      }
-    });
-
-    return notGrantedArr;
-  };
-
-  const requestPermission = async (device) => {
-    try {
-      if (Platform.OS === 'ios') {
-        return await checkMultiple([
-          device.CAMERA,
-          device.PHOTO_LIBRARY,
-          device.FACE_ID,
-        ]);
-      } else if (Platform.OS === 'android') {
-        return await checkMultiple([
-          device.CAMERA,
-          device.READ_EXTERNAL_STORAGE,
-          device.WRITE_EXTERNAL_STORAGE,
-          device.RECORD_AUDIO,
-          device.USE_BIOMETRIC,
-          device.USE_FINGERPRINT,
-          device.VIBRATE,
-        ]);
-      }
-    } catch (e) {
-      console.log(e);
+  const requestUserPermission = async () => {
+    const authStatus = await messaging().requestPermission();
+    const enabled =
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+    if (enabled) {
+      console.log('Authorization status:', authStatus);
     }
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      SplashScreen.hide();
+
+      // 버전 확인
+      // handleFirebasePermission();
+      // requestUserPermission();
+      handlePermission();
+
+      messaging().setBackgroundMessageHandler(async (remoteMessage) => {
+        console.log('Message handled in the background!', remoteMessage);
+      });
+    }, time);
+  }, []);
 
   return (
     <View
@@ -132,9 +201,14 @@ const Splash = () => {
         source={require('./imgs/drawable-xxxhdpi/splash_logo.png')}
       />
       <Text
-        style={[ResetStyle.fontRegularK, ResetStyle.fontB, {marginTop: '60%'}]}>
+        style={[
+          ResetStyle.fontRegularK,
+          ResetStyle.fontB,
+          {marginTop: '60%', marginBottom: '20%'},
+        ]}>
         블록체인 기반의 설문조사
       </Text>
+      <ProgressBarExample />
     </View>
   );
 };
