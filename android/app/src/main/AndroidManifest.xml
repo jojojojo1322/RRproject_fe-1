@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
 
     <!-- DEPRECATED in 4.0.0 API level <23 (Uses device-specific native fingerprinting, if available - Samsung & MeiZu only) Reference) -->
-    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+    <!-- <uses-permission android:name="android.permission.USE_FINGERPRINT" /> -->
 
     <uses-permission android:name="android.permission.INTERNET" />
 

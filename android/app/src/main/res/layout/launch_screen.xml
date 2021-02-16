@@ -19,16 +19,4 @@
         android:scaleType="centerCrop"
         android:src="@mipmap/splash_logo" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="100dp"
-        android:gravity="center_horizontal"
-        android:text="블록체인 기반의 설문조사"
-        android:textColor="#4696ff"
-        app:autoSizeTextType="none" />
-
 </RelativeLayout>

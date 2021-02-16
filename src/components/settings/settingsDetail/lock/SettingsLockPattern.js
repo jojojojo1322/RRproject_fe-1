@@ -9,30 +9,31 @@ import GesturePassword from '../../../defined/pattern/GesturePassword';
 
 import {useTranslation} from 'react-i18next';
 
+//
 var Password1 = '123';
 
 const LockPattern = () => {
-  const [message, setMessage] = useState('Please input your password.');
+  const [message, setMessage] = useState('잠금해제 패턴을 입력해 주세요.');
   const [status, setStatus] = useState('normal');
 
   const onEnd = (password) => {
     if (password == Password1) {
       setStatus('right');
-      setMessage('Password is right, success.');
+      setMessage('패턴이 일치합니다.');
     } else {
       setStatus('wrong');
-      setMessage('Password is wrong, try again.');
+      setMessage('패턴이 틀렸습니다.');
     }
   };
 
   const onStart = () => {
     setStatus('normal');
-    setMessage('Please input your password.');
+    setMessage('잠금해제 패턴을 입력해 주세요.');
   };
 
   const onReset = () => {
     setStatus('normal');
-    setMessage('Please input your password (again).');
+    setMessage('확인을 위해 한번 더 입력해 주세요.');
   };
 
   return (
@@ -42,6 +43,9 @@ const LockPattern = () => {
       message={message}
       onStart={() => onStart()}
       onEnd={(password) => onEnd(password)}
+      normalColor={'#4696ff'}
+      rightColor={'#4696ff'}
+      wrongColor={'#f00'}
       innerCircle={true}
       outerCircle={false}
     />
@@ -72,17 +76,7 @@ const SettingsLockPattern = ({navigation}) => {
             />
           </TouchableOpacity>
         </View>
-        <View>
-          <Text style={[ResetStyle.fontBoldK, ResetStyle.fontBlack]}>패턴</Text>
-          <Text
-            style={[
-              ResetStyle.fontRegularK,
-              ResetStyle.fontBlack,
-              {marginTop: '5%'},
-            ]}>
-            {t('settingsLockPattern1')}
-          </Text>
-        </View>
+        <Text style={[ResetStyle.fontBoldK, ResetStyle.fontBlack]}>패턴</Text>
         <LockPattern />
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <TouchableOpacity

@@ -63,7 +63,7 @@ export default en = {
 
       // EmailAuthentication
       emailAuthenticationTitle: 'Email Verification',
-      emailAuthentication1: 'A 6-digit verification code has been sent to',
+      emailAuthentication1: ' A 6-digit verification code has been sent to',
       emailAuthentication2: 'Verification Code',
       emailAuthentication3: 'Enter your 6-digit verification code',
       emailAuthentication4: 'Resend',
@@ -95,8 +95,8 @@ export default en = {
       Login10: 'OK',
       Login11: 'The wallet is not existed.\n Create a new wallet.',
       Login12: 'OK',
-      Login13: 'The information is not accurate.',
-      Login14: 'The account does not match this device.',
+      Login13: ' The information is not accurate.',
+      Login14: ' The account does not match this device.',
 
       // Kyc
       kyc1: 'KYC Process',
@@ -255,7 +255,6 @@ export default en = {
       profileCompleteTitle: 'KYC {{kycLevel}} LEVEL\n verification completed',
       profileComplete1: 'Check my wallet',
       profileComplete2: 'Move Profile',
-      profileCompleteFixTitle: 'KYC {{kycLevel}} LEVEL\n update completed',
 
       // ProfileCompleteDetail
       profileCompleteDetailTitle: 'KYC LEVEL {{kycLevel}}',
@@ -464,7 +463,6 @@ export default en = {
       settingsWalletPassword4: 'Password does not match.',
       settingsWalletPassword5: 'Your password has been set.',
       settingsWalletPassword6: 'OK',
-      settingsWalletPassword7: 'Your password not has been set fail.',
 
       // SettingsWalletMasterKey
       settingsWalletMasterKeyTitle: 'Change password',
@@ -489,7 +487,7 @@ export default en = {
       // SettingsPersonalEmail
       settingsPersonalEmailTitle: 'Email verification',
       settingsPersonalEmail1:
-        'A 6-digit verification code has been sent to your email address.', //{{email}}
+        'A 6-digit verification code has been sent to your email address.',
       settingsPersonalEmail2: 'Verification code',
       settingsPersonalEmail3: 'Enter the 6-digit code',
       settingsPersonalEmail4: 'Resend',
@@ -519,7 +517,7 @@ export default en = {
       settinsPersonalMasterPhone6: 'Verification code',
       settinsPersonalMasterPhone7: 'Enter verification code',
       settinsPersonalMasterPhone8:
-        'The Verification code will expire in 3 minutes.',
+        ' The Verification code will expire in 3 minutes.',
       settinsPersonalMasterPhone9: 'Select country',
       settinsPersonalMasterPhone10: ' The Verification code is incorrect.',
       settinsPersonalMasterPhone11: 'The Verification code is expired.',
@@ -601,9 +599,9 @@ export default en = {
       // SettingsLockPassword
       settingsLockPasswordTitle: 'Password',
       settingsLockPassword1:
-        'Lock screen password\nPlease enter a 4-digit password.',
+        'Lock screen password \nPlease enter a 4-digit password.',
       settingsLockPassword2:
-        'Please confirm your password by entering a 4-digit password again.',
+        'Please confirm your password  by entering a 4-digit password again.',
       settingsLockPassword3: 'The password does not match.',
       settingsLockPassword4: 'The password has been set.',
       settingsLockPassword5: 'OK',
@@ -651,70 +649,6 @@ export default en = {
       idVerificationSorryTitle: 'Verification failed',
       idVerificationSorry1:
         'Your verification has been restricted.\nThe submitted documents do not meet the standards.\nPlease contact the CS team for details.',
-
-      // -------------------------------------------------------2021.02.10 01:05-----
-
-      // AudienceModal
-      audienceModalTitle: 'Audience',
-      audienceModal1: '참여가능 LEVEL : ',
-      audienceModal2: '나이',
-      audienceModal3: '성별',
-      audienceModal4: '결혼 유무',
-      audienceModal5: '국적',
-      audienceModal6: '거주 국가',
-      audienceModal7: '거주 도시',
-      audienceModal8: '언어',
-
-      // DatePickerModal
-      datePickerModal1: '확인',
-
-      // KycModal
-      modalModalTitle: 'KYC LEVEL이란?',
-      modalModal1: '리얼리서치 설문조사에 참여할 수 있는 LEVEL 을 의미합니다.',
-      modalModal2:
-        'LEVEL이 높아질수록 설문조사 참여가능 수와 보상이 높아집니다.',
-      modalModal3:
-        '해당 KYC 정보는 참여 조건을 확인하고 결과 리포트에 반영될 뿐 회원님을 구별할 수 있는 정보는 저장하지 않습니다.',
-      modalModal4:
-        '리얼리서치는 회원님의 KYC 정보를 블록체인에 저장하여 개인 정보를 안전하게 지켜드립니다.',
-
-      // ListCheckLangModal
-      listCheckLangModal1: '사용가능언어 선택',
-      listCheckLangModal2: '(다중 선택 가능)',
-      listCheckLangModalNextButton: 'CONFIRM',
-
-      // MainDetail
-      mainDetail1: 'Audience',
-      mainDetail2: '시작하기',
-      mainDetail3: '남성,여성,답변안함',
-      mainDetail4: '여성',
-      mainDetail5: '남성',
-      mainDetail6: '답변안함',
-      mainDetail7:
-        '해당 설문조사의 LEVEL이 맞지 않습니다.\n지금 바로 LEVEL을 올려보세요.',
-      mainDetail8: 'LEVEL UPDATE',
-      mainDetail9: '메인으로 이동',
-      mainDetail10: '해당 설문조사의 대상이 아닙니다.',
-      mainDetail11: '메인으로 이동',
-
-      // MainVideo
-      mainVideo1: '건너뛰기',
-      mainVideo2: '리워드 받기',
-      mainVideo3: '10초 이상 시청시 리워드가 지급됩니다.',
-      mainVideo4: '이미 참여한 설문입니다.',
-      mainVideo5: '확인',
-      mainVideo6: '리워드 지급이 실패했습니다.',
-      mainVideo7: '확인',
-
-      // MainVideoComplete
-      mainVideoComplete1:
-        '설문조사를 완료해주셔서 감사합니다.\n블록체인 네트워크에서 확인 완료 후\n당신의 리워드 코인을 받으실 수 있습니다.',
-      mainVideoComplete2: '거래 처리 중',
-      mainVideoComplete3: '지갑 확인하기',
-
-      // 모달 확인 취소 --> 임시로 만들었습니다.
-      cancel: 'cancel',
-      confirm: 'confirm',
     },
   },
 };

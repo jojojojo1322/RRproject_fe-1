@@ -309,9 +309,9 @@ GesturePassword.propTypes = {
 
 GesturePassword.defaultProps = {
   message: '',
-  normalColor: '#5FA8FC',
-  rightColor: '#5FA8FC',
-  wrongColor: '#D93609',
+  normalColor: '#222222',
+  rightColor: '#222222',
+  wrongColor: '#222222',
   status: 'normal',
   interval: 0,
   allowCross: false,
@@ -335,10 +335,7 @@ const Container = memo(
 
     const _styleContainer = useMemo(() => [styles.frame, style], [style]);
 
-    const _styleText = useMemo(
-      () => [styles.msgText, textStyle, {color: color}],
-      [textStyle, color],
-    );
+    const _styleText = useMemo(() => [styles.msgText, textStyle], [textStyle]);
 
     return (
       <View style={_styleContainer}>

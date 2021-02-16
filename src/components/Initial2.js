@@ -96,7 +96,7 @@ const Initial2 = (props) => {
   //   // Dimenssion.get('screen').height;
   // }
   useEffect(() => {
-    console.log('진입');
+    console.log('initial 2 진입');
     if (deviceCheck === 0) {
       setDeviceCheck(1);
       props.navigation.navigate('SignUp');
