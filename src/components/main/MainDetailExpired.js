@@ -217,8 +217,8 @@ const MainDetailExpired = (props) => {
             }}>
             <Image
               style={{
-                width: Platform.OS === 'ios' ? 28 : 25,
-                height: Platform.OS === 'ios' ? 28 : 25,
+                width: Platform.OS === 'ios' ? 28 : 22,
+                height: Platform.OS === 'ios' ? 28 : 22,
                 resizeMode: 'contain',
               }}
               source={require('../../imgs/backIcon.png')}

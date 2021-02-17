@@ -211,7 +211,7 @@ const ProfileCompleteLevel1 = (props) => {
             return (
               <View key={'1'}>
                 <View style={[ProfileStyle.kycAllLevelTitle]}>
-                  <Text style={[ResetStyle.fontRegularE, {fontWeight: '500'}]}>
+                  <Text style={[ResetStyle.fontRegularK, {fontWeight: '500'}]}>
                     {/* KYC LEVEL {props.route.params?.KycLevel} */}
                     {t('profileCompleteLevel1Title', {
                       kycLevel: props.route.params?.KycLevel,

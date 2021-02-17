@@ -14,6 +14,7 @@ import {
   StatusBar,
   TouchableOpacity,
   YellowBox,
+  Platform,
 } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 
@@ -224,7 +225,13 @@ class Login extends Component {
       <SafeAreaView style={ResetStyle.container}>
         <View style={ResetStyle.containerInner}>
           <View>
-            <View style={[{marginTop: '25%', marginBottom: '8%'}]}>
+            <View
+              style={[
+                {
+                  marginTop: Platform.OS === 'ios' ? '25%' : '22%',
+                  marginBottom: Platform.OS === 'ios' ? '8%' : '5%',
+                },
+              ]}>
               <Text
                 style={[
                   ResetStyle.fontBoldE,
@@ -237,7 +244,7 @@ class Login extends Component {
               <View>
                 <Text
                   style={[
-                    ResetStyle.fontRegularE,
+                    ResetStyle.fontRegularK,
                     ResetStyle.fontG,
                     {textAlign: 'center', marginTop: '1%'},
                   ]}>
@@ -250,9 +257,13 @@ class Login extends Component {
               <TextInput
                 style={[
                   ResetStyle.buttonWhite,
-                  ResetStyle.fontLightE,
+                  ResetStyle.fontRegularK,
                   ResetStyle.fontBlack,
-                  {marginBottom: '3%', marginTop: '6%', textAlign: 'left'},
+                  {
+                    marginBottom: '3%',
+                    marginTop: Platform.OS === 'ios' ? '6%' : '5%',
+                    textAlign: 'left',
+                  },
                 ]}
                 placeholder={t('Login2')}
                 placeholderTextColor="#a9a9a9"
@@ -263,9 +274,12 @@ class Login extends Component {
               <TextInput
                 style={[
                   ResetStyle.buttonWhite,
-                  ResetStyle.fontLightE,
+                  ResetStyle.fontRegularK,
                   ResetStyle.fontBlack,
-                  {marginBottom: '14%', textAlign: 'left'},
+                  {
+                    marginBottom: Platform.OS === 'ios' ? '14%' : '8%',
+                    textAlign: 'left',
+                  },
                 ]}
                 placeholder={t('Login3')}
                 placeholderTextColor="#a9a9a9"
@@ -314,9 +328,9 @@ class Login extends Component {
                 }}>
                 <Text
                   style={[
-                    ResetStyle.fontRegularE,
+                    ResetStyle.fontMediumK,
                     ResetStyle.fontWhite,
-                    {fontSize: 24},
+                    {fontWeight: '600'},
                   ]}>
                   {t('Login4')}
                 </Text>
@@ -328,7 +342,7 @@ class Login extends Component {
                 }}>
                 <Text
                   style={[
-                    ResetStyle.fontRegularE,
+                    ResetStyle.fontRegularK,
                     ResetStyle.fontB,
                     {marginTop: '6%', marginBottom: '3%'},
                   ]}>
@@ -347,7 +361,7 @@ class Login extends Component {
 
             <Text
               style={[
-                ResetStyle.fontLightE,
+                ResetStyle.fontRegularK,
                 ResetStyle.fontG,
                 {marginBottom: '3%'},
               ]}>
@@ -362,7 +376,7 @@ class Login extends Component {
               }}>
               <Text
                 style={[
-                  ResetStyle.fontMediumE,
+                  ResetStyle.fontMediumK,
                   ResetStyle.fontB,
                   {fontWeight: '400'},
                 ]}>
@@ -371,7 +385,7 @@ class Login extends Component {
             </TouchableOpacity>
           </View>
           <View style={[AuthStyle.loginBottomTextBox, {marginTop: '5%'}]}>
-            <Text style={[ResetStyle.fontRegularE, ResetStyle.fontB]}>
+            <Text style={[ResetStyle.fontLightK, ResetStyle.fontB]}>
               {t('Login8')}
             </Text>
           </View>

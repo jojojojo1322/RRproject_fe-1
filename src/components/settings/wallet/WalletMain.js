@@ -137,7 +137,7 @@ const WalletMain = (props) => {
       <View style={[WalletStyle.transactionItemInner]}>
         <Text
           style={[
-            ResetStyle.fontRegularE,
+            ResetStyle.fontRegularK,
             ResetStyle.fontB,
             {fontWeight: '500'},
             data.to && data.to !== masterKey && {color: '#ff9100'},
@@ -146,7 +146,7 @@ const WalletMain = (props) => {
         </Text>
         <Text
           style={[
-            ResetStyle.fontRegularE,
+            ResetStyle.fontRegularK,
             ResetStyle.fontB,
             {fontWeight: '500'},
             data.to && data.to !== masterKey && {color: '#ff9100'},
@@ -324,7 +324,7 @@ const WalletMain = (props) => {
         <Text
           style={[
             ResetStyle.fontBlack,
-            ResetStyle.fontLightE,
+            ResetStyle.fontRegularK,
             WalletStyle.transactionsStyle,
           ]}>
           {t('walletMain5')}

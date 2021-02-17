@@ -123,7 +123,7 @@ const ProfileMain = ({navigation, route}) => {
         }}>
         <Text
           style={[
-            ResetStyle.fontLightE,
+            ResetStyle.fontRegularK,
             Number(level) <= Number(kycLevel) + 1
               ? ResetStyle.fontBlack
               : ResetStyle.fontG,
@@ -135,7 +135,7 @@ const ProfileMain = ({navigation, route}) => {
         <View style={[ProfileStyle.kycLevelCheckboxView]}>
           <Text
             style={[
-              ResetStyle.fontLightE,
+              ResetStyle.fontRegularK,
               // status === true || DATA[index + 1].status == true
               Number(level) <= Number(kycLevel) + 1
                 ? ResetStyle.fontBlack
@@ -223,7 +223,7 @@ const ProfileMain = ({navigation, route}) => {
         <View style={[ProfileStyle.personalBackground]}>
           <Text
             style={[
-              ResetStyle.fontRegularE,
+              ResetStyle.fontRegularK,
               ResetStyle.fontWhite,
               {fontWeight: '700', textAlign: 'left'},
             ]}>
@@ -232,7 +232,7 @@ const ProfileMain = ({navigation, route}) => {
           </Text>
           <Text
             style={[
-              ResetStyle.fontRegularE,
+              ResetStyle.fontRegularK,
               ResetStyle.fontWhite,
               {textAlign: 'left'},
             ]}>
@@ -244,7 +244,7 @@ const ProfileMain = ({navigation, route}) => {
         <View style={[ProfileStyle.kycLevelTitleView]}>
           <Text
             style={[
-              ResetStyle.fontMediumE,
+              ResetStyle.fontMediumK,
               {fontWeight: '300', letterSpacing: 0.5},
             ]}>
             {t('profileMain6')}

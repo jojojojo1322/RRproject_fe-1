@@ -224,8 +224,8 @@ const ListCheckLangModal = ({
               }}>
               <Image
                 style={{
-                  width: Platform.OS === 'ios' ? 30 : 25,
-                  height: Platform.OS === 'ios' ? 30 : 25,
+                  width: Platform.OS === 'ios' ? 30 : 20,
+                  height: Platform.OS === 'ios' ? 30 : 20,
                   resizeMode: 'contain',
                 }}
                 source={require('../../../imgs/deleteIcon.png')}
