@@ -13,27 +13,27 @@ import {useTranslation} from 'react-i18next';
 var Password1 = '123';
 
 const LockPattern = () => {
-  const [message, setMessage] = useState('잠금해제 패턴을 입력해 주세요.');
+  const [message, setMessage] = useState(t('settingsLockPattern5'));
   const [status, setStatus] = useState('normal');
 
   const onEnd = (password) => {
     if (password == Password1) {
       setStatus('right');
-      setMessage('패턴이 일치합니다.');
+      setMessage(t('settingsLockPattern6'));
     } else {
       setStatus('wrong');
-      setMessage('패턴이 틀렸습니다.');
+      setMessage(t('settingsLockPattern7'));
     }
   };
 
   const onStart = () => {
     setStatus('normal');
-    setMessage('잠금해제 패턴을 입력해 주세요.');
+    setMessage(t('settingsLockPattern5'));
   };
 
   const onReset = () => {
     setStatus('normal');
-    setMessage('확인을 위해 한번 더 입력해 주세요.');
+    setMessage(t('settingsLockPattern8'));
   };
 
   return (

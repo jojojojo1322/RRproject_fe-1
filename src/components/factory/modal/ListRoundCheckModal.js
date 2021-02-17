@@ -22,6 +22,9 @@ import {RoundCheckbox, SelectedCheckboxes} from '../../factory/Roundcheck';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import ResetStyle from '../../../style/ResetStyle';
 import ModalStyle from '../../../style/ModalStyle';
+
+import {withTranslation} from 'react-i18next';
+import hoistStatics from 'hoist-non-react-statics';
 const window = Dimensions.get('window');
 
 const DATA = [
@@ -206,6 +209,7 @@ class ListRoundCheckModal extends Component {
   };
   render() {
     const {modalVisible} = this.state;
+    const {t} = this.props;
     return (
       <KeyboardAwareScrollView
         enableOnAndroid={true}
@@ -239,7 +243,7 @@ class ListRoundCheckModal extends Component {
           <View style={[ModalStyle.lrcModal]}>
             <View style={[ModalStyle.lrcmodalTop]}>
               <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-                거주도시 선택
+                {t('kycThird10')}
               </Text>
               <TouchableWithoutFeedback
                 setModalVisible={this.props.setModalVisible}
@@ -277,4 +281,8 @@ class ListRoundCheckModal extends Component {
     );
   }
 }
-export default ListRoundCheckModal;
+
+export default hoistStatics(
+  withTranslation()(ListRoundCheckModal),
+  ListRoundCheckModal,
+);

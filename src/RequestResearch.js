@@ -44,7 +44,7 @@ const RequestResearch = ({navigation}) => {
               />
             </TouchableOpacity>
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-              {t('')}
+              {t('requestResearchTitle')}
             </Text>
           </View>
         </View>

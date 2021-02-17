@@ -622,7 +622,7 @@ const ResearchForm = (props) => {
         <TextConfirmCancelModal
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
-          text={`설문을 종료하시겠습니까?`}
+          text={t('researchForm5')}
           confirm={t('confirm')}
           confirmHandle={confirmHandle}
           cancel={t('cancel')}
@@ -632,16 +632,16 @@ const ResearchForm = (props) => {
         <TextConfirmModal
           modalVisible={modal2Visible}
           setModalVisible={setModal2Visible}
-          text={`해당 설문의 참여인원이 초과하였습니다.`}
-          confirm={`확인`}
+          text={t('researchForm6')}
+          confirm={t('confirm')}
           handleNextPage={confirm2Handle}
         />
         {/* '해당 설문에 이미 참여 하셨습니다.' */}
         <TextConfirmModal
           modalVisible={modal3Visible}
           setModalVisible={setModal3Visible}
-          text={`해당 설문에 이미 참여 하셨습니다.`}
-          confirm={`확인`}
+          text={t('researchForm7')}
+          confirm={t('confirm')}
           handleNextPage={confirm2Handle}
         />
         <ProgressModal
@@ -652,8 +652,8 @@ const ResearchForm = (props) => {
         <TextConfirmModal
           modalVisible={modal5Visible}
           setModalVisible={setModal5Visible}
-          text={`이미 해당 설문의 보상을 지급하였습니다.`}
-          confirm={`확인`}
+          text={t('researchForm8')}
+          confirm={t('confirm')}
           handleNextPage={confirm2Handle}
         />
       </View>

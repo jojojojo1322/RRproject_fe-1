@@ -953,7 +953,7 @@ export const Main = ({navigation}) => {
                   height: Platform.OS === 'ios' ? 25 : 20,
                   resizeMode: 'contain',
                 }}
-                source={require('../../imgs/rrLogo.png')}
+                source={require('../../imgs/rrLogoW.png')}
               />
               <Text
                 style={[

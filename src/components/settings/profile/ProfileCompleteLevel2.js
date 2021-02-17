@@ -284,7 +284,7 @@ const ProfileCompleteLevel2 = (props) => {
         <TextConfirmCancelModal
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
-          text={`KYC업데이트 시 72시간동안 ${'\n'}설문조사에 참여하실 수 없습니다.${'\n'}KYC업데이트를 진행하시겠습니까?`}
+          text={t('profileAll6')}
           cancel={t('researchForm1')}
           cancelHandle={cancelHandle}
           confirm={t('researchForm4')}

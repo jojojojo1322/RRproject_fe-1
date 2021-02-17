@@ -181,7 +181,7 @@ const CustomDrawerContent = (props) => {
                 height: Platform.OS === 'ios' ? 25 : 20,
                 resizeMode: 'contain',
               }}
-              source={require('../../imgs/rrLogo.png')}
+              source={require('../../imgs/rrLogoB.png')}
             />
           </View>
         </TouchableOpacity>
@@ -472,7 +472,7 @@ const CustomDrawerContent = (props) => {
         {/* Invitaion code */}
         <TouchableOpacity
           onPress={() => {
-            props.navigation.dispatch('Main');
+            props.navigation.navigate('Main');
           }}
           style={MainStyle.drawerItem}>
           <Text

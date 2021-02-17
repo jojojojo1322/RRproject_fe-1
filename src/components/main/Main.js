@@ -495,8 +495,8 @@ function Ongoing({navigation}) {
           //   : DATA.filter((item) => item.status == 'ongoing')
         }
         renderItem={renderItem}
-        sliderHeight={500}
-        itemHeight={420}
+        sliderHeight={Platform.OS === 'ios' ? 500 : 450}
+        itemHeight={Platform.OS === 'ios' ? 420 : 400}
         containerCustomStyle={{
           flex: 1,
           backgroundColor: '#fff',
@@ -514,7 +514,7 @@ function Ongoing({navigation}) {
       <BottomModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
-        text={`kyc 업데이트 후 72시간전 입니다.`}
+        text={t('main10')}
       />
       <ProgressModal
         modalVisible={modal2Visible}
@@ -607,7 +607,7 @@ function Completed({navigation}) {
             });
           }}>
           <View
-            opacity={item.surveyStatus === 'expired' ? 0.5 : 1.0}
+            opacity={1.0}
             style={{
               flex: 1,
             }}>
@@ -645,7 +645,10 @@ function Completed({navigation}) {
                 height: '120%',
               }}></LinearGradient>
             <View style={[MainStyle.itemBoxInner]}>
-              <View style={{position: 'relative'}}>
+              <View
+                style={{
+                  position: 'relative',
+                }}>
                 <Text
                   style={[
                     ResetStyle.fontLightK,
@@ -788,23 +791,11 @@ function Completed({navigation}) {
                 borderRadius: 50,
               }}
               onPress={() => {
-                item.surveyStatus === 'expired'
-                  ? navigation.navigate('MainDetailExpired', {
-                      legacySurveyId: item.legacySurveyId,
-                      // legacySurveyId: '5f91aad0ae28561b056e2f97',
-                      surveyName: item.surveyName,
-                    })
-                  : item.surveyStatus === 'completed'
-                  ? navigation.navigate('MainDetailCompleted', {
-                      legacySurveyId: item.legacySurveyId,
-                      // legacySurveyId: '5f91aad0ae28561b056e2f97',
-                      surveyName: item.surveyName,
-                    })
-                  : navigation.navigate('MainDetail', {
-                      legacySurveyId: item.legacySurveyId,
-                      // legacySurveyId: '5f91aad0ae28561b056e2f97',
-                      surveyName: item.surveyName,
-                    });
+                navigation.navigate('MainDetailCompleted', {
+                  legacySurveyId: item.legacySurveyId,
+                  // legacySurveyId: '5f91aad0ae28561b056e2f97',
+                  surveyName: item.surveyName,
+                });
               }}>
               <Text
                 style={[
@@ -834,8 +825,8 @@ function Completed({navigation}) {
         //   : DATA.filter((item) => item.status == 'completed')
       }
       renderItem={renderItem}
-      sliderHeight={500}
-      itemHeight={420}
+      sliderHeight={Platform.OS === 'ios' ? 500 : 450}
+      itemHeight={Platform.OS === 'ios' ? 420 : 400}
       containerCustomStyle={{flex: 1, backgroundColor: '#fff'}}
       inactiveSlideShift={0}
       onSnapToItem={(index) => setIndex(index)}
@@ -1070,7 +1061,7 @@ function Expired({navigation}) {
                     //   durationFromNow
                     // />
                   }
-                  0일 0시간 0분 0초
+                  0{t('days')} 0{t('hours')} 0{t('minutes')} 0{t('seconds')}
                 </Text>
               </View>
             </View>
@@ -1148,8 +1139,8 @@ function Expired({navigation}) {
         expiredData.length == 0 ? [{status: 'zero'}] : expiredData
       }
       renderItem={renderItem}
-      sliderHeight={500}
-      itemHeight={420}
+      sliderHeight={Platform.OS === 'ios' ? 500 : 450}
+      itemHeight={Platform.OS === 'ios' ? 420 : 400}
       containerCustomStyle={{flex: 1, backgroundColor: '#fff'}}
       inactiveSlideShift={0}
       onSnapToItem={(index) => setIndex(index)}
@@ -1289,7 +1280,7 @@ function Main({navigation, t, i18n}) {
                   height: Platform.OS === 'ios' ? 25 : 20,
                   resizeMode: 'contain',
                 }}
-                source={require('../../imgs/rrLogo.png')}
+                source={require('../../imgs/rrLogoW.png')}
               />
               <Text
                 style={[
@@ -1432,7 +1423,7 @@ function Main({navigation, t, i18n}) {
       <BottomModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
-        text={`kyc 업데이트 후 72시간전 입니다.`}
+        text={t('main10')}
       />
     </View>
   );
