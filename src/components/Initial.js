@@ -172,7 +172,7 @@ const Initial = () => {
               </Text>
               <Text
                 style={[
-                  ResetStyle.fontLightE,
+                  ResetStyle.fontLightK,
                   ResetStyle.fontDG,
                   {textAlign: 'center', marginTop: '4%', lineHeight: 26},
                 ]}>

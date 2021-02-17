@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {Platform, StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   modalContainer: {
@@ -217,7 +217,7 @@ export default StyleSheet.create({
   // TextConfirmCancelModal
   tccModal: {
     position: 'absolute',
-    top: '40%',
+    top: Platform.OS === 'ios' ? '40%' : '35%',
     left: '5%',
     width: '90%',
     backgroundColor: '#fff',

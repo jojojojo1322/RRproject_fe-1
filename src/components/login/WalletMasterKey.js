@@ -39,7 +39,7 @@ class WalletMasterKey extends Component {
     return (
       <SafeAreaView style={ResetStyle.container}>
         <View style={[ResetStyle.containerInner, {justifyContent: 'center'}]}>
-          <View>
+          <View style={{marginTop: '10%'}}>
             <Text style={[ResetStyle.fontBoldK, ResetStyle.fontB]}>
               {t('WalletMasterKeyTitle')}
             </Text>
@@ -53,18 +53,18 @@ class WalletMasterKey extends Component {
             </Text>
             <Image
               style={{
-                width: 80,
-                height: 80,
+                width: Platform.OS === 'ios' ? 80 : 70,
+                height: Platform.OS === 'ios' ? 80 : 70,
                 alignSelf: 'center',
                 marginBottom: 20,
               }}
-              source={require('../../imgs/iconNoticeCheck.png')}
+              source={require('../../imgs/iconNoticeCheckB.png')}
             />
             <Text
               style={[
                 ResetStyle.fontRegularK,
                 ResetStyle.fontB,
-                {lineHeight: 28, fontWeight: '600', marginBottom: 50},
+                {lineHeight: 28, fontWeight: '600', marginBottom: '12%'},
               ]}>
               {t('WalletMasterKey2')}
             </Text>
@@ -80,7 +80,7 @@ class WalletMasterKey extends Component {
                 style={[
                   ResetStyle.fontLightK,
                   ResetStyle.fontDG,
-                  {paddingTop: 20, paddingBottom: 20},
+                  {paddingTop: '8%', paddingBottom: '8%'},
                 ]}>
                 {this.props.route.params?.walletAddress}
               </Text>
@@ -89,7 +89,7 @@ class WalletMasterKey extends Component {
               style={[
                 ResetStyle.fontLightK,
                 ResetStyle.fontG,
-                {marginTop: 10, marginBottom: 70},
+                {marginTop: 10, marginBottom: '15%'},
               ]}>
               {t('WalletMasterKey3')}
             </Text>

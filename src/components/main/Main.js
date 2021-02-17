@@ -496,7 +496,7 @@ function Ongoing({navigation}) {
         }
         renderItem={renderItem}
         sliderHeight={Platform.OS === 'ios' ? 500 : 450}
-        itemHeight={Platform.OS === 'ios' ? 420 : 400}
+        itemHeight={Platform.OS === 'ios' ? 420 : 390}
         containerCustomStyle={{
           flex: 1,
           backgroundColor: '#fff',
@@ -826,7 +826,7 @@ function Completed({navigation}) {
       }
       renderItem={renderItem}
       sliderHeight={Platform.OS === 'ios' ? 500 : 450}
-      itemHeight={Platform.OS === 'ios' ? 420 : 400}
+      itemHeight={Platform.OS === 'ios' ? 420 : 390}
       containerCustomStyle={{flex: 1, backgroundColor: '#fff'}}
       inactiveSlideShift={0}
       onSnapToItem={(index) => setIndex(index)}
@@ -1140,7 +1140,7 @@ function Expired({navigation}) {
       }
       renderItem={renderItem}
       sliderHeight={Platform.OS === 'ios' ? 500 : 450}
-      itemHeight={Platform.OS === 'ios' ? 420 : 400}
+      itemHeight={Platform.OS === 'ios' ? 420 : 390}
       containerCustomStyle={{flex: 1, backgroundColor: '#fff'}}
       inactiveSlideShift={0}
       onSnapToItem={(index) => setIndex(index)}

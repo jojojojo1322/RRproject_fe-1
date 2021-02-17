@@ -598,7 +598,7 @@ const ProfileAll = (props) => {
                 <View key={'1'}>
                   <View style={[ProfileStyle.kycAllLevelTitle]}>
                     <Text
-                      style={[ResetStyle.fontRegularE, {fontWeight: '500'}]}>
+                      style={[ResetStyle.fontRegularK, {fontWeight: '500'}]}>
                       {t('profileAll3')}
                     </Text>
                     <TouchableOpacity
@@ -624,7 +624,7 @@ const ProfileAll = (props) => {
               <View>
                 <View
                   style={[ProfileStyle.kycAllLevelTitle, {marginTop: '10%'}]}>
-                  <Text style={[ResetStyle.fontRegularE, {fontWeight: '500'}]}>
+                  <Text style={[ResetStyle.fontRegularK, {fontWeight: '500'}]}>
                     {t('profileAll4')}
                   </Text>
                   <TouchableOpacity
@@ -681,7 +681,7 @@ const ProfileAll = (props) => {
                         {marginTop: '10%'},
                       ]}>
                       <Text
-                        style={[ResetStyle.fontRegularE, {fontWeight: '500'}]}>
+                        style={[ResetStyle.fontRegularK, {fontWeight: '500'}]}>
                         {t('profileAll5')}
                         {data.id}
                       </Text>
@@ -800,7 +800,7 @@ const ProfileAll = (props) => {
                 <View>
                   <View style={[ProfileStyle.kycAllLevelTitle]}>
                     <Text
-                      style={[ResetStyle.fontRegularE, {fontWeight: '500'}]}>
+                      style={[ResetStyle.fontRegularK, {fontWeight: '500'}]}>
                       KYC LEVEL {props.route.params?.KycLevel}
                     </Text>
                   </View>

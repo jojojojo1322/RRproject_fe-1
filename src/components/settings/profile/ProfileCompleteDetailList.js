@@ -130,7 +130,7 @@ const ProfileCompleteDetail = (props) => {
             return (
               <View>
                 <View style={[ProfileStyle.kycAllLevelTitle]}>
-                  <Text style={[ResetStyle.fontRegularE, {fontWeight: '500'}]}>
+                  <Text style={[ResetStyle.fontRegularK, {fontWeight: '500'}]}>
                     {t('profileCompleteDetailList1', {kycLevel: index + 1})}
                   </Text>
                 </View>

@@ -6,6 +6,7 @@ import {
   View,
   TouchableOpacity,
   Image,
+  Platform,
 } from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import ResetStyle from '../../style/ResetStyle.js';
@@ -1053,8 +1054,8 @@ class TermsConditions extends Component {
               }}>
               <Image
                 style={{
-                  width: Platform.OS === 'ios' ? 28 : 25,
-                  height: Platform.OS === 'ios' ? 28 : 25,
+                  width: Platform.OS === 'ios' ? 28 : 22,
+                  height: Platform.OS === 'ios' ? 28 : 22,
                   resizeMode: 'contain',
                 }}
                 source={require('../../imgs/backIcon.png')}
@@ -1068,7 +1069,10 @@ class TermsConditions extends Component {
         <Tab.Navigator
           initialRouteName={this.props.route.params?.name}
           tabBarOptions={{
-            labelStyle: {fontSize: 20, fontWeight: '400'},
+            labelStyle: {
+              fontSize: Platform.OS === 'ios' ? 20 : 15,
+              fontWeight: '400',
+            },
             activeTintColor: '#4696ff',
             inactiveTintColor: '#787878',
             indicatorStyle: {borderColor: '#4696ff', borderWidth: 1.5},

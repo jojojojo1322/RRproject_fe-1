@@ -13,6 +13,7 @@ import {useTranslation} from 'react-i18next';
 var Password1 = '123';
 
 const LockPattern = () => {
+  const {t, i18n} = useTranslation();
   const [message, setMessage] = useState(t('settingsLockPattern5'));
   const [status, setStatus] = useState('normal');
 
