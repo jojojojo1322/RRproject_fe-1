@@ -18,6 +18,8 @@ import MainStyle from '../../style/MainStyle.js';
 import email from 'react-native-email';
 import {useTranslation} from 'react-i18next';
 
+import {useIsFocused} from '@react-navigation/native';
+
 function handleEmail(status) {
   const {t, i18n} = useTranslation();
   const to = ['rrmaster@gmail.com']; // string or array of email addresses
@@ -47,17 +49,13 @@ const CustomDrawerContent = (props) => {
 
   const [loginStatus, setLoginStatus] = useState(props.login);
   const [email, setEmail] = useState('');
+  const [page, setPage] = useState('');
 
   // console.log(await AsyncStorage.getItem('userNo'));
 
   const emailAsyncSet = async () => {
     setEmail(await AsyncStorage.getItem('email'));
   };
-
-  // useEffect(() => {
-  //   alertDataApi();
-  //   emailAsyncSet();
-  // }, []);
 
   useEffect(() => {
     alertDataApi();
@@ -76,6 +74,30 @@ const CustomDrawerContent = (props) => {
     passportApi();
     console.log('????????dfsdf', idData.passPortStatus);
   }, []);
+
+  useEffect(() => {
+    if (props.state.routes[0].state !== undefined) {
+      if (
+        page !==
+        props.state.routes[0].state.routes[
+          props.state.routes[0].state.routes.length - 1
+        ].name
+      ) {
+        console.log('진입');
+        console.log('진입');
+        alertDataApi();
+        emailAsyncSet();
+        getWalletApi();
+        userApi();
+        passportApi();
+        setPage(
+          props.state.routes[0].state.routes[
+            props.state.routes[0].state.routes.length - 1
+          ].name,
+        );
+      }
+    }
+  });
 
   console.log('CUSTON>>>>', props.login);
   // alert API

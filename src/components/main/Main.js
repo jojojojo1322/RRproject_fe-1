@@ -10,6 +10,7 @@ import {
   Platform,
   YellowBox,
 } from 'react-native';
+import {useIsFocused} from '@react-navigation/native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 // import {TouchableOpacity} from 'react-native-gesture-handler';
 import ResetStyle from '../../style/ResetStyle';
@@ -1236,7 +1237,18 @@ function Main({navigation, t, i18n}) {
         console.log('userInfoApi Error', e);
       });
   };
+  const isFocused = useIsFocused();
+
   useEffect(() => {
+    if (isFocused === true) {
+      userInfoApi();
+      TncGetApi();
+    }
+  }, [isFocused]);
+  useEffect(() => {
+    console.log('updateMount');
+    console.log('updateMount');
+    console.log('updateMount');
     userInfoApi();
     TncGetApi();
     YellowBox.ignoreWarnings([
@@ -1295,7 +1307,7 @@ function Main({navigation, t, i18n}) {
           <TouchableOpacity
             onPress={() => {
               console.log(navigation.openDrawer);
-              navigation.openDrawer();
+              navigation.openDrawer({dddddd: 'dddddd'});
             }}>
             <Image
               style={{
