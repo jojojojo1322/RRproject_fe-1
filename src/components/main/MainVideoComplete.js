@@ -19,9 +19,9 @@ const MainVideoComplete = ({navigation, route}) => {
   const URL = 'https://aladdin25.com/';
   const {t, i18n} = useTranslation();
 
-  useEffect(() => {
-    postRewardApi();
-  }, []);
+  // useEffect(() => {
+  //   postRewardApi();
+  // }, []);
 
   // Reward Api
 

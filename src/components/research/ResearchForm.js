@@ -65,6 +65,8 @@ const ResearchForm = (props) => {
 
   //progress
   const [modal4Visible, setModal4Visible] = useState(false);
+  // 이미 보상이 지급된 경우 모달
+  const [modal5Visible, setModal5Visible] = useState(false);
 
   let CheckedArrObject = new SelectedCheckboxes();
 
@@ -105,7 +107,9 @@ const ResearchForm = (props) => {
       .then(async (response) => {
         console.log('postSurveyRewardApi THEN >>>>', response);
         if (response.data.status === 'success') {
-          navigation.navigate('MainVideoComplete');
+          props.navigation.navigate('MainVideoComplete');
+        } else if (response.data.status === 'fail') {
+          setModal5Visible(true);
         }
       })
       .catch((e) => {
@@ -643,6 +647,14 @@ const ResearchForm = (props) => {
         <ProgressModal
           modalVisible={modal4Visible}
           setModalVisible={setModal4Visible}
+        />
+        {/* '이미 해당 설문의 보상을 지급하였습니다.' */}
+        <TextConfirmModal
+          modalVisible={modal5Visible}
+          setModalVisible={setModal5Visible}
+          text={`이미 해당 설문의 보상을 지급하였습니다.`}
+          confirm={`확인`}
+          handleNextPage={confirm2Handle}
         />
       </View>
     </SafeAreaView>

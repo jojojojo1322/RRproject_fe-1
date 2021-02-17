@@ -100,7 +100,7 @@ const MainVideo = ({navigation, route}) => {
   const postRewardApi = async () => {
     // setModal3Visible(true);
     console.log('reward 호출');
-
+    setModalVisible(true);
     axios
       .post(`${server}/wallet/trans/reward`, {
         language: await AsyncStorage.getItem('deviceLanguage'),
@@ -110,16 +110,20 @@ const MainVideo = ({navigation, route}) => {
       .then((response) => {
         console.log('postRewardApi >>>>>>>>', response);
         if (response.data.status == 'success') {
+          setModalVisible(false);
           navigation.navigate('MainVideoComplete');
         } else if (response.data.status == 'fail') {
           if (response.data.msg === 'survey already participated.') {
+            setModalVisible(false);
             setModal4Visible(!modal4Visible);
           } else {
+            setModalVisible(false);
             setModal5Visible(!modal5Visible);
           }
         }
       })
       .catch((e) => {
+        setModalVisible(false);
         console.log('error', e);
       });
     // setModal3Visible(false);
