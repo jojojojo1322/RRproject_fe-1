@@ -696,6 +696,49 @@ export default ko = {
       // 모달 확인 취소 --> 임시로 만들었습니다.
       cancel: '취소',
       confirm: '확인',
+
+      // -------------------------------------------------------2021.02.17 16:07-----
+
+      // App 시작시 체크 popup
+      wrapper1: '업데이트',
+      wrapper2: '최신버전이 나왔습니다.\n업데이트 해주세요.',
+      wrapper3: '서비스 점검중입니다.',
+      wrapper4: '확인',
+
+      // ID Verification popup ++  RR-00-04-12-KYC 정보입력-3단계-여권인증
+      idVerification12: '내용을 정확하게 입력해 주십시오.',
+      idVerification13: '여권 사진을 업로드해 주십시오.',
+
+      // login page popup ++   RR-00-05-01-로그인
+      login15: '해당 핸드폰으로 등록된 계정이 있습니다.',
+
+      // main page popup ++   RR-NEW-Main-1
+      main10: 'kyc 업데이트 후 72시간전 입니다.',
+
+      // main page 카드 시간  RR-NEW-Main-1
+      days: '일',
+      hours: '시간',
+      minutes: '분',
+      seconds: '초',
+
+      // main -> research page popup ++  RR-Main-02-06-메인-설문조사1단계
+      researchForm5: '설문을 종료하시겠습니까?',
+      researchForm6: '해당 설문의 참여인원이 초과하였습니다.',
+      researchForm7: '해당 설문에 이미 참여 하셨습니다.',
+      researchForm8: '이미 해당 설문의 보상을 지급하였습니다.',
+
+      // kyc profile popup ++  RR-Profile-02-02-My Profile_level
+      profileAll6:
+        '`KYC업데이트 시 72시간동안\n설문조사에 참여하실 수 없습니다.\nKYC업데이트를 진행하시겠습니까?`',
+
+      // pattern password popup ++ RR-Setting-03-03-01-잠금설정-패턴
+      settingsLockPattern5: '잠금해제 패턴을 입력해 주세요.',
+      settingsLockPattern6: '패턴이 일치합니다.',
+      settingsLockPattern7: '패턴이 틀렸습니다.',
+      settingsLockPattern8: '확인을 위해 한번 더 입력해 주세요.',
+
+      // splash page   RR-00-01-01-스플래시1
+      splash: '블록체인 기반의 설문조사',
     },
   },
 };

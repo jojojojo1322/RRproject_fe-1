@@ -430,12 +430,12 @@ const IdVerification = ({navigation}) => {
       <BottomModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
-        text={'내용을 정확하게 입력해 주십시오.'}
+        text={t('idVerification12')}
       />
       <BottomModal
         modalVisible={modal2Visible}
         setModalVisible={setModal2Visible}
-        text={'여권 사진을 업로드해 주십시오.'}
+        text={t('idVerification13')}
       />
     </SafeAreaView>
   );

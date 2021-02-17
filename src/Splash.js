@@ -23,8 +23,10 @@ import messaging from '@react-native-firebase/messaging';
 import SplashScreen from 'react-native-splash-screen';
 import ResetStyle from './style/ResetStyle';
 import ProgressBarExample from './components/defined/ProgressBarExample';
+import {useTranslation} from 'react-i18next';
 
 const Splash = ({loading, setLoading}) => {
+  const {t, i18n} = useTranslation();
   // splash에서 보여질 gif유지 시간
   const time = 3000;
 
@@ -151,9 +153,8 @@ const Splash = ({loading, setLoading}) => {
   };
 
   useEffect(() => {
+    SplashScreen.hide();
     setTimeout(() => {
-      SplashScreen.hide();
-
       // 버전 확인
       // handleFirebasePermission();
       // requestUserPermission();
@@ -189,7 +190,7 @@ const Splash = ({loading, setLoading}) => {
           ResetStyle.fontB,
           {marginTop: '60%', marginBottom: '20%'},
         ]}>
-        블록체인 기반의 설문조사
+        {t('splash')}
       </Text>
       <ProgressBarExample />
     </View>

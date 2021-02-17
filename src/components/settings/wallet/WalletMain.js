@@ -201,7 +201,7 @@ const WalletMain = (props) => {
                   height: Platform.OS === 'ios' ? 25 : 20,
                   resizeMode: 'contain',
                 }}
-                source={require('../../../imgs/rrLogo.png')}
+                source={require('../../../imgs/rrLogoB.png')}
               />
               <Text
                 style={[

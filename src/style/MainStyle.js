@@ -31,12 +31,11 @@ export default StyleSheet.create({
 
   // Item
   itemBox: {
-    width: '85%',
+    width: '80%',
     height: Platform.OS === 'ios' ? '130%' : '130%',
     alignSelf: 'center',
-    borderRadius: 10,
+    borderRadius: 20,
     backgroundColor: '#fff',
-    borderRadius: 10,
     borderWidth: 1,
     borderColor: '#e8e8e8',
     paddingBottom: '10%',

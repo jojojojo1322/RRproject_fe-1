@@ -407,7 +407,7 @@ class Login extends Component {
         <BottomModal
           modalVisible={this.state.modal6Visible}
           setModalVisible={this.setModal6Visible}
-          text={`해당 핸드폰으로 등록된 계정이 있습니다.`}
+          text={t('login15')}
         />
       </SafeAreaView>
     );

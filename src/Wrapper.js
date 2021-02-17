@@ -14,6 +14,7 @@ import Splash from './Splash';
 import {useTranslation} from 'react-i18next';
 
 const Wrapper = () => {
+  const {t, i18n} = useTranslation();
   //버전 체크를 위해선 false로 선언한다.
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
@@ -127,15 +128,6 @@ const Wrapper = () => {
 
   return (
     <>
-      {/* {needUpdate && ( */}
-      <UpdateModal
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
-        handleUpdateStore={handleUpdateStore}
-        confirm={'업데이트'}
-        text={'최신버전이 나왔습니다.\n업데이트 해주세요.'}
-      />
-      {/* )} */}
       {checkVersion && loading ? (
         <App />
       ) : (
@@ -145,15 +137,15 @@ const Wrapper = () => {
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         handleUpdateStore={handleUpdateStore}
-        confirm={'업데이트'}
-        text={'최신버전이 나왔습니다.\n업데이트 해주세요.'}
+        text={t('wrapper2')}
+        confirm={t('wrapper1')}
       />
       <UpdateModal
         modalVisible={modal2Visible}
         setModalVisible={setModal2Visible}
         handleUpdateStore={handleExitApp}
-        confirm={'확인'}
-        text={'서비스 점검중입니다.'}
+        text={t('wrapper3')}
+        confirm={t('wrapper4')}
       />
     </>
   );
