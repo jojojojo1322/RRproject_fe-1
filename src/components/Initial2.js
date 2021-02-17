@@ -121,9 +121,12 @@ const Initial2 = (props) => {
   console.log('platformOS>>>>>>>>>>', deviceLanguage); //en_US
 
   ////
-  const windowWidth = dimensions.window.width;
-  const windowHeight = dimensions.window.height;
+  // const windowWidth = 800;
+  const windowWidth = Dimensions.get('window').width;
+  // const windowHeight = 1000;
+  const windowHeight = Dimensions.get('window').height;
   console.log('windowHeight', windowHeight);
+  console.log('windowHeight', windowWidth);
   return (
     <SafeAreaView
       style={[

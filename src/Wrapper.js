@@ -87,8 +87,8 @@ const Wrapper = () => {
   };
 
   useEffect(() => {
-    ApiCheckVersion();
-    // NonVersionCheckMode();
+    // ApiCheckVersion();
+    NonVersionCheckMode();
     console.log('current current current', current);
     console.log('version check check', versionCheck);
     console.log('walletActive check check', walletActive);
