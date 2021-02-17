@@ -255,7 +255,9 @@ const Initial2 = (props) => {
                       style={[ResetStyle.buttonWhite, {marginTop: 10}]}
                       activeOpacity={0.75}
                       onPress={() => {
-                        props.navigation.navigate('KycThird');
+                        props.navigation.navigate(
+                          'SettingsPersonalResetPassword',
+                        );
                       }}>
                       <Text
                         style={[

@@ -133,14 +133,20 @@ class Login extends Component {
         console.log('loginApithen', response);
         console.log('loginApithen', response.data.status);
         console.log('loginApithen', response.data.userNo);
-        console.log(
-          'then header>>>>' +
-            response.headers.authorization.slice(7, undefined),
-        );
+
         ///로그인 실험
         this.props.route.params?.loginSuccess(response.data.userNo);
 
         this.props.route.params?.loginSuccessAuth(response.data.userNo);
+        let LOCK = await AsyncStorage.getItem('lock');
+        console.log('LOCK>>>', LOCK);
+
+        if (LOCK === null) {
+          await AsyncStorage.setItem('lock', 'x,');
+        }
+        // console.log('LOCK', LOCK.slice(0, 1));
+        // console.log('LOCK', LOCK.slice(0, 1));
+
         await AsyncStorage.setItem(
           'authToken',
           response.headers.authorization.slice(7, undefined),
@@ -156,7 +162,7 @@ class Login extends Component {
         // return response.data.status;
       })
       .catch(async (error) => {
-        console.log('erro', error.response.data);
+        console.log('loginApi ERROR >>', error.response.data);
         this.setState({
           loginCheck: error.response.data.status,
           hasWallet: error.response.data.hasWallet,

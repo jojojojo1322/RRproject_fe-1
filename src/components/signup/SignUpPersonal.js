@@ -379,119 +379,128 @@ class SignUpPersonal extends Component {
 
               <View
                 style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
+                  flexDirection: 'column',
+                  alignItems: 'flex-start',
                   justifyContent: 'space-between',
                 }}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    marginTop: '3%',
-                  }}>
-                  {!chkPWRow(this.state.password) ? (
-                    <Image
-                      style={ResetStyle.xsmallImg}
-                      source={require('../../imgs/iconUncheckedS.png')}
-                    />
-                  ) : (
-                    <Image
-                      style={ResetStyle.xsmallImg}
-                      source={require('../../imgs/iconCheckedS.png')}
-                    />
-                  )}
-                  <Text
-                    style={[
-                      ResetStyle.fontLightK,
-                      ResetStyle.fontG,
-                      {marginLeft: 5},
-                    ]}>
-                    {t('signUpPersonal5')}
-                  </Text>
+                {/* d */}
+                <View style={{flexDirection: 'row'}}>
+                  {/* d */}
+
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      marginTop: '3%',
+                    }}>
+                    {!chkPWRow(this.state.password) ? (
+                      <Image
+                        style={ResetStyle.xsmallImg}
+                        source={require('../../imgs/iconUncheckedS.png')}
+                      />
+                    ) : (
+                      <Image
+                        style={ResetStyle.xsmallImg}
+                        source={require('../../imgs/iconCheckedS.png')}
+                      />
+                    )}
+                    <Text
+                      style={[
+                        ResetStyle.fontLightK,
+                        ResetStyle.fontG,
+                        {marginLeft: 5, marginRight: '4%'},
+                      ]}>
+                      {t('signUpPersonal5')}
+                    </Text>
+                  </View>
+                  <View style={[AuthStyle.signupCheckView]}>
+                    {!chkPWNumber(this.state.password) ? (
+                      <Image
+                        style={ResetStyle.xsmallImg}
+                        source={require('../../imgs/iconUncheckedS.png')}
+                      />
+                    ) : (
+                      <Image
+                        style={ResetStyle.xsmallImg}
+                        source={require('../../imgs/iconCheckedS.png')}
+                      />
+                    )}
+                    <Text
+                      style={[
+                        ResetStyle.fontLightK,
+                        ResetStyle.fontG,
+                        {marginLeft: 5, marginRight: '4%'},
+                      ]}>
+                      {t('signUpPersonal6')}
+                    </Text>
+                  </View>
+                  <View style={[AuthStyle.signupCheckView]}>
+                    {!chkPWHigh(this.state.password) ? (
+                      <Image
+                        style={ResetStyle.xsmallImg}
+                        source={require('../../imgs/iconUncheckedS.png')}
+                      />
+                    ) : (
+                      <Image
+                        style={ResetStyle.xsmallImg}
+                        source={require('../../imgs/iconCheckedS.png')}
+                      />
+                    )}
+                    <Text
+                      style={[
+                        ResetStyle.fontLightK,
+                        ResetStyle.fontG,
+                        {marginLeft: 5, marginRight: '4%'},
+                      ]}>
+                      {t('signUpPersonal7')}
+                    </Text>
+                  </View>
+                  {/* d */}
                 </View>
-                <View style={[AuthStyle.signupCheckView]}>
-                  {!chkPWNumber(this.state.password) ? (
-                    <Image
-                      style={ResetStyle.xsmallImg}
-                      source={require('../../imgs/iconUncheckedS.png')}
-                    />
-                  ) : (
-                    <Image
-                      style={ResetStyle.xsmallImg}
-                      source={require('../../imgs/iconCheckedS.png')}
-                    />
-                  )}
-                  <Text
-                    style={[
-                      ResetStyle.fontLightK,
-                      ResetStyle.fontG,
-                      {marginLeft: 5},
-                    ]}>
-                    {t('signUpPersonal6')}
-                  </Text>
-                </View>
-                <View style={[AuthStyle.signupCheckView]}>
-                  {!chkPWHigh(this.state.password) ? (
-                    <Image
-                      style={ResetStyle.xsmallImg}
-                      source={require('../../imgs/iconUncheckedS.png')}
-                    />
-                  ) : (
-                    <Image
-                      style={ResetStyle.xsmallImg}
-                      source={require('../../imgs/iconCheckedS.png')}
-                    />
-                  )}
-                  <Text
-                    style={[
-                      ResetStyle.fontLightK,
-                      ResetStyle.fontG,
-                      {marginLeft: 5},
-                    ]}>
-                    {t('signUpPersonal7')}
-                  </Text>
-                </View>
-                <View style={[AuthStyle.signupCheckView]}>
-                  {!chkPWCharacter(this.state.password) ? (
-                    <Image
-                      style={ResetStyle.xsmallImg}
-                      source={require('../../imgs/iconUncheckedS.png')}
-                    />
-                  ) : (
-                    <Image
-                      style={ResetStyle.xsmallImg}
-                      source={require('../../imgs/iconCheckedS.png')}
-                    />
-                  )}
-                  <Text
-                    style={[
-                      ResetStyle.fontLightK,
-                      ResetStyle.fontG,
-                      {marginLeft: 5},
-                    ]}>
-                    {t('signUpPersonal8')}
-                  </Text>
-                </View>
-                <View style={[AuthStyle.signupCheckView]}>
-                  {this.state.password.length < 8 ? (
-                    <Image
-                      style={ResetStyle.xsmallImg}
-                      source={require('../../imgs/iconUncheckedS.png')}
-                    />
-                  ) : (
-                    <Image
-                      style={ResetStyle.xsmallImg}
-                      source={require('../../imgs/iconCheckedS.png')}
-                    />
-                  )}
-                  <Text
-                    style={[
-                      ResetStyle.fontLightK,
-                      ResetStyle.fontG,
-                      {marginLeft: 5},
-                    ]}>
-                    {t('signUpPersonal9')}
-                  </Text>
+                {/* d */}
+                <View style={{flexDirection: 'row'}}>
+                  <View style={[AuthStyle.signupCheckView]}>
+                    {!chkPWCharacter(this.state.password) ? (
+                      <Image
+                        style={ResetStyle.xsmallImg}
+                        source={require('../../imgs/iconUncheckedS.png')}
+                      />
+                    ) : (
+                      <Image
+                        style={ResetStyle.xsmallImg}
+                        source={require('../../imgs/iconCheckedS.png')}
+                      />
+                    )}
+                    <Text
+                      style={[
+                        ResetStyle.fontLightK,
+                        ResetStyle.fontG,
+                        {marginLeft: 5, marginRight: '4%'},
+                      ]}>
+                      {t('signUpPersonal8')}
+                    </Text>
+                  </View>
+                  <View style={[AuthStyle.signupCheckView]}>
+                    {this.state.password.length < 8 ? (
+                      <Image
+                        style={ResetStyle.xsmallImg}
+                        source={require('../../imgs/iconUncheckedS.png')}
+                      />
+                    ) : (
+                      <Image
+                        style={ResetStyle.xsmallImg}
+                        source={require('../../imgs/iconCheckedS.png')}
+                      />
+                    )}
+                    <Text
+                      style={[
+                        ResetStyle.fontLightK,
+                        ResetStyle.fontG,
+                        {marginLeft: 5, marginRight: '4%'},
+                      ]}>
+                      {t('signUpPersonal9')}
+                    </Text>
+                  </View>
                 </View>
               </View>
             </View>
