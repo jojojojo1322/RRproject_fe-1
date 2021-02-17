@@ -53,7 +53,7 @@ const expiredData = '';
 const DATA = [
   {
     id: '9',
-    img: require('../../imgs/drawable-xxxhdpi/shutterstock_1675809577.png'),
+    img: require('../../imgs/shutterstock_1675809577.png'),
     status: 'completed',
     division: 'Any Category2',
     dateStart: '2020.12.03',
@@ -183,7 +183,7 @@ function Ongoing({navigation}) {
           ]}>
           <Image
             style={{alignSelf: 'center', width: 80, height: 80}}
-            source={require('../../imgs/drawable-xxxhdpi/no_data_icon.png')}
+            source={require('../../imgs/noDataIcon.png')}
           />
           <Text
             style={[
@@ -332,7 +332,12 @@ function Ongoing({navigation}) {
               />
               <View style={MainStyle.itemBoxBottomTextView}>
                 <Image
-                  source={require('../../imgs/drawable-xxxhdpi/user_icon.png')}
+                  style={{
+                    width: Platform.OS === 'ios' ? 18 : 15,
+                    height: Platform.OS === 'ios' ? 18 : 15,
+                    resizeMode: 'contain',
+                  }}
+                  source={require('../../imgs/userIcon.png')}
                 />
                 <Text
                   style={[
@@ -347,7 +352,12 @@ function Ongoing({navigation}) {
 
               <View style={MainStyle.itemBoxBottomTextView}>
                 <Image
-                  source={require('../../imgs/drawable-xxxhdpi/clock_icon.png')}
+                  style={{
+                    width: Platform.OS === 'ios' ? 18 : 15,
+                    height: Platform.OS === 'ios' ? 18 : 15,
+                    resizeMode: 'contain',
+                  }}
+                  source={require('../../imgs/clockIcon.png')}
                 />
                 <Text
                   style={[
@@ -570,7 +580,7 @@ function Completed({navigation}) {
           ]}>
           <Image
             style={{alignSelf: 'center', width: 80, height: 80}}
-            source={require('../../imgs/drawable-xxxhdpi/no_data_icon.png')}
+            source={require('../../imgs/noDataIcon.png')}
           />
           <Text
             style={[
@@ -696,7 +706,12 @@ function Completed({navigation}) {
               />
               <View style={MainStyle.itemBoxBottomTextView}>
                 <Image
-                  source={require('../../imgs/drawable-xxxhdpi/user_icon.png')}
+                  style={{
+                    width: Platform.OS === 'ios' ? 18 : 15,
+                    height: Platform.OS === 'ios' ? 18 : 15,
+                    resizeMode: 'contain',
+                  }}
+                  source={require('../../imgs/userIcon.png')}
                 />
                 <Text
                   style={[
@@ -711,7 +726,12 @@ function Completed({navigation}) {
 
               <View style={MainStyle.itemBoxBottomTextView}>
                 <Image
-                  source={require('../../imgs/drawable-xxxhdpi/clock_icon.png')}
+                  style={{
+                    width: Platform.OS === 'ios' ? 18 : 15,
+                    height: Platform.OS === 'ios' ? 18 : 15,
+                    resizeMode: 'contain',
+                  }}
+                  source={require('../../imgs/clockIcon.png')}
                 />
                 <Text
                   style={[
@@ -856,7 +876,7 @@ function Expired({navigation}) {
           ]}>
           <Image
             style={{alignSelf: 'center', width: 80, height: 80}}
-            source={require('../../imgs/drawable-xxxhdpi/no_data_icon.png')}
+            source={require('../../imgs/noDataIcon.png')}
           />
           <Text
             style={[
@@ -994,7 +1014,12 @@ function Expired({navigation}) {
               />
               <View style={MainStyle.itemBoxBottomTextView}>
                 <Image
-                  source={require('../../imgs/drawable-xxxhdpi/user_icon.png')}
+                  style={{
+                    width: Platform.OS === 'ios' ? 18 : 15,
+                    height: Platform.OS === 'ios' ? 18 : 15,
+                    resizeMode: 'contain',
+                  }}
+                  source={require('../../imgs/userIcon.png')}
                 />
                 <Text
                   style={[
@@ -1009,7 +1034,12 @@ function Expired({navigation}) {
 
               <View style={MainStyle.itemBoxBottomTextView}>
                 <Image
-                  source={require('../../imgs/drawable-xxxhdpi/clock_icon.png')}
+                  style={{
+                    width: Platform.OS === 'ios' ? 18 : 15,
+                    height: Platform.OS === 'ios' ? 18 : 15,
+                    resizeMode: 'contain',
+                  }}
+                  source={require('../../imgs/clockIcon.png')}
                 />
                 <Text
                   style={[
@@ -1254,7 +1284,12 @@ function Main({navigation, t, i18n}) {
                 flexDirection: 'row',
               }}>
               <Image
-                source={require('../../imgs/drawable-xxxhdpi/rr_logo.png')}
+                style={{
+                  width: Platform.OS === 'ios' ? 25 : 20,
+                  height: Platform.OS === 'ios' ? 25 : 20,
+                  resizeMode: 'contain',
+                }}
+                source={require('../../imgs/rrLogo.png')}
               />
               <Text
                 style={[
@@ -1272,7 +1307,12 @@ function Main({navigation, t, i18n}) {
               navigation.openDrawer();
             }}>
             <Image
-              source={require('../../imgs/drawable-xxxhdpi/menu_icon.png')}
+              style={{
+                width: Platform.OS === 'ios' ? 25 : 20,
+                height: Platform.OS === 'ios' ? 25 : 20,
+                resizeMode: 'contain',
+              }}
+              source={require('../../imgs/menuIcon_w.png')}
             />
           </TouchableOpacity>
         </View>

@@ -421,11 +421,21 @@ const ProfileIncompleteDetail = (props) => {
         <>
           {index <= [nowIndex] ? (
             <Image
-              source={require('../../../imgs/drawable-mdpi/icon_ktit_on.png')}
+              style={{
+                width: Platform.OS === 'ios' ? 40 : 35,
+                height: Platform.OS === 'ios' ? 40 : 35,
+                resizeMode: 'contain',
+              }}
+              source={require('../../../imgs/kycCheckedIcon.png')}
             />
           ) : (
             <Image
-              source={require('../../../imgs/drawable-mdpi/icon_ktit_off.png')}
+              style={{
+                width: Platform.OS === 'ios' ? 40 : 35,
+                height: Platform.OS === 'ios' ? 40 : 35,
+                resizeMode: 'contain',
+              }}
+              source={require('../../../imgs/kycUncheckIcon.png')}
             />
           )}
 

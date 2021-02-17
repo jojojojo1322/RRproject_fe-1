@@ -418,7 +418,7 @@ class Kyc extends Component {
                     marginRight: 4,
                   },
                 ]}
-                source={require('../../imgs/drawable-xxxhdpi/icon_ktit_on.png')}
+                source={require('../../imgs/kycCheckedIcon.png')}
               />
               <View style={styles.ktilMiddle}></View>
               {this.state.step == undefined ? (
@@ -430,7 +430,7 @@ class Kyc extends Component {
                       marginLeft: 4,
                     },
                   ]}
-                  source={require('../../imgs/drawable-xxxhdpi/icon_ktit_off.png')}
+                  source={require('../../imgs/kycUncheckIcon.png')}
                 />
               ) : (
                 <Image
@@ -441,7 +441,7 @@ class Kyc extends Component {
                       marginLeft: 4,
                     },
                   ]}
-                  source={require('../../imgs/drawable-xxxhdpi/icon_ktit_on.png')}
+                  source={require('../../imgs/kycCheckedIcon.png')}
                 />
               )}
               <View style={styles.ktilMiddle}></View>
@@ -454,7 +454,7 @@ class Kyc extends Component {
                       marginLeft: 4,
                     },
                   ]}
-                  source={require('../../imgs/drawable-xxxhdpi/icon_ktit_off.png')}
+                  source={require('../../imgs/kycUncheckIcon.png')}
                 />
               ) : (
                 <Image
@@ -465,7 +465,7 @@ class Kyc extends Component {
                       marginLeft: 4,
                     },
                   ]}
-                  source={require('../../imgs/drawable-xxxhdpi/icon_ktit_on.png')}
+                  source={require('../../imgs/kycCheckedIcon.png')}
                 />
               )}
             </View>

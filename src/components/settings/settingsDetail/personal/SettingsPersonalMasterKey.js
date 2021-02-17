@@ -41,7 +41,12 @@ class WalletMasterKey extends Component {
                 this.props.navigation.navigate('SettingsPersonal');
               }}>
               <Image
-                source={require('../../../../imgs/drawable-xxxhdpi/back_icon.png')}
+                style={{
+                  width: Platform.OS === 'ios' ? 28 : 25,
+                  height: Platform.OS === 'ios' ? 28 : 25,
+                  resizeMode: 'contain',
+                }}
+                source={require('../../../../imgs/backIcon.png')}
               />
               <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
                 {t('settingsPersonalMasterKeyTitle')}
@@ -67,7 +72,7 @@ class WalletMasterKey extends Component {
                 alignSelf: 'center',
                 marginBottom: 20,
               }}
-              source={require('../../../../imgs/drawable-mdpi/icon_masterkey.png')}
+              source={require('../../../../imgs/iconNoticeCheck.png')}
             />
             <Text
               style={[

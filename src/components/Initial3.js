@@ -37,19 +37,19 @@ const window = Dimensions.get('window');
 const DATA = [
   {
     id: '1',
-    img: require('../imgs/drawable-xhdpi/flag_afghanistan.png'),
+    img: require('../imgs/flag_afghanistan.png'),
     title: 'Afghanistan(AF)',
     cd: '+93',
   },
   {
     id: '2',
-    img: require('../imgs/drawable-xhdpi/flag_albania.png'),
+    img: require('../imgs/flag_albania.png'),
     title: 'Albania',
     cd: '+355',
   },
   {
     id: '3',
-    img: require('../imgs/drawable-xhdpi/flag_argentina.png'),
+    img: require('../imgs/flag_argentina.png'),
     title: 'Argentina',
     cd: '+54',
   },
@@ -429,7 +429,7 @@ class Initial3 extends Component {
                 }}>
                 <Image
                   style={styles.closeButton}
-                  source={require('../imgs/drawable-hdpi/icon_close.png')}
+                  source={require('../imgs/icon_close.png')}
                 />
               </TouchableOpacity>
             </View>
@@ -564,7 +564,7 @@ class Initial3 extends Component {
                   }}>
                   <Image
                     style={styles.AudienceTopRight}
-                    source={require('../imgs/drawable-hdpi/icon_close.png')}
+                    source={require('../imgs/icon_close.png')}
                   />
                 </TouchableOpacity>
               </View>

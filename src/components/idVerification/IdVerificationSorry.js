@@ -31,7 +31,12 @@ const IdVerificationSorry = ({navigation}) => {
             navigation.goBack();
           }}>
           <Image
-            source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
+            style={{
+              width: Platform.OS === 'ios' ? 28 : 25,
+              height: Platform.OS === 'ios' ? 28 : 25,
+              resizeMode: 'contain',
+            }}
+            source={require('../../imgs/backIcon.png')}
           />
         </TouchableOpacity>
       </View>
@@ -45,7 +50,7 @@ const IdVerificationSorry = ({navigation}) => {
         }}>
         <Image
           style={{width: 130, height: 130, resizeMode: 'contain'}}
-          source={require('../../imgs/drawable-xxxhdpi/confirmed_icon.png')}
+          source={require('../../imgs/sorryIcon.png')}
         />
         <Text
           style={[

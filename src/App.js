@@ -16,7 +16,6 @@ import {StyleSheet, ScrollView, View, Text} from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import Loading from './components/Loading';
 import Initial2 from './components/Initial2';
 import Initial3 from './components/Initial3';
 

@@ -93,7 +93,7 @@ export default class Keyboard extends Component {
               onPress={this.handlePassErase}>
               <Image
                 style={styles.keyboardCancelButton}
-                source={require('../../imgs/drawable-mdpi/icon_w_delete.png')}
+                source={require('../../imgs/iconDelete.png')}
               />
             </TouchableOpacity>
           </View>

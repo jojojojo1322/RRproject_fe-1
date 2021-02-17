@@ -16,6 +16,7 @@ import {
   Linking,
   Animated,
   Dimensions,
+  Platform,
 } from 'react-native';
 import ListModal from '../factory/modal/ListModal';
 import ListCheckLangModal from '../factory/modal/ListCheckLangModal';
@@ -305,7 +306,12 @@ class kycThird extends Component {
                 : `${this.state.country} (${this.state.countryCd})`}
             </Text>
             <Image
-              source={require('../../imgs/drawable-mdpi/icon_srarch.png')}
+              style={{
+                width: Platform.OS === 'ios' ? 30 : 25,
+                height: Platform.OS === 'ios' ? 30 : 25,
+                resizeMode: 'contain',
+              }}
+              source={require('../../imgs/icon_search.png')}
             />
           </View>
         </TouchableOpacity>
@@ -357,7 +363,12 @@ class kycThird extends Component {
                 : this.state.language}
             </Text>
             <Image
-              source={require('../../imgs/drawable-mdpi/icon_srarch.png')}
+              style={{
+                width: Platform.OS === 'ios' ? 30 : 25,
+                height: Platform.OS === 'ios' ? 30 : 25,
+                resizeMode: 'contain',
+              }}
+              source={require('../../imgs/icon_search.png')}
             />
           </View>
         </TouchableOpacity>
@@ -402,7 +413,12 @@ class kycThird extends Component {
                 : `${this.state.residenceCountry} (${this.state.residenceCountryCd})`}
             </Text>
             <Image
-              source={require('../../imgs/drawable-mdpi/icon_srarch.png')}
+              style={{
+                width: Platform.OS === 'ios' ? 30 : 25,
+                height: Platform.OS === 'ios' ? 30 : 25,
+                resizeMode: 'contain',
+              }}
+              source={require('../../imgs/icon_search.png')}
             />
           </View>
         </TouchableOpacity>
@@ -448,7 +464,12 @@ class kycThird extends Component {
                 : this.state.residenceCity}
             </Text>
             <Image
-              source={require('../../imgs/drawable-mdpi/icon_srarch.png')}
+              style={{
+                width: Platform.OS === 'ios' ? 30 : 25,
+                height: Platform.OS === 'ios' ? 30 : 25,
+                resizeMode: 'contain',
+              }}
+              source={require('../../imgs/icon_search.png')}
             />
           </View>
         </TouchableOpacity>

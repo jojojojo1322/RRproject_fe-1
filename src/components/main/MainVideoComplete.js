@@ -51,7 +51,7 @@ const MainVideoComplete = ({navigation, route}) => {
               height: Platform.OS === 'ios' ? 60 : 50,
               resizeMode: 'contain',
             }}
-            source={require('../../imgs/drawable-xxxhdpi/ad_wallet_icon.png')}
+            source={require('../../imgs/adWalletIcon.png')}
           />
           <Text
             style={[

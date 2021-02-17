@@ -216,7 +216,12 @@ const MainDetailExpired = (props) => {
               props.navigation.goBack();
             }}>
             <Image
-              source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
+              style={{
+                width: Platform.OS === 'ios' ? 28 : 25,
+                height: Platform.OS === 'ios' ? 28 : 25,
+                resizeMode: 'contain',
+              }}
+              source={require('../../imgs/backIcon.png')}
             />
           </TouchableOpacity>
         </View>
@@ -239,7 +244,7 @@ const MainDetailExpired = (props) => {
 
           {/* <TouchableOpacity>
               <Image
-                source={require('../../imgs/drawable-xxxhdpi/survey_detail_share_icon.png')}
+                source={require('../../imgs/shareIcon.png')}
               />
             </TouchableOpacity> */}
         </View>

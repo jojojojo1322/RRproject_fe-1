@@ -148,8 +148,8 @@ const ProfileMain = ({navigation, route}) => {
             style={[ProfileStyle.kycLevelCheckboxImg]}
             source={
               level <= kycLevel
-                ? require('../../../imgs/drawable-xxxhdpi/icon_b_check_2_off_s.png')
-                : require('../../../imgs/drawable-xxxhdpi/icon_w_check_2_off_s.png')
+                ? require('../../../imgs/iconCheckedS.png')
+                : require('../../../imgs/iconUncheckedS.png')
             }
           />
         </View>
@@ -191,7 +191,12 @@ const ProfileMain = ({navigation, route}) => {
             }}>
             <View style={[ProfileStyle.topLogoTouchView]}>
               <Image
-                source={require('../../../imgs/drawable-xxxhdpi/main_r_logo.png')}
+                style={{
+                  width: Platform.OS === 'ios' ? 25 : 20,
+                  height: Platform.OS === 'ios' ? 25 : 20,
+                  resizeMode: 'contain',
+                }}
+                source={require('../../../imgs/rrLogo.png')}
               />
               <Text
                 style={[
@@ -209,7 +214,7 @@ const ProfileMain = ({navigation, route}) => {
             }}>
             <Image
               style={[ResetStyle.topHamburgerImg]}
-              source={require('../../../imgs/drawable-xxxhdpi/menu_2_icon.png')}
+              source={require('../../../imgs/menuIcon.png')}
             />
           </TouchableOpacity>
         </View>

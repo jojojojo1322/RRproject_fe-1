@@ -106,7 +106,7 @@ export default en = {
         'KYC verification completed successfully.\nPlease log in to your account.',
       kyc5: 'OK',
       kyc6: 'KYC information is successfully edited.',
-      kyc7: '확인',
+      kyc7: 'OK',
 
       // KycFirst
       kycFirst1: ' Sex',

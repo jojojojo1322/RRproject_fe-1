@@ -122,7 +122,12 @@ class SettingsPersonalEmail extends Component {
                 this.props.navigation.goBack();
               }}>
               <Image
-                source={require('../../../../imgs/drawable-xxxhdpi/back_icon.png')}
+                style={{
+                  width: Platform.OS === 'ios' ? 28 : 25,
+                  height: Platform.OS === 'ios' ? 28 : 25,
+                  resizeMode: 'contain',
+                }}
+                source={require('../../../../imgs/backIcon.png')}
               />
               <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
                 {t('settingsPersonalEmailTitle')}
@@ -170,7 +175,7 @@ class SettingsPersonalEmail extends Component {
               ]}>
               <Image
                 style={[ResetStyle.smallImg, {marginRight: 8}]}
-                source={require('../../../../imgs/drawable-hdpi/icon_time.png')}
+                source={require('../../../../imgs/iconTime.png')}
               />
               <CountDown
                 standard={this.state.isRunning}

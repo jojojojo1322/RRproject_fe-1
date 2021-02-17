@@ -177,7 +177,7 @@ export const Main = ({navigation}) => {
   const [tab1Data] = useState([
     {
       id: '1',
-      img: require('../../imgs/drawable-xxxhdpi/shutterstock_1018031032.png'),
+      img: require('../../imgs/shutterstock_1018031032.png'),
       status: 'ongoing',
       division: 'E-commerce',
       dateStart: '2020.12.03',
@@ -191,7 +191,7 @@ export const Main = ({navigation}) => {
     },
     {
       id: '2',
-      img: require('../../imgs/drawable-xxxhdpi/shutterstock_1687630222.png'),
+      img: require('../../imgs/shutterstock_1687630222.png'),
       status: 'ongoing',
       division: 'COVID-19',
       dateStart: '2020.12.03',
@@ -205,7 +205,7 @@ export const Main = ({navigation}) => {
     },
     {
       id: '3',
-      img: require('../../imgs/drawable-xxxhdpi/shutterstock_1675809577.png'),
+      img: require('../../imgs/shutterstock_1675809577.png'),
       status: 'ongoing',
       division: 'Category',
       dateStart: '2020.12.03',
@@ -219,7 +219,7 @@ export const Main = ({navigation}) => {
     },
     {
       id: '4',
-      img: require('../../imgs/drawable-xxxhdpi/shutterstock_609058097.png'),
+      img: require('../../imgs/shutterstock_609058097.png'),
       status: 'expired',
       division: 'Any Category1',
       dateStart: '2020.12.03',
@@ -233,7 +233,7 @@ export const Main = ({navigation}) => {
     },
     {
       id: '5',
-      img: require('../../imgs/drawable-xxxhdpi/shutterstock_609058097.png'),
+      img: require('../../imgs/shutterstock_609058097.png'),
       status: 'ongoing',
       division: 'Any Category1',
       dateStart: '2020.12.03',
@@ -247,7 +247,7 @@ export const Main = ({navigation}) => {
     },
     {
       id: '6',
-      img: require('../../imgs/drawable-xxxhdpi/shutterstock_1687630222.png'),
+      img: require('../../imgs/shutterstock_1687630222.png'),
       status: 'ongoing',
       division: 'Any Category2',
       dateStart: '2020.12.03',
@@ -261,7 +261,7 @@ export const Main = ({navigation}) => {
     },
     {
       id: '7',
-      img: require('../../imgs/drawable-xxxhdpi/shutterstock_1018031032.png'),
+      img: require('../../imgs/shutterstock_1018031032.png'),
       status: 'ongoing',
       division: 'Any Category1',
       dateStart: '2020.12.03',
@@ -275,7 +275,7 @@ export const Main = ({navigation}) => {
     },
     {
       id: '8',
-      img: require('../../imgs/drawable-xxxhdpi/shutterstock_1018031032.png'),
+      img: require('../../imgs/shutterstock_1018031032.png'),
       status: 'expired',
       division: 'Any Category2',
       dateStart: '2020.12.03',
@@ -289,7 +289,7 @@ export const Main = ({navigation}) => {
     },
     {
       id: '9',
-      img: require('../../imgs/drawable-xxxhdpi/shutterstock_1675809577.png'),
+      img: require('../../imgs/shutterstock_1675809577.png'),
       status: 'completed',
       division: 'Any Category2',
       dateStart: '2020.12.03',
@@ -586,7 +586,7 @@ export const Main = ({navigation}) => {
           ]}>
           <Image
             style={{alignSelf: 'center'}}
-            source={require('../../imgs/drawable-xxxhdpi/no_data_icon.png')}
+            source={require('../../imgs/noDataIcon.png')}
           />
           <Text style={[ResetStyle.fontMediumK, ResetStyle.fontG]}>
             No data!
@@ -697,7 +697,12 @@ export const Main = ({navigation}) => {
                 }}></View>
               <View style={MainStyle.itemBoxBottomTextView}>
                 <Image
-                  source={require('../../imgs/drawable-xxxhdpi/user_icon.png')}
+                  style={{
+                    width: Platform.OS === 'ios' ? 18 : 15,
+                    height: Platform.OS === 'ios' ? 18 : 15,
+                    resizeMode: 'contain',
+                  }}
+                  source={require('../../imgs/userIcon.png')}
                 />
                 <Text
                   style={[
@@ -712,7 +717,12 @@ export const Main = ({navigation}) => {
 
               <View style={MainStyle.itemBoxBottomTextView}>
                 <Image
-                  source={require('../../imgs/drawable-xxxhdpi/clock_icon.png')}
+                  style={{
+                    width: Platform.OS === 'ios' ? 18 : 15,
+                    height: Platform.OS === 'ios' ? 18 : 15,
+                    resizeMode: 'contain',
+                  }}
+                  source={require('../../imgs/clockIcon.png')}
                 />
                 <Text
                   style={[
@@ -938,7 +948,12 @@ export const Main = ({navigation}) => {
                 flexDirection: 'row',
               }}>
               <Image
-                source={require('../../imgs/drawable-xxxhdpi/rr_logo.png')}
+                style={{
+                  width: Platform.OS === 'ios' ? 25 : 20,
+                  height: Platform.OS === 'ios' ? 25 : 20,
+                  resizeMode: 'contain',
+                }}
+                source={require('../../imgs/rrLogo.png')}
               />
               <Text
                 style={[
@@ -956,7 +971,12 @@ export const Main = ({navigation}) => {
               navigation.openDrawer();
             }}>
             <Image
-              source={require('../../imgs/drawable-xxxhdpi/menu_icon.png')}
+              style={{
+                width: Platform.OS === 'ios' ? 25 : 20,
+                height: Platform.OS === 'ios' ? 25 : 20,
+                resizeMode: 'contain',
+              }}
+              source={require('../../imgs/menuIcon_w.png')}
             />
           </TouchableOpacity>
         </View>
@@ -1002,7 +1022,7 @@ export const Main = ({navigation}) => {
               </Text>
               <TouchableOpacity>
                 <Image
-                  source={require('../../imgs/drawable-xxxhdpi/main_questionmark_icon.png')}
+                  source={require('../../imgs/mainQuestionmarkIcon.png')}
                 />
               </TouchableOpacity>
             </View>

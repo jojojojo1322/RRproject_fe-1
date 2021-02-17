@@ -196,7 +196,12 @@ const WalletMain = (props) => {
             }}>
             <View style={[WalletStyle.TopLogoView]}>
               <Image
-                source={require('../../../imgs/drawable-xxxhdpi/main_r_logo.png')}
+                style={{
+                  width: Platform.OS === 'ios' ? 25 : 20,
+                  height: Platform.OS === 'ios' ? 25 : 20,
+                  resizeMode: 'contain',
+                }}
+                source={require('../../../imgs/rrLogo.png')}
               />
               <Text
                 style={[
@@ -216,7 +221,7 @@ const WalletMain = (props) => {
             }}>
             <Image
               style={[ResetStyle.topHamburgerImg]}
-              source={require('../../../imgs/drawable-xxxhdpi/menu_2_icon.png')}
+              source={require('../../../imgs/menuIcon.png')}
             />
           </TouchableOpacity>
         </View>

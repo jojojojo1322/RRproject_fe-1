@@ -50,7 +50,12 @@ const AudienceModal = ({
               }}>
               {/* <Text style={styles.KycCloseButtonText2}>x</Text> */}
               <Image
-                source={require('../../../imgs/drawable-hdpi/icon_close.png')}
+                style={{
+                  width: Platform.OS === 'ios' ? 30 : 25,
+                  height: Platform.OS === 'ios' ? 30 : 25,
+                  resizeMode: 'contain',
+                }}
+                source={require('../../../imgs/icon_close.png')}
               />
             </TouchableWithoutFeedback>
           </View>
@@ -263,7 +268,12 @@ export default AudienceModal;
 //                 }}>
 //                 {/* <Text style={styles.KycCloseButtonText2}>x</Text> */}
 //                 <Image
-//                   source={require('../../../imgs/drawable-hdpi/icon_close.png')}
+//                    style={{
+//                      width: Platform.OS === 'ios' ? 30 : 25,
+//                      height: Platform.OS === 'ios' ? 30 : 25,
+//                      resizeMode: 'contain',
+//                    }}
+//                      source={require('../../../imgs/icon_close.png')}
 //                 />
 //               </TouchableWithoutFeedback>
 //             </View>

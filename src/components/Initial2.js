@@ -174,13 +174,17 @@ const Initial2 = (props) => {
                 key={imageIndex}>
                 <View>
                   <Image
-                    // style={{width: 200, height: 200, resizeMode: 'contain'}}
+                    style={{
+                      width: Platform.OS === 'ios' ? 200 : 180,
+                      height: Platform.OS === 'ios' ? 200 : 180,
+                      resizeMode: 'contain',
+                    }}
                     source={
                       imageIndex == 0
-                        ? require('../imgs/drawable-xhdpi/icon_intro_research.png')
+                        ? require('../imgs/iconIntroResearch.png')
                         : imageIndex == 1
-                        ? require('../imgs/drawable-xhdpi/icon_intro_wallet.png')
-                        : require('../imgs/drawable-xhdpi/icon_intro_reward.png')
+                        ? require('../imgs/iconIntroWallet.png')
+                        : require('../imgs/iconIntroReward.png')
                     }
                     style={AuthStyle.initial2Image}
                   />
