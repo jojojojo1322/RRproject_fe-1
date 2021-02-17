@@ -19,11 +19,14 @@ import Reset from '../resetPassword/Reset.js';
 import AudienceModal from '../factory/modal/AudienceModal';
 import TextConfirmCancelModal from '../factory/modal/TextConfirmCancelModal';
 import TextConfirmModal from '../factory/modal/TextConfirmModal';
+import ProgressModal from '../factory/modal/ProgressModal';
 
 import CarrierInfo from 'react-native-carrier-info';
 import {useTranslation} from 'react-i18next';
 
 import Moment from 'react-moment';
+import moment from 'moment';
+import 'moment-timezone';
 
 const MainDetail = (props) => {
   const {t, i18n} = useTranslation();
@@ -35,18 +38,30 @@ const MainDetail = (props) => {
   // audience check 해당인원 x warning 경고모달
   const [modal3Visible, setModal3Visible] = useState(false);
 
+  const [modal4Visible, setModal4Visible] = useState(false);
+
   const [surveyDetail, setSurveyDetail] = useState([]);
   const [audience, setAudience] = useState([]);
   const [audienceLanguage, setAudienceLanguage] = useState('');
   const [audienceAge, setAudienceAge] = useState('');
   const [audienceCheck, setAudienceCheck] = useState(1);
-
+  const [day, setDay] = useState(0);
+  const [hour, setHour] = useState(0);
+  const [min, setMin] = useState(0);
+  const [sec, setSec] = useState(0);
   const [userNo, setUserNo] = useState('');
   // let audienceCheck = '';
   // const getSurveyDetailApi = () => {
   //   axios.get(`${server}/survey/detail`);
   // };
+
+  const today = moment().tz('Asia/Seoul');
+  let endTime = '';
+
+  let gap = 0;
+
   const surveyDetailApi = async () => {
+    setModal4Visible(true);
     await axios
       .get(
         `${server}/survey/detail?deviceLanguageCode=${await AsyncStorage.getItem(
@@ -59,10 +74,19 @@ const MainDetail = (props) => {
         console.log(`surveyDetailApi Then >>`, response);
         setSurveyDetail(response.data.resSurvey);
         setUserNo(await AsyncStorage.getItem('userNo'));
+
+        endTime = moment(response.data.resSurvey.endTime).tz('Asia/Seoul');
+        gap = endTime.diff(today);
+
+        setDay(Math.ceil(gap / (1000 * 60 * 60 * 24)));
+        setHour(Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+        setMin(Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60)));
+        setSec(Math.ceil((gap % (1000 * 60)) / 1000));
       })
       .catch((e) => {
         console.log(`surveyDetailApi Error`, e);
       });
+    setModal4Visible(false);
   };
   const AudienceCheckApi = async (surveyId) => {
     axios
@@ -200,6 +224,7 @@ const MainDetail = (props) => {
     props.navigation.navigate('ProfileMain');
   };
   console.log('surveyDetailsurveyDetailsurveyDetail', surveyDetail);
+
   return (
     <SafeAreaView style={[ResetStyle.container]}>
       <ScrollView style={{paddingLeft: '5%', paddingRight: '5%'}}>
@@ -294,18 +319,7 @@ const MainDetail = (props) => {
             ResetStyle.fontBlack,
             {textAlign: 'left'},
           ]}>
-          {`Ends In | `}
-          {
-            <>
-              <Moment
-                element={Text}
-                interval={100}
-                date={surveyDetail.endTime}
-                format="Dd일 hh시간 mm분 ss초"
-                durationFromNow
-              />
-            </>
-          }
+          {`Ends In | ${day - 1}d ${hour}h ${min}m ${sec}s`}
         </Text>
         <View
           style={{
@@ -388,6 +402,18 @@ const MainDetail = (props) => {
           ]}
           onPress={async () => {
             console.log('시작1');
+            console.log({
+              legacySurveyId: props.route.params?.legacySurveyId,
+              // legacySurveyId: '5f9835585e40b26b969fedb2',
+              surveyName: surveyDetail.surveyName,
+              // surveyName: 'COVID-19  Vaccine Survey',
+              sponsorName: surveyDetail.sponsorName,
+              // sponsorName: '5f9677c880c3164b4b1cc398',
+              surveyId: String(audience.surveyId),
+              sponsorUserNo: surveyDetail.sponsorUserNo,
+              advertiseUrl: surveyDetail.advertiseUrl,
+            });
+            console.log('시작1');
             if (audienceCheck === 0) {
               console.log('시작2');
               props.navigation.replace('ResearchForm', {
@@ -400,6 +426,9 @@ const MainDetail = (props) => {
                 surveyId: String(audience.surveyId),
                 sponsorUserNo: surveyDetail.sponsorUserNo,
                 advertiseUrl: surveyDetail.advertiseUrl,
+                redirectUrl: surveyDetail.redirectUrl,
+                advertiseType: surveyDetail.advertiseType,
+                advertiseThumbnail: surveyDetail.advertiseThumbnail,
                 // surveyId: 78,
               });
             } else if (audienceCheck === -1) {
@@ -445,15 +474,7 @@ const MainDetail = (props) => {
           countryCity={audience.residentCity}
           language={audienceLanguage}
         />
-        <TextConfirmCancelModal
-          modalVisible={modal2Visible}
-          setModalVisible={setModal2Visible}
-          text={t('mainDetail7')}
-          confirm={t('mainDetail8')}
-          confirmHandle={confirmHandle}
-          cancel={t('mainDetail9')}
-          cancelHandle={cancelHandle}
-        />
+
         <TextConfirmCancelModal
           modalVisible={modal2Visible}
           setModalVisible={setModal2Visible}
@@ -469,6 +490,10 @@ const MainDetail = (props) => {
           text={t('mainDetail10')}
           confirm={t('mainDetail11')}
           handleNextPage={cancelHandle}
+        />
+        <ProgressModal
+          modalVisible={modal4Visible}
+          setModalVisible={setModal4Visible}
         />
       </ScrollView>
     </SafeAreaView>

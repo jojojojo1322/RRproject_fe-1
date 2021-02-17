@@ -62,11 +62,20 @@ const CustomDrawerContent = (props) => {
   useEffect(() => {
     alertDataApi();
     emailAsyncSet();
-    // getWalletApi();
+    getWalletApi();
     userApi();
     passportApi();
     console.log('????????dfsdf', idData.passPortStatus);
   }, [props.login]);
+
+  useEffect(() => {
+    alertDataApi();
+    emailAsyncSet();
+    getWalletApi();
+    userApi();
+    passportApi();
+    console.log('????????dfsdf', idData.passPortStatus);
+  }, []);
 
   console.log('CUSTON>>>>', props.login);
   // alert API
@@ -246,7 +255,9 @@ const CustomDrawerContent = (props) => {
         <TouchableOpacity
           onPress={() => {
             console.log(props.navigation.openDrawer);
-            props.navigation.navigate('ProfileMain');
+            props.navigation.navigate('ProfileMain', {
+              kycLevel: kycLevel,
+            });
             // props.navigation.openDrawer;
           }}>
           <View
@@ -301,7 +312,9 @@ const CustomDrawerContent = (props) => {
         <TouchableOpacity
           style={{width: '35%', backgroundColor: '#2d91ff', borderRadius: 50}}
           onPress={() => {
-            props.navigation.navigate('WalletMain');
+            props.navigation.navigate('WalletMain', {
+              currentTnc: total,
+            });
           }}>
           <Text
             style={[
@@ -449,7 +462,7 @@ const CustomDrawerContent = (props) => {
         {/* Invitaion code */}
         <TouchableOpacity
           onPress={() => {
-            props.navigation.navigate('Main');
+            props.navigation.dispatch('Main');
           }}
           style={MainStyle.drawerItem}>
           <Text

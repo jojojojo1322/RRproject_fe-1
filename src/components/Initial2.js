@@ -9,6 +9,7 @@ import {
   Dimensions,
   NativeModules,
   Platform,
+  YellowBox,
 } from 'react-native';
 import ResetStyle from '../style/ResetStyle.js';
 import AuthStyle from '../style/AuthStyle.js';
@@ -70,6 +71,7 @@ const Initial2 = (props) => {
   // }
   useEffect(() => {
     Dimensions.addEventListener('change', onDimensionsChange);
+    YellowBox.ignoreWarnings(['Can']);
     return () => {
       Dimensions.removeEventListener('change', onDimensionsChange);
     };

@@ -27,7 +27,7 @@ import {useTranslation} from 'react-i18next';
 
 const Drawer = createDrawerNavigator();
 
-const ProfileMain = ({navigation}) => {
+const ProfileMain = ({navigation, route}) => {
   const DATA = [
     {level: 1},
     {level: 2},
@@ -169,6 +169,14 @@ const ProfileMain = ({navigation}) => {
 
   useEffect(() => {
     console.log('[]실행');
+    console.log('route.params?.kycLevel', route.params?.kycLevel);
+    console.log('route.params?.kycLevel', route.params?.kycLevel);
+    console.log('route.params?.kycLevel', route.params?.kycLevel);
+    console.log('route.params?.kycLevel', route.params?.kycLevel);
+    console.log('route.params?.kycLevel', route.params?.kycLevel);
+    if (route.params?.kycLevel) {
+      setKycLevel(route.params?.kycLevel);
+    }
     userApi();
   }, []);
 

@@ -23,6 +23,8 @@ import TextConfirmModal from '../factory/modal/TextConfirmModal';
 import ResearchStyle from '../../style/ResearchStyle.js';
 import {useTranslation} from 'react-i18next';
 
+import ProgressModal from '../factory/modal/ProgressModal';
+
 const ResearchForm = (props) => {
   const {t, i18n} = useTranslation();
   // CheckedArrObject = new SelectedCheckboxes();
@@ -61,19 +63,23 @@ const ResearchForm = (props) => {
   const [modal2Visible, setModal2Visible] = useState(false);
   const [modal3Visible, setModal3Visible] = useState(false);
 
+  //progress
+  const [modal4Visible, setModal4Visible] = useState(false);
+
   let CheckedArrObject = new SelectedCheckboxes();
 
   // survey insert
-  const postSurveyAnswer = async () => {
+  const postSurveyAnswerApi = async () => {
+    setModal4Visible(true);
     axios
       .post(`${server}/survey/answer`, checkedArray)
       .then(async (response) => {
-        console.log('postSurveyAnswer THEN >>>>', response);
+        console.log('postSurveyAnswerApi THEN >>>>', response);
         const ret = response.data.ret_val;
         await setInsertSuccess(ret);
       })
       .catch((e) => {
-        console.log('postSurveyAnswer ERROR >>>>', e.response.data.message);
+        console.log('postSurveyAnswerApi ERROR >>>>', e.response.data.message);
         if (
           e.response.data.message === '해당 설문의 참여인원이 초과하였습니다.'
         ) {
@@ -83,8 +89,31 @@ const ResearchForm = (props) => {
         ) {
           setModal3Visible(true);
         }
-        // console.error('postSurveyAnswer ERROR >>>>', e);
+        // console.error('postSurveyAnswerApi ERROR >>>>', e);
       });
+    setModal4Visible(false);
+  };
+  // survey Reward Api
+  const postSurveyRewardApi = async () => {
+    setModal4Visible(true);
+    axios
+      .post(`${server}/wallet/trans/reward`, {
+        language: await AsyncStorage.getItem('deviceLanguage'),
+        receiver: await AsyncStorage.getItem('userNo'),
+        surveyId: props.route.params?.surveyId,
+      })
+      .then(async (response) => {
+        console.log('postSurveyRewardApi THEN >>>>', response);
+        if (response.data.status === 'success') {
+          navigation.navigate('MainVideoComplete');
+        }
+      })
+      .catch((e) => {
+        console.log('postSurveyRewardApi ERROR >>>>', e);
+        console.log('postSurveyRewardApi ERROR >>>>', e.response);
+        console.log('postSurveyRewardApi ERROR >>>>', e.response.data.message);
+      });
+    setModal4Visible(false);
   };
   // survey question get
   const getSurveyQuestionApi = async () => {
@@ -161,38 +190,40 @@ const ResearchForm = (props) => {
   //
   useEffect(() => {
     if (insertSuccess === 0) {
-      console.log({
-        legacySurveyId: legacySurveyId,
-        surveyArray: checkedArray,
-        surveyId: props.route.params?.surveyId,
-      });
-      console.log({
-        legacySurveyId: legacySurveyId,
-        surveyArray: checkedArray,
-        surveyId: props.route.params?.surveyId,
-      });
-      console.log({
-        legacySurveyId: legacySurveyId,
-        surveyArray: checkedArray,
-        surveyId: props.route.params?.surveyId,
-      });
-      props.navigation.replace('MainVideo', {
-        legacySurveyId: legacySurveyId,
-        surveyArray: checkedArray,
-        surveyId: props.route.params?.surveyId,
-        sponsorUserNo: props.route.params?.sponsorUserNo,
-        advertiseUrl: props.route.params?.advertiseUrl,
-
-        // legacySurveyId: props.route.params?.legacySurveyId,
-        // // legacySurveyId: '5f9835585e40b26b969fedb2',
-        // surveyName: surveyDetail.surveyName,
-        // // surveyName: 'COVID-19  Vaccine Survey',
-        // sponsorName: surveyDetail.sponsorName,
-        // // sponsorName: '5f9677c880c3164b4b1cc398',
-        // surveyId: String(audience.surveyId),
-        // sponsorUserNo: surveyDetail.sponsorUserNo,
-        // advertiseUrl: surveyDetail.advertiseUrl,
-      });
+      if (props.route.params?.advertiseUrl === null) {
+        console.log('props.route.params?.advertiseUrl null 진입');
+        console.log({
+          legacySurveyId: legacySurveyId,
+          surveyArray: checkedArray,
+          surveyId: props.route.params?.surveyId,
+          sponsorUserNo: props.route.params?.sponsorUserNo,
+          advertiseUrl: props.route.params?.advertiseUrl,
+        });
+        postSurveyRewardApi();
+      } else {
+        console.log('props.route.params?.advertiseUrl 진입');
+        console.log({
+          legacySurveyId: legacySurveyId,
+          surveyArray: checkedArray,
+          surveyId: props.route.params?.surveyId,
+          sponsorUserNo: props.route.params?.sponsorUserNo,
+          advertiseUrl: props.route.params?.advertiseUrl,
+        });
+        props.navigation.replace('MainVideo', {
+          legacySurveyId: legacySurveyId,
+          surveyArray: checkedArray,
+          surveyId: props.route.params?.surveyId,
+          sponsorUserNo: props.route.params?.sponsorUserNo,
+          advertiseUrl: props.route.params?.advertiseUrl,
+        });
+      }
+      // props.navigation.replace('MainVideo', {
+      //   legacySurveyId: legacySurveyId,
+      //   surveyArray: checkedArray,
+      //   surveyId: props.route.params?.surveyId,
+      //   sponsorUserNo: props.route.params?.sponsorUserNo,
+      //   advertiseUrl: props.route.params?.advertiseUrl,
+      // });
     }
   }, [insertSuccess]);
   const confirmHandle = () => {
@@ -233,7 +264,7 @@ const ResearchForm = (props) => {
     }
     if (_nowIndex === surveyLength - 1) {
       console.log('lastArray', checkedArray);
-      postSurveyAnswer();
+      postSurveyAnswerApi();
       console.log('insertSuccess', insertSuccess);
     }
   };
@@ -608,6 +639,10 @@ const ResearchForm = (props) => {
           text={`해당 설문에 이미 참여 하셨습니다.`}
           confirm={`확인`}
           handleNextPage={confirm2Handle}
+        />
+        <ProgressModal
+          modalVisible={modal4Visible}
+          setModalVisible={setModal4Visible}
         />
       </View>
     </SafeAreaView>
