@@ -114,8 +114,8 @@ export default StyleSheet.create({
   },
   // ResetPassword
   resetPasswordView1: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
   },
   resetPasswordView2: {

@@ -187,110 +187,114 @@ class SettingsPersonalResetPassword extends Component {
                     )}
                   </TouchableOpacity>
                   <View style={[AuthStyle.resetPasswordView1]}>
-                    <View style={[AuthStyle.resetPasswordView2]}>
-                      {!chkPWRow(this.state.password) ? (
-                        <Image
-                          style={ResetStyle.xsmallImg}
-                          source={require('../../../../imgs/iconUncheckedS.png')}
-                        />
-                      ) : (
-                        <Image
-                          style={ResetStyle.xsmallImg}
-                          source={require('../../../../imgs/iconCheckedS.png')}
-                        />
-                      )}
-                      <Text
-                        style={[
-                          ResetStyle.fontLightK,
-                          ResetStyle.fontG,
-                          {marginLeft: 5},
-                        ]}>
-                        {t('settingsPersonalResetPassword3')}
-                      </Text>
+                    <View style={{flexDirection: 'row'}}>
+                      <View style={[AuthStyle.resetPasswordView2]}>
+                        {!chkPWRow(this.state.password) ? (
+                          <Image
+                            style={[ResetStyle.xsmallImg]}
+                            source={require('../../../../imgs/iconUncheckedS.png')}
+                          />
+                        ) : (
+                          <Image
+                            style={ResetStyle.xsmallImg}
+                            source={require('../../../../imgs/iconCheckedS.png')}
+                          />
+                        )}
+                        <Text
+                          style={[
+                            ResetStyle.fontLightK,
+                            ResetStyle.fontG,
+                            {marginLeft: 5, marginRight: '4%'},
+                          ]}>
+                          {t('settingsPersonalResetPassword3')}
+                        </Text>
+                      </View>
+                      <View style={[AuthStyle.resetPasswordView2]}>
+                        {!chkPWNumber(this.state.password) ? (
+                          <Image
+                            style={ResetStyle.xsmallImg}
+                            source={require('../../../../imgs/iconUncheckedS.png')}
+                          />
+                        ) : (
+                          <Image
+                            style={ResetStyle.xsmallImg}
+                            source={require('../../../../imgs/iconCheckedS.png')}
+                          />
+                        )}
+                        <Text
+                          style={[
+                            ResetStyle.fontLightK,
+                            ResetStyle.fontG,
+                            {marginLeft: 5, marginRight: '4%'},
+                          ]}>
+                          {t('settingsPersonalResetPassword4')}
+                        </Text>
+                      </View>
+                      <View style={[AuthStyle.resetPasswordView2]}>
+                        {!chkPWHigh(this.state.password) ? (
+                          <Image
+                            style={ResetStyle.xsmallImg}
+                            source={require('../../../../imgs/iconUncheckedS.png')}
+                          />
+                        ) : (
+                          <Image
+                            style={ResetStyle.xsmallImg}
+                            source={require('../../../../imgs/iconCheckedS.png')}
+                          />
+                        )}
+                        <Text
+                          style={[
+                            ResetStyle.fontLightK,
+                            ResetStyle.fontG,
+                            {marginLeft: 5, marginRight: '4%'},
+                          ]}>
+                          {t('settingsPersonalResetPassword5')}
+                        </Text>
+                      </View>
                     </View>
-                    <View style={[AuthStyle.resetPasswordView2]}>
-                      {!chkPWNumber(this.state.password) ? (
-                        <Image
-                          style={ResetStyle.xsmallImg}
-                          source={require('../../../../imgs/iconUncheckedS.png')}
-                        />
-                      ) : (
-                        <Image
-                          style={ResetStyle.xsmallImg}
-                          source={require('../../../../imgs/iconCheckedS.png')}
-                        />
-                      )}
-                      <Text
-                        style={[
-                          ResetStyle.fontLightK,
-                          ResetStyle.fontG,
-                          {marginLeft: 5},
-                        ]}>
-                        {t('settingsPersonalResetPassword4')}
-                      </Text>
-                    </View>
-                    <View style={[AuthStyle.resetPasswordView2]}>
-                      {!chkPWHigh(this.state.password) ? (
-                        <Image
-                          style={ResetStyle.xsmallImg}
-                          source={require('../../../../imgs/iconUncheckedS.png')}
-                        />
-                      ) : (
-                        <Image
-                          style={ResetStyle.xsmallImg}
-                          source={require('../../../../imgs/iconCheckedS.png')}
-                        />
-                      )}
-                      <Text
-                        style={[
-                          ResetStyle.fontLightK,
-                          ResetStyle.fontG,
-                          {marginLeft: 5},
-                        ]}>
-                        {t('settingsPersonalResetPassword5')}
-                      </Text>
-                    </View>
-                    <View style={[AuthStyle.resetPasswordView2]}>
-                      {!chkPWCharacter(this.state.password) ? (
-                        <Image
-                          style={ResetStyle.xsmallImg}
-                          source={require('../../../../imgs/iconUncheckedS.png')}
-                        />
-                      ) : (
-                        <Image
-                          style={ResetStyle.xsmallImg}
-                          source={require('../../../../imgs/iconCheckedS.png')}
-                        />
-                      )}
-                      <Text
-                        style={[
-                          ResetStyle.fontLightK,
-                          ResetStyle.fontG,
-                          {marginLeft: 5},
-                        ]}>
-                        {t('settingsPersonalResetPassword6')}
-                      </Text>
-                    </View>
-                    <View style={[AuthStyle.resetPasswordView2]}>
-                      {this.state.password.length < 8 ? (
-                        <Image
-                          style={ResetStyle.xsmallImg}
-                          source={require('../../../../imgs/iconUncheckedS.png')}
-                        />
-                      ) : (
-                        <Image
-                          style={ResetStyle.xsmallImg}
-                          source={require('../../../../imgs/iconCheckedS.png')}
-                        />
-                      )}
-                      <Text
-                        style={[
-                          ResetStyle.fontLightK,
-                          ResetStyle.fontG,
-                          {marginLeft: 5},
-                        ]}>
-                        {t('settingsPersonalResetPassword7')}
-                      </Text>
+                    <View style={{flexDirection: 'row'}}>
+                      <View style={[AuthStyle.resetPasswordView2]}>
+                        {!chkPWCharacter(this.state.password) ? (
+                          <Image
+                            style={ResetStyle.xsmallImg}
+                            source={require('../../../../imgs/iconUncheckedS.png')}
+                          />
+                        ) : (
+                          <Image
+                            style={ResetStyle.xsmallImg}
+                            source={require('../../../../imgs/iconCheckedS.png')}
+                          />
+                        )}
+                        <Text
+                          style={[
+                            ResetStyle.fontLightK,
+                            ResetStyle.fontG,
+                            {marginLeft: 5, marginRight: '4%'},
+                          ]}>
+                          {t('settingsPersonalResetPassword6')}
+                        </Text>
+                      </View>
+                      <View style={[AuthStyle.resetPasswordView2]}>
+                        {this.state.password.length < 8 ? (
+                          <Image
+                            style={ResetStyle.xsmallImg}
+                            source={require('../../../../imgs/iconUncheckedS.png')}
+                          />
+                        ) : (
+                          <Image
+                            style={ResetStyle.xsmallImg}
+                            source={require('../../../../imgs/iconCheckedS.png')}
+                          />
+                        )}
+                        <Text
+                          style={[
+                            ResetStyle.fontLightK,
+                            ResetStyle.fontG,
+                            {marginLeft: 5, marginRight: '4%'},
+                          ]}>
+                          {t('settingsPersonalResetPassword7')}
+                        </Text>
+                      </View>
                     </View>
                   </View>
                 </View>
