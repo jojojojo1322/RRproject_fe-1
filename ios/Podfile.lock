@@ -51,7 +51,7 @@ PODS:
     - GoogleUtilities/Environment (~> 7.0)
     - GoogleUtilities/Reachability (~> 7.0)
     - GoogleUtilities/UserDefaults (~> 7.0)
-  - FirebaseMLCommon (7.6.0-beta):
+  - FirebaseMLCommon (7.5.0-beta):
     - FirebaseCore (~> 7.0)
     - FirebaseInstallations (~> 7.0)
     - GoogleToolboxForMac/Logger (~> 2.1)
@@ -710,7 +710,7 @@ SPEC CHECKSUMS:
   FirebaseInstallations: 6e4e77396559bc2ae0504823837ed737b1c7e47f
   FirebaseInstanceID: cf243611700eddc916b093353adbd4da822cfa63
   FirebaseMessaging: 6112b5cd04e0ff58c4a9920e5e29cf193ea88439
-  FirebaseMLCommon: 6d7ee249c9945f2a7b47fa22090c3a1611c08d58
+  FirebaseMLCommon: 35216a0e17c90def1b9f647339aa42ba72ffe743
   FirebaseMLVision: 0b61c31f9875697942df8814d623d60302e7c9da
   Flipper: c1ad50344bffdce628b1906b48f6e7cd06724236
   Flipper-DoubleConversion: 38631e41ef4f9b12861c67d17cb5518d06badc41
@@ -729,9 +729,9 @@ SPEC CHECKSUMS:
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   nanopb: 59221d7f958fb711001e6a449489542d92ae113e
   OpenSSL-Universal: 1aa4f6a6ee7256b83db99ec1ccdaa80d10f9af9b
-  Permission-Camera: 358081c7b8210849958af181ce9ddeb11932aa82
-  Permission-FaceID: 31231944510a9f361757a8774df22bc91ee175dc
-  Permission-PhotoLibrary: 79f74cef889ed76e1712fee9fe9a187e9a15dec1
+  Permission-Camera: 119b01de97a5b3edb637999e38476b68143b9d17
+  Permission-FaceID: b1c6121dc9587cc19d35d864e4b1ee5dee65634d
+  Permission-PhotoLibrary: cb9cdc1e3744e26ab404297a8e289d50c8ee27e8
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   Protobuf: 0cde852566359049847168e51bd1c690e0f70056
   RCTRequired: 0873f5bdb1762d2b9b1ae16a01c4f91d6ee3b6dd
@@ -743,17 +743,17 @@ SPEC CHECKSUMS:
   React-jsi: bc8166d6833cdcb0848c80710b26ce63fad2c099
   React-jsiexecutor: 8bf0b2707f05865113415088c398a7f98c0cf546
   React-jsinspector: 8e5913c4c6c54f0d3f9c9fc630c465a89cded65d
-  react-native-camera: d145df27a9178041b48b839b80ad79c9ef373fbd
-  react-native-carrier-info: 1e6299256bd7ceaa36f851b30e071b2b4fc406ad
-  react-native-fingerprint-scanner: c68136ca57e3704d7bdf5faa554ea535ce15b1d0
-  react-native-image-picker: 248afb60a0c5a24153cb7c7483b257f30541323b
+  react-native-camera: cf8a153d33138dcc457172fc3c33fdf4e5d288d2
+  react-native-carrier-info: f94c990c4e27017648738430afc01acf367e102f
+  react-native-fingerprint-scanner: ac6656f18c8e45a7459302b84da41a44ad96dbbe
+  react-native-image-picker: 28d8d1f5a643119876b8b2c7d4d1dcfb2b232dd4
   react-native-orientation-locker: 47aaa55d59bfc1613804dc22f159e6bb1cca5f30
-  react-native-restart: 6cc683e208c080581c147d0875609e64572a9443
-  react-native-safe-area-context: 86612d2c9a9e94e288319262d10b5f93f0b395f5
+  react-native-restart: a01029aadfe8e71f9e8205fdb17da2f0a4472d50
+  react-native-safe-area-context: b6e0e284002381d2ff29fa4fff42b4d8282e3c94
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
-  react-native-version-check: 9f9332ff4552fb00e0bd15b097a8d302b2b8413b
-  react-native-video: 1574074179ecaf6a9dd067116c8f31bf9fec15c8
-  react-native-webview: c010115ea45efd0d329ac7746d0cc59579d7860c
+  react-native-version-check: d8b8900e6ce03ae1568cb22ef9451f2508188883
+  react-native-video: 0bb76b6d6b77da3009611586c7dbf817b947f30e
+  react-native-webview: 944b6b607b3e362437dfdaf3ba979e47f4e1c939
   React-RCTActionSheet: 674afbc8b9c76e0a83520e0a51da29a70802c03f
   React-RCTAnimation: f5f24330d09ee677fb49e0782f8321868f4df431
   React-RCTBlob: b773ce6138ab0d172ebd8a455fd4efd200a92549
@@ -764,19 +764,19 @@ SPEC CHECKSUMS:
   React-RCTText: 91a0d0ae5434aa28fe0c89c03eb9d660ff53bd9b
   React-RCTVibration: 0630aeb11e22f87c180ca9c0c3a0a0aba780cc62
   ReactCommon: d22162ab8f1358c53dfcd0f9c4d82d38facdbc48
-  RNCAsyncStorage: 32c7cbe1d43dff5f03f3d0b9e9d2c44d8ec91a3a
-  RNCClipboard: 5e299c6df8e0c98f3d7416b86ae563d3a9f768a3
-  RNCMaskedView: f5c7d14d6847b7b44853f7acb6284c1da30a3459
-  RNCPushNotificationIOS: 5b1cf9ad2aaa107ecb92d5d2d7005ba521b2b97a
-  RNDeviceInfo: febcb25b09201a312c66c36ecc1f155c5a43eecc
-  RNExitApp: 7d81855142a4d11eb75f4f06fdebf5a950d7aef2
+  RNCAsyncStorage: da95b83e241a7f5efe3da1a949b3ec3175380be0
+  RNCClipboard: 41d8d918092ae8e676f18adada19104fa3e68495
+  RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
+  RNCPushNotificationIOS: 61a7c72bd1ebad3568025957d001e0f0e7b32191
+  RNDeviceInfo: 9538a884f862fe4aa0d7cead9f34e292d41ba8f6
+  RNExitApp: c4e052df2568b43bec8a37c7cd61194d4cfee2c3
   RNFBApp: 43a062dc6a1a88edd934d2229d1ba64f25381598
   RNFBDynamicLinks: 0b7ce4fd2fef303d4e56f1b6da96f306ddd87188
   RNFBMessaging: 7ca5248796434376c186b65029b1cec7d3e0990b
   RNFBML: 9a2745112d5aaff5e9979563e7bdc836ec1bfb9e
   RNGestureHandler: 9b7e605a741412e20e13c512738a31bd1611759b
-  RNLocalize: dcf0fdb332b37b0d24178e876a7ce4dbbc9c838d
-  RNPermissions: 350964d19150b183796a88180fb7ec62a1e41422
+  RNLocalize: 41026b7c14878f1a1b381bc79f668f1fbf841adb
+  RNPermissions: 99dd8d4a30ff13509b949ca63cd1f69edc461775
   RNReanimated: e03f7425cb7a38dcf1b644d680d1bfc91c3337ad
   RNScreens: 45c457af3d2ee9e08fc01e70da87e653d46b1198
   RNSVG: ce9d996113475209013317e48b05c21ee988d42e
@@ -786,4 +786,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 58c43fb8de848da6d7e308cf0b58484eb4280ce9
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.10.1
