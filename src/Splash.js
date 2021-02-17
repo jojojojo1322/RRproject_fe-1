@@ -94,12 +94,6 @@ const Splash = ({loading, setLoading}) => {
 
         const reQuestion = async () => {
           if (notGrantedArr.length === 0) {
-            console.log('true로 넘어가자  notGrantedArr.length');
-            console.log('true로 넘어가자  notGrantedArr.length');
-            console.log('true로 넘어가자  notGrantedArr.length');
-            console.log('true로 넘어가자  notGrantedArr.length');
-            console.log('true로 넘어가자  notGrantedArr.length');
-
             setLoading(true);
           } else {
             await requestMultiple(notGrantedArr).then((res) => {
@@ -108,12 +102,7 @@ const Splash = ({loading, setLoading}) => {
 
               if (Platform.OS === 'ios') {
                 //  for ios
-                console.log('true로 넘어가자  Platform.OS === ');
-                console.log('true로 넘어가자  Platform.OS === ');
-                console.log('true로 넘어가자  Platform.OS === ');
-                console.log('true로 넘어가자  Platform.OS === ');
-                console.log('true로 넘어가자  Platform.OS === ');
-                console.log('true로 넘어가자  Platform.OS === ');
+
                 setLoading(true);
               } else {
                 //for android
@@ -122,12 +111,6 @@ const Splash = ({loading, setLoading}) => {
                 } else if (BLOCKED.length > 0) {
                   openSettingAlert();
                 } else {
-                  console.log('true로 넘어가자 ');
-                  console.log('true로 넘어가자 ');
-                  console.log('true로 넘어가자 ');
-                  console.log('true로 넘어가자 ');
-                  console.log('true로 넘어가자 ');
-                  console.log('true로 넘어가자 ');
                   setLoading(true);
                 }
               }

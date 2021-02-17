@@ -344,11 +344,6 @@ class Kyc extends Component {
             }
           });
         });
-        console.log('fixLan', fixLan);
-        console.log('fixLan', fixLan);
-        console.log('fixLan', fixLan);
-        console.log('fixLan', fixLan);
-        console.log('fixLan', fixLan);
       }
       this.setState({
         updateCheck: true,

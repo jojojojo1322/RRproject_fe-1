@@ -36,14 +36,14 @@ const WalletSendSuccess = ({navigation, route}) => {
       <View style={ResetStyle.containerInner}>
         {/* topBackButton */}
         <View style={[ResetStyle.topBackButton]}>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => {
               navigation.goBack();
             }}>
             <Image
               source={require('../../../imgs/drawable-xxxhdpi/back_icon.png')}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         <View
           style={{
@@ -106,7 +106,7 @@ const WalletSendSuccess = ({navigation, route}) => {
               // {backgroundColor: '#4696ff', width: '49%', marginLeft: '1%'},
             ]}
             onPress={() => {
-              navigation.navigate('WalletMain');
+              navigation.replace('WalletMain');
               // this.props.navigation.setOptions({ title: '약관동의' });
             }}>
             <Text

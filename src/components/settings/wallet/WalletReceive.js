@@ -1,7 +1,10 @@
 import React, {Component, useEffect, useState} from 'react';
 import {View, Text, TouchableOpacity, Image} from 'react-native';
 import Clipboard from '@react-native-community/clipboard';
+
 import BottomModal from '../../factory/modal/BottomModal';
+import ProgressModal from '../../factory/modal/ProgressModal.js';
+
 import ResetStyle from '../../../style/ResetStyle.js';
 import AuthStyle from '../../../style/AuthStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -19,6 +22,7 @@ const WalletReceive = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
   const [modal3Visible, setModal3Visible] = useState(false);
+  const [modal4Visible, setModal4Visible] = useState(false);
   const [walletData, setWalletData] = useState([]);
   const [masterKey, setMasterKey] = useState('');
 
@@ -33,6 +37,7 @@ const WalletReceive = (props) => {
 
   // const getWalletAddressApi = async (email) => {
   const getWalletAddressApi = async () => {
+    setModal4Visible(true);
     await axios
       .get(`${server}/wallet/${await AsyncStorage.getItem('email')}`)
       .then((response) => {
@@ -48,6 +53,7 @@ const WalletReceive = (props) => {
         console.log('error', e);
         setModal3Visible(!modal3Visible);
       });
+    setModal4Visible(false);
   };
 
   console.log('walletData', walletData);
@@ -149,6 +155,10 @@ const WalletReceive = (props) => {
         modalVisible={modal3Visible}
         setModalVisible={setModal3Visible}
         text={t('walletReceive4')}
+      />
+      <ProgressModal
+        modalVisible={modal4Visible}
+        setModalVisible={setModal4Visible}
       />
     </SafeAreaView>
   );

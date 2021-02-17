@@ -104,6 +104,9 @@ export default function WalletSend({navigation, route}) {
 
   // Wallet Api 활성화
   useEffect(() => {
+    if (route.params?.currentTnc) {
+      setTotal(route.params?.currentTnc);
+    }
     walletDataApi();
   }, []);
 

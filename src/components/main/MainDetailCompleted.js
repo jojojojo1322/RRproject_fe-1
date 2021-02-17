@@ -19,11 +19,14 @@ import Reset from '../resetPassword/Reset.js';
 import AudienceModal from '../factory/modal/AudienceModal';
 import TextConfirmCancelModal from '../factory/modal/TextConfirmCancelModal';
 import TextConfirmModal from '../factory/modal/TextConfirmModal';
+import ProgressModal from '../factory/modal/ProgressModal';
 
 import CarrierInfo from 'react-native-carrier-info';
 import {useTranslation} from 'react-i18next';
 
 import Moment from 'react-moment';
+import moment from 'moment';
+import 'moment-timezone';
 
 const MainDetailCompleted = (props) => {
   const {t, i18n} = useTranslation();
@@ -34,6 +37,7 @@ const MainDetailCompleted = (props) => {
   const [modal2Visible, setModal2Visible] = useState(false);
   // audience check 해당인원 x warning 경고모달
   const [modal3Visible, setModal3Visible] = useState(false);
+  const [modal4Visible, setModal4Visible] = useState(false);
 
   const [surveyDetail, setSurveyDetail] = useState([]);
   const [audience, setAudience] = useState([]);
@@ -41,12 +45,23 @@ const MainDetailCompleted = (props) => {
   const [audienceAge, setAudienceAge] = useState('');
   const [audienceCheck, setAudienceCheck] = useState(1);
 
+  const [day, setDay] = useState(0);
+  const [hour, setHour] = useState(0);
+  const [min, setMin] = useState(0);
+  const [sec, setSec] = useState(0);
+
   const [userNo, setUserNo] = useState('');
   // let audienceCheck = '';
   // const getSurveyDetailApi = () => {
   //   axios.get(`${server}/survey/detail`);
   // };
+
+  const today = moment().tz('Asia/Seoul');
+  let endTime = '';
+
+  let gap = 0;
   const surveyDetailApi = async () => {
+    setModal4Visible(true);
     await axios
       .get(
         `${server}/survey/detail?deviceLanguageCode=${await AsyncStorage.getItem(
@@ -59,10 +74,19 @@ const MainDetailCompleted = (props) => {
         console.log(`surveyDetailApi Then >>`, response);
         setSurveyDetail(response.data.resSurvey);
         setUserNo(await AsyncStorage.getItem('userNo'));
+
+        endTime = moment(response.data.resSurvey.endTime).tz('Asia/Seoul');
+        gap = endTime.diff(today);
+
+        setDay(Math.ceil(gap / (1000 * 60 * 60 * 24)));
+        setHour(Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+        setMin(Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60)));
+        setSec(Math.ceil((gap % (1000 * 60)) / 1000));
       })
       .catch((e) => {
         console.log(`surveyDetailApi Error`, e);
       });
+    setModal4Visible(false);
   };
   const AudienceCheckApi = async (surveyId) => {
     axios
@@ -148,35 +172,6 @@ const MainDetailCompleted = (props) => {
       });
   };
   useEffect(() => {
-    // CarrierInfo.allowsVOIP()
-    //   .then((result) => {
-    //     console.log('CarrierInfo>>then>>>>', result);
-    //   })
-    //   .catch((e) => {
-    //     console.log('error>>>>', e);
-    //   });
-    // CarrierInfo.carrierName()
-    //   .then((result) => {
-    //     console.log('CarrierName>>then>>>>', result);
-    //   })
-    //   .catch((e) => {
-    //     console.log('error>>>>', e);
-    //   });
-    // ////유심 체크 (끼어져 있는 유심이 공유심인지는 체크 불가)
-    // CarrierInfo.mobileNetworkCode()
-    //   .then((result) => {
-    //     console.log('mobileNetworkCode>>then>>>>', result);
-    //   })
-    //   .catch((e) => {
-    //     console.log('error>>>>', e);
-    //   });
-    // CarrierInfo.mobileNetworkOperator()
-    //   .then((result) => {
-    //     console.log('mobileNetworkOperator>>then>>>>', result);
-    //   })
-    //   .catch((e) => {
-    //     console.log('error>>>>', e);
-    //   });
     surveyDetailApi();
     AudienceApi();
   }, []);
@@ -236,12 +231,6 @@ const MainDetailCompleted = (props) => {
               {surveyDetail.sponsorName}
             </Text>
           </View>
-
-          {/* <TouchableOpacity>
-              <Image
-                source={require('../../imgs/drawable-xxxhdpi/survey_detail_share_icon.png')}
-              />
-            </TouchableOpacity> */}
         </View>
 
         <View style={{marginBottom: 30}}>
@@ -294,18 +283,7 @@ const MainDetailCompleted = (props) => {
             ResetStyle.fontBlack,
             {textAlign: 'left'},
           ]}>
-          {`Ends In | `}
-          {
-            <>
-              <Moment
-                element={Text}
-                interval={1000}
-                date={surveyDetail.endTime}
-                format="Dd일 hh시간 mm분 ss초"
-                durationFromNow
-              />
-            </>
-          }
+          {`Ends In | ${day - 1}d ${hour}h ${min}m ${sec}s`}
         </Text>
         <View
           style={{
@@ -418,6 +396,10 @@ const MainDetailCompleted = (props) => {
           text={t('mainDetail10')}
           confirm={t('mainDetail11')}
           handleNextPage={cancelHandle}
+        />
+        <ProgressModal
+          modalVisible={modal4Visible}
+          setModalVisible={setModal4Visible}
         />
       </ScrollView>
     </SafeAreaView>

@@ -535,12 +535,15 @@ function Completed({navigation}) {
   }, []);
 
   const renderItem = ({item}) => {
-    console.log('completecompletecompletecompletecompletecomplete', item);
     // console.log('renderItem item', require("'" + item.categoryImg + "'"));
 
-    const today = moment().tz('Asia/Seoul');
-    const endTime = moment(item.endTime).tz('Asia/Seoul');
+    let today = moment().tz('Asia/Seoul');
 
+    // setInterval(() => {
+    //   today = moment().tz('Asia/Seoul');
+    // }, 1000);
+
+    const endTime = moment(item.endTime).tz('Asia/Seoul');
     var gap = endTime.diff(today);
 
     var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
@@ -729,7 +732,7 @@ function Completed({navigation}) {
   
                       return `${day - 1}일 ${hour}시간 ${min}분 ${sec}초`;
                     }, 1000)} */}
-                  {/* {`${day - 1}일 ${hour}시간 ${min}분 ${sec}초`} */}
+                  {`${day - 1}일 ${hour}시간 ${min}분 ${sec}초`}
                   {
                     // <Moment
                     //   element={Text}
@@ -1038,19 +1041,6 @@ function Expired({navigation}) {
                     // />
                   }
                   0일 0시간 0분 0초
-                  {/* {setInterval(() => {
-                      var today = new Date().getTime();
-                      var dday = new Date(item.endTime).getTime();
-                      var gap = dday - today;
-                      var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
-                      var hour = Math.ceil(
-                        (gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-                      );
-                      var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
-                      var sec = Math.ceil((gap % (1000 * 60)) / 1000);
-                      return day;
-                    }, 1000)} */}
-                  {/* {console.log('remainTime', remainTime)} */}
                 </Text>
               </View>
             </View>
@@ -1147,6 +1137,7 @@ const Tab = createMaterialTopTabNavigator();
 // export default function MainTest({navigation}) {
 function Main({navigation, t, i18n}) {
   const [currentTnc, setCurrentTnc] = useState(0);
+  const [nonFixTnc, setNonFixTnc] = useState(0);
   const [kycLevel, setKycLevel] = useState(0);
   const [kycUpdateTimeCheck, setKycUpdateTimeCheck] = useState('');
   const [ongoingData, setOngoingData] = useState([]);
@@ -1180,10 +1171,8 @@ function Main({navigation, t, i18n}) {
 
         // TNC .뒤 문자열 제거 (ex 42.000000 TNC)
         setCurrentTnc(response.data.balance.split('.')[0]);
-        setCurrentTnc(
-          // numberWithCommas(parseFloat(response.data.balance.toFixed(6))),
-          parseFloat(response.data.balance.toFixed(6)),
-        );
+        // setCurrentTnc(parseFloat(response.data.balance.toFixed(6)));
+        setNonFixTnc(Number(response.data.balance.replace(' TNC', '')));
         // setCountry(response.data);
         console.log(currentTnc);
         // return await response;
@@ -1233,6 +1222,7 @@ function Main({navigation, t, i18n}) {
       'Non-serializable values were found in the navigation state.',
     ]);
     YellowBox.ignoreWarnings(['Bridge was already shutdown.']);
+    YellowBox.ignoreWarnings(['Can']);
   }, []);
   return (
     <View style={{flex: 1, backgroundColor: '#fff'}}>
@@ -1299,7 +1289,9 @@ function Main({navigation, t, i18n}) {
           }}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('ProfileMain');
+              navigation.navigate('ProfileMain', {
+                kycLevel: kycLevel,
+              });
             }}
             style={{
               flexDirection: 'column',
@@ -1337,7 +1329,9 @@ function Main({navigation, t, i18n}) {
             }}></View>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('WalletMain');
+              navigation.navigate('WalletMain', {
+                currentTnc: nonFixTnc,
+              });
             }}
             style={{
               flexDirection: 'column',

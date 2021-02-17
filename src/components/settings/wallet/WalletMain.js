@@ -43,6 +43,33 @@ const WalletMain = (props) => {
     // AsyncStorage.setItem('email', 'a@c.com', () => {
     //   console.log('유저 닉네임 저장 완료');
     // });
+    console.log(
+      'props.route.params?.currentTnc',
+      props.route.params?.currentTnc,
+    );
+    console.log(
+      'props.route.params?.currentTnc',
+      props.route.params?.currentTnc,
+    );
+    console.log(
+      'props.route.params?.currentTnc',
+      props.route.params?.currentTnc,
+    );
+    console.log(
+      'props.route.params?.currentTnc',
+      props.route.params?.currentTnc,
+    );
+    if (props.route.params?.currentTnc) {
+      console.log('aaa');
+      console.log('aaa');
+      console.log('aaa');
+      console.log('aaa');
+      console.log('aaa');
+      console.log('aaa');
+      console.log('aaa');
+      console.log('aaa');
+      setTotal(props.route.params?.currentTnc);
+    }
     getWalletApi();
     postWalletHistoryApi();
   }, []);
@@ -259,6 +286,7 @@ const WalletMain = (props) => {
               onPress={() => {
                 props.navigation.navigate('WalletSend', {
                   qrcode: 'e.data',
+                  currentTnc: total,
                 });
               }}>
               <Text style={[ResetStyle.fontRegularK, ResetStyle.fontB]}>
