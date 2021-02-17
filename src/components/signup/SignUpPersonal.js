@@ -175,7 +175,12 @@ class SignUpPersonal extends Component {
                     this.props.navigation.goBack();
                   }}>
                   <Image
-                    source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
+                    style={{
+                      width: Platform.OS === 'ios' ? 28 : 25,
+                      height: Platform.OS === 'ios' ? 28 : 25,
+                      resizeMode: 'contain',
+                    }}
+                    source={require('../../imgs/backIcon.png')}
                   />
                   <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
                     {t('signUpPersonalTitle')}
@@ -244,7 +249,7 @@ class SignUpPersonal extends Component {
                     }}>
                     <Image
                       style={ResetStyle.mediumImg}
-                      source={require('../../imgs/drawable-xxxhdpi/icon_x.png')}
+                      source={require('../../imgs/iconX.png')}
                     />
                   </TouchableOpacity>
                 </View>
@@ -265,7 +270,7 @@ class SignUpPersonal extends Component {
                     <>
                       <Image
                         style={ResetStyle.smallImg}
-                        source={require('../../imgs/drawable-xhdpi/icon_x_red.png')}
+                        source={require('../../imgs/iconXRed.png')}
                       />
                       <Text
                         style={[
@@ -283,7 +288,7 @@ class SignUpPersonal extends Component {
                   <>
                     <Image
                       style={ResetStyle.smallImg}
-                      source={require('../../imgs/drawable-xhdpi/icon_x_red.png')}
+                      source={require('../../imgs/iconXRed.png')}
                     />
                     <Text
                       style={[
@@ -300,7 +305,7 @@ class SignUpPersonal extends Component {
                     <>
                       <Image
                         style={ResetStyle.smallImg}
-                        source={require('../../imgs/drawable-xhdpi/icon_m_check.png')}
+                        source={require('../../imgs/iconCheckedM.png')}
                       />
                       <Text
                         style={[
@@ -360,12 +365,12 @@ class SignUpPersonal extends Component {
                     {this.state.passwordBlur ? (
                       <Image
                         style={ResetStyle.mediumImg}
-                        source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
+                        source={require('../../imgs/icoBlindD.png')}
                       />
                     ) : (
                       <Image
                         style={ResetStyle.mediumImg}
-                        source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
+                        source={require('../../imgs/icoViewD.png')}
                       />
                     )}
                   </TouchableOpacity>
@@ -387,12 +392,12 @@ class SignUpPersonal extends Component {
                   {!chkPWRow(this.state.password) ? (
                     <Image
                       style={ResetStyle.xsmallImg}
-                      source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
+                      source={require('../../imgs/iconUncheckedS.png')}
                     />
                   ) : (
                     <Image
                       style={ResetStyle.xsmallImg}
-                      source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
+                      source={require('../../imgs/iconCheckedS.png')}
                     />
                   )}
                   <Text
@@ -408,12 +413,12 @@ class SignUpPersonal extends Component {
                   {!chkPWNumber(this.state.password) ? (
                     <Image
                       style={ResetStyle.xsmallImg}
-                      source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
+                      source={require('../../imgs/iconUncheckedS.png')}
                     />
                   ) : (
                     <Image
                       style={ResetStyle.xsmallImg}
-                      source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
+                      source={require('../../imgs/iconCheckedS.png')}
                     />
                   )}
                   <Text
@@ -429,12 +434,12 @@ class SignUpPersonal extends Component {
                   {!chkPWHigh(this.state.password) ? (
                     <Image
                       style={ResetStyle.xsmallImg}
-                      source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
+                      source={require('../../imgs/iconUncheckedS.png')}
                     />
                   ) : (
                     <Image
                       style={ResetStyle.xsmallImg}
-                      source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
+                      source={require('../../imgs/iconCheckedS.png')}
                     />
                   )}
                   <Text
@@ -450,12 +455,12 @@ class SignUpPersonal extends Component {
                   {!chkPWCharacter(this.state.password) ? (
                     <Image
                       style={ResetStyle.xsmallImg}
-                      source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
+                      source={require('../../imgs/iconUncheckedS.png')}
                     />
                   ) : (
                     <Image
                       style={ResetStyle.xsmallImg}
-                      source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
+                      source={require('../../imgs/iconCheckedS.png')}
                     />
                   )}
                   <Text
@@ -471,12 +476,12 @@ class SignUpPersonal extends Component {
                   {this.state.password.length < 8 ? (
                     <Image
                       style={ResetStyle.xsmallImg}
-                      source={require('../../imgs/drawable-xhdpi/icon_s_check_off.png')}
+                      source={require('../../imgs/iconUncheckedS.png')}
                     />
                   ) : (
                     <Image
                       style={ResetStyle.xsmallImg}
-                      source={require('../../imgs/drawable-xhdpi/icon_s_check_on.png')}
+                      source={require('../../imgs/iconCheckedS.png')}
                     />
                   )}
                   <Text
@@ -551,7 +556,7 @@ class SignUpPersonal extends Component {
                   />
                   {/* <Image
                     style={ResetStyle.smallImg}
-                    source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
+                    source={require('../../imgs/icoViewD.png')}
                   /> */}
                   <TouchableOpacity
                     onPress={() => {
@@ -562,12 +567,12 @@ class SignUpPersonal extends Component {
                     {this.state.checkPasswordBlur ? (
                       <Image
                         style={ResetStyle.mediumImg}
-                        source={require('../../imgs/drawable-xhdpi/ico_blind_d.png')}
+                        source={require('../../imgs/icoBlindD.png')}
                       />
                     ) : (
                       <Image
                         style={ResetStyle.mediumImg}
-                        source={require('../../imgs/drawable-xhdpi/ico_view_d.png')}
+                        source={require('../../imgs/icoViewD.png')}
                       />
                     )}
                   </TouchableOpacity>
@@ -581,7 +586,7 @@ class SignUpPersonal extends Component {
                     <>
                       <Image
                         style={ResetStyle.smallImg}
-                        source={require('../../imgs/drawable-xhdpi/icon_x_red.png')}
+                        source={require('../../imgs/iconXRed.png')}
                       />
 
                       <Text
@@ -598,7 +603,7 @@ class SignUpPersonal extends Component {
                   <>
                     <Image
                       style={ResetStyle.smallImg}
-                      source={require('../../imgs/drawable-xhdpi/icon_m_check.png')}
+                      source={require('../../imgs/iconCheckedM.png')}
                     />
                     <Text
                       style={{color: '#0080ff', fontSize: 14, marginLeft: 10}}>
@@ -647,7 +652,7 @@ class SignUpPersonal extends Component {
                     }}>
                     <Image
                       style={[ResetStyle.mediumImg]}
-                      source={require('../../imgs/drawable-xxxhdpi/icon_x.png')}
+                      source={require('../../imgs/iconX.png')}
                     />
                   </TouchableOpacity>
                 </View>

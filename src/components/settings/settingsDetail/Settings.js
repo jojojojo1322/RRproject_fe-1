@@ -111,8 +111,12 @@ const Settings = ({navigation}) => {
         {title}
       </Text>
       <Image
-        style={{width: 30, height: 30}}
-        source={require('../../../imgs/drawable-xxxhdpi/icon_more_b.png')}
+        style={{
+          width: Platform.OS === 'ios' ? 30 : 25,
+          height: Platform.OS === 'ios' ? 30 : 25,
+          resizeMode: 'contain',
+        }}
+        source={require('../../../imgs/moreIcon.png')}
       />
     </TouchableOpacity>
   );
@@ -134,7 +138,12 @@ const Settings = ({navigation}) => {
               navigation.goBack();
             }}>
             <Image
-              source={require('../../../imgs/drawable-xxxhdpi/back_icon.png')}
+              style={{
+                width: Platform.OS === 'ios' ? 28 : 25,
+                height: Platform.OS === 'ios' ? 28 : 25,
+                resizeMode: 'contain',
+              }}
+              source={require('../../../imgs/backIcon.png')}
             />
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
               {t('settingsTitle')}

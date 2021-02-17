@@ -106,7 +106,12 @@ class SettingsPersonal extends Component {
                   this.props.navigation.navigate('Settings');
                 }}>
                 <Image
-                  source={require('../../../../imgs/drawable-xxxhdpi/back_icon.png')}
+                  style={{
+                    width: Platform.OS === 'ios' ? 28 : 25,
+                    height: Platform.OS === 'ios' ? 28 : 25,
+                    resizeMode: 'contain',
+                  }}
+                  source={require('../../../../imgs/backIcon.png')}
                 />
                 <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
                   {t('settingsPersonalTitle')}
@@ -189,7 +194,7 @@ class SettingsPersonal extends Component {
                   }}>
                   <Image
                     style={{width: 25, height: 25}}
-                    source={require('../../../../imgs/drawable-xxxhdpi/kyc_edit_icon.png')}
+                    source={require('../../../../imgs/kycEditIcon.png')}
                   />
                 </TouchableOpacity>
               </View>
@@ -262,8 +267,12 @@ class SettingsPersonal extends Component {
                     {t('settingsPersonal6')}
                   </Text>
                   <Image
-                    style={{width: 30, height: 30}}
-                    source={require('../../../../imgs/drawable-xxxhdpi/icon_more_b.png')}
+                  style={{
+          width: Platform.OS === 'ios' ? 30 : 25,
+          height: Platform.OS === 'ios' ? 30 : 25,
+          resizeMode: 'contain',
+        }}
+        source={require('../../../../imgs/moreIcon.png')}
                   />
                 </View>
               </TouchableOpacity>

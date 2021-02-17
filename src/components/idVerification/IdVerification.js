@@ -31,7 +31,7 @@ import {useTranslation} from 'react-i18next';
 //           resizeMode: 'contain',
 //           // borderWidth: 1,
 //         }}
-//         source={require('../../imgs/drawable-xxxhdpi/passport_icon.png')}
+//         source={require('../../imgs/passportIcon.png')}
 //       />
 //     </View>
 //   ) : (
@@ -59,7 +59,7 @@ const CheckList = ({text}) => {
           resizeMode: 'contain',
           marginRight: '5%',
         }}
-        source={require('../../imgs/drawable-xxxhdpi/check.png')}
+        source={require('../../imgs/check.png')}
       />
       <Text
         style={[
@@ -101,7 +101,7 @@ const IdVerification = ({navigation}) => {
             resizeMode: 'contain',
             // borderWidth: 1,
           }}
-          source={require('../../imgs/drawable-xxxhdpi/passport_icon.png')}
+          source={require('../../imgs/passportIcon.png')}
         />
       </View>
     );
@@ -124,7 +124,7 @@ const IdVerification = ({navigation}) => {
             resizeMode: 'contain',
             // borderWidth: 1,
           }}
-          source={require('../../imgs/drawable-xxxhdpi/passport_icon.png')}
+          source={require('../../imgs/passportIcon.png')}
         />
       </View>
     );
@@ -161,7 +161,7 @@ const IdVerification = ({navigation}) => {
             resizeMode: 'contain',
             // borderWidth: 1,
           }}
-          source={require('../../imgs/drawable-xxxhdpi/passport_icon.png')}
+          source={require('../../imgs/passportIcon.png')}
         />
       </View>
     );
@@ -207,7 +207,12 @@ const IdVerification = ({navigation}) => {
             navigation.goBack();
           }}>
           <Image
-            source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
+            style={{
+              width: Platform.OS === 'ios' ? 28 : 25,
+              height: Platform.OS === 'ios' ? 28 : 25,
+              resizeMode: 'contain',
+            }}
+            source={require('../../imgs/backIcon.png')}
           />
           <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
             {t('idVerificationTitle')}

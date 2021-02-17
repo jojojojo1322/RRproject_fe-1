@@ -1,5 +1,5 @@
 import React, {Component, useEffect, useState} from 'react';
-import {View, Text, TouchableOpacity, Image} from 'react-native';
+import {View, Text, TouchableOpacity, Image, Platform} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {server} from '../defined/server';
@@ -176,7 +176,12 @@ const CustomDrawerContent = (props) => {
           }}>
           <View style={{flexDirection: 'row'}}>
             <Image
-              source={require('../../imgs/drawable-xxxhdpi/main_r_logo.png')}
+              style={{
+                width: Platform.OS === 'ios' ? 25 : 20,
+                height: Platform.OS === 'ios' ? 25 : 20,
+                resizeMode: 'contain',
+              }}
+              source={require('../../imgs/rrLogo.png')}
             />
           </View>
         </TouchableOpacity>
@@ -270,13 +275,18 @@ const CustomDrawerContent = (props) => {
               style={[
                 ResetStyle.fontRegularK,
                 ResetStyle.fontB,
-                {fontWeight: '600'},
+                {fontWeight: '600', paddingTop: '0.8%'},
               ]}>
               {t('customDrawerContent2')}
             </Text>
             <Image
-              style={{marginLeft: 5}}
-              source={require('../../imgs/drawable-xxxhdpi/menu_kyc_more_icon.png')}
+              style={{
+                marginLeft: 5,
+                width: Platform.OS === 'ios' ? 25 : 20,
+                height: Platform.OS === 'ios' ? 25 : 20,
+                resizeMode: 'contain',
+              }}
+              source={require('../../imgs/menuKycMoreIcon.png')}
             />
           </View>
         </TouchableOpacity>

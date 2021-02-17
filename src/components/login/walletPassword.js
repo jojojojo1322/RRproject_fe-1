@@ -368,7 +368,7 @@ class WalletPassword extends Component {
               onPress={this.handlePassErase}>
               <Image
                 style={styles.keyboardCancelButton}
-                source={require('../../imgs/drawable-mdpi/icon_delete.png')}
+                source={require('../../imgs/iconDelete.png')}
               />
             </TouchableOpacity>
           </View>

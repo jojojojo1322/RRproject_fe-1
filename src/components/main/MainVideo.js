@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   StatusBar,
+  Platform,
 } from 'react-native';
 import ResetStyle from '../../style/ResetStyle.js';
 import MainStyle from '../../style/MainStyle.js';
@@ -169,7 +170,12 @@ const MainVideo = ({navigation, route}) => {
             // onPress={onPress}
           >
             <Image
-              source={require('../../imgs/drawable-xxxhdpi/ad_play_icon_s.png')}
+              style={{
+                width: Platform.OS === 'ios' ? 50 : 45,
+                height: Platform.OS === 'ios' ? 50 : 45,
+                resizeMode: 'contain',
+              }}
+              source={require('../../imgs/adPlayIconM.png')}
             />
           </TouchableOpacity>
         </View>

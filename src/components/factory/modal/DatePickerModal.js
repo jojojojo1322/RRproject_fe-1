@@ -66,7 +66,12 @@ const DatePickerModal = ({
                 setModalVisible(!modalVisible);
               }}>
               <Image
-                source={require('../../../imgs/drawable-xxxhdpi/delete_icon.png')}
+                style={{
+                  width: Platform.OS === 'ios' ? 30 : 25,
+                  height: Platform.OS === 'ios' ? 30 : 25,
+                  resizeMode: 'contain',
+                }}
+                source={require('../../../imgs/deleteIcon.png')}
               />
             </TouchableWithoutFeedback>
           </View>

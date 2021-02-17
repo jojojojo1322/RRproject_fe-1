@@ -88,7 +88,7 @@ const Item = ({item, onPress, style, handlePick}) => {
         /> */}
         <Image
           style={[ModalStyle.listModalImg, {marginTop: 2}]}
-          source={require('../../../imgs/drawable-xxxhdpi/flag_angola.png')}
+          source={require('../../../imgs/flag_angola.png')}
         />
         <Text
           style={[
@@ -184,8 +184,12 @@ const ListModal = ({
                   setModalVisible(!modalVisible);
                 }}>
                 <Image
-                  style={[ModalStyle.listModalCloseButton]}
-                  source={require('../../../imgs/drawable-xxhdpi/delete_icon.png')}
+                  style={{
+                    width: Platform.OS === 'ios' ? 30 : 25,
+                    height: Platform.OS === 'ios' ? 30 : 25,
+                    resizeMode: 'contain',
+                  }}
+                  source={require('../../../imgs/deleteIcon.png')}
                 />
               </TouchableWithoutFeedback>
             </View>

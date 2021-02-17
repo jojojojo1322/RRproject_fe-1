@@ -22,7 +22,7 @@ class CompleteAuth extends Component {
             }}>
             <Image
               style={{width: '35%', height: '35%', resizeMode: 'contain'}}
-              source={require('../../imgs/drawable-xhdpi/icon_l_check.png')}
+              source={require('../../imgs/iconLCheck.png')}
             />
             <Text
               style={[

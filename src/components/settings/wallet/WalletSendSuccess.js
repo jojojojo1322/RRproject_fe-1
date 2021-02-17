@@ -41,7 +41,12 @@ const WalletSendSuccess = ({navigation, route}) => {
               navigation.goBack();
             }}>
             <Image
-              source={require('../../../imgs/drawable-xxxhdpi/back_icon.png')}
+              style={{
+                width: Platform.OS === 'ios' ? 28 : 25,
+                height: Platform.OS === 'ios' ? 28 : 25,
+                resizeMode: 'contain',
+              }}
+              source={require('../../../imgs/backIcon.png')}
             />
           </TouchableOpacity> */}
         </View>
@@ -52,7 +57,7 @@ const WalletSendSuccess = ({navigation, route}) => {
           }}>
           <Image
             style={{width: 100, height: 100, resizeMode: 'contain'}}
-            source={require('../../../imgs/drawable-xhdpi/icon_l_check.png')}
+            source={require('../../../imgs/iconLCheck.png')}
           />
           <Text
             style={[ResetStyle.fontBoldK, ResetStyle.fontB, {marginTop: '3%'}]}>

@@ -30,7 +30,7 @@ const ProfileComplete = (props) => {
         <View style={[ProfileStyle.profileCompleteTopView]}>
           <Image
             style={[ProfileStyle.profileTopImg]}
-            source={require('../../../imgs/drawable-xhdpi/icon_l_check.png')}
+            source={require('../../../imgs/iconLCheck.png')}
           />
           <Text
             style={[ResetStyle.fontBoldK, ResetStyle.fontB, {marginTop: '5%'}]}>

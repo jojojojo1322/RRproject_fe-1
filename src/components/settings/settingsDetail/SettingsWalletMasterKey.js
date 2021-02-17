@@ -94,7 +94,12 @@ class SettingsWalletMasterKey extends Component {
                   this.props.navigation.goBack();
                 }}>
                 <Image
-                  source={require('../../../imgs/drawable-xxxhdpi/back_icon.png')}
+                  style={{
+                    width: Platform.OS === 'ios' ? 28 : 25,
+                    height: Platform.OS === 'ios' ? 28 : 25,
+                    resizeMode: 'contain',
+                  }}
+                  source={require('../../../imgs/backIcon.png')}
                 />
                 <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
                   {t('settingsWalletMasterKeyTitle')}
@@ -144,7 +149,7 @@ class SettingsWalletMasterKey extends Component {
                 }}>
                 <Image
                   style={ResetStyle.smallImg}
-                  source={require('../../../imgs/iconXGray.png')}
+                  source={require('../../../imgs/iconX.png')}
                 />
               </TouchableOpacity>
             </View>

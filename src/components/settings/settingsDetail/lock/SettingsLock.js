@@ -144,8 +144,12 @@ const SettingsLock = ({navigation}) => {
             {title}
           </Text>
           <Image
-            style={{width: 25, height: 25}}
-            source={require('../../../../imgs/drawable-xxxhdpi/icon_more_b.png')}
+            style={{
+              width: Platform.OS === 'ios' ? 30 : 25,
+              height: Platform.OS === 'ios' ? 30 : 25,
+              resizeMode: 'contain',
+            }}
+            source={require('../../../../imgs/moreIcon.png')}
           />
         </TouchableOpacity>
       );
@@ -249,7 +253,12 @@ const SettingsLock = ({navigation}) => {
               navigation.goBack();
             }}>
             <Image
-              source={require('../../../../imgs/drawable-xxxhdpi/back_icon.png')}
+              style={{
+                width: Platform.OS === 'ios' ? 28 : 25,
+                height: Platform.OS === 'ios' ? 28 : 25,
+                resizeMode: 'contain',
+              }}
+              source={require('../../../../imgs/backIcon.png')}
             />
           </TouchableOpacity>
           <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>

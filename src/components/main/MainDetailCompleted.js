@@ -211,7 +211,12 @@ const MainDetailCompleted = (props) => {
               props.navigation.goBack();
             }}>
             <Image
-              source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
+              style={{
+                width: Platform.OS === 'ios' ? 28 : 25,
+                height: Platform.OS === 'ios' ? 28 : 25,
+                resizeMode: 'contain',
+              }}
+              source={require('../../imgs/backIcon.png')}
             />
           </TouchableOpacity>
         </View>
@@ -231,6 +236,12 @@ const MainDetailCompleted = (props) => {
               {surveyDetail.sponsorName}
             </Text>
           </View>
+
+          {/* <TouchableOpacity>
+              <Image
+                source={require('../../imgs/shareIcon.png')}
+              />
+            </TouchableOpacity> */}
         </View>
 
         <View style={{marginBottom: 30}}>
