@@ -208,7 +208,15 @@ const ProfileMain = ({navigation, route}) => {
               </Text>
             </View>
           </TouchableOpacity>
+
+          {/* Hamburger Button */}
           <TouchableOpacity
+            style={{
+              paddingHorizontal: 5,
+              paddingVertical: 5,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
             onPress={() => {
               navigation.dispatch(DrawerActions.openDrawer());
             }}>

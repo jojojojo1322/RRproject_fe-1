@@ -219,20 +219,20 @@ const CustomDrawerContent = (props) => {
             />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity>
-          <Text
-            style={[
-              ResetStyle.fontLightK,
-              {
-                color: '#6f6f6f',
-                textDecorationStyle: 'solid',
-                textDecorationColor: '#787878',
-                textDecorationLine: 'underline',
-              },
-            ]}>
-            {_email}
-          </Text>
-        </TouchableOpacity>
+        {/* <TouchableOpacity> */}
+        <Text
+          style={[
+            ResetStyle.fontLightK,
+            {
+              color: '#6f6f6f',
+              textDecorationStyle: 'solid',
+              textDecorationColor: '#787878',
+              textDecorationLine: 'underline',
+            },
+          ]}>
+          {_email}
+        </Text>
+        {/* </TouchableOpacity> */}
       </View>
 
       <View
@@ -340,7 +340,13 @@ const CustomDrawerContent = (props) => {
           margin: Platform.OS === 'ios' ? '5%' : '5%',
           marginVertical: Platform.OS === 'ios' ? '5%' : '3%',
         }}>
-        <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
+        <TouchableOpacity
+          style={{flexDirection: 'row', alignItems: 'flex-end'}}
+          onPress={() => {
+            props.navigation.navigate('WalletMain', {
+              currentTnc: total,
+            });
+          }}>
           <Text style={[ResetStyle.fontMediumK, ResetStyle.fontB]}>
             {total}
           </Text>
@@ -352,7 +358,7 @@ const CustomDrawerContent = (props) => {
             ]}>
             {t('customDrawerContent3')}
           </Text>
-        </View>
+        </TouchableOpacity>
         <TouchableOpacity
           style={{width: '35%', backgroundColor: '#2d91ff', borderRadius: 50}}
           onPress={() => {
