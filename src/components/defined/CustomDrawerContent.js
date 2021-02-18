@@ -20,19 +20,19 @@ import {useTranslation} from 'react-i18next';
 
 import {useIsFocused} from '@react-navigation/native';
 
-function handleEmail(status) {
-  const {t, i18n} = useTranslation();
-  const to = ['rrmaster@gmail.com']; // string or array of email addresses
-  email(to, {
-    // Optional additional arguments
-    // cc: ['bazzy@moo.com', 'doooo@daaa.com'],
-    // string or array of email addresses
-    // bcc: 'mee@mee.com',
-    // string or array of email addresses
-    subject: 'Real Research Support',
-    body: t('customDrawerContentMail'),
-  }).catch(console.error);
-}
+// function handleEmail(status) {
+//   const {t, i18n} = useTranslation();
+//   const to = ['rrmaster@gmail.com']; // string or array of email addresses
+//   email(to, {
+//     // Optional additional arguments
+//     // cc: ['bazzy@moo.com', 'doooo@daaa.com'],
+//     // string or array of email addresses
+//     // bcc: 'mee@mee.com',
+//     // string or array of email addresses
+//     subject: 'Real Research Support',
+//     body: t('customDrawerContentMail'),
+//   }).catch(console.error);
+// }
 
 const Tab = createMaterialTopTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -48,13 +48,24 @@ const CustomDrawerContent = (props) => {
   const [kycLevel, setKycLevel] = useState(0);
 
   const [loginStatus, setLoginStatus] = useState(props.login);
-  const [email, setEmail] = useState('');
+  const [_email, set_Email] = useState('');
   const [page, setPage] = useState('');
 
   // console.log(await AsyncStorage.getItem('userNo'));
-
+  const handleEmail = () => {
+    const to = ['rrmaster@gmail.com']; // string or array of email addresses
+    email(to, {
+      // Optional additional arguments
+      // cc: ['bazzy@moo.com', 'doooo@daaa.com'],
+      // string or array of email addresses
+      // bcc: 'mee@mee.com',
+      // string or array of email addresses
+      subject: 'Real Research Support',
+      body: t('customDrawerContentMail'),
+    }).catch(console.error);
+  };
   const emailAsyncSet = async () => {
-    setEmail(await AsyncStorage.getItem('email'));
+    set_Email(await AsyncStorage.getItem('email'));
   };
 
   useEffect(() => {
@@ -219,7 +230,7 @@ const CustomDrawerContent = (props) => {
                 textDecorationLine: 'underline',
               },
             ]}>
-            {email}
+            {_email}
           </Text>
         </TouchableOpacity>
       </View>
