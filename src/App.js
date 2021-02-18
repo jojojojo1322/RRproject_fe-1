@@ -96,12 +96,17 @@ import SettingsPersonalMasterKey from './components/settings/settingsDetail/pers
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import RNRestart from 'react-native-restart';
 
+console.disableYellowBox = true;
+
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 export const AppMainStack = (props) => {
   const [login, setLogin] = useState(null);
-
+  console.log('AppMainStack', props);
+  console.log('AppMainStack', props);
+  console.log('AppMainStack', props);
+  console.log('AppMainStack', props);
   const test = async () => {
     try {
       const result = await AsyncStorage.getItem('userNo');
@@ -145,7 +150,7 @@ export const AppMainStack = (props) => {
             }}
           />
         )} */}
-      {login === null ? (
+      {login === null && props.route.params?.loginC === null ? (
         <Stack.Screen
           name="Initial2"
           component={Initial2}
@@ -619,8 +624,12 @@ export const AppMainStack = (props) => {
   );
 };
 
-const App = () => {
+const App = (props) => {
   const [login, setLogin] = useState(null);
+  console.log('APP PROPS', props);
+  console.log('APP PROPS', props);
+  console.log('APP PROPS', props);
+  console.log('APP PROPS', props);
   const test = async () => {
     try {
       const result = await AsyncStorage.getItem('userNo');
@@ -746,7 +755,7 @@ const App = () => {
         <Drawer.Screen
           name="초기"
           component={AppMainStack}
-          initialParams={{loginSuccess: loginSuccess}}
+          initialParams={{loginSuccess: loginSuccess, loginC: props.loginC}}
           options={() => ({
             drawerLabel: () => null,
             title: undefined,
