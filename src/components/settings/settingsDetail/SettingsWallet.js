@@ -33,10 +33,10 @@ const SettingsWallet = ({navigation}) => {
       id: '1',
       title: t('settingsWallet1'),
     },
-    {
-      id: '2',
-      title: t('settingsWallet2'),
-    },
+    // {
+    //   id: '2',
+    //   title: t('settingsWallet2'),
+    // },
   ]);
 
   const Item = ({title, id, onPress}) => (

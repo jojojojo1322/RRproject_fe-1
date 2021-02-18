@@ -17,8 +17,8 @@ import MainStyle from '../../style/MainStyle.js';
 
 import email from 'react-native-email';
 import {useTranslation} from 'react-i18next';
-
-import {useIsFocused} from '@react-navigation/native';
+// import {useIsFocused} from '@react-navigation/native';
+// import {useFocusEffect} from '@react-navigation/native';
 
 // function handleEmail(status) {
 //   const {t, i18n} = useTranslation();
@@ -50,7 +50,11 @@ const CustomDrawerContent = (props) => {
   const [loginStatus, setLoginStatus] = useState(props.login);
   const [_email, set_Email] = useState('');
   const [page, setPage] = useState('');
-
+  // const ffff = useIsFocused();
+  // console.log('ffff', ffff);
+  // console.log('ffff', ffff);
+  // console.log('ffff', ffff);
+  // console.log('ffff', ffff);
   // console.log(await AsyncStorage.getItem('userNo'));
   const handleEmail = () => {
     const to = ['rrmaster@gmail.com']; // string or array of email addresses
@@ -410,7 +414,9 @@ const CustomDrawerContent = (props) => {
         {/* Main */}
         <TouchableOpacity
           onPress={() => {
-            props.navigation.navigate('Main');
+            props.navigation.navigate('Main', {
+              check: 'aaa',
+            });
           }}
           style={MainStyle.drawerItem}>
           <Text

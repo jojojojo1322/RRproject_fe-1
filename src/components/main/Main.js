@@ -121,7 +121,7 @@ const TncGetApi = async () => {
     });
 };
 
-function Ongoing({navigation}) {
+function Ongoing({navigation, route}) {
   console.log('Ongoing 호출');
 
   const [index, setIndex] = useState(0);
@@ -134,6 +134,9 @@ function Ongoing({navigation}) {
 
   // const [loading, setLoading] = useState(false);
   const {t, i18n} = useTranslation();
+  console.log('ROUTE', navigation);
+  console.log('ROUTE', navigation);
+  console.log('ROUTE', navigation);
 
   const surveyDetailApi = async (legacySurveyId) => {
     await axios
@@ -487,6 +490,14 @@ function Ongoing({navigation}) {
     surveyApi('ongoing');
   }, []);
 
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused === true) {
+      surveyApi('ongoing');
+    }
+  }, [isFocused]);
+
   return (
     <>
       <Carousel
@@ -531,7 +542,10 @@ function Completed({navigation}) {
   const [index, setIndex] = useState(0);
   const [completeData, setCompleteData] = useState([]);
   const {t, i18n} = useTranslation();
+  const [modal2Visible, setModal2Visible] = useState(false);
   const completeSurveyApi = async () => {
+    // progress 호출
+    setModal2Visible(true);
     axios
       .get(`${server}/survey/main/${await AsyncStorage.getItem('userNo')}`)
       .then(async (response) => {
@@ -541,10 +555,20 @@ function Completed({navigation}) {
       .catch((e) => {
         console.log(`completeSurveyApi Error`, e);
       });
+    // progress 끔
+    setModal2Visible(false);
   };
   useEffect(() => {
     completeSurveyApi();
   }, []);
+
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused === true) {
+      completeSurveyApi();
+    }
+  }, [isFocused]);
 
   const renderItem = ({item}) => {
     // console.log('renderItem item', require("'" + item.categoryImg + "'"));
@@ -820,30 +844,36 @@ function Completed({navigation}) {
   };
 
   return (
-    <Carousel
-      data={
-        // DATA.filter((item) => item.status == 'completed').length == 0
-        //   ? [{status: 'zero'}]
-        //   : DATA.filter((item) => item.status == 'completed')
-        completeData.length == 0 ? [{status: 'zero'}] : completeData
-        // completeData
-        // DATA.filter((item) => item.status == 'completed').length == 0
-        //   ? [{status: 'zero'}]
-        //   : DATA.filter((item) => item.status == 'completed')
-      }
-      renderItem={renderItem}
-      sliderHeight={Platform.OS === 'ios' ? 500 : 450}
-      itemHeight={Platform.OS === 'ios' ? 420 : 390}
-      containerCustomStyle={{flex: 1, backgroundColor: '#fff'}}
-      inactiveSlideShift={0}
-      onSnapToItem={(index) => setIndex(index)}
-      scrollInterpolator={scrollInterpolator2}
-      slideInterpolatedStyle={animatedStyles2}
-      useScrollView={true}
-      vertical={true}
-      layout={'stack'}
-      layoutCardOffset={0}
-    />
+    <>
+      <Carousel
+        data={
+          // DATA.filter((item) => item.status == 'completed').length == 0
+          //   ? [{status: 'zero'}]
+          //   : DATA.filter((item) => item.status == 'completed')
+          completeData.length == 0 ? [{status: 'zero'}] : completeData
+          // completeData
+          // DATA.filter((item) => item.status == 'completed').length == 0
+          //   ? [{status: 'zero'}]
+          //   : DATA.filter((item) => item.status == 'completed')
+        }
+        renderItem={renderItem}
+        sliderHeight={Platform.OS === 'ios' ? 500 : 450}
+        itemHeight={Platform.OS === 'ios' ? 420 : 390}
+        containerCustomStyle={{flex: 1, backgroundColor: '#fff'}}
+        inactiveSlideShift={0}
+        onSnapToItem={(index) => setIndex(index)}
+        scrollInterpolator={scrollInterpolator2}
+        slideInterpolatedStyle={animatedStyles2}
+        useScrollView={true}
+        vertical={true}
+        layout={'stack'}
+        layoutCardOffset={0}
+      />
+      <ProgressModal
+        modalVisible={modal2Visible}
+        setModalVisible={setModal2Visible}
+      />
+    </>
   );
 }
 
@@ -853,6 +883,7 @@ function Expired({navigation}) {
   const [index, setIndex] = useState(0);
   const [expiredData, setExpiredData] = useState([]);
   // const [loading, setLoading] = useState(false);
+  const [modal2Visible, setModal2Visible] = useState(false);
   const {t, i18n} = useTranslation();
   const renderItem = ({item}) => {
     // console.log(item);
@@ -1116,6 +1147,8 @@ function Expired({navigation}) {
   };
 
   const surveyApi = async (surveyStatus) => {
+    // progress 호출
+    setModal2Visible(true);
     await axios
       .get(
         `${server}/survey/main/status/${surveyStatus}/${await AsyncStorage.getItem(
@@ -1133,37 +1166,52 @@ function Expired({navigation}) {
       .catch((e) => {
         console.log(`surveyApi ${surveyStatus} Error`, e);
       });
+    // progress 끔
+    setModal2Visible(false);
   };
   useState(() => {
     surveyApi('expired');
   }, []);
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused === true) {
+      surveyApi('ongoing');
+    }
+  }, [isFocused]);
   return (
-    <Carousel
-      data={
-        // DATA.filter((item) => item.status == 'expired').length == 0
-        //   ? [{status: 'zero'}]
-        //   : DATA.filter((item) => item.status == 'expired')
-        expiredData.length == 0 ? [{status: 'zero'}] : expiredData
-      }
-      renderItem={renderItem}
-      sliderHeight={Platform.OS === 'ios' ? 500 : 450}
-      itemHeight={Platform.OS === 'ios' ? 420 : 390}
-      containerCustomStyle={{flex: 1, backgroundColor: '#fff'}}
-      inactiveSlideShift={0}
-      onSnapToItem={(index) => setIndex(index)}
-      scrollInterpolator={scrollInterpolator2}
-      slideInterpolatedStyle={animatedStyles2}
-      useScrollView={true}
-      vertical={true}
-      layout={'stack'}
-      layoutCardOffset={0}
-    />
+    <>
+      <Carousel
+        data={
+          // DATA.filter((item) => item.status == 'expired').length == 0
+          //   ? [{status: 'zero'}]
+          //   : DATA.filter((item) => item.status == 'expired')
+          expiredData.length == 0 ? [{status: 'zero'}] : expiredData
+        }
+        renderItem={renderItem}
+        sliderHeight={Platform.OS === 'ios' ? 500 : 450}
+        itemHeight={Platform.OS === 'ios' ? 420 : 390}
+        containerCustomStyle={{flex: 1, backgroundColor: '#fff'}}
+        inactiveSlideShift={0}
+        onSnapToItem={(index) => setIndex(index)}
+        scrollInterpolator={scrollInterpolator2}
+        slideInterpolatedStyle={animatedStyles2}
+        useScrollView={true}
+        vertical={true}
+        layout={'stack'}
+        layoutCardOffset={0}
+      />
+      <ProgressModal
+        modalVisible={modal2Visible}
+        setModalVisible={setModal2Visible}
+      />
+    </>
   );
 }
 
 const Tab = createMaterialTopTabNavigator();
 // export default function MainTest({navigation}) {
-function Main({navigation, t, i18n}) {
+function Main({navigation, t, i18n, route}) {
   const [currentTnc, setCurrentTnc] = useState(0);
   const [nonFixTnc, setNonFixTnc] = useState(0);
   const [kycLevel, setKycLevel] = useState(0);
@@ -1174,7 +1222,10 @@ function Main({navigation, t, i18n}) {
 
   //Kyc 72시간 경고 모달
   const [modalVisible, setModalVisible] = useState(false);
-
+  console.log('mainROUTE', route);
+  console.log('mainROUTE', route);
+  console.log('mainROUTE', route);
+  console.log('mainROUTE', route);
   const surveyDetailApi = async (legacySurveyId) => {
     await axios
       .get(
@@ -1438,6 +1489,10 @@ function Main({navigation, t, i18n}) {
           options={{tabBarLabel: t('main7')}}
           initialParams={{
             setModalVisible: setModalVisible,
+            isFocused: useIsFocused,
+          }}
+          options={{
+            isFocused: isFocused,
           }}
         />
         <Tab.Screen

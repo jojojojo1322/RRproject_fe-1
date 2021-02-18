@@ -19,15 +19,30 @@ import AuthStyle from '../../style/AuthStyle';
 import {withTranslation} from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';
 
+//비밀번호 유효성 체크
 function chkPW(password) {
-  var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~!@#$%^&*()_+|<>?:{}]).{8,}$/;
+  var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
   var regHigh = /^(?=.*?[A-Z])/;
   var regRow = /^(?=.*?[a-z])/;
   var regNumber = /^(?=.*?[0-9])/;
   var regCharacters = /^(?=.*?[~!@#$%^&*()_+|<>?:{}])/;
   var pw = password;
 
-  return reg.test(pw);
+  if (false === regHigh.test(pw)) {
+    console.log('대문자');
+    return false;
+  } else if (false === regRow.test(pw)) {
+    console.log('소문자');
+    return false;
+  } else if (false === regNumber.test(pw)) {
+    console.log('숫자');
+    return false;
+  } else if (false === regCharacters.test(pw)) {
+    console.log('특수문자');
+    return false;
+  } else {
+    return true;
+  }
 }
 function chkPWHigh(password) {
   var regHigh = /^(?=.*?[A-Z])/;

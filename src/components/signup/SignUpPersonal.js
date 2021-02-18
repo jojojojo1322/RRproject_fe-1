@@ -38,25 +38,30 @@ function chkPW(password) {
   var regCharacters = /^(?=.*?[~!@#$%^&*()_+|<>?:{}])/;
   var pw = password;
 
-  // if (false === regHigh.test(pw)) {
-  //   console.log('대문자');
-  // } else if (false === regRow.test(pw)) {
-  //   console.log('소문자');
-  // } else if (false === regNumber.test(pw)) {
-  //   console.log('숫자');
-  // } else if (false === regCharacters.test(pw)) {
-  //   console.log('특수문자');
-  // } else {
-  //   console.log('통과');
-  // }
-  return reg.test(pw);
+  if (false === regHigh.test(pw)) {
+    console.log('대문자');
+    return false;
+  } else if (false === regRow.test(pw)) {
+    console.log('소문자');
+    return false;
+  } else if (false === regNumber.test(pw)) {
+    console.log('숫자');
+    return false;
+  } else if (false === regCharacters.test(pw)) {
+    console.log('특수문자');
+    return false;
+  } else {
+    return true;
+  }
 }
+
 function chkPWHigh(password) {
   var regHigh = /^(?=.*?[A-Z])/;
   var pw = password;
 
   return regHigh.test(pw);
 }
+
 function chkPWRow(password) {
   var regRow = /^(?=.*?[a-z])/;
   var pw = password;
@@ -702,6 +707,11 @@ class SignUpPersonal extends Component {
                 console.log('nextBoolean', this.state.checkBoolean);
                 console.log('nextsadasdasd', this.state.checkEmail);
                 console.log(Platform.OS);
+                console.log({
+                  checkBoolean: this.state.checkBoolean,
+                  checkEmail: this.state.checkEmail,
+                  cpassword: chkPW(this.state.password),
+                });
                 if (
                   this.state.checkBoolean == true &&
                   this.state.checkEmail === 0 &&
