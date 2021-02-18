@@ -12,9 +12,11 @@ export default StyleSheet.create({
   topView: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: '5%',
+    paddingHorizontal: '5%',
+    paddingVertical: '3%',
   },
   topLogoTouchView: {
+    padding: 5,
     flexDirection: 'row',
     alignItems: 'center',
   },

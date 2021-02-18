@@ -217,6 +217,12 @@ const WalletMain = (props) => {
 
           {/* Hamburger Button */}
           <TouchableOpacity
+            style={{
+              paddingHorizontal: 5,
+              paddingVertical: 5,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
             onPress={() => {
               props.navigation.openDrawer();
             }}>

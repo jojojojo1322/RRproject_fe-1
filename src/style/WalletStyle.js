@@ -8,10 +8,12 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: '5%',
+    paddingHorizontal: '5%',
+    paddingVertical: '3%',
   },
 
   TopLogoView: {
+    padding: 5,
     flexDirection: 'row',
     alignItems: 'center',
   },
