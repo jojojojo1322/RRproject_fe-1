@@ -334,6 +334,7 @@ class SignUpPersonal extends Component {
               </View>
 
               <TouchableOpacity>
+                {/* 상단 비밀번호 */}
                 <View style={AuthStyle.signupInputImageAll}>
                   <TextInput
                     placeholder={t('signUpPersonal4')}
@@ -352,6 +353,28 @@ class SignUpPersonal extends Component {
                         width: '90%',
                       },
                     ]}
+                    onBlur={() => {
+                      if (
+                        this.state.checkPassword == '' ||
+                        this.state.password == ''
+                      ) {
+                        this.setState({
+                          checkBoolean: '',
+                        });
+                      } else if (
+                        this.state.checkPassword == this.state.password
+                      ) {
+                        this.setState({
+                          checkBoolean: true,
+                        });
+                      } else if (
+                        this.state.checkPassword != this.state.password
+                      ) {
+                        this.setState({
+                          checkBoolean: false,
+                        });
+                      }
+                    }}
                     blurOnSubmit={false}
                     onSubmitEditing={() => Keyboard.dismiss()}
                     textContentType={'oneTimeCode'}
@@ -517,7 +540,7 @@ class SignUpPersonal extends Component {
                   {t('signUpPersonal10')}
                 </Text>
               </View>
-
+              {/* 하단 비밀번호  */}
               <TouchableOpacity>
                 <View style={AuthStyle.signupInputImageAll}>
                   <TextInput
@@ -674,7 +697,8 @@ class SignUpPersonal extends Component {
                 ResetStyle.button,
                 {marginTop: '40%'},
                 (this.state.checkBoolean !== true ||
-                  this.state.checkEmail !== 0) && {backgroundColor: '#e6e6e6'},
+                  this.state.checkEmail !== 0 ||
+                  !chkPW(this.state.password)) && {backgroundColor: '#e6e6e6'},
               ]}
               onPress={() => {
                 console.log('nextBoolean', this.state.checkBoolean);
@@ -682,7 +706,8 @@ class SignUpPersonal extends Component {
                 console.log(Platform.OS);
                 if (
                   this.state.checkBoolean == true &&
-                  this.state.checkEmail === 0
+                  this.state.checkEmail === 0 &&
+                  chkPW(this.state.password)
                 ) {
                   this.emailAuthApi(this.state.email);
                   console.log('aaaa');

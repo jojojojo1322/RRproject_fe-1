@@ -94,11 +94,13 @@ class EmailAuthentication extends Component {
     //   timeLeftNumber: 180,
     // });
   };
+
   handleCountDownCheck = (value) => {
     this.setState({
       CountDownCheck: value,
     });
   };
+
   handleCountDownExpireCheck = () => {
     this.setState({
       CountDownExpireCheck: true,
@@ -197,6 +199,7 @@ class EmailAuthentication extends Component {
       })
       .catch((error) => {
         console.log('ERRORuserEmailApprove', error);
+        console.log('ERRORuserEmailApprove', error.response);
       });
   };
   userRegistApi = async (osType) => {
