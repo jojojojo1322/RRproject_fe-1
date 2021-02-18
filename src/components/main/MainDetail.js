@@ -227,16 +227,17 @@ const MainDetail = (props) => {
 
   return (
     <SafeAreaView style={[ResetStyle.container]}>
-      <ScrollView style={{paddingLeft: '5%', paddingRight: '5%'}}>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'flex-start',
-            paddingTop: Platform.OS === 'ios' ? '2%' : '5%',
-            paddingBottom: Platform.OS === 'ios' ? '6%' : '2%',
-          }}>
+      {/* <ScrollView style={{paddingLeft: '5%', paddingRight: '5%'}}> */}
+      <ScrollView>
+        <View style={{paddingHorizontal: '5%'}}>
           <TouchableOpacity
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              width: '15%',
+              paddingTop: Platform.OS === 'ios' ? '2%' : '5%',
+              paddingBottom: Platform.OS === 'ios' ? '4%' : '2%',
+            }}
             onPress={() => {
               props.navigation.goBack();
             }}>
@@ -249,179 +250,165 @@ const MainDetail = (props) => {
               source={require('../../imgs/backIcon.png')}
             />
           </TouchableOpacity>
-        </View>
 
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={[ResetStyle.fontLightK, ResetStyle.fontDG]}>
-              {surveyDetail.categoryName}
-            </Text>
-            <Text style={[ResetStyle.fontLightK, ResetStyle.fontDG]}> | </Text>
-            <Text style={[ResetStyle.fontLightK, ResetStyle.fontDG]}>
-              {surveyDetail.sponsorName}
-            </Text>
-          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={[ResetStyle.fontLightK, ResetStyle.fontDG]}>
+                {surveyDetail.categoryName}
+              </Text>
+              <Text style={[ResetStyle.fontLightK, ResetStyle.fontDG]}>
+                {' '}
+                |{' '}
+              </Text>
+              <Text style={[ResetStyle.fontLightK, ResetStyle.fontDG]}>
+                {surveyDetail.sponsorName}
+              </Text>
+            </View>
 
-          {/* <TouchableOpacity>
+            {/* <TouchableOpacity>
               <Image
                 source={require('../../imgs/shareIcon.png')}
               />
             </TouchableOpacity> */}
-        </View>
+          </View>
 
-        <View style={{marginBottom: 30}}>
-          <Text
-            style={[
-              ResetStyle.fontMediumK,
-              ResetStyle.fontBlack,
-              {textAlign: 'left', marginTop: 10},
-            ]}>
-            {surveyDetail.surveyName}
-          </Text>
-        </View>
-        <View
-          style={{
-            //   flex: 1,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBottom: 15,
-          }}>
-          <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
-            <Text style={[ResetStyle.fontBoldK, ResetStyle.fontB]}>
-              +{surveyDetail.reward}
-            </Text>
+          <View style={{marginBottom: 30}}>
             <Text
-              style={[ResetStyle.fontRegularK, ResetStyle.fontB, {padding: 5}]}>
-              TNC
+              style={[
+                ResetStyle.fontMediumK,
+                ResetStyle.fontBlack,
+                {textAlign: 'left', marginTop: 10},
+              ]}>
+              {surveyDetail.surveyName}
             </Text>
           </View>
-          <TouchableOpacity
-            style={[ResetStyle.buttonSmall]}
-            onPress={() => {
-              setModalVisible(true);
+          <View
+            style={{
+              //   flex: 1,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: 15,
             }}>
-            <Text style={[ResetStyle.fontRegularK, ResetStyle.fontWhite]}>
-              {t('')}
-              Audience
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            borderBottomWidth: 1,
-            borderBottomColor: '#dedede',
-            marginBottom: 30,
-          }}></View>
-        <Text
-          style={[
-            ResetStyle.fontRegularK,
-            ResetStyle.fontBlack,
-            {textAlign: 'left'},
-          ]}>
-          {`Ends In | ${day - 1}d ${hour}h ${min}m ${sec}s`}
-        </Text>
-        <View
-          style={{
-            position: 'relative',
-            width: '100%',
-            height: 3,
-            alignSelf: 'center',
-            marginTop: '3%',
-            marginBottom: '2%',
-          }}>
+            <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
+              <Text style={[ResetStyle.fontBoldK, ResetStyle.fontB]}>
+                +{surveyDetail.reward}
+              </Text>
+              <Text
+                style={[
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontB,
+                  {padding: 5},
+                ]}>
+                TNC
+              </Text>
+            </View>
+            <TouchableOpacity
+              style={[ResetStyle.buttonSmall]}
+              onPress={() => {
+                setModalVisible(true);
+              }}>
+              <Text style={[ResetStyle.fontRegularK, ResetStyle.fontWhite]}>
+                {t('')}
+                Audience
+              </Text>
+            </TouchableOpacity>
+          </View>
           <View
             style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              backgroundColor: '#d7d7d7',
-            }}></View>
-          <View
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: `${
-                (surveyDetail.participants / surveyDetail.particRestrictions) *
-                100
-              }%`,
-              height: '100%',
-              backgroundColor: '#0080ff',
-            }}></View>
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginBottom: '2%',
-          }}>
-          <Text style={[ResetStyle.fontLightK, ResetStyle.fontB]}>
-            {`${surveyDetail.participants} / ${
-              surveyDetail.particRestrictions
-            }${'\n'}`}
-          </Text>
-        </View>
-        <View
-          style={{
-            position: 'relative',
-            height: 260,
-          }}>
-          <Image
-            style={{
-              //   position: 'relative',
-              left: '-6%',
-              width: '112%',
-              height: '100%',
-              resizeMode: 'cover',
-            }}
-            source={{uri: surveyDetail.categoryImg}}
-          />
-        </View>
-
-        <Text
-          style={[
-            ResetStyle.fontRegularK,
-            ResetStyle.fontDG,
-            {
-              textAlign: 'left',
-              lineHeight: 28,
-              marginTop: 20,
+              borderBottomWidth: 1,
+              borderBottomColor: '#dedede',
               marginBottom: 30,
-            },
-          ]}>
-          {surveyDetail.instructions}
-        </Text>
+            }}></View>
+          <Text
+            style={[
+              ResetStyle.fontRegularK,
+              ResetStyle.fontBlack,
+              {textAlign: 'left'},
+            ]}>
+            {`Ends In | ${day - 1}d ${hour}h ${min}m ${sec}s`}
+          </Text>
+          <View
+            style={{
+              position: 'relative',
+              width: '100%',
+              height: 3,
+              alignSelf: 'center',
+              marginTop: '3%',
+              marginBottom: '2%',
+            }}>
+            <View
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                backgroundColor: '#d7d7d7',
+              }}></View>
+            <View
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: `${
+                  (surveyDetail.participants /
+                    surveyDetail.particRestrictions) *
+                  100
+                }%`,
+                height: '100%',
+                backgroundColor: '#0080ff',
+              }}></View>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginBottom: '2%',
+            }}>
+            <Text style={[ResetStyle.fontLightK, ResetStyle.fontB]}>
+              {`${surveyDetail.participants} / ${
+                surveyDetail.particRestrictions
+              }${'\n'}`}
+            </Text>
+          </View>
+        </View>
+        <Image
+          style={{
+            width: '100%',
+            height: 260,
+            resizeMode: 'cover',
+          }}
+          source={{uri: surveyDetail.categoryImg}}
+        />
+        <View style={{paddingHorizontal: '5%'}}>
+          <Text
+            style={[
+              ResetStyle.fontRegularK,
+              ResetStyle.fontDG,
+              {
+                textAlign: 'left',
+                lineHeight: 28,
+                marginTop: 20,
+                marginBottom: 30,
+              },
+            ]}>
+            {surveyDetail.instructions}
+          </Text>
 
-        <TouchableOpacity
-          style={[
-            ResetStyle.button,
-            {marginBottom: Platform.OS === 'ios' ? 0 : '5%'},
-          ]}
-          onPress={async () => {
-            console.log('시작1');
-            console.log({
-              legacySurveyId: props.route.params?.legacySurveyId,
-              // legacySurveyId: '5f9835585e40b26b969fedb2',
-              surveyName: surveyDetail.surveyName,
-              // surveyName: 'COVID-19  Vaccine Survey',
-              sponsorName: surveyDetail.sponsorName,
-              // sponsorName: '5f9677c880c3164b4b1cc398',
-              surveyId: String(audience.surveyId),
-              sponsorUserNo: surveyDetail.sponsorUserNo,
-              advertiseUrl: surveyDetail.advertiseUrl,
-            });
-            console.log('시작1');
-            if (audienceCheck === 0) {
-              console.log('시작2');
-              props.navigation.replace('ResearchForm', {
+          <TouchableOpacity
+            style={[
+              ResetStyle.button,
+              {marginBottom: Platform.OS === 'ios' ? 0 : '5%'},
+            ]}
+            onPress={async () => {
+              console.log('시작1');
+              console.log({
                 legacySurveyId: props.route.params?.legacySurveyId,
                 // legacySurveyId: '5f9835585e40b26b969fedb2',
                 surveyName: surveyDetail.surveyName,
@@ -431,32 +418,47 @@ const MainDetail = (props) => {
                 surveyId: String(audience.surveyId),
                 sponsorUserNo: surveyDetail.sponsorUserNo,
                 advertiseUrl: surveyDetail.advertiseUrl,
-                redirectUrl: surveyDetail.redirectUrl,
-                advertiseType: surveyDetail.advertiseType,
-                advertiseThumbnail: surveyDetail.advertiseThumbnail,
-                // surveyId: 78,
               });
-            } else if (audienceCheck === -1) {
-              console.log('시작3');
-              setModal2Visible(true);
-            } else if (audienceCheck !== -1 && audienceCheck <= -2) {
-              console.log('시작4');
-              setModal3Visible(true);
-            }
-            console.log('시작5');
-            // audienceCheckHandle();
-          }}>
-          <Text
-            style={[
-              ResetStyle.fontMediumK,
-              ResetStyle.fontWhite,
-              {
-                fontWeight: '600',
-              },
-            ]}>
-            {t('mainDetail2')}
-          </Text>
-        </TouchableOpacity>
+              console.log('시작1');
+              if (audienceCheck === 0) {
+                console.log('시작2');
+                props.navigation.replace('ResearchForm', {
+                  legacySurveyId: props.route.params?.legacySurveyId,
+                  // legacySurveyId: '5f9835585e40b26b969fedb2',
+                  surveyName: surveyDetail.surveyName,
+                  // surveyName: 'COVID-19  Vaccine Survey',
+                  sponsorName: surveyDetail.sponsorName,
+                  // sponsorName: '5f9677c880c3164b4b1cc398',
+                  surveyId: String(audience.surveyId),
+                  sponsorUserNo: surveyDetail.sponsorUserNo,
+                  advertiseUrl: surveyDetail.advertiseUrl,
+                  redirectUrl: surveyDetail.redirectUrl,
+                  advertiseType: surveyDetail.advertiseType,
+                  advertiseThumbnail: surveyDetail.advertiseThumbnail,
+                  // surveyId: 78,
+                });
+              } else if (audienceCheck === -1) {
+                console.log('시작3');
+                setModal2Visible(true);
+              } else if (audienceCheck !== -1 && audienceCheck <= -2) {
+                console.log('시작4');
+                setModal3Visible(true);
+              }
+              console.log('시작5');
+              // audienceCheckHandle();
+            }}>
+            <Text
+              style={[
+                ResetStyle.fontMediumK,
+                ResetStyle.fontWhite,
+                {
+                  fontWeight: '600',
+                },
+              ]}>
+              {t('mainDetail2')}
+            </Text>
+          </TouchableOpacity>
+        </View>
         <AudienceModal
           setModalVisible={setModalVisible}
           modalVisible={modalVisible}
