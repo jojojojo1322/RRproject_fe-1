@@ -5,6 +5,7 @@ import {
   SafeAreaView,
   Image,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   Dimensions,
   ActivityIndicator,
   Platform,
@@ -177,7 +178,7 @@ function Ongoing({navigation}) {
 
     if (item.status === 'zero') {
       return (
-        <TouchableOpacity
+        <View
           style={[
             MainStyle.itemBox,
             {borderWidth: 0, backgroundColor: 'transparent', marginTop: '20%'},
@@ -194,13 +195,13 @@ function Ongoing({navigation}) {
             ]}>
             {t('main1')}
           </Text>
-        </TouchableOpacity>
+        </View>
       );
     } else {
       return (
-        <TouchableOpacity
+        <View
           style={[
-            MainStyle.itemBox,
+            MainStyle.itemBox2,
             // {marginBottom: item.id === item.length ? 200 : 0},
           ]}
           onPress={() => {
@@ -453,7 +454,7 @@ function Ongoing({navigation}) {
               </Text>
             </TouchableOpacity>
           </View>
-        </TouchableOpacity>
+        </View>
       );
     }
   };
@@ -595,7 +596,7 @@ function Completed({navigation}) {
       );
     } else {
       return (
-        <TouchableOpacity
+        <View
           style={[
             MainStyle.itemBox,
             // {marginBottom: item.id === item.length ? 200 : 0},
@@ -813,7 +814,7 @@ function Completed({navigation}) {
               </Text>
             </TouchableOpacity>
           </View>
-        </TouchableOpacity>
+        </View>
       );
     }
   };
@@ -866,7 +867,7 @@ function Expired({navigation}) {
 
     if (item.status === 'zero') {
       return (
-        <TouchableOpacity
+        <View
           style={[
             MainStyle.itemBox,
             {borderWidth: 0, backgroundColor: 'transparent', marginTop: '20%'},
@@ -883,11 +884,11 @@ function Expired({navigation}) {
             ]}>
             {t('main1')}
           </Text>
-        </TouchableOpacity>
+        </View>
       );
     } else {
       return (
-        <TouchableOpacity
+        <View
           style={[
             MainStyle.itemBox,
             // {marginBottom: item.id === item.length ? 200 : 0},
@@ -1109,7 +1110,7 @@ function Expired({navigation}) {
               </Text>
             </TouchableOpacity>
           </View>
-        </TouchableOpacity>
+        </View>
       );
     }
   };
@@ -1270,12 +1271,18 @@ function Main({navigation, t, i18n}) {
             flexDirection: 'row',
             justifyContent: 'space-between',
             width: '90%',
-            marginBottom: Platform.OS === 'ios' ? '5%' : '4%',
+            marginBottom: Platform.OS === 'ios' ? '3%' : '4%',
             alignItems: 'center',
             alignSelf: 'center',
           }}>
           {/* 로고 클릭 */}
           <TouchableOpacity
+            style={{
+              alignItems: 'center',
+              flexDirection: 'row',
+              paddingHorizontal: 5,
+              paddingVertical: 5,
+            }}
             onPress={async () => {
               try {
                 console.log('USerNONONO', await AsyncStorage.getItem('userNo'));
@@ -1287,29 +1294,32 @@ function Main({navigation, t, i18n}) {
             //   navigation.navigate('Kyc');
             // }}
           >
-            <View
+            <Image
               style={{
-                flexDirection: 'row',
-              }}>
-              <Image
-                style={{
-                  width: Platform.OS === 'ios' ? 25 : 20,
-                  height: Platform.OS === 'ios' ? 25 : 20,
-                  resizeMode: 'contain',
-                }}
-                source={require('../../imgs/rrLogoW.png')}
-              />
-              <Text
-                style={[
-                  ResetStyle.fontRegularK,
-                  ResetStyle.fontWhite,
-                  {marginLeft: '5%', fontWeight: '600'},
-                ]}>
-                {t('mainLogo')}
-              </Text>
-            </View>
+                width: Platform.OS === 'ios' ? 25 : 20,
+                height: Platform.OS === 'ios' ? 25 : 20,
+                resizeMode: 'contain',
+              }}
+              source={require('../../imgs/rrLogoW.png')}
+            />
+            <Text
+              style={[
+                ResetStyle.fontRegularK,
+                ResetStyle.fontWhite,
+                {marginLeft: '5%', fontWeight: '600'},
+              ]}>
+              {t('mainLogo')}
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
+            style={{
+              paddingHorizontal: 5,
+              paddingVertical: 5,
+              // width: Platform.OS === 'ios' ? 40 : 35,
+              // height: Platform.OS === 'ios' ? 40 : 35,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
             onPress={() => {
               console.log(navigation.openDrawer);
               navigation.openDrawer({dddddd: 'dddddd'});

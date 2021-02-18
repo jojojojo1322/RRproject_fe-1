@@ -167,26 +167,24 @@ class SignUpPersonal extends Component {
           contentContainerStyle={{flexGrow: 1}}>
           <View style={[ResetStyle.containerInner]}>
             {/* topBackButton */}
-            <View>
-              <View style={[ResetStyle.topBackButton, {paddingBottom: '2%'}]}>
-                <TouchableOpacity
-                  style={{flexDirection: 'row'}}
-                  onPress={() => {
-                    this.props.navigation.goBack();
-                  }}>
-                  <Image
-                    style={{
-                      width: Platform.OS === 'ios' ? 28 : 22,
-                      height: Platform.OS === 'ios' ? 28 : 22,
-                      resizeMode: 'contain',
-                    }}
-                    source={require('../../imgs/backIcon.png')}
-                  />
-                  <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-                    {t('signUpPersonalTitle')}
-                  </Text>
-                </TouchableOpacity>
-              </View>
+            <View style={[ResetStyle.topBackButton, {paddingBottom: '2%'}]}>
+              <TouchableOpacity
+                style={{flexDirection: 'row', alignItems: 'center'}}
+                onPress={() => {
+                  this.props.navigation.goBack();
+                }}>
+                <Image
+                  style={{
+                    width: Platform.OS === 'ios' ? 28 : 22,
+                    height: Platform.OS === 'ios' ? 28 : 22,
+                    resizeMode: 'contain',
+                  }}
+                  source={require('../../imgs/backIcon.png')}
+                />
+                <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+                  {t('signUpPersonalTitle')}
+                </Text>
+              </TouchableOpacity>
             </View>
             {/* 이메일 */}
             <View>

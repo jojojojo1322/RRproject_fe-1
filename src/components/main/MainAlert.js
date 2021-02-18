@@ -100,6 +100,7 @@ const MainAlert = (props) => {
         <View style={{marginLeft: '5%', marginRight: '5%'}}>
           <View style={ResetStyle.topBackButton}>
             <TouchableOpacity
+              style={{flexDirection: 'row', alignItems: 'center'}}
               onPress={() => {
                 props.navigation.goBack();
               }}>
@@ -111,10 +112,10 @@ const MainAlert = (props) => {
                 }}
                 source={require('../../imgs/backIcon.png')}
               />
+              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+                {t('mainAlertTitle')}
+              </Text>
             </TouchableOpacity>
-            <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-              {t('mainAlertTitle')}
-            </Text>
           </View>
         </View>
         <FlatList

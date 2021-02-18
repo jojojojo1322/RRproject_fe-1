@@ -188,6 +188,12 @@ class SettingsWalletPassword extends Component {
             {/* topBackButton */}
             <View style={[ResetStyle.topBackButton]}>
               <TouchableOpacity
+                style={{
+                  padding: 5,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexDirection: 'row',
+                }}
                 onPress={() => {
                   this.props.navigation.goBack();
                 }}>

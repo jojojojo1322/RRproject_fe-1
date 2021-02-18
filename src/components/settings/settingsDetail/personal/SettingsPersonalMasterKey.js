@@ -36,7 +36,7 @@ class WalletMasterKey extends Component {
           {/* topBackButton */}
           <View style={[ResetStyle.topBackButton]}>
             <TouchableOpacity
-              style={{flexDirection: 'row'}}
+              style={{flexDirection: 'row', alignItems: 'center'}}
               onPress={() => {
                 this.props.navigation.navigate('SettingsPersonal');
               }}>

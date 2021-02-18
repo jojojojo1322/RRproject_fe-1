@@ -31,6 +31,10 @@ const RequestResearch = ({navigation}) => {
           }}>
           <View style={ResetStyle.topBackButton}>
             <TouchableOpacity
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}
               onPress={() => {
                 navigation.goBack();
               }}>
@@ -42,10 +46,10 @@ const RequestResearch = ({navigation}) => {
                 }}
                 source={require('./imgs/backIcon.png')}
               />
+              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+                {t('requestResearchTitle')}
+              </Text>
             </TouchableOpacity>
-            <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-              {t('requestResearchTitle')}
-            </Text>
           </View>
         </View>
         {/* <WebView source={{uri: 'https://media.realresearcher.com'}} /> */}

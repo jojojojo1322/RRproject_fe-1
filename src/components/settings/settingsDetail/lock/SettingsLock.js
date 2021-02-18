@@ -249,6 +249,7 @@ const SettingsLock = ({navigation}) => {
             {marginLeft: '5%', marginRight: '5%'},
           ]}>
           <TouchableOpacity
+            style={{flexDirection: 'row', alignItems: 'center'}}
             onPress={() => {
               navigation.goBack();
             }}>
@@ -260,10 +261,10 @@ const SettingsLock = ({navigation}) => {
               }}
               source={require('../../../../imgs/backIcon.png')}
             />
+            <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+              {t('settingsLockTitle')}
+            </Text>
           </TouchableOpacity>
-          <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-            {t('settingsLockTitle')}
-          </Text>
         </View>
         <FlatList
           data={DATA}

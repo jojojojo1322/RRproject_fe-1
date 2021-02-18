@@ -86,26 +86,30 @@ class SettingsWalletMasterKey extends Component {
       <SafeAreaView style={ResetStyle.container}>
         <View style={ResetStyle.containerInner}>
           {/* topBackButton */}
-          <View>
-            <View style={[ResetStyle.topBackButton]}>
-              <TouchableOpacity
-                style={{flexDirection: 'row'}}
-                onPress={() => {
-                  this.props.navigation.goBack();
-                }}>
-                <Image
-                  style={{
-                    width: Platform.OS === 'ios' ? 28 : 25,
-                    height: Platform.OS === 'ios' ? 28 : 25,
-                    resizeMode: 'contain',
-                  }}
-                  source={require('../../../imgs/backIcon.png')}
-                />
-                <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-                  {t('settingsWalletMasterKeyTitle')}
-                </Text>
-              </TouchableOpacity>
-            </View>
+          <View style={[ResetStyle.topBackButton]}>
+            <TouchableOpacity
+              style={{
+                padding: 5,
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexDirection: 'row',
+              }}
+              style={{flexDirection: 'row', alignItems: 'center'}}
+              onPress={() => {
+                this.props.navigation.goBack();
+              }}>
+              <Image
+                style={{
+                  width: Platform.OS === 'ios' ? 28 : 25,
+                  height: Platform.OS === 'ios' ? 28 : 25,
+                  resizeMode: 'contain',
+                }}
+                source={require('../../../imgs/backIcon.png')}
+              />
+              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+                {t('settingsWalletMasterKeyTitle')}
+              </Text>
+            </TouchableOpacity>
 
             <View style={{marginTop: '10%'}}>
               <Text style={[ResetStyle.fontMediumK, ResetStyle.fontDG]}>

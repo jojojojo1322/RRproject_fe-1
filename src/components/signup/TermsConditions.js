@@ -1049,6 +1049,7 @@ class TermsConditions extends Component {
         <View style={{marginLeft: '5%', marginRight: '5%'}}>
           <View style={[ResetStyle.topBackButton, {paddingBottom: '2%'}]}>
             <TouchableOpacity
+              style={{flexDirection: 'row', alignItems: 'center'}}
               onPress={() => {
                 this.props.navigation.goBack();
               }}>
@@ -1060,10 +1061,10 @@ class TermsConditions extends Component {
                 }}
                 source={require('../../imgs/backIcon.png')}
               />
+              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+                {t('termsConditionsTitle')}
+              </Text>
             </TouchableOpacity>
-            <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-              {t('termsConditionsTitle')}
-            </Text>
           </View>
         </View>
         <Tab.Navigator

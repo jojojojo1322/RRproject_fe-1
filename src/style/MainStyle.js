@@ -41,6 +41,17 @@ export default StyleSheet.create({
     paddingBottom: '10%',
     overflow: 'hidden',
   },
+  itemBox2: {
+    width: '80%',
+    height: Platform.OS === 'ios' ? '130%' : '105%',
+    alignSelf: 'center',
+    borderRadius: 20,
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#e8e8e8',
+    paddingBottom: '10%',
+    overflow: 'hidden',
+  },
   itemBoxInner: {
     flexDirection: 'row',
     justifyContent: 'space-between',
