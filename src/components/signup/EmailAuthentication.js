@@ -483,8 +483,10 @@ class EmailAuthentication extends Component {
                       }
                     />
                   </View>
+                  {/* 재전송 버튼 */}
                   <TouchableOpacity
                     onPress={() => {
+                      this.setModal3Visible(true);
                       this.handleReCountDown();
                       this.emailAuthApi(this.state.email);
                     }}>
@@ -544,6 +546,11 @@ class EmailAuthentication extends Component {
             setModalVisible={this.setModal2Visible}
             modalVisible={this.state.modal2Visible}
             text={t('emailAuthentication8')}
+          />
+          <BottomModal
+            setModalVisible={this.setModal3Visible}
+            modalVisible={this.state.modal3Visible}
+            text={t('signUpModal2')}
           />
         </View>
       </SafeAreaView>
