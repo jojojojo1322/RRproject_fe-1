@@ -294,7 +294,9 @@ const MainDetailCompleted = (props) => {
             ResetStyle.fontBlack,
             {textAlign: 'left'},
           ]}>
-          {`Ends In | ${day - 1}d ${hour}h ${min}m ${sec}s`}
+          {day >= 0 && hour >= 0 && min >= 0 && sec >= 0
+            ? `Ends In | ${day - 1}d ${hour}h ${min}m ${sec}s`
+            : `Ends In | 0d 0h 0m 0s`}
         </Text>
         <View
           style={{
