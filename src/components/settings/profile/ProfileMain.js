@@ -213,7 +213,11 @@ const ProfileMain = ({navigation, route}) => {
               navigation.dispatch(DrawerActions.openDrawer());
             }}>
             <Image
-              style={[ResetStyle.topHamburgerImg]}
+              style={{
+                width: Platform.OS === 'ios' ? 25 : 20,
+                height: Platform.OS === 'ios' ? 25 : 20,
+                resizeMode: 'contain',
+              }}
               source={require('../../../imgs/menuIcon.png')}
             />
           </TouchableOpacity>
