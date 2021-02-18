@@ -759,7 +759,9 @@ function Completed({navigation}) {
   
                       return `${day - 1}일 ${hour}시간 ${min}분 ${sec}초`;
                     }, 1000)} */}
-                  {`${day - 1}일 ${hour}시간 ${min}분 ${sec}초`}
+                  {day >= 0 && hour >= 0 && min >= 0 && sec >= 0
+                    ? `${day - 1}일 ${hour}시간 ${min}분 ${sec}초`
+                    : `0일 0시간 0분 0초`}
                   {
                     // <Moment
                     //   element={Text}
