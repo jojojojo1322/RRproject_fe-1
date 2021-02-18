@@ -130,7 +130,7 @@ export default StyleSheet.create({
 
   // korean
   fontBoldK: {
-    fontSize: Platform.OS === 'ios' ? 33 : 30,
+    fontSize: Platform.OS === 'ios' ? 33 : 26,
     fontWeight: '700',
     letterSpacing: -0.5,
     textAlign: 'center',

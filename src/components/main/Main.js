@@ -277,7 +277,7 @@ function Ongoing({navigation}) {
                   style={[
                     ResetStyle.fontLightK,
                     ResetStyle.fontWhite,
-                    {marginTop: '25%'},
+                    {marginTop: Platform.OS === 'ios' ? '25%' : '15%'},
                   ]}>
                   {item.categoryName} | {item.sponsorName}
                 </Text>
@@ -420,7 +420,7 @@ function Ongoing({navigation}) {
                 position: 'absolute',
                 bottom: 0,
                 right: '5%',
-                width: 80,
+                width: Platform.OS === 'ios' ? 80 : 70,
                 backgroundColor: 'rgba(255,255,255,0.4)',
                 borderRadius: 50,
               }}
@@ -654,7 +654,10 @@ function Completed({navigation}) {
                   style={[
                     ResetStyle.fontLightK,
                     ResetStyle.fontWhite,
-                    {marginTop: '25%'},
+                    {
+                      textAlign: 'left',
+                      marginTop: Platform.OS === 'ios' ? '25%' : '15%',
+                    },
                   ]}>
                   {item.categoryName} | {item.sponsorName}
                 </Text>
@@ -787,7 +790,7 @@ function Completed({navigation}) {
                 position: 'absolute',
                 bottom: 0,
                 right: '5%',
-                width: 80,
+                width: Platform.OS === 'ios' ? 80 : 70,
                 backgroundColor: 'rgba(255,255,255,0.4)',
                 borderRadius: 50,
               }}
@@ -950,7 +953,7 @@ function Expired({navigation}) {
                   style={[
                     ResetStyle.fontLightK,
                     ResetStyle.fontWhite,
-                    {marginTop: '25%'},
+                    {marginTop: Platform.OS === 'ios' ? '25%' : '15%'},
                   ]}>
                   {item.categoryName} | {item.sponsorName}
                 </Text>
@@ -1071,7 +1074,7 @@ function Expired({navigation}) {
                 position: 'absolute',
                 bottom: 0,
                 right: '5%',
-                width: 80,
+                width: Platform.OS === 'ios' ? 80 : 70,
                 backgroundColor: 'rgba(255,255,255,0.4)',
                 borderRadius: 50,
               }}

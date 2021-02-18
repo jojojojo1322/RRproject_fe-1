@@ -32,7 +32,7 @@ export default StyleSheet.create({
   // Item
   itemBox: {
     width: '80%',
-    height: Platform.OS === 'ios' ? '130%' : '130%',
+    height: Platform.OS === 'ios' ? '130%' : '105%',
     alignSelf: 'center',
     borderRadius: 20,
     backgroundColor: '#fff',

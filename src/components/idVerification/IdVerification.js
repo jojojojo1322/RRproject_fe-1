@@ -7,6 +7,13 @@ import ResetStyle from '../../style/ResetStyle.js';
 import WalletStyle from '../../style/WalletStyle.js';
 import {TextInput} from 'react-native-gesture-handler';
 import BottomModal from '../factory/modal/BottomModal';
+import {
+  PERMISSIONS,
+  RESULTS,
+  requestMultiple,
+  openSettings,
+  checkMultiple,
+} from 'react-native-permissions';
 
 import * as ImagePicker from 'react-native-image-picker';
 

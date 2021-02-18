@@ -104,7 +104,6 @@ const Splash = ({loading, setLoading}) => {
 
               if (Platform.OS === 'ios') {
                 //  for ios
-
                 setLoading(true);
               } else {
                 //for android
@@ -129,7 +128,7 @@ const Splash = ({loading, setLoading}) => {
   const openSettingAlert = () => {
     Alert.alert(
       'Real Research',
-      "퍼미션 거부 + Don't ask again(다시 묻지 않음) 체크 박스를 설정한 경우로 설정에서 퍼미션 허가해야합니다.",
+      '권한 거부와 다시 묻지 않음을 체크한 경우로 설정에서 권한을 허가해야합니다.',
       [
         {
           text: 'Cancel',
