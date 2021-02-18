@@ -211,15 +211,17 @@ class SignUp extends Component {
 
   smsAuthApi = async (device, phone) => {
     console.log('smsmsmsmsmsmsmsmsmsmsm');
+    console.log({deviceKey: device, phoneNum: phone});
+    console.log('smsmsmsmsmsmsmsmsmsmsm');
     await axios
       .post(`${server}/util/sms/auth`, {
         deviceKey: device,
         phoneNum: phone,
       })
       .then((response) => {
-        console.log(response);
-        console.log(response.data);
-        console.log(response.data.authkey);
+        console.log('smsAuthApi THEN>>', response);
+        console.log('smsAuthApi THEN>>', response.data);
+        console.log('smsAuthApi THEN>>', response.data.authkey);
         this.setState({
           phoneAuthCheck: response.data.ret_val,
           AuthKey: response.data.authkey,
@@ -227,7 +229,7 @@ class SignUp extends Component {
         return response.data.ret_val;
       })
       .catch((e) => {
-        console.log('eeee>>>>', e.response);
+        console.log('smsAuthApi ERROR>>', e.response);
       });
   };
   smsAuthApproveApi = async (authKey, phone) => {
@@ -406,7 +408,7 @@ class SignUp extends Component {
                   ]}
                 />
               </View>
-
+              {/* 인증 문자 재전송 */}
               {this.state.CountDownCheck == 'start' && (
                 <TouchableOpacity
                   onPress={async () => {
@@ -421,6 +423,7 @@ class SignUp extends Component {
 
                     // console.log(`+82${this.state.phoneNum.slice(1, undefined)}`);
                     console.log(
+                      'this.state.CountDownCheck start',
                       `${this.state.countryPhoneCode}${this.state.phoneNum}`,
                     );
                     console.log(
@@ -434,10 +437,10 @@ class SignUp extends Component {
                       )
                     ) {
                       this.handleReCountDown();
-                      this.setModalVisibleResend();
+                      this.setModalVisibleResend(true);
                       await this.smsAuthApi(
                         this.state.deviceKey,
-                        `${this.state.countryPhoneCode}${this.state.phoneNum}`,
+                        `+${this.state.countryPhoneCode}${this.state.phoneNum}`,
                       );
 
                       if (this.state.phoneAuthCheck == '-1') {
@@ -461,6 +464,7 @@ class SignUp extends Component {
                   </Text>
                 </TouchableOpacity>
               )}
+              {/* 인증문자 처음 발송 */}
               {this.state.CountDownCheck == '' && (
                 <TouchableOpacity
                   onPress={async () => {
@@ -473,7 +477,8 @@ class SignUp extends Component {
                     //   )}`,
                     // );
                     console.log(
-                      `+${this.state.countryPhoneCode}${this.state.phoneNum}`,
+                      'this.state.CountDownCheck ',
+                      `${this.state.countryPhoneCode}${this.state.phoneNum}`,
                     );
                     if (
                       isPossiblePhoneNumber(
@@ -483,7 +488,7 @@ class SignUp extends Component {
                       this.handleCountDown();
                       await this.smsAuthApi(
                         this.state.deviceKey,
-                        `+82${this.state.phoneNum.slice(1, undefined)}`,
+                        `+${this.state.countryPhoneCode}${this.state.phoneNum}`,
                       );
                       if (this.state.phoneAuthCheck == '-1') {
                         this.setModalVisibleNotPhone(true);
@@ -572,7 +577,7 @@ class SignUp extends Component {
                   style={[
                     ResetStyle.fontLightK,
                     ResetStyle.fontG,
-                    {marginLeft: '2%'},
+                    {marginLeft: '2%', textAlign: 'left'},
                   ]}>
                   {t('signUp9')}
                 </Text>
@@ -592,7 +597,12 @@ class SignUp extends Component {
                   style={[
                     ResetStyle.fontLightK,
                     ResetStyle.fontG,
-                    {marginLeft: '2%'},
+
+                    {
+                      marginLeft: '2%',
+
+                      textAlign: 'left',
+                    },
                   ]}>
                   {t('signUp10')}
                 </Text>
@@ -609,7 +619,7 @@ class SignUp extends Component {
               onPress={async () => {
                 await this.smsAuthApproveApi(
                   this.state.passWord,
-                  `+82${this.state.phoneNum.slice(1, undefined)}`,
+                  `+${this.state.countryPhoneCode}${this.state.phoneNum}`,
                 );
                 if (this.state.AuthKeyCheck == '-3') {
                   this.setModalVisibleNotAuth(true);
