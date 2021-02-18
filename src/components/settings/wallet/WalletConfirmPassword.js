@@ -157,6 +157,12 @@ const WalletConfirmPassword = ({navigation, route}) => {
         <View>
           <View style={[ResetStyle.topBackButton]}>
             <TouchableOpacity
+              style={{
+                padding: 5,
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexDirection: 'row',
+              }}
               onPress={() => {
                 navigation.goBack();
               }}>

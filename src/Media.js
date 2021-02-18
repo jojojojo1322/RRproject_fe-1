@@ -27,6 +27,7 @@ const Media = ({navigation}) => {
         <View style={{marginLeft: '5%', marginRight: '5%'}}>
           <View style={ResetStyle.topBackButton}>
             <TouchableOpacity
+              style={{flexDirection: 'row', alignItems: 'center'}}
               onPress={() => {
                 navigation.goBack();
               }}>
@@ -38,10 +39,10 @@ const Media = ({navigation}) => {
                 }}
                 source={require('./imgs/backIcon.png')}
               />
+              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+                {t('mediaTitle')}
+              </Text>
             </TouchableOpacity>
-            <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-              {t('mediaTitle')}
-            </Text>
           </View>
         </View>
         <WebView source={{uri: 'https://media.realresearcher.com'}} />

@@ -275,6 +275,15 @@ export default ko = {
       profileIncompleteDetail5: '선택 가능한 답변 개수를 초과했습니다.',
       profileIncompleteDetail6: '이미 등록 완료되었습니다.',
 
+      // ProfileIncompleteDetailLevel2 RR-Profile-04-프로필메인-Level 별 KYC 인증1 상단 & 하단 & modal(pop up)창
+      profileIncompleteDetailLevel2_Title: 'Level {{kycLevel}} KYC',
+      profileIncompleteDetailLevel2_1: '취소',
+      profileIncompleteDetailLevel2_2: '이전',
+      profileIncompleteDetailLevel2_3: '제출',
+      profileIncompleteDetailLevel2_4: '다음',
+      profileIncompleteDetailLevel2_5: '선택 가능한 답변 개수를 초과했습니다.',
+      profileIncompleteDetailLevel2_6: '이미 등록 완료되었습니다.',
+
       // WalletPassword RR-00-05-04-로그인-지갑 비밀번호설정
       WalletPasswordTitle: '지갑 비밀번호',
       WalletPassword1: '지갑 전송 시 사용할\n6자리 비밀번호를 입력해주세요.',

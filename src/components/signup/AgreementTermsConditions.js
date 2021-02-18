@@ -120,7 +120,7 @@ class AgreementTermsConditions extends Component {
             <View>
               <View style={ResetStyle.topBackButton}>
                 <TouchableOpacity
-                  style={{flexDirection: 'row'}}
+                  style={{flexDirection: 'row', alignItems: 'center'}}
                   onPress={() => {
                     this.props.navigation.goBack();
                   }}>

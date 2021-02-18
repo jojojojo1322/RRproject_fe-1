@@ -91,7 +91,7 @@ const SettingsWallet = ({navigation}) => {
             {marginLeft: '5%', marginRight: '5%'},
           ]}>
           <TouchableOpacity
-            style={{flexDirection: 'row'}}
+            style={{flexDirection: 'row', alignItems: 'center'}}
             onPress={() => {
               navigation.goBack();
             }}>

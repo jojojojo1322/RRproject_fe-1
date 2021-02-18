@@ -43,7 +43,7 @@ const WalletDetail = (props) => {
         {/* topBackButton */}
         <View style={[ResetStyle.topBackButton, {marginHorizontal: '5%'}]}>
           <TouchableOpacity
-            style={{flexDirection: 'row'}}
+            style={{flexDirection: 'row', alignItems: 'center'}}
             onPress={() => {
               props.navigation.goBack();
             }}>

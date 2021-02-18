@@ -282,7 +282,7 @@ export default en = {
       profileIncompleteDetail5: 'Answers you can select have been exceeded.',
       profileIncompleteDetail6: 'Register already completed.',
 
-      // ProfileIncompleteDetail
+      // ProfileIncompleteDetailLevel2
       profileIncompleteDetailLevel2_Title: 'Level {{kycLevel}} KYC',
       profileIncompleteDetailLevel2_1: 'Cancel',
       profileIncompleteDetailLevel2_2: 'Back',
@@ -310,6 +310,7 @@ export default en = {
         'If you lose the Master Key, there is no way to find it. So, make sure to save it somewhere else!',
       WalletMasterKey3: 'Click to copy.',
       WalletMasterKey4: 'Enter',
+      WalletMasterKey5: 'Copied',
 
       // Reset
       resetTitle: 'Change password',

@@ -310,6 +310,7 @@ export default pt = {
         'If you lose the Master Key, there is no way to find it. So, make sure to save it somewhere else!',
       WalletMasterKey3: 'Click to copy.',
       WalletMasterKey4: 'Enter',
+      WalletMasterKey5: 'Copied',
 
       // Reset
       resetTitle: 'Change password',

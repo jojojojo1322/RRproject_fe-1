@@ -294,6 +294,7 @@ export default function WalletSend({navigation, route}) {
           {/* topBackButton */}
           <View style={ResetStyle.topBackButton}>
             <TouchableOpacity
+              style={{flexDirection: 'row', alignItems: 'center'}}
               onPress={() => {
                 navigation.goBack();
               }}>
@@ -305,10 +306,10 @@ export default function WalletSend({navigation, route}) {
                 }}
                 source={require('../../../imgs/backIcon.png')}
               />
+              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+                {t('walletSendTitle')}
+              </Text>
             </TouchableOpacity>
-            <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-              {t('walletSendTitle')}
-            </Text>
           </View>
 
           {/* Body */}
