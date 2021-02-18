@@ -53,9 +53,17 @@ const CountryList = (props) => {
   console.log('props.searchTextprops.searchText', props.searchText);
   console.log('props.searchTextprops.searchText', props.list);
   if (props.searchText !== '') {
+    // DATA = props.list.filter(
+    //   (data) => console.log(data),
+    //   data.nativeName.toLowerCase().indexOf(props.searchText.toLowerCase()) !==
+    //     -1,
+    // );
     DATA = props.list.filter(
       (data) =>
         data.nativeName
+          .toLowerCase()
+          .indexOf(props.searchText.toLowerCase()) !== -1 ||
+        data.englishName
           .toLowerCase()
           .indexOf(props.searchText.toLowerCase()) !== -1,
     );
