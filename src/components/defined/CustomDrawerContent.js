@@ -105,7 +105,7 @@ const CustomDrawerContent = (props) => {
     await axios
       .get(`${server}/noti/${await AsyncStorage.getItem('userNo')}`)
       .then((response) => {
-        console.log('notiGetTHEN', response.data);
+        console.log('alertDataApi THEN>>', response.data);
         setAlertData(response.data);
         setAlertDataNot(response.data.filter((data) => data.status == false));
         // var arr = response.data.filter((data) => {
@@ -115,7 +115,7 @@ const CustomDrawerContent = (props) => {
         // setAlertDataNot(arr);
       })
       .catch((e) => {
-        console.log('notiGetError', e);
+        console.log('alertDataApi ERROR>>', e);
       });
   };
 
@@ -127,11 +127,11 @@ const CustomDrawerContent = (props) => {
         )}`,
       )
       .then((response) => {
-        console.log('passportApi Then', response.data);
+        console.log('passportApi THEN>>', response.data);
         setIdData(response.data);
       })
       .catch((e) => {
-        console.log('passportApi error', e);
+        console.log('passportApi ERROR>>', e);
       });
   };
 
@@ -142,11 +142,11 @@ const CustomDrawerContent = (props) => {
     axios
       .patch(`${server}/noti/${id}`)
       .then((response) => {
-        console.log('notiCheckTHEN', response.data);
+        console.log('alertCheckApi THEN>>', response.data);
         alertDataApi();
       })
       .catch((e) => {
-        console.log('notiCheckError', e);
+        console.log('alertCheckApi ERROR>>', e);
       });
   };
 
@@ -155,12 +155,13 @@ const CustomDrawerContent = (props) => {
     await axios
       .get(`${server}/wallet/${await AsyncStorage.getItem('email')}`)
       .then((response) => {
+        console.log('getWalletApi THEN>>', response);
         setWalletData(response.data);
         setTotal(Number(response.data.balance.replace(' TNC', '')));
         console.log('drawer Data>>>>>', walletData);
       })
       .catch((e) => {
-        console.log('error', e);
+        console.log('getWalletApi ERROR>>', e);
       });
   };
 
@@ -172,12 +173,12 @@ const CustomDrawerContent = (props) => {
         // `${server}/user/user?userNo=210127104026300`,
       )
       .then(async (response) => {
-        console.log('userApi >>>>', response);
+        console.log('userApi THEN>>', response);
         setKycLevel(response.data.userLevel);
         // setMailId(response.data.mailId);
       })
       .catch((e) => {
-        console.log('Error', e);
+        console.log('userApi ERROR>>', e);
       });
   };
 

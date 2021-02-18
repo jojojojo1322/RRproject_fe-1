@@ -24,10 +24,16 @@ class SettingsPersonalPasswordChange extends Component {
     ret_val: '',
     userNo: '',
     modalVisible: false,
+    modal2Visible: false,
   };
   setModalVisible = (visible) => {
     this.setState({
       modalVisible: visible,
+    });
+  };
+  setModal2Visible = (visible) => {
+    this.setState({
+      modal2Visible: visible,
     });
   };
   validateEmail = (email) => {
@@ -200,6 +206,11 @@ class SettingsPersonalPasswordChange extends Component {
               //   // // console.log(await AsyncStorage.getItem('authKey'));
               // }
               // 본인 이메일인지 체크
+              //
+              //
+              //
+              //
+              //
               if (this.validateEmail(this.state.email)) {
                 await this.emailUserCheckApi(this.state.email);
                 if (this.state.ret_val == '-2') {
@@ -215,15 +226,19 @@ class SettingsPersonalPasswordChange extends Component {
                     });
                   } else {
                     console.log('본인 이메일이 아님');
+                    this.setModal2Visible(true);
                   }
                 } else if (this.state.ret_val == '0') {
                   this.setModalVisible(true);
                 }
-                // this.emailReAuthApi(this.state.email);
-                // // const asy = 'aaaaaaa';
-                // // await AsyncStorage.setItem('authKey', asy);
-                // // console.log(await AsyncStorage.getItem('authKey'));
               }
+              //
+              //
+              //
+              //
+              //
+              //
+              //
 
               // 본부장님 테스트용
               // this.emailReAuthApi(this.state.email);
@@ -241,6 +256,11 @@ class SettingsPersonalPasswordChange extends Component {
             setModalVisible={this.setModalVisible}
             modalVisible={this.state.modalVisible}
             text={t('settinsPersonalPasswordChange5')}
+          />
+          <BottomModal
+            setModalVisible={this.setModal2Visible}
+            modalVisible={this.state.modal2Visible}
+            text={`본인 이메일을 작성하여 주십시오.`}
           />
         </View>
       </SafeAreaView>

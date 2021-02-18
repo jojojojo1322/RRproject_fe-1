@@ -24,6 +24,7 @@ class SettingsPersonalEmail extends Component {
     authKey: this.props.route.params?.authKey,
     modalVisible: false,
     modal2Visible: false,
+    modal3Visible: false,
     isRunning: true,
     timeLeftNumber: 180,
     CountDownCheck: '',
@@ -37,6 +38,11 @@ class SettingsPersonalEmail extends Component {
   setModal2Visible = (visible) => {
     this.setState({
       modal2Visible: visible,
+    });
+  };
+  setModal3Visible = (visible) => {
+    this.setState({
+      modal3Visible: visible,
     });
   };
   validateEmail = (email) => {
@@ -190,6 +196,7 @@ class SettingsPersonalEmail extends Component {
             <TouchableOpacity
               style={ResetStyle.textInputRe}
               onPress={() => {
+                this.setModal3Visible(true);
                 this.handleReCountDown();
                 this.emailReAuthApi(this.state.email);
               }}>
@@ -244,6 +251,11 @@ class SettingsPersonalEmail extends Component {
             setModalVisible={this.setModal2Visible}
             modalVisible={this.state.modal2Visible}
             text={t('settingsPersonalEmail6')}
+          />
+          <BottomModal
+            setModalVisible={this.setModal3Visible}
+            modalVisible={this.state.modal3Visible}
+            text={t('signUpModal2')}
           />
         </View>
       </SafeAreaView>

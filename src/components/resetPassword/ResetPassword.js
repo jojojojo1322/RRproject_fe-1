@@ -163,7 +163,32 @@ class ResetPassword extends Component {
                     ResetStyle.fontRegularK,
                     ResetStyle.fontG,
                     ResetStyle.textInputText,
-                  ]}></TextInput>
+                  ]}
+                  onBlur={() => {
+                    if (
+                      this.state.checkPassword == '' ||
+                      this.state.password == ''
+                    ) {
+                      this.setState({
+                        checkBoolean: '',
+                      });
+                    } else if (
+                      this.state.checkPassword == this.state.password
+                    ) {
+                      this.setState({
+                        checkBoolean: true,
+                      });
+                    } else if (
+                      this.state.checkPassword != this.state.password
+                    ) {
+                      this.setState({
+                        checkBoolean: false,
+                      });
+                    }
+                  }}
+                  blurOnSubmit={false}
+                  onSubmitEditing={() => Keyboard.dismiss()}
+                  textContentType={'oneTimeCode'}></TextInput>
                 <TouchableOpacity
                   style={[ResetStyle.textInputTextButton, {top: '45%'}]}
                   onPress={() => {
@@ -349,7 +374,10 @@ class ResetPassword extends Component {
                     ResetStyle.fontRegularK,
                     ResetStyle.fontG,
                     ResetStyle.textInputText,
-                  ]}></TextInput>
+                  ]}
+                  blurOnSubmit={false}
+                  onSubmitEditing={() => Keyboard.dismiss()}
+                  textContentType={'oneTimeCode'}></TextInput>
                 {/* <Image
                     style={ResetStyle.smallImg}
                     source={require('../../imgs/icoViewD.png')}
@@ -400,6 +428,18 @@ class ResetPassword extends Component {
                     </Text>
                   </>
                 )}
+              {this.state.checkBoolean == true && (
+                <>
+                  <Image
+                    style={ResetStyle.smallImg}
+                    source={require('../../imgs/iconCheckedM.png')}
+                  />
+                  <Text
+                    style={{color: '#0080ff', fontSize: 14, marginLeft: 10}}>
+                    {t('signUpPersonal17')}
+                  </Text>
+                </>
+              )}
             </View>
           </View>
           {/* 비밀번호 */}

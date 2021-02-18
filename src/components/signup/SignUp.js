@@ -628,7 +628,7 @@ class SignUp extends Component {
                 } else if (this.state.AuthKeyCheck == '0') {
                   this.props.navigation.navigate('AgreementTermsConditions', {
                     deviceKey: this.state.deviceKey,
-                    phoneNum: `+82${this.state.phoneNum.slice(1, undefined)}`,
+                    phoneNum: `+${this.state.countryPhoneCode}${this.state.phoneNum}`,
                   });
                   this.props.navigation.setOptions({title: '약관동의'});
                 }
