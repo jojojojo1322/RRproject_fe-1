@@ -1384,7 +1384,8 @@ function Main({navigation, t, i18n}) {
               alignSelf: 'center',
               backgroundColor: '#e2e2e2',
               width: '0.4%',
-            }}></View>
+            }}
+          />
           <TouchableOpacity
             onPress={() => {
               navigation.navigate('WalletMain', {
@@ -1415,10 +1416,14 @@ function Main({navigation, t, i18n}) {
         initialRouteName="Ongoing"
         lazy={false}
         tabBarOptions={{
+          pressOpacity: 1,
           activeTintColor: '#222',
           inactiveTintColor: '#a9a9a9',
           labelStyle: {fontSize: Platform.OS === 'ios' ? 18 : 15},
-          style: {backgroundColor: 'transparent', height: 50},
+          style: {
+            backgroundColor: 'transparent',
+            height: 50,
+          },
           indicatorStyle: {
             width: '4%',
             height: 2,

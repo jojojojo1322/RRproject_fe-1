@@ -1,20 +1,18 @@
-import React, {Component, useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
-  StyleSheet,
   ScrollView,
   View,
   Text,
   Image,
   SafeAreaView,
   TouchableOpacity,
-  TouchableOpacityBase,
   Platform,
 } from 'react-native';
 import ResetStyle from '../../style/ResetStyle.js';
+import MainStyle from '../../style/MainStyle.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {server} from '../defined/server';
-import Reset from '../resetPassword/Reset.js';
 
 import AudienceModal from '../factory/modal/AudienceModal';
 import TextConfirmCancelModal from '../factory/modal/TextConfirmCancelModal';
@@ -197,221 +195,175 @@ const MainDetailCompleted = (props) => {
   console.log('surveyDetailsurveyDetailsurveyDetail', surveyDetail);
   return (
     <SafeAreaView style={[ResetStyle.container]}>
-      <ScrollView style={{paddingLeft: '5%', paddingRight: '5%'}}>
-        <TouchableOpacity
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            width: '15%',
-            paddingTop: Platform.OS === 'ios' ? '2%' : '5%',
-            paddingBottom: Platform.OS === 'ios' ? '4%' : '2%',
-          }}
-          onPress={() => {
-            props.navigation.goBack();
-          }}>
-          <Image
+      <ScrollView>
+        <View style={[MainStyle.mainDetailContainerInner]}>
+          <TouchableOpacity
             style={{
-              width: Platform.OS === 'ios' ? 28 : 22,
-              height: Platform.OS === 'ios' ? 28 : 22,
-              resizeMode: 'contain',
+              flexDirection: 'row',
+              alignItems: 'center',
+              width: '15%',
+              paddingTop: Platform.OS === 'ios' ? '2%' : '5%',
+              paddingBottom: Platform.OS === 'ios' ? '4%' : '2%',
             }}
-            source={require('../../imgs/backIcon.png')}
-          />
-        </TouchableOpacity>
+            onPress={() => {
+              props.navigation.goBack();
+            }}>
+            <Image
+              style={{
+                width: Platform.OS === 'ios' ? 28 : 22,
+                height: Platform.OS === 'ios' ? 28 : 22,
+                resizeMode: 'contain',
+              }}
+              source={require('../../imgs/backIcon.png')}
+            />
+          </TouchableOpacity>
 
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={[ResetStyle.fontLightK, ResetStyle.fontDG]}>
-              {surveyDetail.categoryName}
-            </Text>
-            <Text style={[ResetStyle.fontLightK, ResetStyle.fontDG]}> | </Text>
-            <Text style={[ResetStyle.fontLightK, ResetStyle.fontDG]}>
-              {surveyDetail.sponsorName}
-            </Text>
-          </View>
+          <View style={[MainStyle.mainDetailSurveyCategory]}>
+            <View style={[MainStyle.mainDetailSurveyCategoryInner]}>
+              <Text style={[ResetStyle.fontLightK, ResetStyle.fontDG]}>
+                {surveyDetail.categoryName}
+              </Text>
+              <Text style={[ResetStyle.fontLightK, ResetStyle.fontDG]}>
+                {' '}
+                |{' '}
+              </Text>
+              <Text style={[ResetStyle.fontLightK, ResetStyle.fontDG]}>
+                {surveyDetail.sponsorName}
+              </Text>
+            </View>
 
-          {/* <TouchableOpacity>
+            {/* <TouchableOpacity>
               <Image
                 source={require('../../imgs/shareIcon.png')}
               />
             </TouchableOpacity> */}
-        </View>
+          </View>
 
-        <View style={{marginBottom: 30}}>
           <Text
             style={[
               ResetStyle.fontMediumK,
               ResetStyle.fontBlack,
-              {textAlign: 'left', marginTop: 10},
+              MainStyle.mainDetailSurveyTitle,
             ]}>
             {surveyDetail.surveyName}
           </Text>
-        </View>
-        <View
-          style={{
-            //   flex: 1,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBottom: 15,
-          }}>
-          <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
-            <Text style={[ResetStyle.fontBoldK, ResetStyle.fontB]}>
-              +{surveyDetail.reward}
-            </Text>
-            <Text
-              style={[ResetStyle.fontRegularK, ResetStyle.fontB, {padding: 5}]}>
-              TNC
+          <View style={[MainStyle.mainDetailTncAudienceView]}>
+            <View style={[MainStyle.mainDetailTnc]}>
+              <Text style={[ResetStyle.fontBoldK, ResetStyle.fontB]}>
+                +{surveyDetail.reward}
+              </Text>
+              <Text
+                style={[
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontB,
+                  {padding: 5},
+                ]}>
+                TNC
+              </Text>
+            </View>
+            <TouchableOpacity
+              style={[ResetStyle.buttonSmall]}
+              onPress={() => {
+                setModalVisible(true);
+              }}>
+              <Text style={[ResetStyle.fontRegularK, ResetStyle.fontWhite]}>
+                {t('')}
+                Audience
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={[MainStyle.mainDetailGrayLine]} />
+          <Text
+            style={[
+              ResetStyle.fontRegularK,
+              ResetStyle.fontBlack,
+              MainStyle.mainDetailEndsIn,
+            ]}>
+            {day >= 0 && hour >= 0 && min >= 0 && sec >= 0
+              ? `Ends In | ${day - 1}d ${hour}h ${min}m ${sec}s`
+              : `Ends In | 0d 0h 0m 0s`}
+          </Text>
+          <View style={[MainStyle.mainDetailProgressView]}>
+            <View style={[MainStyle.mainDetailProgressBackBar]} />
+            <View
+              style={[
+                MainStyle.mainDetailProgressFrontBar,
+                {
+                  width: `${
+                    (surveyDetail.participants /
+                      surveyDetail.particRestrictions) *
+                    100
+                  }%`,
+                },
+              ]}
+            />
+          </View>
+          <View style={[MainStyle.mainDetailParticipant]}>
+            <Text style={[ResetStyle.fontLightK, ResetStyle.fontB]}>
+              {`${surveyDetail.participants} / ${
+                surveyDetail.particRestrictions
+              }${'\n'}`}
             </Text>
           </View>
-          <TouchableOpacity
-            style={[ResetStyle.buttonSmall]}
-            onPress={() => {
-              setModalVisible(true);
-            }}>
-            <Text style={[ResetStyle.fontRegularK, ResetStyle.fontWhite]}>
-              {t('')}
-              Audience
-            </Text>
-          </TouchableOpacity>
         </View>
-        <View
-          style={{
-            borderBottomWidth: 1,
-            borderBottomColor: '#dedede',
-            marginBottom: 30,
-          }}></View>
-        <Text
-          style={[
-            ResetStyle.fontRegularK,
-            ResetStyle.fontBlack,
-            {textAlign: 'left'},
-          ]}>
-          {day >= 0 && hour >= 0 && min >= 0 && sec >= 0
-            ? `Ends In | ${day - 1}d ${hour}h ${min}m ${sec}s`
-            : `Ends In | 0d 0h 0m 0s`}
-        </Text>
-        <View
-          style={{
-            position: 'relative',
-            width: '100%',
-            height: 3,
-            alignSelf: 'center',
-            marginTop: '3%',
-            marginBottom: '2%',
-          }}>
-          <View
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              backgroundColor: '#d7d7d7',
-            }}></View>
-          <View
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: `${
-                (surveyDetail.participants / surveyDetail.particRestrictions) *
-                100
-              }%`,
-              height: '100%',
-              backgroundColor: '#0080ff',
-            }}></View>
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginBottom: '2%',
-          }}>
-          <Text style={[ResetStyle.fontLightK, ResetStyle.fontB]}>
-            {`${surveyDetail.participants} / ${
-              surveyDetail.particRestrictions
-            }${'\n'}`}
+        <Image
+          style={[MainStyle.mainDetailImg]}
+          source={{uri: surveyDetail.categoryImg}}
+        />
+
+        <View style={[MainStyle.mainDetailBottomView]}>
+          <Text
+            style={[
+              ResetStyle.fontRegularK,
+              ResetStyle.fontDG,
+              MainStyle.mainDetailSurveyInstruction,
+            ]}>
+            {surveyDetail.instructions}
           </Text>
-        </View>
-        <View
-          style={{
-            position: 'relative',
-            height: 260,
-          }}>
-          <Image
-            style={{
-              //   position: 'relative',
-              left: '-6%',
-              width: '112%',
-              height: '100%',
-              resizeMode: 'cover',
-            }}
-            source={{uri: surveyDetail.categoryImg}}
+
+          <AudienceModal
+            setModalVisible={setModalVisible}
+            modalVisible={modalVisible}
+            level={audience.audienceLevel}
+            age={audienceAge}
+            gender={
+              audience.gender === 'all'
+                ? t('mainDetail3')
+                : audience.gender === '0'
+                ? t('mainDetail4')
+                : audience.gender === '1'
+                ? t('mainDetail5')
+                : audience.gender === 'all'
+                ? t('mainDetail6')
+                : ''
+            }
+            maritalStatus={audience.relationShipStatus}
+            nationality={audience.nationality}
+            country={audience.residentCountry}
+            countryCity={audience.residentCity}
+            language={audienceLanguage}
+          />
+          <TextConfirmCancelModal
+            modalVisible={modal2Visible}
+            setModalVisible={setModal2Visible}
+            text={t('mainDetail7')}
+            confirm={t('mainDetail8')}
+            confirmHandle={confirmHandle}
+            cancel={t('mainDetail9')}
+            cancelHandle={cancelHandle}
+          />
+          <TextConfirmModal
+            modalVisible={modal3Visible}
+            setModalVisible={setModal3Visible}
+            text={t('mainDetail10')}
+            confirm={t('mainDetail11')}
+            handleNextPage={cancelHandle}
+          />
+          <ProgressModal
+            modalVisible={modal4Visible}
+            setModalVisible={setModal4Visible}
           />
         </View>
-
-        <Text
-          style={[
-            ResetStyle.fontRegularK,
-            ResetStyle.fontDG,
-            {
-              textAlign: 'left',
-              lineHeight: 28,
-              marginTop: 20,
-              marginBottom: 30,
-            },
-          ]}>
-          {surveyDetail.instructions}
-        </Text>
-
-        <AudienceModal
-          setModalVisible={setModalVisible}
-          modalVisible={modalVisible}
-          level={audience.audienceLevel}
-          age={audienceAge}
-          gender={
-            audience.gender === 'all'
-              ? t('mainDetail3')
-              : audience.gender === '0'
-              ? t('mainDetail4')
-              : audience.gender === '1'
-              ? t('mainDetail5')
-              : audience.gender === 'all'
-              ? t('mainDetail6')
-              : ''
-          }
-          maritalStatus={audience.relationShipStatus}
-          nationality={audience.nationality}
-          country={audience.residentCountry}
-          countryCity={audience.residentCity}
-          language={audienceLanguage}
-        />
-        <TextConfirmCancelModal
-          modalVisible={modal2Visible}
-          setModalVisible={setModal2Visible}
-          text={t('mainDetail7')}
-          confirm={t('mainDetail8')}
-          confirmHandle={confirmHandle}
-          cancel={t('mainDetail9')}
-          cancelHandle={cancelHandle}
-        />
-        <TextConfirmModal
-          modalVisible={modal3Visible}
-          setModalVisible={setModal3Visible}
-          text={t('mainDetail10')}
-          confirm={t('mainDetail11')}
-          handleNextPage={cancelHandle}
-        />
-        <ProgressModal
-          modalVisible={modal4Visible}
-          setModalVisible={setModal4Visible}
-        />
       </ScrollView>
     </SafeAreaView>
   );

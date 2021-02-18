@@ -512,7 +512,8 @@ const CustomDrawerContent = (props) => {
         {/* Invitaion code */}
         <TouchableOpacity
           onPress={() => {
-            props.navigation.navigate('Main');
+            // props.navigation.navigate('Main');
+            props.navigation.navigate('TestPage');
           }}
           style={MainStyle.drawerItem}>
           <Text

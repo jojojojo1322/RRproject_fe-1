@@ -270,4 +270,85 @@ export default StyleSheet.create({
     top: '80%',
     left: '10.5%',
   },
+
+  // MainDetail
+  mainDetailContainerInner: {
+    paddingHorizontal: '5%',
+  },
+  mainDetailSurveyCategory: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  mainDetailSurveyCategoryInner: {
+    flexDirection: 'row',
+  },
+  mainDetailSurveyTitle: {
+    textAlign: 'left',
+    marginTop: Platform.OS === 'ios' ? '2%' : '2%',
+    marginBottom: Platform.OS === 'ios' ? '6%' : '4%',
+  },
+  mainDetailTncAudienceView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: Platform.OS === 'ios' ? '3%' : '3%',
+  },
+  mainDetailTnc: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+  },
+  mainDetailGrayLine: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#dedede',
+    marginBottom: Platform.OS === 'ios' ? '7%' : '6%',
+  },
+  mainDetailEndsIn: {
+    textAlign: 'left',
+  },
+  mainDetailProgressView: {
+    position: 'relative',
+    width: '100%',
+    height: 3,
+    alignSelf: 'center',
+    marginTop: '3%',
+    marginBottom: '2%',
+  },
+  mainDetailProgressBackBar: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#d7d7d7',
+  },
+  mainDetailProgressFrontBar: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    height: '100%',
+    backgroundColor: '#0080ff',
+  },
+  mainDetailParticipant: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: '2%',
+  },
+  mainDetailImg: {
+    width: '100%',
+    height: Platform.OS === 'ios' ? 260 : 240,
+    resizeMode: 'cover',
+  },
+  mainDetailBottomView: {
+    paddingHorizontal: '5%',
+  },
+  mainDetailSurveyInstruction: {
+    textAlign: 'left',
+    lineHeight: 28,
+    marginTop: Platform.OS === 'ios' ? '3%' : '3%',
+    marginBottom: Platform.OS === 'ios' ? '3%' : '3%',
+  },
+  mainDetailNextButton: {
+    marginBottom: Platform.OS === 'ios' ? 0 : '5%',
+  },
 });

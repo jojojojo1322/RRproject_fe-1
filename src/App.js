@@ -96,6 +96,8 @@ import SettingsPersonalMasterKey from './components/settings/settingsDetail/pers
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import RNRestart from 'react-native-restart';
 
+import TestPage from './TestPage';
+
 console.disableYellowBox = true;
 
 const Stack = createStackNavigator();
@@ -616,6 +618,13 @@ export const AppMainStack = (props) => {
       <Stack.Screen
         name="IdVerificationSorry"
         component={IdVerificationSorry}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="TestPage"
+        component={TestPage}
         options={{
           headerShown: false,
         }}
