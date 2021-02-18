@@ -89,6 +89,62 @@ const IdVerification = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
 
+  const requestPermission = async (device) => {
+    try {
+      if (Platform.OS === 'ios') {
+        return await checkMultiple([device.CAMERA, device.PHOTO_LIBRARY]);
+      } else if (Platform.OS === 'android') {
+        return await checkMultiple([
+          device.CAMERA,
+          device.READ_EXTERNAL_STORAGE,
+          device.WRITE_EXTERNAL_STORAGE,
+        ]);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const handlePermission = async () => {
+    try {
+      const device =
+        Platform.OS === 'ios' ? PERMISSIONS.IOS : PERMISSIONS.ANDROID;
+
+      requestPermission(device).then((res) => {
+        const {DENIED, BLOCKED} = resultClassification(res);
+        const notGrantedArr = [...DENIED, ...BLOCKED];
+
+        const reQuestion = async () => {
+          if (notGrantedArr.length === 0) {
+            setLoading(true);
+          } else {
+            await requestMultiple(notGrantedArr).then((res) => {
+              console.log(res);
+              const {DENIED, BLOCKED} = resultClassification(res);
+
+              if (Platform.OS === 'ios') {
+                //  for ios
+                setLoading(true);
+              } else {
+                //for android
+                if (DENIED.length > 0) {
+                  RNExitApp.exitApp();
+                } else if (BLOCKED.length > 0) {
+                  openSettingAlert();
+                } else {
+                  setLoading(true);
+                }
+              }
+            });
+          }
+        };
+        reQuestion();
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   if (response === null) {
     ImgBox = (
       <View

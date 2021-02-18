@@ -7,6 +7,7 @@ import {
   FlatList,
   Linking,
   BackHandler,
+  Platform,
 } from 'react-native';
 import ResetStyle from '../../../style/ResetStyle.js';
 import WalletStyle from '../../../style/WalletStyle.js';
@@ -220,7 +221,11 @@ const WalletMain = (props) => {
               props.navigation.openDrawer();
             }}>
             <Image
-              style={[ResetStyle.topHamburgerImg]}
+              style={{
+                width: Platform.OS === 'ios' ? 25 : 20,
+                height: Platform.OS === 'ios' ? 25 : 20,
+                resizeMode: 'contain',
+              }}
               source={require('../../../imgs/menuIcon.png')}
             />
           </TouchableOpacity>
@@ -257,7 +262,11 @@ const WalletMain = (props) => {
                 postWalletHistoryApi();
               }}>
               <Image
-                style={{width: 30, height: 30, resizeMode: 'contain'}}
+                style={{
+                  width: Platform.OS === 'ios' ? 30 : 25,
+                  height: Platform.OS === 'ios' ? 30 : 25,
+                  resizeMode: 'contain',
+                }}
                 source={require('../../../imgs/walletRefreshIcon.png')}
               />
             </TouchableOpacity>

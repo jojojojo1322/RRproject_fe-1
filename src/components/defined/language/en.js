@@ -742,10 +742,10 @@ export default en = {
       main10: 'kyc 업데이트 후 72시간전 입니다.',
 
       // main page 카드 시간  RR-NEW-Main-1
-      days: 'days',
-      hours: 'hours',
-      minutes: 'minutes',
-      seconds: 'seconds',
+      days: 'd',
+      hours: 'h',
+      minutes: 'm',
+      seconds: 's',
 
       // main -> research page popup ++  RR-Main-02-06-메인-설문조사1단계
       researchForm5: '설문을 종료하시겠습니까?',
@@ -764,7 +764,7 @@ export default en = {
       settingsLockPattern8: '확인을 위해 한번 더 입력해 주세요.',
 
       // splash page   RR-00-01-01-스플래시1
-      splash: '블록체인 기반의 설문조사',
+      splash: 'Blockchain Based Survey',
     },
   },
 };
