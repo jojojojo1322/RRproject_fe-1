@@ -72,13 +72,12 @@ const ResearchForm = (props) => {
 
   // survey insert
   const postSurveyAnswerApi = async () => {
-    setModal4Visible(true);
     axios
       .post(`${server}/survey/answer`, checkedArray)
-      .then(async (response) => {
+      .then((response) => {
         console.log('postSurveyAnswerApi THEN >>>>', response);
         const ret = response.data.ret_val;
-        await setInsertSuccess(ret);
+        setInsertSuccess(ret);
       })
       .catch((e) => {
         console.log('postSurveyAnswerApi ERROR >>>>', e.response.data.message);
@@ -93,11 +92,9 @@ const ResearchForm = (props) => {
         }
         // console.error('postSurveyAnswerApi ERROR >>>>', e);
       });
-    setModal4Visible(false);
   };
   // survey Reward Api
   const postSurveyRewardApi = async () => {
-    setModal4Visible(true);
     axios
       .post(`${server}/wallet/trans/reward`, {
         language: await AsyncStorage.getItem('deviceLanguage'),
@@ -117,7 +114,6 @@ const ResearchForm = (props) => {
         console.log('postSurveyRewardApi ERROR >>>>', e.response);
         console.log('postSurveyRewardApi ERROR >>>>', e.response.data.message);
       });
-    setModal4Visible(false);
   };
   // survey question get
   const getSurveyQuestionApi = async () => {
@@ -221,6 +217,7 @@ const ResearchForm = (props) => {
           advertiseUrl: props.route.params?.advertiseUrl,
         });
       }
+
       // props.navigation.replace('MainVideo', {
       //   legacySurveyId: legacySurveyId,
       //   surveyArray: checkedArray,
@@ -229,6 +226,8 @@ const ResearchForm = (props) => {
       //   advertiseUrl: props.route.params?.advertiseUrl,
       // });
     }
+    //progressive 종료
+    setModal4Visible(false);
   }, [insertSuccess]);
   const confirmHandle = () => {
     props.navigation.goBack();
@@ -267,6 +266,8 @@ const ResearchForm = (props) => {
       );
     }
     if (_nowIndex === surveyLength - 1) {
+      // progressive 시작
+      setModal4Visible(true);
       console.log('lastArray', checkedArray);
       postSurveyAnswerApi();
       console.log('insertSuccess', insertSuccess);

@@ -756,7 +756,7 @@ export default ru = {
 
       // kyc profile popup ++  RR-Profile-02-02-My Profile_level
       profileAll6:
-        '`KYC업데이트 시 72시간동안\n설문조사에 참여하실 수 없습니다.\nKYC업데이트를 진행하시겠습니까?`',
+        'KYC업데이트 시 72시간동안\n설문조사에 참여하실 수 없습니다.\nKYC업데이트를 진행하시겠습니까?',
 
       // pattern password popup ++ RR-Setting-03-03-01-잠금설정-패턴
       settingsLockPattern5: '잠금해제 패턴을 입력해 주세요.',
