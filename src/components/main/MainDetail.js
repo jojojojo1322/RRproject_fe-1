@@ -1,20 +1,18 @@
-import React, {Component, useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
-  StyleSheet,
   ScrollView,
   View,
   Text,
   Image,
   SafeAreaView,
   TouchableOpacity,
-  TouchableOpacityBase,
   Platform,
 } from 'react-native';
 import ResetStyle from '../../style/ResetStyle.js';
+import MainStyle from '../../style/MainStyle.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {server} from '../defined/server';
-import Reset from '../resetPassword/Reset.js';
 
 import AudienceModal from '../factory/modal/AudienceModal';
 import TextConfirmCancelModal from '../factory/modal/TextConfirmCancelModal';
@@ -27,6 +25,7 @@ import {useTranslation} from 'react-i18next';
 import Moment from 'react-moment';
 import moment from 'moment';
 import 'moment-timezone';
+import Main from './Main.js';
 
 const MainDetail = (props) => {
   const {t, i18n} = useTranslation();
@@ -227,16 +226,15 @@ const MainDetail = (props) => {
 
   return (
     <SafeAreaView style={[ResetStyle.container]}>
-      {/* <ScrollView style={{paddingLeft: '5%', paddingRight: '5%'}}> */}
       <ScrollView>
-        <View style={{paddingHorizontal: '5%'}}>
+        <View style={[MainStyle.mainDetailContainerInner]}>
           <TouchableOpacity
             style={{
               flexDirection: 'row',
               alignItems: 'center',
               width: '15%',
               paddingTop: Platform.OS === 'ios' ? '2%' : '5%',
-              paddingBottom: Platform.OS === 'ios' ? '4%' : '2%',
+              paddingBottom: Platform.OS === 'ios' ? '4%' : '4%',
             }}
             onPress={() => {
               props.navigation.goBack();
@@ -251,13 +249,8 @@ const MainDetail = (props) => {
             />
           </TouchableOpacity>
 
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}>
-            <View style={{flexDirection: 'row'}}>
+          <View style={[MainStyle.mainDetailSurveyCategory]}>
+            <View style={[MainStyle.mainDetailSurveyCategoryInner]}>
               <Text style={[ResetStyle.fontLightK, ResetStyle.fontDG]}>
                 {surveyDetail.categoryName}
               </Text>
@@ -277,25 +270,16 @@ const MainDetail = (props) => {
             </TouchableOpacity> */}
           </View>
 
-          <View style={{marginBottom: 30}}>
-            <Text
-              style={[
-                ResetStyle.fontMediumK,
-                ResetStyle.fontBlack,
-                {textAlign: 'left', marginTop: 10},
-              ]}>
-              {surveyDetail.surveyName}
-            </Text>
-          </View>
-          <View
-            style={{
-              //   flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginBottom: 15,
-            }}>
-            <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
+          <Text
+            style={[
+              ResetStyle.fontMediumK,
+              ResetStyle.fontBlack,
+              MainStyle.mainDetailSurveyTitle,
+            ]}>
+            {surveyDetail.surveyName}
+          </Text>
+          <View style={[MainStyle.mainDetailTncAudienceView]}>
+            <View style={[MainStyle.mainDetailTnc]}>
               <Text style={[ResetStyle.fontBoldK, ResetStyle.fontB]}>
                 +{surveyDetail.reward}
               </Text>
@@ -319,58 +303,31 @@ const MainDetail = (props) => {
               </Text>
             </TouchableOpacity>
           </View>
-          <View
-            style={{
-              borderBottomWidth: 1,
-              borderBottomColor: '#dedede',
-              marginBottom: 30,
-            }}></View>
+          <View style={[MainStyle.mainDetailGrayLine]} />
           <Text
             style={[
               ResetStyle.fontRegularK,
               ResetStyle.fontBlack,
-              {textAlign: 'left'},
+              MainStyle.mainDetailEndsIn,
             ]}>
             {`Ends In | ${day - 1}d ${hour}h ${min}m ${sec}s`}
           </Text>
-          <View
-            style={{
-              position: 'relative',
-              width: '100%',
-              height: 3,
-              alignSelf: 'center',
-              marginTop: '3%',
-              marginBottom: '2%',
-            }}>
+          <View style={[MainStyle.mainDetailProgressView]}>
+            <View style={[MainStyle.mainDetailProgressBackBar]} />
             <View
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-                backgroundColor: '#d7d7d7',
-              }}></View>
-            <View
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: `${
-                  (surveyDetail.participants /
-                    surveyDetail.particRestrictions) *
-                  100
-                }%`,
-                height: '100%',
-                backgroundColor: '#0080ff',
-              }}></View>
+              style={[
+                MainStyle.mainDetailProgressFrontBar,
+                {
+                  width: `${
+                    (surveyDetail.participants /
+                      surveyDetail.particRestrictions) *
+                    100
+                  }%`,
+                },
+              ]}
+            />
           </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginBottom: '2%',
-            }}>
+          <View style={[MainStyle.mainDetailParticipant]}>
             <Text style={[ResetStyle.fontLightK, ResetStyle.fontB]}>
               {`${surveyDetail.participants} / ${
                 surveyDetail.particRestrictions
@@ -379,33 +336,21 @@ const MainDetail = (props) => {
           </View>
         </View>
         <Image
-          style={{
-            width: '100%',
-            height: 260,
-            resizeMode: 'cover',
-          }}
+          style={[MainStyle.mainDetailImg]}
           source={{uri: surveyDetail.categoryImg}}
         />
-        <View style={{paddingHorizontal: '5%'}}>
+        <View style={[MainStyle.mainDetailBottomView]}>
           <Text
             style={[
               ResetStyle.fontRegularK,
               ResetStyle.fontDG,
-              {
-                textAlign: 'left',
-                lineHeight: 28,
-                marginTop: 20,
-                marginBottom: 30,
-              },
+              MainStyle.mainDetailSurveyInstruction,
             ]}>
             {surveyDetail.instructions}
           </Text>
 
           <TouchableOpacity
-            style={[
-              ResetStyle.button,
-              {marginBottom: Platform.OS === 'ios' ? 0 : '5%'},
-            ]}
+            style={[ResetStyle.button, MainStyle.mainDetailNextButton]}
             onPress={async () => {
               console.log('시작1');
               console.log({

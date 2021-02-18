@@ -1,16 +1,5 @@
-import React, {Component, useState, useEffect} from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  ScrollView,
-  Button,
-  TouchableOpacity,
-  Alert,
-  Image,
-  Platform,
-  FlatList,
-} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, TouchableOpacity, Alert, FlatList} from 'react-native';
 
 import {server} from '../defined/server';
 import axios from 'axios';
@@ -488,7 +477,6 @@ const ResearchForm = (props) => {
                 ResetStyle.fontRegularK,
                 ResetStyle.fontBlack,
                 ResearchStyle.researchQuestion,
-                {fontSize: 21},
               ]}>
               {data.questionName}
             </Text>
@@ -505,7 +493,7 @@ const ResearchForm = (props) => {
     <SafeAreaView style={ResetStyle.container}>
       <View
         style={[ResetStyle.containerInner, {marginLeft: 0, marginRight: 0}]}>
-        <View>
+        <View style={{flex: 1}}>
           <Text
             style={[
               ResetStyle.fontMediumK,
@@ -515,7 +503,7 @@ const ResearchForm = (props) => {
             {props.route.params?.surveyName}
           </Text>
 
-          <View style={([ResearchStyle.researchView], {marginTop: '10%'})}>
+          <View style={[ResearchStyle.researchView, {marginTop: '10%'}]}>
             {/* // */}
             {/* // */}
             {/* // */}
@@ -527,7 +515,7 @@ const ResearchForm = (props) => {
             {/* // */}
             {/* 해당 질문 option detail start */}
             <FlatList
-              style={{height: '50%'}}
+              style={{height: '70%'}}
               data={surveyOption.filter(
                 (d) => String(d.questionNum) === String(nowIndex + 1),
               )}
