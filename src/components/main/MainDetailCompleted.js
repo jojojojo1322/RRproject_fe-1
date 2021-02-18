@@ -198,28 +198,26 @@ const MainDetailCompleted = (props) => {
   return (
     <SafeAreaView style={[ResetStyle.container]}>
       <ScrollView style={{paddingLeft: '5%', paddingRight: '5%'}}>
-        <View
+        <TouchableOpacity
           style={{
             flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'flex-start',
+            width: '15%',
             paddingTop: Platform.OS === 'ios' ? '2%' : '5%',
-            paddingBottom: Platform.OS === 'ios' ? '6%' : '2%',
+            paddingBottom: Platform.OS === 'ios' ? '4%' : '2%',
+          }}
+          onPress={() => {
+            props.navigation.goBack();
           }}>
-          <TouchableOpacity
-            onPress={() => {
-              props.navigation.goBack();
-            }}>
-            <Image
-              style={{
-                width: Platform.OS === 'ios' ? 28 : 22,
-                height: Platform.OS === 'ios' ? 28 : 22,
-                resizeMode: 'contain',
-              }}
-              source={require('../../imgs/backIcon.png')}
-            />
-          </TouchableOpacity>
-        </View>
+          <Image
+            style={{
+              width: Platform.OS === 'ios' ? 28 : 22,
+              height: Platform.OS === 'ios' ? 28 : 22,
+              resizeMode: 'contain',
+            }}
+            source={require('../../imgs/backIcon.png')}
+          />
+        </TouchableOpacity>
 
         <View
           style={{

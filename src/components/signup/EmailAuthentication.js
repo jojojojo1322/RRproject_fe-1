@@ -297,26 +297,24 @@ class EmailAuthentication extends Component {
         <View style={ResetStyle.containerInner}>
           <View>
             {/* topBackButton */}
-            <View>
-              <View style={ResetStyle.topBackButton}>
-                <TouchableOpacity
-                  style={{flexDirection: 'row', alignItems: 'center'}}
-                  onPress={() => {
-                    this.props.navigation.goBack();
-                  }}>
-                  <Image
-                    style={{
-                      width: Platform.OS === 'ios' ? 28 : 22,
-                      height: Platform.OS === 'ios' ? 28 : 22,
-                      resizeMode: 'contain',
-                    }}
-                    source={require('../../imgs/backIcon.png')}
-                  />
-                  <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-                    {t('emailAuthenticationTitle')}
-                  </Text>
-                </TouchableOpacity>
-              </View>
+            <View style={ResetStyle.topBackButton}>
+              <TouchableOpacity
+                style={{flexDirection: 'row', alignItems: 'center'}}
+                onPress={() => {
+                  this.props.navigation.goBack();
+                }}>
+                <Image
+                  style={{
+                    width: Platform.OS === 'ios' ? 28 : 22,
+                    height: Platform.OS === 'ios' ? 28 : 22,
+                    resizeMode: 'contain',
+                  }}
+                  source={require('../../imgs/backIcon.png')}
+                />
+                <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+                  {t('emailAuthenticationTitle')}
+                </Text>
+              </TouchableOpacity>
             </View>
             <Text
               style={[
