@@ -28,6 +28,8 @@ const Wrapper = () => {
   const [versionCheck, setVersionCheck] = useState('FALSE');
   const [walletActive, setWalletActive] = useState('FALSE');
 
+  const [loginC, setLoginC] = useState(null);
+
   const handleUpdateStore = () => {
     const GOOGLE_STORE = 'market://details?id=com.realresearch.survey';
     const APP_STORE =
@@ -41,7 +43,9 @@ const Wrapper = () => {
   const handleExitApp = () => {
     RNExitApp.exitApp();
   };
-
+  const userCheck = async () => {
+    setLoginC(await AsyncStorage.getItem('userNo'));
+  };
   const ApiCheckVersion = async () => {
     setLoading(true);
     await axios
@@ -119,8 +123,10 @@ const Wrapper = () => {
   //   });
 
   useEffect(() => {
+    userCheck();
     // ApiCheckVersion();
     NonVersionCheckMode();
+
     console.log('current current current', current);
     console.log('version check check', versionCheck);
     console.log('walletActive check check', walletActive);
@@ -129,7 +135,7 @@ const Wrapper = () => {
   return (
     <>
       {checkVersion && loading ? (
-        <App />
+        <App loginC={loginC} />
       ) : (
         <Splash loading={loading} setLoading={setLoading} />
       )}
