@@ -202,7 +202,7 @@ class ResetPassword extends Component {
                     }
                   }}
                   blurOnSubmit={false}
-                  onSubmitEditing={() => Keyboard.dismiss()}
+                  // onSubmitEditing={() => Keyboard.dismiss()}
                   textContentType={'oneTimeCode'}></TextInput>
                 <TouchableOpacity
                   style={[ResetStyle.textInputTextButton, {top: '45%'}]}
@@ -391,7 +391,7 @@ class ResetPassword extends Component {
                     ResetStyle.textInputText,
                   ]}
                   blurOnSubmit={false}
-                  onSubmitEditing={() => Keyboard.dismiss()}
+                  // onSubmitEditing={() => Keyboard.dismiss()}
                   textContentType={'oneTimeCode'}></TextInput>
                 {/* <Image
                     style={ResetStyle.smallImg}

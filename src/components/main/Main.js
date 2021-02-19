@@ -484,29 +484,17 @@ function Ongoing({navigation, route}) {
   //
   //
   useEffect(() => {
-    console.log('마운트 진입');
-    console.log('마운트 진입');
-    console.log('마운트 진입');
     surveyApi('ongoing');
   }, []);
 
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    console.log('isFocused 진입');
-    console.log('isFocused 진입');
-    console.log('isFocused 진입');
-    console.log('isFocused 진입');
     if (isFocused === true) {
       surveyApi('ongoing');
     }
   }, [isFocused]);
-  useEffect(() => {
-    console.log('Main onGoing progress', modal2Visible);
-    console.log('Main onGoing progress', modal2Visible);
-    console.log('Main onGoing progress', modal2Visible);
-    console.log('Main onGoing progress', modal2Visible);
-  }, [modal2Visible]);
+  useEffect(() => {}, [modal2Visible]);
 
   return (
     <>
@@ -596,12 +584,7 @@ function Completed({navigation}) {
     }
   }, [isFocused]);
 
-  useEffect(() => {
-    console.log('Main COmplete progress', modal2Visible);
-    console.log('Main COmplete progress', modal2Visible);
-    console.log('Main COmplete progress', modal2Visible);
-    console.log('Main COmplete progress', modal2Visible);
-  }, [modal2Visible]);
+  useEffect(() => {}, [modal2Visible]);
 
   const renderItem = ({item}) => {
     // console.log('renderItem item', require("'" + item.categoryImg + "'"));
@@ -1204,12 +1187,7 @@ function Expired({navigation}) {
       );
     }
   };
-  useEffect(() => {
-    console.log('Main expired progress', modal2Visible);
-    console.log('Main expired progress', modal2Visible);
-    console.log('Main expired progress', modal2Visible);
-    console.log('Main expired progress', modal2Visible);
-  }, [modal2Visible]);
+  useEffect(() => {}, [modal2Visible]);
 
   const surveyApi = async (surveyStatus) => {
     // progress 호출
@@ -1291,7 +1269,7 @@ function Expired({navigation}) {
 
 const Tab = createMaterialTopTabNavigator();
 // export default function MainTest({navigation}) {
-function Main({navigation, t, i18n, route}) {
+function Main({navigation, t, i18n}) {
   const [currentTnc, setCurrentTnc] = useState(0);
   const [nonFixTnc, setNonFixTnc] = useState(0);
   const [kycLevel, setKycLevel] = useState(0);
@@ -1379,9 +1357,6 @@ function Main({navigation, t, i18n, route}) {
     }
   }, [isFocused]);
   useEffect(() => {
-    console.log('updateMount');
-    console.log('updateMount');
-    console.log('updateMount');
     userInfoApi();
     TncGetApi();
     YellowBox.ignoreWarnings([

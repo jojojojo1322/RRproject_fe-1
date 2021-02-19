@@ -62,12 +62,6 @@ class kycThird extends Component {
       preProps.Kcountry !== this.props.Kcountry &&
       this.props.KoriginalLan != ''
     ) {
-      console.log('this.props.KoriginalLan', this.props.KoriginalLan);
-      console.log('this.props.KoriginalLan', this.props.KoriginalLan);
-      console.log('this.props.KoriginalLan', this.props.KoriginalLan);
-      console.log('this.props.KoriginalLan', this.props.KoriginalLan);
-      console.log('this.props.KoriginalLan', this.props.KoriginalLan);
-      console.log('this.props.KoriginalLan', this.props.KoriginalLan);
       this.setState({
         countryCd: this.props.Kcountry,
         language: this.props.Klanguage,

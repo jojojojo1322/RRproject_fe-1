@@ -105,10 +105,7 @@ const Drawer = createDrawerNavigator();
 
 export const AppMainStack = (props) => {
   const [login, setLogin] = useState(null);
-  console.log('AppMainStack', props);
-  console.log('AppMainStack', props);
-  console.log('AppMainStack', props);
-  console.log('AppMainStack', props);
+
   const test = async () => {
     try {
       const result = await AsyncStorage.getItem('userNo');
@@ -125,33 +122,12 @@ export const AppMainStack = (props) => {
 
   useEffect(() => {
     test();
-    console.log(props);
   }, []);
 
   console.log('this.props.route.params?.login>?>?>', login);
 
   return (
-    // <Stack.Navigator initialRouteName="Main">
     <Stack.Navigator initialRouteName="Main">
-      {/* {this.state.login === null ? (
-          <Stack.Screen
-            name="Main"
-            component={Initial2}
-            options={{
-              headerShown: false,
-              // title: this.props.route.params?.step,
-              // title: route.params?.name,
-            }}
-          />
-        ) : (
-          <Stack.Screen
-            name="Main"
-            component={Main}
-            options={{
-              headerShown: false,
-            }}
-          />
-        )} */}
       {login === null && props.route.params?.loginC === null ? (
         <Stack.Screen
           name="Initial2"
@@ -635,10 +611,7 @@ export const AppMainStack = (props) => {
 
 const App = (props) => {
   const [login, setLogin] = useState(null);
-  console.log('APP PROPS', props);
-  console.log('APP PROPS', props);
-  console.log('APP PROPS', props);
-  console.log('APP PROPS', props);
+
   const test = async () => {
     try {
       const result = await AsyncStorage.getItem('userNo');
@@ -681,7 +654,6 @@ const App = (props) => {
     // RNRestart.Restart();
   };
   useEffect(() => {
-    // console.log('device', deviceLanguageSet());
     deviceLanguageSet();
     test();
     Orientation.lockToPortrait();
@@ -737,14 +709,6 @@ const App = (props) => {
     <NavigationContainer>
       {/* <Main /> */}
       <Drawer.Navigator
-        // initialRouteName={AppAuthStack}
-        // screenOptions={
-        //   {
-        //     // drawerLockMode: 'locked-open',
-        //     // gestureEnabled: false,
-        //     // swipeEnabled: false,
-        //   }
-        // }
         drawerContent={(props) => (
           <CustomDrawerContent {...props} login={login} />
         )}
@@ -760,7 +724,6 @@ const App = (props) => {
             margin: 0,
           },
         }}>
-        {/* {login !== null ? ( */}
         <Drawer.Screen
           name="초기"
           component={AppMainStack}
@@ -769,24 +732,10 @@ const App = (props) => {
             drawerLabel: () => null,
             title: undefined,
             drawerIcon: () => null,
-            // drawerLockMode: 'locked-opened',
+
             swipeEnabled: false,
-            // gestureEnabled: false,
           })}
         />
-
-        {/* <Drawer.Screen
-          name="초기"
-          // component={login !== null ? AppMainStack : AppAuthStack}
-          component={
-            login !== null ? AppMainStack : AppAuthStack
-          }
-          // options={() => ({
-          //   drawerLabel: () => null,
-          //   title: undefined,
-          //   drawerIcon: () => null,
-          // })}
-        /> */}
       </Drawer.Navigator>
     </NavigationContainer>
   );

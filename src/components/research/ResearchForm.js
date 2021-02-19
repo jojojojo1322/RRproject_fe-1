@@ -278,8 +278,6 @@ const ResearchForm = (props) => {
   useEffect(() => {
     getSurveyQuestionApi();
   }, []);
-  // useState(() => {
-  // }, [survey]);
 
   // [
   //   {

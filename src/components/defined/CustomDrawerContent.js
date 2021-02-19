@@ -47,15 +47,10 @@ const CustomDrawerContent = (props) => {
   const [alertDataNot, setAlertDataNot] = useState(0);
   const [kycLevel, setKycLevel] = useState(0);
 
-  const [loginStatus, setLoginStatus] = useState(props.login);
+  const [loginStatus, setLoginStatus] = useState(null);
   const [_email, set_Email] = useState('');
   const [page, setPage] = useState('');
-  // const ffff = useIsFocused();
-  // console.log('ffff', ffff);
-  // console.log('ffff', ffff);
-  // console.log('ffff', ffff);
-  // console.log('ffff', ffff);
-  // console.log(await AsyncStorage.getItem('userNo'));
+
   const handleEmail = () => {
     const to = ['rrmaster@gmail.com']; // string or array of email addresses
     email(to, {
@@ -73,13 +68,36 @@ const CustomDrawerContent = (props) => {
   };
 
   useEffect(() => {
-    alertDataApi();
-    emailAsyncSet();
-    getWalletApi();
-    userApi();
-    passportApi();
-    console.log('????????dfsdf', idData.passPortStatus);
-  }, [props.login]);
+    if (props.state.routes[0].state !== undefined) {
+      if (
+        page !==
+        props.state.routes[0].state.routes[
+          props.state.routes[0].state.routes.length - 1
+        ].name
+      ) {
+        console.log('진입');
+        console.log('진입');
+        alertDataApi();
+        emailAsyncSet();
+        getWalletApi();
+        userApi();
+        passportApi();
+        setPage(
+          props.state.routes[0].state.routes[
+            props.state.routes[0].state.routes.length - 1
+          ].name,
+        );
+      }
+    }
+  });
+  // useEffect(() => {
+  //   alertDataApi();
+  //   emailAsyncSet();
+  //   getWalletApi();
+  //   userApi();
+  //   passportApi();
+  //   console.log('????????dfsdf', idData.passPortStatus);
+  // }, [props.login]);
 
   useEffect(() => {
     alertDataApi();
@@ -89,32 +107,8 @@ const CustomDrawerContent = (props) => {
     passportApi();
     console.log('????????dfsdf', idData.passPortStatus);
   }, []);
-
-  // useEffect(() => {
-  //   if (props.state.routes[0].state !== undefined) {
-  //     if (
-  //       page !==
-  //       props.state.routes[0].state.routes[
-  //         props.state.routes[0].state.routes.length - 1
-  //       ].name
-  //     ) {
-  //       console.log('진입');
-  //       console.log('진입');
-  //       alertDataApi();
-  //       emailAsyncSet();
-  //       getWalletApi();
-  //       userApi();
-  //       passportApi();
-  //       setPage(
-  //         props.state.routes[0].state.routes[
-  //           props.state.routes[0].state.routes.length - 1
-  //         ].name,
-  //       );
-  //     }
-  //   }
-  // });
-
-  console.log('CUSTON>>>>', props.login);
+  //
+  // console.log('CUSTON>>>>', props.login);
   // alert API
   const alertDataApi = async () => {
     await axios

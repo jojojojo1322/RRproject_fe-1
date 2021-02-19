@@ -88,7 +88,7 @@ const Initial2 = (props) => {
         setDeviceCheck(response.data.ret_val);
       })
       .catch((e) => {
-        console.log('deviceKeyCheckApi ERROR>>', e);
+        'deviceKeyCheckApi ERROR>>', e;
         console.log('deviceKeyCheckApi ERROR>>', e.response);
       });
   };
