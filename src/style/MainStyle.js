@@ -10,7 +10,7 @@ export default StyleSheet.create({
   },
   drawerItemText: {
     textAlign: 'left',
-    paddingLeft: '5%',
+    paddingLeft: Platform.OS === 'ios' ? '8%' : '7%',
     width: '100%',
     paddingVertical: Platform.OS === 'ios' ? '5%' : '4%',
   },
@@ -233,7 +233,7 @@ export default StyleSheet.create({
     // justifyContent: 'flex-start',
     // paddingLeft: '5%',
     // paddingRight: '5%',
-    paddingTop: Platform.OS === 'ios' ? '15%' : '6%',
+    paddingTop: Platform.OS === 'ios' ? '13%' : '5%',
     paddingBottom: Platform.OS === 'ios' ? '3%' : '2%',
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,
