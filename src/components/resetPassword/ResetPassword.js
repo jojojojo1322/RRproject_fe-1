@@ -483,7 +483,7 @@ class ResetPassword extends Component {
               }
               if ((await this.state.ret_val) === 0) {
                 this.setModalVisible(true);
-                this.props.navigation.navigate('Login');
+                // this.props.navigation.navigate('Login');
               }
 
               //본부장님 테스트용

@@ -29,14 +29,14 @@ const Settings = ({navigation}) => {
       id: '2',
       title: t('settings2'),
     },
-    {
-      id: '3',
-      title: t('settings3'),
-    },
-    {
-      id: '4',
-      title: t('settings4'),
-    },
+    // {
+    //   id: '3',
+    //   title: t('settings3'),
+    // },
+    // {
+    //   id: '4',
+    //   title: t('settings4'),
+    // },
     {
       id: '5',
       title: t('settings5'),
