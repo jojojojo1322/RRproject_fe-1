@@ -134,9 +134,6 @@ function Ongoing({navigation, route}) {
 
   // const [loading, setLoading] = useState(false);
   const {t, i18n} = useTranslation();
-  console.log('ROUTE', navigation);
-  console.log('ROUTE', navigation);
-  console.log('ROUTE', navigation);
 
   const surveyDetailApi = async (legacySurveyId) => {
     await axios
@@ -168,16 +165,6 @@ function Ongoing({navigation, route}) {
     var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
     var sec = Math.ceil((gap % (1000 * 60)) / 1000);
-    console.log('업데이트 시간 비교', hour);
-    console.log({
-      today: today,
-      endTime: endTime,
-      gap: gap,
-      day: day,
-      hour: hour,
-      min: min,
-      sec: sec,
-    });
 
     if (item.status === 'zero') {
       return (
@@ -486,17 +473,36 @@ function Ongoing({navigation, route}) {
     // progress 끔
     setModal2Visible(false);
   };
-  useState(() => {
+  //
+  //
+  //
+  //
+  //
+  //
+  useEffect(() => {
+    console.log('마운트 진입');
+    console.log('마운트 진입');
+    console.log('마운트 진입');
     surveyApi('ongoing');
   }, []);
 
   const isFocused = useIsFocused();
 
   useEffect(() => {
+    console.log('isFocused 진입');
+    console.log('isFocused 진입');
+    console.log('isFocused 진입');
+    console.log('isFocused 진입');
     if (isFocused === true) {
       surveyApi('ongoing');
     }
   }, [isFocused]);
+  useEffect(() => {
+    console.log('Main onGoing progress', modal2Visible);
+    console.log('Main onGoing progress', modal2Visible);
+    console.log('Main onGoing progress', modal2Visible);
+    console.log('Main onGoing progress', modal2Visible);
+  }, [modal2Visible]);
 
   return (
     <>
@@ -569,6 +575,13 @@ function Completed({navigation}) {
       completeSurveyApi();
     }
   }, [isFocused]);
+
+  useEffect(() => {
+    console.log('Main COmplete progress', modal2Visible);
+    console.log('Main COmplete progress', modal2Visible);
+    console.log('Main COmplete progress', modal2Visible);
+    console.log('Main COmplete progress', modal2Visible);
+  }, [modal2Visible]);
 
   const renderItem = ({item}) => {
     // console.log('renderItem item', require("'" + item.categoryImg + "'"));
@@ -1153,6 +1166,12 @@ function Expired({navigation}) {
       );
     }
   };
+  useEffect(() => {
+    console.log('Main expired progress', modal2Visible);
+    console.log('Main expired progress', modal2Visible);
+    console.log('Main expired progress', modal2Visible);
+    console.log('Main expired progress', modal2Visible);
+  }, [modal2Visible]);
 
   const surveyApi = async (surveyStatus) => {
     // progress 호출
@@ -1177,7 +1196,7 @@ function Expired({navigation}) {
     // progress 끔
     setModal2Visible(false);
   };
-  useState(() => {
+  useEffect(() => {
     surveyApi('expired');
   }, []);
   const isFocused = useIsFocused();
@@ -1230,10 +1249,6 @@ function Main({navigation, t, i18n, route}) {
 
   //Kyc 72시간 경고 모달
   const [modalVisible, setModalVisible] = useState(false);
-  console.log('mainROUTE', route);
-  console.log('mainROUTE', route);
-  console.log('mainROUTE', route);
-  console.log('mainROUTE', route);
   const surveyDetailApi = async (legacySurveyId) => {
     await axios
       .get(

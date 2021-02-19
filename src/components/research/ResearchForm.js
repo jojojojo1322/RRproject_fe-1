@@ -84,6 +84,7 @@ const ResearchForm = (props) => {
   };
   // survey Reward Api
   const postSurveyRewardApi = async () => {
+    setModal4Visible(true);
     axios
       .post(`${server}/wallet/trans/reward`, {
         language: await AsyncStorage.getItem('deviceLanguage'),
@@ -103,6 +104,7 @@ const ResearchForm = (props) => {
         console.log('postSurveyRewardApi ERROR >>>>', e.response);
         console.log('postSurveyRewardApi ERROR >>>>', e.response.data.message);
       });
+    setModal4Visible(false);
   };
   // survey question get
   const getSurveyQuestionApi = async () => {
@@ -178,6 +180,14 @@ const ResearchForm = (props) => {
   };
   //
   useEffect(() => {
+    console.log('ResearchForm Progress', modal4Visible);
+    console.log('ResearchForm Progress', modal4Visible);
+    console.log('ResearchForm Progress', modal4Visible);
+    console.log('ResearchForm Progress', modal4Visible);
+  }, [modal4Visible]);
+  //
+  useEffect(() => {
+    // setModal4Visible(true);
     if (insertSuccess === 0) {
       if (props.route.params?.advertiseUrl === null) {
         console.log('props.route.params?.advertiseUrl null 진입');
@@ -216,7 +226,7 @@ const ResearchForm = (props) => {
       // });
     }
     //progressive 종료
-    setModal4Visible(false);
+    // setModal4Visible(false);
   }, [insertSuccess]);
   const confirmHandle = () => {
     props.navigation.goBack();
@@ -256,9 +266,10 @@ const ResearchForm = (props) => {
     }
     if (_nowIndex === surveyLength - 1) {
       // progressive 시작
-      setModal4Visible(true);
+      // setModal4Visible(true);
       console.log('lastArray', checkedArray);
       postSurveyAnswerApi();
+      // setModal4Visible(false);
       console.log('insertSuccess', insertSuccess);
     }
   };
@@ -349,7 +360,8 @@ const ResearchForm = (props) => {
   // console.log('surveyOption', surveyOption);
   const confirm2Handle = () => {
     // props.navigation.replace('Main');
-    props.navigation.goBack();
+    props.navigation.navigate('Main');
+    // props.navigation.goBack();
   };
   const RenderItem = (item) => {
     // id={item.id}
@@ -427,7 +439,7 @@ const ResearchForm = (props) => {
             </Text>
           </View>
           <RoundCheckbox
-            size={30}
+            size={25}
             keyValue={item.questionNum}
             checked={
               checkedArray.findIndex(

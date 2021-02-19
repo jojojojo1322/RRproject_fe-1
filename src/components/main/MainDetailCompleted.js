@@ -318,7 +318,7 @@ const MainDetailCompleted = (props) => {
               ResetStyle.fontDG,
               MainStyle.mainDetailSurveyInstruction,
             ]}>
-            {surveyDetail.instructions}
+            {` ${surveyDetail.instructions}`}
           </Text>
 
           <AudienceModal

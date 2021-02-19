@@ -58,6 +58,11 @@ const ProfileMain = ({navigation, route}) => {
   const [kycLevelNumber, setKycLevelNumber] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
+  console.log('navigation', navigation);
+  console.log('navigation', navigation);
+  console.log('navigation', navigation);
+  console.log('navigation', navigation);
+  console.log('navigation', navigation);
 
   const {t, i18n} = useTranslation();
 
@@ -100,7 +105,7 @@ const ProfileMain = ({navigation, route}) => {
                 KycLevel: level,
               });
             } else {
-              navigation.navigate('ProfileCompleteDetail', {
+              navigation.push('ProfileCompleteDetail', {
                 KycLevel: level,
               });
             }
@@ -112,7 +117,7 @@ const ProfileMain = ({navigation, route}) => {
                 KycLevel: level,
               });
             } else {
-              navigation.navigate('ProfileIncompleteDetail', {
+              navigation.push('ProfileIncompleteDetail', {
                 KycLevel: level,
               });
             }

@@ -9,12 +9,16 @@ import {
 } from 'react-native';
 
 const ProgressModal = ({modalVisible = false, setModalVisible}) => {
+  console.log('Progress >>> 호출');
+  console.log('Progress >>> 호출', modalVisible);
+
   return modalVisible ? (
     <Modal
       animationType="fade"
       transparent={true}
       visible={modalVisible}
-      onRequestClose={() => null}>
+      // onRequestClose={() => null}>
+    >
       <TouchableWithoutFeedback activeOpacity={0.55}>
         <View
           style={{
