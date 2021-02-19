@@ -1,5 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, TouchableOpacity, Alert, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Alert,
+  FlatList,
+  Platform,
+} from 'react-native';
 
 import {server} from '../defined/server';
 import axios from 'axios';
@@ -515,7 +522,14 @@ const ResearchForm = (props) => {
             {props.route.params?.surveyName}
           </Text>
 
-          <View style={[ResearchStyle.researchView, {marginTop: '10%'}]}>
+          <View
+            style={[
+              ResearchStyle.researchView,
+              {
+                marginTop: '10%',
+                paddingBottom: Platform.OS === 'ios' ? 0 : '10%',
+              },
+            ]}>
             {/* // */}
             {/* // */}
             {/* // */}
@@ -527,7 +541,9 @@ const ResearchForm = (props) => {
             {/* // */}
             {/* 해당 질문 option detail start */}
             <FlatList
-              style={{height: '70%'}}
+              style={{
+                height: '70%',
+              }}
               data={surveyOption.filter(
                 (d) => String(d.questionNum) === String(nowIndex + 1),
               )}
