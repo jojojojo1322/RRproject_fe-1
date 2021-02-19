@@ -348,8 +348,11 @@ class EmailAuthentication extends Component {
                   ]}>
                   <View
                     style={{
+                      position: 'relative',
                       flexDirection: 'row',
+                      width: '100%',
                       alignItems: 'center',
+                      justifyContent: 'space-between',
                     }}>
                     <TextInput
                       placeholder={t('emailAuthentication3')}
@@ -364,7 +367,7 @@ class EmailAuthentication extends Component {
                         ResetStyle.fontBlack,
                         {textAlign: 'left'},
                         this.state.returnApprove != '0' && {
-                          width: '70%',
+                          width: '100%',
                           height: 40,
                         },
                       ]}
@@ -372,6 +375,8 @@ class EmailAuthentication extends Component {
                     {this.state.returnApprove == '0' && (
                       <Image
                         style={{
+                          position: 'absolute',
+                          left: '40%',
                           height: 15,
                           width: 15,
                           resizeMode: 'contain',
@@ -379,31 +384,36 @@ class EmailAuthentication extends Component {
                         source={require('../../imgs/verificationCodeCheckIcon.png')}
                       />
                     )}
+                    <TouchableOpacity
+                      style={[
+                        ResetStyle.buttonSmall,
+                        {position: 'absolute', right: 0, width: '25%'},
+                        this.state.returnApprove == '0' && {
+                          backgroundColor: '#e6e6e6',
+                        },
+                      ]}
+                      onPress={async () => {
+                        await this.userEmailApprove();
+                        console.log(
+                          '인증하기버튼 클릭후 >>>>',
+                          this.state.returnApprove,
+                        );
+                        if (this.state.returnApprove == '0') {
+                          this.setModalVisible(true);
+                        } else if (this.state.returnApprove != '0') {
+                          this.setModal2Visible(true);
+                        }
+                      }}>
+                      <Text
+                        style={[
+                          ResetStyle.fontLightK,
+                          ResetStyle.fontWhite,
+                          {paddingHorizontal: 7, paddingVertical: 7},
+                        ]}>
+                        {t('emailAuthentication5')}
+                      </Text>
+                    </TouchableOpacity>
                   </View>
-                  <TouchableOpacity
-                    style={[
-                      ResetStyle.buttonSmall,
-                      {width: '25%'},
-                      this.state.returnApprove == '0' && {
-                        backgroundColor: '#e6e6e6',
-                      },
-                    ]}
-                    onPress={async () => {
-                      await this.userEmailApprove();
-                      console.log(
-                        '인증하기버튼 클릭후 >>>>',
-                        this.state.returnApprove,
-                      );
-                      if (this.state.returnApprove == '0') {
-                        this.setModalVisible(true);
-                      } else if (this.state.returnApprove != '0') {
-                        this.setModal2Visible(true);
-                      }
-                    }}>
-                    <Text style={[ResetStyle.fontLightK, ResetStyle.fontWhite]}>
-                      {t('emailAuthentication5')}
-                    </Text>
-                  </TouchableOpacity>
                 </View>
 
                 {/* alert */}
