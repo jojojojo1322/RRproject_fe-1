@@ -374,7 +374,9 @@ function Ongoing({navigation, route}) {
   
                       return `${day - 1}일 ${hour}시간 ${min}분 ${sec}초`;
                     }, 1000)} */}
-                  {`${day - 1}일 ${hour}시간 ${min}분 ${sec}초`}
+                  {`${day - 1}${t('days')} ${hour}${t('hours')} ${min}${t(
+                    'minutes',
+                  )} ${sec}${t('seconds')}`}
                   {
                     <>
                       {/* <Moment
@@ -464,7 +466,7 @@ function Ongoing({navigation, route}) {
         )}?CurrentPageNo=1&userNo=${await AsyncStorage.getItem('userNo')}`,
       )
       .then(async (response) => {
-        console.log(`surveyApi ${surveyStatus} Then >>`, response);
+        // console.log(`surveyApi ${surveyStatus} Then >>`, response);
         if (surveyStatus === 'ongoing') {
           setOngoingData(response.data);
         } else if (surveyStatus === 'expired') {
@@ -487,14 +489,14 @@ function Ongoing({navigation, route}) {
     surveyApi('ongoing');
   }, []);
 
-  const isFocused = useIsFocused();
+  // const isFocused = useIsFocused();
 
-  useEffect(() => {
-    if (isFocused === true) {
-      surveyApi('ongoing');
-    }
-  }, [isFocused]);
-  useEffect(() => {}, [modal2Visible]);
+  // useEffect(() => {
+  //   if (isFocused === true) {
+  //     surveyApi('ongoing');
+  //   }
+  // }, [isFocused]);
+  // useEffect(() => {}, [modal2Visible]);
 
   return (
     <>
@@ -803,8 +805,13 @@ function Completed({navigation}) {
                       return `${day - 1}일 ${hour}시간 ${min}분 ${sec}초`;
                     }, 1000)} */}
                   {day >= 0 && hour >= 0 && min >= 0 && sec >= 0
-                    ? `${day - 1}일 ${hour}시간 ${min}분 ${sec}초`
-                    : `0일 0시간 0분 0초`}
+                    ? `${day - 1}${t('days')} ${hour}${t('hours')} ${min}${t(
+                        'minutes',
+                      )} ${sec}${t('seconds')}`
+                    : `0${t('days')} 0${t('hours')} 0${t('minutes')} 0${t(
+                        'seconds',
+                      )}`}
+                  {/* `0{t('days')} 0{t('hours')} 0{t('minutes')} 0{t('seconds')}` */}
                   {
                     // <Moment
                     //   element={Text}
@@ -1187,7 +1194,6 @@ function Expired({navigation}) {
       );
     }
   };
-  useEffect(() => {}, [modal2Visible]);
 
   const surveyApi = async (surveyStatus) => {
     // progress 호출
@@ -1215,7 +1221,7 @@ function Expired({navigation}) {
   useEffect(() => {
     surveyApi('expired');
   }, []);
-  const isFocused = useIsFocused();
+  // const isFocused = useIsFocused();
 
   // useEffect(() => {
   //   if (isFocused === true) {
