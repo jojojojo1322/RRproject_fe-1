@@ -716,7 +716,7 @@ export default pt = {
       mainVideoComplete3: 'Check your wallet',
 
       // -------------------------------------------------------2021.02.15 14:20-----
-      walletReceive4: '지갑을 찾을 수 없습니다.',
+      walletReceive4: 'The wallet can not be found.',
 
       settingsPersonal8: '※ Phone Number cannot be modified.',
 
@@ -728,19 +728,19 @@ export default pt = {
 
       // App 시작시 체크 popup
       wrapper1: 'Update',
-      wrapper2: '최신버전이 나왔습니다.\n업데이트 해주세요.',
-      wrapper3: '서비스 점검중입니다.',
+      wrapper2: 'A new version is released.\nPlease Update.',
+      wrapper3: 'Service inspection',
       wrapper4: 'OK',
 
       // ID Verification popup ++  RR-00-04-12-KYC 정보입력-3단계-여권인증
-      idVerification12: '내용을 정확하게 입력해 주십시오.',
-      idVerification13: '여권 사진을 업로드해 주십시오.',
+      idVerification12: 'Please enter accurate your information.',
+      idVerification13: 'Please upload a picture of your passport.',
 
       // login page popup ++   RR-00-05-01-로그인
-      login15: '해당 핸드폰으로 등록된 계정이 있습니다.',
+      login15: 'This phone number is already in use.',
 
       // main page popup ++   RR-NEW-Main-1
-      main10: 'kyc 업데이트 후 72시간전 입니다.',
+      main10: 'Before 72 hours after updating KYC.',
 
       // main page 카드 시간  RR-NEW-Main-1
       days: 'd',
@@ -749,23 +749,23 @@ export default pt = {
       seconds: 's',
 
       // main -> research page popup ++  RR-Main-02-06-메인-설문조사1단계
-      researchForm5: '설문을 종료하시겠습니까?',
-      researchForm6: '해당 설문의 참여인원이 초과하였습니다.',
-      researchForm7: '해당 설문에 이미 참여 하셨습니다.',
-      researchForm8: '이미 해당 설문의 보상을 지급하였습니다.',
+      researchForm5: 'Do you want to finish the survey?',
+      researchForm6: 'The number of participants in the survey exceeded.',
+      researchForm7: 'You have already participated in the survey.',
+      researchForm8: 'We have already paid the survey compensation.',
 
       // kyc profile popup ++  RR-Profile-02-02-My Profile_level
       profileAll6:
-        'KYC업데이트 시 72시간동안\n설문조사에 참여하실 수 없습니다.\nKYC업데이트를 진행하시겠습니까?',
+        '`You will not be able to participate in the survey for 72 hours when updating KYC. Do you want to proceed with KYC update?`',
 
       // pattern password popup ++ RR-Setting-03-03-01-잠금설정-패턴
-      settingsLockPattern5: '잠금해제 패턴을 입력해 주세요.',
-      settingsLockPattern6: '패턴이 일치합니다.',
-      settingsLockPattern7: '패턴이 틀렸습니다.',
-      settingsLockPattern8: '확인을 위해 한번 더 입력해 주세요.',
+      settingsLockPattern5: 'Please unlock the pattern lock.',
+      settingsLockPattern6: 'The pattern matches.',
+      settingsLockPattern7: 'The pattern does not match.',
+      settingsLockPattern8: 'Please try again to confirm.',
 
       // splash page   RR-00-01-01-스플래시1
-      splash: 'Blockchain Based Survey',
+      splash: 'Blockchain-Based Survey',
     },
   },
 };

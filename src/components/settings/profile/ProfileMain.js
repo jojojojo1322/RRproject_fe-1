@@ -150,7 +150,10 @@ const ProfileMain = ({navigation, route}) => {
             {level <= kycLevel ? t('profileMain2') : t('profileMain3')}
           </Text>
           <Image
-            style={[ProfileStyle.kycLevelCheckboxImg]}
+            style={[
+              ProfileStyle.kycLevelCheckboxImg,
+              {opacity: level <= kycLevel ? 1 : 0.65},
+            ]}
             source={
               level <= kycLevel
                 ? require('../../../imgs/iconCheckedS.png')

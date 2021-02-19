@@ -247,7 +247,8 @@ function Ongoing({navigation, route}) {
                 width: '100%',
                 height: '120%',
                 backgroundColor: 'rgba(0, 0, 0, 0.1)',
-              }}></View>
+              }}
+            />
             <LinearGradient
               colors={[
                 'rgba(0, 0, 0, 0.5)',
@@ -261,14 +262,17 @@ function Ongoing({navigation, route}) {
                 top: 0,
                 width: '100%',
                 height: '120%',
-              }}></LinearGradient>
+              }}
+            />
             <View style={[MainStyle.itemBoxInner]}>
               <View style={{position: 'relative'}}>
                 <Text
                   style={[
                     ResetStyle.fontLightK,
                     ResetStyle.fontWhite,
-                    {marginTop: Platform.OS === 'ios' ? '25%' : '15%'},
+                    {
+                      marginTop: Platform.OS === 'ios' ? '30%' : '30%',
+                    },
                   ]}>
                   {item.categoryName} | {item.sponsorName}
                 </Text>
@@ -319,7 +323,7 @@ function Ongoing({navigation, route}) {
                   backgroundColor: '#ffffff',
                   marginTop: '2%',
                   marginBottom: '2%',
-                  width: '185%',
+                  width: '137%',
                 }}
               />
               <View style={MainStyle.itemBoxBottomTextView}>
@@ -515,10 +519,26 @@ function Ongoing({navigation, route}) {
         }
         renderItem={renderItem}
         sliderHeight={Platform.OS === 'ios' ? 500 : 450}
-        itemHeight={Platform.OS === 'ios' ? 420 : 390}
+        itemHeight={Platform.OS === 'ios' ? 420 : 410}
         containerCustomStyle={{
           flex: 1,
           backgroundColor: '#fff',
+        }}
+        slideStyle={{
+          width: '100%',
+          // borderWidth: 3,
+          // borderColor: '#F00',
+          marginTop: 0,
+          paddingTop: 0,
+        }}
+        contentContainerCustomStyle={{
+          height:
+            ongoingData.length == 0
+              ? '100%'
+              : String(ongoingData.length * 90 + '%'),
+          // borderWidth: 3,
+          // borderColor: '#00f',
+          paddingTop: Platform.OS === 'ios' ? 0 : '3%', // tab navigator와의 간격
         }}
         inactiveSlideShift={0}
         onSnapToItem={(index) => setIndex(index)}
@@ -636,7 +656,7 @@ function Completed({navigation}) {
         <View
           style={[
             MainStyle.itemBox,
-            {borderWidth: 1, borderColor: '#f00'},
+            // {borderWidth: 1, borderColor: '#f00'},
             // {marginBottom: item.id === item.length ? 200 : 0},
           ]}
           onPress={() => {
@@ -650,6 +670,8 @@ function Completed({navigation}) {
             opacity={1.0}
             style={{
               flex: 1,
+              // borderWidth: 3,
+              // borderColor: '#0f0',
             }}>
             <Image
               style={{
@@ -669,7 +691,8 @@ function Completed({navigation}) {
                 width: '100%',
                 height: '120%',
                 backgroundColor: 'rgba(0, 0, 0, 0.1)',
-              }}></View>
+              }}
+            />
             <LinearGradient
               colors={[
                 'rgba(0, 0, 0, 0.5)',
@@ -683,7 +706,8 @@ function Completed({navigation}) {
                 top: 0,
                 width: '100%',
                 height: '120%',
-              }}></LinearGradient>
+              }}
+            />
             <View style={[MainStyle.itemBoxInner]}>
               <View
                 style={{
@@ -693,10 +717,7 @@ function Completed({navigation}) {
                   style={[
                     ResetStyle.fontLightK,
                     ResetStyle.fontWhite,
-                    {
-                      textAlign: 'left',
-                      marginTop: Platform.OS === 'ios' ? '25%' : '15%',
-                    },
+                    {marginTop: Platform.OS === 'ios' ? '30%' : '30%'},
                   ]}>
                   {item.categoryName} | {item.sponsorName}
                 </Text>
@@ -747,7 +768,7 @@ function Completed({navigation}) {
                   backgroundColor: '#ffffff',
                   marginTop: '2%',
                   marginBottom: '2%',
-                  width: '185%',
+                  width: '137%',
                 }}
               />
               <View style={MainStyle.itemBoxBottomTextView}>
@@ -876,7 +897,24 @@ function Completed({navigation}) {
         containerCustomStyle={{
           flex: 1,
           backgroundColor: '#fff',
-          borderWidth: 1,
+          // borderWidth: 1,
+        }}
+        // swipeThreshold={50}
+        slideStyle={{
+          width: '100%',
+          // borderWidth: 3,
+          // borderColor: '#F00',
+          marginTop: 0,
+          paddingTop: 0,
+        }}
+        contentContainerCustomStyle={{
+          height:
+            completeData.length == 0
+              ? '100%'
+              : String(completeData.length * 85 + '%'),
+          // borderWidth: 3,
+          // borderColor: '#00f',
+          paddingTop: Platform.OS === 'ios' ? 0 : '3%', // tab navigator와의 간격
         }}
         inactiveSlideShift={0}
         onSnapToItem={(index) => setIndex(index)}
@@ -1008,7 +1046,7 @@ function Expired({navigation}) {
                   style={[
                     ResetStyle.fontLightK,
                     ResetStyle.fontWhite,
-                    {marginTop: Platform.OS === 'ios' ? '25%' : '15%'},
+                    {marginTop: Platform.OS === 'ios' ? '30%' : '30%'},
                   ]}>
                   {item.categoryName} | {item.sponsorName}
                 </Text>
@@ -1059,7 +1097,7 @@ function Expired({navigation}) {
                   backgroundColor: '#ffffff',
                   marginTop: '2%',
                   marginBottom: '2%',
-                  width: '185%',
+                  width: '137%',
                 }}
               />
               <View style={MainStyle.itemBoxBottomTextView}>
@@ -1219,7 +1257,22 @@ function Expired({navigation}) {
         sliderHeight={Platform.OS === 'ios' ? 500 : 450}
         itemHeight={Platform.OS === 'ios' ? 420 : 390}
         containerCustomStyle={{flex: 1, backgroundColor: '#fff'}}
-        inactiveSlideShift={0}
+        slideStyle={{
+          width: '100%',
+          // borderWidth: 3,
+          // borderColor: '#F00',
+          marginTop: 0,
+          paddingTop: 0,
+        }}
+        contentContainerCustomStyle={{
+          height:
+            expiredData.length == 0
+              ? '100%'
+              : String(expiredData.length * 90 + '%'),
+          // borderWidth: 3,
+          // borderColor: '#00f',
+          paddingTop: Platform.OS === 'ios' ? 0 : '3%', // tab navigator와의 간격
+        }}
         onSnapToItem={(index) => setIndex(index)}
         scrollInterpolator={scrollInterpolator2}
         slideInterpolatedStyle={animatedStyles2}
@@ -1345,7 +1398,7 @@ function Main({navigation, t, i18n, route}) {
             flexDirection: 'row',
             justifyContent: 'space-between',
             width: '90%',
-            marginBottom: Platform.OS === 'ios' ? '3%' : '4%',
+            marginBottom: Platform.OS === 'ios' ? '3%' : '3%',
             alignItems: 'center',
             alignSelf: 'center',
           }}>
@@ -1433,7 +1486,11 @@ function Main({navigation, t, i18n, route}) {
             <Text style={[ResetStyle.fontRegularK, ResetStyle.fontDG]}>
               {t('main4')}
             </Text>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
               <Text
                 style={[
                   ResetStyle.fontMediumK,
@@ -1487,29 +1544,33 @@ function Main({navigation, t, i18n, route}) {
       </View>
 
       <Tab.Navigator
-        initialRouteName="Ongoing"
+        initialRouteName={t('main7')}
         lazy={false}
         tabBarOptions={{
           pressOpacity: 1,
           activeTintColor: '#222',
           inactiveTintColor: '#a9a9a9',
-          labelStyle: {fontSize: Platform.OS === 'ios' ? 18 : 15},
+          labelStyle: {
+            fontSize: Platform.OS === 'ios' ? 18 : 15,
+            paddingTop: Platform.OS === 'ios' ? 12 : 0,
+          },
           style: {
             backgroundColor: 'transparent',
-            height: 50,
+            height: Platform.OS === 'ios' ? 80 : 50,
+            // borderWidth: 1,
           },
           indicatorStyle: {
             width: '4%',
             height: 2,
             backgroundColor: '#222',
             left: '11%',
-            bottom: '15%',
+            bottom: Platform.OS === 'ios' ? '25%' : '15%',
           },
         }}>
         <Tab.Screen
-          name="Ongoing"
+          name={t('main7')}
           component={Ongoing}
-          options={{tabBarLabel: t('main7')}}
+          // options={{tabBarLabel: t('main7')}}
           initialParams={{
             setModalVisible: setModalVisible,
             isFocused: useIsFocused,
@@ -1519,14 +1580,14 @@ function Main({navigation, t, i18n, route}) {
           }}
         />
         <Tab.Screen
-          name="Completed"
+          name={t('main8')}
           component={Completed}
-          options={{tabBarLabel: t('main8')}}
+          // options={{tabBarLabel: t('main8')}}
         />
         <Tab.Screen
-          name="Expired"
+          name={t('main9')}
           component={Expired}
-          options={{tabBarLabel: t('main9')}}
+          // options={{tabBarLabel: t('main9')}}
         />
       </Tab.Navigator>
 

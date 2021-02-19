@@ -205,6 +205,7 @@ const CustomDrawerContent = (props) => {
           alignItems: 'center',
           justifyContent: 'space-between',
           padding: '5%',
+          paddingHorizontal: Platform.OS === 'ios' ? '7%' : '5%',
           paddingtop: Platform.OS === 'ios' ? '5%' : '3%',
           paddingBottom: Platform.OS === 'ios' ? '12%' : '5%',
         }}>
@@ -341,7 +342,7 @@ const CustomDrawerContent = (props) => {
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'space-between',
-          margin: Platform.OS === 'ios' ? '5%' : '5%',
+          margin: Platform.OS === 'ios' ? '7%' : '5%',
           marginVertical: Platform.OS === 'ios' ? '5%' : '3%',
         }}>
         <TouchableOpacity
