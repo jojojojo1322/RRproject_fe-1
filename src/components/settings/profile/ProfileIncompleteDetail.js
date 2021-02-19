@@ -6,6 +6,7 @@ import {
   Image,
   FlatList,
   YellowBox,
+  Platform,
 } from 'react-native';
 import ResetStyle from '../../../style/ResetStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -589,7 +590,10 @@ const ProfileIncompleteDetail = (props) => {
             </Text>
           </View>
           <FlatList
-            style={{maxHeight: '70%', height: '70%'}}
+            style={{
+              marginTop: '10%',
+              height: '70%',
+            }}
             data={kycOption.filter((d) => data.questionNumber == d.kycQuestion)}
             renderItem={({item}) => (
               // renderItem(questionNumber=data.questionNumber)
@@ -659,6 +663,8 @@ const ProfileIncompleteDetail = (props) => {
         <View
           style={{
             flexDirection: 'column',
+            flex: 1,
+            paddingBottom: Platform.OS === 'ios' ? 0 : '15%',
             // justifyContent: 'flex-start',
             // borderWidth: 1,
           }}>
