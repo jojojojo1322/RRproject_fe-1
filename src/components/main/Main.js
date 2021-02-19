@@ -283,7 +283,7 @@ function Ongoing({navigation, route}) {
                 style={[
                   ResetStyle.fontBoldK,
                   ResetStyle.fontWhite,
-                  {textAlign: 'left', marginBottom: '4%'},
+                  {textAlign: 'left', marginBottom: '5%'},
                 ]}>
                 {item.surveyName}
               </Text>
@@ -507,7 +507,7 @@ function Ongoing({navigation, route}) {
         }
         renderItem={renderItem}
         sliderHeight={Platform.OS === 'ios' ? 500 : 450}
-        itemHeight={Platform.OS === 'ios' ? 420 : 410}
+        itemHeight={Platform.OS === 'ios' ? 420 : 430}
         containerCustomStyle={{
           flex: 1,
           backgroundColor: '#fff',
@@ -711,7 +711,7 @@ function Completed({navigation}) {
                 style={[
                   ResetStyle.fontBoldK,
                   ResetStyle.fontWhite,
-                  {textAlign: 'left', marginBottom: '4%'},
+                  {textAlign: 'left', marginBottom: '5%'},
                 ]}>
                 {item.surveyName}
               </Text>
@@ -876,7 +876,7 @@ function Completed({navigation}) {
         }
         renderItem={renderItem}
         sliderHeight={Platform.OS === 'ios' ? 500 : 450}
-        itemHeight={Platform.OS === 'ios' ? 420 : 390}
+        itemHeight={Platform.OS === 'ios' ? 420 : 430}
         containerCustomStyle={{
           flex: 1,
           backgroundColor: '#fff',
@@ -1040,7 +1040,7 @@ function Expired({navigation}) {
                 style={[
                   ResetStyle.fontBoldK,
                   ResetStyle.fontWhite,
-                  {textAlign: 'left', marginBottom: '4%'},
+                  {textAlign: 'left', marginBottom: '5%'},
                 ]}>
                 {item.surveyName}
               </Text>
@@ -1233,7 +1233,7 @@ function Expired({navigation}) {
         }
         renderItem={renderItem}
         sliderHeight={Platform.OS === 'ios' ? 500 : 450}
-        itemHeight={Platform.OS === 'ios' ? 420 : 390}
+        itemHeight={Platform.OS === 'ios' ? 420 : 430}
         containerCustomStyle={{flex: 1, backgroundColor: '#fff'}}
         slideStyle={{
           width: '100%',
