@@ -98,13 +98,14 @@ const ResearchForm = (props) => {
         } else if (response.data.status === 'fail') {
           setModal5Visible(true);
         }
+        setModal4Visible(false);
       })
       .catch((e) => {
         console.log('postSurveyRewardApi ERROR >>>>', e);
         console.log('postSurveyRewardApi ERROR >>>>', e.response);
         console.log('postSurveyRewardApi ERROR >>>>', e.response.data.message);
+        setModal4Visible(false);
       });
-    setModal4Visible(false);
   };
   // survey question get
   const getSurveyQuestionApi = async () => {

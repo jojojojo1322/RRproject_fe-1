@@ -455,7 +455,7 @@ function Ongoing({navigation, route}) {
 
   const surveyApi = async (surveyStatus) => {
     // progress 호출
-    setModal2Visible(true);
+    // setModal2Visible(true);
 
     await axios
       .get(
@@ -475,7 +475,7 @@ function Ongoing({navigation, route}) {
         console.log(`surveyApi ${surveyStatus} Error`, e);
       });
     // progress 끔
-    setModal2Visible(false);
+    // setModal2Visible(false);
   };
   //
   //
