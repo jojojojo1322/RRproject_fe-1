@@ -321,7 +321,7 @@ const MainDetailExpired = (props) => {
               ResetStyle.fontDG,
               MainStyle.mainDetailSurveyInstruction,
             ]}>
-            {surveyDetail.instructions}
+            {` ${surveyDetail.instructions}`}
           </Text>
 
           <TouchableOpacity

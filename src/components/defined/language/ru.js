@@ -191,7 +191,7 @@ export default ru = {
       profileMain5: 'LEVEL ',
       profileMain6: 'KYC LEVEL',
       profileMain7: 'ALL',
-      profileMain8: 'Please complete KYC LEVEL {{kyclevel} first.',
+      profileMain8: 'Please complete KYC LEVEL {{kyclevel}} first.',
 
       // ProfileAll
       profileAll1: 'Male',

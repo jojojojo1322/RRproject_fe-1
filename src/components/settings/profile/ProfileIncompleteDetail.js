@@ -476,7 +476,7 @@ const ProfileIncompleteDetail = (props) => {
               </Text>
             </View>
             <RoundCheckbox
-              size={30}
+              size={25}
               keyValue={Number(item.questionNumber)}
               label={item.optionContent}
               value={item.optionNumber}
@@ -527,7 +527,7 @@ const ProfileIncompleteDetail = (props) => {
               </Text>
             </View>
             <RoundCheckbox
-              size={30}
+              size={25}
               keyValue={Number(item.questionNumber)}
               checked={
                 checkedArray.findIndex(

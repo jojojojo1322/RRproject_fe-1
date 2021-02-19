@@ -549,7 +549,7 @@ const ProfileIncompleteLevel2 = (props) => {
             </Text>
           </View>
           <RoundCheckbox
-            size={30}
+            size={25}
             // keyValue={item.questionNumber}
             keyValue={nowIndex}
             label={item.answer}
@@ -594,7 +594,7 @@ const ProfileIncompleteLevel2 = (props) => {
             </Text>
           </View>
           <RoundCheckbox
-            size={30}
+            size={25}
             keyValue={nowIndex}
             label={item.answer}
             value={item.id.toString()}
