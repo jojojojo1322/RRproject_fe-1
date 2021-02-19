@@ -12,7 +12,7 @@ const ProgressModal = ({modalVisible = false, setModalVisible}) => {
   console.log('Progress >>> 호출');
   console.log('Progress >>> 호출', modalVisible);
 
-  return modalVisible ? (
+  return (
     <Modal
       animationType="fade"
       transparent={true}
@@ -29,11 +29,13 @@ const ProgressModal = ({modalVisible = false, setModalVisible}) => {
             backgroundColor: 'hsla(0, 0%, 20%, 0.1)',
             paddingBottom: '5%',
           }}>
-          <ActivityIndicator size="large" color="#4696ff" />
+          {modalVisible ? (
+            <ActivityIndicator size="large" color="#4696ff" />
+          ) : null}
         </View>
       </TouchableWithoutFeedback>
     </Modal>
-  ) : null;
+  );
 };
 
 export default ProgressModal;
