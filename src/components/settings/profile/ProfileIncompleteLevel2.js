@@ -642,7 +642,7 @@ const ProfileIncompleteLevel2 = (props) => {
             </Text>
           </View>
           <FlatList
-            style={{maxHeight: '70%', height: '70%'}}
+            style={{marginTop: '10%', height: '70%'}}
             data={kycQuestion[nowIndex].answers}
             renderItem={({item}) => (
               // renderItem(questionNumber=data.questionNumber)
@@ -675,8 +675,9 @@ const ProfileIncompleteLevel2 = (props) => {
         <View
           style={{
             flexDirection: 'column',
+            flex: 1,
+            paddingBottom: Platform.OS === 'ios' ? 0 : '15%',
             // justifyContent: 'flex-start',
-            // borderWidth: 1,
           }}>
           {/* Top Title */}
           <Text
