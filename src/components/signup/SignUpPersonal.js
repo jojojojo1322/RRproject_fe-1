@@ -379,7 +379,7 @@ class SignUpPersonal extends Component {
                       }
                     }}
                     blurOnSubmit={false}
-                    onSubmitEditing={() => Keyboard.dismiss()}
+                    // onSubmitEditing={() => Keyboard.dismiss()}
                     textContentType={'oneTimeCode'}
                   />
                   <TouchableOpacity
@@ -586,7 +586,7 @@ class SignUpPersonal extends Component {
                       },
                     ]}
                     blurOnSubmit={false}
-                    onSubmitEditing={() => Keyboard.dismiss()}
+                    // onSubmitEditing={() => Keyboard.dismiss()}
                     textContentType={'oneTimeCode'}
                   />
                   {/* <Image

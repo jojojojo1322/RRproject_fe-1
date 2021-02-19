@@ -61,14 +61,6 @@ const WalletMain = (props) => {
       props.route.params?.currentTnc,
     );
     if (props.route.params?.currentTnc) {
-      console.log('aaa');
-      console.log('aaa');
-      console.log('aaa');
-      console.log('aaa');
-      console.log('aaa');
-      console.log('aaa');
-      console.log('aaa');
-      console.log('aaa');
       setTotal(props.route.params?.currentTnc);
     }
     getWalletApi();

@@ -58,11 +58,6 @@ const ProfileMain = ({navigation, route}) => {
   const [kycLevelNumber, setKycLevelNumber] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
-  console.log('navigation', navigation);
-  console.log('navigation', navigation);
-  console.log('navigation', navigation);
-  console.log('navigation', navigation);
-  console.log('navigation', navigation);
 
   const {t, i18n} = useTranslation();
 
