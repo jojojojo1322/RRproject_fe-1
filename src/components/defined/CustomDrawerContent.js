@@ -90,29 +90,29 @@ const CustomDrawerContent = (props) => {
     console.log('????????dfsdf', idData.passPortStatus);
   }, []);
 
-  useEffect(() => {
-    if (props.state.routes[0].state !== undefined) {
-      if (
-        page !==
-        props.state.routes[0].state.routes[
-          props.state.routes[0].state.routes.length - 1
-        ].name
-      ) {
-        console.log('진입');
-        console.log('진입');
-        alertDataApi();
-        emailAsyncSet();
-        getWalletApi();
-        userApi();
-        passportApi();
-        setPage(
-          props.state.routes[0].state.routes[
-            props.state.routes[0].state.routes.length - 1
-          ].name,
-        );
-      }
-    }
-  });
+  // useEffect(() => {
+  //   if (props.state.routes[0].state !== undefined) {
+  //     if (
+  //       page !==
+  //       props.state.routes[0].state.routes[
+  //         props.state.routes[0].state.routes.length - 1
+  //       ].name
+  //     ) {
+  //       console.log('진입');
+  //       console.log('진입');
+  //       alertDataApi();
+  //       emailAsyncSet();
+  //       getWalletApi();
+  //       userApi();
+  //       passportApi();
+  //       setPage(
+  //         props.state.routes[0].state.routes[
+  //           props.state.routes[0].state.routes.length - 1
+  //         ].name,
+  //       );
+  //     }
+  //   }
+  // });
 
   console.log('CUSTON>>>>', props.login);
   // alert API

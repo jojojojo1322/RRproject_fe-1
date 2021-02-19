@@ -385,7 +385,7 @@ const ResearchForm = (props) => {
             </Text>
           </View>
           <RoundCheckbox
-            size={30}
+            size={25}
             keyValue={item.questionNum}
             checked={
               checkedArray.findIndex(

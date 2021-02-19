@@ -623,6 +623,7 @@ function Completed({navigation}) {
         <View
           style={[
             MainStyle.itemBox,
+            {borderWidth: 1, borderColor: '#f00'},
             // {marginBottom: item.id === item.length ? 200 : 0},
           ]}
           onPress={() => {
@@ -859,7 +860,11 @@ function Completed({navigation}) {
         renderItem={renderItem}
         sliderHeight={Platform.OS === 'ios' ? 500 : 450}
         itemHeight={Platform.OS === 'ios' ? 420 : 390}
-        containerCustomStyle={{flex: 1, backgroundColor: '#fff'}}
+        containerCustomStyle={{
+          flex: 1,
+          backgroundColor: '#fff',
+          borderWidth: 1,
+        }}
         inactiveSlideShift={0}
         onSnapToItem={(index) => setIndex(index)}
         scrollInterpolator={scrollInterpolator2}
@@ -878,7 +883,7 @@ function Completed({navigation}) {
 }
 
 function Expired({navigation}) {
-  console.log('Expired 호출');
+  console.log('Expired 호출11');
 
   const [index, setIndex] = useState(0);
   const [expiredData, setExpiredData] = useState([]);
@@ -922,6 +927,7 @@ function Expired({navigation}) {
         <View
           style={[
             MainStyle.itemBox,
+
             // {marginBottom: item.id === item.length ? 200 : 0},
           ]}
           onPress={() => {
@@ -966,7 +972,8 @@ function Expired({navigation}) {
                 width: '100%',
                 height: '120%',
                 backgroundColor: 'rgba(0, 0, 0, 0.1)',
-              }}></View>
+              }}
+            />
             <LinearGradient
               colors={[
                 'rgba(0, 0, 0, 0.5)',
@@ -980,7 +987,8 @@ function Expired({navigation}) {
                 top: 0,
                 width: '100%',
                 height: '120%',
-              }}></LinearGradient>
+              }}
+            />
             <View style={[MainStyle.itemBoxInner]}>
               <View style={{position: 'relative'}}>
                 <Text
@@ -1174,11 +1182,11 @@ function Expired({navigation}) {
   }, []);
   const isFocused = useIsFocused();
 
-  useEffect(() => {
-    if (isFocused === true) {
-      surveyApi('ongoing');
-    }
-  }, [isFocused]);
+  // useEffect(() => {
+  //   if (isFocused === true) {
+  //     surveyApi('ongoing');
+  //   }
+  // }, [isFocused]);
   return (
     <>
       <Carousel
