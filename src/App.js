@@ -24,6 +24,7 @@ import WalletPassword from './components/login/WalletPassword';
 import WalletMasterKey from './components/login/WalletMasterKey';
 
 import Kyc from './components/kyc/Kyc';
+import KycLevel1Box from './components/kyc/KycLevel1Box';
 
 import Main from './components/main/Main';
 import MainDetail from './components/main/MainDetail';
@@ -601,6 +602,13 @@ export const AppMainStack = (props) => {
       <Stack.Screen
         name="TestPage"
         component={TestPage}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="KycLevel1Box"
+        component={KycLevel1Box}
         options={{
           headerShown: false,
         }}

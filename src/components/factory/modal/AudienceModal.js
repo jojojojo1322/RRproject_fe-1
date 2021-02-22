@@ -81,7 +81,7 @@ const AudienceModal = ({
               style={[
                 ResetStyle.fontRegularK,
                 ResetStyle.fontBlack,
-                {width: '60%', textAlign: 'left'},
+                {width: '57%', textAlign: 'left', marginLeft: '3%'},
               ]}>
               {age}
             </Text>
@@ -100,7 +100,7 @@ const AudienceModal = ({
               style={[
                 ResetStyle.fontRegularK,
                 ResetStyle.fontBlack,
-                {width: '60%', textAlign: 'left'},
+                {width: '57%', textAlign: 'left', marginLeft: '3%'},
               ]}>
               {gender}
             </Text>
@@ -119,7 +119,7 @@ const AudienceModal = ({
               style={[
                 ResetStyle.fontRegularK,
                 ResetStyle.fontBlack,
-                {width: '60%', textAlign: 'left'},
+                {width: '57%', textAlign: 'left', marginLeft: '3%'},
               ]}>
               {maritalStatus}
             </Text>
@@ -138,7 +138,7 @@ const AudienceModal = ({
               style={[
                 ResetStyle.fontRegularK,
                 ResetStyle.fontBlack,
-                {width: '60%', textAlign: 'left'},
+                {width: '57%', textAlign: 'left', marginLeft: '3%'},
               ]}>
               {nationality}
             </Text>
@@ -157,7 +157,7 @@ const AudienceModal = ({
               style={[
                 ResetStyle.fontRegularK,
                 ResetStyle.fontBlack,
-                {width: '60%', textAlign: 'left'},
+                {width: '57%', textAlign: 'left', marginLeft: '3%'},
               ]}>
               {country}
             </Text>
@@ -176,7 +176,7 @@ const AudienceModal = ({
               style={[
                 ResetStyle.fontRegularK,
                 ResetStyle.fontBlack,
-                {width: '60%', textAlign: 'left'},
+                {width: '57%', textAlign: 'left', marginLeft: '3%'},
               ]}>
               {countryCity}
             </Text>
@@ -195,7 +195,7 @@ const AudienceModal = ({
               style={[
                 ResetStyle.fontRegularK,
                 ResetStyle.fontBlack,
-                {width: '60%', textAlign: 'left'},
+                {width: '57%', textAlign: 'left', marginLeft: '3%'},
               ]}>
               {language}
             </Text>
