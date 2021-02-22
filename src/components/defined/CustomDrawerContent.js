@@ -41,7 +41,7 @@ const CustomDrawerContent = (props) => {
   const {t, i18n} = useTranslation();
   const [alertData, setAlertData] = useState([]);
   const [walletData, setWalletData] = useState([]);
-  const [idData, setIdData] = useState([]);
+  const [idData, setIdData] = useState(-99);
   const [total, setTotal] = useState(0);
 
   const [alertDataNot, setAlertDataNot] = useState(0);
@@ -81,7 +81,7 @@ const CustomDrawerContent = (props) => {
         emailAsyncSet();
         getWalletApi();
         userApi();
-        passportApi();
+        // passportApi();
         setPage(
           props.state.routes[0].state.routes[
             props.state.routes[0].state.routes.length - 1
@@ -90,6 +90,7 @@ const CustomDrawerContent = (props) => {
       }
     }
   });
+
   // useEffect(() => {
   //   alertDataApi();
   //   emailAsyncSet();
@@ -104,9 +105,24 @@ const CustomDrawerContent = (props) => {
     emailAsyncSet();
     getWalletApi();
     userApi();
-    passportApi();
-    console.log('????????dfsdf', idData.passPortStatus);
+    // passportApi();
   }, []);
+  useEffect(() => {
+    if (idData === 0) {
+      props.navigation.navigate('IdVerification');
+    } else if (idData === 1) {
+      props.navigation.navigate('IdVerificationComplete');
+      // props.navigation.navigate('IdVerification');
+    } else if (idData === 2) {
+      props.navigation.navigate('IdVerificationInProgress');
+    } else if (idData === 3) {
+      props.navigation.navigate('IdVerificationDecline');
+    } else if (idData !== -99) {
+      props.navigation.navigate('IdVerification');
+    }
+
+    setIdData(-99);
+  }, [idData]);
   //
   // console.log('CUSTON>>>>', props.login);
   // alert API
@@ -136,8 +152,9 @@ const CustomDrawerContent = (props) => {
         )}`,
       )
       .then((response) => {
+        console.log('passportApi THEN>>', response);
         console.log('passportApi THEN>>', response.data);
-        setIdData(response.data);
+        setIdData(response.data.response.ret_val);
       })
       .catch((e) => {
         console.log('passportApi ERROR>>', e);
@@ -382,18 +399,19 @@ const CustomDrawerContent = (props) => {
         {/* IdVerification */}
         <TouchableOpacity
           onPress={() => {
-            if (idData.passPortStatus === '0') {
-              props.navigation.navigate('IdVerification');
-            } else if (idData.passPortStatus === '1') {
-              // props.navigation.navigate('IdVerificationComplete');
-              props.navigation.navigate('IdVerification');
-            } else if (idData.passPortStatus === '2') {
-              props.navigation.navigate('IdVerificationInProgress');
-            } else if (idData.passPortStatus === '3') {
-              props.navigation.navigate('IdVerificationDecline');
-            } else {
-              props.navigation.navigate('IdVerification');
-            }
+            passportApi();
+            // if (idData.passPortStatus === '0') {
+            //   props.navigation.navigate('IdVerification');
+            // } else if (idData.passPortStatus === '1') {
+            //   // props.navigation.navigate('IdVerificationComplete');
+            //   props.navigation.navigate('IdVerification');
+            // } else if (idData.passPortStatus === '2') {
+            //   props.navigation.navigate('IdVerificationInProgress');
+            // } else if (idData.passPortStatus === '3') {
+            //   props.navigation.navigate('IdVerificationDecline');
+            // } else {
+            //   props.navigation.navigate('IdVerification');
+            // }
           }}
           style={MainStyle.drawerItem}>
           <Text

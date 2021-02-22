@@ -7,70 +7,14 @@ import ResetStyle from '../../style/ResetStyle.js';
 import WalletStyle from '../../style/WalletStyle.js';
 import {TextInput} from 'react-native-gesture-handler';
 import BottomModal from '../factory/modal/BottomModal';
-import {
-  PERMISSIONS,
-  RESULTS,
-  requestMultiple,
-  openSettings,
-  checkMultiple,
-} from 'react-native-permissions';
 
 import * as ImagePicker from 'react-native-image-picker';
 
 import {useTranslation} from 'react-i18next';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {server} from '../defined/server';
 import axios from 'axios';
-
-// const ImgBox = ({response}) => {
-//   return response === null ? (
-//     <View
-//       style={{
-//         width: '100%',
-//         height: 230,
-//         alignItems: 'center',
-//         justifyContent: 'center',
-//         borderRadius: 15,
-//         borderColor: '#dedede',
-//         borderWidth: 2,
-//       }}>
-//       <Image
-//         style={{
-//           width: 260,
-//           height: 200,
-//           resizeMode: 'contain',
-//           // borderWidth: 1,
-//         }}
-//         source={require('../../imgs/passportIcon.png')}
-//       />
-//     </View>
-//   ) : (
-//     <Image
-//       style={{
-//         width: '100%',
-//         height: 230,
-//         borderRadius: 15,
-//         borderColor: '#dedede',
-//         borderWidth: 2,
-//         resizeMode: 'cover',
-//       }}
-//       source={{uri: response.uri}}
-//     />
-//   );
-// };
-
-// 한글 - 영어에 따라 바이트 계산 차별 - passport varchar 100
-var getTextLength = function (str) {
-  var len = 0;
-  for (var i = 0; i < str.length; i++) {
-    if (escape(str.charAt(i)).length == 6) {
-      len++;
-    }
-    len++;
-  }
-  return len;
-};
 
 const CheckList = ({text}) => {
   return (
@@ -82,7 +26,7 @@ const CheckList = ({text}) => {
           resizeMode: 'contain',
           marginRight: '5%',
         }}
-        source={require('../../imgs/check.png')}
+        source={require('../../imgs/drawable-xxxhdpi/check.png')}
       />
       <Text
         style={[
@@ -102,227 +46,38 @@ const IdVerification = ({navigation}) => {
   const [passportNo, setPassportNo] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastname] = useState('');
-  const [successCheck, setSuccessCheck] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
-  const [modal3Visible, setModal3Visible] = useState(false);
 
-  const requestPermission = async (device) => {
-    try {
-      if (Platform.OS === 'ios') {
-        return await checkMultiple([device.CAMERA, device.PHOTO_LIBRARY]);
-      } else if (Platform.OS === 'android') {
-        return await checkMultiple([
-          device.CAMERA,
-          device.READ_EXTERNAL_STORAGE,
-          device.WRITE_EXTERNAL_STORAGE,
-        ]);
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const passportApi = async () => {
-    console.log('passportApi 진입 response>>', response);
-    let formData = new FormData();
-    // response
-    formData.append('reqFile', {
-      uri: response.uri,
-      type: response.type,
-      name: response.fileName,
-    });
-    formData.append(
-      'reqPassPortInfo',
-      JSON.stringify({
-        userNo: await AsyncStorage.getItem('userNo'),
-        passPortNumber: passportNo,
-        englishFirstName: firstName,
-        englishLastName: lastName,
-      }),
-    );
-
-    console.log('passportApi 진입 FORM response>>', formData);
-    // console.log('passportApi 진입 FORM response>>', formData);
-    // {
-    //   body: {
-    //     reqFile: formData,
-    //     reqPassPortInfo: [
-    //       {
-    //         userNo: await AsyncStorage.getItem('userNo'),
-    //         passPortNumber: passportNo,
-    //         englishFirstName: firstName,
-    //         englishLastName: lastName,
-    //       },
-    //     ],
-    //   },
-    // },
-    axios({
-      method: 'post',
-      url: `${server}/util/passport`,
-      data: formData,
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Accept: '*/*',
-      },
-      _lowerCaseResponseHeaders: {
-        'access-control-allow-headers': 'x-auth-token, content-type',
-        'access-control-allow-methods': 'POST, GET, PUT, OPTIONS, DELETE',
-        'access-control-allow-origin': '*',
-        'access-control-max-age': '3600',
-        connection: 'close',
-        'content-type': 'multipart/form-data',
-        date: 'Mon, 22 Feb 2021 05:23:05 GMT',
-        'transfer-encoding': 'Identity',
-        vary:
-          'Origin, Access-Control-Request-Method, Access-Control-Request-Headers',
-      },
-    })
-      .then((response) => {
-        console.log('passportApi THEN>>', response);
-        console.log('passportApi THEN>>', response.data);
-        console.log('passportApi THEN>>', response.data.result);
-        setSuccessCheck(response.data.result);
+  let data = new FormData();
+  let api = axios.create({
+    baseURL: `${server}`,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Accept: '*/*',
+    },
+    data: data._parts,
+  });
+  const passportUploadApi = async () => {
+    await api
+      .post('/util/passport')
+      .then(async (response) => {
+        console.log(`passportUploadApi Then >>`, JSON.stringify(response.data));
       })
       .catch((e) => {
-        console.log('passportApi ERROR>>', e);
-        console.log('passportApi ERROR>>', e.response);
+        console.log(`passportUploadApi Error`, e);
       });
   };
-  useEffect(() => {
-    if (successCheck.indexOf('success') != -1) {
-      navigation.replace('IdVerificationInProgress');
-    }
-  }, [successCheck]);
-
-  const handlePermission = async () => {
-    try {
-      const device =
-        Platform.OS === 'ios' ? PERMISSIONS.IOS : PERMISSIONS.ANDROID;
-
-      requestPermission(device).then((res) => {
-        const {DENIED, BLOCKED} = resultClassification(res);
-        const notGrantedArr = [...DENIED, ...BLOCKED];
-
-        const reQuestion = async () => {
-          if (notGrantedArr.length === 0) {
-            setLoading(true);
-          } else {
-            await requestMultiple(notGrantedArr).then((res) => {
-              console.log(res);
-              const {DENIED, BLOCKED} = resultClassification(res);
-
-              if (Platform.OS === 'ios') {
-                //  for ios
-                setLoading(true);
-              } else {
-                //for android
-                if (DENIED.length > 0) {
-                  RNExitApp.exitApp();
-                } else if (BLOCKED.length > 0) {
-                  openSettingAlert();
-                } else {
-                  setLoading(true);
-                }
-              }
-            });
-          }
-        };
-        reQuestion();
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  if (response === null) {
-    ImgBox = (
-      <View
-        style={{
-          width: '100%',
-          height: 230,
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderRadius: 15,
-          borderColor: '#dedede',
-          borderWidth: 2,
-        }}>
-        <Image
-          style={{
-            width: 260,
-            height: 200,
-            resizeMode: 'contain',
-            // borderWidth: 1,
-          }}
-          source={require('../../imgs/passportIcon.png')}
-        />
-      </View>
-    );
-  } else if (response.didCancel === true) {
-    ImgBox = (
-      <View
-        style={{
-          width: '100%',
-          height: 230,
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderRadius: 15,
-          borderColor: '#dedede',
-          borderWidth: 2,
-        }}>
-        <Image
-          style={{
-            width: 260,
-            height: 200,
-            resizeMode: 'contain',
-            // borderWidth: 1,
-          }}
-          source={require('../../imgs/passportIcon.png')}
-        />
-      </View>
-    );
-  } else if (response.uri !== false) {
-    ImgBox = (
-      <Image
-        style={{
-          width: '100%',
-          height: 230,
-          borderRadius: 15,
-          borderColor: '#dedede',
-          borderWidth: 2,
-          resizeMode: 'cover',
-        }}
-        source={{uri: response.uri}}
-      />
-    );
-  } else {
-    ImgBox = (
-      <View
-        style={{
-          width: '100%',
-          height: 230,
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderRadius: 15,
-          borderColor: '#dedede',
-          borderWidth: 2,
-        }}>
-        <Image
-          style={{
-            width: 260,
-            height: 200,
-            resizeMode: 'contain',
-            // borderWidth: 1,
-          }}
-          source={require('../../imgs/passportIcon.png')}
-        />
-      </View>
-    );
-  }
 
   useEffect(() => {
     console.log('response>>>>>>>>>', response);
   }, [response]);
+
+  useEffect(() => {
+    console.log('response>>>>>>>>>', passportNo);
+    console.log('firstName>>>>>>>>>', firstName);
+    console.log('lastName>>>>>>>>>', lastName);
+  }, [passportNo, lastName, firstName]);
 
   const handlePassportChange = (value) => {
     setPassportNo(value);
@@ -345,23 +100,9 @@ const IdVerification = ({navigation}) => {
       setModalVisible(!modalVisible);
     } else if (response === null) {
       setModal2Visible(!modal2Visible);
-    } else if (
-      getTextLength(firstName) >= 100 ||
-      getTextLength(lastName) >= 100 ||
-      getTextLength(passportNo) >= 100
-    ) {
-      setModal3Visible(!modal2Visible);
     } else {
-      console.log('passportNo', passportNo);
-      console.log('passportNo', passportNo);
-      console.log('firstName', firstName);
-      console.log('firstName', firstName);
-      console.log('lastName', lastName);
-      console.log('lastName', lastName);
-      console.log('Response', response);
-      console.log('Response', response);
-      passportApi();
-      // navigation.replace('IdVerificationInProgress');
+      passportUploadApi();
+      navigation.replace('IdVerificationInProgress');
     }
   };
 
@@ -375,12 +116,7 @@ const IdVerification = ({navigation}) => {
             navigation.goBack();
           }}>
           <Image
-            style={{
-              width: Platform.OS === 'ios' ? 28 : 22,
-              height: Platform.OS === 'ios' ? 28 : 22,
-              resizeMode: 'contain',
-            }}
-            source={require('../../imgs/backIcon.png')}
+            source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
           />
           <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
             {t('idVerificationTitle')}
@@ -395,9 +131,40 @@ const IdVerification = ({navigation}) => {
         }}>
         <View style={{flex: 1, paddingVertical: '5%', paddingBottom: '40%'}}>
           {/* body */}
-
-          {/* ID Image */}
-          {ImgBox}
+          {response === null ? (
+            <View
+              style={{
+                width: '100%',
+                height: 230,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 15,
+                borderColor: '#dedede',
+                borderWidth: 2,
+              }}>
+              <Image
+                style={{
+                  width: 260,
+                  height: 200,
+                  resizeMode: 'contain',
+                  // borderWidth: 1,
+                }}
+                source={require('../../imgs/drawable-xxxhdpi/passport_icon.png')}
+              />
+            </View>
+          ) : (
+            <Image
+              style={{
+                width: '100%',
+                height: 230,
+                borderRadius: 15,
+                borderColor: '#dedede',
+                borderWidth: 2,
+                resizeMode: 'cover',
+              }}
+              source={{uri: response.uri}}
+            />
+          )}
 
           {/* image 하단 체크 리스트 */}
           <View
@@ -466,7 +233,7 @@ const IdVerification = ({navigation}) => {
                     mediaType: 'photo',
                     includeBase64: false,
                     maxHeight: 200,
-                    maxWidth: 200,
+                    maxWidth: 500,
                   },
                   (response) => {
                     setResponse(response);
@@ -583,8 +350,24 @@ const IdVerification = ({navigation}) => {
           },
         ]}
         activeOpacity={0.75}
-        onPress={() => {
+        onPress={async () => {
+          const userNo = await AsyncStorage.getItem('userNo');
           handleCheckValues();
+          data.append('reqFile', {
+            uri: response.uri.replace('file://', ''),
+            type: response.type,
+            name: response.fileName,
+          });
+          data.append(
+            'reqPassPortInfo',
+            JSON.stringify({
+              userNo: userNo,
+              passPortNumber: passportNo,
+              englishFirstName: firstName,
+              englishLastName: lastName,
+            }),
+          );
+          console.log('data =>>>>>>>>>>', data._parts);
         }}>
         <Text
           style={[
@@ -598,17 +381,12 @@ const IdVerification = ({navigation}) => {
       <BottomModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
-        text={t('idVerification12')}
+        text={'내용을 정확하게 입력해 주십시오.'}
       />
       <BottomModal
         modalVisible={modal2Visible}
         setModalVisible={setModal2Visible}
-        text={t('idVerification13')}
-      />
-      <BottomModal
-        modalVisible={modal3Visible}
-        setModalVisible={setModal3Visible}
-        text={'글자수 제한 초과했습니다. 다시 입력해주세요.'}
+        text={'여권 사진을 업로드해 주십시오.'}
       />
     </SafeAreaView>
   );
