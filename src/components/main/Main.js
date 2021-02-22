@@ -247,8 +247,7 @@ function Ongoing({navigation, route}) {
                 width: '100%',
                 height: '120%',
                 backgroundColor: 'rgba(0, 0, 0, 0.1)',
-              }}
-            />
+              }}></View>
             <LinearGradient
               colors={[
                 'rgba(0, 0, 0, 0.5)',
@@ -262,8 +261,7 @@ function Ongoing({navigation, route}) {
                 top: 0,
                 width: '100%',
                 height: '120%',
-              }}
-            />
+              }}></LinearGradient>
             <View style={[MainStyle.itemBoxInner]}>
               <View style={{position: 'relative'}}>
                 <Text
@@ -525,7 +523,7 @@ function Ongoing({navigation, route}) {
           height:
             ongoingData.length == 0
               ? '100%'
-              : String(ongoingData.length * 90 + '%'),
+              : String(ongoingData.length * 95 + '%'),
           // borderWidth: 3,
           // borderColor: '#00f',
           paddingTop: Platform.OS === 'ios' ? 0 : '3%', // tab navigator와의 간격
@@ -676,8 +674,7 @@ function Completed({navigation}) {
                 width: '100%',
                 height: '120%',
                 backgroundColor: 'rgba(0, 0, 0, 0.1)',
-              }}
-            />
+              }}></View>
             <LinearGradient
               colors={[
                 'rgba(0, 0, 0, 0.5)',
@@ -691,8 +688,7 @@ function Completed({navigation}) {
                 top: 0,
                 width: '100%',
                 height: '120%',
-              }}
-            />
+              }}></LinearGradient>
             <View style={[MainStyle.itemBoxInner]}>
               <View
                 style={{
@@ -901,7 +897,7 @@ function Completed({navigation}) {
           height:
             completeData.length == 0
               ? '100%'
-              : String(completeData.length * 85 + '%'),
+              : String(completeData.length * 95 + '%'),
           // borderWidth: 3,
           // borderColor: '#00f',
           paddingTop: Platform.OS === 'ios' ? 0 : '3%', // tab navigator와의 간격
@@ -1013,8 +1009,7 @@ function Expired({navigation}) {
                 width: '100%',
                 height: '120%',
                 backgroundColor: 'rgba(0, 0, 0, 0.1)',
-              }}
-            />
+              }}></View>
             <LinearGradient
               colors={[
                 'rgba(0, 0, 0, 0.5)',
@@ -1028,8 +1023,7 @@ function Expired({navigation}) {
                 top: 0,
                 width: '100%',
                 height: '120%',
-              }}
-            />
+              }}></LinearGradient>
             <View style={[MainStyle.itemBoxInner]}>
               <View style={{position: 'relative'}}>
                 <Text
@@ -1252,7 +1246,7 @@ function Expired({navigation}) {
           height:
             expiredData.length == 0
               ? '100%'
-              : String(expiredData.length * 90 + '%'),
+              : String(expiredData.length * 95 + '%'),
           // borderWidth: 3,
           // borderColor: '#00f',
           paddingTop: Platform.OS === 'ios' ? 0 : '3%', // tab navigator와의 간격
@@ -1391,13 +1385,13 @@ function Main({navigation, t, i18n}) {
               paddingHorizontal: 5,
               paddingVertical: 5,
             }}
-            onPress={async () => {
-              try {
-                console.log('USerNONONO', await AsyncStorage.getItem('userNo'));
-                await AsyncStorage.removeItem('userNo');
-                console.log('USerNONONO', await AsyncStorage.getItem('userNo'));
-              } catch (e) {}
-            }}
+            // onPress={async () => {
+            //   try {
+            //     console.log('USerNONONO', await AsyncStorage.getItem('userNo'));
+            //     await AsyncStorage.removeItem('userNo');
+            //     console.log('USerNONONO', await AsyncStorage.getItem('userNo'));
+            //   } catch (e) {}
+            // }}
             // onPress={() => {
             //   navigation.navigate('Kyc');
             // }}

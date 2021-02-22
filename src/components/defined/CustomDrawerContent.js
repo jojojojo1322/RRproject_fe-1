@@ -514,7 +514,8 @@ const CustomDrawerContent = (props) => {
         <TouchableOpacity
           onPress={() => {
             // props.navigation.navigate('Main');
-            props.navigation.navigate('TestPage');
+            // props.navigation.navigate('TestPage');
+            props.navigation.navigate('KycLevel1Box');
           }}
           style={MainStyle.drawerItem}>
           <Text
