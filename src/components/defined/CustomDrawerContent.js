@@ -108,22 +108,26 @@ const CustomDrawerContent = (props) => {
     // passportApi();
   }, []);
   useEffect(() => {
-    if (idData === 0) {
-      props.navigation.navigate('IdVerification');
-    } else if (idData === 1) {
-      props.navigation.navigate('IdVerificationComplete');
-      // props.navigation.navigate('IdVerification');
-    } else if (idData === 2) {
-      props.navigation.navigate('IdVerificationInProgress');
-    } else if (idData === 3) {
-      props.navigation.navigate('IdVerificationDecline');
-    } else if (idData !== -99) {
-      props.navigation.navigate('IdVerification');
-    }
-
+    // if (idData === 0) {
+    //   props.navigation.navigate('IdVerification');
+    // } else if (idData === 1) {
+    //   props.navigation.navigate('IdVerificationComplete');
+    //   // props.navigation.navigate('IdVerification');
+    // } else if (idData === 2) {
+    //   props.navigation.navigate('IdVerificationInProgress');
+    // } else if (idData === 3) {
+    //   props.navigation.navigate('IdVerificationDecline');
+    // } else if (idData !== -99) {
+    //   props.navigation.navigate('IdVerification');
+    // }
+    props.navigation.navigate('IdVerification');
+    // props.navigation.navigate('IdVerificationDecline');
+    // props.navigation.navigate('IdVerificationComplete');
+    // props.navigation.navigate('IdVerificationInProgress');
+    // props.navigation.navigate('IdVerificationDecline');
     setIdData(-99);
   }, [idData]);
-  //
+
   // console.log('CUSTON>>>>', props.login);
   // alert API
   const alertDataApi = async () => {
@@ -154,7 +158,7 @@ const CustomDrawerContent = (props) => {
       .then((response) => {
         console.log('passportApi THEN>>', response);
         console.log('passportApi THEN>>', response.data);
-        setIdData(response.data.response.ret_val);
+        setIdData(response.data.passPortStatus);
       })
       .catch((e) => {
         console.log('passportApi ERROR>>', e);
