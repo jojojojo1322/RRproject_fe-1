@@ -49,11 +49,15 @@ const DatePickerModal = ({
         {/* modal view */}
         <View
           style={[
-            ModalStyle.walletAllView,
-            {height: Platform.OS === 'ios' ? '45%' : '55%'},
+            ModalStyle.dataPickerModalView,
+            {
+              height: Platform.OS === 'ios' ? '45%' : '50%',
+              justifyContent: 'space-between',
+            },
           ]}>
           <View
             style={{
+              width: '100%',
               flexDirection: 'row',
               alignItems: 'center',
               justifyContent: 'space-between',
@@ -78,7 +82,10 @@ const DatePickerModal = ({
 
           <DatePicker value={date} onChange={(value) => setDate(value)} />
           <TouchableOpacity
-            style={ResetStyle.button}
+            style={[
+              ResetStyle.button,
+              {backgroundColor: date ? '#4696ff' : '#e6e6e6'},
+            ]}
             onPress={() => {
               handleBirth(formatDate(date));
               setModalVisible(!modalVisible);
