@@ -94,7 +94,7 @@ import SettingsPersonalResetPassword from './components/settings/settingsDetail/
 import SettingsPersonalPhone from './components/settings/settingsDetail/personal/SettingsPersonalPhone';
 import SettingsPersonalMasterPhone from './components/settings/settingsDetail/personal/SettingsPersonalMasterPhone';
 import SettingsPersonalMasterKey from './components/settings/settingsDetail/personal/SettingsPersonalMasterKey';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+
 import RNRestart from 'react-native-restart';
 
 import TestPage from './TestPage';
