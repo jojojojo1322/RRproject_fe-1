@@ -23,43 +23,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {server} from '../defined/server';
 import axios from 'axios';
 
-// const ImgBox = ({response}) => {
-//   return response === null ? (
-//     <View
-//       style={{
-//         width: '100%',
-//         height: 230,
-//         alignItems: 'center',
-//         justifyContent: 'center',
-//         borderRadius: 15,
-//         borderColor: '#dedede',
-//         borderWidth: 2,
-//       }}>
-//       <Image
-//         style={{
-//           width: 260,
-//           height: 200,
-//           resizeMode: 'contain',
-//           // borderWidth: 1,
-//         }}
-//         source={require('../../imgs/passportIcon.png')}
-//       />
-//     </View>
-//   ) : (
-//     <Image
-//       style={{
-//         width: '100%',
-//         height: 230,
-//         borderRadius: 15,
-//         borderColor: '#dedede',
-//         borderWidth: 2,
-//         resizeMode: 'cover',
-//       }}
-//       source={{uri: response.uri}}
-//     />
-//   );
-// };
-
 // 한글 - 영어에 따라 바이트 계산 차별 - passport varchar 100
 var getTextLength = function (str) {
   var len = 0;
@@ -123,12 +86,49 @@ const IdVerification = ({navigation}) => {
     }
   };
 
+  // const SERVER_URL =
+  //   process.env.REACT_APP_API_SERVER_URL || 'http://15.165.203.69:8081/api';
+  // // process.env.REACT_APP_API_SERVER_URL || 'http://gobuyaladdin.com/api';
+  // const api = (contentType = 'application/json') => {
+  //   return axios.create({
+  //     baseURL: SERVER_URL,
+  //     headers: {
+  //       'Content-Type': contentType,
+  //       'Access-Control-Allow-Origin': '*',
+  //       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH',
+  //       'Access-Control-Allow-Headers':
+  //         'Origin,Accept,X-Requested-With,Content-Type,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization',
+  //       'buyaladdin-access-token':
+  //         '_wRKHTqzZCg45qdZwYqJFCR2pjtIwvelO7y5Jvwsw_w',
+  //     },
+  //     //쿠키 전송 관련 문제 발생 시 withCredentials옵션을 줘야합니다.
+  //     //withCredentials: true,
+  //   });
+  // };
+
+  // export default api;
+
+  const instance = () => {
+    return axios.create({
+      baseURL: `http://52.78.181.176:8091/v1/api`,
+      headers: {'Content-Type': 'multipart/form-data', Accept: '*/*'},
+
+      // timeout: 1000,
+    });
+  };
   const passportApi = async () => {
     console.log('passportApi 진입 response>>', response);
+    console.log('axios 서버 루트 체크>', `${server}/util/passport`);
+    console.log('axios 서버 루트 체크>', {
+      userNo: await AsyncStorage.getItem('userNo'),
+      passPortNumber: passportNo,
+      englishFirstName: firstName,
+      englishLastName: lastName,
+    });
     let formData = new FormData();
     // response
     formData.append('reqFile', {
-      uri: response.uri,
+      uri: response.uri.replace('file://', ''),
       type: response.type,
       name: response.fileName,
     });
@@ -141,42 +141,51 @@ const IdVerification = ({navigation}) => {
         englishLastName: lastName,
       }),
     );
-
     console.log('passportApi 진입 FORM response>>', formData);
-    // console.log('passportApi 진입 FORM response>>', formData);
-    // {
-    //   body: {
-    //     reqFile: formData,
-    //     reqPassPortInfo: [
-    //       {
-    //         userNo: await AsyncStorage.getItem('userNo'),
-    //         passPortNumber: passportNo,
-    //         englishFirstName: firstName,
-    //         englishLastName: lastName,
-    //       },
-    //     ],
-    //   },
-    // },
+
+    // axios
+    //   .post(`${server}/util/passport`, {
+    //     data: formData,
+    //     // },
+    //     // {
+    //     headers: {
+    //       'Content-Type': 'multipart/form-data',
+    //       Accept: '*/*',
+    //     },
+    //     // },
+    //     // {
+    //     _lowerCaseResponseHeaders: {
+    //       'access-control-allow-headers': 'x-auth-token, content-type',
+    //       'access-control-allow-methods': 'POST, GET, PUT, OPTIONS, DELETE',
+    //       'access-control-allow-origin': '*',
+    //       'access-control-max-age': '3600',
+    //       'content-type': 'multipart/form-data',
+    //     },
+    //   })
+    //
+    //
+
+    // instance()
+    //   .post('/util/passport', formData)
+    //
+    //
+    //
+
     axios({
       method: 'post',
       url: `${server}/util/passport`,
       data: formData,
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Accept: '*/*',
-      },
-      _lowerCaseResponseHeaders: {
-        'access-control-allow-headers': 'x-auth-token, content-type',
-        'access-control-allow-methods': 'POST, GET, PUT, OPTIONS, DELETE',
-        'access-control-allow-origin': '*',
-        'access-control-max-age': '3600',
-        connection: 'close',
-        'content-type': 'multipart/form-data',
-        date: 'Mon, 22 Feb 2021 05:23:05 GMT',
-        'transfer-encoding': 'Identity',
-        vary:
-          'Origin, Access-Control-Request-Method, Access-Control-Request-Headers',
-      },
+      // headers: {
+      //   'Content-Type': 'multipart/form-data',
+      //   Accept: '*/*',
+      // },
+      // _lowerCaseResponseHeaders: {
+      //   // 'access-control-allow-headers': 'x-auth-token, content-type',
+      //   // 'access-control-allow-methods': 'POST, GET, PUT, OPTIONS, DELETE',
+      //   // 'access-control-allow-origin': '*',
+      //   // 'access-control-max-age': '3600',
+      //   'content-type': 'multipart/form-data',
+      // },
     })
       .then((response) => {
         console.log('passportApi THEN>>', response);
@@ -186,8 +195,18 @@ const IdVerification = ({navigation}) => {
       })
       .catch((e) => {
         console.log('passportApi ERROR>>', e);
+        // console.error();
+        // console.error(e);
         console.log('passportApi ERROR>>', e.response);
       });
+    console.log('asdasdasdagshdgas>>>');
+    console.log('asdasdasdagshdgas>>>');
+    console.log('asdasdasdagshdgas>>>');
+    console.log('asdasdasdagshdgas>>>');
+    console.log('asdasdasdagshdgas>>>');
+    console.log('asdasdasdagshdgas>>>');
+    console.log('asdasdasdagshdgas>>>');
+    console.log('asdasdasdagshdgas>>>');
   };
   useEffect(() => {
     if (successCheck.indexOf('success') != -1) {
@@ -440,6 +459,8 @@ const IdVerification = ({navigation}) => {
                     maxWidth: 200,
                   },
                   (response) => {
+                    // let data = response;
+                    // data = data.uri.split('content://', 'file:///');
                     setResponse(response);
                   },
                 );
@@ -469,6 +490,8 @@ const IdVerification = ({navigation}) => {
                     maxWidth: 200,
                   },
                   (response) => {
+                    // let data = response;
+                    // data = data.uri.split('content://', 'file:///');
                     setResponse(response);
                   },
                 );
