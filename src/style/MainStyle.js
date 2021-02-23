@@ -32,7 +32,7 @@ export default StyleSheet.create({
   // Item
   itemBox: {
     width: '80%',
-    height: Platform.OS === 'ios' ? '130%' : '105%',
+    height: Platform.OS === 'ios' ? '140%' : '140%',
     alignSelf: 'center',
     borderRadius: 20,
     backgroundColor: '#fff',
@@ -43,7 +43,7 @@ export default StyleSheet.create({
   },
   itemBox2: {
     width: '80%',
-    height: Platform.OS === 'ios' ? '130%' : '105%',
+    height: Platform.OS === 'ios' ? '140%' : '140%',
     alignSelf: 'center',
     borderRadius: 20,
     backgroundColor: '#fff',

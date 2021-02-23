@@ -352,7 +352,7 @@ export default StyleSheet.create({
   // DatePickerModal
   dataPickerModalView: {
     position: 'absolute',
-    top: Platform.OS === 'ios' ? '25%' : '15%',
+    top: Platform.OS === 'ios' ? '30%' : '15%',
     left: '5%',
     flex: 1,
     flexDirection: 'column',

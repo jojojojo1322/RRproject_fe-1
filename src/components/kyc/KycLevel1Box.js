@@ -558,9 +558,9 @@ const KycLevel1Box = ({navigation, route}) => {
             />
           </View>
           {/* Container */}
-          {/* <KycLevel1First /> */}
+          <KycLevel1First />
           {/* <KycLevel1Second /> */}
-          <KycLevel1Third />
+          {/* <KycLevel1Third /> */}
         </View>
 
         {/* Bottom Button */}

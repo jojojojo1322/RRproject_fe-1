@@ -36,9 +36,26 @@ import {useTranslation} from 'react-i18next';
 
 const SLIDER_WIDTH = Dimensions.get('window').width;
 // const SLIDER_HEIGHT = Dimensions.get('window').height / 2.5;
-const SLIDER_HEIGHT = Dimensions.get('window').height / 2;
+// const SLIDER_HEIGHT = Dimensions.get('window').height / 2;
+const SLIDER_HEIGHT = Dimensions.get('window').height;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH);
-const ITEM_HEIGHT = Math.round(ITEM_WIDTH);
+// const ITEM_HEIGHT = Math.round(ITEM_WIDTH);
+const ITEM_HEIGHT = SLIDER_HEIGHT / 2.5;
+
+console.log('화면 높이 값 >>>>>>', SLIDER_HEIGHT);
+console.log('화면 높이 값 >>>>>>', SLIDER_HEIGHT);
+console.log('화면 높이 값 >>>>>>', SLIDER_HEIGHT);
+console.log('화면 높이 값 >>>>>>', SLIDER_HEIGHT);
+console.log('화면 높이 값 >>>>>>', SLIDER_HEIGHT);
+console.log('화면 높이 값 >>>>>>', SLIDER_HEIGHT);
+console.log('화면 높이 값 >>>>>>', SLIDER_HEIGHT);
+console.log('화면 높이 값 / 300 >>>>>>', ITEM_HEIGHT);
+console.log('화면 높이 값 / 300 >>>>>>', ITEM_HEIGHT);
+console.log('화면 높이 값 / 300 >>>>>>', ITEM_HEIGHT);
+console.log('화면 높이 값 / 300 >>>>>>', ITEM_HEIGHT);
+console.log('화면 높이 값 / 300 >>>>>>', ITEM_HEIGHT);
+console.log('화면 높이 값 / 300 >>>>>>', ITEM_HEIGHT);
+console.log('화면 높이 값 / 300 >>>>>>', ITEM_HEIGHT);
 
 // const SLIDER_WIDTH = Dimensions.get('window').width;
 // const SLIDER_HEIGHT = 500;
@@ -506,17 +523,19 @@ function Ongoing({navigation, route}) {
           //   : DATA.filter((item) => item.status == 'ongoing')
         }
         renderItem={renderItem}
-        sliderHeight={Platform.OS === 'ios' ? 500 : 450}
-        itemHeight={Platform.OS === 'ios' ? 420 : 430}
+        sliderHeight={Platform.OS === 'ios' ? 500 : 500}
+        itemHeight={Platform.OS === 'ios' ? ITEM_HEIGHT : ITEM_HEIGHT}
         containerCustomStyle={{
           flex: 1,
           backgroundColor: '#fff',
+          // borderWidth: 3,
+          // borderColor: '#0f0',
         }}
         slideStyle={{
           width: '100%',
+          // height: '2.8%',
           // borderWidth: 3,
           // borderColor: '#F00',
-          marginTop: 0,
           paddingTop: 0,
         }}
         contentContainerCustomStyle={{
@@ -532,10 +551,9 @@ function Ongoing({navigation, route}) {
         onSnapToItem={(index) => setIndex(index)}
         scrollInterpolator={scrollInterpolator2}
         slideInterpolatedStyle={animatedStyles2}
-        useScrollView={true}
+        // useScrollView={true}
         vertical={true}
         layout={'stack'}
-        layoutCardOffset={0}
         // ListFooterComponent={loading && <ActivityIndicator />}
       />
       <BottomModal
@@ -879,11 +897,12 @@ function Completed({navigation}) {
         }
         renderItem={renderItem}
         sliderHeight={Platform.OS === 'ios' ? 500 : 450}
-        itemHeight={Platform.OS === 'ios' ? 420 : 430}
+        itemHeight={Platform.OS === 'ios' ? ITEM_HEIGHT : ITEM_HEIGHT}
         containerCustomStyle={{
           flex: 1,
           backgroundColor: '#fff',
-          // borderWidth: 1,
+          // borderWidth: 3,
+          // borderColor: '#0f0',
         }}
         // swipeThreshold={50}
         slideStyle={{
@@ -906,7 +925,7 @@ function Completed({navigation}) {
         onSnapToItem={(index) => setIndex(index)}
         scrollInterpolator={scrollInterpolator2}
         slideInterpolatedStyle={animatedStyles2}
-        useScrollView={true}
+        // useScrollView={true}
         vertical={true}
         layout={'stack'}
         layoutCardOffset={0}
@@ -1233,7 +1252,7 @@ function Expired({navigation}) {
         }
         renderItem={renderItem}
         sliderHeight={Platform.OS === 'ios' ? 500 : 450}
-        itemHeight={Platform.OS === 'ios' ? 420 : 430}
+        itemHeight={Platform.OS === 'ios' ? ITEM_HEIGHT : ITEM_HEIGHT}
         containerCustomStyle={{flex: 1, backgroundColor: '#fff'}}
         slideStyle={{
           width: '100%',
@@ -1254,7 +1273,7 @@ function Expired({navigation}) {
         onSnapToItem={(index) => setIndex(index)}
         scrollInterpolator={scrollInterpolator2}
         slideInterpolatedStyle={animatedStyles2}
-        useScrollView={true}
+        // useScrollView={true}
         vertical={true}
         layout={'stack'}
         layoutCardOffset={0}
