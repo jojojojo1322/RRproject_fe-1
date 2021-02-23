@@ -4,7 +4,6 @@ import {
   View,
   SafeAreaView,
   Image,
-  TouchableOpacity,
   TouchableWithoutFeedback,
   Dimensions,
   ActivityIndicator,
@@ -13,10 +12,10 @@ import {
 } from 'react-native';
 import {useIsFocused} from '@react-navigation/native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-// import {TouchableOpacity} from 'react-native-gesture-handler';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import ResetStyle from '../../style/ResetStyle';
 import MainStyle from '../../style/MainStyle';
-import Carousel from 'react-native-snap-carousel';
+import Carousel from '../defined/snapCarousel/snapCarousel';
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {scrollInterpolator2, animatedStyles2} from '../animations';
@@ -37,25 +36,11 @@ import {useTranslation} from 'react-i18next';
 const SLIDER_WIDTH = Dimensions.get('window').width;
 // const SLIDER_HEIGHT = Dimensions.get('window').height / 2.5;
 // const SLIDER_HEIGHT = Dimensions.get('window').height / 2;
-const SLIDER_HEIGHT = Dimensions.get('window').height;
+// const SLIDER_HEIGHT = Dimensions.get('window').height;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH);
 // const ITEM_HEIGHT = Math.round(ITEM_WIDTH);
-const ITEM_HEIGHT = SLIDER_HEIGHT / 2.5;
-
-console.log('화면 높이 값 >>>>>>', SLIDER_HEIGHT);
-console.log('화면 높이 값 >>>>>>', SLIDER_HEIGHT);
-console.log('화면 높이 값 >>>>>>', SLIDER_HEIGHT);
-console.log('화면 높이 값 >>>>>>', SLIDER_HEIGHT);
-console.log('화면 높이 값 >>>>>>', SLIDER_HEIGHT);
-console.log('화면 높이 값 >>>>>>', SLIDER_HEIGHT);
-console.log('화면 높이 값 >>>>>>', SLIDER_HEIGHT);
-console.log('화면 높이 값 / 300 >>>>>>', ITEM_HEIGHT);
-console.log('화면 높이 값 / 300 >>>>>>', ITEM_HEIGHT);
-console.log('화면 높이 값 / 300 >>>>>>', ITEM_HEIGHT);
-console.log('화면 높이 값 / 300 >>>>>>', ITEM_HEIGHT);
-console.log('화면 높이 값 / 300 >>>>>>', ITEM_HEIGHT);
-console.log('화면 높이 값 / 300 >>>>>>', ITEM_HEIGHT);
-console.log('화면 높이 값 / 300 >>>>>>', ITEM_HEIGHT);
+// const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT / 2.5);
+// const ITEM_HEIGHT_ANDROID = Math.round(SLIDER_HEIGHT / 2.2);
 
 // const SLIDER_WIDTH = Dimensions.get('window').width;
 // const SLIDER_HEIGHT = 500;
@@ -139,6 +124,10 @@ const TncGetApi = async () => {
 };
 
 function Ongoing({navigation, route}) {
+  const SLIDER_HEIGHT = Dimensions.get('window').height;
+  const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT / 2.5);
+  const ITEM_HEIGHT_ANDROID = Math.round(SLIDER_HEIGHT / 2.2);
+  const ITEM_HEIGHT_IOS_UNDER700 = Math.round(SLIDER_HEIGHT / 2.3);
   console.log('Ongoing 호출');
 
   const [index, setIndex] = useState(0);
@@ -208,7 +197,7 @@ function Ongoing({navigation, route}) {
       return (
         <View
           style={[
-            MainStyle.itemBox2,
+            MainStyle.itemBox,
             // {marginBottom: item.id === item.length ? 200 : 0},
           ]}
           onPress={() => {
@@ -315,6 +304,7 @@ function Ongoing({navigation, route}) {
             </View>
             <View
               style={{
+                width: '100%',
                 position: 'absolute',
                 bottom: 0,
                 left: '5%',
@@ -338,46 +328,54 @@ function Ongoing({navigation, route}) {
                   backgroundColor: '#ffffff',
                   marginTop: '2%',
                   marginBottom: '2%',
-                  width: '137%',
+                  width: '90%',
                 }}
               />
-              <View style={MainStyle.itemBoxBottomTextView}>
-                <Image
-                  style={{
-                    width: Platform.OS === 'ios' ? 18 : 15,
-                    height: Platform.OS === 'ios' ? 18 : 15,
-                    resizeMode: 'contain',
-                  }}
-                  source={require('../../imgs/userIcon.png')}
-                />
-                <Text
-                  style={[
-                    ResetStyle.fontRegularK,
-                    ResetStyle.fontWhite,
-                    {textAlign: 'left', marginLeft: '5%'},
-                  ]}>
-                  {numberWithCommas(item.participants)} /{' '}
-                  {numberWithCommas(item.particRestrictions)}
-                </Text>
-              </View>
+              <View
+                style={{
+                  width: '90%',
+                  flexDirection: 'row',
+                  alignItems: 'flex-end',
+                  justifyContent: 'space-between',
+                }}>
+                <View style={{flexDirection: 'column'}}>
+                  <View style={MainStyle.itemBoxBottomTextView}>
+                    <Image
+                      style={{
+                        width: Platform.OS === 'ios' ? 18 : 15,
+                        height: Platform.OS === 'ios' ? 18 : 15,
+                        resizeMode: 'contain',
+                      }}
+                      source={require('../../imgs/userIcon.png')}
+                    />
+                    <Text
+                      style={[
+                        ResetStyle.fontRegularK,
+                        ResetStyle.fontWhite,
+                        {textAlign: 'left', marginLeft: '5%'},
+                      ]}>
+                      {numberWithCommas(item.participants)} /{' '}
+                      {numberWithCommas(item.particRestrictions)}
+                    </Text>
+                  </View>
 
-              <View style={MainStyle.itemBoxBottomTextView}>
-                <Image
-                  style={{
-                    width: Platform.OS === 'ios' ? 18 : 15,
-                    height: Platform.OS === 'ios' ? 18 : 15,
-                    resizeMode: 'contain',
-                  }}
-                  source={require('../../imgs/clockIcon.png')}
-                />
-                <Text
-                  style={[
-                    ResetStyle.fontRegularK,
-                    ResetStyle.fontWhite,
-                    {marginLeft: '5%'},
-                  ]}>
-                  {/* {item.endTime} */}
-                  {/* {setInterval(function () {
+                  <View style={MainStyle.itemBoxBottomTextView}>
+                    <Image
+                      style={{
+                        width: Platform.OS === 'ios' ? 18 : 15,
+                        height: Platform.OS === 'ios' ? 18 : 15,
+                        resizeMode: 'contain',
+                      }}
+                      source={require('../../imgs/clockIcon.png')}
+                    />
+                    <Text
+                      style={[
+                        ResetStyle.fontRegularK,
+                        ResetStyle.fontWhite,
+                        {marginLeft: '5%'},
+                      ]}>
+                      {/* {item.endTime} */}
+                      {/* {setInterval(function () {
                       var today = new Date().getTime();
                       var gap = dday - today;
                       var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
@@ -389,12 +387,12 @@ function Ongoing({navigation, route}) {
   
                       return `${day - 1}일 ${hour}시간 ${min}분 ${sec}초`;
                     }, 1000)} */}
-                  {`${day - 1}${t('days')} ${hour}${t('hours')} ${min}${t(
-                    'minutes',
-                  )} ${sec}${t('seconds')}`}
-                  {
-                    <>
-                      {/* <Moment
+                      {`${day - 1}${t('days')} ${hour}${t('hours')} ${min}${t(
+                        'minutes',
+                      )} ${sec}${t('seconds')}`}
+                      {
+                        <>
+                          {/* <Moment
                         element={Text}
                         interval={100}
                         date={item.endTime}
@@ -402,16 +400,16 @@ function Ongoing({navigation, route}) {
                         format="D일 hh시간 mm분 ss초"
                       /> */}
 
-                      {/* <Moment
+                          {/* <Moment
                         element={Text}
                         interval={1000}
                         date={now}
                         duration={item.endTime}
                         format="D일 hh시간 mm분 ss초"
                       /> */}
-                    </>
-                  }
-                  {/* {setInterval(() => {
+                        </>
+                      }
+                      {/* {setInterval(() => {
                       var today = new Date().getTime();
                       var dday = new Date(item.endTime).getTime();
                       var gap = dday - today;
@@ -423,47 +421,49 @@ function Ongoing({navigation, route}) {
                       var sec = Math.ceil((gap % (1000 * 60)) / 1000);
                       return day;
                     }, 1000)} */}
-                  {/* {console.log('remainTime', remainTime)} */}
-                </Text>
+                      {/* {console.log('remainTime', remainTime)} */}
+                    </Text>
+                  </View>
+                </View>
+                <TouchableOpacity
+                  style={{
+                    // position: 'absolute',
+                    // bottom: 0,
+                    // right: '5%',
+                    width: Platform.OS === 'ios' ? 80 : 70,
+                    backgroundColor: 'rgba(255,255,255,0.4)',
+                    borderRadius: 50,
+                  }}
+                  onPress={() => {
+                    item.surveyStatus === 'expired'
+                      ? navigation.navigate('MainDetailExpired', {
+                          legacySurveyId: item.legacySurveyId,
+                          // legacySurveyId: '5fd8b08d0afe882b01307818',
+                          surveyName: item.surveyName,
+                        })
+                      : item.surveyStatus === 'completed'
+                      ? navigation.navigate('MainDetailCompleted', {
+                          legacySurveyId: item.legacySurveyId,
+                          // legacySurveyId: '5fd8b08d0afe882b01307818',
+                          surveyName: item.surveyName,
+                        })
+                      : navigation.navigate('MainDetail', {
+                          legacySurveyId: item.legacySurveyId,
+                          // legacySurveyId: '5fd8b08d0afe882b01307818',
+                          surveyName: item.surveyName,
+                        });
+                  }}>
+                  <Text
+                    style={[
+                      ResetStyle.fontLightK,
+                      ResetStyle.fontWhite,
+                      {fontWeight: '900', padding: 8},
+                    ]}>
+                    {t('main3')}
+                  </Text>
+                </TouchableOpacity>
               </View>
             </View>
-            <TouchableOpacity
-              style={{
-                position: 'absolute',
-                bottom: 0,
-                right: '5%',
-                width: Platform.OS === 'ios' ? 80 : 70,
-                backgroundColor: 'rgba(255,255,255,0.4)',
-                borderRadius: 50,
-              }}
-              onPress={() => {
-                item.surveyStatus === 'expired'
-                  ? navigation.navigate('MainDetailExpired', {
-                      legacySurveyId: item.legacySurveyId,
-                      // legacySurveyId: '5fd8b08d0afe882b01307818',
-                      surveyName: item.surveyName,
-                    })
-                  : item.surveyStatus === 'completed'
-                  ? navigation.navigate('MainDetailCompleted', {
-                      legacySurveyId: item.legacySurveyId,
-                      // legacySurveyId: '5fd8b08d0afe882b01307818',
-                      surveyName: item.surveyName,
-                    })
-                  : navigation.navigate('MainDetail', {
-                      legacySurveyId: item.legacySurveyId,
-                      // legacySurveyId: '5fd8b08d0afe882b01307818',
-                      surveyName: item.surveyName,
-                    });
-              }}>
-              <Text
-                style={[
-                  ResetStyle.fontLightK,
-                  ResetStyle.fontWhite,
-                  {fontWeight: '900', padding: 8},
-                ]}>
-                {t('main3')}
-              </Text>
-            </TouchableOpacity>
           </View>
         </View>
       );
@@ -524,7 +524,13 @@ function Ongoing({navigation, route}) {
         }
         renderItem={renderItem}
         sliderHeight={Platform.OS === 'ios' ? 500 : 500}
-        itemHeight={Platform.OS === 'ios' ? ITEM_HEIGHT : ITEM_HEIGHT}
+        itemHeight={
+          Platform.OS === 'android'
+            ? ITEM_HEIGHT_ANDROID
+            : Dimensions.get('window').height < 750
+            ? ITEM_HEIGHT_IOS_UNDER700
+            : ITEM_HEIGHT
+        }
         containerCustomStyle={{
           flex: 1,
           backgroundColor: '#fff',
@@ -545,7 +551,12 @@ function Ongoing({navigation, route}) {
               : String(ongoingData.length * 95 + '%'),
           // borderWidth: 3,
           // borderColor: '#00f',
-          paddingTop: Platform.OS === 'ios' ? 0 : '3%', // tab navigator와의 간격
+          paddingTop:
+            Platform.OS === 'android'
+              ? '3%'
+              : Dimensions.get('window').height < 750
+              ? '3%'
+              : 0, // tab navigator와의 간격
         }}
         inactiveSlideShift={0}
         onSnapToItem={(index) => setIndex(index)}
@@ -570,6 +581,19 @@ function Ongoing({navigation, route}) {
 }
 
 function Completed({navigation}) {
+  const SLIDER_HEIGHT = Dimensions.get('window').height;
+  const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT / 2.5);
+  const ITEM_HEIGHT_ANDROID = Math.round(SLIDER_HEIGHT / 2.2);
+
+  console.log('height', SLIDER_HEIGHT);
+  console.log('height', SLIDER_HEIGHT);
+  console.log('height', SLIDER_HEIGHT);
+  console.log('height', SLIDER_HEIGHT);
+  console.log('height', SLIDER_HEIGHT);
+  console.log('height', SLIDER_HEIGHT);
+  console.log('height', SLIDER_HEIGHT);
+  console.log('height', SLIDER_HEIGHT);
+  console.log('height', SLIDER_HEIGHT);
   console.log('Completed 호출');
   const [index, setIndex] = useState(0);
   const [completeData, setCompleteData] = useState([]);
@@ -716,7 +740,9 @@ function Completed({navigation}) {
                   style={[
                     ResetStyle.fontLightK,
                     ResetStyle.fontWhite,
-                    {marginTop: Platform.OS === 'ios' ? '30%' : '30%'},
+                    {
+                      marginTop: Platform.OS === 'ios' ? '30%' : '30%',
+                    },
                   ]}>
                   {item.categoryName} | {item.sponsorName}
                 </Text>
@@ -744,6 +770,7 @@ function Completed({navigation}) {
             </View>
             <View
               style={{
+                width: '100%',
                 position: 'absolute',
                 bottom: 0,
                 left: '5%',
@@ -767,46 +794,54 @@ function Completed({navigation}) {
                   backgroundColor: '#ffffff',
                   marginTop: '2%',
                   marginBottom: '2%',
-                  width: '137%',
+                  width: '90%',
                 }}
               />
-              <View style={MainStyle.itemBoxBottomTextView}>
-                <Image
-                  style={{
-                    width: Platform.OS === 'ios' ? 18 : 15,
-                    height: Platform.OS === 'ios' ? 18 : 15,
-                    resizeMode: 'contain',
-                  }}
-                  source={require('../../imgs/userIcon.png')}
-                />
-                <Text
-                  style={[
-                    ResetStyle.fontRegularK,
-                    ResetStyle.fontWhite,
-                    {textAlign: 'left', marginLeft: '5%'},
-                  ]}>
-                  {numberWithCommas(item.participants)} /{' '}
-                  {numberWithCommas(item.particRestrictions)}
-                </Text>
-              </View>
+              <View
+                style={{
+                  width: '90%',
+                  flexDirection: 'row',
+                  alignItems: 'flex-end',
+                  justifyContent: 'space-between',
+                }}>
+                <View style={{flexDirection: 'column'}}>
+                  <View style={MainStyle.itemBoxBottomTextView}>
+                    <Image
+                      style={{
+                        width: Platform.OS === 'ios' ? 18 : 15,
+                        height: Platform.OS === 'ios' ? 18 : 15,
+                        resizeMode: 'contain',
+                      }}
+                      source={require('../../imgs/userIcon.png')}
+                    />
+                    <Text
+                      style={[
+                        ResetStyle.fontRegularK,
+                        ResetStyle.fontWhite,
+                        {textAlign: 'left', marginLeft: '5%'},
+                      ]}>
+                      {numberWithCommas(item.participants)} /{' '}
+                      {numberWithCommas(item.particRestrictions)}
+                    </Text>
+                  </View>
 
-              <View style={MainStyle.itemBoxBottomTextView}>
-                <Image
-                  style={{
-                    width: Platform.OS === 'ios' ? 18 : 15,
-                    height: Platform.OS === 'ios' ? 18 : 15,
-                    resizeMode: 'contain',
-                  }}
-                  source={require('../../imgs/clockIcon.png')}
-                />
-                <Text
-                  style={[
-                    ResetStyle.fontRegularK,
-                    ResetStyle.fontWhite,
-                    {marginLeft: '5%'},
-                  ]}>
-                  {/* {item.endTime} */}
-                  {/* {setInterval(function () {
+                  <View style={MainStyle.itemBoxBottomTextView}>
+                    <Image
+                      style={{
+                        width: Platform.OS === 'ios' ? 18 : 15,
+                        height: Platform.OS === 'ios' ? 18 : 15,
+                        resizeMode: 'contain',
+                      }}
+                      source={require('../../imgs/clockIcon.png')}
+                    />
+                    <Text
+                      style={[
+                        ResetStyle.fontRegularK,
+                        ResetStyle.fontWhite,
+                        {marginLeft: '5%'},
+                      ]}>
+                      {/* {item.endTime} */}
+                      {/* {setInterval(function () {
                       var today = new Date().getTime();
                       var gap = dday - today;
                       var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
@@ -818,24 +853,24 @@ function Completed({navigation}) {
   
                       return `${day - 1}일 ${hour}시간 ${min}분 ${sec}초`;
                     }, 1000)} */}
-                  {day >= 0 && hour >= 0 && min >= 0 && sec >= 0
-                    ? `${day - 1}${t('days')} ${hour}${t('hours')} ${min}${t(
-                        'minutes',
-                      )} ${sec}${t('seconds')}`
-                    : `0${t('days')} 0${t('hours')} 0${t('minutes')} 0${t(
-                        'seconds',
-                      )}`}
-                  {/* `0{t('days')} 0{t('hours')} 0{t('minutes')} 0{t('seconds')}` */}
-                  {
-                    // <Moment
-                    //   element={Text}
-                    //   interval={100}
-                    //   date={item.endTime}
-                    //   format="D일 hh시간 mm분 ss초"
-                    //   durationFromNow
-                    // />
-                  }
-                  {/* {setInterval(() => {
+                      {day >= 0 && hour >= 0 && min >= 0 && sec >= 0
+                        ? `${day - 1}${t('days')} ${hour}${t(
+                            'hours',
+                          )} ${min}${t('minutes')} ${sec}${t('seconds')}`
+                        : `0${t('days')} 0${t('hours')} 0${t('minutes')} 0${t(
+                            'seconds',
+                          )}`}
+                      {/* `0{t('days')} 0{t('hours')} 0{t('minutes')} 0{t('seconds')}` */}
+                      {
+                        // <Moment
+                        //   element={Text}
+                        //   interval={100}
+                        //   date={item.endTime}
+                        //   format="D일 hh시간 mm분 ss초"
+                        //   durationFromNow
+                        // />
+                      }
+                      {/* {setInterval(() => {
                       var today = new Date().getTime();
                       var dday = new Date(item.endTime).getTime();
                       var gap = dday - today;
@@ -847,35 +882,34 @@ function Completed({navigation}) {
                       var sec = Math.ceil((gap % (1000 * 60)) / 1000);
                       return day;
                     }, 1000)} */}
-                  {/* {console.log('remainTime', remainTime)} */}
-                </Text>
+                      {/* {console.log('remainTime', remainTime)} */}
+                    </Text>
+                  </View>
+                </View>
+                <TouchableOpacity
+                  style={{
+                    width: Platform.OS === 'ios' ? 80 : 70,
+                    backgroundColor: 'rgba(255,255,255,0.4)',
+                    borderRadius: 50,
+                  }}
+                  onPress={() => {
+                    navigation.navigate('MainDetailCompleted', {
+                      legacySurveyId: item.legacySurveyId,
+                      // legacySurveyId: '5f91aad0ae28561b056e2f97',
+                      surveyName: item.surveyName,
+                    });
+                  }}>
+                  <Text
+                    style={[
+                      ResetStyle.fontLightK,
+                      ResetStyle.fontWhite,
+                      {fontWeight: '900', padding: 8},
+                    ]}>
+                    {t('main3')}
+                  </Text>
+                </TouchableOpacity>
               </View>
             </View>
-            <TouchableOpacity
-              style={{
-                position: 'absolute',
-                bottom: 0,
-                right: '5%',
-                width: Platform.OS === 'ios' ? 80 : 70,
-                backgroundColor: 'rgba(255,255,255,0.4)',
-                borderRadius: 50,
-              }}
-              onPress={() => {
-                navigation.navigate('MainDetailCompleted', {
-                  legacySurveyId: item.legacySurveyId,
-                  // legacySurveyId: '5f91aad0ae28561b056e2f97',
-                  surveyName: item.surveyName,
-                });
-              }}>
-              <Text
-                style={[
-                  ResetStyle.fontLightK,
-                  ResetStyle.fontWhite,
-                  {fontWeight: '900', padding: 8},
-                ]}>
-                {t('main3')}
-              </Text>
-            </TouchableOpacity>
           </View>
         </View>
       );
@@ -897,7 +931,13 @@ function Completed({navigation}) {
         }
         renderItem={renderItem}
         sliderHeight={Platform.OS === 'ios' ? 500 : 450}
-        itemHeight={Platform.OS === 'ios' ? ITEM_HEIGHT : ITEM_HEIGHT}
+        itemHeight={
+          Platform.OS === 'android'
+            ? ITEM_HEIGHT_ANDROID
+            : Dimensions.get('window').height < 750
+            ? ITEM_HEIGHT_IOS_UNDER700
+            : ITEM_HEIGHT
+        }
         containerCustomStyle={{
           flex: 1,
           backgroundColor: '#fff',
@@ -919,7 +959,12 @@ function Completed({navigation}) {
               : String(completeData.length * 95 + '%'),
           // borderWidth: 3,
           // borderColor: '#00f',
-          paddingTop: Platform.OS === 'ios' ? 0 : '3%', // tab navigator와의 간격
+          paddingTop:
+            Platform.OS === 'android'
+              ? '3%'
+              : Dimensions.get('window').height < 750
+              ? '3%'
+              : 0, // tab navigator와의 간격
         }}
         inactiveSlideShift={0}
         onSnapToItem={(index) => setIndex(index)}
@@ -939,6 +984,9 @@ function Completed({navigation}) {
 }
 
 function Expired({navigation}) {
+  const SLIDER_HEIGHT = Dimensions.get('window').height;
+  const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT / 2.5);
+  const ITEM_HEIGHT_ANDROID = Math.round(SLIDER_HEIGHT / 2.2);
   console.log('Expired 호출11');
 
   const [index, setIndex] = useState(0);
@@ -1077,6 +1125,7 @@ function Expired({navigation}) {
             </View>
             <View
               style={{
+                width: '100%',
                 position: 'absolute',
                 bottom: 0,
                 left: '5%',
@@ -1100,46 +1149,54 @@ function Expired({navigation}) {
                   backgroundColor: '#ffffff',
                   marginTop: '2%',
                   marginBottom: '2%',
-                  width: '137%',
+                  width: '90%',
                 }}
               />
-              <View style={MainStyle.itemBoxBottomTextView}>
-                <Image
-                  style={{
-                    width: Platform.OS === 'ios' ? 18 : 15,
-                    height: Platform.OS === 'ios' ? 18 : 15,
-                    resizeMode: 'contain',
-                  }}
-                  source={require('../../imgs/userIcon.png')}
-                />
-                <Text
-                  style={[
-                    ResetStyle.fontRegularK,
-                    ResetStyle.fontWhite,
-                    {textAlign: 'left', marginLeft: '5%'},
-                  ]}>
-                  {numberWithCommas(item.participants)} /{' '}
-                  {numberWithCommas(item.particRestrictions)}
-                </Text>
-              </View>
+              <View
+                style={{
+                  width: '90%',
+                  flexDirection: 'row',
+                  alignItems: 'flex-end',
+                  justifyContent: 'space-between',
+                }}>
+                <View style={{flexDirection: 'column'}}>
+                  <View style={MainStyle.itemBoxBottomTextView}>
+                    <Image
+                      style={{
+                        width: Platform.OS === 'ios' ? 18 : 15,
+                        height: Platform.OS === 'ios' ? 18 : 15,
+                        resizeMode: 'contain',
+                      }}
+                      source={require('../../imgs/userIcon.png')}
+                    />
+                    <Text
+                      style={[
+                        ResetStyle.fontRegularK,
+                        ResetStyle.fontWhite,
+                        {textAlign: 'left', marginLeft: '5%'},
+                      ]}>
+                      {numberWithCommas(item.participants)} /{' '}
+                      {numberWithCommas(item.particRestrictions)}
+                    </Text>
+                  </View>
 
-              <View style={MainStyle.itemBoxBottomTextView}>
-                <Image
-                  style={{
-                    width: Platform.OS === 'ios' ? 18 : 15,
-                    height: Platform.OS === 'ios' ? 18 : 15,
-                    resizeMode: 'contain',
-                  }}
-                  source={require('../../imgs/clockIcon.png')}
-                />
-                <Text
-                  style={[
-                    ResetStyle.fontRegularK,
-                    ResetStyle.fontWhite,
-                    {marginLeft: '5%'},
-                  ]}>
-                  {/* {item.endTime} */}
-                  {/* {setInterval(function () {
+                  <View style={MainStyle.itemBoxBottomTextView}>
+                    <Image
+                      style={{
+                        width: Platform.OS === 'ios' ? 18 : 15,
+                        height: Platform.OS === 'ios' ? 18 : 15,
+                        resizeMode: 'contain',
+                      }}
+                      source={require('../../imgs/clockIcon.png')}
+                    />
+                    <Text
+                      style={[
+                        ResetStyle.fontRegularK,
+                        ResetStyle.fontWhite,
+                        {marginLeft: '5%'},
+                      ]}>
+                      {/* {item.endTime} */}
+                      {/* {setInterval(function () {
                       var today = new Date().getTime();
                       var gap = dday - today;
                       var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
@@ -1151,57 +1208,56 @@ function Expired({navigation}) {
   
                       return `${day - 1}일 ${hour}시간 ${min}분 ${sec}초`;
                     }, 1000)} */}
-                  {/* {`${day - 1}일 ${hour}시간 ${min}분 ${sec}초`} */}
-                  {
-                    // <Moment
-                    //   element={Text}
-                    //   interval={1000}
-                    //   date={item.endTime}
-                    //   format="D일 hh시간 mm분 ss초"
-                    //   durationFromNow
-                    // />
-                  }
-                  0{t('days')} 0{t('hours')} 0{t('minutes')} 0{t('seconds')}
-                </Text>
+                      {/* {`${day - 1}일 ${hour}시간 ${min}분 ${sec}초`} */}
+                      {
+                        // <Moment
+                        //   element={Text}
+                        //   interval={1000}
+                        //   date={item.endTime}
+                        //   format="D일 hh시간 mm분 ss초"
+                        //   durationFromNow
+                        // />
+                      }
+                      0{t('days')} 0{t('hours')} 0{t('minutes')} 0{t('seconds')}
+                    </Text>
+                  </View>
+                </View>
+                <TouchableOpacity
+                  style={{
+                    width: Platform.OS === 'ios' ? 80 : 70,
+                    backgroundColor: 'rgba(255,255,255,0.4)',
+                    borderRadius: 50,
+                  }}
+                  onPress={() => {
+                    item.surveyStatus === 'expired'
+                      ? navigation.navigate('MainDetailExpired', {
+                          legacySurveyId: item.legacySurveyId,
+                          // legacySurveyId: '5f91aad0ae28561b056e2f97',
+                          surveyName: item.surveyName,
+                        })
+                      : item.surveyStatus === 'completed'
+                      ? navigation.navigate('MainDetailCompleted', {
+                          legacySurveyId: item.legacySurveyId,
+                          // legacySurveyId: '5f91aad0ae28561b056e2f97',
+                          surveyName: item.surveyName,
+                        })
+                      : navigation.navigate('MainDetail', {
+                          legacySurveyId: item.legacySurveyId,
+                          // legacySurveyId: '5f91aad0ae28561b056e2f97',
+                          surveyName: item.surveyName,
+                        });
+                  }}>
+                  <Text
+                    style={[
+                      ResetStyle.fontLightK,
+                      ResetStyle.fontWhite,
+                      {fontWeight: '900', padding: 8},
+                    ]}>
+                    {t('main3')}
+                  </Text>
+                </TouchableOpacity>
               </View>
             </View>
-            <TouchableOpacity
-              style={{
-                position: 'absolute',
-                bottom: 0,
-                right: '5%',
-                width: Platform.OS === 'ios' ? 80 : 70,
-                backgroundColor: 'rgba(255,255,255,0.4)',
-                borderRadius: 50,
-              }}
-              onPress={() => {
-                item.surveyStatus === 'expired'
-                  ? navigation.navigate('MainDetailExpired', {
-                      legacySurveyId: item.legacySurveyId,
-                      // legacySurveyId: '5f91aad0ae28561b056e2f97',
-                      surveyName: item.surveyName,
-                    })
-                  : item.surveyStatus === 'completed'
-                  ? navigation.navigate('MainDetailCompleted', {
-                      legacySurveyId: item.legacySurveyId,
-                      // legacySurveyId: '5f91aad0ae28561b056e2f97',
-                      surveyName: item.surveyName,
-                    })
-                  : navigation.navigate('MainDetail', {
-                      legacySurveyId: item.legacySurveyId,
-                      // legacySurveyId: '5f91aad0ae28561b056e2f97',
-                      surveyName: item.surveyName,
-                    });
-              }}>
-              <Text
-                style={[
-                  ResetStyle.fontLightK,
-                  ResetStyle.fontWhite,
-                  {fontWeight: '900', padding: 8},
-                ]}>
-                {t('main3')}
-              </Text>
-            </TouchableOpacity>
           </View>
         </View>
       );
@@ -1252,7 +1308,13 @@ function Expired({navigation}) {
         }
         renderItem={renderItem}
         sliderHeight={Platform.OS === 'ios' ? 500 : 450}
-        itemHeight={Platform.OS === 'ios' ? ITEM_HEIGHT : ITEM_HEIGHT}
+        itemHeight={
+          Platform.OS === 'android'
+            ? ITEM_HEIGHT_ANDROID
+            : Dimensions.get('window').height < 750
+            ? ITEM_HEIGHT_IOS_UNDER700
+            : ITEM_HEIGHT
+        }
         containerCustomStyle={{flex: 1, backgroundColor: '#fff'}}
         slideStyle={{
           width: '100%',
@@ -1268,7 +1330,12 @@ function Expired({navigation}) {
               : String(expiredData.length * 95 + '%'),
           // borderWidth: 3,
           // borderColor: '#00f',
-          paddingTop: Platform.OS === 'ios' ? 0 : '3%', // tab navigator와의 간격
+          paddingTop:
+            Platform.OS === 'android'
+              ? '3%'
+              : Dimensions.get('window').height < 750
+              ? '3%'
+              : 0, // tab navigator와의 간격
         }}
         onSnapToItem={(index) => setIndex(index)}
         scrollInterpolator={scrollInterpolator2}
@@ -1457,6 +1524,7 @@ function Main({navigation, t, i18n}) {
         </View>
         <View
           style={{
+            position: 'relative',
             backgroundColor: '#fff',
             width: '95%',
             alignSelf: 'center',
@@ -1466,6 +1534,15 @@ function Main({navigation, t, i18n}) {
             height: Platform.OS === 'ios' ? 75 : 65,
             borderRadius: 25,
           }}>
+          <View
+            style={{
+              position: 'absolute',
+              left: '50%',
+              height: '70%',
+              backgroundColor: '#e2e2e2',
+              width: '0.4%',
+            }}
+          />
           <TouchableOpacity
             onPress={() => {
               navigation.navigate('ProfileMain', {
@@ -1473,9 +1550,12 @@ function Main({navigation, t, i18n}) {
               });
             }}
             style={{
+              // borderWidth: 1,
+              // borderColor: '#f00',
               flexDirection: 'column',
               alignItems: 'center',
-              width: '49.3%',
+              paddingLeft: '18%',
+              // width: '49.3%',
             }}>
             <Text style={[ResetStyle.fontRegularK, ResetStyle.fontDG]}>
               {t('main4')}
@@ -1503,14 +1583,7 @@ function Main({navigation, t, i18n}) {
               </Text>
             </View>
           </TouchableOpacity>
-          <View
-            style={{
-              height: '70%',
-              alignSelf: 'center',
-              backgroundColor: '#e2e2e2',
-              width: '0.4%',
-            }}
-          />
+
           <TouchableOpacity
             onPress={() => {
               navigation.navigate('WalletMain', {
@@ -1518,9 +1591,12 @@ function Main({navigation, t, i18n}) {
               });
             }}
             style={{
+              // borderWidth: 1,
+              // borderColor: '#f00',
               flexDirection: 'column',
               alignItems: 'center',
-              width: '49.3%',
+              paddingRight: '22%',
+              // width: '49.3%',
             }}>
             <Text style={[ResetStyle.fontRegularK, ResetStyle.fontDG]}>
               {t('main6')}
@@ -1546,11 +1622,21 @@ function Main({navigation, t, i18n}) {
           inactiveTintColor: '#a9a9a9',
           labelStyle: {
             fontSize: Platform.OS === 'ios' ? 18 : 15,
-            paddingTop: Platform.OS === 'ios' ? 12 : 0,
+            paddingTop:
+              Platform.OS === 'android'
+                ? 0
+                : Dimensions.get('window').height < 750
+                ? 3
+                : 12,
           },
           style: {
             backgroundColor: 'transparent',
-            height: Platform.OS === 'ios' ? 80 : 50,
+            height:
+              Platform.OS === 'Android'
+                ? 50
+                : Dimensions.get('window').height < 750
+                ? 50
+                : 80,
             // borderWidth: 1,
           },
           indicatorStyle: {
@@ -1558,7 +1644,12 @@ function Main({navigation, t, i18n}) {
             height: 2,
             backgroundColor: '#222',
             left: '11%',
-            bottom: Platform.OS === 'ios' ? '25%' : '15%',
+            bottom:
+              Platform.OS === 'android'
+                ? '15%'
+                : Dimensions.get('window').height < 750
+                ? '15%'
+                : '25%',
           },
         }}>
         <Tab.Screen

@@ -1,4 +1,4 @@
-import {Platform, StyleSheet} from 'react-native';
+import {Platform, Dimensions, StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   // Drawer
@@ -36,19 +36,6 @@ export default StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 20,
     backgroundColor: '#fff',
-    borderWidth: 1,
-    borderColor: '#e8e8e8',
-    paddingBottom: '10%',
-    overflow: 'hidden',
-  },
-  itemBox2: {
-    width: '80%',
-    height: Platform.OS === 'ios' ? '140%' : '140%',
-    alignSelf: 'center',
-    borderRadius: 20,
-    backgroundColor: '#fff',
-    borderWidth: 1,
-    borderColor: '#e8e8e8',
     paddingBottom: '10%',
     overflow: 'hidden',
   },
@@ -233,7 +220,12 @@ export default StyleSheet.create({
     // justifyContent: 'flex-start',
     // paddingLeft: '5%',
     // paddingRight: '5%',
-    paddingTop: Platform.OS === 'ios' ? '13%' : '5%',
+    paddingTop:
+      Platform.OS === 'android'
+        ? '5%'
+        : Dimensions.get('window').height < 750
+        ? '8%'
+        : '13%',
     paddingBottom: Platform.OS === 'ios' ? '3%' : '2%',
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,

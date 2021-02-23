@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Platform, Dimensions} from 'react-native';
 
 export default StyleSheet.create({
   // reset
@@ -130,23 +130,43 @@ export default StyleSheet.create({
 
   // korean
   fontBoldK: {
-    fontSize: Platform.OS === 'ios' ? 33 : 26,
+    fontSize:
+      Platform.OS === 'android'
+        ? 26
+        : Dimensions.get('window').height < 750
+        ? 26
+        : 33,
     fontWeight: '700',
     letterSpacing: -0.5,
     textAlign: 'center',
   },
   fontMediumK: {
-    fontSize: Platform.OS === 'ios' ? 22 : 20,
+    fontSize:
+      Platform.OS === 'android'
+        ? 20
+        : Dimensions.get('window').height < 750
+        ? 20
+        : 22,
     fontWeight: '400',
     textAlign: 'center',
   },
   fontRegularK: {
-    fontSize: Platform.OS === 'ios' ? 19 : 16,
+    fontSize:
+      Platform.OS === 'android'
+        ? 16
+        : Dimensions.get('window').height < 750
+        ? 17
+        : 19,
     fontWeight: '400',
     textAlign: 'center',
   },
   fontLightK: {
-    fontSize: Platform.OS === 'ios' ? 16 : 14,
+    fontSize:
+      Platform.OS === 'android'
+        ? 14
+        : Dimensions.get('window').height < 750
+        ? 14
+        : 16,
     fontWeight: '300',
     textAlign: 'center',
   },
