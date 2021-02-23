@@ -108,24 +108,32 @@ const CustomDrawerContent = (props) => {
     // passportApi();
   }, []);
   useEffect(() => {
-    // if (idData === 0) {
-    //   props.navigation.navigate('IdVerification');
-    // } else if (idData === 1) {
-    //   props.navigation.navigate('IdVerificationComplete');
-    //   // props.navigation.navigate('IdVerification');
-    // } else if (idData === 2) {
-    //   props.navigation.navigate('IdVerificationInProgress');
-    // } else if (idData === 3) {
-    //   props.navigation.navigate('IdVerificationDecline');
-    // } else if (idData !== -99) {
-    //   props.navigation.navigate('IdVerification');
-    // }
-    props.navigation.navigate('IdVerification');
+    console.log(idData);
+    console.log(idData);
+    console.log(idData);
+    console.log(idData);
+    console.log(idData);
+    if (idData != -99) {
+      if (idData == 0) {
+        props.navigation.navigate('IdVerification');
+      } else if (idData == 1) {
+        // props.navigation.navigate('IdVerificationComplete');
+        props.navigation.navigate('IdVerificationInProgress');
+      } else if (idData == 2) {
+        // props.navigation.navigate('IdVerificationInProgress');
+        props.navigation.navigate('IdVerificationComplete');
+      } else if (idData == 3) {
+        props.navigation.navigate('IdVerificationDecline');
+      } else if (idData !== -99) {
+        props.navigation.navigate('IdVerification');
+      }
+      setIdData(-99);
+    }
+    // props.navigation.navigate('IdVerification');
     // props.navigation.navigate('IdVerificationDecline');
     // props.navigation.navigate('IdVerificationComplete');
     // props.navigation.navigate('IdVerificationInProgress');
     // props.navigation.navigate('IdVerificationDecline');
-    setIdData(-99);
   }, [idData]);
 
   // console.log('CUSTON>>>>', props.login);
