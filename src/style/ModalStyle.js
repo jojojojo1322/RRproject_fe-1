@@ -348,4 +348,27 @@ export default StyleSheet.create({
     paddingBottom: '3%',
     marginTop: '3%',
   },
+
+  // DatePickerModal
+  dataPickerModalView: {
+    position: 'absolute',
+    top: Platform.OS === 'ios' ? '25%' : '15%',
+    left: '5%',
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '90%',
+    height: Platform.OS === 'ios' ? '65%' : '74%',
+    backgroundColor: '#FFF',
+    padding: '5%',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    borderRadius: 12,
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
 });
