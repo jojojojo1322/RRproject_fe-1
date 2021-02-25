@@ -1404,13 +1404,13 @@ function Main({navigation, t, i18n}) {
               paddingHorizontal: 5,
               paddingVertical: 5,
             }}
-            // onPress={async () => {
-            //   try {
-            //     console.log('USerNONONO', await AsyncStorage.getItem('userNo'));
-            //     await AsyncStorage.removeItem('userNo');
-            //     console.log('USerNONONO', await AsyncStorage.getItem('userNo'));
-            //   } catch (e) {}
-            // }}
+            onPress={async () => {
+              try {
+                console.log('USerNONONO', await AsyncStorage.getItem('userNo'));
+                await AsyncStorage.removeItem('userNo');
+                console.log('USerNONONO', await AsyncStorage.getItem('userNo'));
+              } catch (e) {}
+            }}
             // onPress={() => {
             //   navigation.navigate('Kyc');
             // }}
