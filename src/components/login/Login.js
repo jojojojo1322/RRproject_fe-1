@@ -130,9 +130,9 @@ class Login extends Component {
         deviceKey: DeviceInfo.getUniqueId(),
       })
       .then(async (response) => {
-        console.log('loginApithen', response);
-        console.log('loginApithen', response.data.status);
-        console.log('loginApithen', response.data.userNo);
+        console.log('loginApi THEN >>', response);
+        console.log('loginApi THEN >>', response.data.status);
+        console.log('loginApi THEN >>', response.data.userNo);
 
         ///로그인 실험
         this.props.route.params?.loginSuccess(response.data.userNo);
