@@ -55,7 +55,7 @@ const AudienceModal = ({
                   height: Platform.OS === 'ios' ? 25 : 20,
                   resizeMode: 'contain',
                 }}
-                source={require('../../../imgs/icon_close.png')}
+                source={require('@images/icon_close.png')}
               />
             </TouchableWithoutFeedback>
           </View>

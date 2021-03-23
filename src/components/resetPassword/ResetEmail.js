@@ -133,7 +133,7 @@ class ResetEmail extends Component {
                     height: Platform.OS === 'ios' ? 28 : 22,
                     resizeMode: 'contain',
                   }}
-                  source={require('../../imgs/backIcon.png')}
+                  source={require('@images/backIcon.png')}
                 />
                 <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
                   {t('resetEmailTitle')}
@@ -181,7 +181,7 @@ class ResetEmail extends Component {
                 ]}>
                 <Image
                   style={[ResetStyle.smallImg, {marginRight: 8}]}
-                  source={require('../../imgs/iconTime.png')}
+                  source={require('@images/iconTime.png')}
                 />
                 <CountDown
                   standard={this.state.isRunning}

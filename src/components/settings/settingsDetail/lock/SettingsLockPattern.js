@@ -84,7 +84,7 @@ const SettingsLockPattern = ({navigation}) => {
                 height: Platform.OS === 'ios' ? 28 : 25,
                 resizeMode: 'contain',
               }}
-              source={require('../../../../imgs/backIcon.png')}
+              source={require('@images/backIcon.png')}
             />
           </TouchableOpacity>
         </View>

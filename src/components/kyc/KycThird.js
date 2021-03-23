@@ -305,7 +305,7 @@ class kycThird extends Component {
                 height: Platform.OS === 'ios' ? 30 : 25,
                 resizeMode: 'contain',
               }}
-              source={require('../../imgs/icon_search.png')}
+              source={require('@images/icon_search.png')}
             />
           </View>
         </TouchableOpacity>
@@ -362,7 +362,7 @@ class kycThird extends Component {
                 height: Platform.OS === 'ios' ? 30 : 25,
                 resizeMode: 'contain',
               }}
-              source={require('../../imgs/icon_search.png')}
+              source={require('@images/icon_search.png')}
             />
           </View>
         </TouchableOpacity>
@@ -412,7 +412,7 @@ class kycThird extends Component {
                 height: Platform.OS === 'ios' ? 30 : 25,
                 resizeMode: 'contain',
               }}
-              source={require('../../imgs/icon_search.png')}
+              source={require('@images/icon_search.png')}
             />
           </View>
         </TouchableOpacity>
@@ -463,7 +463,7 @@ class kycThird extends Component {
                 height: Platform.OS === 'ios' ? 30 : 25,
                 resizeMode: 'contain',
               }}
-              source={require('../../imgs/icon_search.png')}
+              source={require('@images/icon_search.png')}
             />
           </View>
         </TouchableOpacity>

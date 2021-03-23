@@ -11,7 +11,7 @@ export const data = [
       'Style: Post-Impressionism\n' +
       'Provenance: Acquired through the Lillie P.Bliss Bequest\n' +
       'Original Title: La nuit étoilée',
-    imgSrc: require('../imgs/The-Starry-Night.png'),
+    imgSrc: require('@images/The-Starry-Night.png'),
   },
   {
     id: 2,
@@ -23,7 +23,7 @@ export const data = [
       '만든 위치: Arles\n' +
       '크기: w73 cm x h95 cm\n' +
       '작품유형: Still life\n',
-    imgSrc: require('../imgs/Sunflowers.png'),
+    imgSrc: require('@images/Sunflowers.png'),
   },
   {
     id: 3,
@@ -37,7 +37,7 @@ export const data = [
       'Style: abstract-art\n' +
       '작품유형: Painting\n' +
       '재료: Oil on Canvas',
-    imgSrc: require('../imgs/The-Cathedral.png'),
+    imgSrc: require('@images/The-Cathedral.png'),
   },
   {
     id: 4,
@@ -49,6 +49,6 @@ export const data = [
       '크기: w82.0 x h65.5 cm\n' +
       '작품유형: Painting\n' +
       '재료: Oil on Canvas',
-    imgSrc: require('../imgs/still-life-with-flowers-and-fruit.png'),
+    imgSrc: require('@images/still-life-with-flowers-and-fruit.png'),
   },
 ];

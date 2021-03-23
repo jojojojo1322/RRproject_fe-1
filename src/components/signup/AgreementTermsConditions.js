@@ -130,7 +130,7 @@ class AgreementTermsConditions extends Component {
                       height: Platform.OS === 'ios' ? 28 : 22,
                       resizeMode: 'contain',
                     }}
-                    source={require('../../imgs/backIcon.png')}
+                    source={require('@images/backIcon.png')}
                   />
                   <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
                     {t('agreementTermsConditionsTitle')}
@@ -222,7 +222,7 @@ class AgreementTermsConditions extends Component {
                     height: Platform.OS === 'ios' ? 30 : 25,
                     resizeMode: 'contain',
                   }}
-                  source={require('../../imgs/moreIcon.png')}
+                  source={require('@images/moreIcon.png')}
                 />
               </TouchableWithoutFeedback>
             </View>
@@ -276,7 +276,7 @@ class AgreementTermsConditions extends Component {
                     height: Platform.OS === 'ios' ? 30 : 25,
                     resizeMode: 'contain',
                   }}
-                  source={require('../../imgs/moreIcon.png')}
+                  source={require('@images/moreIcon.png')}
                 />
               </TouchableWithoutFeedback>
             </View>

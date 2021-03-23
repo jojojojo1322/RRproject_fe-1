@@ -110,7 +110,7 @@ const MainAlert = (props) => {
                   height: Platform.OS === 'ios' ? 28 : 22,
                   resizeMode: 'contain',
                 }}
-                source={require('../../imgs/backIcon.png')}
+                source={require('@images/backIcon.png')}
               />
               <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
                 {t('mainAlertTitle')}

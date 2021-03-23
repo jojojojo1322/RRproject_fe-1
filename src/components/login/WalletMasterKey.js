@@ -58,7 +58,7 @@ class WalletMasterKey extends Component {
                 alignSelf: 'center',
                 marginBottom: 20,
               }}
-              source={require('../../imgs/iconNoticeCheckB.png')}
+              source={require('@images/iconNoticeCheckB.png')}
             />
             <Text
               style={[

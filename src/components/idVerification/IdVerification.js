@@ -45,7 +45,7 @@ const CheckList = ({text}) => {
           resizeMode: 'contain',
           marginRight: '5%',
         }}
-        source={require('../../imgs/check.png')}
+        source={require('@images/check.png')}
       />
       <Text
         style={[
@@ -273,7 +273,7 @@ const IdVerification = ({navigation}) => {
             resizeMode: 'contain',
             // borderWidth: 1,
           }}
-          source={require('../../imgs/passportIcon.png')}
+          source={require('@images/passportIcon.png')}
         />
       </View>
     );
@@ -296,7 +296,7 @@ const IdVerification = ({navigation}) => {
             resizeMode: 'contain',
             // borderWidth: 1,
           }}
-          source={require('../../imgs/passportIcon.png')}
+          source={require('@images/passportIcon.png')}
         />
       </View>
     );
@@ -333,7 +333,7 @@ const IdVerification = ({navigation}) => {
             resizeMode: 'contain',
             // borderWidth: 1,
           }}
-          source={require('../../imgs/passportIcon.png')}
+          source={require('@images/passportIcon.png')}
         />
       </View>
     );
@@ -399,7 +399,7 @@ const IdVerification = ({navigation}) => {
               height: Platform.OS === 'ios' ? 28 : 22,
               resizeMode: 'contain',
             }}
-            source={require('../../imgs/backIcon.png')}
+            source={require('@images/backIcon.png')}
           />
           <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
             {t('idVerificationTitle')}

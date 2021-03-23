@@ -88,7 +88,7 @@ const Item = ({item, onPress, style, handlePick}) => {
         /> */}
         <Image
           style={[ModalStyle.listModalImg, {marginTop: 2}]}
-          source={require('../../../imgs/flag_angola.png')}
+          source={require('@images/flag_angola.png')}
         />
         <Text
           style={[
@@ -189,7 +189,7 @@ const ListModal = ({
                     height: Platform.OS === 'ios' ? 30 : 20,
                     resizeMode: 'contain',
                   }}
-                  source={require('../../../imgs/deleteIcon.png')}
+                  source={require('@images/deleteIcon.png')}
                 />
               </TouchableWithoutFeedback>
             </View>
@@ -218,7 +218,7 @@ const ListModal = ({
                 }}>
                 <Image
                   style={[ModalStyle.listModalSearch]}
-                  source={require('../../../imgs/icon_search.png')}
+                  source={require('@images/icon_search.png')}
                 />
               </TouchableOpacity>
             </View>

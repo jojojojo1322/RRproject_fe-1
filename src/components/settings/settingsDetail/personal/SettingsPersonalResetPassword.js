@@ -151,7 +151,7 @@ class SettingsPersonalResetPassword extends Component {
                     height: Platform.OS === 'ios' ? 28 : 25,
                     resizeMode: 'contain',
                   }}
-                  source={require('../../../../imgs/backIcon.png')}
+                  source={require('@images/backIcon.png')}
                 />
                 <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
                   {t('settingsPersonalResetPasswordTitle')}
@@ -214,12 +214,12 @@ class SettingsPersonalResetPassword extends Component {
                     {this.state.firstBlur ? (
                       <Image
                         style={ResetStyle.smallImg}
-                        source={require('../../../../imgs/icoBlindD.png')}
+                        source={require('@images/icoBlindD.png')}
                       />
                     ) : (
                       <Image
                         style={ResetStyle.smallImg}
-                        source={require('../../../../imgs/icoViewD.png')}
+                        source={require('@images/icoViewD.png')}
                       />
                     )}
                   </TouchableOpacity>
@@ -229,12 +229,12 @@ class SettingsPersonalResetPassword extends Component {
                         {!chkPWRow(this.state.password) ? (
                           <Image
                             style={[ResetStyle.xsmallImg]}
-                            source={require('../../../../imgs/iconUncheckedS.png')}
+                            source={require('@images/iconUncheckedS.png')}
                           />
                         ) : (
                           <Image
                             style={ResetStyle.xsmallImg}
-                            source={require('../../../../imgs/iconCheckedS.png')}
+                            source={require('@images/iconCheckedS.png')}
                           />
                         )}
                         <Text
@@ -250,12 +250,12 @@ class SettingsPersonalResetPassword extends Component {
                         {!chkPWNumber(this.state.password) ? (
                           <Image
                             style={ResetStyle.xsmallImg}
-                            source={require('../../../../imgs/iconUncheckedS.png')}
+                            source={require('@images/iconUncheckedS.png')}
                           />
                         ) : (
                           <Image
                             style={ResetStyle.xsmallImg}
-                            source={require('../../../../imgs/iconCheckedS.png')}
+                            source={require('@images/iconCheckedS.png')}
                           />
                         )}
                         <Text
@@ -271,12 +271,12 @@ class SettingsPersonalResetPassword extends Component {
                         {!chkPWHigh(this.state.password) ? (
                           <Image
                             style={ResetStyle.xsmallImg}
-                            source={require('../../../../imgs/iconUncheckedS.png')}
+                            source={require('@images/iconUncheckedS.png')}
                           />
                         ) : (
                           <Image
                             style={ResetStyle.xsmallImg}
-                            source={require('../../../../imgs/iconCheckedS.png')}
+                            source={require('@images/iconCheckedS.png')}
                           />
                         )}
                         <Text
@@ -294,12 +294,12 @@ class SettingsPersonalResetPassword extends Component {
                         {!chkPWCharacter(this.state.password) ? (
                           <Image
                             style={ResetStyle.xsmallImg}
-                            source={require('../../../../imgs/iconUncheckedS.png')}
+                            source={require('@images/iconUncheckedS.png')}
                           />
                         ) : (
                           <Image
                             style={ResetStyle.xsmallImg}
-                            source={require('../../../../imgs/iconCheckedS.png')}
+                            source={require('@images/iconCheckedS.png')}
                           />
                         )}
                         <Text
@@ -315,12 +315,12 @@ class SettingsPersonalResetPassword extends Component {
                         {this.state.password.length < 8 ? (
                           <Image
                             style={ResetStyle.xsmallImg}
-                            source={require('../../../../imgs/iconUncheckedS.png')}
+                            source={require('@images/iconUncheckedS.png')}
                           />
                         ) : (
                           <Image
                             style={ResetStyle.xsmallImg}
-                            source={require('../../../../imgs/iconCheckedS.png')}
+                            source={require('@images/iconCheckedS.png')}
                           />
                         )}
                         <Text
@@ -384,7 +384,7 @@ class SettingsPersonalResetPassword extends Component {
                     ]}></TextInput>
                   {/* <Image
                     style={ResetStyle.smallImg}
-                    source={require('../../../imgs/icoViewD.png')}
+                    source={require('@images/icoViewD.png')}
                   /> */}
                   <TouchableOpacity
                     style={[ResetStyle.textInputTextButton]}
@@ -397,12 +397,12 @@ class SettingsPersonalResetPassword extends Component {
                     {this.state.secondBlur ? (
                       <Image
                         style={ResetStyle.smallImg}
-                        source={require('../../../../imgs/icoBlindD.png')}
+                        source={require('@images/icoBlindD.png')}
                       />
                     ) : (
                       <Image
                         style={ResetStyle.smallImg}
-                        source={require('../../../../imgs/icoViewD.png')}
+                        source={require('@images/icoViewD.png')}
                       />
                     )}
                   </TouchableOpacity>
@@ -419,7 +419,7 @@ class SettingsPersonalResetPassword extends Component {
                     <>
                       <Image
                         style={ResetStyle.smallImg}
-                        source={require('../../../../imgs/iconXRed.png')}
+                        source={require('@images/iconXRed.png')}
                       />
 
                       <Text
@@ -436,7 +436,7 @@ class SettingsPersonalResetPassword extends Component {
                   <>
                     <Image
                       style={ResetStyle.smallImg}
-                      source={require('../../../../imgs/iconCheckedM.png')}
+                      source={require('@images/iconCheckedM.png')}
                     />
                     <Text
                       style={{color: '#0080ff', fontSize: 14, marginLeft: 10}}>
