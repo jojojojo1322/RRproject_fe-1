@@ -18,9 +18,9 @@ import {
   Dimensions,
   Platform,
 } from 'react-native';
-import ListModal from '../factory/modal/ListModal';
-import ListCheckLangModal from '../factory/modal/ListCheckLangModal';
-import ListRoundCheckModal from '../factory/modal/ListRoundCheckModal';
+import ListModal from '@factory/modal/ListModal';
+import ListCheckLangModal from '@factory/modal/ListCheckLangModal';
+import ListRoundCheckModal from '@factory/modal/ListRoundCheckModal';
 import ResetStyle from '@style/ResetStyle.js';
 import AuthStyle from '@style/AuthStyle.js';
 import {server} from '../defined/server';

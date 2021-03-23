@@ -11,7 +11,7 @@ import {
   FlatList,
   Dimensions,
 } from 'react-native';
-import {RoundCheckbox, SelectedCheckboxes} from '../../factory/Roundcheck';
+import {RoundCheckbox, SelectedCheckboxes} from '@factory/Roundcheck';
 import ResetStyle from '@style/ResetStyle';
 import ModalStyle from '@style/ModalStyle';
 // import {

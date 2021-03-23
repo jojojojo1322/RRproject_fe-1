@@ -12,7 +12,7 @@ import {server} from '../../../defined/server';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DeviceInfo from 'react-native-device-info';
 import ResetStyle from '@style/ResetStyle.js';
-import BottomModal from '../../../factory/modal/BottomModal';
+import BottomModal from '@factory/modal/BottomModal';
 import {withTranslation} from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';
 

@@ -12,14 +12,14 @@ import {
   YellowBox,
 } from 'react-native';
 import {isPossiblePhoneNumber} from 'react-phone-number-input';
-import ListModal from '@components/factory/modal/ListModal';
-import CountDown from '@components/factory/CountDown';
+import ListModal from '@factory/modal/ListModal';
+import CountDown from '@factory/CountDown';
 import ResetStyle from '@style/ResetStyle.js';
 
 import {server} from '../defined/server';
 import axios from 'axios';
 import DeviceInfo from 'react-native-device-info';
-import BottomModal from '../factory/modal/BottomModal';
+import BottomModal from '@factory/modal/BottomModal';
 
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {withTranslation} from 'react-i18next';

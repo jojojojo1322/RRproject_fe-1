@@ -18,7 +18,7 @@ import {
   Animated,
   Dimensions,
 } from 'react-native';
-import {RoundCheckbox, SelectedCheckboxes} from '../../factory/Roundcheck';
+import {RoundCheckbox, SelectedCheckboxes} from '@factory/Roundcheck';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import ResetStyle from '@style/ResetStyle';
 import ModalStyle from '@style/ModalStyle';

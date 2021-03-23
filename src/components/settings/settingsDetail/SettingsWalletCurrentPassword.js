@@ -14,8 +14,8 @@ import {
   StatusBar,
   TouchableOpacity,
 } from 'react-native';
-import BottomModal from '../../factory/modal/BottomModal';
-import ProgressModal from '../../factory/modal/ProgressModal';
+import BottomModal from '@factory/modal/BottomModal';
+import ProgressModal from '@factory/modal/ProgressModal';
 import ResetStyle from '@style/ResetStyle.js';
 import AuthStyle from '@style/AuthStyle';
 

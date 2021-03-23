@@ -19,7 +19,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '@style/ResetStyle.js';
 import ProfileStyle from '@style/ProfileStyle.js';
-import TextConfirmCancelModal from '../../factory/modal/TextConfirmCancelModal';
+import TextConfirmCancelModal from '@factory/modal/TextConfirmCancelModal';
 import {useTranslation} from 'react-i18next';
 
 const ProfileCompleteLevel2 = (props) => {

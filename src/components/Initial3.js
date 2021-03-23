@@ -18,19 +18,16 @@ import {
   Dimensions,
 } from 'react-native';
 
-import {
-  RoundCheckbox,
-  SelectedCheckboxes,
-} from '@components/factory/Roundcheck';
-import TextConfirmModal from './factory/modal/TextConfirmModal';
-import TextConfirmCancelModal from './factory/modal/TextConfirmCancelModal';
+import {RoundCheckbox, SelectedCheckboxes} from '@factory/Roundcheck';
+import TextConfirmModal from '@factory/modal/TextConfirmModal';
+import TextConfirmCancelModal from '@factory/modal/TextConfirmCancelModal';
 
-import BottomModal from './factory/modal/BottomModal';
-import KycModal from './factory/modal/KycModal';
-import AudienceModal from './factory/modal/AudienceModal';
-import ListModal from './factory/modal/ListModal';
-import ListRoundCheckModal from './factory/modal/ListRoundCheckModal';
-import ListCheckModal from './factory/modal/ListCheckModal';
+import BottomModal from '@factory/modal/BottomModal';
+import KycModal from '@factory/modal/KycModal';
+import AudienceModal from '@factory/modal/AudienceModal';
+import ListModal from '@factory/modal/ListModal';
+import ListRoundCheckModal from '@factory/modal/ListRoundCheckModal';
+import ListCheckModal from '@factory/modal/ListCheckModal';
 
 const window = Dimensions.get('window');
 

@@ -6,7 +6,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '@style/ResetStyle.js';
 import WalletStyle from '@style/WalletStyle.js';
 import {TextInput} from 'react-native-gesture-handler';
-import BottomModal from '../factory/modal/BottomModal';
+import BottomModal from '@factory/modal/BottomModal';
 import {
   PERMISSIONS,
   RESULTS,

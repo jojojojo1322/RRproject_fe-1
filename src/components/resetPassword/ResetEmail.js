@@ -11,8 +11,8 @@ import ResetStyle from '@style/ResetStyle.js';
 import axios from 'axios';
 import {server} from '../defined/server';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import BottomModal from '../factory/modal/BottomModal';
-import CountDown from '@components/factory/CountDown';
+import BottomModal from '@factory/modal/BottomModal';
+import CountDown from '@factory/CountDown';
 
 import {withTranslation} from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';

@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
-import {RoundCheckbox} from '../factory/Roundcheck';
+import {RoundCheckbox} from '@factory/Roundcheck';
 import ResetStyle from '@style/ResetStyle.js';
 import AuthStyle from '@style/AuthStyle';
 

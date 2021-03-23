@@ -14,8 +14,8 @@ import {
   StatusBar,
   TouchableOpacity,
 } from 'react-native';
-import BottomModal from '../../../factory/modal/BottomModal';
-import TextConfirmModal from '../../../factory/modal/TextConfirmModal';
+import BottomModal from '@factory/modal/BottomModal';
+import TextConfirmModal from '@factory/modal/TextConfirmModal';
 import ResetStyle from '@style/ResetStyle.js';
 import {server} from '../../../defined/server';
 import axios from 'axios';

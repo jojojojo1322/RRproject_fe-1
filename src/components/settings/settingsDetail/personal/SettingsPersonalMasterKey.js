@@ -11,7 +11,7 @@ import ResetStyle from '@style/ResetStyle';
 import AuthStyle from '@style/AuthStyle.js';
 
 import Clipboard from '@react-native-community/clipboard';
-import BottomModal from '../../../factory/modal/BottomModal';
+import BottomModal from '@factory/modal/BottomModal';
 
 import {withTranslation} from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';

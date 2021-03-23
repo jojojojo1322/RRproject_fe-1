@@ -6,7 +6,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import VersionCheck from 'react-native-version-check';
-import UpdateModal from '@components/factory/modal/UpdateModal';
+import UpdateModal from '@factory/modal/UpdateModal';
 import RNExitApp from 'react-native-exit-app';
 
 import App from './App';

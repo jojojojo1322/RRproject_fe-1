@@ -2,8 +2,8 @@ import React, {Component, useEffect, useState} from 'react';
 import {View, Text, TouchableOpacity, Image} from 'react-native';
 import Clipboard from '@react-native-community/clipboard';
 
-import BottomModal from '../../factory/modal/BottomModal';
-import ProgressModal from '../../factory/modal/ProgressModal.js';
+import BottomModal from '@factory/modal/BottomModal';
+import ProgressModal from '@factory/modal/ProgressModal.js';
 
 import ResetStyle from '@style/ResetStyle.js';
 import AuthStyle from '@style/AuthStyle.js';

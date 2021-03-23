@@ -13,12 +13,12 @@ import AuthStyle from '@style/AuthStyle.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {server} from '../defined/server';
-import TextConfirmModal from '../factory/modal/TextConfirmModal';
+import TextConfirmModal from '@factory/modal/TextConfirmModal';
 import {useTranslation} from 'react-i18next';
-import DatePickerModal from '../factory/modal/DatePickerModal';
-import ListModal from '../factory/modal/ListModal';
-import ListLangModal from '../factory/modal/ListLangModal';
-import ListCheckLangModal from '../factory/modal/ListCheckLangModal';
+import DatePickerModal from '@factory/modal/DatePickerModal';
+import ListModal from '@factory/modal/ListModal';
+import ListLangModal from '@factory/modal/ListLangModal';
+import ListCheckLangModal from '@factory/modal/ListCheckLangModal';
 
 function isBirthday(dateStr) {
   if (dateStr === undefined) {

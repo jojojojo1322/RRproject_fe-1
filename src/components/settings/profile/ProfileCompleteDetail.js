@@ -20,7 +20,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '@style/ResetStyle.js';
 import ProfileStyle from '@style/ProfileStyle.js';
 import {useTranslation} from 'react-i18next';
-import TextConfirmCancelModal from '../../factory/modal/TextConfirmCancelModal';
+import TextConfirmCancelModal from '@factory/modal/TextConfirmCancelModal';
 // import {FlatList} from 'react-native-gesture-handler';
 
 const ProfileCompleteDetail = (props) => {

@@ -19,6 +19,7 @@ module.exports = {
         alias: {
           '~': './src',
           '@components': './src/components',
+          '@factory': './src/components/factory',
           '@images': './src/imgs',
           '@store': './src/store',
           '@module': './src/store/module',

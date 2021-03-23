@@ -14,15 +14,15 @@ import {
   StatusBar,
   TouchableOpacity,
 } from 'react-native';
-import BottomModal from '../../factory/modal/BottomModal';
-import TextConfirmModal from '../../factory/modal/TextConfirmModal';
+import BottomModal from '@factory/modal/BottomModal';
+import TextConfirmModal from '@factory/modal/TextConfirmModal';
 import ResetStyle from '@style/ResetStyle.js';
 import {server} from '../../defined/server';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthStyle from '@style/AuthStyle';
 
-import ProgressModal from '../../factory/modal/ProgressModal';
+import ProgressModal from '@factory/modal/ProgressModal';
 
 import {withTranslation} from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';

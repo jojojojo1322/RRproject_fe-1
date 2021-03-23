@@ -20,8 +20,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '@style/ResetStyle.js';
 import ProfileStyle from '@style/ProfileStyle.js';
-import TextConfirmCancelModal from '../../factory/modal/TextConfirmCancelModal';
-import TextConfirmCancelVarModal from '../../factory/modal/TextConfirmCancelVarModal';
+import TextConfirmCancelModal from '@factory/modal/TextConfirmCancelModal';
+import TextConfirmCancelVarModal from '@factory/modal/TextConfirmCancelVarModal';
 
 import {useTranslation} from 'react-i18next';
 

@@ -18,7 +18,7 @@ import {
 import RNExitApp from 'react-native-exit-app';
 import messaging from '@react-native-firebase/messaging';
 // import Geolocation from 'react-native-geolocation-service';
-// import UpdateModal from '@components/factory/modal/UpdateModal';
+// import UpdateModal from '@factory/modal/UpdateModal';
 
 import SplashScreen from 'react-native-splash-screen';
 import ResetStyle from '@style/ResetStyle';

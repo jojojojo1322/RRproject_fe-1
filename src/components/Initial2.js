@@ -22,7 +22,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import getPermission from '@components/defined/getPermission';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
-import BottomModal from './factory/modal/BottomModal';
+import BottomModal from '@factory/modal/BottomModal';
 
 const images = new Array('', '', '');
 const window = Dimensions.get('window');

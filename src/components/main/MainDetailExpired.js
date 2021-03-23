@@ -14,9 +14,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {server} from '../defined/server';
 
-import AudienceModal from '../factory/modal/AudienceModal';
-import TextConfirmCancelModal from '../factory/modal/TextConfirmCancelModal';
-import TextConfirmModal from '../factory/modal/TextConfirmModal';
+import AudienceModal from '@factory/modal/AudienceModal';
+import TextConfirmCancelModal from '@factory/modal/TextConfirmCancelModal';
+import TextConfirmModal from '@factory/modal/TextConfirmModal';
 
 import CarrierInfo from 'react-native-carrier-info';
 import {useTranslation} from 'react-i18next';
