@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import {Text, TouchableHighlight, View, Modal, Linking} from 'react-native';
 
-import {server} from './components/defined/server';
+import {server} from '@components/defined/server';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import VersionCheck from 'react-native-version-check';
-import UpdateModal from './components/factory/modal/UpdateModal';
+import UpdateModal from '@components/factory/modal/UpdateModal';
 import RNExitApp from 'react-native-exit-app';
 
 import App from './App';

@@ -7,8 +7,8 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
-import ResetStyle from '../../../../style/ResetStyle';
-import AuthStyle from '../../../../style/AuthStyle.js';
+import ResetStyle from '@style/ResetStyle';
+import AuthStyle from '@style/AuthStyle.js';
 
 import Clipboard from '@react-native-community/clipboard';
 import BottomModal from '../../../factory/modal/BottomModal';

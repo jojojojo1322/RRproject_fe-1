@@ -11,15 +11,15 @@ import {
   Platform,
   YellowBox,
 } from 'react-native';
-import ResetStyle from '../style/ResetStyle.js';
-import AuthStyle from '../style/AuthStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
+import AuthStyle from '@style/AuthStyle.js';
 import DeviceInfo from 'react-native-device-info';
 
 import {server} from './defined/server';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import getPermission from '../components/defined/getPermission';
+import getPermission from '@components/defined/getPermission';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
 import BottomModal from './factory/modal/BottomModal';

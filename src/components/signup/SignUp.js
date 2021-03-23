@@ -12,9 +12,9 @@ import {
   YellowBox,
 } from 'react-native';
 import {isPossiblePhoneNumber} from 'react-phone-number-input';
-import ListModal from '../../components/factory/modal/ListModal';
-import CountDown from '../../components/factory/CountDown';
-import ResetStyle from '../../style/ResetStyle.js';
+import ListModal from '@components/factory/modal/ListModal';
+import CountDown from '@components/factory/CountDown';
+import ResetStyle from '@style/ResetStyle.js';
 
 import {server} from '../defined/server';
 import axios from 'axios';

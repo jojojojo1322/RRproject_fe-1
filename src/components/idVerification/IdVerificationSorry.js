@@ -13,8 +13,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 import {SafeAreaView} from 'react-native-safe-area-context';
-import ResetStyle from '../../style/ResetStyle.js';
-import WalletStyle from '../../style/WalletStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
+import WalletStyle from '@style/WalletStyle.js';
 import {TextInput} from 'react-native-gesture-handler';
 
 import {useTranslation, initReactI18next, useSSR} from 'react-i18next';

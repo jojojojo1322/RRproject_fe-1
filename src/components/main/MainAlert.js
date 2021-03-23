@@ -14,8 +14,8 @@ import {
 import axios from 'axios';
 import {server} from '../defined/server';
 import {ScrollView} from 'react-native-gesture-handler';
-import ResetStyle from '../../style/ResetStyle.js';
-import ResearchStyle from '../../style/ResearchStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
+import ResearchStyle from '@style/ResearchStyle.js';
 
 import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
 

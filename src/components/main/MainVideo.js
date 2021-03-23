@@ -9,8 +9,8 @@ import {
   StatusBar,
   Platform,
 } from 'react-native';
-import ResetStyle from '../../style/ResetStyle.js';
-import MainStyle from '../../style/MainStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
+import MainStyle from '@style/MainStyle.js';
 import BottomModal from '../factory/modal/BottomModal';
 import TextConfirmModal from '../factory/modal/TextConfirmModal';
 import ProgressModal from '../factory/modal/ProgressModal';

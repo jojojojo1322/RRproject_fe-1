@@ -8,7 +8,7 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import ResetStyle from '../../style/ResetStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
 import DatePickerModal from '../factory/modal/DatePickerModal';
 import {useTranslation} from 'react-i18next';
 

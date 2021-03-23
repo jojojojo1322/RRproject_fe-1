@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Linking,
 } from 'react-native';
-import ResetStyle from '../../style/ResetStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
 import {useTranslation} from 'react-i18next';
 import {server} from '../defined/server';
 import axios from 'axios';

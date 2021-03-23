@@ -9,8 +9,8 @@ import {
   Platform,
 } from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import ResetStyle from '../../style/ResetStyle.js';
-import AuthStyle from '../../style/AuthStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
+import AuthStyle from '@style/AuthStyle.js';
 
 import {withTranslation} from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';

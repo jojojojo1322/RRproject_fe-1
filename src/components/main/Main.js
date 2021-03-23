@@ -13,8 +13,8 @@ import {
 import {useIsFocused} from '@react-navigation/native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import ResetStyle from '../../style/ResetStyle';
-import MainStyle from '../../style/MainStyle';
+import ResetStyle from '@style/ResetStyle';
+import MainStyle from '@style/MainStyle';
 import Carousel from '../defined/snapCarousel/snapCarousel';
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';

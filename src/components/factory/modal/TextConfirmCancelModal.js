@@ -9,8 +9,8 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
-import ResetStyle from '../../../style/ResetStyle';
-import ModalStyle from '../../../style/ModalStyle';
+import ResetStyle from '@style/ResetStyle';
+import ModalStyle from '@style/ModalStyle';
 import {useTranslation} from 'react-i18next';
 
 // 왼쪽 버튼 text-> cancel onPress-> cancelHandle

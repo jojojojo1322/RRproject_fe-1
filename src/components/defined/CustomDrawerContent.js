@@ -12,8 +12,8 @@ import {
 } from '@react-navigation/drawer';
 
 import {ProgressCircle} from 'react-native-svg-charts';
-import ResetStyle from '../../style/ResetStyle.js';
-import MainStyle from '../../style/MainStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
+import MainStyle from '@style/MainStyle.js';
 
 import email from 'react-native-email';
 import {useTranslation} from 'react-i18next';

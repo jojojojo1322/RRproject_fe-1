@@ -7,8 +7,8 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from 'react-native';
-import ResetStyle from '../../../style/ResetStyle';
-import ModalStyle from '../../../style/ModalStyle';
+import ResetStyle from '@style/ResetStyle';
+import ModalStyle from '@style/ModalStyle';
 import {useTranslation} from 'react-i18next';
 import {exp} from 'react-native/Libraries/Animated/src/Easing';
 

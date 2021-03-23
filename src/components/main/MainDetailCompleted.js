@@ -8,8 +8,8 @@ import {
   TouchableOpacity,
   Platform,
 } from 'react-native';
-import ResetStyle from '../../style/ResetStyle.js';
-import MainStyle from '../../style/MainStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
+import MainStyle from '@style/MainStyle.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {server} from '../defined/server';

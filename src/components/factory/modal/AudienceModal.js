@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, Modal, Image, TouchableWithoutFeedback} from 'react-native';
-import ResetStyle from '../../../style/ResetStyle';
-import ModalStyle from '../../../style/ModalStyle';
+import ResetStyle from '@style/ResetStyle';
+import ModalStyle from '@style/ModalStyle';
 import {useTranslation} from 'react-i18next';
 
 const AudienceModal = ({

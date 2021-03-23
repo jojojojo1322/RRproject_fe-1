@@ -9,8 +9,8 @@ import {
   BackHandler,
   Platform,
 } from 'react-native';
-import ResetStyle from '../../../style/ResetStyle.js';
-import WalletStyle from '../../../style/WalletStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
+import WalletStyle from '@style/WalletStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import axios from 'axios';
 import {server} from '../../defined/server';

@@ -9,8 +9,8 @@ import {
 } from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {RoundCheckbox} from '../factory/Roundcheck';
-import ResetStyle from '../../style/ResetStyle.js';
-import AuthStyle from '../../style/AuthStyle';
+import ResetStyle from '@style/ResetStyle.js';
+import AuthStyle from '@style/AuthStyle';
 
 import {withTranslation} from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';

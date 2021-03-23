@@ -25,8 +25,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import TextConfirmModal from '../factory/modal/TextConfirmModal';
 import WalletPassword from './WalletPassword';
 import WalletMasterKey from './WalletMasterKey';
-import ResetStyle from '../../style/ResetStyle.js';
-import AuthStyle from '../../style/AuthStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
+import AuthStyle from '@style/AuthStyle.js';
 import BottomModal from '../factory/modal/BottomModal';
 import ProgressModal from '../factory/modal/ProgressModal';
 

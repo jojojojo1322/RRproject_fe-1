@@ -8,11 +8,11 @@ import {
   YellowBox,
   Platform,
 } from 'react-native';
-import ResetStyle from '../../../style/ResetStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {SelectedCheckboxes, RoundCheckbox} from '../../factory/Roundcheck';
-import ResearchStyle from '../../../style/ResearchStyle.js';
-import ProfileStyle from '../../../style/ProfileStyle.js';
+import ResearchStyle from '@style/ResearchStyle.js';
+import ProfileStyle from '@style/ProfileStyle.js';
 
 import {server} from '../../defined/server';
 import axios from 'axios';

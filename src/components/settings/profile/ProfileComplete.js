@@ -16,8 +16,8 @@ import {server} from '../../defined/server';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import ResetStyle from '../../../style/ResetStyle.js';
-import ProfileStyle from '../../../style/ProfileStyle';
+import ResetStyle from '@style/ResetStyle.js';
+import ProfileStyle from '@style/ProfileStyle';
 import {useTranslation} from 'react-i18next';
 
 const ProfileComplete = (props) => {

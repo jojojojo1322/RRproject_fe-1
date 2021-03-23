@@ -14,7 +14,7 @@ import {
 import {RoundCheckbox, SelectedCheckboxes} from '../../factory/Roundcheck';
 import {FlatList} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import ResetStyle from '../../../style/ResetStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
 import TextConfirmModal from '../../factory/modal/TextConfirmModal';
 import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
 

@@ -21,7 +21,7 @@ import {
 import {
   RoundCheckbox,
   SelectedCheckboxes,
-} from '../components/factory/Roundcheck';
+} from '@components/factory/Roundcheck';
 import TextConfirmModal from './factory/modal/TextConfirmModal';
 import TextConfirmCancelModal from './factory/modal/TextConfirmCancelModal';
 

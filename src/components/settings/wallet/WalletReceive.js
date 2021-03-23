@@ -5,8 +5,8 @@ import Clipboard from '@react-native-community/clipboard';
 import BottomModal from '../../factory/modal/BottomModal';
 import ProgressModal from '../../factory/modal/ProgressModal.js';
 
-import ResetStyle from '../../../style/ResetStyle.js';
-import AuthStyle from '../../../style/AuthStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
+import AuthStyle from '@style/AuthStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import QRCode from '../../defined/QR/QRCode';
 import axios from 'axios';

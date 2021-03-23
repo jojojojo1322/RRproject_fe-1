@@ -7,7 +7,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
-import ResetStyle from '../../../../style/ResetStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
 import axios from 'axios';
 import {server} from '../../../defined/server';
 import AsyncStorage from '@react-native-async-storage/async-storage';

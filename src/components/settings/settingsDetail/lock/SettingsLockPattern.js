@@ -1,7 +1,7 @@
 import React, {Component, useState} from 'react';
 import {View, Text, TouchableOpacity, Image} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import ResetStyle from '../../../../style/ResetStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
 import TextConfirmModal from '../../../factory/modal/TextConfirmModal';
 
 // import PasswordGesture from 'react-native-gesture-password';

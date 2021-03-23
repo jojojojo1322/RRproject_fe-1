@@ -10,10 +10,10 @@ import {
   Platform,
 } from 'react-native';
 
-import CountDown from '../../components/factory/CountDown';
+import CountDown from '@components/factory/CountDown';
 import {RoundCheckbox, SelectedCheckboxes} from '../factory/Roundcheck';
-import ResetStyle from '../../style/ResetStyle.js';
-import AuthStyle from '../../style/AuthStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
+import AuthStyle from '@style/AuthStyle.js';
 
 import axios from 'axios';
 import {server} from '../defined/server';

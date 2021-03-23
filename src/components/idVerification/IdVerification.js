@@ -3,8 +3,8 @@ import {View, Text, TouchableOpacity, Image} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 import {SafeAreaView} from 'react-native-safe-area-context';
-import ResetStyle from '../../style/ResetStyle.js';
-import WalletStyle from '../../style/WalletStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
+import WalletStyle from '@style/WalletStyle.js';
 import {TextInput} from 'react-native-gesture-handler';
 import BottomModal from '../factory/modal/BottomModal';
 import {

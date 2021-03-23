@@ -7,8 +7,8 @@ import {
   Image,
   Platform,
 } from 'react-native';
-import ResetStyle from '../../../style/ResetStyle.js';
-import WalletStyle from '../../../style/WalletStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
+import WalletStyle from '@style/WalletStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import WalletSendModal from '../../factory/modal/WalletSendModal';

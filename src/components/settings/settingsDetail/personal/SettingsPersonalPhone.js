@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import ListModal from '../../../factory/modal/ListModal';
 import CountDown from '../../../factory/CountDown';
-import ResetStyle from '../../../../style/ResetStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
 
 import {server} from '../../../defined/server';
 import axios from 'axios';
