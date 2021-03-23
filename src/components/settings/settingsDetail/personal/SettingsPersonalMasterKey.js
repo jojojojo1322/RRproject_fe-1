@@ -46,7 +46,7 @@ class WalletMasterKey extends Component {
                   height: Platform.OS === 'ios' ? 28 : 25,
                   resizeMode: 'contain',
                 }}
-                source={require('../../../../imgs/backIcon.png')}
+                source={require('@images/backIcon.png')}
               />
               <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
                 {t('settingsPersonalMasterKeyTitle')}
@@ -72,7 +72,7 @@ class WalletMasterKey extends Component {
                 alignSelf: 'center',
                 marginBottom: 20,
               }}
-              source={require('../../../../imgs/iconNoticeCheck.png')}
+              source={require('@images/iconNoticeCheck.png')}
             />
             <Text
               style={[

@@ -151,8 +151,8 @@ const ProfileMain = ({navigation, route}) => {
             ]}
             source={
               level <= kycLevel
-                ? require('../../../imgs/iconCheckedS.png')
-                : require('../../../imgs/iconUncheckedS.png')
+                ? require('@images/iconCheckedS.png')
+                : require('@images/iconUncheckedS.png')
             }
           />
         </View>
@@ -199,7 +199,7 @@ const ProfileMain = ({navigation, route}) => {
                   height: Platform.OS === 'ios' ? 25 : 20,
                   resizeMode: 'contain',
                 }}
-                source={require('../../../imgs/rrLogoB.png')}
+                source={require('@images/rrLogoB.png')}
               />
               <Text
                 style={[
@@ -229,7 +229,7 @@ const ProfileMain = ({navigation, route}) => {
                 height: Platform.OS === 'ios' ? 25 : 20,
                 resizeMode: 'contain',
               }}
-              source={require('../../../imgs/menuIcon.png')}
+              source={require('@images/menuIcon.png')}
             />
           </TouchableOpacity>
         </View>

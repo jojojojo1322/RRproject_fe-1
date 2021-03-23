@@ -518,7 +518,7 @@ const ProfileAll = (props) => {
                 height: Platform.OS === 'ios' ? 28 : 25,
                 resizeMode: 'contain',
               }}
-              source={require('../../../imgs/backIcon.png')}
+              source={require('@images/backIcon.png')}
             />
           </TouchableOpacity>
           <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}></Text>
@@ -611,7 +611,7 @@ const ProfileAll = (props) => {
                       }}>
                       <Image
                         style={[ProfileStyle.kycAllLevelImg]}
-                        source={require('../../../imgs/kycEditIcon.png')}
+                        source={require('@images/kycEditIcon.png')}
                       />
                     </TouchableOpacity>
                   </View>
@@ -636,7 +636,7 @@ const ProfileAll = (props) => {
                     }}>
                     <Image
                       style={[ProfileStyle.kycAllLevelImg]}
-                      source={require('../../../imgs/kycEditIcon.png')}
+                      source={require('@images/kycEditIcon.png')}
                     />
                   </TouchableOpacity>
                 </View>
@@ -695,7 +695,7 @@ const ProfileAll = (props) => {
                         }}>
                         <Image
                           style={[ProfileStyle.kycAllLevelImg]}
-                          source={require('../../../imgs/kycEditIcon.png')}
+                          source={require('@images/kycEditIcon.png')}
                         />
                       </TouchableOpacity>
                     </View>

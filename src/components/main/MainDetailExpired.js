@@ -219,7 +219,7 @@ const MainDetailExpired = (props) => {
                 height: Platform.OS === 'ios' ? 28 : 22,
                 resizeMode: 'contain',
               }}
-              source={require('../../imgs/backIcon.png')}
+              source={require('@images/backIcon.png')}
             />
           </TouchableOpacity>
 
@@ -239,7 +239,7 @@ const MainDetailExpired = (props) => {
 
             {/* <TouchableOpacity>
               <Image
-                source={require('../../imgs/shareIcon.png')}
+                source={require('@images/shareIcon.png')}
               />
             </TouchableOpacity> */}
           </View>

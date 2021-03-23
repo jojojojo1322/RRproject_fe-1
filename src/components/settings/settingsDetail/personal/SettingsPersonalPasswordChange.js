@@ -121,7 +121,7 @@ class SettingsPersonalPasswordChange extends Component {
                   height: Platform.OS === 'ios' ? 28 : 25,
                   resizeMode: 'contain',
                 }}
-                source={require('../../../../imgs/backIcon.png')}
+                source={require('@images/backIcon.png')}
               />
               <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
                 {t('settinsPersonalPasswordChangeTitle')}
@@ -176,7 +176,7 @@ class SettingsPersonalPasswordChange extends Component {
               }}>
               <Image
                 style={ResetStyle.smallImg}
-                source={require('../../../../imgs/iconX.png')}
+                source={require('@images/iconX.png')}
               />
             </TouchableOpacity>
           </View>

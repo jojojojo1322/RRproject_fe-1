@@ -181,10 +181,10 @@ const Initial2 = (props) => {
                     }}
                     source={
                       imageIndex == 0
-                        ? require('../imgs/iconIntroResearch.png')
+                        ? require('@images/iconIntroResearch.png')
                         : imageIndex == 1
-                        ? require('../imgs/iconIntroWallet.png')
-                        : require('../imgs/iconIntroReward.png')
+                        ? require('@images/iconIntroWallet.png')
+                        : require('@images/iconIntroReward.png')
                     }
                     style={AuthStyle.initial2Image}
                   />

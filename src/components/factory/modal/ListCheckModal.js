@@ -228,7 +228,7 @@ class ListCheckModal extends Component {
                     height: Platform.OS === 'ios' ? 30 : 20,
                     resizeMode: 'contain',
                   }}
-                  source={require('../../../imgs/deleteIcon.png')}
+                  source={require('@images/deleteIcon.png')}
                 />
               </TouchableWithoutFeedback>
             </View>
@@ -253,7 +253,7 @@ class ListCheckModal extends Component {
               <TouchableOpacity>
                 <Image
                   style={[ModalStyle.listModalSearch]}
-                  source={require('../../../imgs/icon_search.png')}
+                  source={require('@images/icon_search.png')}
                 />
               </TouchableOpacity>
             </View>

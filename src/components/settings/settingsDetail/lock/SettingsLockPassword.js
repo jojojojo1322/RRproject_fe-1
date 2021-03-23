@@ -142,7 +142,7 @@ class WalletPassword extends Component {
                     height: Platform.OS === 'ios' ? 28 : 25,
                     resizeMode: 'contain',
                   }}
-                  source={require('../../../../imgs/backIcon.png')}
+                  source={require('@images/backIcon.png')}
                 />
               </TouchableOpacity>
             </View>
@@ -299,7 +299,7 @@ class WalletPassword extends Component {
               onPress={this.handlePassErase}>
               <Image
                 style={styles.keyboardCancelButton}
-                source={require('../../../../imgs/iconDelete.png')}
+                source={require('@images/iconDelete.png')}
               />
             </TouchableOpacity>
           </View>

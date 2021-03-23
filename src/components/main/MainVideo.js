@@ -179,7 +179,7 @@ const MainVideo = ({navigation, route}) => {
                 height: Platform.OS === 'ios' ? 50 : 45,
                 resizeMode: 'contain',
               }}
-              source={require('../../imgs/adPlayIconM.png')}
+              source={require('@images/adPlayIconM.png')}
             />
           </TouchableOpacity>
         </View>

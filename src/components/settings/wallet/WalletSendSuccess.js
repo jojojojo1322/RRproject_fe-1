@@ -51,7 +51,7 @@ const WalletSendSuccess = ({navigation, route}) => {
                 height: Platform.OS === 'ios' ? 28 : 25,
                 resizeMode: 'contain',
               }}
-              source={require('../../../imgs/backIcon.png')}
+              source={require('@images/backIcon.png')}
             />
           </TouchableOpacity> */}
         </View>
@@ -62,7 +62,7 @@ const WalletSendSuccess = ({navigation, route}) => {
           }}>
           <Image
             style={{width: 100, height: 100, resizeMode: 'contain'}}
-            source={require('../../../imgs/iconLCheck.png')}
+            source={require('@images/iconLCheck.png')}
           />
           <Text
             style={[ResetStyle.fontBoldK, ResetStyle.fontB, {marginTop: '3%'}]}>

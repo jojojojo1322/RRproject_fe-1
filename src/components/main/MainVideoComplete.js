@@ -36,7 +36,7 @@ const MainVideoComplete = ({navigation, route}) => {
             style={{width: '100%', height: '100%'}}>
             <Image
               style={{width: '100%', height: '100%', resizeMode: 'cover'}}
-              source={require('../../imgs/ad_aladdinexchange.png')}
+              source={require('@images/ad_aladdinexchange.png')}
             />
           </TouchableOpacity>
         </View>
@@ -51,7 +51,7 @@ const MainVideoComplete = ({navigation, route}) => {
               height: Platform.OS === 'ios' ? 60 : 50,
               resizeMode: 'contain',
             }}
-            source={require('../../imgs/adWalletIcon.png')}
+            source={require('@images/adWalletIcon.png')}
           />
           <Text
             style={[

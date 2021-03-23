@@ -177,7 +177,7 @@ export const Main = ({navigation}) => {
   const [tab1Data] = useState([
     {
       id: '1',
-      img: require('../../imgs/shutterstock_1018031032.png'),
+      img: require('@images/shutterstock_1018031032.png'),
       status: 'ongoing',
       division: 'E-commerce',
       dateStart: '2020.12.03',
@@ -191,7 +191,7 @@ export const Main = ({navigation}) => {
     },
     {
       id: '2',
-      img: require('../../imgs/shutterstock_1687630222.png'),
+      img: require('@images/shutterstock_1687630222.png'),
       status: 'ongoing',
       division: 'COVID-19',
       dateStart: '2020.12.03',
@@ -205,7 +205,7 @@ export const Main = ({navigation}) => {
     },
     {
       id: '3',
-      img: require('../../imgs/shutterstock_1675809577.png'),
+      img: require('@images/shutterstock_1675809577.png'),
       status: 'ongoing',
       division: 'Category',
       dateStart: '2020.12.03',
@@ -219,7 +219,7 @@ export const Main = ({navigation}) => {
     },
     {
       id: '4',
-      img: require('../../imgs/shutterstock_609058097.png'),
+      img: require('@images/shutterstock_609058097.png'),
       status: 'expired',
       division: 'Any Category1',
       dateStart: '2020.12.03',
@@ -233,7 +233,7 @@ export const Main = ({navigation}) => {
     },
     {
       id: '5',
-      img: require('../../imgs/shutterstock_609058097.png'),
+      img: require('@images/shutterstock_609058097.png'),
       status: 'ongoing',
       division: 'Any Category1',
       dateStart: '2020.12.03',
@@ -247,7 +247,7 @@ export const Main = ({navigation}) => {
     },
     {
       id: '6',
-      img: require('../../imgs/shutterstock_1687630222.png'),
+      img: require('@images/shutterstock_1687630222.png'),
       status: 'ongoing',
       division: 'Any Category2',
       dateStart: '2020.12.03',
@@ -261,7 +261,7 @@ export const Main = ({navigation}) => {
     },
     {
       id: '7',
-      img: require('../../imgs/shutterstock_1018031032.png'),
+      img: require('@images/shutterstock_1018031032.png'),
       status: 'ongoing',
       division: 'Any Category1',
       dateStart: '2020.12.03',
@@ -275,7 +275,7 @@ export const Main = ({navigation}) => {
     },
     {
       id: '8',
-      img: require('../../imgs/shutterstock_1018031032.png'),
+      img: require('@images/shutterstock_1018031032.png'),
       status: 'expired',
       division: 'Any Category2',
       dateStart: '2020.12.03',
@@ -289,7 +289,7 @@ export const Main = ({navigation}) => {
     },
     {
       id: '9',
-      img: require('../../imgs/shutterstock_1675809577.png'),
+      img: require('@images/shutterstock_1675809577.png'),
       status: 'completed',
       division: 'Any Category2',
       dateStart: '2020.12.03',
@@ -586,7 +586,7 @@ export const Main = ({navigation}) => {
           ]}>
           <Image
             style={{alignSelf: 'center'}}
-            source={require('../../imgs/noDataIcon.png')}
+            source={require('@images/noDataIcon.png')}
           />
           <Text style={[ResetStyle.fontMediumK, ResetStyle.fontG]}>
             No data!
@@ -702,7 +702,7 @@ export const Main = ({navigation}) => {
                     height: Platform.OS === 'ios' ? 18 : 15,
                     resizeMode: 'contain',
                   }}
-                  source={require('../../imgs/userIcon.png')}
+                  source={require('@images/userIcon.png')}
                 />
                 <Text
                   style={[
@@ -722,7 +722,7 @@ export const Main = ({navigation}) => {
                     height: Platform.OS === 'ios' ? 18 : 15,
                     resizeMode: 'contain',
                   }}
-                  source={require('../../imgs/clockIcon.png')}
+                  source={require('@images/clockIcon.png')}
                 />
                 <Text
                   style={[
@@ -953,7 +953,7 @@ export const Main = ({navigation}) => {
                   height: Platform.OS === 'ios' ? 25 : 20,
                   resizeMode: 'contain',
                 }}
-                source={require('../../imgs/rrLogoW.png')}
+                source={require('@images/rrLogoW.png')}
               />
               <Text
                 style={[
@@ -976,7 +976,7 @@ export const Main = ({navigation}) => {
                 height: Platform.OS === 'ios' ? 25 : 20,
                 resizeMode: 'contain',
               }}
-              source={require('../../imgs/menuIcon_w.png')}
+              source={require('@images/menuIcon_w.png')}
             />
           </TouchableOpacity>
         </View>
@@ -1021,9 +1021,7 @@ export const Main = ({navigation}) => {
                 4
               </Text>
               <TouchableOpacity>
-                <Image
-                  source={require('../../imgs/mainQuestionmarkIcon.png')}
-                />
+                <Image source={require('@images/mainQuestionmarkIcon.png')} />
               </TouchableOpacity>
             </View>
           </TouchableOpacity>

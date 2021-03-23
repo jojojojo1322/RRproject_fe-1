@@ -181,7 +181,7 @@ const Splash = ({loading, setLoading}) => {
           resizeMode: 'contain',
           marginTop: '20%',
         }}
-        source={require('./imgs/splashLogo.png')}
+        source={require('@images/splashLogo.png')}
       />
       <Text
         style={[

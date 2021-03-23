@@ -31,7 +31,7 @@ const IdVerificationDecline = ({navigation}) => {
                 height: Platform.OS === 'ios' ? 28 : 22,
                 resizeMode: 'contain',
               }}
-              source={require('../../imgs/backIcon.png')}
+              source={require('@images/backIcon.png')}
             />
           </TouchableOpacity>
         </View>
@@ -45,7 +45,7 @@ const IdVerificationDecline = ({navigation}) => {
           }}>
           <Image
             style={{width: 130, height: 145, resizeMode: 'contain'}}
-            source={require('../../imgs/rejectedIcon.png')}
+            source={require('@images/rejectedIcon.png')}
           />
           <Text
             style={[

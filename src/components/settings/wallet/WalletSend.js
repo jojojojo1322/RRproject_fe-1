@@ -304,7 +304,7 @@ export default function WalletSend({navigation, route}) {
                   height: Platform.OS === 'ios' ? 28 : 25,
                   resizeMode: 'contain',
                 }}
-                source={require('../../../imgs/backIcon.png')}
+                source={require('@images/backIcon.png')}
               />
               <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
                 {t('walletSendTitle')}
@@ -367,7 +367,7 @@ export default function WalletSend({navigation, route}) {
                     }}>
                     <Image
                       style={[ResetStyle.circleXButton]}
-                      source={require('../../../imgs/iconX.png')}
+                      source={require('@images/iconX.png')}
                     />
                   </TouchableOpacity>
                 </View>
@@ -377,7 +377,7 @@ export default function WalletSend({navigation, route}) {
                   }}>
                   <Image
                     style={[WalletStyle.sendContentInnerXButton]}
-                    source={require('../../../imgs/tncSendQrIcon.png')}
+                    source={require('@images/tncSendQrIcon.png')}
                   />
                 </TouchableOpacity>
               </View>
@@ -429,7 +429,7 @@ export default function WalletSend({navigation, route}) {
                   }}>
                   <Image
                     style={[ResetStyle.circleXButton]}
-                    source={require('../../../imgs/iconX.png')}
+                    source={require('@images/iconX.png')}
                   />
                 </TouchableOpacity>
               </View>
@@ -523,7 +523,7 @@ export default function WalletSend({navigation, route}) {
                 }}>
                 <Image
                   style={{width: 20, height: 20, resizeMode: 'contain'}}
-                  source={require('../../../imgs/iconNoticeCheck.png')}
+                  source={require('@images/iconNoticeCheck.png')}
                 />
                 <Text
                   style={[
@@ -576,7 +576,7 @@ export default function WalletSend({navigation, route}) {
                   }}>
                   <Image
                     style={[ResetStyle.circleXButton]}
-                    source={require('../../../imgs/iconX.png')}
+                    source={require('@images/iconX.png')}
                   />
                 </TouchableOpacity>
               </View>

@@ -46,7 +46,7 @@ const KycModal = ({modalVisible, setModalVisible}) => {
                 height: Platform.OS === 'ios' ? 30 : 25,
                 resizeMode: 'contain',
               }}
-              source={require('../../../imgs/icon_close.png')}
+              source={require('@images/icon_close.png')}
             />
           </TouchableWithoutFeedback>
         </View>

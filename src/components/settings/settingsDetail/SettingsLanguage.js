@@ -128,12 +128,12 @@ const SettingsAlert = ({navigation}) => {
         (id === '5' && nowLanguage === 'ru') ? (
           <Image
             style={{width: 30, height: 30, resizeMode: 'contain'}}
-            source={require('../../../imgs/iconCheckedS.png')}
+            source={require('@images/iconCheckedS.png')}
           />
         ) : (
           <Image
             style={{width: 30, height: 30, resizeMode: 'contain'}}
-            source={require('../../../imgs/iconUncheckedS.png')}
+            source={require('@images/iconUncheckedS.png')}
           />
         )}
       </TouchableOpacity>
@@ -171,7 +171,7 @@ const SettingsAlert = ({navigation}) => {
                 height: Platform.OS === 'ios' ? 28 : 25,
                 resizeMode: 'contain',
               }}
-              source={require('../../../imgs/backIcon.png')}
+              source={require('@images/backIcon.png')}
             />
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
               {t('settingsLanguageTitle')}
