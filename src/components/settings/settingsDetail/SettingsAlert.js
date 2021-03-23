@@ -98,7 +98,7 @@ const SettingsAlert = ({navigation}) => {
                 height: Platform.OS === 'ios' ? 28 : 25,
                 resizeMode: 'contain',
               }}
-              source={require('../../../imgs/backIcon.png')}
+              source={require('@images/backIcon.png')}
             />
             <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
               {t('settingsAlertTitle')}

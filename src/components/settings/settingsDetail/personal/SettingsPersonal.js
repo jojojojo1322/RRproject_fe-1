@@ -111,7 +111,7 @@ class SettingsPersonal extends Component {
                     height: Platform.OS === 'ios' ? 28 : 25,
                     resizeMode: 'contain',
                   }}
-                  source={require('../../../../imgs/backIcon.png')}
+                  source={require('@images/backIcon.png')}
                 />
                 <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
                   {t('settingsPersonalTitle')}
@@ -194,7 +194,7 @@ class SettingsPersonal extends Component {
                   }}>
                   <Image
                     style={{width: 25, height: 25}}
-                    source={require('../../../../imgs/kycEditIcon.png')}
+                    source={require('@images/kycEditIcon.png')}
                   />
                 </TouchableOpacity>
               </View>
@@ -272,7 +272,7 @@ class SettingsPersonal extends Component {
           height: Platform.OS === 'ios' ? 30 : 25,
           resizeMode: 'contain',
         }}
-        source={require('../../../../imgs/moreIcon.png')}
+        source={require('@images/moreIcon.png')}
                   />
                 </View>
               </TouchableOpacity>

@@ -243,7 +243,7 @@ const CustomDrawerContent = (props) => {
                 height: Platform.OS === 'ios' ? 25 : 20,
                 resizeMode: 'contain',
               }}
-              source={require('../../imgs/rrLogoB.png')}
+              source={require('@images/rrLogoB.png')}
             />
           </View>
         </TouchableOpacity>
@@ -348,7 +348,7 @@ const CustomDrawerContent = (props) => {
                 height: Platform.OS === 'ios' ? 25 : 20,
                 resizeMode: 'contain',
               }}
-              source={require('../../imgs/menuKycMoreIcon.png')}
+              source={require('@images/menuKycMoreIcon.png')}
             />
           </View>
         </TouchableOpacity>

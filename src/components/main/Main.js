@@ -57,7 +57,7 @@ const expiredData = '';
 const DATA = [
   {
     id: '9',
-    img: require('../../imgs/shutterstock_1675809577.png'),
+    img: require('@images/shutterstock_1675809577.png'),
     status: 'completed',
     division: 'Any Category2',
     dateStart: '2020.12.03',
@@ -181,7 +181,7 @@ function Ongoing({navigation, route}) {
           ]}>
           <Image
             style={{alignSelf: 'center', width: 80, height: 80}}
-            source={require('../../imgs/noDataIcon.png')}
+            source={require('@images/noDataIcon.png')}
           />
           <Text
             style={[
@@ -346,7 +346,7 @@ function Ongoing({navigation, route}) {
                         height: Platform.OS === 'ios' ? 18 : 15,
                         resizeMode: 'contain',
                       }}
-                      source={require('../../imgs/userIcon.png')}
+                      source={require('@images/userIcon.png')}
                     />
                     <Text
                       style={[
@@ -366,7 +366,7 @@ function Ongoing({navigation, route}) {
                         height: Platform.OS === 'ios' ? 18 : 15,
                         resizeMode: 'contain',
                       }}
-                      source={require('../../imgs/clockIcon.png')}
+                      source={require('@images/clockIcon.png')}
                     />
                     <Text
                       style={[
@@ -664,7 +664,7 @@ function Completed({navigation}) {
           ]}>
           <Image
             style={{alignSelf: 'center', width: 80, height: 80}}
-            source={require('../../imgs/noDataIcon.png')}
+            source={require('@images/noDataIcon.png')}
           />
           <Text
             style={[
@@ -812,7 +812,7 @@ function Completed({navigation}) {
                         height: Platform.OS === 'ios' ? 18 : 15,
                         resizeMode: 'contain',
                       }}
-                      source={require('../../imgs/userIcon.png')}
+                      source={require('@images/userIcon.png')}
                     />
                     <Text
                       style={[
@@ -832,7 +832,7 @@ function Completed({navigation}) {
                         height: Platform.OS === 'ios' ? 18 : 15,
                         resizeMode: 'contain',
                       }}
-                      source={require('../../imgs/clockIcon.png')}
+                      source={require('@images/clockIcon.png')}
                     />
                     <Text
                       style={[
@@ -1014,7 +1014,7 @@ function Expired({navigation}) {
           ]}>
           <Image
             style={{alignSelf: 'center', width: 80, height: 80}}
-            source={require('../../imgs/noDataIcon.png')}
+            source={require('@images/noDataIcon.png')}
           />
           <Text
             style={[
@@ -1167,7 +1167,7 @@ function Expired({navigation}) {
                         height: Platform.OS === 'ios' ? 18 : 15,
                         resizeMode: 'contain',
                       }}
-                      source={require('../../imgs/userIcon.png')}
+                      source={require('@images/userIcon.png')}
                     />
                     <Text
                       style={[
@@ -1187,7 +1187,7 @@ function Expired({navigation}) {
                         height: Platform.OS === 'ios' ? 18 : 15,
                         resizeMode: 'contain',
                       }}
-                      source={require('../../imgs/clockIcon.png')}
+                      source={require('@images/clockIcon.png')}
                     />
                     <Text
                       style={[
@@ -1488,7 +1488,7 @@ function Main({navigation, t, i18n}) {
                 height: Platform.OS === 'ios' ? 25 : 20,
                 resizeMode: 'contain',
               }}
-              source={require('../../imgs/rrLogoW.png')}
+              source={require('@images/rrLogoW.png')}
             />
             <Text
               style={[
@@ -1518,7 +1518,7 @@ function Main({navigation, t, i18n}) {
                 height: Platform.OS === 'ios' ? 25 : 20,
                 resizeMode: 'contain',
               }}
-              source={require('../../imgs/menuIcon_w.png')}
+              source={require('@images/menuIcon_w.png')}
             />
           </TouchableOpacity>
         </View>

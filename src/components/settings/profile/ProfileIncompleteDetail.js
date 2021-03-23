@@ -427,7 +427,7 @@ const ProfileIncompleteDetail = (props) => {
                 height: Platform.OS === 'ios' ? 40 : 35,
                 resizeMode: 'contain',
               }}
-              source={require('../../../imgs/kycCheckedIcon.png')}
+              source={require('@images/kycCheckedIcon.png')}
             />
           ) : (
             <Image
@@ -436,7 +436,7 @@ const ProfileIncompleteDetail = (props) => {
                 height: Platform.OS === 'ios' ? 40 : 35,
                 resizeMode: 'contain',
               }}
-              source={require('../../../imgs/kycUncheckIcon.png')}
+              source={require('@images/kycUncheckIcon.png')}
             />
           )}
 

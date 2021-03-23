@@ -90,7 +90,7 @@ const WalletSendModal = ({
                   height: Platform.OS === 'ios' ? 30 : 20,
                   resizeMode: 'contain',
                 }}
-                source={require('../../../imgs/deleteIcon.png')}
+                source={require('@images/deleteIcon.png')}
               />
             </TouchableWithoutFeedback>
           </View>

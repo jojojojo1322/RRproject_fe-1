@@ -194,7 +194,7 @@ const WalletMain = (props) => {
                   height: Platform.OS === 'ios' ? 25 : 20,
                   resizeMode: 'contain',
                 }}
-                source={require('../../../imgs/rrLogoB.png')}
+                source={require('@images/rrLogoB.png')}
               />
               <Text
                 style={[
@@ -224,7 +224,7 @@ const WalletMain = (props) => {
                 height: Platform.OS === 'ios' ? 25 : 20,
                 resizeMode: 'contain',
               }}
-              source={require('../../../imgs/menuIcon.png')}
+              source={require('@images/menuIcon.png')}
             />
           </TouchableOpacity>
         </View>
@@ -236,7 +236,7 @@ const WalletMain = (props) => {
             style={{width: '100%', height: '100%'}}>
             <Image
               style={{width: '100%', height: '100%', resizeMode: 'cover'}}
-              source={require('../../../imgs/ad_aladdinexchange.png')}
+              source={require('@images/ad_aladdinexchange.png')}
             />
           </TouchableOpacity>
         </View>
@@ -265,7 +265,7 @@ const WalletMain = (props) => {
                   height: Platform.OS === 'ios' ? 30 : 25,
                   resizeMode: 'contain',
                 }}
-                source={require('../../../imgs/walletRefreshIcon.png')}
+                source={require('@images/walletRefreshIcon.png')}
               />
             </TouchableOpacity>
           </View>

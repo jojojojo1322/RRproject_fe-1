@@ -323,7 +323,7 @@ class SignUp extends Component {
                       height: Platform.OS === 'ios' ? 28 : 22,
                       resizeMode: 'contain',
                     }}
-                    source={require('../../imgs/backIcon.png')}
+                    source={require('@images/backIcon.png')}
                   />
 
                   <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
@@ -545,7 +545,7 @@ class SignUp extends Component {
                   {flexDirection: 'row', top: '38%'},
                 ]}>
                 <Image
-                  source={require('../../imgs/iconTime.png')}
+                  source={require('@images/iconTime.png')}
                   style={[ResetStyle.smallImg, {marginRight: 8}]}
                 />
                 {/* <Text style={{fontSize: 15, color: '#0b95c9', fontWeight: '500', marginLeft: 5}}>00:00</Text> */}
@@ -570,7 +570,7 @@ class SignUp extends Component {
                   marginBottom: '2%',
                 }}>
                 <Image
-                  source={require('../../imgs/iconNoticeCheck.png')}
+                  source={require('@images/iconNoticeCheck.png')}
                   style={ResetStyle.smallImg}
                 />
                 <Text
@@ -590,7 +590,7 @@ class SignUp extends Component {
                   alignItems: 'center',
                 }}>
                 <Image
-                  source={require('../../imgs/iconNoticeCheck.png')}
+                  source={require('@images/iconNoticeCheck.png')}
                   style={ResetStyle.smallImg}
                 />
                 <Text

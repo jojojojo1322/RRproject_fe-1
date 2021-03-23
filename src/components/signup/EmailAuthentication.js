@@ -309,7 +309,7 @@ class EmailAuthentication extends Component {
                     height: Platform.OS === 'ios' ? 28 : 22,
                     resizeMode: 'contain',
                   }}
-                  source={require('../../imgs/backIcon.png')}
+                  source={require('@images/backIcon.png')}
                 />
                 <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
                   {t('emailAuthenticationTitle')}
@@ -381,7 +381,7 @@ class EmailAuthentication extends Component {
                           width: 15,
                           resizeMode: 'contain',
                         }}
-                        source={require('../../imgs/verificationCodeCheckIcon.png')}
+                        source={require('@images/verificationCodeCheckIcon.png')}
                       />
                     )}
                     <TouchableOpacity
@@ -421,7 +421,7 @@ class EmailAuthentication extends Component {
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
                       <Image
                         style={ResetStyle.smallImg}
-                        source={require('../../imgs/iconXRed.png')}
+                        source={require('@images/iconXRed.png')}
                       />
                       <Text
                         style={[
@@ -437,7 +437,7 @@ class EmailAuthentication extends Component {
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
                       <Image
                         style={ResetStyle.smallImg}
-                        source={require('../../imgs/iconXRed.png')}
+                        source={require('@images/iconXRed.png')}
                       />
                       <Text
                         style={[
@@ -454,7 +454,7 @@ class EmailAuthentication extends Component {
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
                       <Image
                         style={ResetStyle.smallImg}
-                        // source={require('../../imgs/iconXRed.png')}
+                        // source={require('@images/iconXRed.png')}
                       />
                       <Text
                         style={[
@@ -478,7 +478,7 @@ class EmailAuthentication extends Component {
                       justifyContent: 'space-between',
                     }}>
                     <Image
-                      source={require('../../imgs/iconTime.png')}
+                      source={require('@images/iconTime.png')}
                       style={[ResetStyle.smallImg, {marginRight: 8}]}
                     />
                     {/* <Text style={{fontSize: 15, color: '#0b95c9', fontWeight: '500', marginLeft: 5}}>00:00</Text> */}

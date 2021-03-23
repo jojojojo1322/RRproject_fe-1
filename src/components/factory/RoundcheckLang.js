@@ -212,14 +212,14 @@ export class RoundCheckbox extends Component {
             {this.state.checked ? (
               <View style={[styles.selectedUI, {borderWidth: 0}]}>
                 <Image
-                  source={require('../../imgs/icon_w_check_2_on_m.png')}
+                  source={require('@images/icon_w_check_2_on_m.png')}
                   style={styles.checkboxTickImg}
                 />
               </View>
             ) : (
               <View style={styles.uncheckedCheckbox}>
                 <Image
-                  source={require('../../imgs/icon_w_check2_off_m.png')}
+                  source={require('@images/icon_w_check2_off_m.png')}
                   style={styles.checkboxTickImg}
                 />
               </View>

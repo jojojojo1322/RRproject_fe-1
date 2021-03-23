@@ -30,103 +30,103 @@ const window = Dimensions.get('window');
 const DATA = [
   {
     id: '1',
-    img: require('../../../imgs/flag_afghanistan.png'),
+    img: require('@images/flag_afghanistan.png'),
     title: 'Afghanistan(AF)',
     cd: '+93',
   },
   {
     id: '2',
-    img: require('../../../imgs/flag_albania.png'),
+    img: require('@images/flag_albania.png'),
     title: 'Albania',
     cd: '+355',
   },
   {
     id: '3',
-    img: require('../../../imgs/flag_argentina.png'),
+    img: require('@images/flag_argentina.png'),
     title: 'Argentina',
     cd: '+54',
   },
   {
     id: '4',
-    img: require('../../../imgs/flag_afghanistan.png'),
+    img: require('@images/flag_afghanistan.png'),
     title: 'Afghanistan(AF)',
     cd: '+93',
   },
   {
     id: '5',
-    img: require('../../../imgs/flag_albania.png'),
+    img: require('@images/flag_albania.png'),
     title: 'Albania',
     cd: '+355',
   },
   {
     id: '6',
-    img: require('../../../imgs/flag_argentina.png'),
+    img: require('@images/flag_argentina.png'),
     title: 'Argentina',
     cd: '+54',
   },
   {
     id: '7',
-    img: require('../../../imgs/flag_afghanistan.png'),
+    img: require('@images/flag_afghanistan.png'),
     title: 'Afghanistan(AF)',
     cd: '+93',
   },
   {
     id: '8',
-    img: require('../../../imgs/flag_albania.png'),
+    img: require('@images/flag_albania.png'),
     title: 'Albania',
     cd: '+355',
   },
   {
     id: '9',
-    img: require('../../../imgs/flag_argentina.png'),
+    img: require('@images/flag_argentina.png'),
     title: 'Argentina',
     cd: '+54',
   },
   {
     id: '10',
-    img: require('../../../imgs/flag_afghanistan.png'),
+    img: require('@images/flag_afghanistan.png'),
     title: 'Afghanistan(AF)',
     cd: '+93',
   },
   {
     id: '11',
-    img: require('../../../imgs/flag_albania.png'),
+    img: require('@images/flag_albania.png'),
     title: 'Albania',
     cd: '+355',
   },
   {
     id: '12',
-    img: require('../../../imgs/flag_argentina.png'),
+    img: require('@images/flag_argentina.png'),
     title: 'Argentina',
     cd: '+54',
   },
   {
     id: '13',
-    img: require('../../../imgs/flag_afghanistan.png'),
+    img: require('@images/flag_afghanistan.png'),
     title: 'Afghanistan(AF)',
     cd: '+93',
   },
   {
     id: '14',
-    img: require('../../../imgs/flag_albania.png'),
+    img: require('@images/flag_albania.png'),
     title: 'Albania',
     cd: '+355',
   },
   {
     id: '15',
-    img: require('../../../imgs/flag_argentina.png'),
+    img: require('@images/flag_argentina.png'),
     title: 'Argentina',
     cd: '+54',
   },
   {
     id: '16',
-    img: require('../../../imgs/flag_afghanistan.png'),
+    img: require('@images/flag_afghanistan.png'),
     title: 'Afghanistan(AF)',
     cd: '+93',
   },
   {
     id: '17',
-    img: require('../../../imgs/flag_albania.png'),
+    img: require('@images/flag_albania.png'),
     title: 'Albania',
     cd: '+355',
   },
@@ -253,7 +253,7 @@ class ListRoundCheckModal extends Component {
                 }}>
                 <Image
                   style={[ModalStyle.listModalCloseButton]}
-                  source={require('../../../imgs/icon_close.png')}
+                  source={require('@images/icon_close.png')}
                 />
               </TouchableWithoutFeedback>
             </View>
@@ -269,7 +269,7 @@ class ListRoundCheckModal extends Component {
                     ModalStyle.listModalSearch,
                     {marginTop: 7, marginRight: '2%'},
                   ]}
-                  source={require('../../../imgs/icon_search.png')}
+                  source={require('@images/icon_search.png')}
                 />
               </TouchableOpacity>
             </View>

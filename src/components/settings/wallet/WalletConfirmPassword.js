@@ -172,7 +172,7 @@ const WalletConfirmPassword = ({navigation, route}) => {
                   height: Platform.OS === 'ios' ? 28 : 25,
                   resizeMode: 'contain',
                 }}
-                source={require('../../../imgs/backIcon.png')}
+                source={require('@images/backIcon.png')}
               />
             </TouchableOpacity>
           </View>
@@ -396,7 +396,7 @@ const WalletConfirmPassword = ({navigation, route}) => {
             onPress={handlePassErase}>
             <Image
               style={styles.keyboardCancelButton}
-              source={require('../../../imgs/iconDelete.png')}
+              source={require('@images/iconDelete.png')}
             />
           </TouchableOpacity>
         </View>

@@ -395,7 +395,7 @@ const KycLevel1Box = ({navigation, route}) => {
                 height: Platform.OS === 'ios' ? 22 : 20,
                 resizeMode: 'contain',
               }}
-              source={require('../../imgs/icon_search.png')}
+              source={require('@images/icon_search.png')}
             />
           </View>
         </TouchableOpacity>
@@ -618,7 +618,7 @@ openResidenceLangModal */}
                   height: Platform.OS === 'ios' ? 28 : 22,
                   resizeMode: 'contain',
                 }}
-                source={require('../../imgs/backIcon.png')}
+                source={require('@images/backIcon.png')}
               />
             </TouchableOpacity>
             {/* Top Title */}
@@ -651,7 +651,7 @@ openResidenceLangModal */}
                 height: Platform.OS === 'ios' ? 55 : 50,
                 resizeMode: 'contain',
               }}
-              source={require('../../imgs/kycCheckedIcon.png')}
+              source={require('@images/kycCheckedIcon.png')}
             />
             <View
               style={{
@@ -669,8 +669,8 @@ openResidenceLangModal */}
               }}
               source={
                 step < 2
-                  ? require('../../imgs/kycUncheckIcon.png')
-                  : require('../../imgs/kycCheckedIcon.png')
+                  ? require('@images/kycUncheckIcon.png')
+                  : require('@images/kycCheckedIcon.png')
               }
             />
             <View
@@ -689,8 +689,8 @@ openResidenceLangModal */}
               }}
               source={
                 step < 3
-                  ? require('../../imgs/kycUncheckIcon.png')
-                  : require('../../imgs/kycCheckedIcon.png')
+                  ? require('@images/kycUncheckIcon.png')
+                  : require('@images/kycCheckedIcon.png')
               }
             />
           </View>

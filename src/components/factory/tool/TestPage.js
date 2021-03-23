@@ -26,7 +26,7 @@ const CheckList = ({text}) => {
           resizeMode: 'contain',
           marginRight: '5%',
         }}
-        source={require('../../imgs/drawable-xxxhdpi/check.png')}
+        source={require('@images/drawable-xxxhdpi/check.png')}
       />
       <Text
         style={[
@@ -115,9 +115,7 @@ const IdVerification = ({navigation}) => {
           onPress={() => {
             navigation.goBack();
           }}>
-          <Image
-            source={require('../../imgs/drawable-xxxhdpi/back_icon.png')}
-          />
+          <Image source={require('@images/drawable-xxxhdpi/back_icon.png')} />
           <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
             {t('idVerificationTitle')}
           </Text>
@@ -149,7 +147,7 @@ const IdVerification = ({navigation}) => {
                   resizeMode: 'contain',
                   // borderWidth: 1,
                 }}
-                source={require('../../imgs/drawable-xxxhdpi/passport_icon.png')}
+                source={require('@images/drawable-xxxhdpi/passport_icon.png')}
               />
             </View>
           ) : (

@@ -115,7 +115,7 @@ class Reset extends Component {
                     height: Platform.OS === 'ios' ? 28 : 22,
                     resizeMode: 'contain',
                   }}
-                  source={require('../../imgs/backIcon.png')}
+                  source={require('@images/backIcon.png')}
                 />
                 <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
                   {t('resetTitle')}
@@ -178,7 +178,7 @@ class Reset extends Component {
                 }}>
                 <Image
                   style={ResetStyle.smallImg}
-                  source={require('../../imgs/iconX.png')}
+                  source={require('@images/iconX.png')}
                 />
               </TouchableOpacity>
             </View>
