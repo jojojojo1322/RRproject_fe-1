@@ -11,7 +11,6 @@
 		00E356F31AD99517003FC87E /* surveyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* surveyTests.m */; };
 		0F0D22E125B959B10000353F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0F0D22E025B959B10000353F /* GoogleService-Info.plist */; };
 		0F0D22E225B959B10000353F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0F0D22E025B959B10000353F /* GoogleService-Info.plist */; };
-		0F31B9F825AD9011001295E6 /* google-services.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F31B9F725AD9011001295E6 /* google-services.json */; };
 		0F31B9F925AD9011001295E6 /* google-services.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F31B9F725AD9011001295E6 /* google-services.json */; };
 		1377024C1DF7BCF06FB379FA /* libPods-survey-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B9C90B397C03C41EBF4E985 /* libPods-survey-tvOSTests.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
@@ -316,7 +315,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 53NCDWKKQA;
+						DevelopmentTeam = U4K9P3ZURF;
 						LastSwiftMigration = 1120;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
@@ -368,7 +367,6 @@
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				0F0D22E125B959B10000353F /* GoogleService-Info.plist in Resources */,
 				1D58A97A25B6A9A7007FC92C /* Launch Screen.storyboard in Resources */,
-				0F31B9F825AD9011001295E6 /* google-services.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -711,7 +709,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = survey/survey.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 53NCDWKKQA;
+				DEVELOPMENT_TEAM = U4K9P3ZURF;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -725,7 +723,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.research.survey;
+				PRODUCT_BUNDLE_IDENTIFIER = com.research.survey1;
 				PRODUCT_NAME = survey;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -741,7 +739,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = survey/survey.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 53NCDWKKQA;
+				DEVELOPMENT_TEAM = U4K9P3ZURF;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = survey/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -750,7 +748,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.research.survey;
+				PRODUCT_BUNDLE_IDENTIFIER = com.research.survey1;
 				PRODUCT_NAME = survey;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
