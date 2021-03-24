@@ -18,90 +18,173 @@ import {
   Dimensions,
 } from 'react-native';
 
-export default class Keyboard extends Component {
-  handlePass = async (value, e) => {};
-  handlePassErase = (e) => {};
-  render() {
-    return (
-      <>
-        <View style={styles.keyboard}>
-          <View style={styles.keyboardView}>
-            <TouchableOpacity
-              style={styles.keyboardDetail}
-              onPress={this.handlePass.bind(this, '1')}>
-              <Text style={styles.keyboardDetailText}>1</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.keyboardDetail}
-              onPress={this.handlePass.bind(this, '2')}>
-              <Text style={styles.keyboardDetailText}>2</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.keyboardDetail}
-              onPress={this.handlePass.bind(this, '3')}>
-              <Text style={styles.keyboardDetailText}>3</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.keyboardView}>
-            <TouchableOpacity
-              style={styles.keyboardDetail}
-              onPress={this.handlePass.bind(this, '4')}>
-              <Text style={styles.keyboardDetailText}>4</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.keyboardDetail}
-              onPress={this.handlePass.bind(this, '5')}>
-              <Text style={styles.keyboardDetailText}>5</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.keyboardDetail}
-              onPress={this.handlePass.bind(this, '6')}>
-              <Text style={styles.keyboardDetailText}>6</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.keyboardView}>
-            <TouchableOpacity
-              style={styles.keyboardDetail}
-              onPress={this.handlePass.bind(this, '7')}>
-              <Text style={styles.keyboardDetailText}>7</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.keyboardDetail}
-              onPress={this.handlePass.bind(this, '8')}>
-              <Text style={styles.keyboardDetailText}>8</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.keyboardDetail}
-              onPress={this.handlePass.bind(this, '9')}>
-              <Text style={styles.keyboardDetailText}>9</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.keyboardView}>
-            <TouchableOpacity
-              style={[styles.keyboardDetail, {backgroundColor: '#f5f5f6'}]}>
-              <Text style={styles.keyboardDetailText}></Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.keyboardDetail}
-              onPress={this.handlePass.bind(this, '0')}>
-              <Text style={styles.keyboardDetailText}>0</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.keyboardCancelButtonDetail}
-              onPress={this.handlePassErase}>
-              <Image
-                style={styles.keyboardCancelButton}
-                source={require('@images/iconDelete.png')}
-              />
-            </TouchableOpacity>
-          </View>
+const Keyboard = () => {
+  const handlePass = async (value, e) => {};
+  const handlePassErase = (e) => {};
+  return (
+    <>
+      <View style={styles.keyboard}>
+        <View style={styles.keyboardView}>
+          <TouchableOpacity
+            style={styles.keyboardDetail}
+            onPress={handlePass('1')}>
+            <Text style={styles.keyboardDetailText}>1</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.keyboardDetail}
+            onPress={handlePass('2')}>
+            <Text style={styles.keyboardDetailText}>2</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.keyboardDetail}
+            onPress={handlePass('3')}>
+            <Text style={styles.keyboardDetailText}>3</Text>
+          </TouchableOpacity>
         </View>
-      </>
-    );
-  }
-}
+
+        <View style={styles.keyboardView}>
+          <TouchableOpacity
+            style={styles.keyboardDetail}
+            onPress={handlePass('4')}>
+            <Text style={styles.keyboardDetailText}>4</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.keyboardDetail}
+            onPress={handlePass('5')}>
+            <Text style={styles.keyboardDetailText}>5</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.keyboardDetail}
+            onPress={handlePass('6')}>
+            <Text style={styles.keyboardDetailText}>6</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.keyboardView}>
+          <TouchableOpacity
+            style={styles.keyboardDetail}
+            onPress={handlePass('7')}>
+            <Text style={styles.keyboardDetailText}>7</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.keyboardDetail}
+            onPress={handlePass('8')}>
+            <Text style={styles.keyboardDetailText}>8</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.keyboardDetail}
+            onPress={handlePass('9')}>
+            <Text style={styles.keyboardDetailText}>9</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.keyboardView}>
+          <TouchableOpacity
+            style={[styles.keyboardDetail, {backgroundColor: '#f5f5f6'}]}>
+            <Text style={styles.keyboardDetailText}></Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.keyboardDetail}
+            onPress={handlePass('0')}>
+            <Text style={styles.keyboardDetailText}>0</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.keyboardCancelButtonDetail}
+            onPress={handlePassErase}>
+            <Image
+              style={styles.keyboardCancelButton}
+              source={require('@images/iconDelete.png')}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
+    </>
+  );
+};
+export default Keyboard;
+// export default class Keyboard extends Component {
+//   handlePass = async (value, e) => {};
+//   handlePassErase = (e) => {};
+//   render() {
+//     return (
+//       <>
+//         <View style={styles.keyboard}>
+//           <View style={styles.keyboardView}>
+//             <TouchableOpacity
+//               style={styles.keyboardDetail}
+//               onPress={this.handlePass.bind(this, '1')}>
+//               <Text style={styles.keyboardDetailText}>1</Text>
+//             </TouchableOpacity>
+//             <TouchableOpacity
+//               style={styles.keyboardDetail}
+//               onPress={this.handlePass.bind(this, '2')}>
+//               <Text style={styles.keyboardDetailText}>2</Text>
+//             </TouchableOpacity>
+//             <TouchableOpacity
+//               style={styles.keyboardDetail}
+//               onPress={this.handlePass.bind(this, '3')}>
+//               <Text style={styles.keyboardDetailText}>3</Text>
+//             </TouchableOpacity>
+//           </View>
+
+//           <View style={styles.keyboardView}>
+//             <TouchableOpacity
+//               style={styles.keyboardDetail}
+//               onPress={this.handlePass.bind(this, '4')}>
+//               <Text style={styles.keyboardDetailText}>4</Text>
+//             </TouchableOpacity>
+//             <TouchableOpacity
+//               style={styles.keyboardDetail}
+//               onPress={this.handlePass.bind(this, '5')}>
+//               <Text style={styles.keyboardDetailText}>5</Text>
+//             </TouchableOpacity>
+//             <TouchableOpacity
+//               style={styles.keyboardDetail}
+//               onPress={this.handlePass.bind(this, '6')}>
+//               <Text style={styles.keyboardDetailText}>6</Text>
+//             </TouchableOpacity>
+//           </View>
+
+//           <View style={styles.keyboardView}>
+//             <TouchableOpacity
+//               style={styles.keyboardDetail}
+//               onPress={this.handlePass.bind(this, '7')}>
+//               <Text style={styles.keyboardDetailText}>7</Text>
+//             </TouchableOpacity>
+//             <TouchableOpacity
+//               style={styles.keyboardDetail}
+//               onPress={this.handlePass.bind(this, '8')}>
+//               <Text style={styles.keyboardDetailText}>8</Text>
+//             </TouchableOpacity>
+//             <TouchableOpacity
+//               style={styles.keyboardDetail}
+//               onPress={this.handlePass.bind(this, '9')}>
+//               <Text style={styles.keyboardDetailText}>9</Text>
+//             </TouchableOpacity>
+//           </View>
+//           <View style={styles.keyboardView}>
+//             <TouchableOpacity
+//               style={[styles.keyboardDetail, {backgroundColor: '#f5f5f6'}]}>
+//               <Text style={styles.keyboardDetailText}></Text>
+//             </TouchableOpacity>
+//             <TouchableOpacity
+//               style={styles.keyboardDetail}
+//               onPress={this.handlePass.bind(this, '0')}>
+//               <Text style={styles.keyboardDetailText}>0</Text>
+//             </TouchableOpacity>
+//             <TouchableOpacity
+//               style={styles.keyboardCancelButtonDetail}
+//               onPress={this.handlePassErase}>
+//               <Image
+//                 style={styles.keyboardCancelButton}
+//                 source={require('@images/iconDelete.png')}
+//               />
+//             </TouchableOpacity>
+//           </View>
+//         </View>
+//       </>
+//     );
+//   }
+// }
 
 const styles = StyleSheet.create({
   container: {
