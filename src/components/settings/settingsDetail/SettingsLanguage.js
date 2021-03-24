@@ -17,36 +17,10 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '@style/ResetStyle.js';
 import {useTranslation} from 'react-i18next';
 import * as RNLocalize from 'react-native-localize';
+import CountryItem from './CountryItem/CountryItem';
 
 const SettingsAlert = ({navigation}) => {
   const {t, i18n} = useTranslation();
-  const [DATA] = useState([
-    {
-      id: '1',
-      lng: 'en',
-      title: t('settingsLanguage1'),
-    },
-    {
-      id: '2',
-      lng: 'ko',
-      title: t('settingsLanguage2'),
-    },
-    {
-      id: '3',
-      lng: 'pt',
-      title: t('settingsLanguage3'),
-    },
-    {
-      id: '4',
-      lng: 'es',
-      title: t('settingsLanguage4'),
-    },
-    {
-      id: '5',
-      lng: 'ru',
-      title: t('settingsLanguage5'),
-    },
-  ]);
   const [nowLanguage, setNowLanguage] = useState('en');
 
   useEffect(() => {
@@ -60,95 +34,13 @@ const SettingsAlert = ({navigation}) => {
     i18n.changeLanguage('en');
   };
 
-  const changelanguageToKo = () => {
-    console.log('ko');
-    i18n.changeLanguage('ko');
-  };
+  const [select, setSelect] = useState(i18n.language);
 
-  const changelanguageToPt = () => {
-    console.log('pt');
-    i18n.changeLanguage('pt');
-  };
-
-  const changelanguageToEs = () => {
-    console.log('es');
-    i18n.changeLanguage('es');
-  };
-
-  const changelanguageToRu = () => {
-    console.log('ru');
-    i18n.changeLanguage('ru');
-  };
-
-  const Item = ({title, id, onPress}) => {
-    CheckedArrObject = new SelectedCheckboxes();
-    return (
-      <TouchableOpacity
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          borderBottomWidth: 1,
-          borderBottomColor: '#dddddd',
-          paddingLeft: '5%',
-          paddingRight: '5%',
-        }}
-        onPress={() => {
-          if (id === '1') {
-            changelanguageToEn();
-            setNowLanguage('en');
-          } else if (id === '2') {
-            changelanguageToKo();
-            setNowLanguage('ko');
-          } else if (id === '3') {
-            changelanguageToPt();
-            setNowLanguage('pt');
-          } else if (id === '4') {
-            changelanguageToEs();
-            setNowLanguage('es');
-          } else if (id === '5') {
-            changelanguageToRu();
-            setNowLanguage('ru');
-          } else {
-            changelanguageToEn();
-          }
-        }}>
-        <Text
-          style={[
-            ResetStyle.fontRegularK,
-            ResetStyle.fontBlack,
-            {textAlign: 'left', paddingTop: '5.5%', paddingBottom: '5.5%'},
-          ]}>
-          {title}
-        </Text>
-        {(id === '1' && nowLanguage === 'en') ||
-        (id === '2' && nowLanguage === 'ko') ||
-        (id === '3' && nowLanguage === 'pt') ||
-        (id === '4' && nowLanguage === 'es') ||
-        (id === '5' && nowLanguage === 'ru') ? (
-          <Image
-            style={{width: 30, height: 30, resizeMode: 'contain'}}
-            source={require('@images/iconCheckedS.png')}
-          />
-        ) : (
-          <Image
-            style={{width: 30, height: 30, resizeMode: 'contain'}}
-            source={require('@images/iconUncheckedS.png')}
-          />
-        )}
-      </TouchableOpacity>
-    );
-  };
-
-  const renderItem = ({item}) => (
-    <Item
-      title={item.title}
-      id={item.id}
-      onPress={() => {
-        setNowLanguage(item.lng);
-      }}
-    />
-  );
+  useEffect(() => {
+    if (select) {
+      setNowLanguage(select);
+    }
+  }, [select]);
 
   return (
     <SafeAreaView style={ResetStyle.container}>
@@ -178,12 +70,38 @@ const SettingsAlert = ({navigation}) => {
             </Text>
           </TouchableOpacity>
         </View>
-        <FlatList
-          data={DATA}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-          style={{borderTopWidth: 1, borderTopColor: '#dddddd'}}
-        />
+        <View style={{flex: 1, borderTopWidth: 1, borderTopColor: '#dddddd'}}>
+          <CountryItem
+            name={t('settingsLanguage1')}
+            code="en"
+            select={select}
+            setSelect={setSelect}
+          />
+          <CountryItem
+            name={t('settingsLanguage2')}
+            code="ko"
+            select={select}
+            setSelect={setSelect}
+          />
+          <CountryItem
+            name={t('settingsLanguage3')}
+            code="pt"
+            select={select}
+            setSelect={setSelect}
+          />
+          <CountryItem
+            name={t('settingsLanguage4')}
+            code="es"
+            select={select}
+            setSelect={setSelect}
+          />
+          <CountryItem
+            name={t('settingsLanguage5')}
+            code="ru"
+            select={select}
+            setSelect={setSelect}
+          />
+        </View>
       </View>
     </SafeAreaView>
   );
