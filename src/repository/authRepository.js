@@ -1,4 +1,4 @@
-import api from '@context/serverContext';
+import api from '@context/server';
 
 export const ApiInfo = (param) => api().get('/v1/api/user', param);
 

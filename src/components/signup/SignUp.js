@@ -26,15 +26,6 @@ import {server} from '@context/server';
 import axios from 'axios';
 import BottomModal from '@factory/modal/BottomModal';
 
-//휴대폰 유효성 검사
-function isCellPhone(p) {
-  p = p.split('-').join('');
-
-  var regPhone = /^((01[1|6|7|8|9])[1-9]+[0-9]{6,7})|(010[1-9][0-9]{7})$/;
-
-  return regPhone.test(p);
-}
-
 const SignUp = () => {
   const navigation = useNavigation();
   const {t} = useTranslation();
@@ -66,18 +57,20 @@ const SignUp = () => {
   const [countryData, setCountryData] = useState([]);
 
   const countryDataApi = async () => {
-    await axios
-      .get(`${server}/util/global/country`)
-      .then(async (response) => {
-        setCountryData(response.data);
-      })
-      .catch(({e}) => {
-        console.log('error', e);
-      });
-  };
-
-  const handlePassword = (text) => {
-    setPassword(text);
+    try {
+      await axios
+        .get(`${server}/util/global/country`)
+        .then((response) => {
+          if (response.data) {
+            setCountryData(response.data);
+          }
+        })
+        .catch(({e}) => {
+          console.log('error', e);
+        });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   // only number
@@ -87,10 +80,10 @@ const SignUp = () => {
     }
   };
 
-  const setCountryInfo = (a, b, c) => {
-    setCountry(a);
-    setCountryCd(b);
-    setCountryPhoneCode(c);
+  const setCountryInfo = (country, cd, phone) => {
+    setCountry(country);
+    setCountryCd(cd);
+    setCountryPhoneCode(phone);
   };
 
   const smsAuthApi = async (device, phone) => {
@@ -101,14 +94,11 @@ const SignUp = () => {
           phoneNum: phone,
         })
         .then((response) => {
-          console.log('smsAuthApi THEN>>', response);
-          console.log('smsAuthApi THEN>>', response.data);
-          console.log('smsAuthApi THEN>>', response.data.authkey);
-
-          setPhoneAuthCheck(response.data.ret_val);
-          setAuthKey(response.data.authkey);
-
-          return response.data.ret_val;
+          if (response.data) {
+            setPhoneAuthCheck(response.data.ret_val);
+            setAuthKey(response.data.authkey);
+            return response.data.ret_val;
+          }
         })
         .catch((e) => {
           console.log('smsAuthApi ERROR>>', e.response);
@@ -154,18 +144,22 @@ const SignUp = () => {
     }
   };
 
-  const smsAuthExpireApi = (authKey) => {
+  const smsAuthExpireApi = async (authKey) => {
     console.log('Expire AUAUAUAU', authKey);
-    axios
-      .patch(`${server}/util/sms/auth/expired`, {
-        authKey: authKey,
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    try {
+      await axios
+        .patch(`${server}/util/sms/auth/expired`, {
+          authKey: authKey,
+        })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const handleCountDown = () => {
@@ -188,9 +182,6 @@ const SignUp = () => {
   };
 
   const handleCountDownExpireCheck = () => {
-    console.log(
-      'handleCountDownExpireCheckhandleCountDownExpireCheckhandleCountDownExpireCheckhandleCountDownExpireCheck',
-    );
     setCountDownExpireCheck(true);
   };
 
@@ -403,7 +394,7 @@ const SignUp = () => {
                 keyboardType={'numeric'}
                 returnKeyType={'done'}
                 // secureTextEntry={true}
-                onChangeText={(text) => handlePassword(text)}
+                onChangeText={(text) => setPassword(text)}
                 style={[
                   ResetStyle.fontRegularK,
                   ResetStyle.fontBlack,

@@ -1,11 +1,10 @@
 import {createAction, createReducer} from '@reduxjs/toolkit';
-import {useTranslation} from 'react-i18next';
 
 import createRequestSaga, {
   createRequestActionTypes,
 } from '@store/createRequestSaga';
 import {takeLatest} from 'redux-saga/effects';
-import {ApiLogin, ApiInfo} from '@repository/authRepository';
+import * as authAPI from '@repository/authRepository';
 
 const [INFO, INFO_SUCCESS, INFO_FAILURE] = createRequestActionTypes(
   'auth/INFO',
@@ -18,13 +17,14 @@ const [SIGN_IN, SIGN_IN_SUCCESS, SIGN_IN_FAILURE] = createRequestActionTypes(
 export const getInfo = createAction(INFO);
 export const signIn = createAction(SIGN_IN);
 
-const infoSaga = createRequestSaga(INFO, ApiInfo);
-const signInSaga = createRequestSaga(SIGN_IN, ApiLogin);
+const infoSaga = createRequestSaga(INFO, authAPI.getUserInfo);
+const signInSaga = createRequestSaga(SIGN_IN, authAPI.login);
 
 export function* authSaga() {
   yield takeLatest(INFO, infoSaga);
   yield takeLatest(SIGN_IN, signInSaga);
 }
+
 const initialState = {
   user: {
     block: '',
