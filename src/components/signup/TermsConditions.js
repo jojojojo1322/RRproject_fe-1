@@ -8,16 +8,13 @@ import {
   Image,
   Platform,
 } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import ResetStyle from '@style/ResetStyle.js';
 import AuthStyle from '@style/AuthStyle.js';
+import {useTranslation} from 'react-i18next';
 
-import {withTranslation} from 'react-i18next';
-import hoistStatics from 'hoist-non-react-statics';
-
-const Tab = createMaterialTopTabNavigator();
-
-function Terms() {
+const Terms = () => {
   return (
     <SafeAreaView style={AuthStyle.termsConditionsContainer}>
       <ScrollView style={{width: '100%'}}>
@@ -573,9 +570,9 @@ function Terms() {
       </ScrollView>
     </SafeAreaView>
   );
-}
+};
 
-function Conditions() {
+const Conditions = () => {
   return (
     <SafeAreaView style={AuthStyle.termsConditionsContainer}>
       <ScrollView style={{width: '100%'}}>
@@ -1035,58 +1032,51 @@ function Conditions() {
       </ScrollView>
     </SafeAreaView>
   );
-}
+};
 
-class TermsConditions extends Component {
-  state = {};
+const TermsConditions = ({route}) => {
+  const navigation = useNavigation();
+  const Tab = createMaterialTopTabNavigator();
+  const {t} = useTranslation();
 
-  render() {
-    const {t} = this.props;
-    console.log('apapapapapapapap', this.props.route.params?.name);
-    return (
-      <SafeAreaView style={{flex: 1, backgroundColor: '#FFF'}}>
-        {/* topBackButton */}
-        <View style={{marginLeft: '5%', marginRight: '5%'}}>
-          <View style={[ResetStyle.topBackButton, {paddingBottom: '2%'}]}>
-            <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}
-              onPress={() => {
-                this.props.navigation.goBack();
-              }}>
-              <Image
-                style={{
-                  width: Platform.OS === 'ios' ? 28 : 22,
-                  height: Platform.OS === 'ios' ? 28 : 22,
-                  resizeMode: 'contain',
-                }}
-                source={require('@images/backIcon.png')}
-              />
-              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-                {t('termsConditionsTitle')}
-              </Text>
-            </TouchableOpacity>
-          </View>
+  return (
+    <SafeAreaView style={{flex: 1, backgroundColor: '#FFF'}}>
+      {/* topBackButton */}
+      <View style={{marginLeft: '5%', marginRight: '5%'}}>
+        <View style={[ResetStyle.topBackButton, {paddingBottom: '2%'}]}>
+          <TouchableOpacity
+            style={{flexDirection: 'row', alignItems: 'center'}}
+            onPress={() => navigation.goBack()}>
+            <Image
+              style={{
+                width: Platform.OS === 'ios' ? 28 : 22,
+                height: Platform.OS === 'ios' ? 28 : 22,
+                resizeMode: 'contain',
+              }}
+              source={require('@images/backIcon.png')}
+            />
+            <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+              {t('termsConditionsTitle')}
+            </Text>
+          </TouchableOpacity>
         </View>
-        <Tab.Navigator
-          initialRouteName={this.props.route.params?.name}
-          tabBarOptions={{
-            labelStyle: {
-              fontSize: Platform.OS === 'ios' ? 20 : 15,
-              fontWeight: '400',
-            },
-            activeTintColor: '#4696ff',
-            inactiveTintColor: '#787878',
-            indicatorStyle: {borderColor: '#4696ff', borderWidth: 1.5},
-          }}>
-          <Tab.Screen name={t('termsConditions1')} component={Terms} />
-          <Tab.Screen name={t('termsConditions2')} component={Conditions} />
-        </Tab.Navigator>
-      </SafeAreaView>
-    );
-  }
-}
+      </View>
+      <Tab.Navigator
+        initialRouteName={route.params?.name}
+        tabBarOptions={{
+          labelStyle: {
+            fontSize: Platform.OS === 'ios' ? 20 : 15,
+            fontWeight: '400',
+          },
+          activeTintColor: '#4696ff',
+          inactiveTintColor: '#787878',
+          indicatorStyle: {borderColor: '#4696ff', borderWidth: 1.5},
+        }}>
+        <Tab.Screen name={t('termsConditions1')} component={Terms} />
+        <Tab.Screen name={t('termsConditions2')} component={Conditions} />
+      </Tab.Navigator>
+    </SafeAreaView>
+  );
+};
 
-export default hoistStatics(
-  withTranslation()(TermsConditions),
-  TermsConditions,
-);
+export default TermsConditions;
