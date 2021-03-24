@@ -22,7 +22,7 @@ import messaging from '@react-native-firebase/messaging';
 
 import SplashScreen from 'react-native-splash-screen';
 import ResetStyle from '@style/ResetStyle';
-import ProgressBarExample from '@components/defined/ProgressBarExample';
+import ProgressBarExample from '@defined/ProgressBarExample';
 import {useTranslation} from 'react-i18next';
 
 const Splash = ({loading, setLoading}) => {

@@ -23,7 +23,7 @@ import TextConfirmCancelModal from '@factory/modal/TextConfirmCancelModal';
 import ProgressModal from '@factory/modal/ProgressModal';
 
 import {useTranslation} from 'react-i18next';
-// import {CustomDrawerContent} from '../../defined/CustomDrawerContent';
+// import {CustomDrawerContent} from '@defined/CustomDrawerContent';
 
 const Drawer = createDrawerNavigator();
 

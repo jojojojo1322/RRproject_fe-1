@@ -12,6 +12,7 @@ import RNExitApp from 'react-native-exit-app';
 import App from './App';
 import Splash from './Splash';
 import {useTranslation} from 'react-i18next';
+import '@assets/i18n';
 
 const Wrapper = () => {
   const {t, i18n} = useTranslation();

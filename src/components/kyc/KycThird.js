@@ -26,7 +26,7 @@ import AuthStyle from '@style/AuthStyle.js';
 import {server} from '@context/server';
 import axios from 'axios';
 
-import {CountryListApi} from '../defined/DefineCountryList';
+import {CountryListApi} from '@defined/DefineCountryList';
 
 import {withTranslation} from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';

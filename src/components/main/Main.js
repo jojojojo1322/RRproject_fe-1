@@ -15,7 +15,7 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import ResetStyle from '@style/ResetStyle';
 import MainStyle from '@style/MainStyle';
-import Carousel from '../defined/snapCarousel/snapCarousel';
+import Carousel from '@defined/snapCarousel/snapCarousel';
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {scrollInterpolator2, animatedStyles2} from '../animations';
