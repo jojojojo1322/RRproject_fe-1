@@ -31,7 +31,9 @@ const DatePicker = ({
     const start = !startYear || startYear > end ? end - 100 : startYear;
     setDays([...Array(31)].map((_, index) => index + 1));
     setMonths([...Array(12)].map((_, index) => index + 1));
-    setYears([...Array(end - start + 1)].map((_, index) => start + index));
+    setYears(
+      [...Array(end - start + 1)].map((_, index) => start + index).reverse(),
+    );
   }, []);
   const pickerHeight = Math.round(
     height || Dimensions.get('window').height / 3.5,
@@ -108,10 +110,23 @@ const DateBlock = ({
     });
   }, [scrollRef.current]);
   const handleChange = ({nativeEvent}) => {
-    const digit = nativeEvent.contentOffset.y / dHeight + digits[0];
+    let digit;
+    if (type === 'year') {
+      digit = -(nativeEvent.contentOffset.y / dHeight) + digits[0];
+    } else {
+      digit = nativeEvent.contentOffset.y / dHeight + digits[0];
+    }
+    console.log(digit);
     if (Number.isInteger(digit)) {
       onChange(type, digit);
+    } else {
+      onChange(type, Math.round(digit));
     }
+
+    // const digit = nativeEvent.contentOffset.y / dHeight + digits[0];
+    // if (Number.isInteger(digit)) {
+    //   onChange(type, digit);
+    // }
   };
   return React.createElement(
     View,

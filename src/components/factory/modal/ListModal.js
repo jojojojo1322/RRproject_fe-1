@@ -21,6 +21,7 @@ import ModalStyle from '@style/ModalStyle';
 import {CountryListApi, CLA} from '@defined/DefineCountryList';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useTranslation} from 'react-i18next';
+import getCountryImageName from '@lib/getCountryImageName';
 
 const window = Dimensions.get('window');
 
@@ -88,7 +89,7 @@ const Item = ({item, onPress, style, handlePick}) => {
         /> */}
         <Image
           style={[ModalStyle.listModalImg, {marginTop: 2}]}
-          source={require('@images/flag_angola.png')}
+          source={getCountryImageName(item.countryCode)}
         />
         <Text
           style={[
