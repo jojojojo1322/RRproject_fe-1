@@ -37,6 +37,7 @@ import {withTranslation} from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';
 
 import {testSample} from '@module/sample';
+import {signIn} from '@module/auth';
 
 // import RNPickerSelect from 'react-native-picker-select';
 
@@ -183,6 +184,12 @@ const Login = ({navigation, history}) => {
         console.log('deviceKeyCheckApi ERROR>>', e.response);
       });
   };
+
+  // const signIn = () => {
+  //   dispatch(
+  //     signIn({email: id, password: pass, deviceKey: DeviceInfo.getUniqueId()}),
+  //   );
+  // };
 
   return (
     <SafeAreaView style={ResetStyle.container}>
