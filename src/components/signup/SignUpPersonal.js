@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -7,130 +7,47 @@ import {
   SafeAreaView,
   Image,
 } from 'react-native';
-import {RoundCheckbox, SelectedCheckboxes} from '@factory/Roundcheck';
 import ResetStyle from '@style/ResetStyle.js';
 import AuthStyle from '@style/AuthStyle.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {server} from '@context/server';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {Keyboard} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 
-import {withTranslation} from 'react-i18next';
-import hoistStatics from 'hoist-non-react-statics';
+const SignUpPersonal = ({route}) => {
+  const navigation = useNavigation();
+  const {t} = useTranslation();
 
-//이메일 유효성 체크
-function CheckEmail(str) {
-  var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
-  if (!reg_email.test(str)) {
-    return false;
-  } else {
-    return true;
-  }
-}
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [checkPassword, setCheckPassword] = useState('');
+  const [checkBoolean, setCheckBoolean] = useState('');
+  const [inviteCode, setInviteCode] = useState('');
+  const [passwordBlur, setPasswordBlur] = useState(true);
+  const [checkPasswordBlur, setCheckPasswordBlur] = useState(true);
+  const [checkEmail, setCheckEmail] = useState('');
+  const [checkEmailValidation, setCheckEmailValidation] = useState(true);
 
-//비밀번호 유효성 체크
-function chkPW(password) {
-  var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-  var regHigh = /^(?=.*?[A-Z])/;
-  var regRow = /^(?=.*?[a-z])/;
-  var regNumber = /^(?=.*?[0-9])/;
-  var regCharacters = /^(?=.*?[~!@#$%^&*()_+|<>?:{}])/;
-  var pw = password;
-
-  if (false === regHigh.test(pw)) {
-    console.log('대문자');
-    return false;
-  } else if (false === regRow.test(pw)) {
-    console.log('소문자');
-    return false;
-  } else if (false === regNumber.test(pw)) {
-    console.log('숫자');
-    return false;
-  } else if (false === regCharacters.test(pw)) {
-    console.log('특수문자');
-    return false;
-  } else {
-    return true;
-  }
-}
-
-function chkPWHigh(password) {
-  var regHigh = /^(?=.*?[A-Z])/;
-  var pw = password;
-
-  return regHigh.test(pw);
-}
-
-function chkPWRow(password) {
-  var regRow = /^(?=.*?[a-z])/;
-  var pw = password;
-
-  return regRow.test(pw);
-}
-function chkPWNumber(password) {
-  var regNumber = /^(?=.*?[0-9])/;
-  var pw = password;
-
-  return regNumber.test(pw);
-}
-function chkPWCharacter(password) {
-  var regCharacters = /^(?=.*?[~!@#$%^&*()_+|<>?:{}])/;
-  var pw = password;
-  return regCharacters.test(pw);
-}
-
-class SignUpPersonal extends Component {
-  state = {
-    modalVisible: false,
-    phoneNum: '',
-    email: '',
-    password: '',
-    checkPassword: '',
-    checkBoolean: '',
-    inviteCode: '',
-    passwordBlur: true,
-    checkPasswordBlur: true,
-    checkEmail: '',
-    checkEmailValidation: true,
-  };
-  handleEmail = (e) => {
-    this.setState({
-      email: e,
-    });
-  };
-  handlePassword = async (e) => {
-    await this.setState({
-      password: e,
-    });
-    // console.log(chkPWHigh(this.state.password));
-    // chkPWHigh(this.state.password);
-  };
-  handleCheckPassword = (e) => {
-    this.setState({
-      checkPassword: e,
-      checkBoolean: '',
-    });
-  };
-  handleInviteCode = (e) => {
-    this.setState({
-      inviteCode: e,
-    });
+  const handleEmail = (e) => {
+    setEmail(e);
   };
 
-  setModalVisible = (visible) => {
-    this.setState({modalVisible: visible});
+  const handlePassword = (e) => {
+    setPassword(e);
   };
 
-  // only number
-  handleInputChange = (phoneNum) => {
-    if (/^\d+$/.test(phoneNum) || phoneNum === '') {
-      this.setState({
-        phoneNum,
-      });
-    }
+  const handleCheckPassword = (e) => {
+    setCheckPassword(e);
+    setCheckBoolean(e);
   };
-  emailCheckApi = async (email) => {
+
+  const handleInviteCode = (e) => {
+    setInviteCode(e);
+  };
+
+  const emailCheckApi = async (email) => {
     console.log('email', email);
     await axios
       .post(`${server}/user/duplicate/mailid`, {
@@ -139,13 +56,14 @@ class SignUpPersonal extends Component {
       .then((data) => {
         console.log('then', data);
         console.log('then', data.data.ret_val);
-        this.setState({checkEmail: data.data.ret_val});
+        setCheckEmail(data.data.ret_val);
       })
       .catch((error) => {
         console.log('error>>>>>>>>>>>>>>>>', error);
       });
   };
-  emailAuthApi = async (email) => {
+
+  const emailAuthApi = async (email) => {
     console.log('email', email);
     await axios
       .post(`${server}/util/email/auth`, {
@@ -161,132 +79,168 @@ class SignUpPersonal extends Component {
         console.log('error', error);
       });
   };
-  render() {
-    CheckedArrObject = new SelectedCheckboxes();
-    const {t} = this.props;
 
-    return (
-      <SafeAreaView style={ResetStyle.container}>
-        <KeyboardAwareScrollView
-          enableOnAndroid={true}
-          contentContainerStyle={{flexGrow: 1}}>
-          <View style={[ResetStyle.containerInner]}>
-            {/* topBackButton */}
-            <View style={[ResetStyle.topBackButton, {paddingBottom: '2%'}]}>
-              <TouchableOpacity
-                style={{flexDirection: 'row', alignItems: 'center'}}
-                onPress={() => {
-                  this.props.navigation.goBack();
-                }}>
-                <Image
-                  style={{
-                    width: Platform.OS === 'ios' ? 28 : 22,
-                    height: Platform.OS === 'ios' ? 28 : 22,
-                    resizeMode: 'contain',
-                  }}
-                  source={require('@images/backIcon.png')}
-                />
-                <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-                  {t('signUpPersonalTitle')}
-                </Text>
-              </TouchableOpacity>
-            </View>
-            {/* 이메일 */}
+  //이메일 유효성 체크
+  const CheckEmail = (str) => {
+    var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+    if (!reg_email.test(str)) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  //비밀번호 유효성 체크
+  const chkPW = (password) => {
+    var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+    var regHigh = /^(?=.*?[A-Z])/;
+    var regRow = /^(?=.*?[a-z])/;
+    var regNumber = /^(?=.*?[0-9])/;
+    var regCharacters = /^(?=.*?[~!@#$%^&*()_+|<>?:{}])/;
+    var pw = password;
+
+    if (false === regHigh.test(pw)) {
+      console.log('대문자');
+      return false;
+    } else if (false === regRow.test(pw)) {
+      console.log('소문자');
+      return false;
+    } else if (false === regNumber.test(pw)) {
+      console.log('숫자');
+      return false;
+    } else if (false === regCharacters.test(pw)) {
+      console.log('특수문자');
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  const chkPWHigh = (password) => {
+    var regHigh = /^(?=.*?[A-Z])/;
+    var pw = password;
+
+    return regHigh.test(pw);
+  };
+
+  const chkPWRow = (password) => {
+    var regRow = /^(?=.*?[a-z])/;
+    var pw = password;
+
+    return regRow.test(pw);
+  };
+
+  const chkPWNumber = (password) => {
+    var regNumber = /^(?=.*?[0-9])/;
+    var pw = password;
+
+    return regNumber.test(pw);
+  };
+
+  const chkPWCharacter = (password) => {
+    var regCharacters = /^(?=.*?[~!@#$%^&*()_+|<>?:{}])/;
+    var pw = password;
+    return regCharacters.test(pw);
+  };
+
+  return (
+    <SafeAreaView style={ResetStyle.container}>
+      <KeyboardAwareScrollView
+        enableOnAndroid={true}
+        contentContainerStyle={{flexGrow: 1}}>
+        <View style={[ResetStyle.containerInner]}>
+          {/* topBackButton */}
+          <View style={[ResetStyle.topBackButton, {paddingBottom: '2%'}]}>
+            <TouchableOpacity
+              style={{flexDirection: 'row', alignItems: 'center'}}
+              onPress={() => navigation.goBack()}>
+              <Image
+                style={{
+                  width: Platform.OS === 'ios' ? 28 : 22,
+                  height: Platform.OS === 'ios' ? 28 : 22,
+                  resizeMode: 'contain',
+                }}
+                source={require('@images/backIcon.png')}
+              />
+              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+                {t('signUpPersonalTitle')}
+              </Text>
+            </TouchableOpacity>
+          </View>
+          {/* 이메일 */}
+          <View>
+            {/* <View> */}
             <View>
-              {/* <View> */}
-              <View>
-                <Text
+              <Text
+                style={[
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontBlack,
+                  {textAlign: 'left'},
+                ]}>
+                {t('signUpPersonal1')}
+              </Text>
+            </View>
+
+            <TouchableOpacity>
+              <View style={AuthStyle.signupInputImageAll}>
+                <TextInput
+                  keyboardType={'email-address'}
+                  placeholder={t('signUpPersonal2')}
+                  placeholderTextColor="#a9a9a9"
+                  onBlur={async () => {
+                    console.log('>>>>>>>>>>>>>>>>>>>>aaa>>>>>>>>');
+                    console.log(email.trim());
+                    console.log('>>>>>>>>>>>>>>>>>>>>aaa>>>>>>>>');
+                    setCheckEmailValidation(true);
+                    if (CheckEmail(email.trim())) {
+                      emailCheckApi(email.trim());
+                    } else {
+                      setCheckEmailValidation(false);
+                      console.log('유효성 에러');
+                      console.log(checkEmailValidation);
+                      console.log('유효성 에러');
+                    }
+                  }}
+                  // keyboardType={'numeric'}
+                  onChangeText={(text) => handleEmail(text)}
+                  value={email}
+                  autoCapitalize={'none'}
                   style={[
                     ResetStyle.fontRegularK,
                     ResetStyle.fontBlack,
-                    {textAlign: 'left'},
-                  ]}>
-                  {t('signUpPersonal1')}
-                </Text>
-              </View>
-
-              <TouchableOpacity>
-                <View style={AuthStyle.signupInputImageAll}>
-                  <TextInput
-                    keyboardType={'email-address'}
-                    placeholder={t('signUpPersonal2')}
-                    placeholderTextColor="#a9a9a9"
-                    onBlur={async () => {
-                      console.log('>>>>>>>>>>>>>>>>>>>>aaa>>>>>>>>');
-                      console.log(this.state.email.trim());
-                      console.log('>>>>>>>>>>>>>>>>>>>>aaa>>>>>>>>');
-                      this.setState({
-                        checkEmailValidation: true,
-                      });
-                      if (CheckEmail(this.state.email.trim())) {
-                        this.emailCheckApi(this.state.email.trim());
-                      } else {
-                        await this.setState({
-                          checkEmailValidation: false,
-                        });
-                        console.log('유효성 에러');
-                        console.log(this.state.checkEmailValidation);
-                        console.log('유효성 에러');
-                      }
-                    }}
-                    // keyboardType={'numeric'}
-                    onChangeText={this.handleEmail}
-                    value={this.state.email}
-                    autoCapitalize={'none'}
-                    style={[
-                      ResetStyle.fontRegularK,
-                      ResetStyle.fontBlack,
-                      {
-                        textAlign: 'left',
-                        paddingTop: '6%',
-                        paddingBottom: '3%',
-                        width: '90%',
-                      },
-                    ]}
+                    {
+                      textAlign: 'left',
+                      paddingTop: '6%',
+                      paddingBottom: '3%',
+                      width: '90%',
+                    },
+                  ]}
+                />
+                <TouchableOpacity
+                  onPress={() => {
+                    setEmail('');
+                    setCheckEmail('');
+                    setCheckEmailValidation('');
+                  }}>
+                  <Image
+                    style={ResetStyle.mediumImg}
+                    source={require('@images/iconX.png')}
                   />
-                  <TouchableOpacity
-                    onPress={() => {
-                      this.setState({
-                        email: '',
-                      });
-                    }}>
-                    <Image
-                      style={ResetStyle.mediumImg}
-                      source={require('@images/iconX.png')}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </TouchableOpacity>
+                </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
 
-              {/* alert */}
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  marginTop: '3%',
-                }}>
-                {this.state.checkEmail !== 0 &&
-                  this.state.checkEmail != '' &&
-                  this.state.checkEmailValidation === true && (
-                    // this.state.checkEmail !== '' &&
-
-                    <>
-                      <Image
-                        style={ResetStyle.smallImg}
-                        source={require('@images/iconXRed.png')}
-                      />
-                      <Text
-                        style={[
-                          ResetStyle.fontLightK,
-                          ResetStyle.fontR,
-                          {marginLeft: 5},
-                        ]}>
-                        {t('signUpPersonal13')}
-                      </Text>
-                    </>
-                  )}
-                {this.state.checkEmailValidation === false && (
-                  // this.state.checkEmail !== '' &&
+            {/* alert */}
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginTop: '3%',
+              }}>
+              {checkEmail !== 0 &&
+                checkEmail != '' &&
+                checkEmailValidation === true && (
+                  // checkEmail !== '' &&
 
                   <>
                     <Image
@@ -299,449 +253,430 @@ class SignUpPersonal extends Component {
                         ResetStyle.fontR,
                         {marginLeft: 5},
                       ]}>
-                      {t('signUpPersonal14')}
+                      {t('signUpPersonal13')}
                     </Text>
                   </>
                 )}
-                {this.state.checkEmail === 0 &&
-                  this.state.checkEmailValidation === true && (
-                    <>
-                      <Image
-                        style={ResetStyle.smallImg}
-                        source={require('@images/iconCheckedM.png')}
-                      />
-                      <Text
-                        style={[
-                          ResetStyle.fontLightK,
-                          ResetStyle.fontB,
-                          {marginLeft: 5},
-                        ]}>
-                        {t('signUpPersonal15')}
-                      </Text>
-                    </>
-                  )}
-              </View>
-            </View>
+              {checkEmailValidation === false && (
+                // checkEmail !== '' &&
 
-            {/* 호 */}
-            <View>
-              <View>
-                <Text
-                  style={[
-                    ResetStyle.fontRegularK,
-                    ResetStyle.fontBlack,
-                    {textAlign: 'left'},
-                  ]}>
-                  {t('signUpPersonal3')}
-                </Text>
-              </View>
-
-              <TouchableOpacity>
-                {/* 상단 비밀번호 */}
-                <View style={AuthStyle.signupInputImageAll}>
-                  <TextInput
-                    placeholder={t('signUpPersonal4')}
-                    placeholderTextColor="#a9a9a9"
-                    secureTextEntry={this.state.passwordBlur}
-                    // keyboardType={'numeric'}
-                    onChangeText={this.handlePassword}
-                    value={this.state.password}
-                    style={[
-                      ResetStyle.fontRegularK,
-                      ResetStyle.fontBlack,
-                      {
-                        textAlign: 'left',
-                        paddingTop: '6%',
-                        paddingBottom: '3%',
-                        width: '90%',
-                      },
-                    ]}
-                    onBlur={() => {
-                      if (
-                        this.state.checkPassword == '' ||
-                        this.state.password == ''
-                      ) {
-                        this.setState({
-                          checkBoolean: '',
-                        });
-                      } else if (
-                        this.state.checkPassword == this.state.password
-                      ) {
-                        this.setState({
-                          checkBoolean: true,
-                        });
-                      } else if (
-                        this.state.checkPassword != this.state.password
-                      ) {
-                        this.setState({
-                          checkBoolean: false,
-                        });
-                      }
-                    }}
-                    blurOnSubmit={false}
-                    // onSubmitEditing={() => Keyboard.dismiss()}
-                    textContentType={'oneTimeCode'}
-                  />
-                  <TouchableOpacity
-                    onPress={() => {
-                      this.setState({
-                        passwordBlur: !this.state.passwordBlur,
-                      });
-                    }}>
-                    {this.state.passwordBlur ? (
-                      <Image
-                        style={ResetStyle.mediumImg}
-                        source={require('@images/icoBlindD.png')}
-                      />
-                    ) : (
-                      <Image
-                        style={ResetStyle.mediumImg}
-                        source={require('@images/icoViewD.png')}
-                      />
-                    )}
-                  </TouchableOpacity>
-                </View>
-              </TouchableOpacity>
-
-              <View
-                style={{
-                  flexDirection: 'column',
-                  alignItems: 'flex-start',
-                  justifyContent: 'space-between',
-                }}>
-                {/* d */}
-                <View style={{flexDirection: 'row'}}>
-                  {/* d */}
-
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      marginTop: '3%',
-                    }}>
-                    {!chkPWRow(this.state.password) ? (
-                      <Image
-                        style={ResetStyle.xsmallImg}
-                        source={require('@images/iconUncheckedS.png')}
-                      />
-                    ) : (
-                      <Image
-                        style={ResetStyle.xsmallImg}
-                        source={require('@images/iconCheckedS.png')}
-                      />
-                    )}
-                    <Text
-                      style={[
-                        ResetStyle.fontLightK,
-                        ResetStyle.fontG,
-                        {marginLeft: 5, marginRight: '4%'},
-                      ]}>
-                      {t('signUpPersonal5')}
-                    </Text>
-                  </View>
-                  <View style={[AuthStyle.signupCheckView]}>
-                    {!chkPWNumber(this.state.password) ? (
-                      <Image
-                        style={ResetStyle.xsmallImg}
-                        source={require('@images/iconUncheckedS.png')}
-                      />
-                    ) : (
-                      <Image
-                        style={ResetStyle.xsmallImg}
-                        source={require('@images/iconCheckedS.png')}
-                      />
-                    )}
-                    <Text
-                      style={[
-                        ResetStyle.fontLightK,
-                        ResetStyle.fontG,
-                        {marginLeft: 5, marginRight: '4%'},
-                      ]}>
-                      {t('signUpPersonal6')}
-                    </Text>
-                  </View>
-                  <View style={[AuthStyle.signupCheckView]}>
-                    {!chkPWHigh(this.state.password) ? (
-                      <Image
-                        style={ResetStyle.xsmallImg}
-                        source={require('@images/iconUncheckedS.png')}
-                      />
-                    ) : (
-                      <Image
-                        style={ResetStyle.xsmallImg}
-                        source={require('@images/iconCheckedS.png')}
-                      />
-                    )}
-                    <Text
-                      style={[
-                        ResetStyle.fontLightK,
-                        ResetStyle.fontG,
-                        {marginLeft: 5, marginRight: '4%'},
-                      ]}>
-                      {t('signUpPersonal7')}
-                    </Text>
-                  </View>
-                  {/* d */}
-                </View>
-                {/* d */}
-                <View style={{flexDirection: 'row'}}>
-                  <View style={[AuthStyle.signupCheckView]}>
-                    {!chkPWCharacter(this.state.password) ? (
-                      <Image
-                        style={ResetStyle.xsmallImg}
-                        source={require('@images/iconUncheckedS.png')}
-                      />
-                    ) : (
-                      <Image
-                        style={ResetStyle.xsmallImg}
-                        source={require('@images/iconCheckedS.png')}
-                      />
-                    )}
-                    <Text
-                      style={[
-                        ResetStyle.fontLightK,
-                        ResetStyle.fontG,
-                        {marginLeft: 5, marginRight: '4%'},
-                      ]}>
-                      {t('signUpPersonal8')}
-                    </Text>
-                  </View>
-                  <View style={[AuthStyle.signupCheckView]}>
-                    {this.state.password.length < 8 ? (
-                      <Image
-                        style={ResetStyle.xsmallImg}
-                        source={require('@images/iconUncheckedS.png')}
-                      />
-                    ) : (
-                      <Image
-                        style={ResetStyle.xsmallImg}
-                        source={require('@images/iconCheckedS.png')}
-                      />
-                    )}
-                    <Text
-                      style={[
-                        ResetStyle.fontLightK,
-                        ResetStyle.fontG,
-                        {marginLeft: 5, marginRight: '4%'},
-                      ]}>
-                      {t('signUpPersonal9')}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-
-            {/* 인 */}
-            <View>
-              <View>
-                <Text
-                  style={[
-                    ResetStyle.fontRegularK,
-                    ResetStyle.fontBlack,
-                    {textAlign: 'left'},
-                  ]}>
-                  {t('signUpPersonal10')}
-                </Text>
-              </View>
-              {/* 하단 비밀번호  */}
-              <TouchableOpacity>
-                <View style={AuthStyle.signupInputImageAll}>
-                  <TextInput
-                    placeholder={t('signUpPersonal12')}
-                    placeholderTextColor="#a9a9a9"
-                    secureTextEntry={this.state.checkPasswordBlur}
-                    // keyboardType={'numeric'}
-                    onBlur={() => {
-                      if (
-                        this.state.checkPassword == '' ||
-                        this.state.password == ''
-                      ) {
-                        this.setState({
-                          checkBoolean: '',
-                        });
-                      } else if (
-                        this.state.checkPassword == this.state.password
-                      ) {
-                        this.setState({
-                          checkBoolean: true,
-                        });
-                      } else if (
-                        this.state.checkPassword != this.state.password
-                      ) {
-                        this.setState({
-                          checkBoolean: false,
-                        });
-                      }
-                    }}
-                    onChangeText={this.handleCheckPassword}
-                    value={this.state.checkPassword}
-                    style={[
-                      ResetStyle.fontRegularK,
-                      ResetStyle.fontBlack,
-                      {
-                        textAlign: 'left',
-                        paddingTop: '6%',
-                        paddingBottom: '3%',
-                        width: '90%',
-                      },
-                    ]}
-                    blurOnSubmit={false}
-                    // onSubmitEditing={() => Keyboard.dismiss()}
-                    textContentType={'oneTimeCode'}
-                  />
-                  {/* <Image
+                <>
+                  <Image
                     style={ResetStyle.smallImg}
-                    source={require('@images/icoViewD.png')}
-                  /> */}
-                  <TouchableOpacity
-                    onPress={() => {
-                      this.setState({
-                        checkPasswordBlur: !this.state.checkPasswordBlur,
-                      });
-                    }}>
-                    {this.state.checkPasswordBlur ? (
-                      <Image
-                        style={ResetStyle.mediumImg}
-                        source={require('@images/icoBlindD.png')}
-                      />
-                    ) : (
-                      <Image
-                        style={ResetStyle.mediumImg}
-                        source={require('@images/icoViewD.png')}
-                      />
-                    )}
-                  </TouchableOpacity>
-                </View>
-              </TouchableOpacity>
-
-              {/* alert */}
-              <View style={[AuthStyle.signupCheckView]}>
-                {this.state.checkBoolean !== '' &&
-                  this.state.checkBoolean == false && (
-                    <>
-                      <Image
-                        style={ResetStyle.smallImg}
-                        source={require('@images/iconXRed.png')}
-                      />
-
-                      <Text
-                        style={[
-                          ResetStyle.fontLightK,
-                          ResetStyle.fontR,
-                          {marginLeft: 5},
-                        ]}>
-                        {t('signUpPersonal16')}
-                      </Text>
-                    </>
-                  )}
-                {this.state.checkBoolean == true && (
-                  <>
-                    <Image
-                      style={ResetStyle.smallImg}
-                      source={require('@images/iconCheckedM.png')}
-                    />
-                    <Text
-                      style={{color: '#0080ff', fontSize: 14, marginLeft: 10}}>
-                      {t('signUpPersonal17')}
-                    </Text>
-                  </>
-                )}
-              </View>
-            </View>
-
-            {/* 초대코드 */}
-            {/* <View>
-              <View>
-                <Text
-                  style={[
-                    ResetStyle.fontRegularK,
-                    ResetStyle.fontBlack,
-                    {textAlign: 'left'},
-                  ]}>
-                  초대코드 (선택사항)
-                </Text>
-              </View>
-
-              <TouchableOpacity>
-                <View style={AuthStyle.signupInputImageAll}>
-                  <TextInput
-                    placeholder="비밀번호 다시 입력"
-                    placeholderTextColor="#a9a9a9"
-                    // keyboardType={'numeric'}
-                    onChangeText={this.handleInviteCode}
-                    value={this.state.inviteCode}
+                    source={require('@images/iconXRed.png')}
+                  />
+                  <Text
                     style={[
-                      ResetStyle.fontRegularK,
-                      ResetStyle.fontBlack,
-                      {
-                        textAlign: 'left',
-                        paddingTop: '6%',
-                        paddingBottom: '3%',
-                      },
-                    ]}></TextInput>
-                  <TouchableOpacity
-                    onPress={() => {
-                      this.setState({
-                        inviteCode: '',
-                      });
-                    }}>
-                    <Image
-                      style={[ResetStyle.mediumImg]}
-                      source={require('@images/iconX.png')}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </TouchableOpacity>
-            </View> */}
+                      ResetStyle.fontLightK,
+                      ResetStyle.fontR,
+                      {marginLeft: 5},
+                    ]}>
+                    {t('signUpPersonal14')}
+                  </Text>
+                </>
+              )}
+              {checkEmail === 0 && checkEmailValidation === true && (
+                <>
+                  <Image
+                    style={ResetStyle.smallImg}
+                    source={require('@images/iconCheckedM.png')}
+                  />
+                  <Text
+                    style={[
+                      ResetStyle.fontLightK,
+                      ResetStyle.fontB,
+                      {marginLeft: 5},
+                    ]}>
+                    {t('signUpPersonal15')}
+                  </Text>
+                </>
+              )}
+            </View>
+          </View>
 
-            <TouchableOpacity
-              // style={[ResetStyle.button, {backgroundColor: '#e6e6e6'}]}
-              style={[
-                ResetStyle.button,
-                {marginTop: '40%'},
-                (this.state.checkBoolean !== true ||
-                  this.state.checkEmail !== 0 ||
-                  !chkPW(this.state.password)) && {backgroundColor: '#e6e6e6'},
-              ]}
-              onPress={() => {
-                console.log('nextBoolean', this.state.checkBoolean);
-                console.log('nextsadasdasd', this.state.checkEmail);
-                console.log(Platform.OS);
-                console.log({
-                  checkBoolean: this.state.checkBoolean,
-                  checkEmail: this.state.checkEmail,
-                  cpassword: chkPW(this.state.password),
-                });
-                if (
-                  this.state.checkBoolean == true &&
-                  this.state.checkEmail === 0 &&
-                  chkPW(this.state.password)
-                ) {
-                  this.emailAuthApi(this.state.email);
-                  console.log('aaaa');
-                  this.props.navigation.navigate('EmailAuthentication', {
-                    email: this.state.email.trim(),
-                    password: this.state.password,
-                    deviceKey: this.props.route.params?.deviceKey,
-                    phoneNum: this.props.route.params?.phoneNum,
-                    inviteCode: this.state.inviteCode,
-                  });
-                }
-              }}>
+          {/* 호 */}
+          <View>
+            <View>
               <Text
                 style={[
-                  ResetStyle.fontMediumK,
-                  ResetStyle.fontWhite,
-                  {fontWeight: '600'},
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontBlack,
+                  {textAlign: 'left'},
                 ]}>
-                {t('signUpPersonalNextButton')}
+                {t('signUpPersonal3')}
               </Text>
-            </TouchableOpacity>
-          </View>
-        </KeyboardAwareScrollView>
-      </SafeAreaView>
-    );
-  }
-}
+            </View>
 
-export default hoistStatics(withTranslation()(SignUpPersonal), SignUpPersonal);
+            <TouchableOpacity>
+              {/* 상단 비밀번호 */}
+              <View style={AuthStyle.signupInputImageAll}>
+                <TextInput
+                  placeholder={t('signUpPersonal4')}
+                  placeholderTextColor="#a9a9a9"
+                  secureTextEntry={passwordBlur}
+                  // keyboardType={'numeric'}
+                  onChangeText={(text) => handlePassword(text)}
+                  value={password}
+                  style={[
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontBlack,
+                    {
+                      textAlign: 'left',
+                      paddingTop: '6%',
+                      paddingBottom: '3%',
+                      width: '90%',
+                    },
+                  ]}
+                  onBlur={() => {
+                    if (checkPassword == '' || password == '') {
+                      setCheckBoolean('');
+                    } else if (checkPassword == password) {
+                      setCheckBoolean(true);
+                    } else if (checkPassword != password) {
+                      setCheckBoolean(false);
+                    }
+                  }}
+                  blurOnSubmit={false}
+                  // onSubmitEditing={() => Keyboard.dismiss()}
+                  textContentType={'oneTimeCode'}
+                />
+                <TouchableOpacity
+                  onPress={() => {
+                    setPasswordBlur(!passwordBlur);
+                  }}>
+                  {passwordBlur ? (
+                    <Image
+                      style={ResetStyle.mediumImg}
+                      source={require('@images/icoBlindD.png')}
+                    />
+                  ) : (
+                    <Image
+                      style={ResetStyle.mediumImg}
+                      source={require('@images/icoViewD.png')}
+                    />
+                  )}
+                </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
+
+            <View
+              style={{
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                justifyContent: 'space-between',
+              }}>
+              {/* d */}
+              <View style={{flexDirection: 'row'}}>
+                {/* d */}
+
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginTop: '3%',
+                  }}>
+                  {!chkPWRow(password) ? (
+                    <Image
+                      style={ResetStyle.xsmallImg}
+                      source={require('@images/iconUncheckedS.png')}
+                    />
+                  ) : (
+                    <Image
+                      style={ResetStyle.xsmallImg}
+                      source={require('@images/iconCheckedS.png')}
+                    />
+                  )}
+                  <Text
+                    style={[
+                      ResetStyle.fontLightK,
+                      ResetStyle.fontG,
+                      {marginLeft: 5, marginRight: '4%'},
+                    ]}>
+                    {t('signUpPersonal5')}
+                  </Text>
+                </View>
+                <View style={[AuthStyle.signupCheckView]}>
+                  {!chkPWNumber(password) ? (
+                    <Image
+                      style={ResetStyle.xsmallImg}
+                      source={require('@images/iconUncheckedS.png')}
+                    />
+                  ) : (
+                    <Image
+                      style={ResetStyle.xsmallImg}
+                      source={require('@images/iconCheckedS.png')}
+                    />
+                  )}
+                  <Text
+                    style={[
+                      ResetStyle.fontLightK,
+                      ResetStyle.fontG,
+                      {marginLeft: 5, marginRight: '4%'},
+                    ]}>
+                    {t('signUpPersonal6')}
+                  </Text>
+                </View>
+                <View style={[AuthStyle.signupCheckView]}>
+                  {!chkPWHigh(password) ? (
+                    <Image
+                      style={ResetStyle.xsmallImg}
+                      source={require('@images/iconUncheckedS.png')}
+                    />
+                  ) : (
+                    <Image
+                      style={ResetStyle.xsmallImg}
+                      source={require('@images/iconCheckedS.png')}
+                    />
+                  )}
+                  <Text
+                    style={[
+                      ResetStyle.fontLightK,
+                      ResetStyle.fontG,
+                      {marginLeft: 5, marginRight: '4%'},
+                    ]}>
+                    {t('signUpPersonal7')}
+                  </Text>
+                </View>
+                {/* d */}
+              </View>
+              {/* d */}
+              <View style={{flexDirection: 'row'}}>
+                <View style={[AuthStyle.signupCheckView]}>
+                  {!chkPWCharacter(password) ? (
+                    <Image
+                      style={ResetStyle.xsmallImg}
+                      source={require('@images/iconUncheckedS.png')}
+                    />
+                  ) : (
+                    <Image
+                      style={ResetStyle.xsmallImg}
+                      source={require('@images/iconCheckedS.png')}
+                    />
+                  )}
+                  <Text
+                    style={[
+                      ResetStyle.fontLightK,
+                      ResetStyle.fontG,
+                      {marginLeft: 5, marginRight: '4%'},
+                    ]}>
+                    {t('signUpPersonal8')}
+                  </Text>
+                </View>
+                <View style={[AuthStyle.signupCheckView]}>
+                  {password.length < 8 ? (
+                    <Image
+                      style={ResetStyle.xsmallImg}
+                      source={require('@images/iconUncheckedS.png')}
+                    />
+                  ) : (
+                    <Image
+                      style={ResetStyle.xsmallImg}
+                      source={require('@images/iconCheckedS.png')}
+                    />
+                  )}
+                  <Text
+                    style={[
+                      ResetStyle.fontLightK,
+                      ResetStyle.fontG,
+                      {marginLeft: 5, marginRight: '4%'},
+                    ]}>
+                    {t('signUpPersonal9')}
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+
+          {/* 인 */}
+          <View>
+            <View>
+              <Text
+                style={[
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontBlack,
+                  {textAlign: 'left'},
+                ]}>
+                {t('signUpPersonal10')}
+              </Text>
+            </View>
+            {/* 하단 비밀번호  */}
+            <TouchableOpacity>
+              <View style={AuthStyle.signupInputImageAll}>
+                <TextInput
+                  placeholder={t('signUpPersonal12')}
+                  placeholderTextColor="#a9a9a9"
+                  secureTextEntry={checkPasswordBlur}
+                  // keyboardType={'numeric'}
+                  onBlur={() => {
+                    if (checkPassword == '' || password == '') {
+                      setCheckBoolean('');
+                    } else if (checkPassword == password) {
+                      setCheckBoolean(true);
+                    } else if (checkPassword != password) {
+                      setCheckBoolean(false);
+                    }
+                  }}
+                  onChangeText={(text) => handleCheckPassword(text)}
+                  value={checkPassword}
+                  style={[
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontBlack,
+                    {
+                      textAlign: 'left',
+                      paddingTop: '6%',
+                      paddingBottom: '3%',
+                      width: '90%',
+                    },
+                  ]}
+                  blurOnSubmit={false}
+                  // onSubmitEditing={() => Keyboard.dismiss()}
+                  textContentType={'oneTimeCode'}
+                />
+                {/* <Image
+                  style={ResetStyle.smallImg}
+                  source={require('@images/icoViewD.png')}
+                /> */}
+                <TouchableOpacity
+                  onPress={() => {
+                    setCheckPasswordBlur(!checkPasswordBlur);
+                  }}>
+                  {checkPasswordBlur ? (
+                    <Image
+                      style={ResetStyle.mediumImg}
+                      source={require('@images/icoBlindD.png')}
+                    />
+                  ) : (
+                    <Image
+                      style={ResetStyle.mediumImg}
+                      source={require('@images/icoViewD.png')}
+                    />
+                  )}
+                </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
+
+            {/* alert */}
+            <View style={[AuthStyle.signupCheckView]}>
+              {checkBoolean !== '' && checkBoolean == false && (
+                <>
+                  <Image
+                    style={ResetStyle.smallImg}
+                    source={require('@images/iconXRed.png')}
+                  />
+
+                  <Text
+                    style={[
+                      ResetStyle.fontLightK,
+                      ResetStyle.fontR,
+                      {marginLeft: 5},
+                    ]}>
+                    {t('signUpPersonal16')}
+                  </Text>
+                </>
+              )}
+              {checkBoolean == true && (
+                <>
+                  <Image
+                    style={ResetStyle.smallImg}
+                    source={require('@images/iconCheckedM.png')}
+                  />
+                  <Text
+                    style={{color: '#0080ff', fontSize: 14, marginLeft: 10}}>
+                    {t('signUpPersonal17')}
+                  </Text>
+                </>
+              )}
+            </View>
+          </View>
+
+          {/* 초대코드 */}
+          {/* <View>
+            <View>
+              <Text
+                style={[
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontBlack,
+                  {textAlign: 'left'},
+                ]}>
+                초대코드 (선택사항)
+              </Text>
+            </View>
+
+            <TouchableOpacity>
+              <View style={AuthStyle.signupInputImageAll}>
+                <TextInput
+                  placeholder="비밀번호 다시 입력"
+                  placeholderTextColor="#a9a9a9"
+                  // keyboardType={'numeric'}
+                  onChangeText={this.handleInviteCode}
+                  value={inviteCode}
+                  style={[
+                    ResetStyle.fontRegularK,
+                    ResetStyle.fontBlack,
+                    {
+                      textAlign: 'left',
+                      paddingTop: '6%',
+                      paddingBottom: '3%',
+                    },
+                  ]}></TextInput>
+                <TouchableOpacity
+                  onPress={() => {
+                    this.setState({
+                      inviteCode: '',
+                    });
+                  }}>
+                  <Image
+                    style={[ResetStyle.mediumImg]}
+                    source={require('@images/iconX.png')}
+                  />
+                </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
+          </View> */}
+
+          <TouchableOpacity
+            // style={[ResetStyle.button, {backgroundColor: '#e6e6e6'}]}
+            style={[
+              ResetStyle.button,
+              {marginTop: '40%'},
+              (checkBoolean !== true ||
+                checkEmail !== 0 ||
+                !chkPW(password)) && {backgroundColor: '#e6e6e6'},
+            ]}
+            onPress={() => {
+              console.log('nextBoolean', checkBoolean);
+              console.log('nextsadasdasd', checkEmail);
+              console.log(Platform.OS);
+              console.log({
+                checkBoolean: checkBoolean,
+                checkEmail: checkEmail,
+                cpassword: chkPW(password),
+              });
+              if (checkBoolean == true && checkEmail === 0 && chkPW(password)) {
+                emailAuthApi(email);
+                console.log('aaaa');
+                navigation.navigate('EmailAuthentication', {
+                  email: email.trim(),
+                  password: password,
+                  deviceKey: route.params?.deviceKey,
+                  phoneNum: route.params?.phoneNum,
+                  inviteCode: inviteCode,
+                });
+              }
+            }}>
+            <Text
+              style={[
+                ResetStyle.fontMediumK,
+                ResetStyle.fontWhite,
+                {fontWeight: '600'},
+              ]}>
+              {t('signUpPersonalNextButton')}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </KeyboardAwareScrollView>
+    </SafeAreaView>
+  );
+};
+
+export default SignUpPersonal;
