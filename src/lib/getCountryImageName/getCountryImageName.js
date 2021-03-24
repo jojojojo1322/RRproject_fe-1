@@ -1,4 +1,4 @@
-const getCountryImageName = lan => {
+const getCountryImageName = (lan) => {
   let country_image = null;
 
   try {
@@ -868,12 +868,14 @@ const getCountryImageName = lan => {
         break;
 
       default:
-        country_image = image = require('@images/ios/blank.png');
+        //country_image = image = require('@images/ios/blank.png');
+        country_image = require('@images/flag/Zimbabwe.png');
         break;
     }
   } catch (e) {
     console.log(e);
-    country_image = require('@images/ios/blank.png');
+    //country_image = require('@images/ios/blank.png');
+    country_image = require('@images/flag/Zimbabwe.png');
   }
 
   return country_image;

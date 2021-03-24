@@ -18,6 +18,7 @@ import AuthStyle from '../../style/AuthStyle';
 
 import {withTranslation} from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 //비밀번호 유효성 체크
 function chkPW(password) {
@@ -137,326 +138,328 @@ class ResetPassword extends Component {
     return (
       <SafeAreaView style={ResetStyle.container}>
         <View style={ResetStyle.containerInner}>
-          <View>
-            <View style={ResetStyle.topBackButton}>
-              <TouchableOpacity
-                style={{flexDirection: 'row', alignItems: 'center'}}
-                onPress={() => {
-                  this.props.navigation.goBack();
-                }}>
-                <Image
-                  style={{
-                    width: Platform.OS === 'ios' ? 28 : 22,
-                    height: Platform.OS === 'ios' ? 28 : 22,
-                    resizeMode: 'contain',
-                  }}
-                  source={require('@images/backIcon.png')}
-                />
-                <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-                  {t('resetPasswordTitle')}
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <TouchableOpacity>
-              <View style={[ResetStyle.textInputStyle]}>
-                <Text
-                  style={[
-                    ResetStyle.fontRegularK,
-                    ResetStyle.fontDG,
-                    ResetStyle.textInputTitle,
-                  ]}>
-                  {t('resetPassword1')}
-                </Text>
-                <TextInput
-                  placeholder={t('resetPassword2')}
-                  placeholderTextColor="#a9a9a9"
-                  // keyboardType={'numeric'}
-                  secureTextEntry={this.state.firstBlur}
-                  onChangeText={this.handlePassword}
-                  value={this.state.password}
-                  style={[
-                    ResetStyle.fontRegularK,
-                    ResetStyle.fontG,
-                    ResetStyle.textInputText,
-                  ]}
-                  onBlur={() => {
-                    if (
-                      this.state.checkPassword == '' ||
-                      this.state.password == ''
-                    ) {
-                      this.setState({
-                        checkBoolean: '',
-                      });
-                    } else if (
-                      this.state.checkPassword == this.state.password
-                    ) {
-                      this.setState({
-                        checkBoolean: true,
-                      });
-                    } else if (
-                      this.state.checkPassword != this.state.password
-                    ) {
-                      this.setState({
-                        checkBoolean: false,
-                      });
-                    }
-                  }}
-                  blurOnSubmit={false}
-                  // onSubmitEditing={() => Keyboard.dismiss()}
-                  textContentType={'oneTimeCode'}></TextInput>
+          <KeyboardAwareScrollView>
+            <View>
+              <View style={ResetStyle.topBackButton}>
                 <TouchableOpacity
-                  style={[ResetStyle.textInputTextButton, {top: '45%'}]}
+                  style={{flexDirection: 'row', alignItems: 'center'}}
                   onPress={() => {
-                    const first = this.state.firstBlur;
-                    this.setState({
-                      firstBlur: !first,
-                    });
+                    this.props.navigation.goBack();
                   }}>
-                  {this.state.firstBlur ? (
-                    <Image
-                      style={ResetStyle.smallImg}
-                      source={require('@images/icoBlindD.png')}
-                    />
-                  ) : (
-                    <Image
-                      style={ResetStyle.smallImg}
-                      source={require('@images/icoViewD.png')}
-                    />
-                  )}
+                  <Image
+                    style={{
+                      width: Platform.OS === 'ios' ? 28 : 22,
+                      height: Platform.OS === 'ios' ? 28 : 22,
+                      resizeMode: 'contain',
+                    }}
+                    source={require('../../imgs/backIcon.png')}
+                  />
+                  <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+                    {t('resetPasswordTitle')}
+                  </Text>
                 </TouchableOpacity>
-                <View
-                  style={[
-                    AuthStyle.resetPasswordView1,
-                    // {flexDirection: 'row'},
-                  ]}>
-                  {/* /</View> */}
-                  <View style={{flexDirection: 'row'}}>
-                    {/* /?</View> */}
-                    <View style={[AuthStyle.resetPasswordView2]}>
-                      {!chkPWRow(this.state.password) ? (
-                        <Image
-                          style={ResetStyle.xsmallImg}
-                          source={require('@images/iconUncheckedS.png')}
-                        />
-                      ) : (
-                        <Image
-                          style={ResetStyle.xsmallImg}
-                          source={require('@images/iconCheckedS.png')}
-                        />
-                      )}
-                      <Text
-                        style={[
-                          ResetStyle.fontLightK,
-                          ResetStyle.fontG,
-                          {marginLeft: 5, marginLeft: '4%'},
-                        ]}>
-                        {t('resetPassword3')}
-                      </Text>
-                    </View>
-                    <View style={[AuthStyle.resetPasswordView2]}>
-                      {!chkPWNumber(this.state.password) ? (
-                        <Image
-                          style={ResetStyle.xsmallImg}
-                          source={require('@images/iconUncheckedS.png')}
-                        />
-                      ) : (
-                        <Image
-                          style={ResetStyle.xsmallImg}
-                          source={require('@images/iconCheckedS.png')}
-                        />
-                      )}
-                      <Text
-                        style={[
-                          ResetStyle.fontLightK,
-                          ResetStyle.fontG,
-                          {marginLeft: 5, marginLeft: '4%'},
-                        ]}>
-                        {t('resetPassword4')}
-                      </Text>
-                    </View>
+              </View>
+              <TouchableOpacity>
+                <View style={[ResetStyle.textInputStyle]}>
+                  <Text
+                    style={[
+                      ResetStyle.fontRegularK,
+                      ResetStyle.fontDG,
+                      ResetStyle.textInputTitle,
+                    ]}>
+                    {t('resetPassword1')}
+                  </Text>
+                  <TextInput
+                    placeholder={t('resetPassword2')}
+                    placeholderTextColor="#a9a9a9"
+                    // keyboardType={'numeric'}
+                    secureTextEntry={this.state.firstBlur}
+                    onChangeText={this.handlePassword}
+                    value={this.state.password}
+                    style={[
+                      ResetStyle.fontRegularK,
+                      ResetStyle.fontG,
+                      ResetStyle.textInputText,
+                    ]}
+                    onBlur={() => {
+                      if (
+                        this.state.checkPassword == '' ||
+                        this.state.password == ''
+                      ) {
+                        this.setState({
+                          checkBoolean: '',
+                        });
+                      } else if (
+                        this.state.checkPassword == this.state.password
+                      ) {
+                        this.setState({
+                          checkBoolean: true,
+                        });
+                      } else if (
+                        this.state.checkPassword != this.state.password
+                      ) {
+                        this.setState({
+                          checkBoolean: false,
+                        });
+                      }
+                    }}
+                    blurOnSubmit={false}
+                    // onSubmitEditing={() => Keyboard.dismiss()}
+                    textContentType={'oneTimeCode'}></TextInput>
+                  <TouchableOpacity
+                    style={[ResetStyle.textInputTextButton, {top: '45%'}]}
+                    onPress={() => {
+                      const first = this.state.firstBlur;
+                      this.setState({
+                        firstBlur: !first,
+                      });
+                    }}>
+                    {this.state.firstBlur ? (
+                      <Image
+                        style={ResetStyle.smallImg}
+                        source={require('../../imgs/icoBlindD.png')}
+                      />
+                    ) : (
+                      <Image
+                        style={ResetStyle.smallImg}
+                        source={require('../../imgs/icoViewD.png')}
+                      />
+                    )}
+                  </TouchableOpacity>
+                  <View
+                    style={[
+                      AuthStyle.resetPasswordView1,
+                      // {flexDirection: 'row'},
+                    ]}>
+                    {/* /</View> */}
+                    <View style={{flexDirection: 'row'}}>
+                      {/* /?</View> */}
+                      <View style={[AuthStyle.resetPasswordView2]}>
+                        {!chkPWRow(this.state.password) ? (
+                          <Image
+                            style={ResetStyle.xsmallImg}
+                            source={require('../../imgs/iconUncheckedS.png')}
+                          />
+                        ) : (
+                          <Image
+                            style={ResetStyle.xsmallImg}
+                            source={require('../../imgs/iconCheckedS.png')}
+                          />
+                        )}
+                        <Text
+                          style={[
+                            ResetStyle.fontLightK,
+                            ResetStyle.fontG,
+                            {marginLeft: 5, marginLeft: '4%'},
+                          ]}>
+                          {t('resetPassword3')}
+                        </Text>
+                      </View>
+                      <View style={[AuthStyle.resetPasswordView2]}>
+                        {!chkPWNumber(this.state.password) ? (
+                          <Image
+                            style={ResetStyle.xsmallImg}
+                            source={require('../../imgs/iconUncheckedS.png')}
+                          />
+                        ) : (
+                          <Image
+                            style={ResetStyle.xsmallImg}
+                            source={require('../../imgs/iconCheckedS.png')}
+                          />
+                        )}
+                        <Text
+                          style={[
+                            ResetStyle.fontLightK,
+                            ResetStyle.fontG,
+                            {marginLeft: 5, marginLeft: '4%'},
+                          ]}>
+                          {t('resetPassword4')}
+                        </Text>
+                      </View>
 
-                    <View style={[AuthStyle.resetPasswordView2]}>
-                      {!chkPWHigh(this.state.password) ? (
-                        <Image
-                          style={ResetStyle.xsmallImg}
-                          source={require('@images/iconUncheckedS.png')}
-                        />
-                      ) : (
-                        <Image
-                          style={ResetStyle.xsmallImg}
-                          source={require('@images/iconCheckedS.png')}
-                        />
-                      )}
-                      <Text
-                        style={[
-                          ResetStyle.fontLightK,
-                          ResetStyle.fontG,
-                          {marginLeft: 5, marginLeft: '4%'},
-                        ]}>
-                        {t('resetPassword5')}
-                      </Text>
+                      <View style={[AuthStyle.resetPasswordView2]}>
+                        {!chkPWHigh(this.state.password) ? (
+                          <Image
+                            style={ResetStyle.xsmallImg}
+                            source={require('../../imgs/iconUncheckedS.png')}
+                          />
+                        ) : (
+                          <Image
+                            style={ResetStyle.xsmallImg}
+                            source={require('../../imgs/iconCheckedS.png')}
+                          />
+                        )}
+                        <Text
+                          style={[
+                            ResetStyle.fontLightK,
+                            ResetStyle.fontG,
+                            {marginLeft: 5, marginLeft: '4%'},
+                          ]}>
+                          {t('resetPassword5')}
+                        </Text>
+                      </View>
                     </View>
-                  </View>
-                  <View style={{flexDirection: 'row'}}>
-                    <View style={[AuthStyle.resetPasswordView2]}>
-                      {!chkPWCharacter(this.state.password) ? (
-                        <Image
-                          style={ResetStyle.xsmallImg}
-                          source={require('@images/iconUncheckedS.png')}
-                        />
-                      ) : (
-                        <Image
-                          style={ResetStyle.xsmallImg}
-                          source={require('@images/iconCheckedS.png')}
-                        />
-                      )}
-                      <Text
-                        style={[
-                          ResetStyle.fontLightK,
-                          ResetStyle.fontG,
-                          {marginLeft: 5, marginLeft: '4%'},
-                        ]}>
-                        {t('resetPassword6')}
-                      </Text>
-                    </View>
-                    <View style={[AuthStyle.resetPasswordView2]}>
-                      {this.state.password.length < 8 ? (
-                        <Image
-                          style={ResetStyle.xsmallImg}
-                          source={require('@images/iconUncheckedS.png')}
-                        />
-                      ) : (
-                        <Image
-                          style={ResetStyle.xsmallImg}
-                          source={require('@images/iconCheckedS.png')}
-                        />
-                      )}
-                      <Text
-                        style={[
-                          ResetStyle.fontLightK,
-                          ResetStyle.fontG,
-                          {marginLeft: 5, marginLeft: '4%'},
-                        ]}>
-                        {t('resetPassword7')}
-                      </Text>
+                    <View style={{flexDirection: 'row'}}>
+                      <View style={[AuthStyle.resetPasswordView2]}>
+                        {!chkPWCharacter(this.state.password) ? (
+                          <Image
+                            style={ResetStyle.xsmallImg}
+                            source={require('../../imgs/iconUncheckedS.png')}
+                          />
+                        ) : (
+                          <Image
+                            style={ResetStyle.xsmallImg}
+                            source={require('../../imgs/iconCheckedS.png')}
+                          />
+                        )}
+                        <Text
+                          style={[
+                            ResetStyle.fontLightK,
+                            ResetStyle.fontG,
+                            {marginLeft: 5, marginLeft: '4%'},
+                          ]}>
+                          {t('resetPassword6')}
+                        </Text>
+                      </View>
+                      <View style={[AuthStyle.resetPasswordView2]}>
+                        {this.state.password.length < 8 ? (
+                          <Image
+                            style={ResetStyle.xsmallImg}
+                            source={require('../../imgs/iconUncheckedS.png')}
+                          />
+                        ) : (
+                          <Image
+                            style={ResetStyle.xsmallImg}
+                            source={require('../../imgs/iconCheckedS.png')}
+                          />
+                        )}
+                        <Text
+                          style={[
+                            ResetStyle.fontLightK,
+                            ResetStyle.fontG,
+                            {marginLeft: 5, marginLeft: '4%'},
+                          ]}>
+                          {t('resetPassword7')}
+                        </Text>
+                      </View>
                     </View>
                   </View>
                 </View>
-              </View>
-            </TouchableOpacity>
+              </TouchableOpacity>
 
-            {/* 비밀번호 확인 */}
-            <TouchableOpacity>
-              <View style={[ResetStyle.textInputStyle, {marginTop: '10%'}]}>
-                <Text
-                  style={[
-                    ResetStyle.fontRegularK,
-                    ResetStyle.fontDG,
-                    ResetStyle.textInputTitle,
-                  ]}>
-                  {t('resetPassword8')}
-                </Text>
-                <TextInput
-                  secureTextEntry={this.state.secondBlur}
-                  placeholder={t('resetPassword9')}
-                  placeholderTextColor="#a9a9a9"
-                  // keyboardType={'numeric'}
-                  onBlur={() => {
-                    if (
-                      this.state.checkPassword == '' ||
-                      this.state.password == ''
-                    ) {
-                      this.setState({
-                        checkBoolean: '',
-                      });
-                    } else if (
-                      this.state.checkPassword == this.state.password
-                    ) {
-                      this.setState({
-                        checkBoolean: true,
-                      });
-                    } else if (
-                      this.state.checkPassword != this.state.password
-                    ) {
-                      this.setState({
-                        checkBoolean: false,
-                      });
-                    }
-                  }}
-                  onChangeText={this.handleCheckPassword}
-                  value={this.state.checkPassword}
-                  style={[
-                    ResetStyle.fontRegularK,
-                    ResetStyle.fontG,
-                    ResetStyle.textInputText,
-                  ]}
-                  blurOnSubmit={false}
-                  // onSubmitEditing={() => Keyboard.dismiss()}
-                  textContentType={'oneTimeCode'}></TextInput>
-                {/* <Image
+              {/* 비밀번호 확인 */}
+              <TouchableOpacity>
+                <View style={[ResetStyle.textInputStyle, {marginTop: '10%'}]}>
+                  <Text
+                    style={[
+                      ResetStyle.fontRegularK,
+                      ResetStyle.fontDG,
+                      ResetStyle.textInputTitle,
+                    ]}>
+                    {t('resetPassword8')}
+                  </Text>
+                  <TextInput
+                    secureTextEntry={this.state.secondBlur}
+                    placeholder={t('resetPassword9')}
+                    placeholderTextColor="#a9a9a9"
+                    // keyboardType={'numeric'}
+                    onBlur={() => {
+                      if (
+                        this.state.checkPassword == '' ||
+                        this.state.password == ''
+                      ) {
+                        this.setState({
+                          checkBoolean: '',
+                        });
+                      } else if (
+                        this.state.checkPassword == this.state.password
+                      ) {
+                        this.setState({
+                          checkBoolean: true,
+                        });
+                      } else if (
+                        this.state.checkPassword != this.state.password
+                      ) {
+                        this.setState({
+                          checkBoolean: false,
+                        });
+                      }
+                    }}
+                    onChangeText={this.handleCheckPassword}
+                    value={this.state.checkPassword}
+                    style={[
+                      ResetStyle.fontRegularK,
+                      ResetStyle.fontG,
+                      ResetStyle.textInputText,
+                    ]}
+                    blurOnSubmit={false}
+                    // onSubmitEditing={() => Keyboard.dismiss()}
+                    textContentType={'oneTimeCode'}></TextInput>
+                  {/* <Image
                     style={ResetStyle.smallImg}
                     source={require('@images/icoViewD.png')}
                   /> */}
-                <TouchableOpacity
-                  style={[ResetStyle.textInputTextButton]}
-                  onPress={() => {
-                    const second = this.state.secondBlur;
-                    this.setState({
-                      secondBlur: !second,
-                    });
-                  }}>
-                  {this.state.secondBlur ? (
-                    <Image
-                      style={ResetStyle.smallImg}
-                      source={require('@images/icoBlindD.png')}
-                    />
-                  ) : (
-                    <Image
-                      style={ResetStyle.smallImg}
-                      source={require('@images/icoViewD.png')}
-                    />
+                  <TouchableOpacity
+                    style={[ResetStyle.textInputTextButton]}
+                    onPress={() => {
+                      const second = this.state.secondBlur;
+                      this.setState({
+                        secondBlur: !second,
+                      });
+                    }}>
+                    {this.state.secondBlur ? (
+                      <Image
+                        style={ResetStyle.smallImg}
+                        source={require('../../imgs/icoBlindD.png')}
+                      />
+                    ) : (
+                      <Image
+                        style={ResetStyle.smallImg}
+                        source={require('../../imgs/icoViewD.png')}
+                      />
+                    )}
+                  </TouchableOpacity>
+                </View>
+              </TouchableOpacity>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginTop: '3%',
+                }}>
+                {this.state.checkBoolean !== '' &&
+                  this.state.checkBoolean == false && (
+                    <>
+                      <Image
+                        style={ResetStyle.smallImg}
+                        source={require('../../imgs/iconXRed.png')}
+                      />
+
+                      <Text
+                        style={[
+                          ResetStyle.fontLightK,
+                          ResetStyle.fontR,
+                          {marginLeft: 5},
+                        ]}>
+                        {t('resetPassword10')}
+                      </Text>
+                    </>
                   )}
-                </TouchableOpacity>
-              </View>
-            </TouchableOpacity>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginTop: '3%',
-              }}>
-              {this.state.checkBoolean !== '' &&
-                this.state.checkBoolean == false && (
+                {this.state.checkBoolean == true && (
                   <>
                     <Image
                       style={ResetStyle.smallImg}
-                      source={require('@images/iconXRed.png')}
+                      source={require('../../imgs/iconCheckedM.png')}
                     />
-
                     <Text
-                      style={[
-                        ResetStyle.fontLightK,
-                        ResetStyle.fontR,
-                        {marginLeft: 5},
-                      ]}>
-                      {t('resetPassword10')}
+                      style={{color: '#0080ff', fontSize: 14, marginLeft: 10}}>
+                      {t('signUpPersonal17')}
                     </Text>
                   </>
                 )}
-              {this.state.checkBoolean == true && (
-                <>
-                  <Image
-                    style={ResetStyle.smallImg}
-                    source={require('@images/iconCheckedM.png')}
-                  />
-                  <Text
-                    style={{color: '#0080ff', fontSize: 14, marginLeft: 10}}>
-                    {t('signUpPersonal17')}
-                  </Text>
-                </>
-              )}
+              </View>
             </View>
-          </View>
+          </KeyboardAwareScrollView>
           {/* 비밀번호 */}
 
           {/* 확인버튼 */}
