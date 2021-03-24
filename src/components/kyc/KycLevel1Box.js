@@ -12,7 +12,7 @@ import ResetStyle from '@style/ResetStyle.js';
 import AuthStyle from '@style/AuthStyle.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import {server} from '../defined/server';
+import {server} from '@context/server';
 import TextConfirmModal from '@factory/modal/TextConfirmModal';
 import {useTranslation} from 'react-i18next';
 import DatePickerModal from '@factory/modal/DatePickerModal';

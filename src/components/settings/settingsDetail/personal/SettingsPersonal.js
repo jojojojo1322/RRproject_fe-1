@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import axios from 'axios';
-import {server} from '../../../defined/server';
+import {server} from '@context/server';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DeviceInfo from 'react-native-device-info';
 import ResetStyle from '@style/ResetStyle';

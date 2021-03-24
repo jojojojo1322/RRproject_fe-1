@@ -19,7 +19,7 @@ import {
 import DeviceInfo from 'react-native-device-info';
 
 // deviceKey: DeviceInfo.getUniqueId()
-import {server} from '../defined/server';
+import {server} from '@context/server';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import TextConfirmModal from '@factory/modal/TextConfirmModal';

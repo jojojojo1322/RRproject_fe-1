@@ -14,7 +14,7 @@ import ResetStyle from '@style/ResetStyle.js';
 import AuthStyle from '@style/AuthStyle.js';
 import DeviceInfo from 'react-native-device-info';
 
-import {server} from './defined/server';
+import {server} from '@context/server';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 

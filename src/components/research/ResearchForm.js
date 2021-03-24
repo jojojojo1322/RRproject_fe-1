@@ -8,7 +8,7 @@ import {
   Platform,
 } from 'react-native';
 
-import {server} from '../defined/server';
+import {server} from '@context/server';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ResetStyle from '@style/ResetStyle.js';

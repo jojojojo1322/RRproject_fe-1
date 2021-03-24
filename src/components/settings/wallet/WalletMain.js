@@ -13,7 +13,7 @@ import ResetStyle from '@style/ResetStyle.js';
 import WalletStyle from '@style/WalletStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import axios from 'axios';
-import {server} from '../../defined/server';
+import {server} from '@context/server';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ProgressModal from '@factory/modal/ProgressModal.js';
 import {useTranslation} from 'react-i18next';

@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import ResetStyle from '@style/ResetStyle.js';
 import axios from 'axios';
-import {server} from '../../../defined/server';
+import {server} from '@context/server';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import BottomModal from '@factory/modal/BottomModal';
 import CountDown from '@factory/CountDown';

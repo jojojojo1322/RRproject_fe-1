@@ -12,7 +12,7 @@ import ResetStyle from '@style/ResetStyle.js';
 import AuthStyle from '@style/AuthStyle.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import {server} from '../defined/server';
+import {server} from '@context/server';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Keyboard} from 'react-native';
 

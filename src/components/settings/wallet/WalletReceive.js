@@ -10,7 +10,7 @@ import AuthStyle from '@style/AuthStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import QRCode from '../../defined/QR/QRCode';
 import axios from 'axios';
-import {server} from '../../defined/server';
+import {server} from '@context/server';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NavigationHelpersContext} from '@react-navigation/native';
 

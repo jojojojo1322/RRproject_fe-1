@@ -12,7 +12,7 @@ import ResetStyle from '@style/ResetStyle.js';
 import MainStyle from '@style/MainStyle.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import {server} from '../defined/server';
+import {server} from '@context/server';
 
 import AudienceModal from '@factory/modal/AudienceModal';
 import TextConfirmCancelModal from '@factory/modal/TextConfirmCancelModal';

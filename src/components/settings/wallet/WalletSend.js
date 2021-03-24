@@ -15,7 +15,7 @@ import WalletSendModal from '@factory/modal/WalletSendModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import BottomModal from '@factory/modal/BottomModal';
 import axios from 'axios';
-import {server} from '../../defined/server';
+import {server} from '@context/server';
 import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
 
 // 3자리수 콤마(,) + 소수점 이하는 콤마 안 생기게

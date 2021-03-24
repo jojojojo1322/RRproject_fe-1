@@ -20,7 +20,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {scrollInterpolator2, animatedStyles2} from '../animations';
 import ProgressModal from '@factory/modal/ProgressModal';
-import {server} from '../defined/server';
+import {server} from '@context/server';
 import axios from 'axios';
 
 import {withTranslation} from 'react-i18next';

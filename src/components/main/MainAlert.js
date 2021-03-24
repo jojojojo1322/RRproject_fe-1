@@ -12,7 +12,7 @@ import {
   Image,
 } from 'react-native';
 import axios from 'axios';
-import {server} from '../defined/server';
+import {server} from '@context/server';
 import {ScrollView} from 'react-native-gesture-handler';
 import ResetStyle from '@style/ResetStyle.js';
 import ResearchStyle from '@style/ResearchStyle.js';

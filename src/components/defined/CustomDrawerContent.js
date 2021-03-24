@@ -2,7 +2,7 @@ import React, {Component, useEffect, useState} from 'react';
 import {View, Text, TouchableOpacity, Image, Platform} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import {server} from '../defined/server';
+import {server} from '@context/server';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
 import {

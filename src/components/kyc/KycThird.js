@@ -23,7 +23,7 @@ import ListCheckLangModal from '@factory/modal/ListCheckLangModal';
 import ListRoundCheckModal from '@factory/modal/ListRoundCheckModal';
 import ResetStyle from '@style/ResetStyle.js';
 import AuthStyle from '@style/AuthStyle.js';
-import {server} from '../defined/server';
+import {server} from '@context/server';
 import axios from 'axios';
 
 import {CountryListApi} from '../defined/DefineCountryList';

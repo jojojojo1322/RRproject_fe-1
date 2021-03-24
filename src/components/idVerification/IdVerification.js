@@ -20,7 +20,7 @@ import * as ImagePicker from 'react-native-image-picker';
 import {useTranslation} from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import {server} from '../defined/server';
+import {server} from '@context/server';
 import axios from 'axios';
 
 // 한글 - 영어에 따라 바이트 계산 차별 - passport varchar 100

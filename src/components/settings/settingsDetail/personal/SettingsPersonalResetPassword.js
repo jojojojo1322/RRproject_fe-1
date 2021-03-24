@@ -11,7 +11,7 @@ import {
 import {RoundCheckbox, SelectedCheckboxes} from '@factory/Roundcheck';
 import ResetStyle from '@style/ResetStyle.js';
 import axios from 'axios';
-import {server} from '../../../defined/server';
+import {server} from '@context/server';
 
 import TextConfirmModal from '@factory/modal/TextConfirmModal';
 import AuthStyle from '@style/AuthStyle';

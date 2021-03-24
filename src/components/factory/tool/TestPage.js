@@ -13,7 +13,7 @@ import * as ImagePicker from 'react-native-image-picker';
 import {useTranslation} from 'react-i18next';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {server} from '../defined/server';
+import {server} from '@context/server';
 import axios from 'axios';
 
 const CheckList = ({text}) => {

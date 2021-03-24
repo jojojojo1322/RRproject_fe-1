@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Text, TouchableHighlight, View, Modal, Linking} from 'react-native';
 
-import {server} from '@components/defined/server';
+import {server} from '@context/server';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 

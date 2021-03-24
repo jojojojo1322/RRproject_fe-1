@@ -16,7 +16,7 @@ import ResetStyle from '@style/ResetStyle.js';
 import AuthStyle from '@style/AuthStyle.js';
 
 import axios from 'axios';
-import {server} from '../defined/server';
+import {server} from '@context/server';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import BottomModal from '@factory/modal/BottomModal';
