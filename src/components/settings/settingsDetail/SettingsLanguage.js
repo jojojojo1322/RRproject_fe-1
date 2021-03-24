@@ -79,7 +79,6 @@ const SettingsAlert = ({navigation}) => {
     console.log('ru');
     i18n.changeLanguage('ru');
   };
-
   const Item = ({title, id, onPress}) => {
     CheckedArrObject = new SelectedCheckboxes();
     return (
@@ -95,19 +94,19 @@ const SettingsAlert = ({navigation}) => {
         }}
         onPress={() => {
           if (id === '1') {
-            changelanguageToEn();
+            i18n.changeLanguage('en');
             setNowLanguage('en');
           } else if (id === '2') {
-            changelanguageToKo();
+            i18n.changeLanguage('ko');
             setNowLanguage('ko');
           } else if (id === '3') {
-            changelanguageToPt();
+            i18n.changeLanguage('pt');
             setNowLanguage('pt');
           } else if (id === '4') {
-            changelanguageToEs();
+            i18n.changeLanguage('es');
             setNowLanguage('es');
           } else if (id === '5') {
-            changelanguageToRu();
+            i18n.changeLanguage('ru');
             setNowLanguage('ru');
           } else {
             changelanguageToEn();
