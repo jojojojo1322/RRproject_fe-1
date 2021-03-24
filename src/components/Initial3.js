@@ -27,7 +27,6 @@ import KycModal from '@factory/modal/KycModal';
 import AudienceModal from '@factory/modal/AudienceModal';
 import ListModal from '@factory/modal/ListModal';
 import ListRoundCheckModal from '@factory/modal/ListRoundCheckModal';
-import ListCheckModal from '@factory/modal/ListCheckModal';
 
 const window = Dimensions.get('window');
 
@@ -473,11 +472,6 @@ class Initial3 extends Component {
             </View>
           </TouchableOpacity>
         </Modal> */}
-        <ListRoundCheckModal
-          modalVisible={modal6Visible}
-          setModalVisible={this.setModal6Visible}
-          text={`정말 로그아웃 하시겠습니까?`}
-        />
 
         {/* 거주도시 선택 */}
         {/* <Modal
@@ -500,11 +494,6 @@ class Initial3 extends Component {
           </TouchableOpacity>
         </Modal> */}
 
-        <ListCheckModal
-          modalVisible={modal7Visible}
-          setModalVisible={this.setModal7Visible}
-          text={`정말 로그아웃 하시겠습니까?`}
-        />
         {/* <Modal
           animationType="fade"
           transparent={true}

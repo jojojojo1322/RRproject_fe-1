@@ -129,7 +129,7 @@ export const AppMainStack = (props) => {
 
   return (
     <Stack.Navigator initialRouteName="Main">
-      {login === null && props.route.params?.loginC === null ? (
+      {/* {login === null && props.route.params?.loginC === null ? (
         <Stack.Screen
           name="Initial2"
           component={Initial2}
@@ -149,17 +149,35 @@ export const AppMainStack = (props) => {
             gestureEnabled: false,
           }}
         />
-      )}
+      )} */}
+      <Stack.Screen
+        name="Initial2"
+        component={Initial2}
+        options={{
+          headerShown: false,
+
+          // title: this.props.route.params?.step,
+          // title: route.params?.name,
+        }}
+      />
+      <Stack.Screen
+        name="Main"
+        component={Main}
+        options={{
+          headerShown: false,
+          gestureEnabled: false,
+        }}
+      />
       <Stack.Screen
         name="Login"
         component={Login}
         options={{
           headerShown: false,
         }}
-        initialParams={{
-          loginSuccess: props.route.params?.loginSuccess,
-          loginSuccessAuth: loginSuccess,
-        }}
+        // initialParams={{
+        //   loginSuccess: props.route.params?.loginSuccess,
+        //   loginSuccessAuth: loginSuccess,
+        // }}
       />
       <Stack.Screen
         name="WalletPassword"
