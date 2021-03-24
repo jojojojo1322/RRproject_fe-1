@@ -10,14 +10,14 @@ import {
   Keyboard,
   Image,
 } from 'react-native';
-import ListModal from '../../../factory/modal/ListModal';
-import CountDown from '../../../factory/CountDown';
-import ResetStyle from '../../../../style/ResetStyle.js';
+import ListModal from '@factory/modal/ListModal';
+import CountDown from '@factory/CountDown';
+import ResetStyle from '@style/ResetStyle.js';
 
-import {server} from '../../../defined/server';
+import {server} from '@context/server';
 import axios from 'axios';
 import DeviceInfo from 'react-native-device-info';
-import BottomModal from '../../../factory/modal/BottomModal';
+import BottomModal from '@factory/modal/BottomModal';
 
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 

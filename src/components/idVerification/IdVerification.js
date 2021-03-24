@@ -3,10 +3,10 @@ import {View, Text, TouchableOpacity, Image} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 import {SafeAreaView} from 'react-native-safe-area-context';
-import ResetStyle from '../../style/ResetStyle.js';
-import WalletStyle from '../../style/WalletStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
+import WalletStyle from '@style/WalletStyle.js';
 import {TextInput} from 'react-native-gesture-handler';
-import BottomModal from '../factory/modal/BottomModal';
+import BottomModal from '@factory/modal/BottomModal';
 import {
   PERMISSIONS,
   RESULTS,
@@ -20,7 +20,7 @@ import * as ImagePicker from 'react-native-image-picker';
 import {useTranslation} from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import {server} from '../defined/server';
+import {server} from '@context/server';
 import axios from 'axios';
 
 // 한글 - 영어에 따라 바이트 계산 차별 - passport varchar 100

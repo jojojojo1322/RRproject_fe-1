@@ -9,7 +9,6 @@ import Wrapper from './src/Wrapper';
 // import Splash from './src/Splash';
 
 import {name as appName} from './app.json';
-import './src/components/defined/i18n';
 
 // function HeadlessCheck({isHeadless}) {
 //   //   if (isHeadless) {

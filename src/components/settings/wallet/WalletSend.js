@@ -7,15 +7,15 @@ import {
   Image,
   Platform,
 } from 'react-native';
-import ResetStyle from '../../../style/ResetStyle.js';
-import WalletStyle from '../../../style/WalletStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
+import WalletStyle from '@style/WalletStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import WalletSendModal from '../../factory/modal/WalletSendModal';
+import WalletSendModal from '@factory/modal/WalletSendModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import BottomModal from '../../factory/modal/BottomModal';
+import BottomModal from '@factory/modal/BottomModal';
 import axios from 'axios';
-import {server} from '../../defined/server';
+import {server} from '@context/server';
 import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
 
 // 3자리수 콤마(,) + 소수점 이하는 콤마 안 생기게

@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 import {SafeAreaView} from 'react-native-safe-area-context';
-import ResetStyle from '../../style/ResetStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
 
 import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
 

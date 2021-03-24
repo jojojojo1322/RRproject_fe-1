@@ -11,14 +11,14 @@ import {
   FlatList,
   Dimensions,
 } from 'react-native';
-import {RoundCheckbox, SelectedCheckboxes} from '../../factory/Roundcheck';
-import ResetStyle from '../../../style/ResetStyle';
-import ModalStyle from '../../../style/ModalStyle';
+import {RoundCheckbox, SelectedCheckboxes} from '@factory/Roundcheck';
+import ResetStyle from '@style/ResetStyle';
+import ModalStyle from '@style/ModalStyle';
 // import {
 //   DefineCountryList,
 //   CountryListApi,
-// } from '../../defined/DefineCountryList';
-import {CountryListApi, CLA} from '../../defined/DefineCountryList';
+// } from '@defined/DefineCountryList';
+import {CountryListApi, CLA} from '@defined/DefineCountryList';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useTranslation} from 'react-i18next';
 import getCountryImageName from '@lib/getCountryImageName';

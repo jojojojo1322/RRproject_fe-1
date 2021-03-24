@@ -8,18 +8,18 @@ import {
   StyleSheet,
   Platform,
 } from 'react-native';
-import ResetStyle from '../../../style/ResetStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {SelectedCheckboxes, RoundCheckbox} from '../../factory/Roundcheck';
-import ResearchStyle from '../../../style/ResearchStyle.js';
-import ProfileStyle from '../../../style/ProfileStyle.js';
-import AuthStyle from '../../../style/AuthStyle.js';
-import {server} from '../../defined/server';
+import {SelectedCheckboxes, RoundCheckbox} from '@factory/Roundcheck';
+import ResearchStyle from '@style/ResearchStyle.js';
+import ProfileStyle from '@style/ProfileStyle.js';
+import AuthStyle from '@style/AuthStyle.js';
+import {server} from '@context/server';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import BottomModal from '../../factory/modal/BottomModal';
-import TextConfirmModal from '../../factory/modal/TextConfirmModal';
+import BottomModal from '@factory/modal/BottomModal';
+import TextConfirmModal from '@factory/modal/TextConfirmModal';
 import {useTranslation} from 'react-i18next';
 
 const ProfileIncompleteLevel2 = (props) => {

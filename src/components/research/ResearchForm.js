@@ -8,18 +8,18 @@ import {
   Platform,
 } from 'react-native';
 
-import {server} from '../defined/server';
+import {server} from '@context/server';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import ResetStyle from '../../style/ResetStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {SelectedCheckboxes, RoundCheckbox} from '../factory/Roundcheck';
-import TextConfirmCancelModal from '../factory/modal/TextConfirmCancelModal';
-import TextConfirmModal from '../factory/modal/TextConfirmModal';
-import ResearchStyle from '../../style/ResearchStyle.js';
+import {SelectedCheckboxes, RoundCheckbox} from '@factory/Roundcheck';
+import TextConfirmCancelModal from '@factory/modal/TextConfirmCancelModal';
+import TextConfirmModal from '@factory/modal/TextConfirmModal';
+import ResearchStyle from '@style/ResearchStyle.js';
 import {useTranslation} from 'react-i18next';
 
-import ProgressModal from '../factory/modal/ProgressModal';
+import ProgressModal from '@factory/modal/ProgressModal';
 
 const ResearchForm = (props) => {
   const {t, i18n} = useTranslation();

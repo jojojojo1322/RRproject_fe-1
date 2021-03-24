@@ -11,9 +11,9 @@ import {
   Platform,
   FlatList,
 } from 'react-native';
-import ResetStyle from '../../../style/ResetStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import WalletStyle from '../../../style/WalletStyle.js';
+import WalletStyle from '@style/WalletStyle.js';
 
 import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
 

@@ -1,7 +1,7 @@
 import React, {useState, Component} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
-import ResetStyle from '../../style/ResetStyle.js';
-import AuthStyle from '../../style/AuthStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
+import AuthStyle from '@style/AuthStyle.js';
 
 import {withTranslation} from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';

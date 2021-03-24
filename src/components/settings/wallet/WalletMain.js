@@ -9,13 +9,13 @@ import {
   BackHandler,
   Platform,
 } from 'react-native';
-import ResetStyle from '../../../style/ResetStyle.js';
-import WalletStyle from '../../../style/WalletStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
+import WalletStyle from '@style/WalletStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import axios from 'axios';
-import {server} from '../../defined/server';
+import {server} from '@context/server';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import ProgressModal from '../../factory/modal/ProgressModal.js';
+import ProgressModal from '@factory/modal/ProgressModal.js';
 import {useTranslation} from 'react-i18next';
 
 // 3자리수 콤마(,) + 소수점 이하는 콤마 안 생기게

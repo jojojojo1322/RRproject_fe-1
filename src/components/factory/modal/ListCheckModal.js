@@ -20,10 +20,10 @@ import {
   TouchableOpacityBase,
 } from 'react-native';
 import {RoundCheckbox, SelectedCheckboxes} from '../Roundcheck';
-import {DefineCountryList} from '../../defined/DefineCountryList';
+import {DefineCountryList} from '@defined/DefineCountryList';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import ResetStyle from '../../../style/ResetStyle';
-import ModalStyle from '../../../style/ModalStyle';
+import ResetStyle from '@style/ResetStyle';
+import ModalStyle from '@style/ModalStyle';
 import Reset from '../../resetPassword/Reset';
 
 const window = Dimensions.get('window');

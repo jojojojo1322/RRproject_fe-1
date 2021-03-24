@@ -8,13 +8,13 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
-import {RoundCheckbox, SelectedCheckboxes} from '../factory/Roundcheck';
-import ResetStyle from '../../style/ResetStyle.js';
+import {RoundCheckbox, SelectedCheckboxes} from '@factory/Roundcheck';
+import ResetStyle from '@style/ResetStyle.js';
 import axios from 'axios';
-import {server} from '../defined/server';
+import {server} from '@context/server';
 
-import TextConfirmModal from '../factory/modal/TextConfirmModal';
-import AuthStyle from '../../style/AuthStyle';
+import TextConfirmModal from '@factory/modal/TextConfirmModal';
+import AuthStyle from '@style/AuthStyle';
 
 import {withTranslation} from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';

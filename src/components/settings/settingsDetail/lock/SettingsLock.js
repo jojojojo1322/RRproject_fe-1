@@ -11,15 +11,15 @@ import {
   Image,
   Platform,
 } from 'react-native';
-import {RoundCheckbox, SelectedCheckboxes} from '../../../factory/Roundcheck';
+import {RoundCheckbox, SelectedCheckboxes} from '@factory/Roundcheck';
 import {FlatList} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import ResetStyle from '../../../../style/ResetStyle.js';
-import TextConfirmModal from '../../../factory/modal/TextConfirmModal';
+import ResetStyle from '@style/ResetStyle.js';
+import TextConfirmModal from '@factory/modal/TextConfirmModal';
 
 import FingerprintScanner from 'react-native-fingerprint-scanner';
-import IOSTouchId from '../../../factory/tool/biometricLock/iosLock';
-import AndroidTouchId from '../../../factory/tool/biometricLock/androidLock';
+import IOSTouchId from '@factory/tool/biometricLock/iosLock';
+import AndroidTouchId from '@factory/tool/biometricLock/androidLock';
 import TouchID from 'react-native-touch-id';
 import PasscodeAuth from 'react-native-passcode-auth';
 

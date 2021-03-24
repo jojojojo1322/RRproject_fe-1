@@ -12,12 +12,12 @@ import {
   Platform,
 } from 'react-native';
 
-import {server} from '../../defined/server';
+import {server} from '@context/server';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import ResetStyle from '../../../style/ResetStyle.js';
-import ModalStyle from '../../../style/ModalStyle';
+import ResetStyle from '@style/ResetStyle.js';
+import ModalStyle from '@style/ModalStyle';
 
 import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
 

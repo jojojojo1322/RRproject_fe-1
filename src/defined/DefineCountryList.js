@@ -1,5 +1,5 @@
 import React, {Component, useState} from 'react';
-import {server} from '../defined/server';
+import {server} from '@context/server';
 import axios from 'axios';
 
 // export class CountryListApi extends Component {
