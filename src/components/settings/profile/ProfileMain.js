@@ -9,21 +9,21 @@ import {
   BackHandler,
 } from 'react-native';
 
-import {server} from '../../defined/server';
+import {server} from '@context/server';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {DrawerActions} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import ResetStyle from '../../../style/ResetStyle.js';
-import ProfileStyle from '../../../style/ProfileStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
+import ProfileStyle from '@style/ProfileStyle.js';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {FlatList} from 'react-native-gesture-handler';
-import BottomModal from '../../factory/modal/BottomModal';
-import TextConfirmCancelModal from '../../factory/modal/TextConfirmCancelModal';
-import ProgressModal from '../../factory/modal/ProgressModal';
+import BottomModal from '@factory/modal/BottomModal';
+import TextConfirmCancelModal from '@factory/modal/TextConfirmCancelModal';
+import ProgressModal from '@factory/modal/ProgressModal';
 
 import {useTranslation} from 'react-i18next';
-// import {CustomDrawerContent} from '../../defined/CustomDrawerContent';
+// import {CustomDrawerContent} from '@defined/CustomDrawerContent';
 
 const Drawer = createDrawerNavigator();
 

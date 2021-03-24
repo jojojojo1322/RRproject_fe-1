@@ -1,17 +1,18 @@
 import React, {useState, useEffect} from 'react';
 import {Text, TouchableHighlight, View, Modal, Linking} from 'react-native';
 
-import {server} from './components/defined/server';
+import {server} from '@context/server';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import VersionCheck from 'react-native-version-check';
-import UpdateModal from './components/factory/modal/UpdateModal';
+import UpdateModal from '@factory/modal/UpdateModal';
 import RNExitApp from 'react-native-exit-app';
 
 import App from './App';
 import Splash from './Splash';
 import {useTranslation} from 'react-i18next';
+import '@assets/i18n';
 
 const Wrapper = () => {
   const {t, i18n} = useTranslation();

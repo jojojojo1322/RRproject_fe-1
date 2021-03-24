@@ -7,10 +7,10 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
-import ResetStyle from '../../style/ResetStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
 import Clipboard from '@react-native-community/clipboard';
-import BottomModal from '../factory/modal/BottomModal';
-import AuthStyle from '../../style/AuthStyle.js';
+import BottomModal from '@factory/modal/BottomModal';
+import AuthStyle from '@style/AuthStyle.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {withTranslation} from 'react-i18next';

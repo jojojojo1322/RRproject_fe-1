@@ -10,17 +10,17 @@ import {
   Platform,
 } from 'react-native';
 
-import CountDown from '../../components/factory/CountDown';
-import {RoundCheckbox, SelectedCheckboxes} from '../factory/Roundcheck';
-import ResetStyle from '../../style/ResetStyle.js';
-import AuthStyle from '../../style/AuthStyle.js';
+import CountDown from '@factory/CountDown';
+import {RoundCheckbox, SelectedCheckboxes} from '@factory/Roundcheck';
+import ResetStyle from '@style/ResetStyle.js';
+import AuthStyle from '@style/AuthStyle.js';
 
 import axios from 'axios';
-import {server} from '../defined/server';
+import {server} from '@context/server';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
-import BottomModal from '../factory/modal/BottomModal';
-import TextConfirmModal from '../factory/modal/TextConfirmModal';
+import BottomModal from '@factory/modal/BottomModal';
+import TextConfirmModal from '@factory/modal/TextConfirmModal';
 
 import {withTranslation} from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';

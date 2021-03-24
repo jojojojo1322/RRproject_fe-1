@@ -2,15 +2,15 @@ import React, {Component, useEffect, useState} from 'react';
 import {View, Text, TouchableOpacity, Image} from 'react-native';
 import Clipboard from '@react-native-community/clipboard';
 
-import BottomModal from '../../factory/modal/BottomModal';
-import ProgressModal from '../../factory/modal/ProgressModal.js';
+import BottomModal from '@factory/modal/BottomModal';
+import ProgressModal from '@factory/modal/ProgressModal.js';
 
-import ResetStyle from '../../../style/ResetStyle.js';
-import AuthStyle from '../../../style/AuthStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
+import AuthStyle from '@style/AuthStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import QRCode from '../../defined/QR/QRCode';
+import QRCode from '@defined/QR/QRCode';
 import axios from 'axios';
-import {server} from '../../defined/server';
+import {server} from '@context/server';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NavigationHelpersContext} from '@react-navigation/native';
 

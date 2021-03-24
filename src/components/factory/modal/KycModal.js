@@ -7,8 +7,8 @@ import {
   Image,
   TouchableWithoutFeedback,
 } from 'react-native';
-import ResetStyle from '../../../style/ResetStyle';
-import ModalStyle from '../../../style/ModalStyle';
+import ResetStyle from '@style/ResetStyle';
+import ModalStyle from '@style/ModalStyle';
 import {useTranslation} from 'react-i18next';
 
 const KycModal = ({modalVisible, setModalVisible}) => {

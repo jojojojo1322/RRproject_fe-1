@@ -12,7 +12,7 @@ import {
   Image,
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
-import ResetStyle from './style/ResetStyle';
+import ResetStyle from '@style/ResetStyle';
 import {WebView} from 'react-native-webview';
 import {useTranslation} from 'react-i18next';
 

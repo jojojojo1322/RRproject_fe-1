@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import ResetStyle from '../../../style/ResetStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
 import {CommonActions, StackActions} from '@react-navigation/native';
 
 import {useTranslation, initReactI18next, useSSR} from 'react-i18next';

@@ -33,8 +33,8 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import {TabView, TabBar} from 'react-native-tab-view';
-import ResetStyle from '../../style/ResetStyle.js';
-import MainStyle from '../../style/MainStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
+import MainStyle from '@style/MainStyle.js';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LinearGradient from 'react-native-linear-gradient';

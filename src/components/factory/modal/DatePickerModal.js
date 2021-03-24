@@ -7,9 +7,9 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
 } from 'react-native';
-import ResetStyle from '../../../style/ResetStyle';
-import ModalStyle from '../../../style/ModalStyle';
-import DatePicker from '../../factory/tool/DatePicker';
+import ResetStyle from '@style/ResetStyle';
+import ModalStyle from '@style/ModalStyle';
+import DatePicker from '@factory/tool/DatePicker';
 import {useTranslation} from 'react-i18next';
 
 // Year-Month-Date

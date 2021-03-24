@@ -7,7 +7,7 @@ import {
   SafeAreaView,
   Image,
 } from 'react-native';
-import ResetStyle from './style/ResetStyle';
+import ResetStyle from '@style/ResetStyle';
 import {useTranslation} from 'react-i18next';
 import VideoPlayer from 'react-native-video-controls';
 

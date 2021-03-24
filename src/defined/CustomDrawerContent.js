@@ -2,7 +2,7 @@ import React, {Component, useEffect, useState} from 'react';
 import {View, Text, TouchableOpacity, Image, Platform} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import {server} from '../defined/server';
+import {server} from '@context/server';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
 import {
@@ -12,8 +12,8 @@ import {
 } from '@react-navigation/drawer';
 
 import {ProgressCircle} from 'react-native-svg-charts';
-import ResetStyle from '../../style/ResetStyle.js';
-import MainStyle from '../../style/MainStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
+import MainStyle from '@style/MainStyle.js';
 
 import email from 'react-native-email';
 import {useTranslation} from 'react-i18next';

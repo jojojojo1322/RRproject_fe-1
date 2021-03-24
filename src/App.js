@@ -5,95 +5,95 @@ import {NativeModules, Platform} from 'react-native';
 //파이어 베이스
 import firebase from '@react-native-firebase/app';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
-import buildLink from './components/defined/DynamicLinksInvite';
+import buildLink from '@defined/DynamicLinksInvite';
 import SplashScreen from 'react-native-splash-screen';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import CustomDrawerContent from './components/defined/CustomDrawerContent';
+import CustomDrawerContent from '@defined/CustomDrawerContent';
 import {StyleSheet, ScrollView, View, Text} from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import Initial2 from './components/Initial2';
-import Initial3 from './components/Initial3';
+import Initial2 from '@components/Initial2';
+import Initial3 from '@components/Initial3';
 
-import Login from './components/login/Login';
-import WalletPassword from './components/login/WalletPassword';
-import WalletMasterKey from './components/login/WalletMasterKey';
+import Login from '@components/login/Login';
+import WalletPassword from '@components/login/WalletPassword';
+import WalletMasterKey from '@components/login/WalletMasterKey';
 
-import Kyc from './components/kyc/Kyc';
-import KycLevel1Box from './components/kyc/KycLevel1Box';
+import Kyc from '@components/kyc/Kyc';
+import KycLevel1Box from '@components/kyc/KycLevel1Box';
 
-import Main from './components/main/Main';
-import MainDetail from './components/main/MainDetail';
-import MainDetailCompleted from './components/main/MainDetailCompleted';
-import MainDetailExpired from './components/main/MainDetailExpired';
-import MainVideo from './components/main/MainVideo';
-import MainVideoComplete from './components/main/MainVideoComplete';
+import Main from '@components/main/Main';
+import MainDetail from '@components/main/MainDetail';
+import MainDetailCompleted from '@components/main/MainDetailCompleted';
+import MainDetailExpired from '@components/main/MainDetailExpired';
+import MainVideo from '@components/main/MainVideo';
+import MainVideoComplete from '@components/main/MainVideoComplete';
 
-import IdVerification from './components/idVerification/IdVerification';
-import IdVerificationInProgress from './components/idVerification/IdVerificationInProgress';
-import IdVerificationComplete from './components/idVerification/IdVerificationComplete';
-import IdVerificationDecline from './components/idVerification/IdVerificationDecline';
-import IdVerificationSorry from './components/idVerification/IdVerificationSorry';
-// import MainVideoTest from './components/main/MainVideoTest';
+import IdVerification from '@components/idVerification/IdVerification';
+import IdVerificationInProgress from '@components/idVerification/IdVerificationInProgress';
+import IdVerificationComplete from '@components/idVerification/IdVerificationComplete';
+import IdVerificationDecline from '@components/idVerification/IdVerificationDecline';
+import IdVerificationSorry from '@components/idVerification/IdVerificationSorry';
+// import MainVideoTest from '@components/main/MainVideoTest';
 
 import Media from './Media';
 import RequestResearch from './RequestResearch';
 
-import SignUp from './components/signup/SignUp';
-import AgreementTermsConditions from './components/signup/AgreementTermsConditions';
-import TermsConditions from './components/signup/TermsConditions';
-import SignUpPersonal from './components/signup/SignUpPersonal';
-import EmailAuthentication from './components/signup/EmailAuthentication';
-import CompleteAuth from './components/signup/CompleteAuth';
+import SignUp from '@components/signup/SignUp';
+import AgreementTermsConditions from '@components/signup/AgreementTermsConditions';
+import TermsConditions from '@components/signup/TermsConditions';
+import SignUpPersonal from '@components/signup/SignUpPersonal';
+import EmailAuthentication from '@components/signup/EmailAuthentication';
+import CompleteAuth from '@components/signup/CompleteAuth';
 
-import ResearchForm from './components/research/ResearchForm';
-import Reset from './components/resetPassword/Reset';
-import ResetEmail from './components/resetPassword/ResetEmail';
-import ResetPassword from './components/resetPassword/ResetPassword';
+import ResearchForm from '@components/research/ResearchForm';
+import Reset from '@components/resetPassword/Reset';
+import ResetEmail from '@components/resetPassword/ResetEmail';
+import ResetPassword from '@components/resetPassword/ResetPassword';
 
-import ProfileMain from './components/settings/profile/ProfileMain';
-import ProfileAll from './components/settings/profile/ProfileAll';
-import ProfileComplete from './components/settings/profile/ProfileComplete';
-import ProfileCompleteDetail from './components/settings/profile/ProfileCompleteDetail';
-import ProfileIncompleteDetail from './components/settings/profile/ProfileIncompleteDetail';
-import ProfileIncompleteLevel2 from './components/settings/profile/ProfileIncompleteLevel2';
-import ProfileCompleteLevel1 from './components/settings/profile/ProfileCompleteLevel1';
-import ProfileCompleteLevel2 from './components/settings/profile/ProfileCompleteLevel2';
+import ProfileMain from '@components/settings/profile/ProfileMain';
+import ProfileAll from '@components/settings/profile/ProfileAll';
+import ProfileComplete from '@components/settings/profile/ProfileComplete';
+import ProfileCompleteDetail from '@components/settings/profile/ProfileCompleteDetail';
+import ProfileIncompleteDetail from '@components/settings/profile/ProfileIncompleteDetail';
+import ProfileIncompleteLevel2 from '@components/settings/profile/ProfileIncompleteLevel2';
+import ProfileCompleteLevel1 from '@components/settings/profile/ProfileCompleteLevel1';
+import ProfileCompleteLevel2 from '@components/settings/profile/ProfileCompleteLevel2';
 
-import WalletMain from './components/settings/wallet/WalletMain';
-import WalletDetail from './components/settings/wallet/WalletDetail';
-import WalletSend from './components/settings/wallet/WalletSend';
-import WalletSendQR from './components/settings/wallet/WalletSendQR';
-import WalletSendSuccess from './components/settings/wallet/WalletSendSuccess';
-import WalletReceive from './components/settings/wallet/WalletReceive';
-import WalletConfirmPassword from './components/settings/wallet/WalletConfirmPassword';
-import MainAlert from './components/main/MainAlert';
+import WalletMain from '@components/settings/wallet/WalletMain';
+import WalletDetail from '@components/settings/wallet/WalletDetail';
+import WalletSend from '@components/settings/wallet/WalletSend';
+import WalletSendQR from '@components/settings/wallet/WalletSendQR';
+import WalletSendSuccess from '@components/settings/wallet/WalletSendSuccess';
+import WalletReceive from '@components/settings/wallet/WalletReceive';
+import WalletConfirmPassword from '@components/settings/wallet/WalletConfirmPassword';
+import MainAlert from '@components/main/MainAlert';
 
-import Settings from './components/settings/settingsDetail/Settings';
+import Settings from '@components/settings/settingsDetail/Settings';
 
-import SettingsAlert from './components/settings/settingsDetail/SettingsAlert';
+import SettingsAlert from '@components/settings/settingsDetail/SettingsAlert';
 
-import SettingsWallet from './components/settings/settingsDetail/SettingsWallet';
-import SettingsWalletMasterKey from './components/settings/settingsDetail/SettingsWalletMasterKey';
-import SettingsWalletPassword from './components/settings/settingsDetail/SettingsWalletPassword';
-import SettingsWalletCurrentPassword from './components/settings/settingsDetail/SettingsWalletCurrentPassword';
-import SettingsLanguage from './components/settings/settingsDetail/SettingsLanguage';
-import SettingsLock from './components/settings/settingsDetail/lock/SettingsLock';
-import SettingsLockPattern from './components/settings/settingsDetail/lock/SettingsLockPattern';
-import SettingsLockPassword from './components/settings/settingsDetail/lock/SettingsLockPassword';
+import SettingsWallet from '@components/settings/settingsDetail/SettingsWallet';
+import SettingsWalletMasterKey from '@components/settings/settingsDetail/SettingsWalletMasterKey';
+import SettingsWalletPassword from '@components/settings/settingsDetail/SettingsWalletPassword';
+import SettingsWalletCurrentPassword from '@components/settings/settingsDetail/SettingsWalletCurrentPassword';
+import SettingsLanguage from '@components/settings/settingsDetail/SettingsLanguage';
+import SettingsLock from '@components/settings/settingsDetail/lock/SettingsLock';
+import SettingsLockPattern from '@components/settings/settingsDetail/lock/SettingsLockPattern';
+import SettingsLockPassword from '@components/settings/settingsDetail/lock/SettingsLockPassword';
 
-import SettingsPersonal from './components/settings/settingsDetail/personal/SettingsPersonal';
-import SettingsPersonalPassword from './components/settings/settingsDetail/personal/SettingsPersonalPassword';
-import SettingsPersonalPasswordChange from './components/settings/settingsDetail/personal/SettingsPersonalPasswordChange';
-import SettingsPersonalEmail from './components/settings/settingsDetail/personal/SettingsPersonalEmail';
-import SettingsPersonalResetPassword from './components/settings/settingsDetail/personal/SettingsPersonalResetPassword';
-import SettingsPersonalPhone from './components/settings/settingsDetail/personal/SettingsPersonalPhone';
-import SettingsPersonalMasterPhone from './components/settings/settingsDetail/personal/SettingsPersonalMasterPhone';
-import SettingsPersonalMasterKey from './components/settings/settingsDetail/personal/SettingsPersonalMasterKey';
+import SettingsPersonal from '@components/settings/settingsDetail/personal/SettingsPersonal';
+import SettingsPersonalPassword from '@components/settings/settingsDetail/personal/SettingsPersonalPassword';
+import SettingsPersonalPasswordChange from '@components/settings/settingsDetail/personal/SettingsPersonalPasswordChange';
+import SettingsPersonalEmail from '@components/settings/settingsDetail/personal/SettingsPersonalEmail';
+import SettingsPersonalResetPassword from '@components/settings/settingsDetail/personal/SettingsPersonalResetPassword';
+import SettingsPersonalPhone from '@components/settings/settingsDetail/personal/SettingsPersonalPhone';
+import SettingsPersonalMasterPhone from '@components/settings/settingsDetail/personal/SettingsPersonalMasterPhone';
+import SettingsPersonalMasterKey from '@components/settings/settingsDetail/personal/SettingsPersonalMasterKey';
 
 import RNRestart from 'react-native-restart';
 

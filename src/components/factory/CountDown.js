@@ -1,7 +1,7 @@
 import React, {Component, useEffect, useState} from 'react';
 import {View, Text, TouchableWithoutFeedback} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import ResetStyle from '../../style/ResetStyle.js';
+import ResetStyle from '@style/ResetStyle.js';
 
 // function padTime(time) {
 //   return time.toString().padStart(2, '0');
