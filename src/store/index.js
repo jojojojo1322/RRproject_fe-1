@@ -12,6 +12,7 @@ export const reducers = combineReducers({
   sample,
   loading,
   auth,
+  login,
 });
 
 export function* rootSaga() {
