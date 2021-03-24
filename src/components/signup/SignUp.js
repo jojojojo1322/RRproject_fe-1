@@ -354,6 +354,7 @@ class SignUp extends Component {
               <TouchableOpacity
                 onPress={() => {
                   this.setModalVisible(true);
+                  console.log('------------모달 켜지기 ---------');
                 }}
                 underlayColor={'transparent'}>
                 <View
