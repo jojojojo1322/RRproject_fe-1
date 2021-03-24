@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -20,7 +20,7 @@ import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
 const Settings = ({navigation}) => {
   const {t, i18n} = useTranslation();
   console.log('navigationnavigationnavigationnavigationnavigation', navigation);
-  const [DATA] = useState([
+  const [DATA, setDATA] = useState([
     {
       id: '1',
       title: t('settings1'),
@@ -50,6 +50,39 @@ const Settings = ({navigation}) => {
       title: t('settings7'),
     },
   ]);
+
+  useEffect(() => {
+    setDATA([
+      {
+        id: '1',
+        title: t('settings1'),
+      },
+      {
+        id: '2',
+        title: t('settings2'),
+      },
+      // {
+      //   id: '3',
+      //   title: t('settings3'),
+      // },
+      // {
+      //   id: '4',
+      //   title: t('settings4'),
+      // },
+      {
+        id: '5',
+        title: t('settings5'),
+      },
+      {
+        id: '6',
+        title: t('settings6'),
+      },
+      {
+        id: '7',
+        title: t('settings7'),
+      },
+    ]);
+  }, [i18n.language]);
 
   const Item = ({title, id, onPress}) => (
     <TouchableOpacity
