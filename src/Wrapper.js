@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Text, TouchableHighlight, View, Modal, Linking} from 'react-native';
+import {Provider} from 'react-redux';
+import store from './store';
 
 import {server} from '@context/server';
 import axios from 'axios';
@@ -134,7 +136,7 @@ const Wrapper = () => {
   }, []);
 
   return (
-    <>
+    <Provider store={store}>
       {checkVersion && loading ? (
         <App loginC={loginC} />
       ) : (
@@ -154,7 +156,7 @@ const Wrapper = () => {
         text={t('wrapper3')}
         confirm={t('wrapper4')}
       />
-    </>
+    </Provider>
   );
 };
 
