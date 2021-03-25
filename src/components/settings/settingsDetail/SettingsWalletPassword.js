@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -24,10 +24,11 @@ import AuthStyle from '@style/AuthStyle';
 
 import ProgressModal from '@factory/modal/ProgressModal';
 
+import {useTranslation} from 'react-i18next';
 import {withTranslation} from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';
 
-const SettingsWalletPassword = () => {
+const SettingsWalletPassword = ({route, navigation}) => {
   const [passArr, setPassArr] = useState([]);
   const [rePassArr, setRePassArr] = useState([]);
   const [pass, setPass] = useState('');
@@ -62,7 +63,7 @@ const SettingsWalletPassword = () => {
     await axios
       .put(`${server}/wallet/password`, {
         email: await AsyncStorage.getItem('email'),
-        currentPw: this.props.route.params?.currentPw,
+        currentPw: route.params?.currentPw,
         updatePw: walletPw,
       })
       .then((response) => {
@@ -103,28 +104,26 @@ const SettingsWalletPassword = () => {
 
   const handlePass = async (value, e) => {
     console.log(value);
-    let passArr = passArr.slice();
-    let rePassArr = rePassArr.slice();
+    let _passArr = passArr.slice();
+    let _rePassArr = rePassArr.slice();
     let test = '';
     if (passArr.length <= 4) {
       // this.setState({
       //   passArr: passArr.concat({id: passArr.length, value}),
       // });
-      setPassArr(passArr.concat({id: passArr.length, value}));
-    } else if ((passArr.length = 5)) {
+      // console.log(_passArr);
+      setPassArr(_passArr.concat({id: _passArr.length, value}));
+    } else if ((_passArr.length = 5)) {
       console.log('last');
       // await this.setState({
       //   passArr: passArr.concat({id: passArr.length, value}),
       // });
-      setPassArr(passArr.concat({id: passArr.length, value}));
+      setPassArr(_passArr.concat({id: _passArr.length, value}));
 
       //first pass
       if (pass == '') {
-        await passArr.map((data) => {
+        await _passArr.map((data) => {
           test += data.value;
-        });
-        await this.setState({
-          pass: test,
         });
         setPass(test);
         console.log('test', test);
@@ -146,22 +145,17 @@ const SettingsWalletPassword = () => {
           walletPasswordTransApi(test);
         }
       }
-
       setPassArr([]);
     }
-    console.log('pass', this.state.pass);
+    console.log('pass', pass);
   };
 
   const handlePassErase = () => {
-    let passArr = passArr.slice();
-    let rePassArr = rePassArr.slice();
-    // if (passArr.length != 0) {
-    //   this.setState({
-    //     passArr: passArr.filter((data) => data.id != passArr.length - 1),
-    //   });
-    // }
-    if (passArr.length != 0) {
-      setPassArr(passArr.filter((data) => data.id != passArr.length - 1));
+    let _passArr = passArr.slice();
+    let _rePassArr = rePassArr.slice();
+
+    if (_passArr.length != 0) {
+      setPassArr(_passArr.filter((data) => data.id != _passArr.length - 1));
     }
   };
   const handleNextPage = async () => {
@@ -419,14 +413,14 @@ const SettingsWalletPassword = () => {
         handleNextPage={handleNextPage}
       />
       <TextConfirmModal
-        modalVisible={state.modal2Visible}
+        modalVisible={modal2Visible}
         setModalVisible={setModal2Visible}
         text={t('settingsWalletPassword7')}
         confirm={t('settingsWalletPassword6')}
         handleNextPage={handleNextPage}
       />
       <ProgressModal
-        modalVisible={state.modal3Visible}
+        modalVisible={modal3Visible}
         setModalVisible={setModal3Visible}
       />
     </SafeAreaView>
