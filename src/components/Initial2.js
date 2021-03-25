@@ -251,11 +251,13 @@ const Initial2 = (props) => {
                         LOGIN
                       </Text>
                     </TouchableOpacity>
-                    {/* <TouchableOpacity
+                    <TouchableOpacity
                       style={[ResetStyle.buttonWhite, {marginTop: 10}]}
                       activeOpacity={0.75}
                       onPress={() => {
-                        props.navigation.navigate('TestPage');
+                        props.navigation.navigate(
+                          'SettingsPersonalPasswordChange',
+                        );
                       }}>
                       <Text
                         style={[
@@ -263,9 +265,9 @@ const Initial2 = (props) => {
                           ResetStyle.fontB,
                           {fontWeight: '600'},
                         ]}>
-                        TestPage
+                        SettingsPersonalPasswordChange
                       </Text>
-                    </TouchableOpacity> */}
+                    </TouchableOpacity>
                   </Animated.View>
                 ) : null}
               </View>
