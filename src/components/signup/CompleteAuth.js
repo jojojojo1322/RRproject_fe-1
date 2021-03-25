@@ -1,3 +1,4 @@
+
 import React, {useCallback} from 'react';
 import {
   View,
@@ -11,11 +12,16 @@ import {useTranslation} from 'react-i18next';
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
 
 import ResetStyle from '@style/ResetStyle.js';
+import AuthStyle from '@style/AuthStyle.js';
 
-const CompleteAuth = () => {
+import {useTranslation} from 'react-i18next';
+import {withTranslation} from 'react-i18next';
+import hoistStatics from 'hoist-non-react-statics';
+
+const CompleteAuth = ({navigation}) => {
   const {t} = useTranslation();
   const navigation = useNavigation();
-
+  
   useFocusEffect(
     useCallback(() => {
       const onAndroidBackPress = () => {
@@ -37,7 +43,7 @@ const CompleteAuth = () => {
       };
     }, []),
   );
-
+  
   return (
     <SafeAreaView style={ResetStyle.container}>
       <View style={ResetStyle.containerInner}>
@@ -94,7 +100,10 @@ const CompleteAuth = () => {
 
         <TouchableOpacity
           style={[ResetStyle.button, {backgroundColor: '#4696ff'}]}
-          onPress={() => navigation.navigate('Kyc')}>
+          onPress={() => {
+            navigation.navigate('Kyc');
+            // this.props.navigation.setOptions({ title: '약관동의' });
+          }}>
           <Text
             style={[
               ResetStyle.fontMediumK,
@@ -108,5 +117,5 @@ const CompleteAuth = () => {
     </SafeAreaView>
   );
 };
-
+                   
 export default CompleteAuth;

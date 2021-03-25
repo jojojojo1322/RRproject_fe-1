@@ -9,9 +9,6 @@ import {
 } from 'react-native';
 
 const ProgressModal = ({modalVisible = false, setModalVisible}) => {
-  console.log('Progress >>> 호출');
-  console.log('Progress >>> 호출', modalVisible);
-
   return (
     <Modal
       animationType="fade"
