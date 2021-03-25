@@ -1,21 +1,20 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   View,
   Text,
   SafeAreaView,
   Image,
-  Alert,
+  BackHandler,
   TouchableOpacity,
 } from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 
 import {RoundCheckbox} from '@factory/Roundcheck';
 import ResetStyle from '@style/ResetStyle.js';
 import AuthStyle from '@style/AuthStyle';
-
-import hoistStatics from 'hoist-non-react-statics';
+import TextConfirmCancelModal from '@factory/modal/TextConfirmCancelModal';
 
 // class SelectedCheckboxes {
 //   constructor() {
@@ -37,6 +36,7 @@ const AgreementTermsConditions = ({route}) => {
   const [allCheck1, setAllCheck1] = useState(false);
   const [allCheck2, setAllCheck2] = useState(false);
   const [allCheck3, setAllCheck3] = useState(false);
+  const [modalVisibleGoBack, setModalVisibleGoBack] = useState(false);
 
   const handleAll = (value) => {
     setAllCheck1(value);
@@ -61,6 +61,10 @@ const AgreementTermsConditions = ({route}) => {
     }
   };
 
+  const goBack = () => {
+    setModalVisibleGoBack(true);
+  };
+
   useEffect(() => {
     if (allCheck2 == true && allCheck3 == true) {
       setAllCheck1(true);
@@ -72,6 +76,28 @@ const AgreementTermsConditions = ({route}) => {
     }
   }, [allCheck2, allCheck3]);
 
+  useFocusEffect(
+    useCallback(() => {
+      const onAndroidBackPress = () => {
+        setModalVisibleGoBack(true);
+        return true;
+      };
+
+      if (Platform.OS === 'android') {
+        BackHandler.addEventListener('hardwareBackPress', onAndroidBackPress);
+      }
+
+      return () => {
+        if (Platform.OS === 'android') {
+          BackHandler.removeEventListener(
+            'hardwareBackPress',
+            onAndroidBackPress,
+          );
+        }
+      };
+    }, []),
+  );
+
   return (
     <SafeAreaView style={ResetStyle.container}>
       <View style={ResetStyle.containerInner}>
@@ -81,7 +107,7 @@ const AgreementTermsConditions = ({route}) => {
             <View style={ResetStyle.topBackButton}>
               <TouchableOpacity
                 style={{flexDirection: 'row', alignItems: 'center'}}
-                onPress={() => navigation.goBack()}>
+                onPress={() => goBack()}>
                 <Image
                   style={{
                     width: Platform.OS === 'ios' ? 28 : 22,
@@ -263,6 +289,15 @@ const AgreementTermsConditions = ({route}) => {
           </Text>
         </TouchableOpacity>
       </View>
+      <TextConfirmCancelModal
+        modalVisible={modalVisibleGoBack}
+        setModalVisible={setModalVisibleGoBack}
+        text={t('SignUp_Reset')}
+        confirm={t('confirm')}
+        confirmHandle={() => navigation.popToTop()}
+        cancel={t('cancel')}
+        cancelHandle={() => setModalVisibleGoBack(false)}
+      />
     </SafeAreaView>
   );
 };
