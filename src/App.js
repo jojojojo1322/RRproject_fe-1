@@ -128,7 +128,7 @@ export const AppMainStack = (props) => {
   console.log('this.props.route.params?.login>?>?>', login);
 
   return (
-    <Stack.Navigator initialRouteName="Main">
+    <Stack.Navigator initialRouteName="Initial2">
       {/* {login === null && props.route.params?.loginC === null ? (
         <Stack.Screen
           name="Initial2"

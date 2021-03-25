@@ -46,6 +46,13 @@ const initialState = {
     wallet: '',
   },
   loginFail: false,
+  loginPayload: {
+    userNo: '',
+    status: false,
+    msg: '',
+    hasWallet: '',
+  },
+  authError: '',
 };
 
 const auth = createReducer(initialState, {
@@ -58,11 +65,11 @@ const auth = createReducer(initialState, {
     ...state,
     infoError: error,
   }),
-  [SIGN_IN_SUCCESS]: (state, {payload: {data}}) => {
+  [SIGN_IN_SUCCESS]: (state, {payload: data}) => {
     if (data) {
       return {
         ...state,
-        user: data,
+        loginPayload: data,
         loginFail: false,
       };
     } else {
@@ -72,10 +79,10 @@ const auth = createReducer(initialState, {
       };
     }
   },
-  [SIGN_IN_FAILURE]: (state, {payload}) => {
+  [SIGN_IN_FAILURE]: (state, {payload: error}) => {
     return {
       ...state,
-      authError: payload,
+      authError: error,
       loginFail: true,
     };
   },

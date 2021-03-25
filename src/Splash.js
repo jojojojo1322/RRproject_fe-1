@@ -24,9 +24,14 @@ import SplashScreen from 'react-native-splash-screen';
 import ResetStyle from '@style/ResetStyle';
 import ProgressBarExample from '@defined/ProgressBarExample';
 import {useTranslation} from 'react-i18next';
+import DeviceInfo from 'react-native-device-info';
+import {signIn} from '@module/auth';
+import {useDispatch, useSelector} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Splash = ({loading, setLoading}) => {
   const {t, i18n} = useTranslation();
+  const dispatch = useDispatch();
   // splash에서 보여질 gif유지 시간
   const time = 3000;
 
@@ -150,6 +155,68 @@ const Splash = ({loading, setLoading}) => {
       console.log('Authorization status:', authStatus);
     }
   };
+  const [autologinId, setAutologinId] = useState('');
+  const [autologinPw, setAutologinPw] = useState('');
+  const [autologinKey, setAutologinKey] = useState('');
+
+  const loadInitialData = async () => {
+    try {
+      console.log('tryyyyyyy');
+      await AsyncStorage.getItem('email').then((res) => {
+        if (res) {
+          let {id} = JSON.parse(res);
+          setAutologinId(id);
+          console.log('ididididididididid', id);
+        }
+      });
+      await AsyncStorage.getItem('password').then((res) => {
+        if (res) {
+          let {password} = JSON.parse(res);
+          setAutologinPw(password);
+          console.log('pwpwpwpwpwpwpwpwpwpw', pw);
+        }
+      });
+      await AsyncStorage.getItem('deviceKey').then((res) => {
+        if (res) {
+          let {deviceKey} = JSON.parse(res);
+          setAutologinKey(deviceKey);
+          console.log('keyyyyyyyyyyy', deviceKey);
+        }
+      });
+      dispatch(
+        signIn({
+          deviceKey: autologinKey,
+          email: autologinId,
+          password: autologinPw,
+        }),
+      );
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const {loginPayload} = useSelector(({auth}) => ({
+    loginPayload: auth.loginPayload,
+  }));
+
+  useEffect(() => {
+    if (loginPayload) {
+      console.log('adafasdfasdaf-------', loginPayload);
+      if (loginPayload.status === true) {
+        if (loginPayload.hasWallet === -1) {
+          setModal5Visible(false);
+          setModalVisible(true);
+        } else {
+          navigation.navigate('Main');
+        }
+      }
+    }
+  }, [
+    loginPayload,
+    loginPayload.status,
+    loginPayload.hasWallet,
+    loginPayload.msg,
+  ]);
 
   useEffect(() => {
     SplashScreen.hide();
@@ -158,7 +225,7 @@ const Splash = ({loading, setLoading}) => {
       // handleFirebasePermission();
       // requestUserPermission();
       handlePermission();
-
+      loadInitialData();
       messaging().setBackgroundMessageHandler(async (remoteMessage) => {
         console.log('Message handled in the background!', remoteMessage);
       });

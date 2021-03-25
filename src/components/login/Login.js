@@ -94,79 +94,79 @@ const Login = ({navigation, history}) => {
     navigation.navigate('Kyc');
   };
 
-  const loginApi = async (id, pass) => {
-    // this.setModal5Visible(true);
-    dispatch(
-      testSample({
-        email: id,
-        password: pass,
-        deviceKey: DeviceInfo.getUniqueId(),
-      }),
-    );
+  // const loginApi = async (id, pass) => {
+  //   // this.setModal5Visible(true);
+  //   dispatch(
+  //     testSample({
+  //       email: id,
+  //       password: pass,
+  //       deviceKey: DeviceInfo.getUniqueId(),
+  //     }),
+  //   );
 
-    return await axios
-      .post(`${server}/user/login`, {
-        email: id,
-        password: pass,
-        deviceKey: DeviceInfo.getUniqueId(),
-      })
-      .then(async (response) => {
-        console.log('loginApi THEN >>', response);
-        console.log('loginApi THEN >>', response.data.status);
-        console.log('loginApi THEN >>', response.data.userNo);
+  //   return await axios
+  //     .post(`${server}/user/login`, {
+  //       email: id,
+  //       password: pass,
+  //       deviceKey: DeviceInfo.getUniqueId(),
+  //     })
+  //     .then(async (response) => {
+  //       console.log('loginApi THEN >>', response);
+  //       console.log('loginApi THEN >>', response.data.status);
+  //       console.log('loginApi THEN >>', response.data.userNo);
 
-        ///로그인 실험
-        // route.params?.loginSuccess(response.data.userNo);
+  //       ///로그인 실험
+  //       // route.params?.loginSuccess(response.data.userNo);
 
-        // route.params?.loginSuccessAuth(response.data.userNo);
-        // let LOCK = await AsyncStorage.getItem('lock');
-        // console.log('LOCK>>>', LOCK);
+  //       // route.params?.loginSuccessAuth(response.data.userNo);
+  //       // let LOCK = await AsyncStorage.getItem('lock');
+  //       // console.log('LOCK>>>', LOCK);
 
-        // if (LOCK === null) {
-        //   await AsyncStorage.setItem('lock', 'x,');
-        // }
-        // console.log('LOCK', LOCK.slice(0, 1));
-        // console.log('LOCK', LOCK.slice(0, 1));
+  //       // if (LOCK === null) {
+  //       //   await AsyncStorage.setItem('lock', 'x,');
+  //       // }
+  //       // console.log('LOCK', LOCK.slice(0, 1));
+  //       // console.log('LOCK', LOCK.slice(0, 1));
 
-        // await AsyncStorage.setItem(
-        //   'authToken',
-        //   response.headers.authorization.slice(7, undefined),
-        // );
-        // await AsyncStorage.setItem('userNo', response.data.userNo);
-        await AsyncStorage.setItem('email', id);
-        await AsyncStorage.setItem('password', pass);
-        setLoginCheck(response.data.status);
-        setHasWallet(response.data.status);
-        return response.data;
-        // return response.data.status;
-      })
-      .catch(async (error) => {
-        console.log('loginApi ERROR >>', error.response.data);
-        // this.setState({
-        //   loginCheck: error.response.data.status,
-        //   hasWallet: error.response.data.hasWallet,
-        //   errorMsg: error.response.data.msg,
-        // });
-        setLoginCheck(error.response.data.status);
-        setHasWallet(error.response.data.hasWallet);
-        setErrorMsg(error.response.data.msg);
+  //       // await AsyncStorage.setItem(
+  //       //   'authToken',
+  //       //   response.headers.authorization.slice(7, undefined),
+  //       // );
+  //       // await AsyncStorage.setItem('userNo', response.data.userNo);
+  //       await AsyncStorage.setItem('email', id);
+  //       await AsyncStorage.setItem('password', pass);
+  //       setLoginCheck(response.data.status);
+  //       setHasWallet(response.data.status);
+  //       return response.data;
+  //       // return response.data.status;
+  //     })
+  //     .catch(async (error) => {
+  //       console.log('loginApi ERROR >>', error.response.data);
+  //       // this.setState({
+  //       //   loginCheck: error.response.data.status,
+  //       //   hasWallet: error.response.data.hasWallet,
+  //       //   errorMsg: error.response.data.msg,
+  //       // });
+  //       setLoginCheck(error.response.data.status);
+  //       setHasWallet(error.response.data.hasWallet);
+  //       setErrorMsg(error.response.data.msg);
 
-        console.log(
-          'statestate',
-          loginCheck,
-          '--------',
-          hasWallet,
-          '--------',
-          errorMsg,
-        );
-        if (error.response.data.msg === 'KycLevel1 Not Saved') {
-          console.log('진입');
-          await AsyncStorage.setItem('userNo', error.response.data.userNo);
-        }
-        return error.response.data;
-      });
-    // this.setModal5Visible(false);
-  };
+  //       console.log(
+  //         'statestate',
+  //         loginCheck,
+  //         '--------',
+  //         hasWallet,
+  //         '--------',
+  //         errorMsg,
+  //       );
+  //       if (error.response.data.msg === 'KycLevel1 Not Saved') {
+  //         console.log('진입');
+  //         await AsyncStorage.setItem('userNo', error.response.data.userNo);
+  //       }
+  //       return error.response.data;
+  //     });
+  //   // this.setModal5Visible(false);
+  // };
 
   const deviceKeyCheckApi = () => {
     console.log('deviceKeyCheckApi DEVICE KEY>>', DeviceInfo.getUniqueId());
@@ -185,11 +185,73 @@ const Login = ({navigation, history}) => {
       });
   };
 
-  // const signIn = () => {
-  //   dispatch(
-  //     signIn({email: id, password: pass, deviceKey: DeviceInfo.getUniqueId()}),
-  //   );
-  // };
+  const handleSignIn = async () => {
+    dispatch(
+      signIn({
+        deviceKey: DeviceInfo.getUniqueId(),
+        email: ID,
+        password: passWord,
+      }),
+    );
+    await AsyncStorage.setItem('email', ID);
+    await AsyncStorage.setItem('password', passWord);
+    await AsyncStorage.setItem('deviceKey', DeviceInfo.getUniqueId());
+
+    await AsyncStorage.getItem('email').then((res) => {
+      if (res) {
+        let {id} = JSON.parse(res);
+        //setAutologinId(id);
+        console.log('ididididididididid', id);
+      }
+    });
+    await AsyncStorage.getItem('password').then((res) => {
+      if (res) {
+        let {password} = JSON.parse(res);
+        //setAutologinPw(password);
+        console.log('pwpwpwpwpwpwpwpwpwpw', pw);
+      }
+    });
+    await AsyncStorage.getItem('deviceKey').then((res) => {
+      if (res) {
+        let {deviceKey} = JSON.parse(res);
+        //setAutologinKey(deviceKey);
+        console.log('keyyyyyyyyyyy', deviceKey);
+      }
+    });
+  };
+
+  const {loginPayload} = useSelector(({auth}) => ({
+    loginPayload: auth.loginPayload,
+  }));
+
+  useEffect(() => {
+    if (loginPayload) {
+      console.log('login-------', loginPayload);
+      if (loginPayload.status === true) {
+        if (loginPayload.hasWallet === -1) {
+          setModal5Visible(false);
+          setModalVisible(true);
+        } else {
+          navigation.navigate('Main');
+        }
+      } else if (loginPayload.status === false) {
+        if (loginPayload.msg === 'KycLevel1 Not Saved') {
+          setModal3Visible(true);
+        } else if (loginPayload.msg === 'DeviceKey Not Equal') {
+          setModal4Visible(true);
+        } else if (loginPayload.msg === 'Password Not Equal') {
+          setModal2Visible(true);
+        } else if (loginPayload.msg === 'User Not Found') {
+          setModal2Visible(true);
+        }
+      }
+    }
+  }, [
+    loginPayload,
+    loginPayload.status,
+    loginPayload.hasWallet,
+    loginPayload.msg,
+  ]);
 
   return (
     <SafeAreaView style={ResetStyle.container}>
@@ -260,35 +322,38 @@ const Login = ({navigation, history}) => {
             <TouchableOpacity
               style={ResetStyle.button}
               activeOpacity={0.75}
-              onPress={async () => {
+              onPress={
+                () => handleSignIn()
+
+                //async () => {
                 // api용;
-                setHasWallet('');
-                console.log(ID);
-                console.log(passWord);
-                loginApi(ID, passWord).then((res) => {
-                  console.log('res>>>>>>', res);
-                  console.log('res>>>>>>', res.status);
-                  console.log('res>>>>>>', res.msg);
-                  console.log('res>>>>>>', res.userNo);
-                  if (res.status === true) {
-                    if (res.hasWallet === -1) {
-                      // this.setModal5Visible(false);
-                      console.log('aaa');
-                      setModalVisible(true);
-                    } else {
-                      navigation.navigate('Main');
-                    }
-                  } else if (res.status === false) {
-                    if (res.msg === 'KycLevel1 Not Saved') {
-                      setModal3Visible(true);
-                    } else if (res.msg === 'DeviceKey Not Equal') {
-                      setModal4Visible(true);
-                    } else if (res.msg === 'Password Not Equal') {
-                      setModal2Visible(true);
-                    }
-                  }
-                });
-                console.log('this.state.loginCheck', loginCheck);
+                // setHasWallet('');
+                // console.log(ID);
+                // console.log(passWord);
+                // loginApi(ID, passWord).then((res) => {
+                //   console.log('res>>>>>>', res);
+                //   console.log('res>>>>>>', res.status);
+                //   console.log('res>>>>>>', res.msg);
+                //   console.log('res>>>>>>', res.userNo);
+                //   if (res.status === true) {
+                //     if (res.hasWallet === -1) {
+                //       // this.setModal5Visible(false);
+                //       console.log('aaa');
+                //       setModalVisible(true);
+                //     } else {
+                //       navigation.navigate('Main');
+                //     }
+                //   } else if (res.status === false) {
+                //     if (res.msg === 'KycLevel1 Not Saved') {
+                //       setModal3Visible(true);
+                //     } else if (res.msg === 'DeviceKey Not Equal') {
+                //       setModal4Visible(true);
+                //     } else if (res.msg === 'Password Not Equal') {
+                //       setModal2Visible(true);
+                //     }
+                //   }
+                // });
+                // console.log('this.state.loginCheck', loginCheck);
 
                 // if (loginCheck) {
                 //   if (hasWallet === -1) {
@@ -317,7 +382,8 @@ const Login = ({navigation, history}) => {
                 //     'userNo',
                 //     '5fd188217878d135df02c1bd',
                 //   );
-              }}>
+                //}
+              }>
               <Text
                 style={[
                   ResetStyle.fontMediumK,
