@@ -1,21 +1,18 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {
   View,
   Text,
   TextInput,
   TouchableOpacity,
   SafeAreaView,
-  KeyboardAvoidingView,
-  TouchableWithoutFeedback,
-  Keyboard,
+  BackHandler,
   Image,
   YellowBox,
 } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useTranslation} from 'react-i18next';
-import hoistStatics from 'hoist-non-react-statics';
 
 import {isPossiblePhoneNumber} from 'react-phone-number-input';
 import ListModal from '@factory/modal/ListModal';
@@ -25,6 +22,7 @@ import ResetStyle from '@style/ResetStyle.js';
 import {server} from '@context/server';
 import axios from 'axios';
 import BottomModal from '@factory/modal/BottomModal';
+import TextConfirmCancelModal from '@factory/modal/TextConfirmCancelModal';
 
 const SignUp = () => {
   const navigation = useNavigation();
@@ -42,6 +40,7 @@ const SignUp = () => {
     false,
   );
   const [modalVisibleResend, setModalVisibleResend] = useState(false);
+  const [modalVisibleGoBack, setModalVisibleGoBack] = useState(false);
   const [phoneAuthCheck, setPhoneAuthCheck] = useState('');
   const [AuthKeyCheck, setAuthKeyCheck] = useState('');
   const [AuthKey, setAuthKey] = useState('');
@@ -119,12 +118,15 @@ const SignUp = () => {
           if (response.data) {
             const result = response.data.ret_val;
             setAuthKeyCheck(result);
-
             if (result == '-3') {
               setModalVisibleNotAuth(true);
             } else if (result == '-1') {
               setModalVisibleNotAuthExpire(true);
             } else if (result == '0') {
+              setAuthKeyCheck('');
+              setIsRunning(false);
+              setCountDownCheck('');
+              setTimeLeftNumber(180);
               navigation.navigate('AgreementTermsConditions', {
                 deviceKey: deviceKey,
                 phoneNum: `+${countryPhoneCode}${phoneNum}`,
@@ -168,13 +170,11 @@ const SignUp = () => {
   };
 
   const handleReCountDown = async () => {
-    await setIsRunning(true);
     await setTimeLeftNumber(180);
     await setCountDownExpireCheck(false);
 
+    await setIsRunning(true);
     await setIsRunning(false);
-    await setTimeLeftNumber(180);
-    await setCountDownExpireCheck(false);
   };
 
   const handleCountDownCheck = (value) => {
@@ -183,6 +183,10 @@ const SignUp = () => {
 
   const handleCountDownExpireCheck = () => {
     setCountDownExpireCheck(true);
+  };
+
+  const goBack = () => {
+    setModalVisibleGoBack(true);
   };
 
   useEffect(() => {
@@ -197,20 +201,42 @@ const SignUp = () => {
     }
   }, [CountDownExpireCheck]);
 
+  useFocusEffect(
+    useCallback(() => {
+      const onAndroidBackPress = () => {
+        setModalVisibleGoBack(true);
+        return true;
+      };
+
+      if (Platform.OS === 'android') {
+        BackHandler.addEventListener('hardwareBackPress', onAndroidBackPress);
+      }
+
+      return () => {
+        if (Platform.OS === 'android') {
+          BackHandler.removeEventListener(
+            'hardwareBackPress',
+            onAndroidBackPress,
+          );
+        }
+      };
+    }, []),
+  );
+
   return (
     <SafeAreaView style={ResetStyle.container}>
       <KeyboardAwareScrollView
         enableOnAndroid={true}
-        contentContainerStyle={{flexGrow: 1}}>
+        contentContainerStyle={{flexGrow: 1}}
+        bounces={false}
+        showsVerticalScrollIndicator={false}>
         <View style={[ResetStyle.containerInner]}>
           <View>
             {/* topBackButton */}
             <View style={ResetStyle.topBackButton}>
               <TouchableOpacity
                 style={{flexDirection: 'row', alignItems: 'center'}}
-                onPress={() => {
-                  navigation.goBack();
-                }}>
+                onPress={() => goBack()}>
                 <Image
                   style={{
                     width: Platform.OS === 'ios' ? 28 : 22,
@@ -531,6 +557,15 @@ const SignUp = () => {
         setModalVisible={setModalVisibleNotPhoneVali}
         modalVisible={modalVisibleNotPhoneVali}
         text={country == '' ? t('signUpModal6') : t('signUpModal7')}
+      />
+      <TextConfirmCancelModal
+        modalVisible={modalVisibleGoBack}
+        setModalVisible={setModalVisibleGoBack}
+        text={'회원가입을 취소하시겠습니까?'}
+        confirm={'확인'}
+        confirmHandle={() => navigation.popToTop()}
+        cancel={'취소'}
+        cancelHandle={() => setModalVisibleGoBack(false)}
       />
     </SafeAreaView>
   );

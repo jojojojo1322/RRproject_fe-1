@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android --port 5050",
+    "and": "react-native run-android",
     "ios": "react-native run-ios ",
     "start": "react-native start --port 5050",
     "test": "jest",

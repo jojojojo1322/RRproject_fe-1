@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   View,
   Text,
@@ -7,10 +7,12 @@ import {
   SafeAreaView,
   Image,
   Platform,
+  BackHandler,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import axios from 'axios';
 import {server} from '@context/server';
 
@@ -20,6 +22,7 @@ import AuthStyle from '@style/AuthStyle.js';
 
 import BottomModal from '@factory/modal/BottomModal';
 import TextConfirmModal from '@factory/modal/TextConfirmModal';
+import TextConfirmCancelModal from '@factory/modal/TextConfirmCancelModal';
 
 const EmailAuthentication = ({route}) => {
   const navigation = useNavigation();
@@ -37,6 +40,7 @@ const EmailAuthentication = ({route}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
   const [modal3Visible, setModal3Visible] = useState(false);
+  const [modalVisibleGoBack, setModalVisibleGoBack] = useState(false);
 
   const handleNextPage = () => {
     console.log('success');
@@ -87,20 +91,35 @@ const EmailAuthentication = ({route}) => {
   };
 
   const userEmailApprove = async () => {
-    await axios
-      .post(`${server}/util/email/auth/approve`, {
-        authKey: passWord,
-        mailId: route.params?.email,
-      })
-      .then((data) => {
-        console.log('THENuserEmailApprove', data);
-        console.log('THENuserEmailApprove', data.data.ret_val);
-        setReturnApprove(data.data.ret_val);
-      })
-      .catch((error) => {
-        console.log('ERRORuserEmailApprove', error);
-        console.log('ERRORuserEmailApprove', error.response);
-      });
+    try {
+      await axios
+        .post(`${server}/util/email/auth/approve`, {
+          authKey: passWord,
+          mailId: route.params?.email,
+        })
+        .then((data) => {
+          console.log('THENuserEmailApprove', data);
+          console.log('THENuserEmailApprove', data.data.ret_val);
+
+          const result = data.data.ret_val;
+          setReturnApprove(result);
+
+          if (result == '0') {
+            setModalVisible(true);
+            setIsRunning(false);
+            setCountDownCheck('');
+            setTimeLeftNumber(180);
+          } else if (result != '0') {
+            setModal2Visible(true);
+          }
+        })
+        .catch((error) => {
+          console.log('ERRORuserEmailApprove', error);
+          console.log('ERRORuserEmailApprove', error.response);
+        });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const userRegistApi = async (osType) => {
@@ -134,227 +153,281 @@ const EmailAuthentication = ({route}) => {
     }
   };
 
+  const goBack = () => {
+    setModalVisibleGoBack(true);
+  };
+
   useEffect(() => {
     setAuthKeyData();
   }, [CountDownExpireCheck, returnApprove, authKey]);
 
+  useFocusEffect(
+    useCallback(() => {
+      const onAndroidBackPress = () => {
+        setModalVisibleGoBack(true);
+        return true;
+      };
+
+      if (Platform.OS === 'android') {
+        BackHandler.addEventListener('hardwareBackPress', onAndroidBackPress);
+      }
+
+      return () => {
+        if (Platform.OS === 'android') {
+          BackHandler.removeEventListener(
+            'hardwareBackPress',
+            onAndroidBackPress,
+          );
+        }
+      };
+    }, []),
+  );
+
   return (
     <SafeAreaView style={ResetStyle.container}>
-      <View style={ResetStyle.containerInner}>
-        <View>
-          {/* topBackButton */}
-          <View style={ResetStyle.topBackButton}>
-            <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}
-              onPress={() => {
-                navigation.goBack();
-              }}>
-              <Image
-                style={{
-                  width: Platform.OS === 'ios' ? 28 : 22,
-                  height: Platform.OS === 'ios' ? 28 : 22,
-                  resizeMode: 'contain',
-                }}
-                source={require('@images/backIcon.png')}
-              />
-              <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
-                {t('emailAuthenticationTitle')}
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <Text
-            style={[
-              ResetStyle.fontRegularK,
-              ResetStyle.fontBlack,
-              {marginTop: '10%', marginBottom: '10%'},
-            ]}>
-            {email} {t('emailAuthentication1')}
-          </Text>
+      <KeyboardAwareScrollView
+        enableOnAndroid={true}
+        contentContainerStyle={{flexGrow: 1}}
+        bounces={false}
+        showsVerticalScrollIndicator={false}>
+        <View style={ResetStyle.containerInner}>
           <View>
+            {/* topBackButton */}
+            <View style={ResetStyle.topBackButton}>
+              <TouchableOpacity
+                style={{flexDirection: 'row', alignItems: 'center'}}
+                onPress={() => goBack()}>
+                <Image
+                  style={{
+                    width: Platform.OS === 'ios' ? 28 : 22,
+                    height: Platform.OS === 'ios' ? 28 : 22,
+                    resizeMode: 'contain',
+                  }}
+                  source={require('@images/backIcon.png')}
+                />
+                <Text style={[ResetStyle.fontMediumK, ResetStyle.fontBlack]}>
+                  {t('emailAuthenticationTitle')}
+                </Text>
+              </TouchableOpacity>
+            </View>
             <Text
               style={[
                 ResetStyle.fontRegularK,
                 ResetStyle.fontBlack,
-                {textAlign: 'left'},
+                {marginTop: '10%', marginBottom: '10%'},
               ]}>
-              {t('emailAuthentication2')}
+              {email} {t('emailAuthentication1')}
             </Text>
-
             <View>
-              <View
+              <Text
                 style={[
-                  AuthStyle.emailAuthTextInputStyle,
-                  {
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    paddingBottom: '2%',
-                    paddingTop: '3%',
-                  },
+                  ResetStyle.fontRegularK,
+                  ResetStyle.fontBlack,
+                  {textAlign: 'left'},
                 ]}>
+                {t('emailAuthentication2')}
+              </Text>
+
+              <View>
                 <View
                   style={{
-                    position: 'relative',
-                    flexDirection: 'row',
                     width: '100%',
+                    flexDirection: 'row',
                     alignItems: 'center',
-                    justifyContent: 'space-between',
+                    paddingTop: '3%',
+                    paddingBottom: '2%',
                   }}>
-                  <TextInput
-                    placeholder={t('emailAuthentication3')}
-                    placeholderTextColor="#a9a9a9"
-                    value={passWord}
-                    keyboardType={'numeric'}
-                    returnKeyType={'done'}
-                    // secureTextEntry={true}
-                    onChangeText={(text) => handlePassword(text)}
-                    style={[
-                      ResetStyle.fontRegularK,
-                      ResetStyle.fontBlack,
-                      {textAlign: 'left'},
-                      returnApprove != '0' && {
-                        width: '100%',
-                        height: 40,
-                      },
-                    ]}
-                  />
-                  {returnApprove == '0' && (
-                    <Image
-                      style={{
-                        position: 'absolute',
-                        left: '40%',
-                        height: 15,
-                        width: 15,
-                        resizeMode: 'contain',
-                      }}
-                      source={require('@images/verificationCodeCheckIcon.png')}
+                  <View
+                    style={{
+                      width: '80%',
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                    }}>
+                    <TextInput
+                      placeholder={t('emailAuthentication3')}
+                      placeholderTextColor="#a9a9a9"
+                      value={passWord}
+                      keyboardType={'numeric'}
+                      returnKeyType={'done'}
+                      // secureTextEntry={true}
+                      onChangeText={(text) => handlePassword(text)}
+                      style={[
+                        ResetStyle.fontRegularK,
+                        ResetStyle.fontBlack,
+                        {
+                          textAlign: 'left',
+                          width: 'auto',
+                        },
+                      ]}
                     />
+                    {returnApprove == '0' && (
+                      <Image
+                        style={{
+                          height: 15,
+                          width: 15,
+                          resizeMode: 'contain',
+                          marginLeft: 10,
+                        }}
+                        source={require('@images/verificationCodeCheckIcon.png')}
+                      />
+                    )}
+                  </View>
+                  {returnApprove == '0' ? (
+                    <View
+                      style={[
+                        ResetStyle.buttonSmall,
+                        {
+                          width: '20%',
+                          paddingVertical: '1.5%',
+                          backgroundColor: '#e6e6e6',
+                        },
+                      ]}>
+                      <Text
+                        style={[
+                          ResetStyle.fontLightK,
+                          ResetStyle.fontWhite,
+                          {
+                            backgroundColor: '#e6e6e6',
+                          },
+                        ]}>
+                        {t('emailAuthentication5')}
+                      </Text>
+                    </View>
+                  ) : (
+                    <TouchableOpacity
+                      style={[
+                        ResetStyle.buttonSmall,
+                        {
+                          width: '20%',
+                          paddingVertical: '1.5%',
+                        },
+                      ]}
+                      onPress={() => userEmailApprove()}>
+                      <Text
+                        style={[ResetStyle.fontLightK, ResetStyle.fontWhite]}>
+                        {t('emailAuthentication5')}
+                      </Text>
+                    </TouchableOpacity>
                   )}
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    marginTop: '3%',
+                  }}>
+                  {/* <View style={[AuthStyle.emailAuthCountdownBox]}> */}
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                    }}>
+                    <Image
+                      source={require('@images/iconTime.png')}
+                      style={[ResetStyle.smallImg, {marginRight: 8}]}
+                    />
+                    {returnApprove == '0' ? (
+                      <Text
+                        style={{
+                          fontSize: 15,
+                          color: '#787878',
+                          marginLeft: 5,
+                        }}>
+                        03:00
+                      </Text>
+                    ) : (
+                      <CountDown
+                        standard={isRunning}
+                        timeLeftNumber={timeLeftNumber}
+                        handleReCountDown={handleReCountDown}
+                        handleCountDownCheck={handleCountDownCheck}
+                        CountDownCheck={CountDownCheck}
+                        CountDownExpireCheck={CountDownExpireCheck}
+                        handleCountDownExpireCheck={handleCountDownExpireCheck}
+                      />
+                    )}
+                  </View>
+                  {/* 재전송 버튼 */}
                   <TouchableOpacity
-                    style={[
-                      ResetStyle.buttonSmall,
-                      {position: 'absolute', right: 0, width: '25%'},
-                      returnApprove == '0' && {
-                        backgroundColor: '#e6e6e6',
-                      },
-                    ]}
-                    onPress={async () => {
-                      await userEmailApprove();
-                      console.log('인증하기버튼 클릭후 >>>>', returnApprove);
-                      if (returnApprove == '0') {
-                        setModalVisible(true);
-                      } else if (returnApprove != '0') {
-                        setModal2Visible(true);
-                      }
+                    onPress={() => {
+                      setModal3Visible(true);
+                      handleReCountDown();
+                      emailAuthApi(email);
+                      setReturnApprove('');
                     }}>
                     <Text
                       style={[
                         ResetStyle.fontLightK,
-                        ResetStyle.fontWhite,
-                        {paddingHorizontal: 7, paddingVertical: 7},
+                        ResetStyle.fontB,
+                        {marginLeft: '5%', fontWeight: '600'},
                       ]}>
-                      {t('emailAuthentication5')}
+                      {t('emailAuthentication4')}
                     </Text>
                   </TouchableOpacity>
                 </View>
               </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  marginTop: '3%',
-                }}>
-                {/* <View style={[AuthStyle.emailAuthCountdownBox]}> */}
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                  }}>
-                  <Image
-                    source={require('@images/iconTime.png')}
-                    style={[ResetStyle.smallImg, {marginRight: 8}]}
-                  />
-                  {/* <Text style={{fontSize: 15, color: '#0b95c9', fontWeight: '500', marginLeft: 5}}>00:00</Text> */}
-                  <CountDown
-                    standard={isRunning}
-                    timeLeftNumber={timeLeftNumber}
-                    handleReCountDown={handleReCountDown}
-                    handleCountDownCheck={handleCountDownCheck}
-                    CountDownCheck={CountDownCheck}
-                    CountDownExpireCheck={CountDownExpireCheck}
-                    handleCountDownExpireCheck={handleCountDownExpireCheck}
-                  />
-                </View>
-                {/* 재전송 버튼 */}
-                <TouchableOpacity
-                  onPress={() => {
-                    setModal3Visible(true);
-                    handleReCountDown();
-                    emailAuthApi(email);
-                  }}>
-                  <Text
-                    style={[
-                      ResetStyle.fontLightK,
-                      ResetStyle.fontB,
-                      {marginLeft: '5%', fontWeight: '600'},
-                    ]}>
-                    {t('emailAuthentication4')}
-                  </Text>
-                </TouchableOpacity>
-              </View>
             </View>
           </View>
-        </View>
 
-        <TouchableOpacity
-          style={[
-            ResetStyle.button,
-            returnApprove != '0' && {backgroundColor: '#e6e6e6'},
-            // passWord.length < 6 && {backgroundColor: '#e6e6e6'},
-          ]}
-          onPress={async () => {
-            //api 잠시 끄기
-            const os = Platform.OS;
-            if (os === 'I') {
-              await userRegistApi('I');
-            } else {
-              await userRegistApi('A');
-            }
-            if (returnValue === 0) {
-              navigation.navigate('CompleteAuth');
-            }
-            //본부장님 테스트용
-            // if (returnApprove == 0) {
-            //   navigation.navigate('CompleteAuth');
-            // }
-          }}>
-          <Text
+          <TouchableOpacity
             style={[
-              ResetStyle.fontMediumK,
-              ResetStyle.fontWhite,
-              {fontWeight: '600'},
-            ]}>
-            {t('emailAuthenticationNextButton')}
-          </Text>
-        </TouchableOpacity>
-        <TextConfirmModal
-          setModalVisible={setModalVisible}
-          modalVisible={modalVisible}
-          handleNextPage={handleNextPage}
-          text={t('emailAuthentication6')}
-          confirm={t('emailAuthentication7')}
-        />
-        <BottomModal
-          setModalVisible={setModal2Visible}
-          modalVisible={modal2Visible}
-          text={t('emailAuthentication8')}
-        />
-        <BottomModal
-          setModalVisible={setModal3Visible}
-          modalVisible={modal3Visible}
-          text={t('signUpModal2')}
-        />
-      </View>
+              ResetStyle.button,
+              returnApprove != '0' && {backgroundColor: '#e6e6e6'},
+              // passWord.length < 6 && {backgroundColor: '#e6e6e6'},
+            ]}
+            onPress={async () => {
+              //api 잠시 끄기
+              const os = Platform.OS;
+              if (os === 'I') {
+                await userRegistApi('I');
+              } else {
+                await userRegistApi('A');
+              }
+              if (returnValue === 0) {
+                navigation.navigate('CompleteAuth');
+              }
+              //본부장님 테스트용
+              // if (returnApprove == 0) {
+              //   navigation.navigate('CompleteAuth');
+              // }
+            }}>
+            <Text
+              style={[
+                ResetStyle.fontMediumK,
+                ResetStyle.fontWhite,
+                {fontWeight: '600'},
+              ]}>
+              {t('emailAuthenticationNextButton')}
+            </Text>
+          </TouchableOpacity>
+          <TextConfirmModal
+            setModalVisible={setModalVisible}
+            modalVisible={modalVisible}
+            handleNextPage={handleNextPage}
+            text={t('emailAuthentication6')}
+            confirm={t('emailAuthentication7')}
+          />
+          <BottomModal
+            setModalVisible={setModal2Visible}
+            modalVisible={modal2Visible}
+            text={t('emailAuthentication8')}
+          />
+          <BottomModal
+            setModalVisible={setModal3Visible}
+            modalVisible={modal3Visible}
+            text={t('signUpModal2')}
+          />
+          <TextConfirmCancelModal
+            modalVisible={modalVisibleGoBack}
+            setModalVisible={setModalVisibleGoBack}
+            text={'회원가입을 취소하시겠습니까?'}
+            confirm={'확인'}
+            confirmHandle={() => navigation.popToTop()}
+            cancel={'취소'}
+            cancelHandle={() => setModalVisibleGoBack(false)}
+          />
+        </View>
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 };

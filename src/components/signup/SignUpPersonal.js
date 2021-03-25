@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import {
   View,
   Text,
@@ -6,15 +6,18 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Image,
+  BackHandler,
 } from 'react-native';
-import ResetStyle from '@style/ResetStyle.js';
-import AuthStyle from '@style/AuthStyle.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {server} from '@context/server';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
+
+import ResetStyle from '@style/ResetStyle.js';
+import AuthStyle from '@style/AuthStyle.js';
+import TextConfirmCancelModal from '@factory/modal/TextConfirmCancelModal';
 
 const SignUpPersonal = ({route}) => {
   const navigation = useNavigation();
@@ -29,18 +32,19 @@ const SignUpPersonal = ({route}) => {
   const [checkPasswordBlur, setCheckPasswordBlur] = useState(true);
   const [checkEmail, setCheckEmail] = useState('');
   const [checkEmailValidation, setCheckEmailValidation] = useState(true);
+  const [modalVisibleGoBack, setModalVisibleGoBack] = useState(false);
 
   const handleEmail = (e) => {
     setEmail(e);
   };
 
   const handlePassword = (e) => {
-    setPassword(e);
+    setPassword(e.replace(' ', ''));
   };
 
   const handleCheckPassword = (e) => {
-    setCheckPassword(e);
-    setCheckBoolean(e);
+    setCheckPassword(e.replace(' ', ''));
+    setCheckBoolean(e.replace(' ', ''));
   };
 
   const handleInviteCode = (e) => {
@@ -82,7 +86,7 @@ const SignUpPersonal = ({route}) => {
 
   //이메일 유효성 체크
   const CheckEmail = (str) => {
-    var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+    const reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
     if (!reg_email.test(str)) {
       return false;
     } else {
@@ -92,12 +96,12 @@ const SignUpPersonal = ({route}) => {
 
   //비밀번호 유효성 체크
   const chkPW = (password) => {
-    var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-    var regHigh = /^(?=.*?[A-Z])/;
-    var regRow = /^(?=.*?[a-z])/;
-    var regNumber = /^(?=.*?[0-9])/;
-    var regCharacters = /^(?=.*?[~!@#$%^&*()_+|<>?:{}])/;
-    var pw = password;
+    const reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+    const regHigh = /^(?=.*?[A-Z])/;
+    const regRow = /^(?=.*?[a-z])/;
+    const regNumber = /^(?=.*?[0-9])/;
+    const regCharacters = /^(?=.*?[~!@#$%^&*()_+|<>?:{}])/;
+    const pw = password;
 
     if (false === regHigh.test(pw)) {
       console.log('대문자');
@@ -111,49 +115,79 @@ const SignUpPersonal = ({route}) => {
     } else if (false === regCharacters.test(pw)) {
       console.log('특수문자');
       return false;
+    } else if (password.length < 8) {
+      return false;
     } else {
       return true;
     }
   };
 
   const chkPWHigh = (password) => {
-    var regHigh = /^(?=.*?[A-Z])/;
-    var pw = password;
+    const regHigh = /^(?=.*?[A-Z])/;
+    const pw = password;
 
     return regHigh.test(pw);
   };
 
   const chkPWRow = (password) => {
-    var regRow = /^(?=.*?[a-z])/;
-    var pw = password;
+    const regRow = /^(?=.*?[a-z])/;
+    const pw = password;
 
     return regRow.test(pw);
   };
 
   const chkPWNumber = (password) => {
-    var regNumber = /^(?=.*?[0-9])/;
-    var pw = password;
+    const regNumber = /^(?=.*?[0-9])/;
+    const pw = password;
 
     return regNumber.test(pw);
   };
 
   const chkPWCharacter = (password) => {
-    var regCharacters = /^(?=.*?[~!@#$%^&*()_+|<>?:{}])/;
-    var pw = password;
+    const regCharacters = /^(?=.*?[~!@#$%^&*()_+|<>?:{}])/;
+    const pw = password;
     return regCharacters.test(pw);
   };
+
+  const goBack = () => {
+    setModalVisibleGoBack(true);
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      const onAndroidBackPress = () => {
+        setModalVisibleGoBack(true);
+        return true;
+      };
+
+      if (Platform.OS === 'android') {
+        BackHandler.addEventListener('hardwareBackPress', onAndroidBackPress);
+      }
+
+      return () => {
+        if (Platform.OS === 'android') {
+          BackHandler.removeEventListener(
+            'hardwareBackPress',
+            onAndroidBackPress,
+          );
+        }
+      };
+    }, []),
+  );
 
   return (
     <SafeAreaView style={ResetStyle.container}>
       <KeyboardAwareScrollView
         enableOnAndroid={true}
-        contentContainerStyle={{flexGrow: 1}}>
+        contentContainerStyle={{flexGrow: 1}}
+        bounces={false}
+        showsVerticalScrollIndicator={false}>
         <View style={[ResetStyle.containerInner]}>
           {/* topBackButton */}
           <View style={[ResetStyle.topBackButton, {paddingBottom: '2%'}]}>
             <TouchableOpacity
               style={{flexDirection: 'row', alignItems: 'center'}}
-              onPress={() => navigation.goBack()}>
+              onPress={() => goBack()}>
               <Image
                 style={{
                   width: Platform.OS === 'ios' ? 28 : 22,
@@ -675,6 +709,15 @@ const SignUpPersonal = ({route}) => {
           </TouchableOpacity>
         </View>
       </KeyboardAwareScrollView>
+      <TextConfirmCancelModal
+        modalVisible={modalVisibleGoBack}
+        setModalVisible={setModalVisibleGoBack}
+        text={'회원가입을 취소하시겠습니까?'}
+        confirm={'확인'}
+        confirmHandle={() => navigation.popToTop()}
+        cancel={'취소'}
+        cancelHandle={() => setModalVisibleGoBack(false)}
+      />
     </SafeAreaView>
   );
 };
