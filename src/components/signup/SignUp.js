@@ -226,11 +226,16 @@ const SignUp = () => {
   return (
     <SafeAreaView style={ResetStyle.container}>
       <KeyboardAwareScrollView
-        enableOnAndroid={true}
         contentContainerStyle={{flexGrow: 1}}
         bounces={false}
         showsVerticalScrollIndicator={false}>
-        <View style={[ResetStyle.containerInner]}>
+        <View
+          style={{
+            flex: 1,
+            marginHorizontal: '5%',
+            marginBottom: Platform.OS === 'ios' ? 0 : '5%',
+            backgroundColor: '#fff',
+          }}>
           <View>
             {/* topBackButton */}
             <View style={ResetStyle.topBackButton}>
@@ -267,6 +272,7 @@ const SignUp = () => {
                 ResetStyle.fontRegularK,
                 ResetStyle.fontBlack,
                 ResetStyle.textInputTitle,
+                {marginTop: '10%'},
               ]}>
               {t('signUp2')}
             </Text>
@@ -409,10 +415,18 @@ const SignUp = () => {
                 ResetStyle.fontRegularK,
                 ResetStyle.fontBlack,
                 ResetStyle.textInputTitle,
+                {marginTop: '10%'},
               ]}>
               {t('signUp7')}
             </Text>
-            <View style={{borderBottomWidth: 1, borderBottomColor: '#e6e6e6'}}>
+            <View
+              style={{
+                borderBottomWidth: 1,
+                borderBottomColor: '#e6e6e6',
+                flexDirection: 'row',
+                alignItems: 'flex-end',
+                justifyContent: 'space-between',
+              }}>
               <TextInput
                 placeholder={t('signUp8')}
                 placeholderTextColor="#a9a9a9"
@@ -425,31 +439,31 @@ const SignUp = () => {
                   ResetStyle.fontRegularK,
                   ResetStyle.fontBlack,
                   ResetStyle.textInputText,
-                  {borderBottomWidth: 0},
+                  {borderBottomWidth: 0, maxWidth: '80%'},
                 ]}
               />
-            </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  paddingBottom: '4%',
+                }}>
+                <Image
+                  source={require('@images/iconTime.png')}
+                  style={[ResetStyle.smallImg, {marginRight: 8}]}
+                />
+                {/* <Text style={{fontSize: 15, color: '#0b95c9', fontWeight: '500', marginLeft: 5}}>00:00</Text> */}
 
-            <View
-              style={[
-                ResetStyle.textInputTextButton,
-                {flexDirection: 'row', top: '38%'},
-              ]}>
-              <Image
-                source={require('@images/iconTime.png')}
-                style={[ResetStyle.smallImg, {marginRight: 8}]}
-              />
-              {/* <Text style={{fontSize: 15, color: '#0b95c9', fontWeight: '500', marginLeft: 5}}>00:00</Text> */}
-
-              <CountDown
-                standard={isRunning}
-                timeLeftNumber={timeLeftNumber}
-                handleReCountDown={handleReCountDown}
-                handleCountDownCheck={handleCountDownCheck}
-                CountDownCheck={CountDownCheck}
-                CountDownExpireCheck={CountDownExpireCheck}
-                handleCountDownExpireCheck={handleCountDownExpireCheck}
-              />
+                <CountDown
+                  standard={isRunning}
+                  timeLeftNumber={timeLeftNumber}
+                  handleReCountDown={handleReCountDown}
+                  handleCountDownCheck={handleCountDownCheck}
+                  CountDownCheck={CountDownCheck}
+                  CountDownExpireCheck={CountDownExpireCheck}
+                  handleCountDownExpireCheck={handleCountDownExpireCheck}
+                />
+              </View>
             </View>
 
             <View
@@ -506,6 +520,7 @@ const SignUp = () => {
               password.length !== 6 && {
                 backgroundColor: '#e6e6e6',
               },
+              {marginTop: '20%'},
             ]}
             onPress={async () => {
               await smsAuthApproveApi(
@@ -561,10 +576,10 @@ const SignUp = () => {
       <TextConfirmCancelModal
         modalVisible={modalVisibleGoBack}
         setModalVisible={setModalVisibleGoBack}
-        text={'회원가입을 취소하시겠습니까?'}
-        confirm={'확인'}
+        text={t('SignUp_Reset')}
+        confirm={t('confirm')}
         confirmHandle={() => navigation.popToTop()}
-        cancel={'취소'}
+        cancel={t('cancel')}
         cancelHandle={() => setModalVisibleGoBack(false)}
       />
     </SafeAreaView>

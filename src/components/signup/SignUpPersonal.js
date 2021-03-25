@@ -178,13 +178,20 @@ const SignUpPersonal = ({route}) => {
   return (
     <SafeAreaView style={ResetStyle.container}>
       <KeyboardAwareScrollView
-        enableOnAndroid={true}
         contentContainerStyle={{flexGrow: 1}}
         bounces={false}
         showsVerticalScrollIndicator={false}>
-        <View style={[ResetStyle.containerInner]}>
+        <View
+          style={[
+            {
+              flex: 1,
+              marginHorizontal: '5%',
+              marginBottom: Platform.OS === 'ios' ? 0 : '5%',
+              backgroundColor: '#fff',
+            },
+          ]}>
           {/* topBackButton */}
-          <View style={[ResetStyle.topBackButton, {paddingBottom: '2%'}]}>
+          <View style={[ResetStyle.topBackButton]}>
             <TouchableOpacity
               style={{flexDirection: 'row', alignItems: 'center'}}
               onPress={() => goBack()}>
@@ -209,7 +216,7 @@ const SignUpPersonal = ({route}) => {
                 style={[
                   ResetStyle.fontRegularK,
                   ResetStyle.fontBlack,
-                  {textAlign: 'left'},
+                  {marginTop: '10%', textAlign: 'left'},
                 ]}>
                 {t('signUpPersonal1')}
               </Text>
@@ -335,7 +342,7 @@ const SignUpPersonal = ({route}) => {
                 style={[
                   ResetStyle.fontRegularK,
                   ResetStyle.fontBlack,
-                  {textAlign: 'left'},
+                  {marginTop: '10%', textAlign: 'left'},
                 ]}>
                 {t('signUpPersonal3')}
               </Text>
@@ -528,7 +535,7 @@ const SignUpPersonal = ({route}) => {
                 style={[
                   ResetStyle.fontRegularK,
                   ResetStyle.fontBlack,
-                  {textAlign: 'left'},
+                  {marginTop: '10%', textAlign: 'left'},
                 ]}>
                 {t('signUpPersonal10')}
               </Text>
@@ -712,10 +719,10 @@ const SignUpPersonal = ({route}) => {
       <TextConfirmCancelModal
         modalVisible={modalVisibleGoBack}
         setModalVisible={setModalVisibleGoBack}
-        text={'회원가입을 취소하시겠습니까?'}
-        confirm={'확인'}
+        text={t('SignUp_Reset')}
+        confirm={t('confirm')}
         confirmHandle={() => navigation.popToTop()}
-        cancel={'취소'}
+        cancel={t('cancel')}
         cancelHandle={() => setModalVisibleGoBack(false)}
       />
     </SafeAreaView>

@@ -292,10 +292,10 @@ const AgreementTermsConditions = ({route}) => {
       <TextConfirmCancelModal
         modalVisible={modalVisibleGoBack}
         setModalVisible={setModalVisibleGoBack}
-        text={'회원가입을 취소하시겠습니까?'}
-        confirm={'확인'}
+        text={t('SignUp_Reset')}
+        confirm={t('confirm')}
         confirmHandle={() => navigation.popToTop()}
-        cancel={'취소'}
+        cancel={t('cancel')}
         cancelHandle={() => setModalVisibleGoBack(false)}
       />
     </SafeAreaView>

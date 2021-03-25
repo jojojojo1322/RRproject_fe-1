@@ -14,6 +14,7 @@ import {useTranslation} from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import axios from 'axios';
+import {useDispatch, useSelector} from 'react-redux';
 import {server} from '@context/server';
 
 import CountDown from '@factory/CountDown';
@@ -23,10 +24,16 @@ import AuthStyle from '@style/AuthStyle.js';
 import BottomModal from '@factory/modal/BottomModal';
 import TextConfirmModal from '@factory/modal/TextConfirmModal';
 import TextConfirmCancelModal from '@factory/modal/TextConfirmCancelModal';
+import {signUp} from '@module/auth';
 
 const EmailAuthentication = ({route}) => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const {t} = useTranslation();
+
+  const {signupResult} = useSelector(({auth}) => ({
+    signupResult: auth.signupResult,
+  }));
 
   const [passWord, setPassWord] = useState('');
   const [email, setEmail] = useState(route.params?.email);
@@ -122,25 +129,36 @@ const EmailAuthentication = ({route}) => {
     }
   };
 
-  const userRegistApi = async (osType) => {
-    await axios
-      .post(`${server}/user/register`, {
+  const userRegistApi = (osType) => {
+    console.log(osType);
+    dispatch(
+      signUp({
         deviceKey: route.params?.deviceKey,
         inviteCode: '',
         mailId: route.params?.email,
         osType: osType,
         phoneNum: route.params?.phoneNum,
         userPw: route.params?.password,
-      })
-      .then(async (data) => {
-        console.log('thenuserRegistApi', data);
-        console.log('thenuserRegistApi', data.data.ret_val);
-        await AsyncStorage.setItem('userNo', data.data.userNo);
-        setReturnValue(data.data.ret_val);
-      })
-      .catch((error) => {
-        console.log('ERRORuserRegistApi', error);
-      });
+      }),
+    );
+    // await axios
+    //   .post(`${server}/user/register`, {
+    //     deviceKey: route.params?.deviceKey,
+    //     inviteCode: '',
+    //     mailId: route.params?.email,
+    //     osType: osType,
+    //     phoneNum: route.params?.phoneNum,
+    //     userPw: route.params?.password,
+    //   })
+    //   .then(async (data) => {
+    //     console.log('thenuserRegistApi', data);
+    //     console.log('thenuserRegistApi', data.data.ret_val);
+    //     await AsyncStorage.setItem('userNo', data.data.userNo);
+    //     setReturnValue(data.data.ret_val);
+    //   })
+    //   .catch((error) => {
+    //     console.log('ERRORuserRegistApi', error);
+    //   });
   };
 
   const setAuthKeyData = async () => {
@@ -156,6 +174,24 @@ const EmailAuthentication = ({route}) => {
   const goBack = () => {
     setModalVisibleGoBack(true);
   };
+
+  useEffect(() => {
+    if (signupResult) {
+      const {userNo, ret_val} = signupResult;
+      AsyncStorage.setItem('userNo', userNo);
+      setReturnValue(ret_val);
+    }
+  }, [signupResult]);
+
+  useEffect(() => {
+    if (returnValue === 0) {
+      navigation.navigate('CompleteAuth');
+    }
+    //본부장님 테스트용
+    // if (returnApprove == 0) {
+    //   navigation.navigate('CompleteAuth');
+    // }
+  }, [returnValue]);
 
   useEffect(() => {
     setAuthKeyData();
@@ -186,7 +222,6 @@ const EmailAuthentication = ({route}) => {
   return (
     <SafeAreaView style={ResetStyle.container}>
       <KeyboardAwareScrollView
-        enableOnAndroid={true}
         contentContainerStyle={{flexGrow: 1}}
         bounces={false}
         showsVerticalScrollIndicator={false}>
@@ -236,6 +271,8 @@ const EmailAuthentication = ({route}) => {
                     alignItems: 'center',
                     paddingTop: '3%',
                     paddingBottom: '2%',
+                    borderBottomWidth: 1,
+                    borderBottomColor: '#e6e6e6',
                   }}>
                   <View
                     style={{
@@ -255,8 +292,9 @@ const EmailAuthentication = ({route}) => {
                         ResetStyle.fontRegularK,
                         ResetStyle.fontBlack,
                         {
-                          textAlign: 'left',
                           width: 'auto',
+                          textAlign: 'left',
+                          padding: 0,
                         },
                       ]}
                     />
@@ -375,22 +413,7 @@ const EmailAuthentication = ({route}) => {
               returnApprove != '0' && {backgroundColor: '#e6e6e6'},
               // passWord.length < 6 && {backgroundColor: '#e6e6e6'},
             ]}
-            onPress={async () => {
-              //api 잠시 끄기
-              const os = Platform.OS;
-              if (os === 'I') {
-                await userRegistApi('I');
-              } else {
-                await userRegistApi('A');
-              }
-              if (returnValue === 0) {
-                navigation.navigate('CompleteAuth');
-              }
-              //본부장님 테스트용
-              // if (returnApprove == 0) {
-              //   navigation.navigate('CompleteAuth');
-              // }
-            }}>
+            onPress={() => userRegistApi(Platform.OS === 'ios' ? 'I' : 'A')}>
             <Text
               style={[
                 ResetStyle.fontMediumK,
@@ -420,10 +443,10 @@ const EmailAuthentication = ({route}) => {
           <TextConfirmCancelModal
             modalVisible={modalVisibleGoBack}
             setModalVisible={setModalVisibleGoBack}
-            text={'회원가입을 취소하시겠습니까?'}
-            confirm={'확인'}
+            text={t('SignUp_Reset')}
+            confirm={t('confirm')}
             confirmHandle={() => navigation.popToTop()}
-            cancel={'취소'}
+            cancel={t('cancel')}
             cancelHandle={() => setModalVisibleGoBack(false)}
           />
         </View>

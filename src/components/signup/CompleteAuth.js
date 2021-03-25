@@ -1,13 +1,42 @@
-import React from 'react';
-import {View, Text, TouchableOpacity, SafeAreaView, Image} from 'react-native';
+import React, {useCallback} from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  SafeAreaView,
+  Image,
+  BackHandler,
+} from 'react-native';
 import {useTranslation} from 'react-i18next';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useFocusEffect} from '@react-navigation/native';
 
 import ResetStyle from '@style/ResetStyle.js';
 
 const CompleteAuth = () => {
   const {t} = useTranslation();
   const navigation = useNavigation();
+
+  useFocusEffect(
+    useCallback(() => {
+      const onAndroidBackPress = () => {
+        navigation.popToTop();
+        return true;
+      };
+
+      if (Platform.OS === 'android') {
+        BackHandler.addEventListener('hardwareBackPress', onAndroidBackPress);
+      }
+
+      return () => {
+        if (Platform.OS === 'android') {
+          BackHandler.removeEventListener(
+            'hardwareBackPress',
+            onAndroidBackPress,
+          );
+        }
+      };
+    }, []),
+  );
 
   return (
     <SafeAreaView style={ResetStyle.container}>
