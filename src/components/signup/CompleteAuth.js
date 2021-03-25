@@ -1,4 +1,3 @@
-
 import React, {useCallback} from 'react';
 import {
   View,
@@ -12,16 +11,11 @@ import {useTranslation} from 'react-i18next';
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
 
 import ResetStyle from '@style/ResetStyle.js';
-import AuthStyle from '@style/AuthStyle.js';
 
-import {useTranslation} from 'react-i18next';
-import {withTranslation} from 'react-i18next';
-import hoistStatics from 'hoist-non-react-statics';
-
-const CompleteAuth = ({navigation}) => {
+const CompleteAuth = () => {
   const {t} = useTranslation();
   const navigation = useNavigation();
-  
+
   useFocusEffect(
     useCallback(() => {
       const onAndroidBackPress = () => {
@@ -43,7 +37,7 @@ const CompleteAuth = ({navigation}) => {
       };
     }, []),
   );
-  
+
   return (
     <SafeAreaView style={ResetStyle.container}>
       <View style={ResetStyle.containerInner}>
@@ -117,5 +111,5 @@ const CompleteAuth = ({navigation}) => {
     </SafeAreaView>
   );
 };
-                   
+
 export default CompleteAuth;
