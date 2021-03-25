@@ -155,34 +155,34 @@ const Splash = ({loading, setLoading}) => {
       console.log('Authorization status:', authStatus);
     }
   };
-  const [autologinId, setAutologinId] = useState('');
-  const [autologinPw, setAutologinPw] = useState('');
-  const [autologinKey, setAutologinKey] = useState('');
+  const [autologinId, setAutologinId] = useState(null);
+  const [autologinPw, setAutologinPw] = useState(null);
+  const [autologinKey, setAutologinKey] = useState(null);
 
   const loadInitialData = async () => {
     try {
-      console.log('tryyyyyyy');
       await AsyncStorage.getItem('email').then((res) => {
         if (res) {
-          let {id} = JSON.parse(res);
-          setAutologinId(id);
-          console.log('ididididididididid', id);
+          setAutologinId(res);
         }
       });
       await AsyncStorage.getItem('password').then((res) => {
         if (res) {
-          let {password} = JSON.parse(res);
-          setAutologinPw(password);
-          console.log('pwpwpwpwpwpwpwpwpwpw', pw);
+          setAutologinPw(res);
         }
       });
       await AsyncStorage.getItem('deviceKey').then((res) => {
         if (res) {
-          let {deviceKey} = JSON.parse(res);
-          setAutologinKey(deviceKey);
-          console.log('keyyyyyyyyyyy', deviceKey);
+          setAutologinKey(res);
         }
       });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    if (autologinKey && autologinId && autologinPw) {
       dispatch(
         signIn({
           deviceKey: autologinKey,
@@ -190,42 +190,17 @@ const Splash = ({loading, setLoading}) => {
           password: autologinPw,
         }),
       );
-    } catch (e) {
-      console.log(e);
     }
-  };
-
-  const {loginPayload} = useSelector(({auth}) => ({
-    loginPayload: auth.loginPayload,
-  }));
-
-  useEffect(() => {
-    if (loginPayload) {
-      console.log('adafasdfasdaf-------', loginPayload);
-      if (loginPayload.status === true) {
-        if (loginPayload.hasWallet === -1) {
-          setModal5Visible(false);
-          setModalVisible(true);
-        } else {
-          navigation.navigate('Main');
-        }
-      }
-    }
-  }, [
-    loginPayload,
-    loginPayload.status,
-    loginPayload.hasWallet,
-    loginPayload.msg,
-  ]);
+  }, [autologinKey, autologinId, autologinPw]);
 
   useEffect(() => {
     SplashScreen.hide();
+    loadInitialData();
     setTimeout(() => {
       // 버전 확인
       // handleFirebasePermission();
       // requestUserPermission();
       handlePermission();
-      loadInitialData();
       messaging().setBackgroundMessageHandler(async (remoteMessage) => {
         console.log('Message handled in the background!', remoteMessage);
       });

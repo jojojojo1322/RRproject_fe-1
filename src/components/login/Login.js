@@ -193,31 +193,6 @@ const Login = ({navigation, history}) => {
         password: passWord,
       }),
     );
-    await AsyncStorage.setItem('email', ID);
-    await AsyncStorage.setItem('password', passWord);
-    await AsyncStorage.setItem('deviceKey', DeviceInfo.getUniqueId());
-
-    await AsyncStorage.getItem('email').then((res) => {
-      if (res) {
-        let {id} = JSON.parse(res);
-        //setAutologinId(id);
-        console.log('ididididididididid', id);
-      }
-    });
-    await AsyncStorage.getItem('password').then((res) => {
-      if (res) {
-        let {password} = JSON.parse(res);
-        //setAutologinPw(password);
-        console.log('pwpwpwpwpwpwpwpwpwpw', pw);
-      }
-    });
-    await AsyncStorage.getItem('deviceKey').then((res) => {
-      if (res) {
-        let {deviceKey} = JSON.parse(res);
-        //setAutologinKey(deviceKey);
-        console.log('keyyyyyyyyyyy', deviceKey);
-      }
-    });
   };
 
   const {loginPayload} = useSelector(({auth}) => ({
@@ -233,6 +208,9 @@ const Login = ({navigation, history}) => {
           setModalVisible(true);
         } else {
           navigation.navigate('Main');
+          AsyncStorage.setItem('email', ID);
+          AsyncStorage.setItem('password', passWord);
+          AsyncStorage.setItem('deviceKey', DeviceInfo.getUniqueId());
         }
       } else if (loginPayload.status === false) {
         if (loginPayload.msg === 'KycLevel1 Not Saved') {
@@ -322,10 +300,8 @@ const Login = ({navigation, history}) => {
             <TouchableOpacity
               style={ResetStyle.button}
               activeOpacity={0.75}
-              onPress={
-                () => handleSignIn()
-
-                //async () => {
+              onPress={() => handleSignIn()}>
+              {/* //async () => {
                 // api용;
                 // setHasWallet('');
                 // console.log(ID);
@@ -355,24 +331,6 @@ const Login = ({navigation, history}) => {
                 // });
                 // console.log('this.state.loginCheck', loginCheck);
 
-                // if (loginCheck) {
-                //   if (hasWallet === -1) {
-                //     // this.setModal5Visible(false);
-                //     console.log('aaa');
-                //     setModalVisible(true);
-                //   } else {
-                //     navigation.navigate('Main');
-                //   }
-                // } else {
-                //   if (errorMsg === 'KycLevel1 Not Saved') {
-                //     setModal3Visible(true);
-                //   } else if (errorMsg === 'DeviceKey Not Equal') {
-                //     setModal4Visible(true);
-                //   } else {
-                //     setModal2Visible(true);
-                //   }
-                // }
-
                 //본부장님 테스트용
                 // // this.props.navigation.navigate('WalletPassword');
                 // this.props.route.params?.loginSuccess(
@@ -382,8 +340,8 @@ const Login = ({navigation, history}) => {
                 //     'userNo',
                 //     '5fd188217878d135df02c1bd',
                 //   );
-                //}
-              }>
+                //} */}
+
               <Text
                 style={[
                   ResetStyle.fontMediumK,
