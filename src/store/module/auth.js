@@ -56,9 +56,9 @@ const initialState = {
 };
 
 const auth = createReducer(initialState, {
-  [INFO_SUCCESS]: (state, {payload}) => ({
+  [INFO_SUCCESS]: (state, {payload: data}) => ({
     ...state,
-    info: payload,
+    info: data,
     infoError: null,
   }),
   [INFO_FAILURE]: (state, {payload: error}) => ({

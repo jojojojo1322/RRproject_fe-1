@@ -37,7 +37,7 @@ import {withTranslation} from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';
 
 import {testSample} from '@module/sample';
-import {signIn} from '@module/auth';
+import {getUserInfo, signIn} from '@module/auth';
 
 // import RNPickerSelect from 'react-native-picker-select';
 
@@ -215,6 +215,7 @@ const Login = ({navigation, history}) => {
       } else if (loginPayload.status === false) {
         if (loginPayload.msg === 'KycLevel1 Not Saved') {
           setModal3Visible(true);
+          AsyncStorage.setItem('userNo', loginPayload.userNo);
         } else if (loginPayload.msg === 'DeviceKey Not Equal') {
           setModal4Visible(true);
         } else if (loginPayload.msg === 'Password Not Equal') {
@@ -223,12 +224,14 @@ const Login = ({navigation, history}) => {
           setModal2Visible(true);
         }
       }
+      dispatch(getUserInfo({userNo: loginPayload.userNo}));
     }
   }, [
     loginPayload,
     loginPayload.status,
     loginPayload.hasWallet,
     loginPayload.msg,
+    loginPayload.userNo,
   ]);
 
   return (

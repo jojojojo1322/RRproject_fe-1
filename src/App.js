@@ -129,7 +129,7 @@ export const AppMainStack = (props) => {
     test();
   }, []);
 
-  console.log('this.props.route.params?.login>?>?>', login);
+  //console.log('this.props.route.params?.login>?>?>', login);
 
   return (
     <Stack.Navigator
