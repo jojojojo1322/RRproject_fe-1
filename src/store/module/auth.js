@@ -19,12 +19,6 @@ const [SIGN_UP, SIGN_UP_SUCCESS, SIGN_UP_FAILURE] = createRequestActionTypes(
 );
 
 export const getUserInfo = createAction(INFO);
-
-const [SIGN_UP, SIGN_UP_SUCCESS, SIGN_UP_FAILURE] = createRequestActionTypes(
-  'auth/SIGN_UP',
-);
-
-
 export const signIn = createAction(SIGN_IN);
 export const signUp = createAction(SIGN_UP);
 
@@ -72,7 +66,6 @@ const initialState = {
   authError: '',
 
   signupFail: null,
-
 };
 
 const auth = createReducer(initialState, {
