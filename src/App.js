@@ -98,6 +98,7 @@ import SettingsPersonalMasterKey from '@components/settings/settingsDetail/perso
 import RNRestart from 'react-native-restart';
 
 import TestPage from './TestPage';
+import {useDispatch, useSelector} from 'react-redux';
 
 console.disableYellowBox = true;
 
@@ -106,6 +107,9 @@ const Drawer = createDrawerNavigator();
 
 export const AppMainStack = (props) => {
   const [login, setLogin] = useState(null);
+  const {loginPayload} = useSelector(({auth}) => ({
+    loginPayload: auth.loginPayload,
+  }));
 
   const test = async () => {
     try {
@@ -125,10 +129,11 @@ export const AppMainStack = (props) => {
     test();
   }, []);
 
-  console.log('this.props.route.params?.login>?>?>', login);
+  //console.log('this.props.route.params?.login>?>?>', login);
 
   return (
-    <Stack.Navigator initialRouteName="Initial2">
+    <Stack.Navigator
+      initialRouteName={loginPayload.userNo !== '' ? 'Main' : 'Initial2'}>
       {/* {login === null && props.route.params?.loginC === null ? (
         <Stack.Screen
           name="Initial2"

@@ -1473,9 +1473,10 @@ function Main({navigation, t, i18n}) {
             }}
             onPress={async () => {
               try {
-                console.log('USerNONONO', await AsyncStorage.getItem('userNo'));
-                await AsyncStorage.removeItem('userNo');
-                console.log('USerNONONO', await AsyncStorage.getItem('userNo'));
+                await AsyncStorage.removeItem('email');
+                await AsyncStorage.removeItem('password');
+                await AsyncStorage.removeItem('deviceKey');
+                console.log('LOGOUT------');
               } catch (e) {}
             }}
             // onPress={() => {
