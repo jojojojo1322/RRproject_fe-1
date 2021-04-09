@@ -234,6 +234,7 @@ export const AppMainStack = (props) => {
         component={SignUp}
         options={{
           headerShown: false,
+          gestureEnabled: false,
         }}
       />
 
@@ -242,6 +243,7 @@ export const AppMainStack = (props) => {
         component={AgreementTermsConditions}
         options={{
           headerShown: false,
+          gestureEnabled: false,
         }}
       />
       <Stack.Screen
@@ -256,6 +258,7 @@ export const AppMainStack = (props) => {
         component={SignUpPersonal}
         options={{
           headerShown: false,
+          gestureEnabled: false,
         }}
       />
       <Stack.Screen
@@ -263,6 +266,7 @@ export const AppMainStack = (props) => {
         component={EmailAuthentication}
         options={{
           headerShown: false,
+          gestureEnabled: false,
         }}
       />
       <Stack.Screen
@@ -270,6 +274,7 @@ export const AppMainStack = (props) => {
         component={CompleteAuth}
         options={{
           headerShown: false,
+          gestureEnabled: false,
         }}
       />
 

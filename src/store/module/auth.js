@@ -15,14 +15,23 @@ const [SIGN_IN, SIGN_IN_SUCCESS, SIGN_IN_FAILURE] = createRequestActionTypes(
 );
 
 export const getUserInfo = createAction(INFO);
+
+const [SIGN_UP, SIGN_UP_SUCCESS, SIGN_UP_FAILURE] = createRequestActionTypes(
+  'auth/SIGN_UP',
+);
+
+
 export const signIn = createAction(SIGN_IN);
+export const signUp = createAction(SIGN_UP);
 
 const getUserInfoSaga = createRequestSaga(INFO, authAPI.getUserInfo);
 const signInSaga = createRequestSaga(SIGN_IN, authAPI.login);
+const signUpSaga = createRequestSaga(SIGN_UP, authAPI.signUp);
 
 export function* authSaga() {
   yield takeLatest(INFO, getUserInfoSaga);
   yield takeLatest(SIGN_IN, signInSaga);
+  yield takeLatest(SIGN_UP, signUpSaga);
 }
 
 const initialState = {
@@ -47,6 +56,7 @@ const initialState = {
     surveyBlockStatus: '',
     ipAddr: '',
   },
+  signupResult: null,
   loginFail: false,
   loginPayload: {
     userNo: '',
@@ -55,6 +65,9 @@ const initialState = {
     hasWallet: '',
   },
   authError: '',
+
+  signupFail: null,
+
 };
 
 const auth = createReducer(initialState, {
@@ -86,6 +99,20 @@ const auth = createReducer(initialState, {
       ...state,
       authError: error,
       loginFail: true,
+    };
+  },
+  [SIGN_UP_SUCCESS]: (state, {payload: data}) => {
+    return {
+      ...state,
+      signupResult: data,
+      signupFail: null,
+    };
+  },
+  [SIGN_UP_FAILURE]: (state, {payload: error}) => {
+    return {
+      ...state,
+      signupResult: null,
+      signupFail: error,
     };
   },
 });

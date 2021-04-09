@@ -748,6 +748,10 @@ export default ko = {
 
       // splash page   RR-00-01-01-스플래시1
       splash: '블록체인 기반의 설문조사',
+
+      // SignUp Page 회원가입 취소
+      SignUp_Reset:
+        '입력하신 정보가 초기화 됩니다. 회원가입을 중단하시겠습니까?',
     },
   },
 };

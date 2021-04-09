@@ -766,6 +766,9 @@ export default es = {
 
       // splash page   RR-00-01-01-스플래시1
       splash: 'Blockchain-Based Survey',
+
+      // SignUp Page 회원가입 취소
+      SignUp_Reset: '¿Te gustaría dejar de registrarte?',
     },
   },
 };
