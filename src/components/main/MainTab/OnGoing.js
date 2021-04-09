@@ -325,7 +325,6 @@ const OnGoing = () => {
   };
 
   useEffect(() => {
-    console.log('user.userNo', user.userNo);
     if (user.userNo !== '') {
       dispatch(
         getOngoingSurveyList({
