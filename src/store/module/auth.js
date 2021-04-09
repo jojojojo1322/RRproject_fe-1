@@ -18,60 +18,69 @@ const [SIGN_UP, SIGN_UP_SUCCESS, SIGN_UP_FAILURE] = createRequestActionTypes(
   'auth/SIGN_UP',
 );
 
-export const getInfo = createAction(INFO);
+export const getUserInfo = createAction(INFO);
 export const signIn = createAction(SIGN_IN);
 export const signUp = createAction(SIGN_UP);
 
-const infoSaga = createRequestSaga(INFO, authAPI.getUserInfo);
+const getUserInfoSaga = createRequestSaga(INFO, authAPI.getUserInfo);
 const signInSaga = createRequestSaga(SIGN_IN, authAPI.login);
 const signUpSaga = createRequestSaga(SIGN_UP, authAPI.signUp);
 
 export function* authSaga() {
-  yield takeLatest(INFO, infoSaga);
+  yield takeLatest(INFO, getUserInfoSaga);
   yield takeLatest(SIGN_IN, signInSaga);
   yield takeLatest(SIGN_UP, signUpSaga);
 }
 
 const initialState = {
-  user: {
-    block: '',
-    createTime: '',
-    deviceKey: '',
-    inviteCode: '',
-    ipAddr: '',
-    kycStatus: '',
-    kycUpdated: '',
-    loginTime: '',
+  info: {
+    ret_val: null,
+    result: '',
+    userNo: '',
     mailId: '',
+    userPw: '',
+    inviteCode: '',
+    deviceKey: '',
     osType: '',
     phoneNum: '',
-    surveyBlockStatus: '',
+    createTime: '',
     updateTime: '',
-    userLevel: '',
-    userNo: '',
-    userPw: '',
+    loginTime: '',
+    block: '',
     wallet: '',
+    kycStatus: '',
+    userLevel: '',
+    kycUpdated: '',
+    surveyBlockStatus: '',
+    ipAddr: '',
   },
   signupResult: null,
   loginFail: false,
   signupFail: null,
+  loginPayload: {
+    userNo: '',
+    status: false,
+    msg: '',
+    hasWallet: '',
+  },
+  authError: '',
 };
 
 const auth = createReducer(initialState, {
-  [INFO_SUCCESS]: (state, {payload}) => ({
+  [INFO_SUCCESS]: (state, {payload: data}) => ({
     ...state,
-    info: payload,
+    info: data,
     infoError: null,
   }),
   [INFO_FAILURE]: (state, {payload: error}) => ({
     ...state,
     infoError: error,
   }),
-  [SIGN_IN_SUCCESS]: (state, {payload: {data}}) => {
+  [SIGN_IN_SUCCESS]: (state, {payload: data}) => {
     if (data) {
       return {
         ...state,
-        user: data,
+        loginPayload: data,
         loginFail: false,
       };
     } else {
@@ -81,10 +90,10 @@ const auth = createReducer(initialState, {
       };
     }
   },
-  [SIGN_IN_FAILURE]: (state, {payload}) => {
+  [SIGN_IN_FAILURE]: (state, {payload: error}) => {
     return {
       ...state,
-      authError: payload,
+      authError: error,
       loginFail: true,
     };
   },
