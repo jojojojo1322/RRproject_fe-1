@@ -36,7 +36,6 @@ import {useTranslation} from 'react-i18next';
 import {withTranslation} from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';
 
-import {testSample} from '@module/sample';
 import {getUserInfo, signIn} from '@module/auth';
 
 // import RNPickerSelect from 'react-native-picker-select';
@@ -64,9 +63,6 @@ const Item = ({item, onPress, style}) => (
 
 const Login = ({navigation, history}) => {
   const dispatch = useDispatch();
-  const {sampleData} = useSelector(({sample}) => ({
-    sampleData: sample.sampleData,
-  }));
 
   const [ID, setID] = useState('');
   const [passWord, setPassWord] = useState('');

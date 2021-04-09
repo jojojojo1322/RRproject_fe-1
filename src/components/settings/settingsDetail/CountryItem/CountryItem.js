@@ -1,29 +1,24 @@
 import React, {useEffect} from 'react';
 import {Text, View, Image} from 'react-native';
-// import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {TouchableWithoutFeedback} from 'react-native';
 import {useTranslation} from 'react-i18next';
+
 import ResetStyle from '@style/ResetStyle.js';
-//import {useDispatch} from 'react-redux';
+import {setLangauge} from '@module/language';
 
-//import {setLangauge} from '@module/language';
-//import getImageName from '@lib/getImageName';
-// import {
-//   ItemWrapper,
-//   Flag,
-//   Country,
-//   IconWrapper,
-//   CheckIcon,
-// } from './CountryItem.style';
-
-const CountryItem = ({name, code, select, setSelect}) => {
+const CountryItem = ({name, code}) => {
   const {t, i18n} = useTranslation();
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch();
+
+  const {language} = useSelector(({language}) => ({
+    language: language.language,
+  }));
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
-        setSelect(code);
-        //dispatch(setLangauge({language: code}));
+        dispatch(setLangauge({language: code}));
         i18n.changeLanguage(code);
       }}>
       <View
@@ -44,7 +39,7 @@ const CountryItem = ({name, code, select, setSelect}) => {
           ]}>
           {name}
         </Text>
-        {select === code ? (
+        {language === code ? (
           <Image
             style={{width: 30, height: 30, resizeMode: 'contain'}}
             source={require('@images/iconCheckedS.png')}

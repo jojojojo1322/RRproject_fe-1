@@ -14,6 +14,10 @@ const [SIGN_IN, SIGN_IN_SUCCESS, SIGN_IN_FAILURE] = createRequestActionTypes(
   'auth/SIGN_IN',
 );
 
+const [SIGN_UP, SIGN_UP_SUCCESS, SIGN_UP_FAILURE] = createRequestActionTypes(
+  'auth/SIGN_UP',
+);
+
 export const getUserInfo = createAction(INFO);
 
 const [SIGN_UP, SIGN_UP_SUCCESS, SIGN_UP_FAILURE] = createRequestActionTypes(
@@ -58,6 +62,7 @@ const initialState = {
   },
   signupResult: null,
   loginFail: false,
+  signupFail: null,
   loginPayload: {
     userNo: '',
     status: null,
