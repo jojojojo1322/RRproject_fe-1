@@ -50,7 +50,7 @@ const initialState = {
   loginFail: false,
   loginPayload: {
     userNo: '',
-    status: false,
+    status: null,
     msg: '',
     hasWallet: '',
   },

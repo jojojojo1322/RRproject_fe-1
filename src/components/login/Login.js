@@ -214,6 +214,8 @@ const Login = ({navigation, history}) => {
           AsyncStorage.setItem('password', passWord);
           AsyncStorage.setItem('deviceKey', DeviceInfo.getUniqueId());
         }
+        console.log('num________________', loginPayload.userNo);
+        dispatch(getUserInfo({userNo: loginPayload.userNo}));
       } else if (loginPayload.status === false) {
         if (loginPayload.msg === 'KycLevel1 Not Saved') {
           setModal3Visible(true);
@@ -226,8 +228,6 @@ const Login = ({navigation, history}) => {
           setModal2Visible(true);
         }
       }
-      console.log('num________________', loginPayload.userNo);
-      dispatch(getUserInfo({userNo: loginPayload.userNo}));
     }
   }, [loginPayload]);
 
