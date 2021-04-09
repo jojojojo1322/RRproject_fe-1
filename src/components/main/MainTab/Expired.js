@@ -31,7 +31,7 @@ const Expired = () => {
 
   const {user, language, expiredSurveyList} = useSelector(
     ({auth, language, survey}) => ({
-      user: auth.user,
+      user: auth.info,
       language: language.language,
       expiredSurveyList: survey.expiredSurveyList,
     }),

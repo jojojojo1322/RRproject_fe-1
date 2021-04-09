@@ -71,7 +71,7 @@ const OnGoing = () => {
 
   const {user, language, ongoingSurveyList} = useSelector(
     ({auth, language, survey}) => ({
-      user: auth.user,
+      user: auth.info,
       language: language.language,
       ongoingSurveyList: survey.ongoingSurveyList,
     }),
@@ -313,7 +313,7 @@ const OnGoing = () => {
       getSurveyDetail({
         language,
         legacySurveyId,
-        userNo,
+        userNo: user.userNo,
       }),
     );
 
@@ -325,22 +325,16 @@ const OnGoing = () => {
   };
 
   useEffect(() => {
-    // if (user.userNo !== '') {
-    //   dispatch(
-    //     getOngoingSurveyList({
-    //       surveyStatus: 'ongoing',
-    //       language: 'ko',
-    //       userNo: user.userNo,
-    //     }),
-    //   );
-    // }
-    dispatch(
-      getOngoingSurveyList({
-        surveyStatus: 'ongoing',
-        language: language,
-        userNo: user.userNo,
-      }),
-    );
+    console.log('user.userNo', user.userNo);
+    if (user.userNo !== '') {
+      dispatch(
+        getOngoingSurveyList({
+          surveyStatus: 'ongoing',
+          language: 'ko',
+          userNo: user.userNo,
+        }),
+      );
+    }
   }, [user, language]);
 
   return (

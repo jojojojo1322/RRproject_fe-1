@@ -31,7 +31,7 @@ const Completed = () => {
 
   const {user, completedSurveyList} = useSelector(
     ({auth, language, survey}) => ({
-      user: auth.user,
+      user: auth.info,
       language: language.language,
       completedSurveyList: survey.completedSurveyList,
     }),
