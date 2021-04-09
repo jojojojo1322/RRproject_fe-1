@@ -199,6 +199,8 @@ const Login = ({navigation, history}) => {
     loginPayload: auth.loginPayload,
   }));
 
+  const [num, setNum] = useState(null);
+
   useEffect(() => {
     if (loginPayload) {
       console.log('login-------', loginPayload);
@@ -224,15 +226,18 @@ const Login = ({navigation, history}) => {
           setModal2Visible(true);
         }
       }
+      console.log('num________________', loginPayload.userNo);
       dispatch(getUserInfo({userNo: loginPayload.userNo}));
     }
-  }, [
-    loginPayload,
-    loginPayload.status,
-    loginPayload.hasWallet,
-    loginPayload.msg,
-    loginPayload.userNo,
-  ]);
+  }, [loginPayload]);
+
+  // useEffect(() => {
+  //   return () => {
+  //     dispatch(getUserInfo({userNo: loginPayload.userNo}));
+  //     console.log('userinfo----------------------------------------------');
+  //     console.log(num);
+  //   };
+  // }, []);
 
   return (
     <SafeAreaView style={ResetStyle.container}>

@@ -14,36 +14,38 @@ const [SIGN_IN, SIGN_IN_SUCCESS, SIGN_IN_FAILURE] = createRequestActionTypes(
   'auth/SIGN_IN',
 );
 
-export const getInfo = createAction(INFO);
+export const getUserInfo = createAction(INFO);
 export const signIn = createAction(SIGN_IN);
 
-const infoSaga = createRequestSaga(INFO, authAPI.getUserInfo);
+const getUserInfoSaga = createRequestSaga(INFO, authAPI.getUserInfo);
 const signInSaga = createRequestSaga(SIGN_IN, authAPI.login);
 
 export function* authSaga() {
-  yield takeLatest(INFO, infoSaga);
+  yield takeLatest(INFO, getUserInfoSaga);
   yield takeLatest(SIGN_IN, signInSaga);
 }
 
 const initialState = {
-  user: {
-    block: '',
-    createTime: '',
-    deviceKey: '',
-    inviteCode: '',
-    ipAddr: '',
-    kycStatus: '',
-    kycUpdated: '',
-    loginTime: '',
+  info: {
+    ret_val: null,
+    result: '',
+    userNo: '',
     mailId: '',
+    userPw: '',
+    inviteCode: '',
+    deviceKey: '',
     osType: '',
     phoneNum: '',
-    surveyBlockStatus: '',
+    createTime: '',
     updateTime: '',
-    userLevel: '',
-    userNo: '',
-    userPw: '',
+    loginTime: '',
+    block: '',
     wallet: '',
+    kycStatus: '',
+    userLevel: '',
+    kycUpdated: '',
+    surveyBlockStatus: '',
+    ipAddr: '',
   },
   loginFail: false,
   loginPayload: {
