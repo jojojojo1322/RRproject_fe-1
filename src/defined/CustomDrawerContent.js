@@ -1,6 +1,5 @@
 import React, {Component, useEffect, useState} from 'react';
 import {View, Text, TouchableOpacity, Image, Platform} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {server} from '@context/server';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
@@ -17,6 +16,7 @@ import MainStyle from '@style/MainStyle.js';
 
 import email from 'react-native-email';
 import {useTranslation} from 'react-i18next';
+import {useSelector} from 'react-redux';
 // import {useIsFocused} from '@react-navigation/native';
 // import {useFocusEffect} from '@react-navigation/native';
 
@@ -51,6 +51,10 @@ const CustomDrawerContent = (props) => {
   const [_email, set_Email] = useState('');
   const [page, setPage] = useState('');
 
+  const {user} = useSelector(({auth}) => ({
+    user: auth.user,
+  }));
+
   const handleEmail = () => {
     const to = ['rrmaster@gmail.com']; // string or array of email addresses
     email(to, {
@@ -64,7 +68,7 @@ const CustomDrawerContent = (props) => {
     }).catch(console.error);
   };
   const emailAsyncSet = async () => {
-    set_Email(await AsyncStorage.getItem('email'));
+    set_Email(user.mailId);
   };
 
   useEffect(() => {
@@ -107,6 +111,7 @@ const CustomDrawerContent = (props) => {
     userApi();
     // passportApi();
   }, []);
+
   useEffect(() => {
     console.log(idData);
     console.log(idData);
@@ -140,7 +145,7 @@ const CustomDrawerContent = (props) => {
   // alert API
   const alertDataApi = async () => {
     await axios
-      .get(`${server}/noti/${await AsyncStorage.getItem('userNo')}`)
+      .get(`${server}/noti/${user.userNo}`)
       .then((response) => {
         console.log('alertDataApi THEN>>', response.data);
         setAlertData(response.data);
@@ -158,11 +163,7 @@ const CustomDrawerContent = (props) => {
 
   const passportApi = async () => {
     await axios
-      .get(
-        `${server}/util/passport/status?userNo=${await AsyncStorage.getItem(
-          'userNo',
-        )}`,
-      )
+      .get(`${server}/util/passport/status?userNo=${user.userNo}`)
       .then((response) => {
         console.log('passportApi THEN>>', response);
         console.log('passportApi THEN>>', response.data);
@@ -191,7 +192,7 @@ const CustomDrawerContent = (props) => {
   // drawer User API
   const getWalletApi = async () => {
     await axios
-      .get(`${server}/wallet/${await AsyncStorage.getItem('email')}`)
+      .get(`${server}/wallet/${user.mailId}`)
       .then((response) => {
         console.log('getWalletApi THEN>>', response);
         setWalletData(response.data);
@@ -207,7 +208,7 @@ const CustomDrawerContent = (props) => {
   const userApi = async () => {
     await axios
       .get(
-        `${server}/user?userNo=${await AsyncStorage.getItem('userNo')}`,
+        `${server}/user?userNo=${user.userNo}`,
         // `${server}/user/user?userNo=210127104026300`,
       )
       .then(async (response) => {

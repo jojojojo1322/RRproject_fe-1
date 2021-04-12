@@ -14,11 +14,11 @@ import {
 
 import {server} from '@context/server';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '@style/ResetStyle.js';
 import ProfileStyle from '@style/ProfileStyle.js';
 import {useTranslation} from 'react-i18next';
+import {useSelector} from 'react-redux';
 
 const ProfileCompleteDetail = (props) => {
   const {t, i18n} = useTranslation();
@@ -29,12 +29,16 @@ const ProfileCompleteDetail = (props) => {
   const [question4, setQuestion4] = useState([]);
   const [question5, setQuestion5] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+
+  const {language, user} = useSelector(({language, auth}) => ({
+    language: language.language,
+    user: auth.user,
+  }));
+
   const getCompleteKycApi = async () => {
     await axios
       .get(
-        `${server}/kyc/${await AsyncStorage.getItem('userNo')}/${
-          props.route.params?.KycLevel
-        }/${await AsyncStorage.getItem('deviceLanguage')}`,
+        `${server}/kyc/${user.userNo}/${props.route.params?.KycLevel}/${language}`,
         // `${server}/user/user?userNo=210127104026300`,
       )
       .then(async (response) => {

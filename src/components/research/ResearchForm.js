@@ -10,7 +10,6 @@ import {
 
 import {server} from '@context/server';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import ResetStyle from '@style/ResetStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {SelectedCheckboxes, RoundCheckbox} from '@factory/Roundcheck';
@@ -20,6 +19,7 @@ import ResearchStyle from '@style/ResearchStyle.js';
 import {useTranslation} from 'react-i18next';
 
 import ProgressModal from '@factory/modal/ProgressModal';
+import {useSelector} from 'react-redux';
 
 const ResearchForm = (props) => {
   const {t, i18n} = useTranslation();
@@ -64,6 +64,11 @@ const ResearchForm = (props) => {
   // 이미 보상이 지급된 경우 모달
   const [modal5Visible, setModal5Visible] = useState(false);
 
+  const {language, user} = useSelector(({language, auth}) => ({
+    language: language.language,
+    user: auth.user,
+  }));
+
   let CheckedArrObject = new SelectedCheckboxes();
 
   // survey insert
@@ -94,8 +99,8 @@ const ResearchForm = (props) => {
     setModal4Visible(true);
     axios
       .post(`${server}/wallet/trans/reward`, {
-        language: await AsyncStorage.getItem('deviceLanguage'),
-        receiver: await AsyncStorage.getItem('userNo'),
+        language: language,
+        receiver: user.userNo,
         surveyId: props.route.params?.surveyId,
       })
       .then(async (response) => {
@@ -118,9 +123,7 @@ const ResearchForm = (props) => {
   const getSurveyQuestionApi = async () => {
     axios
       .get(
-        `${server}/survey/question?deviceLanguageCode=${await AsyncStorage.getItem(
-          'deviceLanguage',
-        )}&legacySurveyId=${props.route.params?.legacySurveyId}`,
+        `${server}/survey/question?deviceLanguageCode=${language}&legacySurveyId=${props.route.params?.legacySurveyId}`,
       )
       .then(async (response) => {
         console.log(
@@ -131,8 +134,8 @@ const ResearchForm = (props) => {
         setSurveyLength(response.data.resQuestionBySurveyIdInfo.length);
 
         setLegacySurveyId(props.route.params?.legacySurveyId);
-        setDeviceLanguage(await AsyncStorage.getItem('deviceLanguage'));
-        setUserNo(await AsyncStorage.getItem('userNo'));
+        setDeviceLanguage(language);
+        setUserNo(user.userNo);
 
         response.data.resQuestionBySurveyIdInfo.map((data, index) => {
           getSurveyOptionApi(data.questionNum);
@@ -148,11 +151,7 @@ const ResearchForm = (props) => {
   const getSurveyOptionApi = async (questionNum) => {
     axios
       .get(
-        `${server}/survey/question/options?deviceLanguageCode=${await AsyncStorage.getItem(
-          'deviceLanguage',
-        )}&legacySurveyId=${
-          props.route.params?.legacySurveyId
-        }&questionNum=${questionNum}`,
+        `${server}/survey/question/options?deviceLanguageCode=${language}&legacySurveyId=${props.route.params?.legacySurveyId}&questionNum=${questionNum}`,
       )
       .then((response) => {
         // console.log(`getSurveyOptionApi ${questionNum} THEN >>>>`, response);

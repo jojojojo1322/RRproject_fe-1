@@ -14,9 +14,9 @@ import WalletStyle from '@style/WalletStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import axios from 'axios';
 import {server} from '@context/server';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import ProgressModal from '@factory/modal/ProgressModal.js';
 import {useTranslation} from 'react-i18next';
+import {useSelector} from 'react-redux';
 
 // 3자리수 콤마(,) + 소수점 이하는 콤마 안 생기게
 function numberWithCommas(num) {
@@ -39,30 +39,11 @@ const WalletMain = (props) => {
   // const [refreshing, setRefreshing] = useState(false);
   const [total, setTotal] = useState(0);
 
+  const {user} = useSelector(({auth}) => ({
+    user: auth.user,
+  }));
+
   useEffect(() => {
-    // Async Test 용 dummy email 저장
-    // AsyncStorage.setItem('email', 'a@c.com', () => {
-    //   console.log('유저 닉네임 저장 완료');
-    // });
-    console.log(
-      'props.route.params?.currentTnc',
-      props.route.params?.currentTnc,
-    );
-    console.log(
-      'props.route.params?.currentTnc',
-      props.route.params?.currentTnc,
-    );
-    console.log(
-      'props.route.params?.currentTnc',
-      props.route.params?.currentTnc,
-    );
-    console.log(
-      'props.route.params?.currentTnc',
-      props.route.params?.currentTnc,
-    );
-    if (props.route.params?.currentTnc) {
-      setTotal(props.route.params?.currentTnc);
-    }
     getWalletApi();
     postWalletHistoryApi();
   }, []);
@@ -71,7 +52,7 @@ const WalletMain = (props) => {
   const getWalletApi = async () => {
     setModalVisible(true);
     await axios
-      .get(`${server}/wallet/${await AsyncStorage.getItem('email')}`)
+      .get(`${server}/wallet/${user.mailId}`)
       .then((response) => {
         setWalletData(response.data);
         setTotal(Number(response.data.balance.replace(' TNC', '')));
@@ -89,7 +70,7 @@ const WalletMain = (props) => {
     setModalVisible(true);
     await axios
       .post(`${server}/wallet/history`, {
-        email: await AsyncStorage.getItem('email'),
+        email: user.mailId,
         from: -1,
         limit: 3000,
       })

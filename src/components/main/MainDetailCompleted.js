@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import ResetStyle from '@style/ResetStyle.js';
 import MainStyle from '@style/MainStyle.js';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {server} from '@context/server';
 
@@ -25,6 +24,7 @@ import {useTranslation} from 'react-i18next';
 import Moment from 'react-moment';
 import moment from 'moment';
 import 'moment-timezone';
+import {useSelector} from 'react-redux';
 
 const MainDetailCompleted = (props) => {
   const {t, i18n} = useTranslation();
@@ -54,6 +54,11 @@ const MainDetailCompleted = (props) => {
   //   axios.get(`${server}/survey/detail`);
   // };
 
+  const {language, user} = useSelector(({language, auth}) => ({
+    language: language.language,
+    user: auth.user,
+  }));
+
   const today = moment().tz('Asia/Seoul');
   let endTime = '';
 
@@ -62,16 +67,12 @@ const MainDetailCompleted = (props) => {
     setModal4Visible(true);
     await axios
       .get(
-        `${server}/survey/detail?deviceLanguageCode=${await AsyncStorage.getItem(
-          'deviceLanguage',
-        )}&legacySurveyId=${
-          props.route.params?.legacySurveyId
-        }&userNo=${await AsyncStorage.getItem('userNo')}`,
+        `${server}/survey/detail?deviceLanguageCode=${language}&legacySurveyId=${props.route.params?.legacySurveyId}&userNo=${user.userNo}`,
       )
       .then(async (response) => {
         console.log(`surveyDetailApi Then >>`, response);
         setSurveyDetail(response.data.resSurvey);
-        setUserNo(await AsyncStorage.getItem('userNo'));
+        setUserNo(user.userNo);
 
         endTime = moment(response.data.resSurvey.endTime).tz('Asia/Seoul');
         gap = endTime.diff(today);
@@ -90,7 +91,7 @@ const MainDetailCompleted = (props) => {
     axios
       .post(`${server}/survey/audience`, {
         surveyId: String(surveyId),
-        userNo: await AsyncStorage.getItem('userNo'),
+        userNo: user.userNo,
       })
       .then(async (response) => {
         console.log(`AudienceCheckApi Then >>`, response);

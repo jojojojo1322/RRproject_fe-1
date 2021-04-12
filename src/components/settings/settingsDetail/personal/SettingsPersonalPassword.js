@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import axios from 'axios';
 import {server} from '@context/server';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import DeviceInfo from 'react-native-device-info';
 import ResetStyle from '@style/ResetStyle.js';
 import BottomModal from '@factory/modal/BottomModal';
@@ -17,6 +16,7 @@ import BottomModal from '@factory/modal/BottomModal';
 import {useTranslation} from 'react-i18next';
 import {withTranslation} from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';
+import {useSelector} from 'react-redux';
 
 const SettingsPersonalPassword = ({route, navigation}) => {
   const [email, setEmail] = useState('');
@@ -25,6 +25,11 @@ const SettingsPersonalPassword = ({route, navigation}) => {
   const [userNo, setUserNo] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [password, setPassword] = useState('');
+
+  const {user} = useSelector(({auth}) => ({
+    user: auth.user,
+  }));
+
   const {t} = useTranslation();
 
   const validateEmail = (email) => {
@@ -35,13 +40,13 @@ const SettingsPersonalPassword = ({route, navigation}) => {
   const loginApi = async () => {
     console.log({
       deviceKey: DeviceInfo.getUniqueId(),
-      email: await AsyncStorage.getItem('email'),
+      email: user.mailId,
       password: password,
     });
     axios
       .post(`${server}/user/login`, {
         deviceKey: DeviceInfo.getUniqueId(),
-        email: await AsyncStorage.getItem('email'),
+        email: user.mailId,
         password: password,
       })
       .then((response) => {
@@ -55,7 +60,7 @@ const SettingsPersonalPassword = ({route, navigation}) => {
   };
   const userInfoApi = async () => {
     axios
-      .get(`${server}/user?userNo=${await AsyncStorage.getItem('userNo')}`)
+      .get(`${server}/user?userNo=${user.userNo}`)
       .then((response) => {
         console.log('userInfoApi THEN>>', response);
         navigation.navigate('SettingsPersonal', {

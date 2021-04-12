@@ -17,6 +17,7 @@ import BottomModal from '@factory/modal/BottomModal';
 import {useTranslation} from 'react-i18next';
 import {withTranslation} from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';
+import {useSelector} from 'react-redux';
 
 const SettingsPersonalPasswordChange = ({navigation, route}) => {
   const [email, setEmail] = useState('');
@@ -25,6 +26,11 @@ const SettingsPersonalPasswordChange = ({navigation, route}) => {
   const [userNo, setUserNo] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
+
+  const {user} = useSelector(({auth}) => ({
+    user: auth.user,
+  }));
+
   const {t} = useTranslation();
 
   const validateEmail = (email) => {
@@ -179,7 +185,7 @@ const SettingsPersonalPasswordChange = ({navigation, route}) => {
             if (validateEmail(email)) {
               emailUserCheckApi(email).then(async (res) => {
                 if (res == '-2') {
-                  if (email === (await AsyncStorage.getItem('email'))) {
+                  if (email === user.mailId) {
                     console.log('본인 이메일임');
                     emailReAuthApi(email);
                     navigation.push('SettingsPersonalEmail', {

@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import ResetStyle from '@style/ResetStyle.js';
 import MainStyle from '@style/MainStyle.js';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {server} from '@context/server';
 
@@ -20,6 +19,7 @@ import TextConfirmModal from '@factory/modal/TextConfirmModal';
 
 import CarrierInfo from 'react-native-carrier-info';
 import {useTranslation} from 'react-i18next';
+import {useSelector} from 'react-redux';
 
 import Moment from 'react-moment';
 
@@ -40,6 +40,12 @@ const MainDetailExpired = (props) => {
   const [audienceCheck, setAudienceCheck] = useState(1);
 
   const [userNo, setUserNo] = useState('');
+
+  const {language, user} = useSelector(({language, auth}) => ({
+    language: language.language,
+    user: auth.user,
+  }));
+
   // let audienceCheck = '';
   // const getSurveyDetailApi = () => {
   //   axios.get(`${server}/survey/detail`);
@@ -47,16 +53,12 @@ const MainDetailExpired = (props) => {
   const surveyDetailApi = async () => {
     await axios
       .get(
-        `${server}/survey/detail?deviceLanguageCode=${await AsyncStorage.getItem(
-          'deviceLanguage',
-        )}&legacySurveyId=${
-          props.route.params?.legacySurveyId
-        }&userNo=${await AsyncStorage.getItem('userNo')}`,
+        `${server}/survey/detail?deviceLanguageCode=${language}&legacySurveyId=${props.route.params?.legacySurveyId}&userNo=${user.userNo}`,
       )
       .then(async (response) => {
         console.log(`surveyDetailApi Then >>`, response);
         setSurveyDetail(response.data.resSurvey);
-        setUserNo(await AsyncStorage.getItem('userNo'));
+        setUserNo(user.userNo);
       })
       .catch((e) => {
         console.log(`surveyDetailApi Error`, e);
@@ -66,7 +68,7 @@ const MainDetailExpired = (props) => {
     axios
       .post(`${server}/survey/audience`, {
         surveyId: String(surveyId),
-        userNo: await AsyncStorage.getItem('userNo'),
+        userNo: user.userNo,
       })
       .then(async (response) => {
         console.log(`AudienceCheckApi Then >>`, response);

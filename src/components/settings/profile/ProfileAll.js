@@ -16,7 +16,6 @@ import {
 
 import {server} from '@context/server';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '@style/ResetStyle.js';
 import ProfileStyle from '@style/ProfileStyle.js';
@@ -24,6 +23,7 @@ import TextConfirmCancelModal from '@factory/modal/TextConfirmCancelModal';
 import TextConfirmCancelVarModal from '@factory/modal/TextConfirmCancelVarModal';
 
 import {useTranslation} from 'react-i18next';
+import {useSelector} from 'react-redux';
 
 const levelMap = [
   {id: '3'},
@@ -78,6 +78,11 @@ const ProfileAll = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
   const [modal3Visible, setModal3Visible] = useState(false);
+
+  const {language, user} = useSelector(({language, auth}) => ({
+    language: language.language,
+    user: auth.user,
+  }));
 
   const [levelCheck, setLevelCheck] = useState('');
   const {t, i18n} = useTranslation();
@@ -204,7 +209,7 @@ const ProfileAll = (props) => {
 
   const getCompleteKycApi = async (lang) => {
     await axios
-      .get(`${server}/kyc/1/${await AsyncStorage.getItem('userNo')}`)
+      .get(`${server}/kyc/1/${user.userNo}`)
       .then(async (response) => {
         console.log(response.data.data);
         // let fix = response.data.data;
@@ -262,7 +267,7 @@ const ProfileAll = (props) => {
   // };
   const get2CompleteKycApi = async () => {
     await axios
-      .get(`${server}/kyc/2/${await AsyncStorage.getItem('userNo')}`)
+      .get(`${server}/kyc/2/${user.userNo}`)
       .then(async (response) => {
         console.log(response.data.data);
         setQuestion2(response.data.data);
@@ -275,9 +280,7 @@ const ProfileAll = (props) => {
   const getDynamicCompleteKycApi = async (KycLevel) => {
     await axios
       .get(
-        `${server}/kyc/${await AsyncStorage.getItem(
-          'userNo',
-        )}/${KycLevel}/${await AsyncStorage.getItem('deviceLanguage')}`,
+        `${server}/kyc/${user.userNo}/${KycLevel}/${language}`,
         // `${server}/user/user?userNo=210127104026300`,
       )
       .then(async (response) => {
