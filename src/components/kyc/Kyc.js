@@ -20,8 +20,6 @@ import TextConfirmModal from '@factory/modal/TextConfirmModal';
 import {withTranslation} from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';
 
-import {useSelector} from 'react-redux';
-
 function isBirthday(dateStr) {
   if (dateStr === undefined) {
     return false;
