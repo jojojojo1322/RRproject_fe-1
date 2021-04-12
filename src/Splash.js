@@ -25,7 +25,7 @@ import ResetStyle from '@style/ResetStyle';
 import ProgressBarExample from '@defined/ProgressBarExample';
 import {useTranslation} from 'react-i18next';
 import DeviceInfo from 'react-native-device-info';
-import {signIn} from '@module/auth';
+import {getUserInfo, signIn} from '@module/auth';
 import {useDispatch, useSelector} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -159,6 +159,10 @@ const Splash = ({loading, setLoading}) => {
   const [autologinPw, setAutologinPw] = useState(null);
   const [autologinKey, setAutologinKey] = useState(null);
 
+  const {loginPayload} = useSelector(({auth}) => ({
+    loginPayload: auth.loginPayload,
+  }));
+
   const loadInitialData = async () => {
     try {
       await AsyncStorage.getItem('email').then((res) => {
@@ -176,10 +180,19 @@ const Splash = ({loading, setLoading}) => {
           setAutologinKey(res);
         }
       });
+      dispatch(getUserInfo({userNo: loginPayload.userNo}));
     } catch (e) {
       console.log(e);
     }
   };
+
+  useEffect(() => {
+    if (loginPayload) {
+      if (loginPayload.status === true) {
+        dispatch(getUserInfo({userNo: loginPayload.userNo}));
+      }
+    }
+  }, [loginPayload]);
 
   useEffect(() => {
     if (autologinKey && autologinId && autologinPw) {
