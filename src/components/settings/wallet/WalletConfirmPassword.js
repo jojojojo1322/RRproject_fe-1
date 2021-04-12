@@ -21,7 +21,6 @@ import AuthStyle from '@style/AuthStyle';
 
 import {server} from '@context/server';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
 

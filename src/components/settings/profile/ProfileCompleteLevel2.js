@@ -15,17 +15,21 @@ import {
 
 import {server} from '@context/server';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '@style/ResetStyle.js';
 import ProfileStyle from '@style/ProfileStyle.js';
 import TextConfirmCancelModal from '@factory/modal/TextConfirmCancelModal';
 import {useTranslation} from 'react-i18next';
+import {useSelector} from 'react-redux';
 
 const ProfileCompleteLevel2 = (props) => {
   const {t, i18n} = useTranslation();
   const [question, setQuestion] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+
+  const {user} = useSelector(({auth}) => ({
+    user: auth.user,
+  }));
 
   const kycQuestion2 = [
     {
@@ -149,7 +153,7 @@ const ProfileCompleteLevel2 = (props) => {
 
   const getCompleteKycApi = async () => {
     await axios
-      .get(`${server}/kyc/2/${await AsyncStorage.getItem('userNo')}`)
+      .get(`${server}/kyc/2/${user.userNo}`)
       .then(async (response) => {
         console.log(response.data.data);
         setQuestion(response.data.data);

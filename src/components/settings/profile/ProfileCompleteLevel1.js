@@ -14,13 +14,13 @@ import {
 
 import {server} from '@context/server';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '@style/ResetStyle.js';
 import ProfileStyle from '@style/ProfileStyle.js';
 import BottomModal from '@factory/modal/BottomModal';
 import TextConfirmCancelModal from '@factory/modal/TextConfirmCancelModal';
 import {useTranslation} from 'react-i18next';
+import {useSelector} from 'react-redux';
 
 const ProfileCompleteLevel1 = (props) => {
   const {t, i18n} = useTranslation();
@@ -31,6 +31,10 @@ const ProfileCompleteLevel1 = (props) => {
   // 가져온 나열된 코드 -> 언어 native name으로 변환
   const [fixLang, setFixLang] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
+
+  const {user} = useSelector(({auth}) => ({
+    user: auth.user,
+  }));
 
   // const getLanguageApi = async () => {
   //   await axios
@@ -47,7 +51,7 @@ const ProfileCompleteLevel1 = (props) => {
 
   const getCompleteKycApi = async (lang) => {
     await axios
-      .get(`${server}/kyc/1/${await AsyncStorage.getItem('userNo')}`)
+      .get(`${server}/kyc/1/${user.userNo}`)
       .then(async (response) => {
         console.log('getCompleteKycApi THEN>>', response.data.data);
         // let fix = response.data.data;

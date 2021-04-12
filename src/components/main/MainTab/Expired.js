@@ -31,7 +31,7 @@ const Expired = () => {
 
   const {user, language, expiredSurveyList} = useSelector(
     ({auth, language, survey}) => ({
-      user: auth.info,
+      user: auth.user,
       language: language.language,
       expiredSurveyList: survey.expiredSurveyList,
     }),
@@ -314,22 +314,15 @@ const Expired = () => {
   };
 
   useEffect(() => {
-    // if (user.userNo !== '') {
-    //   dispatch(
-    //     getSurveyList({
-    //       surveyStatus: 'ongoing',
-    //       language: 'ko',
-    //       userNo: user.userNo,
-    //     }),
-    //   );
-    // }
-    dispatch(
-      getExpiredSurveyList({
-        surveyStatus: 'expired',
-        language: language,
-        userNo: user.userNo,
-      }),
-    );
+    if (user.userNo !== '' && language) {
+      dispatch(
+        getExpiredSurveyList({
+          surveyStatus: 'expired',
+          language: language,
+          userNo: user.userNo,
+        }),
+      );
+    }
   }, [user, language]);
 
   useEffect(() => {

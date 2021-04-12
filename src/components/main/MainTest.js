@@ -457,7 +457,6 @@ export const Main = ({navigation}) => {
   };
 
   const startRefreshAction = async () => {
-    console.log('rererefresh', await AsyncStorage.getItem('userNo'));
     if (Platform.OS === 'ios') {
       listRefArr.current.forEach((listRef) => {
         listRef.value.scrollToOffset({
@@ -938,9 +937,7 @@ export const Main = ({navigation}) => {
           <TouchableOpacity
             onPress={async () => {
               try {
-                console.log('USerNONONO', await AsyncStorage.getItem('userNo'));
                 await AsyncStorage.removeItem('userNo');
-                console.log('USerNONONO', await AsyncStorage.getItem('userNo'));
               } catch (e) {}
             }}>
             <View

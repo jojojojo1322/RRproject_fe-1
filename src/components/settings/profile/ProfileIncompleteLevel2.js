@@ -16,7 +16,7 @@ import ProfileStyle from '@style/ProfileStyle.js';
 import AuthStyle from '@style/AuthStyle.js';
 import {server} from '@context/server';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useSelector} from 'react-redux';
 
 import BottomModal from '@factory/modal/BottomModal';
 import TextConfirmModal from '@factory/modal/TextConfirmModal';
@@ -259,6 +259,10 @@ const ProfileIncompleteLevel2 = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
 
+  const {user} = useSelector(({auth}) => ({
+    user: auth.user,
+  }));
+
   // ADVANCED form
   // [
   //   {
@@ -274,7 +278,7 @@ const ProfileIncompleteLevel2 = (props) => {
   // KYC level 2 get
   const getAdvancedKycApi = async () => {
     await axios
-      .get(`${server}/kyc/2/${await AsyncStorage.getItem('userNo')}`)
+      .get(`${server}/kyc/2/${user.userNo}`)
       .then(async (response) => {
         console.log('getAdvancedKycApi THEN>>', response);
         if (response.data.response.ret_val === 0) {
@@ -311,7 +315,7 @@ const ProfileIncompleteLevel2 = (props) => {
         ownProperties: checkedArray[2].kycOption,
         netWorth: checkedArray[3].kycOption,
         investIn: checkedArray[4].kycOption,
-        userNo: await AsyncStorage.getItem('userNo'),
+        userNo: user.userNo,
       })
       .then(async (response) => {
         console.log('createAdvancedKycApi THEN>>', response);
@@ -331,13 +335,13 @@ const ProfileIncompleteLevel2 = (props) => {
       investIn: checkedArray[4].kycOption,
     });
     await axios
-      .patch(`${server}/kyc/2/${await AsyncStorage.getItem('userNo')}`, {
+      .patch(`${server}/kyc/2/${user.userNo}`, {
         employmentStatus: checkedArray[0].kycOption,
         annualRevenue: checkedArray[1].kycOption,
         ownProperties: checkedArray[2].kycOption,
         netWorth: checkedArray[3].kycOption,
         investIn: checkedArray[4].kycOption,
-        userNo: await AsyncStorage.getItem('userNo'),
+        userNo: user.userNo,
       })
       .then(async (response) => {
         console.log('updateAdvancedKycApi THEN>>', response);

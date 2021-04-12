@@ -18,10 +18,10 @@ import {
 import * as ImagePicker from 'react-native-image-picker';
 
 import {useTranslation} from 'react-i18next';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {server} from '@context/server';
 import axios from 'axios';
+import {useSelector} from 'react-redux';
 
 // 한글 - 영어에 따라 바이트 계산 차별 - passport varchar 100
 var getTextLength = function (str) {
@@ -70,6 +70,10 @@ const IdVerification = ({navigation}) => {
   const [modal2Visible, setModal2Visible] = useState(false);
   const [modal3Visible, setModal3Visible] = useState(false);
 
+  const {user} = useSelector(({auth}) => ({
+    user: auth.user,
+  }));
+
   const requestPermission = async (device) => {
     try {
       if (Platform.OS === 'ios') {
@@ -108,23 +112,7 @@ const IdVerification = ({navigation}) => {
 
   // export default api;
 
-  const instance = () => {
-    return axios.create({
-      baseURL: `http://52.78.181.176:8091/v1/api`,
-      headers: {'Content-Type': 'multipart/form-data', Accept: '*/*'},
-
-      // timeout: 1000,
-    });
-  };
   const passportApi = async () => {
-    console.log('passportApi 진입 response>>', response);
-    console.log('axios 서버 루트 체크>', `${server}/util/passport`);
-    console.log('axios 서버 루트 체크>', {
-      userNo: await AsyncStorage.getItem('userNo'),
-      passPortNumber: passportNo,
-      englishFirstName: firstName,
-      englishLastName: lastName,
-    });
     let formData = new FormData();
     // response
     formData.append('reqFile', {
@@ -132,16 +120,16 @@ const IdVerification = ({navigation}) => {
       type: response.type,
       name: response.fileName,
     });
+
     formData.append(
       'reqPassPortInfo',
       JSON.stringify({
-        userNo: await AsyncStorage.getItem('userNo'),
+        userNo: user.userNo,
         passPortNumber: passportNo,
         englishFirstName: firstName,
         englishLastName: lastName,
       }),
     );
-    console.log('passportApi 진입 FORM response>>', formData);
 
     // axios
     //   .post(`${server}/util/passport`, {
@@ -189,25 +177,13 @@ const IdVerification = ({navigation}) => {
     })
       .then((response) => {
         console.log('passportApi THEN>>', response);
-        console.log('passportApi THEN>>', response.data);
-        console.log('passportApi THEN>>', response.data.result);
         setSuccessCheck(response.data.result);
       })
       .catch((e) => {
         console.log('passportApi ERROR>>', e);
-        // console.error();
-        // console.error(e);
-        console.log('passportApi ERROR>>', e.response);
       });
-    console.log('asdasdasdagshdgas>>>');
-    console.log('asdasdasdagshdgas>>>');
-    console.log('asdasdasdagshdgas>>>');
-    console.log('asdasdasdagshdgas>>>');
-    console.log('asdasdasdagshdgas>>>');
-    console.log('asdasdasdagshdgas>>>');
-    console.log('asdasdasdagshdgas>>>');
-    console.log('asdasdasdagshdgas>>>');
   };
+
   useEffect(() => {
     if (successCheck.indexOf('success') != -1) {
       navigation.replace('IdVerificationInProgress');
@@ -372,12 +348,8 @@ const IdVerification = ({navigation}) => {
       setModal3Visible(!modal2Visible);
     } else {
       console.log('passportNo', passportNo);
-      console.log('passportNo', passportNo);
-      console.log('firstName', firstName);
       console.log('firstName', firstName);
       console.log('lastName', lastName);
-      console.log('lastName', lastName);
-      console.log('Response', response);
       console.log('Response', response);
       passportApi();
       // navigation.replace('IdVerificationInProgress');

@@ -10,13 +10,13 @@ import {
 } from 'react-native';
 import ResetStyle from '@style/ResetStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {useSelector} from 'react-redux';
 import {SelectedCheckboxes, RoundCheckbox} from '@factory/Roundcheck';
 import ResearchStyle from '@style/ResearchStyle.js';
 import ProfileStyle from '@style/ProfileStyle.js';
 
 import {server} from '@context/server';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import BottomModal from '@factory/modal/BottomModal';
 import TextConfirmModal from '@factory/modal/TextConfirmModal';
@@ -49,6 +49,11 @@ const ProfileIncompleteDetail = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
 
+  const {user, language} = useSelector(({auth, language}) => ({
+    user: auth.user,
+    language: language.language,
+  }));
+
   // ADVANCED form
   // [
   //   {
@@ -65,9 +70,7 @@ const ProfileIncompleteDetail = (props) => {
   const getAdvancedKyGetApi = async () => {
     await axios
       .get(
-        `${server}/kyc/${await AsyncStorage.getItem('userNo')}/${
-          props.route.params?.KycLevel
-        }/${await AsyncStorage.getItem('deviceLanguage')}`,
+        `${server}/kyc/${user.userNo}/${props.route.params?.KycLevel}/${language}`,
       )
       .then(async (response) => {
         if (response.data.data != '') {
@@ -113,11 +116,7 @@ const ProfileIncompleteDetail = (props) => {
   //해당 kyc질문 api
   const getAdvancedKycQuestionListApi = async () => {
     await axios
-      .get(
-        `${server}/kyc/question/${
-          props.route.params?.KycLevel
-        }/${await AsyncStorage.getItem('deviceLanguage')}`,
-      )
+      .get(`${server}/kyc/question/${props.route.params?.KycLevel}/${language}`)
       .then(async (response) => {
         setKycQuestion(response.data.data);
         setQuestionLength(response.data.data.length);
@@ -131,15 +130,11 @@ const ProfileIncompleteDetail = (props) => {
   //해당 kyc 각 질문당 문항 api
   const getAdvancedKycOptionListApi = async () => {
     await axios
-      .get(
-        `${server}/kyc/option/${
-          props.route.params?.KycLevel
-        }/${await AsyncStorage.getItem('deviceLanguage')}`,
-      )
+      .get(`${server}/kyc/option/${props.route.params?.KycLevel}/${language}`)
       .then(async (response) => {
         setKycOption(response.data.data);
-        setUserNo(await AsyncStorage.getItem('userNo'));
-        setDeviceLanguage(await AsyncStorage.getItem('deviceLanguage'));
+        setUserNo(user.userNo);
+        setDeviceLanguage(language);
         console.log('getAdvancedKycOptionListApi THEN>>', response);
       })
       .catch((e) => {
@@ -165,9 +160,7 @@ const ProfileIncompleteDetail = (props) => {
     console.log('updateAdvancedKycApi');
     await axios
       .patch(
-        `${server}/kyc/${
-          props.route.params?.KycLevel
-        }/${await AsyncStorage.getItem('userNo')}`,
+        `${server}/kyc/${props.route.params?.KycLevel}/${user.userNo}`,
         checkedArray,
       )
       .then(async (response) => {
