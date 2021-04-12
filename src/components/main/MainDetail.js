@@ -56,7 +56,7 @@ const MainDetail = (props) => {
 
   const {language, user} = useSelector(({language, auth}) => ({
     language: language.language,
-    auth: auth.user,
+    user: auth.user,
   }));
 
   const today = moment().tz('Asia/Seoul');
@@ -88,6 +88,7 @@ const MainDetail = (props) => {
       });
     setModal4Visible(false);
   };
+
   const AudienceCheckApi = async (surveyId) => {
     axios
       .post(`${server}/survey/audience`, {
@@ -102,6 +103,7 @@ const MainDetail = (props) => {
         console.log(`AudienceCheckApi Error`, e);
       });
   };
+
   const AudienceApi = async () => {
     console.log('AudienceApi', props.route.params?.legacySurveyId);
     await axios
@@ -171,39 +173,12 @@ const MainDetail = (props) => {
         console.log(`AudienceApi Error`, e);
       });
   };
+
   useEffect(() => {
-    // CarrierInfo.allowsVOIP()
-    //   .then((result) => {
-    //     console.log('CarrierInfo>>then>>>>', result);
-    //   })
-    //   .catch((e) => {
-    //     console.log('error>>>>', e);
-    //   });
-    // CarrierInfo.carrierName()
-    //   .then((result) => {
-    //     console.log('CarrierName>>then>>>>', result);
-    //   })
-    //   .catch((e) => {
-    //     console.log('error>>>>', e);
-    //   });
-    // ////유심 체크 (끼어져 있는 유심이 공유심인지는 체크 불가)
-    // CarrierInfo.mobileNetworkCode()
-    //   .then((result) => {
-    //     console.log('mobileNetworkCode>>then>>>>', result);
-    //   })
-    //   .catch((e) => {
-    //     console.log('error>>>>', e);
-    //   });
-    // CarrierInfo.mobileNetworkOperator()
-    //   .then((result) => {
-    //     console.log('mobileNetworkOperator>>then>>>>', result);
-    //   })
-    //   .catch((e) => {
-    //     console.log('error>>>>', e);
-    //   });
     surveyDetailApi();
     AudienceApi();
   }, []);
+
   const audienceCheckHandle = async () => {
     // AudienceCheckApi();
     console.log('audienceCheck', audienceCheck);
@@ -223,7 +198,6 @@ const MainDetail = (props) => {
   const confirmHandle = () => {
     props.navigation.navigate('ProfileMain');
   };
-  console.log('surveyDetailsurveyDetailsurveyDetail', surveyDetail);
 
   return (
     <SafeAreaView style={[ResetStyle.container]}>
