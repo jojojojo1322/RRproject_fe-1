@@ -31,7 +31,7 @@ const Completed = () => {
 
   const {user, completedSurveyList} = useSelector(
     ({auth, language, survey}) => ({
-      user: auth.info,
+      user: auth.user,
       language: language.language,
       completedSurveyList: survey.completedSurveyList,
     }),
@@ -329,7 +329,9 @@ const Completed = () => {
     // if(user.userNo!==''){
     //     dispatch(getCompletedSurveyList(user.userNo));
     // }
-    dispatch(getCompletedSurveyList(user.userNo));
+    if (user.userNo !== '') {
+      dispatch(getCompletedSurveyList(user.userNo));
+    }
   }, [user]);
 
   return (

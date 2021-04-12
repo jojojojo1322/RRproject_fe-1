@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import {server} from '@context/server';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 import {SafeAreaView} from 'react-native-safe-area-context';

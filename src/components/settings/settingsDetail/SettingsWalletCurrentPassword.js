@@ -21,7 +21,8 @@ import AuthStyle from '@style/AuthStyle';
 
 import {server} from '@context/server';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import {useSelector} from 'react-redux';
 
 import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
 
@@ -37,6 +38,10 @@ const SettingsWalletCurrentPassword = ({navigation, route}) => {
   const [walletAddress, setWalletAddress] = useState('');
   const [statusCheck, setStatusCheck] = useState('');
   const [authCheck, setAuthCheck] = useState('');
+
+  const {user} = useSelector(({auth}) => ({
+    user: auth.user,
+  }));
 
   // console.log('amount check >>>>>', amount);
   // console.log('email check >>>>>', email);
@@ -91,7 +96,7 @@ const SettingsWalletCurrentPassword = ({navigation, route}) => {
     console.log('check passed password', password);
     await axios
       .post(`${server}/wallet/check`, {
-        email: await AsyncStorage.getItem('email'),
+        email: user.mailId,
         walletPw: password,
       })
       .then(async (response) => {

@@ -14,7 +14,6 @@ import {
 
 import {server} from '@context/server';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '@style/ResetStyle.js';
 import ModalStyle from '@style/ModalStyle';

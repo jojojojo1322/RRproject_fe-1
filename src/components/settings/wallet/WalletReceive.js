@@ -11,8 +11,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import QRCode from '@defined/QR/QRCode';
 import axios from 'axios';
 import {server} from '@context/server';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {NavigationHelpersContext} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
 
 import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
 
@@ -26,10 +25,11 @@ const WalletReceive = (props) => {
   const [walletData, setWalletData] = useState([]);
   const [masterKey, setMasterKey] = useState('');
 
+  const {user} = useSelector(({auth}) => ({
+    user: auth.user,
+  }));
+
   useEffect(() => {
-    // AsyncStorage.setItem('email', 'a@c.com', () => {
-    //   console.log('유저 닉네임 저장 완료');
-    // });
     getWalletAddressApi();
     setMasterKey(walletData.name);
     console.log(walletData.status);
@@ -39,7 +39,7 @@ const WalletReceive = (props) => {
   const getWalletAddressApi = async () => {
     setModal4Visible(true);
     await axios
-      .get(`${server}/wallet/${await AsyncStorage.getItem('email')}`)
+      .get(`${server}/wallet/${user.mailId}`)
       .then((response) => {
         console.log('getWalletAddressApi>>>>>', response.data);
         setWalletData(response.data);

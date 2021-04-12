@@ -11,7 +11,6 @@ import ResetStyle from '@style/ResetStyle.js';
 import {useTranslation} from 'react-i18next';
 import {server} from '@context/server';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const MainVideoComplete = ({navigation, route}) => {
   const [modalVisible, setModalVisible] = useState(false);

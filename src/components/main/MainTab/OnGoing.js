@@ -71,7 +71,7 @@ const OnGoing = () => {
 
   const {user, language, ongoingSurveyList} = useSelector(
     ({auth, language, survey}) => ({
-      user: auth.info,
+      user: auth.user,
       language: language.language,
       ongoingSurveyList: survey.ongoingSurveyList,
     }),
@@ -325,11 +325,11 @@ const OnGoing = () => {
   };
 
   useEffect(() => {
-    if (user.userNo !== '') {
+    if (user.userNo !== '' && language) {
       dispatch(
         getOngoingSurveyList({
           surveyStatus: 'ongoing',
-          language: 'ko',
+          language: language,
           userNo: user.userNo,
         }),
       );

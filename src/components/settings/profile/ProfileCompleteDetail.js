@@ -12,10 +12,10 @@ import {
   Platform,
   FlatList,
 } from 'react-native';
+import {useSelector} from 'react-redux';
 
 import {server} from '@context/server';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '@style/ResetStyle.js';
 import ProfileStyle from '@style/ProfileStyle.js';
@@ -28,12 +28,15 @@ const ProfileCompleteDetail = (props) => {
   const [question, setQuestion] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
 
+  const {language, user} = useSelector(({auth, language}) => ({
+    language: language.language,
+    user: auth.user,
+  }));
+
   const getCompleteKycApi = async () => {
     await axios
       .get(
-        `${server}/kyc/${await AsyncStorage.getItem('userNo')}/${
-          props.route.params?.KycLevel
-        }/${await AsyncStorage.getItem('deviceLanguage')}`,
+        `${server}/kyc/${user.userNo}/${props.route.params?.KycLevel}/${language}`,
         // `${server}/user/user?userNo=210127104026300`,
       )
       .then(async (response) => {

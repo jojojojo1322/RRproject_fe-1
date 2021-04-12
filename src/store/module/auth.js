@@ -33,7 +33,7 @@ export function* authSaga() {
 }
 
 const initialState = {
-  info: {
+  user: {
     ret_val: null,
     result: '',
     userNo: '',
@@ -71,12 +71,12 @@ const initialState = {
 const auth = createReducer(initialState, {
   [INFO_SUCCESS]: (state, {payload: data}) => ({
     ...state,
-    info: data,
-    infoError: null,
+    user: data,
+    userError: null,
   }),
   [INFO_FAILURE]: (state, {payload: error}) => ({
     ...state,
-    infoError: error,
+    userError: error,
   }),
   [SIGN_IN_SUCCESS]: (state, {payload: data}) => {
     if (data) {
