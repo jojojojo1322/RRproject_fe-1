@@ -184,6 +184,7 @@ const Settings = ({navigation}) => {
           </TouchableOpacity>
         </View>
         <FlatList
+          bounces={false}
           data={DATA}
           renderItem={renderItem}
           keyExtractor={(item, index) =>

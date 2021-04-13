@@ -17,7 +17,7 @@ import {useTranslation} from 'react-i18next';
 const Terms = () => {
   return (
     <SafeAreaView style={AuthStyle.termsConditionsContainer}>
-      <ScrollView style={{width: '100%'}}>
+      <ScrollView style={{width: '100%'}} bounces={false}>
         <Text
           style={[
             ResetStyle.fontLightK,
@@ -575,7 +575,7 @@ const Terms = () => {
 const Conditions = () => {
   return (
     <SafeAreaView style={AuthStyle.termsConditionsContainer}>
-      <ScrollView style={{width: '100%'}}>
+      <ScrollView style={{width: '100%'}} bounces={false}>
         <Text
           style={[
             ResetStyle.fontLightK,
