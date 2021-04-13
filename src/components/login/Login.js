@@ -1,5 +1,6 @@
-import React, {Component, useState, useEffect} from 'react';
+import React, {Component, useState, useEffect, useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import {useFocusEffect} from '@react-navigation/native';
 
 import {
   StyleSheet,
@@ -17,6 +18,7 @@ import {
   TouchableOpacity,
   YellowBox,
   Platform,
+  BackHandler,
 } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 
@@ -165,20 +167,14 @@ const Login = ({navigation, history}) => {
   // };
 
   const deviceKeyCheckApi = () => {
-    console.log('deviceKeyCheckApi DEVICE KEY>>', DeviceInfo.getUniqueId());
     axios
       .get(
         `${server}/user/register/device-key?reqDeviceKey=${DeviceInfo.getUniqueId()}`,
       )
       .then((response) => {
-        console.log('deviceKeyCheckApi THEN>>', response);
-
         setDeviceCheck(response.data.ret_val);
       })
-      .catch((e) => {
-        console.log('deviceKeyCheckApi ERROR>>', e);
-        console.log('deviceKeyCheckApi ERROR>>', e.response);
-      });
+      .catch((e) => {});
   };
 
   const handleSignIn = async () => {
@@ -199,7 +195,6 @@ const Login = ({navigation, history}) => {
 
   useEffect(() => {
     if (loginPayload) {
-      console.log('login-------', loginPayload);
       if (loginPayload.status === true) {
         if (loginPayload.hasWallet === -1) {
           setModal5Visible(false);
@@ -210,7 +205,6 @@ const Login = ({navigation, history}) => {
           AsyncStorage.setItem('password', passWord);
           AsyncStorage.setItem('deviceKey', DeviceInfo.getUniqueId());
         }
-        console.log('num________________', loginPayload.userNo);
         dispatch(getUserInfo({userNo: loginPayload.userNo}));
       } else if (loginPayload.status === false) {
         if (loginPayload.msg === 'KycLevel1 Not Saved') {
@@ -227,13 +221,27 @@ const Login = ({navigation, history}) => {
     }
   }, [loginPayload]);
 
-  // useEffect(() => {
-  //   return () => {
-  //     dispatch(getUserInfo({userNo: loginPayload.userNo}));
-  //     console.log('userinfo----------------------------------------------');
-  //     console.log(num);
-  //   };
-  // }, []);
+  useFocusEffect(
+    useCallback(() => {
+      const onAndroidBackPress = () => {
+        navigation.goBack();
+        return true;
+      };
+
+      if (Platform.OS === 'android') {
+        BackHandler.addEventListener('hardwareBackPress', onAndroidBackPress);
+      }
+
+      return () => {
+        if (Platform.OS === 'android') {
+          BackHandler.removeEventListener(
+            'hardwareBackPress',
+            onAndroidBackPress,
+          );
+        }
+      };
+    }, []),
+  );
 
   return (
     <SafeAreaView style={ResetStyle.container}>
