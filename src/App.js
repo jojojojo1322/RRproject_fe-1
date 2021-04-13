@@ -134,27 +134,6 @@ export const AppMainStack = (props) => {
   return (
     <Stack.Navigator
       initialRouteName={loginPayload.userNo !== '' ? 'Main' : 'Initial2'}>
-      {/* {login === null && props.route.params?.loginC === null ? (
-        <Stack.Screen
-          name="Initial2"
-          component={Initial2}
-          options={{
-            headerShown: false,
-
-            // title: this.props.route.params?.step,
-            // title: route.params?.name,
-          }}
-        />
-      ) : (
-        <Stack.Screen
-          name="Main"
-          component={Main}
-          options={{
-            headerShown: false,
-            gestureEnabled: false,
-          }}
-        />
-      )} */}
       <Stack.Screen
         name="Initial2"
         component={Initial2}
@@ -768,7 +747,6 @@ const App = (props) => {
             drawerLabel: () => null,
             title: undefined,
             drawerIcon: () => null,
-
             swipeEnabled: false,
           })}
         />

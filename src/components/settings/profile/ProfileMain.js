@@ -11,7 +11,7 @@ import {
 
 import {server} from '@context/server';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useSelector} from 'react-redux';
 import {DrawerActions} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '@style/ResetStyle.js';
@@ -59,13 +59,17 @@ const ProfileMain = ({navigation, route}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
 
+  const {user} = useSelector(({auth}) => ({
+    user: auth.user,
+  }));
+
   const {t, i18n} = useTranslation();
 
   const userApi = async () => {
     setModal2Visible(true);
     await axios
       .get(
-        `${server}/user?userNo=${await AsyncStorage.getItem('userNo')}`,
+        `${server}/user?userNo=${user.userNo}`,
         // `${server}/user/user?userNo=210127104026300`,
       )
       .then(async (response) => {
@@ -171,12 +175,6 @@ const ProfileMain = ({navigation, route}) => {
   });
 
   useEffect(() => {
-    console.log('[]실행');
-    console.log('route.params?.kycLevel', route.params?.kycLevel);
-    console.log('route.params?.kycLevel', route.params?.kycLevel);
-    console.log('route.params?.kycLevel', route.params?.kycLevel);
-    console.log('route.params?.kycLevel', route.params?.kycLevel);
-    console.log('route.params?.kycLevel', route.params?.kycLevel);
     if (route.params?.kycLevel) {
       setKycLevel(route.params?.kycLevel);
     }

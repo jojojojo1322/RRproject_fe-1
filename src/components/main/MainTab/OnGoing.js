@@ -62,7 +62,7 @@ const TimeBlock = ({originEndTime}) => {
 
 const SLIDER_HEIGHT = Dimensions.get('window').height;
 const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT / 2.5);
-const ITEM_HEIGHT_ANDROID = Math.round(SLIDER_HEIGHT / 2.2);
+const ITEM_HEIGHT_ANDROID = Math.round(SLIDER_HEIGHT / 1.6);
 const ITEM_HEIGHT_IOS_UNDER700 = Math.round(SLIDER_HEIGHT / 2.3);
 const OnGoing = () => {
   const {t} = useTranslation();
@@ -71,7 +71,7 @@ const OnGoing = () => {
 
   const {user, language, ongoingSurveyList} = useSelector(
     ({auth, language, survey}) => ({
-      user: auth.info,
+      user: auth.user,
       language: language.language,
       ongoingSurveyList: survey.ongoingSurveyList,
     }),
@@ -86,6 +86,26 @@ const OnGoing = () => {
 
   const renderItem = ({item}) => {
     let ret = 1;
+
+    const goToDetail = () => {
+      item.surveyStatus === 'expired'
+        ? navigation.navigate('MainDetailExpired', {
+            legacySurveyId: item.legacySurveyId,
+            // legacySurveyId: '5fd8b08d0afe882b01307818',
+            surveyName: item.surveyName,
+          })
+        : item.surveyStatus === 'completed'
+        ? navigation.navigate('MainDetailCompleted', {
+            legacySurveyId: item.legacySurveyId,
+            // legacySurveyId: '5fd8b08d0afe882b01307818',
+            surveyName: item.surveyName,
+          })
+        : navigation.navigate('MainDetail', {
+            legacySurveyId: item.legacySurveyId,
+            // legacySurveyId: '5fd8b08d0afe882b01307818',
+            surveyName: item.surveyName,
+          });
+    };
 
     if (item.status === 'zero') {
       return (
@@ -113,16 +133,9 @@ const OnGoing = () => {
         <View
           style={[
             MainStyle.itemBox,
+            Platform.OS !== 'ios' && {flex: 1},
             // {marginBottom: item.id === item.length ? 200 : 0},
-          ]}
-          onPress={() => {
-            surveyDetailApi(item.legacySurveyId);
-
-            navigation.navigate('MainDetail', {
-              legacySurveyId: item.legacySurveyId,
-              surveyName: item.surveyName,
-            });
-          }}>
+          ]}>
           <View
             opacity={item.surveyStatus === 'expired' ? 0.5 : 1.0}
             style={{
@@ -231,7 +244,7 @@ const OnGoing = () => {
                   alignItems: 'flex-end',
                   justifyContent: 'space-between',
                 }}>
-                <View style={{flexDirection: 'column'}}>
+                <View>
                   <View style={MainStyle.itemBoxBottomTextView}>
                     <Image
                       style={{
@@ -265,32 +278,11 @@ const OnGoing = () => {
                 </View>
                 <TouchableOpacity
                   style={{
-                    // position: 'absolute',
-                    // bottom: 0,
-                    // right: '5%',
                     width: Platform.OS === 'ios' ? 80 : 70,
                     backgroundColor: 'rgba(255,255,255,0.4)',
                     borderRadius: 50,
                   }}
-                  onPress={() => {
-                    item.surveyStatus === 'expired'
-                      ? navigation.navigate('MainDetailExpired', {
-                          legacySurveyId: item.legacySurveyId,
-                          // legacySurveyId: '5fd8b08d0afe882b01307818',
-                          surveyName: item.surveyName,
-                        })
-                      : item.surveyStatus === 'completed'
-                      ? navigation.navigate('MainDetailCompleted', {
-                          legacySurveyId: item.legacySurveyId,
-                          // legacySurveyId: '5fd8b08d0afe882b01307818',
-                          surveyName: item.surveyName,
-                        })
-                      : navigation.navigate('MainDetail', {
-                          legacySurveyId: item.legacySurveyId,
-                          // legacySurveyId: '5fd8b08d0afe882b01307818',
-                          surveyName: item.surveyName,
-                        });
-                  }}>
+                  onPress={() => goToDetail()}>
                   <Text
                     style={[
                       ResetStyle.fontLightK,
@@ -325,11 +317,11 @@ const OnGoing = () => {
   };
 
   useEffect(() => {
-    if (user.userNo !== '') {
+    if (user.userNo !== '' && language) {
       dispatch(
         getOngoingSurveyList({
           surveyStatus: 'ongoing',
-          language: 'ko',
+          language: language,
           userNo: user.userNo,
         }),
       );

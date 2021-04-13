@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import ResetStyle from '@style/ResetStyle.js';
 import MainStyle from '@style/MainStyle.js';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {server} from '@context/server';
 
@@ -26,6 +25,7 @@ import Moment from 'react-moment';
 import moment from 'moment';
 import 'moment-timezone';
 import Main from './Main.js';
+import {useSelector} from 'react-redux';
 
 const MainDetail = (props) => {
   const {t, i18n} = useTranslation();
@@ -54,6 +54,11 @@ const MainDetail = (props) => {
   //   axios.get(`${server}/survey/detail`);
   // };
 
+  const {language, user} = useSelector(({language, auth}) => ({
+    language: language.language,
+    user: auth.user,
+  }));
+
   const today = moment().tz('Asia/Seoul');
   let endTime = '';
 
@@ -63,16 +68,12 @@ const MainDetail = (props) => {
     setModal4Visible(true);
     await axios
       .get(
-        `${server}/survey/detail?deviceLanguageCode=${await AsyncStorage.getItem(
-          'deviceLanguage',
-        )}&legacySurveyId=${
-          props.route.params?.legacySurveyId
-        }&userNo=${await AsyncStorage.getItem('userNo')}`,
+        `${server}/survey/detail?deviceLanguageCode=${language}&legacySurveyId=${props.route.params?.legacySurveyId}&userNo=${user.userNo}`,
       )
       .then(async (response) => {
         console.log(`surveyDetailApi Then >>`, response);
         setSurveyDetail(response.data.resSurvey);
-        setUserNo(await AsyncStorage.getItem('userNo'));
+        setUserNo(user.userNo);
 
         endTime = moment(response.data.resSurvey.endTime).tz('Asia/Seoul');
         gap = endTime.diff(today);
@@ -87,11 +88,12 @@ const MainDetail = (props) => {
       });
     setModal4Visible(false);
   };
+
   const AudienceCheckApi = async (surveyId) => {
     axios
       .post(`${server}/survey/audience`, {
         legacySurveyId: String(surveyId),
-        userNo: await AsyncStorage.getItem('userNo'),
+        userNo: user.userNo,
       })
       .then(async (response) => {
         console.log(`AudienceCheckApi Then >>`, response);
@@ -101,6 +103,7 @@ const MainDetail = (props) => {
         console.log(`AudienceCheckApi Error`, e);
       });
   };
+
   const AudienceApi = async () => {
     console.log('AudienceApi', props.route.params?.legacySurveyId);
     await axios
@@ -170,39 +173,12 @@ const MainDetail = (props) => {
         console.log(`AudienceApi Error`, e);
       });
   };
+
   useEffect(() => {
-    // CarrierInfo.allowsVOIP()
-    //   .then((result) => {
-    //     console.log('CarrierInfo>>then>>>>', result);
-    //   })
-    //   .catch((e) => {
-    //     console.log('error>>>>', e);
-    //   });
-    // CarrierInfo.carrierName()
-    //   .then((result) => {
-    //     console.log('CarrierName>>then>>>>', result);
-    //   })
-    //   .catch((e) => {
-    //     console.log('error>>>>', e);
-    //   });
-    // ////유심 체크 (끼어져 있는 유심이 공유심인지는 체크 불가)
-    // CarrierInfo.mobileNetworkCode()
-    //   .then((result) => {
-    //     console.log('mobileNetworkCode>>then>>>>', result);
-    //   })
-    //   .catch((e) => {
-    //     console.log('error>>>>', e);
-    //   });
-    // CarrierInfo.mobileNetworkOperator()
-    //   .then((result) => {
-    //     console.log('mobileNetworkOperator>>then>>>>', result);
-    //   })
-    //   .catch((e) => {
-    //     console.log('error>>>>', e);
-    //   });
     surveyDetailApi();
     AudienceApi();
   }, []);
+
   const audienceCheckHandle = async () => {
     // AudienceCheckApi();
     console.log('audienceCheck', audienceCheck);
@@ -222,7 +198,6 @@ const MainDetail = (props) => {
   const confirmHandle = () => {
     props.navigation.navigate('ProfileMain');
   };
-  console.log('surveyDetailsurveyDetailsurveyDetail', surveyDetail);
 
   return (
     <SafeAreaView style={[ResetStyle.container]}>

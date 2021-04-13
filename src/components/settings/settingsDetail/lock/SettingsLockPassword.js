@@ -19,7 +19,7 @@ import TextConfirmModal from '@factory/modal/TextConfirmModal';
 import ResetStyle from '@style/ResetStyle.js';
 import {server} from '@context/server';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useSelector} from 'react-redux';
 import AuthStyle from '@style/AuthStyle';
 
 import {useTranslation} from 'react-i18next';
@@ -33,12 +33,17 @@ const WalletPassword = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
   const [walletAddress, setWalletAddress] = useState('');
+
+  const {user} = useSelector(({auth}) => ({
+    user: auth.user,
+  }));
+
   const {t} = useTranslation();
 
   const walletPasswordApi = async (walletPw) => {
     await axios
       .post(`${server}/wallet`, {
-        userNo: await AsyncStorage.getItem('userNo'),
+        userNo: user.userNo,
         walletPw: walletPw,
       })
       .then((response) => {

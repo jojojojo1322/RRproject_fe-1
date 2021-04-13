@@ -17,7 +17,6 @@ import DeviceInfo from 'react-native-device-info';
 
 import {server} from '@context/server';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import getPermission from '@defined/getPermission';
 import {TouchableOpacity} from 'react-native-gesture-handler';

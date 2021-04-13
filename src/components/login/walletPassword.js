@@ -21,7 +21,6 @@ import ProgressModal from '@factory/modal/ProgressModal';
 import ResetStyle from '@style/ResetStyle.js';
 import {server} from '@context/server';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthStyle from '@style/AuthStyle';
 
 import {useTranslation} from 'react-i18next';

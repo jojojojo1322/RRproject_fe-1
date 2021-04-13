@@ -12,11 +12,11 @@ import WalletStyle from '@style/WalletStyle.js';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import WalletSendModal from '@factory/modal/WalletSendModal';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import BottomModal from '@factory/modal/BottomModal';
 import axios from 'axios';
 import {server} from '@context/server';
 import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
+import {useSelector} from 'react-redux';
 
 // 3자리수 콤마(,) + 소수점 이하는 콤마 안 생기게
 function numberWithCommas(num) {
@@ -46,6 +46,10 @@ export default function WalletSend({navigation, route}) {
   const [transfee, setTransfee] = useState(transactionfee);
   const [walletData, setWalletData] = useState([]);
   const [calculatedValue, setCalculatedValue] = useState(total);
+
+  const {user} = useSelector(({auth}) => ({
+    user: auth.user,
+  }));
 
   const {t, i18n} = useTranslation();
 
@@ -133,7 +137,7 @@ export default function WalletSend({navigation, route}) {
   // Call wallet Data Api
   const walletDataApi = async () => {
     await axios
-      .get(`${server}/wallet/${await AsyncStorage.getItem('email')}`)
+      .get(`${server}/wallet/${user.mailId}`)
       .then((response) => {
         // 보유한 Total value TNC
         setTotal(Number(response.data.balance.replace(' TNC', '')));
@@ -247,7 +251,7 @@ export default function WalletSend({navigation, route}) {
   const setConfirm = async () => {
     navigation.navigate('WalletConfirmPassword', {
       amount: value,
-      email: await AsyncStorage.getItem('email'),
+      email: user.mailId,
       memo: memo,
       to: address,
       type: type,

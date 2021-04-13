@@ -20,6 +20,7 @@ import ResetStyle from '@style/ResetStyle.js';
 import {server} from '@context/server';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useSelector} from 'react-redux';
 import AuthStyle from '@style/AuthStyle';
 
 import ProgressModal from '@factory/modal/ProgressModal';
@@ -38,12 +39,17 @@ const SettingsWalletPassword = ({route, navigation}) => {
   const [modal4Visible, setModal4Visible] = useState(false);
   const [walletAddress, setWalletAddress] = useState('');
   const [currentPw, setCurrentPw] = useState('');
+
+  const {user} = useSelector(({auth}) => ({
+    user: auth.user,
+  }));
+
   const {t} = useTranslation();
 
   const userInfoApi = async ({navigation, route}) => {
     await axios
       .get(
-        `${server}/user?userNo=${await AsyncStorage.getItem('userNo')}`,
+        `${server}/user?userNo=${user.userNo}`,
         // `${server}/user/user?userNo=210127104026300`,
       )
       .then(async (response) => {
@@ -62,7 +68,7 @@ const SettingsWalletPassword = ({route, navigation}) => {
     setModal3Visible(true);
     await axios
       .put(`${server}/wallet/password`, {
-        email: await AsyncStorage.getItem('email'),
+        email: user.mailId,
         currentPw: route.params?.currentPw,
         updatePw: walletPw,
       })
@@ -84,7 +90,7 @@ const SettingsWalletPassword = ({route, navigation}) => {
     // this.setModal3Visible(true);
     await axios
       .put(`${server}/wallet`, {
-        email: await AsyncStorage.getItem('email'),
+        email: user.mailId,
         walletAddress: await AsyncStorage.getItem('masterKey'),
         walletPw: walletPw,
       })

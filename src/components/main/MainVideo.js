@@ -20,6 +20,7 @@ import {useTranslation} from 'react-i18next';
 import {server} from '@context/server';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useSelector} from 'react-redux';
 
 const MainVideo = ({navigation, route}) => {
   // Research Form 에서 넘어온 데이터
@@ -48,6 +49,11 @@ const MainVideo = ({navigation, route}) => {
   const [masterKey, setMasterKey] = useState('');
   const [userId, setUserId] = useState('');
   const sponsorUserNo = '5f9677c880c3164b4b1cc398';
+
+  const {language, user} = useSelector(({language, auth}) => ({
+    language: language.language,
+    user: auth.user,
+  }));
 
   let {fullScreen} = screenState;
 
@@ -104,8 +110,8 @@ const MainVideo = ({navigation, route}) => {
     setModalVisible(true);
     axios
       .post(`${server}/wallet/trans/reward`, {
-        language: await AsyncStorage.getItem('deviceLanguage'),
-        receiver: await AsyncStorage.getItem('userNo'),
+        language,
+        receiver: user.userNo,
         surveyId: surveyId,
       })
       .then((response) => {
