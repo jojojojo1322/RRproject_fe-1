@@ -180,7 +180,6 @@ const Splash = ({loading, setLoading}) => {
           setAutologinKey(res);
         }
       });
-      dispatch(getUserInfo({userNo: loginPayload.userNo}));
     } catch (e) {
       console.log(e);
     }

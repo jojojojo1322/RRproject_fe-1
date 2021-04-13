@@ -202,7 +202,7 @@ const MainDetailExpired = (props) => {
   console.log('surveyDetailsurveyDetailsurveyDetail', surveyDetail);
   return (
     <SafeAreaView style={[ResetStyle.container]}>
-      <ScrollView>
+      <ScrollView bounces={false}>
         <View style={[MainStyle.mainDetailContainerInner]}>
           <TouchableOpacity
             style={{

@@ -529,7 +529,7 @@ const ProfileAll = (props) => {
 
         {/* Level List */}
         <View style={{flexDirection: 'row'}}>
-          <ScrollView showsVerticalScrollIndicator={false}>
+          <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
             {/* Level List Item */}
             {/* {Object.keys(question).map((data, index) => { */}
             {question.map((data, index) => {

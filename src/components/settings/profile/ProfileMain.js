@@ -280,6 +280,7 @@ const ProfileMain = ({navigation, route}) => {
           </TouchableOpacity>
         </View>
         <FlatList
+          bounces={false}
           style={{marginHorizontal: '5%'}}
           data={DATA}
           renderItem={({item}) => (

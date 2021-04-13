@@ -60,7 +60,7 @@ const WalletDetail = (props) => {
             </Text>
           </TouchableOpacity>
         </View>
-        <ScrollView style={{paddingHorizontal: '5%'}}>
+        <ScrollView bounces={false} style={{paddingHorizontal: '5%'}}>
           {/* 블록번호 */}
           <List
             title={t('walletDetail1')}
