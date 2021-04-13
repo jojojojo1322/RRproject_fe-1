@@ -25,9 +25,6 @@ import {useSelector} from 'react-redux';
 
 const ResearchForm = (props) => {
   const {t, i18n} = useTranslation();
-  // CheckedArrObject = new SelectedCheckboxes();
-
-  // state = { pickedElements: '' }
 
   const [question, setQuestion] = useState([]);
   const [questionLength, setQuestionLength] = useState(0);
@@ -135,16 +132,13 @@ const ResearchForm = (props) => {
   };
   let surveyOptionArr = [];
 
-  // survey question-option get
   const getSurveyOptionApi = async (questionNum) => {
     axios
       .get(
         `${server}/survey/question/options?deviceLanguageCode=${language}&legacySurveyId=${props.route.params?.legacySurveyId}&questionNum=${questionNum}`,
       )
       .then((response) => {
-        // let _surveyOption = surveyOption;
         surveyOptionArr = surveyOptionArr.concat(response.data);
-        // setSurveyOption(_surveyOption);
 
         setSurveyOption(surveyOptionArr);
       })
@@ -164,17 +158,7 @@ const ResearchForm = (props) => {
           advertiseUrl: props.route.params?.advertiseUrl,
         });
       }
-
-      // props.navigation.replace('MainVideo', {
-      //   legacySurveyId: legacySurveyId,
-      //   surveyArray: checkedArray,
-      //   surveyId: props.route.params?.surveyId,
-      //   sponsorUserNo: props.route.params?.sponsorUserNo,
-      //   advertiseUrl: props.route.params?.advertiseUrl,
-      // });
     }
-    //progressive 종료
-    // setModal4Visible(false);
   }, [insertSuccess]);
   const confirmHandle = () => {
     props.navigation.goBack();
@@ -209,7 +193,6 @@ const ResearchForm = (props) => {
     if (_nowIndex != surveyLength - 1) {
       setNowIndex(_nowIndex + 1);
       setCheckId('');
-      // props.navigation.push('ResearchForm');
       await setNextCheck(
         checkedArray.findIndex(
           (y) => Number(y.surveyQuestionNum) === Number(_nowIndex) + 2,
@@ -248,18 +231,6 @@ const ResearchForm = (props) => {
     getSurveyQuestionApi();
   }, []);
 
-  // [
-  //   {
-  //     "languageCode": "string",
-  //     "legacySurveyId": "string",
-  //     "surveyId": "string",
-  //     "surveyOptionId": "string",
-  //     "surveyOptionNum": "string",
-  //     "surveyQuestionId": "string",
-  //     "surveyQuestionNum": "string",
-  //     "userNo": "string"
-  //   }
-  // ]
   const survey_handleQuestion = async (
     question,
     answer,
@@ -268,21 +239,8 @@ const ResearchForm = (props) => {
     surveyId,
     surveyQuestionId,
   ) => {
-    // question,   answer,    status,  optionId,  surveyId surveyQuestionId
-    // questionNum optionNum  status   optionId,  surveyId Id
-
     let _checkedArray = checkedArray;
     if (status === 'PLUS') {
-      // await setCheckedArray(
-      //   _checkedArray.concat({
-      //     key: question,
-      //     question: question,
-      //     answer: answer,
-      //   }),
-      // );
-
-      // question,   answer,    status,  optionId,  surveyId surveyQuestionId
-      // questionNum optionNum  status   optionId,  surveyId Id
       _checkedArray = _checkedArray.concat({
         languageCode: deviceLanguage,
         legacySurveyId: legacySurveyId,
@@ -314,18 +272,10 @@ const ResearchForm = (props) => {
   let researchList = [];
   let i = 0;
 
-  // researchArr.map();
   const confirm2Handle = () => {
-    // props.navigation.replace('Main');
     props.navigation.navigate('Main');
-    // props.navigation.goBack();
   };
   const RenderItem = (item) => {
-    // id={item.id}
-    // questionNum={item.questionNum}
-    // surveyQuestionId={item.surveyQuestionId}
-    // optionNumber={item.optionNumber}
-    // optionContent={item.optionContent}
     const surveyQuestion = survey.filter(
       (data, index) => data.questionNum == item.questionNum,
     )[0];
@@ -473,15 +423,9 @@ const ResearchForm = (props) => {
                 paddingBottom: Platform.OS === 'ios' ? 0 : '10%',
               },
             ]}>
-            {/* // */}
-            {/* // */}
-            {/* // */}
             {/* 상단 인덱스 / 질문 내용 start */}
             {researchList[nowIndex]}
             {/* 상단 인덱스 / 질문 내용 end */}
-            {/* // */}
-            {/* // */}
-            {/* // */}
             {/* 해당 질문 option detail start */}
             <FlatList
               style={{
@@ -490,7 +434,6 @@ const ResearchForm = (props) => {
               data={surveyOption.filter(
                 (d) => String(d.questionNum) === String(nowIndex + 1),
               )}
-              // data={surveyOption}
               renderItem={({item}) => (
                 <RenderItem
                   id={item.id}
@@ -500,40 +443,12 @@ const ResearchForm = (props) => {
                   optionContent={item.optionContent}
                 />
               )}
-              keyExtractor={(item, index) =>
-                // Number(item.level);
-                index.toString()
-              }
+              keyExtractor={(item, index) => index.toString()}
               extraData={surveyOption}
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
             />
-
-            {/* <FlatList
-                  // style={{height: '100%'}}
-                  data={kycQuestion2}
-                  renderItem={({item}) => (
-                    // renderItem(questionNumber=data.questionNumber)
-                    <RenderItem
-                      //해당 질문
-                      question={item.question}
-                      category={item.category}
-                      answers={item.answers}
-                      //해당 질문의 단일/다중선택
-                      // typeName={data.typeName}
-                      // optionNumber={item.optionNumber}
-                      // kycQuestion2={item.kycQuestion2}
-                    />
-                  )}
-                  keyExtractor={(item) => item.id}
-                  extraData={question2}
-                  showsVerticalScrollIndicator={false}
-                  showsHorizontalScrollIndicator={false}
-                /> */}
             {/* 해당 질문 option detail end */}
-            {/* // */}
-            {/* // */}
-            {/* // */}
           </View>
         </View>
         <View style={ResearchStyle.researchBottomButton}>
