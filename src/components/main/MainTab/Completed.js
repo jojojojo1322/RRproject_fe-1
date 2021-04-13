@@ -81,11 +81,7 @@ const Completed = () => {
     } else {
       return (
         <View
-          style={[
-            MainStyle.itemBox,
-            // {borderWidth: 1, borderColor: '#f00'},
-            // {marginBottom: item.id === item.length ? 200 : 0},
-          ]}
+          style={[MainStyle.itemBox]}
           onPress={() => {
             navigation.navigate('MainDetailCompleted', {
               legacySurveyId: item.legacySurveyId,
