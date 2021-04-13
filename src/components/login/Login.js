@@ -65,6 +65,7 @@ const Item = ({item, onPress, style}) => (
 
 const Login = ({navigation, history}) => {
   const dispatch = useDispatch();
+  const {t} = useTranslation();
 
   const [ID, setID] = useState('');
   const [passWord, setPassWord] = useState('');
@@ -80,7 +81,10 @@ const Login = ({navigation, history}) => {
   const [hasWallet, setHasWallet] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [deviceCheck, setDeviceCheck] = useState(1);
-  const {t} = useTranslation();
+
+  const {loginPayload} = useSelector(({auth}) => ({
+    loginPayload: auth.loginPayload,
+  }));
 
   const handleBack = () => {
     history.goBack();
@@ -177,7 +181,7 @@ const Login = ({navigation, history}) => {
       .catch((e) => {});
   };
 
-  const handleSignIn = async () => {
+  const handleSignIn = () => {
     dispatch(
       signIn({
         deviceKey: DeviceInfo.getUniqueId(),
@@ -186,12 +190,6 @@ const Login = ({navigation, history}) => {
       }),
     );
   };
-
-  const {loginPayload} = useSelector(({auth}) => ({
-    loginPayload: auth.loginPayload,
-  }));
-
-  const [num, setNum] = useState(null);
 
   useEffect(() => {
     if (loginPayload) {
@@ -313,47 +311,6 @@ const Login = ({navigation, history}) => {
               style={ResetStyle.button}
               activeOpacity={0.75}
               onPress={() => handleSignIn()}>
-              {/* //async () => {
-                // api용;
-                // setHasWallet('');
-                // console.log(ID);
-                // console.log(passWord);
-                // loginApi(ID, passWord).then((res) => {
-                //   console.log('res>>>>>>', res);
-                //   console.log('res>>>>>>', res.status);
-                //   console.log('res>>>>>>', res.msg);
-                //   console.log('res>>>>>>', res.userNo);
-                //   if (res.status === true) {
-                //     if (res.hasWallet === -1) {
-                //       // this.setModal5Visible(false);
-                //       console.log('aaa');
-                //       setModalVisible(true);
-                //     } else {
-                //       navigation.navigate('Main');
-                //     }
-                //   } else if (res.status === false) {
-                //     if (res.msg === 'KycLevel1 Not Saved') {
-                //       setModal3Visible(true);
-                //     } else if (res.msg === 'DeviceKey Not Equal') {
-                //       setModal4Visible(true);
-                //     } else if (res.msg === 'Password Not Equal') {
-                //       setModal2Visible(true);
-                //     }
-                //   }
-                // });
-                // console.log('this.state.loginCheck', loginCheck);
-
-                //본부장님 테스트용
-                // // this.props.navigation.navigate('WalletPassword');
-                // this.props.route.params?.loginSuccess(
-                //   '5fd188217878d135df02c1bd',
-                // ),
-                //   await AsyncStorage.setItem(
-                //     'userNo',
-                //     '5fd188217878d135df02c1bd',
-                //   );
-                //} */}
-
               <Text
                 style={[
                   ResetStyle.fontMediumK,

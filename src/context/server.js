@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const server = 'http://13.212.199.255:8091/v1/api';
+export const server = 'http://54.169.7.94:8091/v1/api';
 
 const api = (contentType = 'application/json') => {
   return axios.create({

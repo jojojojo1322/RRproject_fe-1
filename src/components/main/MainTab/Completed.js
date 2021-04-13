@@ -23,13 +23,13 @@ import MainStyle from '@style/MainStyle';
 
 const SLIDER_HEIGHT = Dimensions.get('window').height;
 const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT / 2.5);
-const ITEM_HEIGHT_ANDROID = Math.round(SLIDER_HEIGHT / 2.2);
+const ITEM_HEIGHT_ANDROID = Math.round(SLIDER_HEIGHT / 1.6);
 const Completed = () => {
   const {t} = useTranslation();
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const {user, completedSurveyList} = useSelector(
+  const {user, language, completedSurveyList} = useSelector(
     ({auth, language, survey}) => ({
       user: auth.user,
       language: language.language,
@@ -80,21 +80,11 @@ const Completed = () => {
       );
     } else {
       return (
-        <View
-          style={[MainStyle.itemBox]}
-          onPress={() => {
-            navigation.navigate('MainDetailCompleted', {
-              legacySurveyId: item.legacySurveyId,
-              // legacySurveyId: '5f91aad0ae28561b056e2f97',
-              surveyName: item.surveyName,
-            });
-          }}>
+        <View style={[MainStyle.itemBox, Platform.OS !== 'ios' && {flex: 1}]}>
           <View
             opacity={1.0}
             style={{
               flex: 1,
-              // borderWidth: 3,
-              // borderColor: '#0f0',
             }}>
             {item.categoryImg && (
               <Image
@@ -108,7 +98,6 @@ const Completed = () => {
                 source={{uri: item.categoryImg}}
               />
             )}
-
             <View
               style={{
                 position: 'absolute',
@@ -241,19 +230,6 @@ const Completed = () => {
                         ResetStyle.fontWhite,
                         {marginLeft: '5%'},
                       ]}>
-                      {/* {item.endTime} */}
-                      {/* {setInterval(function () {
-                          var today = new Date().getTime();
-                          var gap = dday - today;
-                          var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
-                          var hour = Math.ceil(
-                            (gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-                          );
-                          var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
-                          var sec = Math.ceil((gap % (1000 * 60)) / 1000);
-    
-                          return `${day - 1}일 ${hour}시간 ${min}분 ${sec}초`;
-                        }, 1000)} */}
                       {day >= 0 && hour >= 0 && min >= 0 && sec >= 0
                         ? `${day - 1}${t('days')} ${hour}${t(
                             'hours',
@@ -261,29 +237,6 @@ const Completed = () => {
                         : `0${t('days')} 0${t('hours')} 0${t('minutes')} 0${t(
                             'seconds',
                           )}`}
-                      {/* `0{t('days')} 0{t('hours')} 0{t('minutes')} 0{t('seconds')}` */}
-                      {
-                        // <Moment
-                        //   element={Text}
-                        //   interval={100}
-                        //   date={item.endTime}
-                        //   format="D일 hh시간 mm분 ss초"
-                        //   durationFromNow
-                        // />
-                      }
-                      {/* {setInterval(() => {
-                          var today = new Date().getTime();
-                          var dday = new Date(item.endTime).getTime();
-                          var gap = dday - today;
-                          var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
-                          var hour = Math.ceil(
-                            (gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-                          );
-                          var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
-                          var sec = Math.ceil((gap % (1000 * 60)) / 1000);
-                          return day;
-                        }, 1000)} */}
-                      {/* {console.log('remainTime', remainTime)} */}
                     </Text>
                   </View>
                 </View>
@@ -296,7 +249,6 @@ const Completed = () => {
                   onPress={() => {
                     navigation.navigate('MainDetailCompleted', {
                       legacySurveyId: item.legacySurveyId,
-                      // legacySurveyId: '5f91aad0ae28561b056e2f97',
                       surveyName: item.surveyName,
                     });
                   }}>
@@ -322,9 +274,6 @@ const Completed = () => {
   };
 
   useEffect(() => {
-    // if(user.userNo!==''){
-    //     dispatch(getCompletedSurveyList(user.userNo));
-    // }
     if (user.userNo !== '') {
       dispatch(getCompletedSurveyList(user.userNo));
     }
@@ -334,16 +283,9 @@ const Completed = () => {
     <View style={{flex: 1}}>
       <Carousel
         data={
-          // DATA.filter((item) => item.status == 'completed').length == 0
-          //   ? [{status: 'zero'}]
-          //   : DATA.filter((item) => item.status == 'completed')
           completedSurveyList.length == 0
             ? [{status: 'zero'}]
             : completedSurveyList
-          // completeData
-          // DATA.filter((item) => item.status == 'completed').length == 0
-          //   ? [{status: 'zero'}]
-          //   : DATA.filter((item) => item.status == 'completed')
         }
         renderItem={renderItem}
         sliderHeight={Platform.OS === 'ios' ? 500 : 450}
@@ -357,14 +299,9 @@ const Completed = () => {
         containerCustomStyle={{
           flex: 1,
           backgroundColor: '#fff',
-          // borderWidth: 3,
-          // borderColor: '#0f0',
         }}
-        // swipeThreshold={50}
         slideStyle={{
           width: '100%',
-          // borderWidth: 3,
-          // borderColor: '#F00',
           marginTop: 0,
           paddingTop: 0,
         }}
@@ -373,8 +310,6 @@ const Completed = () => {
             completedSurveyList.length == 0
               ? '100%'
               : String(completedSurveyList.length * 95 + '%'),
-          // borderWidth: 3,
-          // borderColor: '#00f',
           paddingTop:
             Platform.OS === 'android'
               ? '3%'
@@ -386,7 +321,6 @@ const Completed = () => {
         onSnapToItem={(index) => setIndex(index)}
         scrollInterpolator={scrollInterpolator2}
         slideInterpolatedStyle={animatedStyles2}
-        // useScrollView={true}
         vertical={true}
         layout={'stack'}
         layoutCardOffset={0}
