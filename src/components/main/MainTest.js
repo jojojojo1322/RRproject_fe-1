@@ -60,13 +60,11 @@ const VegaScrollItem = ({y, index, distanceBetweenItem, item}) => {
     }),
   );
   const scale = position.interpolate({
-    // inputRange: [isDisappearing, isTop, isBottom, isAppearing],
     inputRange: [-500, -50, 0, 50],
     outputRange: [0.85, 1, 1, 1],
     extrapolate: 'clamp',
   });
   const opacity = position.interpolate({
-    // inputRange: [isDisappearing, isTop, isBottom, isAppearing],
     inputRange: [-500, -50, 0, 50],
     outputRange: [0.5, 1, 1, 1],
   });
@@ -493,7 +491,6 @@ export const Main = ({navigation}) => {
   };
 
   const handlePanReleaseOrEnd = (evt, gestureState) => {
-    // console.log('handlePanReleaseOrEnd', scrollY._value);
     syncScrollOffset();
     headerScrollY.setValue(scrollY._value);
     if (Platform.OS === 'ios') {
@@ -543,14 +540,12 @@ export const Main = ({navigation}) => {
   const onMomentumScrollEnd = () => {
     isListGliding.current = false;
     syncScrollOffset();
-    // console.log('onMomentumScrollEnd');
   };
 
   const onScrollEndDrag = (e) => {
     syncScrollOffset();
 
     const offsetY = e.nativeEvent.contentOffset.y;
-    // console.log('onScrollEndDrag', offsetY);
     // iOS only
     if (Platform.OS === 'ios') {
       if (offsetY < -PullToRefreshDist && !refreshStatusRef.current) {
@@ -562,20 +557,17 @@ export const Main = ({navigation}) => {
   };
 
   const refresh = async () => {
-    console.log('-- start refresh');
     refreshStatusRef.current = true;
     await new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve('done');
       }, 2000);
     }).then((value) => {
-      console.log('-- refresh done!');
       refreshStatusRef.current = false;
     });
   };
 
   const rednerTab1Item = ({item, index, onPress}) => {
-    // console.log('>>>>>>ASDSDAsdasdas>>>>>>>', item.status);
     if (item.status === 'zero') {
       return (
         <TouchableOpacity

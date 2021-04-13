@@ -13,14 +13,7 @@ const UpdateModal = ({
 }) => {
   const {t, i18n} = useTranslation();
   return modalVisible ? (
-    <Modal
-      animationType="fade"
-      transparent={true}
-      visible={modalVisible}
-      // onRequestClose={() => {
-      //   Alert.alert('Modal has been closed.');
-      // }}
-    >
+    <Modal animationType="fade" transparent={true} visible={modalVisible}>
       <View style={{flex: 1, position: 'relative'}}>
         {/* modal background */}
         <View style={[ModalStyle.modalCenteredView]}></View>

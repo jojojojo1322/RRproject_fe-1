@@ -1,19 +1,12 @@
 import React, {Component, useEffect, useState} from 'react';
 import {View, Text, TouchableWithoutFeedback} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import ResetStyle from '@style/ResetStyle.js';
-
-// function padTime(time) {
-//   return time.toString().padStart(2, '0');
-// }
 
 const padTime = (time) => {
   return time.toString().padStart(2, '0');
 };
 
 const CountDown = (standard, timeLeftNumber) => {
-  // console.log('aaaa', standard);
-  // console.log('aaaa', standard.standard);
   const [timeLeft, setTimeLeft] = useState(standard.timeLeftNumber);
   const [isRunning, setIsRunning] = useState(standard.standard);
 
@@ -49,26 +42,20 @@ const CountDown = (standard, timeLeftNumber) => {
 
   const handleZeroTimer = () => {
     if (timeLeft === 0) {
-      console.log('Countdown end');
       setIsRunning(false);
     }
   };
 
   useEffect(() => {
     setIsRunning(standard.standard);
-    // [standard] == true && console.log('시작');
   }, [standard.standard]);
 
   useEffect(() => {
-    console.log('aaaa,sdsdsdsdsd', isRunning);
-    // console.log('aaaa,sdsdsdsdsd', standard.standard);
     if (isRunning === true) {
       resetTimer();
       startTimer();
     } else if (isRunning === false) {
       resetTimer();
-      console.log('flflflflflffl');
-      // stopTimer();
       if (standard.CountDownCheck == 'start') startTimer();
     }
   }, [isRunning]);

@@ -151,10 +151,7 @@ const CountryList = (props) => {
       <FlatList
         data={DATA}
         renderItem={renderItem}
-        keyExtractor={(item, index) =>
-          // Number(item.level);
-          index.toString()
-        }
+        keyExtractor={(item, index) => index.toString()}
         extraData={selectedId}
         style={{width: '100%', marginTop: '5%'}}
       />
@@ -194,11 +191,7 @@ class ListRoundCheckModal extends Component {
     this.state = {
       modalVisible: false,
     };
-    // this.setModalVisible = this.setModalVisible.bind(this);
   }
-  //   state = {
-  //     modalVisible: this.props.modalVisible,
-  //   };
   componentDidUpdate(preProps, preState) {
     if (preProps.modalVisible != this.props.modalVisible) {
       this.setState({modalVisible: this.props.modalVisible});
@@ -214,14 +207,7 @@ class ListRoundCheckModal extends Component {
       <KeyboardAwareScrollView
         enableOnAndroid={true}
         contentContainerStyle={{flexGrow: 1}}>
-        <Modal
-          animationType="fade"
-          transparent={true}
-          visible={modalVisible}
-          // onRequestClose={() => {
-          //   Alert.alert('Modal has been closed.');
-          // }}
-        >
+        <Modal animationType="fade" transparent={true} visible={modalVisible}>
           <View style={{flex: 1, position: 'relative'}}>
             {/* modal background */}
             <TouchableWithoutFeedback
@@ -233,11 +219,6 @@ class ListRoundCheckModal extends Component {
               <View style={[ModalStyle.modalCenteredView]}></View>
             </TouchableWithoutFeedback>
           </View>
-
-          {/* <ModalCountry
-          data={this.state}
-          setModalVisible={this.props.setModalVisible}
-        /> */}
 
           {/* modal view */}
           <View style={[ModalStyle.lrcModal]}>

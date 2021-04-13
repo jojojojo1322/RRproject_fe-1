@@ -10,12 +10,7 @@ import {
 
 const ProgressModal = ({modalVisible = false, setModalVisible}) => {
   return (
-    <Modal
-      animationType="fade"
-      transparent={true}
-      visible={modalVisible}
-      // onRequestClose={() => null}>
-    >
+    <Modal animationType="fade" transparent={true} visible={modalVisible}>
       <TouchableWithoutFeedback activeOpacity={0.55}>
         <View
           style={{

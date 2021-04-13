@@ -52,7 +52,6 @@ export class RoundCheckbox extends Component {
       });
     }
     if (a.length !== 0) {
-      console.log('다시체크됨다시체크됨다시체크됨다시체크됨다시체크됨');
       this.setState({checked: true}, () => {
         this.props.checkedObjArr.addItem({
           key: this.props.keyValue,
@@ -94,7 +93,6 @@ export class RoundCheckbox extends Component {
         (data) => data.value == this.props.value,
       );
       if (a.length !== 0) {
-        console.log('다시체크됨다시체크됨다시체크됨다시체크됨다시체크됨');
         this.setState({checked: true}, () => {
           this.props.checkedObjArr.addItem({
             key: this.props.keyValue,
@@ -110,7 +108,6 @@ export class RoundCheckbox extends Component {
     }
   }
   stateSwitcher(key, label, value) {
-    console.log({key: key, label: label, value: value});
     this.setState({checked: !this.state.checked}, () => {
       if (this.state.checked) {
         this.props.checkedObjArr.addItem({
@@ -140,24 +137,9 @@ export class RoundCheckbox extends Component {
         } else if (this.props.handleCheckedArray) {
           // 사용가능 언어 추가
           const handleCheckedArray = this.props.handleCheckedArray;
-          // if (
-          //   handleCheckedArray.findIndex((data) => {
-          //     data.value === value;
-          //   }) === -1
-          // ) {
-          console.log(
-            '라운드체크 안에서 ',
-            this.props.checkedObjArr.fetchArray(),
-          );
           this.props.handleCheckedArray(this.props.checkedObjArr.fetchArray());
-          // }
         }
-        // this.props.handleCheckedArray(this.props.checkedObjArr.fetchArray());
-        // console.log(this.props.checkedObjArr.fetchArray());
-        // console.log(this.props.checkedObjArr.fetchArray().length);
       } else {
-        // this.props.handleUnCheckedArray(key);
-
         if (this.props.handleQuestion) {
           this.props.handleQuestion(key, value, 'MINUS');
         } else if (this.props.handleCheckedbox) {
@@ -180,7 +162,6 @@ export class RoundCheckbox extends Component {
     });
   }
   render() {
-    // console.log(a);
     return (
       <TouchableOpacity
         onPress={this.stateSwitcher.bind(
@@ -199,13 +180,11 @@ export class RoundCheckbox extends Component {
           <View
             style={[
               {
-                // padding: 1.5,
                 borderRadius: 50,
                 width: this.props.size,
                 height: this.props.size,
                 borderWidth: this.props.borderWidth,
                 borderColor: this.props.borderColor,
-                // backgroundColor: this.props.color,
               },
               this.state.checked && {borderWidth: 0},
             ]}>
@@ -225,9 +204,6 @@ export class RoundCheckbox extends Component {
               </View>
             )}
           </View>
-          {/* <Text style={[styles.checkboxLabel, {color: this.props.labelColor}]}>
-            {this.props.label}
-          </Text> */}
         </View>
       </TouchableOpacity>
     );
@@ -267,13 +243,6 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === 'ios' ? 25 : 0,
   },
 
-  // showSelectedButton: {
-  //   padding: 20,
-  //   marginTop: 25,
-  //   alignSelf: 'stretch',
-  //   backgroundColor: '#5D52FF'
-  // },
-
   buttonText: {
     fontSize: 20,
     color: '#ffffff',
@@ -287,14 +256,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 100,
     backgroundColor: '#2B97FB',
-    // borderWidth: 1,
-    // borderColor: '#2B97FB',
   },
 
   checkboxTickImg: {
     width: '70%',
     height: '70%',
-    // tintColor: '#ffffff',
     resizeMode: 'contain',
   },
 

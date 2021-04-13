@@ -101,9 +101,8 @@ const DateBlock = ({
   const fadeFilled = hex2rgba(fadeColor || '#ffffff', 1);
   const fadeTransparent = hex2rgba(fadeColor || '#ffffff', 0);
   const scrollRef = useRef(null);
-  //
+
   useEffect(() => {
-    // @ts-ignore
     scrollRef.current.scrollTo({
       y: dHeight * (value - digits[0]),
       animated: true,
@@ -122,11 +121,6 @@ const DateBlock = ({
     } else {
       onChange(type, Math.round(digit));
     }
-
-    // const digit = nativeEvent.contentOffset.y / dHeight + digits[0];
-    // if (Number.isInteger(digit)) {
-    //   onChange(type, digit);
-    // }
   };
   return React.createElement(
     View,

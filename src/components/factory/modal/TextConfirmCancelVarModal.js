@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from 'react-native';
-// import { TouchableOpacity } from 'react-native-gesture-handler';
 import ResetStyle from '@style/ResetStyle';
 import ModalStyle from '@style/ModalStyle';
 import {useTranslation} from 'react-i18next';
@@ -33,15 +32,10 @@ const TextConfirmCancelVarModal = ({
     <Modal
       animationType="fade"
       transparent={true}
-      visible={modalVisible === true && kycLevel === levelCheck ? true : false}
-      // onRequestClose={() => {
-      //   Alert.alert('Modal has been closed.');
-      // }}
-    >
+      visible={modalVisible === true && kycLevel === levelCheck ? true : false}>
       <View style={{flex: 1, position: 'relative'}}>
         {/* modal background */}
         <TouchableWithoutFeedback
-          // style={styles.centeredView}
           activeOpacity={0.55}
           onPress={() => {
             setModalVisible(!modalVisible);

@@ -46,12 +46,8 @@ class AndroidTouchId extends Component {
   }
 
   authCurrent() {
-    /////안드로이드
-
     FingerprintScanner.authenticate({title: 'Log in with Biometrics'}).then(
       () => {
-        console.log('success');
-        console.log('Androidsuccess');
         this.props.onAuthenticate();
       },
     );
@@ -107,14 +103,11 @@ class AndroidTouchId extends Component {
       console.log('2323232');
       return this.renderLegacy();
     }
-
-    // current API UI provided by native BiometricPrompt
     return null;
   };
 }
 
 AndroidTouchId.propTypes = {
-  // onAuthenticate: PropTypes.func.isRequired,
   handlePopupDismissedLegacy: PropTypes.func,
   style: ViewPropTypes.style,
 };

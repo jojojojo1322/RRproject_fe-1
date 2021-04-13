@@ -10,7 +10,6 @@ import {
 import ResetStyle from '@style/ResetStyle';
 import ModalStyle from '@style/ModalStyle';
 import {useTranslation} from 'react-i18next';
-import {exp} from 'react-native/Libraries/Animated/src/Easing';
 
 const TextConfirmModal = ({
   modalVisible,
@@ -21,14 +20,7 @@ const TextConfirmModal = ({
 }) => {
   const {t, i18n} = useTranslation();
   return modalVisible ? (
-    <Modal
-      animationType="fade"
-      transparent={true}
-      visible={modalVisible}
-      // onRequestClose={() => {
-      //   Alert.alert('Modal has been closed.');
-      // }}
-    >
+    <Modal animationType="fade" transparent={true} visible={modalVisible}>
       <View style={{flex: 1, position: 'relative'}}>
         {/* modal background */}
         <TouchableWithoutFeedback
