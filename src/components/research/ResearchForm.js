@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
+import {useFocusEffect} from '@react-navigation/native';
 import {
   View,
   Text,
@@ -6,6 +7,7 @@ import {
   Alert,
   FlatList,
   Platform,
+  BackHandler,
 } from 'react-native';
 
 import {server} from '@context/server';
@@ -76,12 +78,10 @@ const ResearchForm = (props) => {
     axios
       .post(`${server}/survey/answer`, checkedArray)
       .then((response) => {
-        console.log('postSurveyAnswerApi THEN >>>>', response);
         const ret = response.data.ret_val;
         setInsertSuccess(ret);
       })
       .catch((e) => {
-        console.log('postSurveyAnswerApi ERROR >>>>', e.response.data.message);
         if (
           e.response.data.message === '해당 설문의 참여인원이 초과하였습니다.'
         ) {
@@ -91,7 +91,6 @@ const ResearchForm = (props) => {
         ) {
           setModal3Visible(true);
         }
-        // console.error('postSurveyAnswerApi ERROR >>>>', e);
       });
   };
   // survey Reward Api
@@ -104,7 +103,6 @@ const ResearchForm = (props) => {
         surveyId: props.route.params?.surveyId,
       })
       .then(async (response) => {
-        console.log('postSurveyRewardApi THEN >>>>', response);
         if (response.data.status === 'success') {
           props.navigation.navigate('MainVideoComplete');
         } else if (response.data.status === 'fail') {
@@ -113,9 +111,6 @@ const ResearchForm = (props) => {
         setModal4Visible(false);
       })
       .catch((e) => {
-        console.log('postSurveyRewardApi ERROR >>>>', e);
-        console.log('postSurveyRewardApi ERROR >>>>', e.response);
-        console.log('postSurveyRewardApi ERROR >>>>', e.response.data.message);
         setModal4Visible(false);
       });
   };
@@ -126,13 +121,8 @@ const ResearchForm = (props) => {
         `${server}/survey/question?deviceLanguageCode=${language}&legacySurveyId=${props.route.params?.legacySurveyId}`,
       )
       .then(async (response) => {
-        console.log(
-          'getSurveyQuestionApi THEN >>>>',
-          response.data.resQuestionBySurveyIdInfo,
-        );
         setSurvey(response.data.resQuestionBySurveyIdInfo);
         setSurveyLength(response.data.resQuestionBySurveyIdInfo.length);
-
         setLegacySurveyId(props.route.params?.legacySurveyId);
         setDeviceLanguage(language);
         setUserNo(user.userNo);
@@ -141,9 +131,7 @@ const ResearchForm = (props) => {
           getSurveyOptionApi(data.questionNum);
         });
       })
-      .catch((e) => {
-        console.log('getSurveyQuestionApi ERROR >>>>', e);
-      });
+      .catch((e) => {});
   };
   let surveyOptionArr = [];
 
@@ -154,67 +142,20 @@ const ResearchForm = (props) => {
         `${server}/survey/question/options?deviceLanguageCode=${language}&legacySurveyId=${props.route.params?.legacySurveyId}&questionNum=${questionNum}`,
       )
       .then((response) => {
-        // console.log(`getSurveyOptionApi ${questionNum} THEN >>>>`, response);
-        // console.log(
-        //   `getSurveyOptionApi ${questionNum} THEN >>>>`,
-        //   response.data,
-        // );
         // let _surveyOption = surveyOption;
         surveyOptionArr = surveyOptionArr.concat(response.data);
         // setSurveyOption(_surveyOption);
 
         setSurveyOption(surveyOptionArr);
       })
-      .catch((e) => {
-        console.log(`getSurveyOptionApi ${questionNum} THEN >>>>`, e);
-      });
+      .catch((e) => {});
   };
 
-  const handleCheckedbox = (value, status) => {
-    console.log(value, status);
-  };
-
-  const renderSelectedElements = () => {
-    if (CheckedArrObject.fetchArray().length == 0) {
-      Alert.alert('No Item Selected');
-    } else {
-      setPickedElements(
-        CheckedArrObject.fetchArray()
-          .map((res) => res.value)
-          .join(),
-      );
-    }
-  };
-  //
   useEffect(() => {
-    console.log('ResearchForm Progress', modal4Visible);
-    console.log('ResearchForm Progress', modal4Visible);
-    console.log('ResearchForm Progress', modal4Visible);
-    console.log('ResearchForm Progress', modal4Visible);
-  }, [modal4Visible]);
-  //
-  useEffect(() => {
-    // setModal4Visible(true);
     if (insertSuccess === 0) {
       if (props.route.params?.advertiseUrl === null) {
-        console.log('props.route.params?.advertiseUrl null 진입');
-        console.log({
-          legacySurveyId: legacySurveyId,
-          surveyArray: checkedArray,
-          surveyId: props.route.params?.surveyId,
-          sponsorUserNo: props.route.params?.sponsorUserNo,
-          advertiseUrl: props.route.params?.advertiseUrl,
-        });
         postSurveyRewardApi();
       } else {
-        console.log('props.route.params?.advertiseUrl 진입');
-        console.log({
-          legacySurveyId: legacySurveyId,
-          surveyArray: checkedArray,
-          surveyId: props.route.params?.surveyId,
-          sponsorUserNo: props.route.params?.sponsorUserNo,
-          advertiseUrl: props.route.params?.advertiseUrl,
-        });
         props.navigation.replace('MainVideo', {
           legacySurveyId: legacySurveyId,
           surveyArray: checkedArray,
@@ -241,20 +182,24 @@ const ResearchForm = (props) => {
   const cancelHandle = () => {
     console.log('취소');
   };
+
+  const [index, setIndex] = useState(nowIndex);
+
+  useEffect(() => {
+    setIndex(nowIndex);
+  }, [nowIndex]);
+
   // 이전 버튼
   const handlerPrev = async (e) => {
-    const _nowIndex = nowIndex;
-    if (_nowIndex != 0) {
-      setNowIndex(_nowIndex - 1);
+    if (index != 0) {
+      setNowIndex(index - 1);
       setCheckId('');
       await setNextCheck(
         checkedArray.findIndex(
-          (y) => Number(y.surveyQuestionNum) === Number(_nowIndex),
+          (y) => Number(y.surveyQuestionNum) === Number(index),
         ) !== -1,
       );
-      // props.navigation.goBack();
-    } else if (_nowIndex == 0) {
-      // props.navigation.goBack();
+    } else if (index == 0) {
       setModalVisible(true);
     }
   };
@@ -273,13 +218,31 @@ const ResearchForm = (props) => {
     }
     if (_nowIndex === surveyLength - 1) {
       // progressive 시작
-      // setModal4Visible(true);
-      console.log('lastArray', checkedArray);
       postSurveyAnswerApi();
-      // setModal4Visible(false);
-      console.log('insertSuccess', insertSuccess);
     }
   };
+
+  useFocusEffect(
+    useCallback(() => {
+      const onAndroidBackPress = () => {
+        handlerPrev();
+        return true;
+      };
+
+      if (Platform.OS === 'android') {
+        BackHandler.addEventListener('hardwareBackPress', onAndroidBackPress);
+      }
+
+      return () => {
+        if (Platform.OS === 'android') {
+          BackHandler.removeEventListener(
+            'hardwareBackPress',
+            onAndroidBackPress,
+          );
+        }
+      };
+    }, [index]),
+  );
 
   useEffect(() => {
     getSurveyQuestionApi();
@@ -307,16 +270,7 @@ const ResearchForm = (props) => {
   ) => {
     // question,   answer,    status,  optionId,  surveyId surveyQuestionId
     // questionNum optionNum  status   optionId,  surveyId Id
-    // console.log(status, '----question----', question);
-    // console.log(status, '----answer----', answer);
-    console.log({
-      question: question,
-      answer: answer,
-      status: status,
-      optionId: optionId,
-      surveyId: surveyId,
-      surveyQuestionId: surveyQuestionId,
-    });
+
     let _checkedArray = checkedArray;
     if (status === 'PLUS') {
       // await setCheckedArray(
@@ -350,7 +304,6 @@ const ResearchForm = (props) => {
       );
       await setCheckedArray(_checkedArray);
     }
-    console.log(checkedArray);
     await setNextCheck(
       _checkedArray.findIndex((y) => y.surveyQuestionNum === question) !== -1,
     );
@@ -362,7 +315,6 @@ const ResearchForm = (props) => {
   let i = 0;
 
   // researchArr.map();
-  // console.log('surveyOption', surveyOption);
   const confirm2Handle = () => {
     // props.navigation.replace('Main');
     props.navigation.navigate('Main');
@@ -374,14 +326,9 @@ const ResearchForm = (props) => {
     // surveyQuestionId={item.surveyQuestionId}
     // optionNumber={item.optionNumber}
     // optionContent={item.optionContent}
-    // console.log('renderItem', item);
     const surveyQuestion = survey.filter(
       (data, index) => data.questionNum == item.questionNum,
     )[0];
-    // console.log('filter survey ARR', surveyQuestion);
-    // console.log('filter survey ARR', surveyQuestion.surveyId);
-    // console.log('filter survey ARR', surveyQuestion.id);
-    // console.log('filter survey ARR', surveyQuestion.questionNum);
 
     if (item.optionNumber == 1) {
       return (
@@ -503,9 +450,6 @@ const ResearchForm = (props) => {
         </>,
       )),
   );
-
-  console.log('nowIndex', nowIndex);
-  console.log('checkedARRARARARARAR', checkedArray);
 
   return (
     <SafeAreaView style={ResetStyle.container}>
