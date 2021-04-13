@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import moment from 'moment';
@@ -19,11 +20,10 @@ import ProgressModal from '@factory/modal/ProgressModal';
 import {getExpiredSurveyList} from '@module/survey';
 import ResetStyle from '@style/ResetStyle';
 import MainStyle from '@style/MainStyle';
-import {useNavigation} from '@react-navigation/native';
 
 const SLIDER_HEIGHT = Dimensions.get('window').height;
 const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT / 2.5);
-const ITEM_HEIGHT_ANDROID = Math.round(SLIDER_HEIGHT / 2.2);
+const ITEM_HEIGHT_ANDROID = Math.round(SLIDER_HEIGHT / 1.6);
 const Expired = () => {
   const {t} = useTranslation();
   const dispatch = useDispatch();
@@ -73,33 +73,9 @@ const Expired = () => {
       );
     } else {
       return (
-        <View
-          style={[
-            MainStyle.itemBox,
-
-            // {marginBottom: item.id === item.length ? 200 : 0},
-          ]}
-          onPress={() => {
-            item.surveyStatus === 'expired'
-              ? navigation.navigate('MainDetailExpired', {
-                  legacySurveyId: item.legacySurveyId,
-                  // legacySurveyId: '5f91aad0ae28561b056e2f97',
-                  surveyName: item.surveyName,
-                })
-              : item.surveyStatus === 'completed'
-              ? navigation.navigate('MainDetailCompleted', {
-                  legacySurveyId: item.legacySurveyId,
-                  // legacySurveyId: '5f91aad0ae28561b056e2f97',
-                  surveyName: item.surveyName,
-                })
-              : navigation.navigate('MainDetail', {
-                  legacySurveyId: item.legacySurveyId,
-                  // legacySurveyId: '5f91aad0ae28561b056e2f97',
-                  surveyName: item.surveyName,
-                });
-          }}>
+        <View style={[MainStyle.itemBox, Platform.OS !== 'ios' && {flex: 1}]}>
           <View
-            opacity={item.surveyStatus === 'expired' ? 0.5 : 1.0}
+            opacity={0.5}
             style={{
               flex: 1,
             }}>
@@ -224,7 +200,6 @@ const Expired = () => {
                       {numberWithCommas(item.particRestrictions)}
                     </Text>
                   </View>
-
                   <View style={MainStyle.itemBoxBottomTextView}>
                     <Image
                       style={{
@@ -240,29 +215,6 @@ const Expired = () => {
                         ResetStyle.fontWhite,
                         {marginLeft: '5%'},
                       ]}>
-                      {/* {item.endTime} */}
-                      {/* {setInterval(function () {
-                      var today = new Date().getTime();
-                      var gap = dday - today;
-                      var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
-                      var hour = Math.ceil(
-                        (gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-                      );
-                      var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
-                      var sec = Math.ceil((gap % (1000 * 60)) / 1000);
-  
-                      return `${day - 1}일 ${hour}시간 ${min}분 ${sec}초`;
-                    }, 1000)} */}
-                      {/* {`${day - 1}일 ${hour}시간 ${min}분 ${sec}초`} */}
-                      {
-                        // <Moment
-                        //   element={Text}
-                        //   interval={1000}
-                        //   date={item.endTime}
-                        //   format="D일 hh시간 mm분 ss초"
-                        //   durationFromNow
-                        // />
-                      }
                       0{t('days')} 0{t('hours')} 0{t('minutes')} 0{t('seconds')}
                     </Text>
                   </View>
@@ -325,18 +277,10 @@ const Expired = () => {
     }
   }, [user, language]);
 
-  useEffect(() => {
-    console.log('expiredSurveyList');
-    console.log(expiredSurveyList.filter((item) => item.categoryImg === null));
-  }, [expiredSurveyList]);
-
   return (
     <>
       <Carousel
         data={
-          // DATA.filter((item) => item.status == 'expired').length == 0
-          //   ? [{status: 'zero'}]
-          //   : DATA.filter((item) => item.status == 'expired')
           expiredSurveyList.length == 0 ? [{status: 'zero'}] : expiredSurveyList
         }
         renderItem={renderItem}
@@ -351,8 +295,6 @@ const Expired = () => {
         containerCustomStyle={{flex: 1, backgroundColor: '#fff'}}
         slideStyle={{
           width: '100%',
-          // borderWidth: 3,
-          // borderColor: '#F00',
           marginTop: 0,
           paddingTop: 0,
         }}
@@ -361,8 +303,6 @@ const Expired = () => {
             expiredSurveyList.length == 0
               ? '100%'
               : String(expiredSurveyList.length * 95 + '%'),
-          // borderWidth: 3,
-          // borderColor: '#00f',
           paddingTop:
             Platform.OS === 'android'
               ? '3%'
@@ -373,7 +313,6 @@ const Expired = () => {
         onSnapToItem={(index) => setIndex(index)}
         scrollInterpolator={scrollInterpolator2}
         slideInterpolatedStyle={animatedStyles2}
-        // useScrollView={true}
         vertical={true}
         layout={'stack'}
         layoutCardOffset={0}

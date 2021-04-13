@@ -28,25 +28,17 @@ const Main = ({navigation}) => {
   //Kyc 72시간 경고 모달
   const [modalVisible, setModalVisible] = useState(false);
 
-  const {user} = useSelector(({auth}) => ({
+  const {user, tncInfo} = useSelector(({auth, tnc}) => ({
     user: auth.user,
+    tncInfo: tnc.tncInfo,
   }));
 
-  const TncGetApi = async () => {
-    await axios
-      .get(`${server}/wallet/${user.mailId}`)
-      .then(async (response) => {
-        setCurrentTnc(response.data.balance.split('.')[0]);
-        setNonFixTnc(Number(response.data.balance.replace(' TNC', '')));
-      })
-      .catch(({e}) => {
-        console.log('TncGetApi Error', e);
-      });
-  };
-
   useEffect(() => {
-    TncGetApi();
-  }, [user]);
+    if (tncInfo && tncInfo?.balance) {
+      setCurrentTnc(tncInfo.balance.split('.')[0]);
+      setNonFixTnc(Number(tncInfo.balance.replace(' TNC', '')));
+    }
+  }, [tncInfo]);
 
   return (
     <View style={{flex: 1, backgroundColor: '#fff'}}>
@@ -228,7 +220,7 @@ const Main = ({navigation}) => {
           style: {
             backgroundColor: 'transparent',
             height:
-              Platform.OS === 'Android'
+              Platform.OS === 'android'
                 ? 50
                 : Dimensions.get('window').height < 750
                 ? 50
