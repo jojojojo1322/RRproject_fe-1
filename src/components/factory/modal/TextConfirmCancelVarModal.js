@@ -32,7 +32,8 @@ const TextConfirmCancelVarModal = ({
     <Modal
       animationType="fade"
       transparent={true}
-      visible={modalVisible === true && kycLevel === levelCheck ? true : false}>
+      visible={modalVisible === true && kycLevel === levelCheck ? true : false}
+      onRequestClose={() => cancelHandle()}>
       <View style={{flex: 1, position: 'relative'}}>
         {/* modal background */}
         <TouchableWithoutFeedback

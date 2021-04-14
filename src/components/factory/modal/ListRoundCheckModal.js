@@ -208,7 +208,14 @@ class ListRoundCheckModal extends Component {
       <KeyboardAwareScrollView
         enableOnAndroid={true}
         contentContainerStyle={{flexGrow: 1}}>
-        <Modal animationType="fade" transparent={true} visible={modalVisible}>
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            this.setState({modalVisible: !modalVisible});
+            this.props.setModalVisible(!modalVisible);
+          }}>
           <View style={{flex: 1, position: 'relative'}}>
             {/* modal background */}
             <TouchableWithoutFeedback

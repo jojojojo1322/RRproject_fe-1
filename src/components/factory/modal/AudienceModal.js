@@ -18,7 +18,11 @@ const AudienceModal = ({
 }) => {
   const {t, i18n} = useTranslation();
   return modalVisible ? (
-    <Modal animationType="fade" transparent={true} visible={modalVisible}>
+    <Modal
+      animationType="fade"
+      transparent={true}
+      visible={modalVisible}
+      onRequestClose={() => setModalVisible(!modalVisible)}>
       <View style={{flex: 1, position: 'relative'}}>
         {/* modal background */}
         <TouchableWithoutFeedback
