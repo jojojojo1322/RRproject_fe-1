@@ -2,32 +2,6 @@ import React, {Component, useState} from 'react';
 import {server} from '@context/server';
 import axios from 'axios';
 
-// export class CountryListApi extends Component {
-//   state = {
-//     data: [],
-//   };
-//   componentDidMount() {
-//     this.API();
-//   }
-//   API = () => {
-//     axios
-//       .get(`${server}/util/global/country`)
-//       .then((response) => {
-//         // console.log('countryListList', response);
-//         // setCountry(response.data);
-//         this.setState({
-//           data: response.data,
-//         });
-//       })
-//       .catch(({e}) => {
-//         console.log('error', e);
-//       });
-//   };
-//   render() {
-//     return this.state.data;
-//   }
-// }
-
 API = async () => {
   await axios
     .get(`${server}/util/global/country`)

@@ -14,15 +14,9 @@ import axios from 'axios';
 
 const MainVideoComplete = ({navigation, route}) => {
   const [modalVisible, setModalVisible] = useState(false);
-  // const {surveyId} = route ? route.params : '';
+
   const URL = 'https://aladdin25.com/';
   const {t, i18n} = useTranslation();
-
-  // useEffect(() => {
-  //   postRewardApi();
-  // }, []);
-
-  // Reward Api
 
   return (
     <SafeAreaView style={[ResetStyle.container]}>

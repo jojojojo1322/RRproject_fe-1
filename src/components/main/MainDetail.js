@@ -49,10 +49,6 @@ const MainDetail = (props) => {
   const [min, setMin] = useState(0);
   const [sec, setSec] = useState(0);
   const [userNo, setUserNo] = useState('');
-  // let audienceCheck = '';
-  // const getSurveyDetailApi = () => {
-  //   axios.get(`${server}/survey/detail`);
-  // };
 
   const {language, user} = useSelector(({language, auth}) => ({
     language: language.language,
