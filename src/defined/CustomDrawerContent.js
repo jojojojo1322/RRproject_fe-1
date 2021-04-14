@@ -15,6 +15,7 @@ import MainStyle from '@style/MainStyle.js';
 import email from 'react-native-email';
 import {useTranslation} from 'react-i18next';
 import {useSelector} from 'react-redux';
+import {passport, alertDataAPI, alertCheck} from '@repository/utilRepository';
 
 const CustomDrawerContent = (props) => {
   const {t} = useTranslation();
@@ -76,8 +77,7 @@ const CustomDrawerContent = (props) => {
   }, [idData]);
 
   const passportApi = async () => {
-    await axios
-      .get(`${server}/util/passport/status?userNo=${user.userNo}`)
+    await passport({userNo: user.userNo})
       .then((response) => {
         console.log(response.data);
         setIdData(response.data.passPortStatus);
@@ -88,8 +88,7 @@ const CustomDrawerContent = (props) => {
   };
 
   const alertDataApi = async () => {
-    await axios
-      .get(`${server}/noti/${user.userNo}`)
+    await alertDataAPI({userNo: user.userNo})
       .then((response) => {
         setAlertData(response.data);
         setAlertDataNot(response.data.filter((data) => data.status == false));
@@ -100,9 +99,8 @@ const CustomDrawerContent = (props) => {
   };
 
   // alertCheck API
-  const alertCheckApi = (id) => {
-    axios
-      .patch(`${server}/noti/${id}`)
+  const alertCheckApi = async (id) => {
+    await alertCheck({userNo: id})
       .then((response) => {
         alertDataApi();
       })

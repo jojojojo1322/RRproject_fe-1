@@ -13,6 +13,6 @@ export const signUp = (param) => {
 export const signUpDeviceKey = (param) =>
   api().get(`/user/register/device-key?reqDevicekey=${param.deviceKey}`);
 
-export const pwReSetting = async (data) => {
-  return await api().patch('/user', data);
+export const pwReSetting = async (param) => {
+  return await api().patch(`/user/${param.userNo}`, param);
 };

@@ -24,6 +24,13 @@ import axios from 'axios';
 import BottomModal from '@factory/modal/BottomModal';
 import TextConfirmCancelModal from '@factory/modal/TextConfirmCancelModal';
 
+import {getGlobalCountry} from '@repository/utilRepository';
+import {
+  smsAuth,
+  smsAuthApprove,
+  userEmailExpired,
+} from '@repository/verifyRepository';
+
 const SignUp = () => {
   const navigation = useNavigation();
   const {t} = useTranslation();
@@ -57,8 +64,7 @@ const SignUp = () => {
 
   const countryDataApi = async () => {
     try {
-      await axios
-        .get(`${server}/util/global/country`)
+      await getGlobalCountry()
         .then((response) => {
           if (response.data) {
             setCountryData(response.data);
@@ -87,11 +93,10 @@ const SignUp = () => {
 
   const smsAuthApi = async (device, phone) => {
     try {
-      await axios
-        .post(`${server}/util/sms/auth`, {
-          deviceKey: device,
-          phoneNum: phone,
-        })
+      await smsAuth({
+        deviceKey: device,
+        phoneNum: phone,
+      })
         .then((response) => {
           if (response.data) {
             setPhoneAuthCheck(response.data.ret_val);
@@ -109,11 +114,10 @@ const SignUp = () => {
 
   const smsAuthApproveApi = async (authKey, phone) => {
     try {
-      await axios
-        .patch(`${server}/util/sms/auth/approve`, {
-          authKey: authKey,
-          phoneNum: phone,
-        })
+      await smsAuthApprove({
+        authKey: authKey,
+        phoneNum: phone,
+      })
         .then((response) => {
           if (response.data) {
             const result = response.data.ret_val;
@@ -149,10 +153,9 @@ const SignUp = () => {
   const smsAuthExpireApi = async (authKey) => {
     console.log('Expire AUAUAUAU', authKey);
     try {
-      await axios
-        .patch(`${server}/util/sms/auth/expired`, {
-          authKey: authKey,
-        })
+      await userEmailExpired({
+        authKey: authKey,
+      })
         .then((response) => {
           console.log(response);
         })

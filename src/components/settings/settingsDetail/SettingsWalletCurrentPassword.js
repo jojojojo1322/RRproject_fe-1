@@ -25,6 +25,7 @@ import axios from 'axios';
 import {useSelector} from 'react-redux';
 
 import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
+import {walletCheck} from '@repository/walletRepository';
 
 const SettingsWalletCurrentPassword = ({navigation, route}) => {
   const {t, i18n} = useTranslation();
@@ -45,11 +46,10 @@ const SettingsWalletCurrentPassword = ({navigation, route}) => {
   const walletCurrentPasswordApi = async (password) => {
     setModal4Visible(true);
     console.log('check passed password', password);
-    await axios
-      .post(`${server}/wallet/check`, {
-        email: user.mailId,
-        walletPw: password,
-      })
+    await walletCheck({
+      email: user.mailId,
+      walletPw: password,
+    })
       .then(async (response) => {
         console.log('walletCurrentPasswordApi THEN >>>>>', response.auth);
         // await setStatusCheck(response.data.status);

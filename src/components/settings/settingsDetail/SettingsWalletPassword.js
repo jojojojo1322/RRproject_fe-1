@@ -28,6 +28,11 @@ import ProgressModal from '@factory/modal/ProgressModal';
 import {useTranslation} from 'react-i18next';
 import {withTranslation} from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';
+import {getUserInfo} from '@repository/authRepository';
+import {
+  walletPasswordTrans,
+  walletUserUpdate,
+} from '@repository/walletRepository';
 
 const SettingsWalletPassword = ({route, navigation}) => {
   const [passArr, setPassArr] = useState([]);
@@ -47,11 +52,8 @@ const SettingsWalletPassword = ({route, navigation}) => {
   const {t} = useTranslation();
 
   const userInfoApi = async ({navigation, route}) => {
-    await axios
-      .get(
-        `${server}/user?userNo=${user.userNo}`,
-        // `${server}/user/user?userNo=210127104026300`,
-      )
+    await getUserInfo({userNo: user.userNo})
+      // userNo=210127104026300
       .then(async (response) => {
         console.log('userInfoApi Then >>', response);
       })
@@ -66,12 +68,11 @@ const SettingsWalletPassword = ({route, navigation}) => {
       updatePw: walletPw,
     });
     setModal3Visible(true);
-    await axios
-      .put(`${server}/wallet/password`, {
-        email: user.mailId,
-        currentPw: route.params?.currentPw,
-        updatePw: walletPw,
-      })
+    await walletPasswordTrans({
+      email: user.mailId,
+      currentPw: route.params?.currentPw,
+      updatePw: walletPw,
+    })
       .then((response) => {
         console.log('walletPasswordTransApi THEN>>', response);
         if (response.data.status === 'success') {
@@ -88,12 +89,11 @@ const SettingsWalletPassword = ({route, navigation}) => {
 
   const walletUserUpdateApi = async (walletPw) => {
     // this.setModal3Visible(true);
-    await axios
-      .put(`${server}/wallet`, {
-        email: user.mailId,
-        walletAddress: await AsyncStorage.getItem('masterKey'),
-        walletPw: walletPw,
-      })
+    await walletUserUpdate({
+      email: user.mailId,
+      walletAddress: await AsyncStorage.getItem('masterKey'),
+      walletPw: walletPw,
+    })
       .then((response) => {
         console.log('walletUserUpdateApi THEN>>', response);
         if (response.data.status === 'success') {

@@ -23,6 +23,12 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 import {useTranslation} from 'react-i18next';
 
+import {
+  smsAuth,
+  smsAuthApprove,
+  userEmailExpired,
+} from '@repository/verifyRepository';
+
 //휴대폰 유효성 검사
 function isCellPhone(p) {
   p = p.split('-').join('');
@@ -97,11 +103,10 @@ const SettingsPersonalPhone = () => {
 
   const smsAuthApi = async (device, phone) => {
     console.log('smsmsmsmsmsmsmsmsmsmsm');
-    await axios
-      .post(`${server}/util/sms/auth`, {
-        deviceKey: device,
-        phoneNum: phone,
-      })
+    await smsAuth({
+      deviceKey: device,
+      phoneNum: phone,
+    })
       .then((response) => {
         console.log(response);
         console.log(response.data);
@@ -117,11 +122,10 @@ const SettingsPersonalPhone = () => {
   };
 
   const smsAuthApproveApi = async (authKey, phone) => {
-    await axios
-      .patch(`${server}/util/sms/auth/approve`, {
-        authKey: authKey,
-        phoneNum: phone,
-      })
+    await smsAuthApprove({
+      authKey: authKey,
+      phoneNum: phone,
+    })
       .then((response) => {
         console.log(response);
         console.log(response.data.ret_val);
@@ -133,12 +137,11 @@ const SettingsPersonalPhone = () => {
         console.log(e);
       });
   };
-  const smsAuthExpireApi = (authKey) => {
+  const smsAuthExpireApi = async (authKey) => {
     console.log('Expire AUAUAUAU', authKey);
-    axios
-      .patch(`${server}/util/sms/auth/expired`, {
-        authKey: authKey,
-      })
+    await userEmailExpired({
+      authKey: authKey,
+    })
       .then((response) => {
         console.log(response);
       })

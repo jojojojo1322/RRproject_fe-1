@@ -338,15 +338,14 @@ const ProfileIncompleteLevel2 = (props) => {
       netWorth: checkedArray[3].kycOption,
       investIn: checkedArray[4].kycOption,
     });
-    await axios
-      .patch(`${server}/kyc/2/${user.userNo}`, {
-        employmentStatus: checkedArray[0].kycOption,
-        annualRevenue: checkedArray[1].kycOption,
-        ownProperties: checkedArray[2].kycOption,
-        netWorth: checkedArray[3].kycOption,
-        investIn: checkedArray[4].kycOption,
-        userNo: user.userNo,
-      })
+    await kycLevel2Update({
+      employmentStatus: checkedArray[0].kycOption,
+      annualRevenue: checkedArray[1].kycOption,
+      ownProperties: checkedArray[2].kycOption,
+      netWorth: checkedArray[3].kycOption,
+      investIn: checkedArray[4].kycOption,
+      userNo: user.userNo,
+    })
       .then(async (response) => {
         console.log('updateAdvancedKycApi THEN>>', response);
         setSuccessCheck(response.data.ret_val);

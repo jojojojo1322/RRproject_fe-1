@@ -12,8 +12,8 @@ export const passport = (param) =>
 
 // ---------------- Noti Controller ---------------------
 
-export const alertData = (param) => api().get(`/noti/${param.userNo}`);
+export const alertDataAPI = (param) => api().get(`/noti/${param.userNo}`);
 
-export const alertCheck = async (data) => {
-  return await api().patch('/noti', data);
+export const alertCheck = async (param) => {
+  return await api().patch(`/noti/${param.userNo}`);
 };

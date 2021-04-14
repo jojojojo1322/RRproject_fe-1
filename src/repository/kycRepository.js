@@ -18,8 +18,8 @@ export const kycLevel2Create = async (param) => {
   return await api().post('/kyc/2', param);
 };
 
-export const kycLevel2Update = async (data) => {
-  return await api().patch('/kyc/2', data);
+export const kycLevel2Update = async (param) => {
+  return await api().patch(`/kyc/2/${param.userNo}`, param);
 };
 
 export const getAdvancedKycInfo = async (param) =>
