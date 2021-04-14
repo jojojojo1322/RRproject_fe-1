@@ -292,7 +292,8 @@ export default function WalletSend({navigation, route}) {
     <SafeAreaView style={ResetStyle.container}>
       <KeyboardAwareScrollView
         enableOnAndroid={true}
-        contentContainerStyle={{flexGrow: 1}}>
+        contentContainerStyle={{flexGrow: 1}}
+        bounces={false}>
         <View style={[ResetStyle.containerInner]}>
           {/* Top */}
           {/* topBackButton */}

@@ -23,7 +23,6 @@ const Main = ({navigation}) => {
   const {t} = useTranslation();
 
   const [currentTnc, setCurrentTnc] = useState(0);
-  const [nonFixTnc, setNonFixTnc] = useState(0);
 
   //Kyc 72시간 경고 모달
   const [modalVisible, setModalVisible] = useState(false);
@@ -36,7 +35,6 @@ const Main = ({navigation}) => {
   useEffect(() => {
     if (tncInfo && tncInfo?.balance) {
       setCurrentTnc(tncInfo.balance.split('.')[0]);
-      setNonFixTnc(Number(tncInfo.balance.replace(' TNC', '')));
     }
   }, [tncInfo]);
 
@@ -134,9 +132,7 @@ const Main = ({navigation}) => {
           />
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('ProfileMain', {
-                kycLevel: user.userLevel,
-              });
+              navigation.navigate('ProfileMain');
             }}
             style={{
               // borderWidth: 1,
@@ -175,9 +171,7 @@ const Main = ({navigation}) => {
 
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('WalletMain', {
-                currentTnc: nonFixTnc,
-              });
+              navigation.navigate('WalletMain');
             }}
             style={{
               // borderWidth: 1,
