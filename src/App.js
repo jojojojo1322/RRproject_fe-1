@@ -106,8 +106,8 @@ const Drawer = createDrawerNavigator();
 
 export const AppMainStack = (props) => {
   const [login, setLogin] = useState(null);
-  const {loginPayload} = useSelector(({auth}) => ({
-    loginPayload: auth.loginPayload,
+  const {user} = useSelector(({auth}) => ({
+    user: auth.user,
   }));
 
   const test = async () => {
@@ -132,7 +132,7 @@ export const AppMainStack = (props) => {
 
   return (
     <Stack.Navigator
-      initialRouteName={loginPayload.userNo !== '' ? 'Main' : 'Initial2'}>
+      initialRouteName={user.userNo !== '' ? 'Main' : 'Initial2'}>
       {/* {login === null && props.route.params?.loginC === null ? (
         <Stack.Screen
           name="Initial2"
