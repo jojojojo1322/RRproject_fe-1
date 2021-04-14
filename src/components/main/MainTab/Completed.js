@@ -23,13 +23,13 @@ import MainStyle from '@style/MainStyle';
 
 const SLIDER_HEIGHT = Dimensions.get('window').height;
 const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT / 2.5);
-const ITEM_HEIGHT_ANDROID = Math.round(SLIDER_HEIGHT / 2.2);
+const ITEM_HEIGHT_ANDROID = Math.round(SLIDER_HEIGHT / 1.6);
 const Completed = () => {
   const {t} = useTranslation();
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const {user, completedSurveyList} = useSelector(
+  const {user, language, completedSurveyList} = useSelector(
     ({auth, language, survey}) => ({
       user: auth.user,
       language: language.language,
@@ -74,14 +74,7 @@ const Completed = () => {
       );
     } else {
       return (
-        <View
-          style={[MainStyle.itemBox]}
-          onPress={() => {
-            navigation.navigate('MainDetailCompleted', {
-              legacySurveyId: item.legacySurveyId,
-              surveyName: item.surveyName,
-            });
-          }}>
+        <View style={[MainStyle.itemBox, Platform.OS !== 'ios' && {flex: 1}]}>
           <View
             opacity={1.0}
             style={{
@@ -99,7 +92,6 @@ const Completed = () => {
                 source={{uri: item.categoryImg}}
               />
             )}
-
             <View
               style={{
                 position: 'absolute',
@@ -251,7 +243,6 @@ const Completed = () => {
                   onPress={() => {
                     navigation.navigate('MainDetailCompleted', {
                       legacySurveyId: item.legacySurveyId,
-                      // legacySurveyId: '5f91aad0ae28561b056e2f97',
                       surveyName: item.surveyName,
                     });
                   }}>

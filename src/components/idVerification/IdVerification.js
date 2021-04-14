@@ -298,6 +298,7 @@ const IdVerification = ({navigation}) => {
         </TouchableOpacity>
       </View>
       <KeyboardAwareScrollView
+        bounces={false}
         enableOnAndroid={true}
         contentContainerStyle={{
           flexGrow: 1,

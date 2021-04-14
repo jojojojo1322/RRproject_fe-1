@@ -16,7 +16,6 @@ const createRequestSaga = (type, request) => {
     yield put(startLoading(type));
     try {
       const response = yield call(request, action.payload);
-      yield console.log('-------', response);
 
       yield put({
         type: SUCCESS,
@@ -24,11 +23,19 @@ const createRequestSaga = (type, request) => {
         meta: response,
       });
     } catch (e) {
-      yield put({
-        type: FAILURE,
-        payload: e,
-        error: true,
-      });
+      if (e.response.status === 500) {
+        yield put({
+          type: FAILURE,
+          payload: e,
+          error: true,
+        });
+      } else {
+        yield put({
+          type: e.response.data ? SUCCESS : FAILURE,
+          payload: e.response.data ?? e,
+          meta: e.response ?? e,
+        });
+      }
     }
     yield put(finishLoading(type));
   };

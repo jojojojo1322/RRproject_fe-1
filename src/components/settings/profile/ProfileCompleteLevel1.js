@@ -140,7 +140,7 @@ const ProfileCompleteLevel1 = (props) => {
         </View>
 
         {/* Level List */}
-        <ScrollView key={'1'}>
+        <ScrollView key={'1'} bounces={false}>
           {/* Level List Item */}
           {/* {Object.keys(question).map((data, index) => { */}
           {question.map((data, index) => {

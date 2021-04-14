@@ -1,33 +1,27 @@
-import React, {Component, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
+import {useFocusEffect} from '@react-navigation/native';
 import {
   View,
   Text,
-  ScrollView,
   TouchableOpacity,
   Image,
   Platform,
   BackHandler,
 } from 'react-native';
-
-import {server} from '@context/server';
-import axios from 'axios';
 import {useSelector} from 'react-redux';
 import {DrawerActions} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {FlatList} from 'react-native-gesture-handler';
+import {useTranslation} from 'react-i18next';
+
 import ResetStyle from '@style/ResetStyle.js';
 import ProfileStyle from '@style/ProfileStyle.js';
-import {createDrawerNavigator} from '@react-navigation/drawer';
-import {FlatList} from 'react-native-gesture-handler';
 import BottomModal from '@factory/modal/BottomModal';
-import TextConfirmCancelModal from '@factory/modal/TextConfirmCancelModal';
 import ProgressModal from '@factory/modal/ProgressModal';
 
-import {useTranslation} from 'react-i18next';
-// import {CustomDrawerContent} from '@defined/CustomDrawerContent';
+const ProfileMain = ({navigation}) => {
+  const {t} = useTranslation();
 
-const Drawer = createDrawerNavigator();
-
-const ProfileMain = ({navigation, route}) => {
   const DATA = [
     {level: 1},
     {level: 2},
@@ -55,7 +49,6 @@ const ProfileMain = ({navigation, route}) => {
   ];
   const [mailId, setMailId] = useState('');
   const [kycLevel, setKycLevel] = useState(0);
-  const [kycLevelNumber, setKycLevelNumber] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
 
@@ -63,28 +56,7 @@ const ProfileMain = ({navigation, route}) => {
     user: auth.user,
   }));
 
-  const {t, i18n} = useTranslation();
-
-  const userApi = async () => {
-    setModal2Visible(true);
-    await axios
-      .get(
-        `${server}/user?userNo=${user.userNo}`,
-        // `${server}/user/user?userNo=210127104026300`,
-      )
-      .then(async (response) => {
-        console.log('userApi >>>>', response);
-        setKycLevel(response.data.userLevel);
-        setKycLevelNumber(parseInt(response.data.userLevel));
-        setMailId(response.data.mailId);
-      })
-      .catch((e) => {
-        console.log('Error', e);
-      });
-    setModal2Visible(false);
-  };
-
-  const Item = ({status, level, index, kycLevel}) => {
+  const Item = ({level, kycLevel}) => {
     return (
       <TouchableOpacity
         style={[
@@ -164,22 +136,37 @@ const ProfileMain = ({navigation, route}) => {
     );
   };
 
-  const handleBackButtonClick = () => {
-    navigation.replace('Main');
-    return true;
-  };
-  useEffect(() => {
-    console.log('실행');
-    // userApi();
-    BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
-  });
+  useFocusEffect(
+    useCallback(() => {
+      const handleBackButtonClick = () => {
+        navigation.replace('Main');
+        return true;
+      };
+
+      if (Platform.OS === 'android') {
+        BackHandler.addEventListener(
+          'hardwareBackPress',
+          handleBackButtonClick,
+        );
+      }
+
+      return () => {
+        if (Platform.OS === 'android') {
+          BackHandler.removeEventListener(
+            'hardwareBackPress',
+            handleBackButtonClick,
+          );
+        }
+      };
+    }, []),
+  );
 
   useEffect(() => {
-    if (route.params?.kycLevel) {
-      setKycLevel(route.params?.kycLevel);
+    if (user) {
+      setKycLevel(user.userLevel);
+      setMailId(user.mailId);
     }
-    userApi();
-  }, []);
+  }, [user]);
 
   return (
     <SafeAreaView style={ResetStyle.container}>
@@ -265,9 +252,7 @@ const ProfileMain = ({navigation, route}) => {
           <TouchableOpacity
             style={[ResetStyle.buttonSmall, ProfileStyle.kycLevelAll]}
             onPress={() => {
-              navigation.navigate('ProfileAll', {
-                KycLevel: kycLevel,
-              });
+              navigation.navigate('ProfileAll');
             }}>
             <Text
               style={[
@@ -280,15 +265,13 @@ const ProfileMain = ({navigation, route}) => {
           </TouchableOpacity>
         </View>
         <FlatList
+          bounces={false}
           style={{marginHorizontal: '5%'}}
           data={DATA}
           renderItem={({item}) => (
             <Item status={item.status} level={item.level} kycLevel={kycLevel} />
           )}
-          keyExtractor={(item, index) =>
-            // Number(item.level);
-            index.toString()
-          }
+          keyExtractor={(_, index) => index.toString()}
           inverted={true}
         />
         <BottomModal

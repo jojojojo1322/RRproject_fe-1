@@ -12,7 +12,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import CustomDrawerContent from '@defined/CustomDrawerContent';
-import {StyleSheet, ScrollView, View, Text} from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -768,7 +767,6 @@ const App = (props) => {
             drawerLabel: () => null,
             title: undefined,
             drawerIcon: () => null,
-
             swipeEnabled: false,
           })}
         />

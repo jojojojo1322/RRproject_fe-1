@@ -28,6 +28,7 @@ import DeviceInfo from 'react-native-device-info';
 import {getUserInfo, signIn} from '@module/auth';
 import {useDispatch, useSelector} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {getTNCInfo} from '@module/tnc';
 
 const Splash = ({loading, setLoading}) => {
   const {t, i18n} = useTranslation();
@@ -159,8 +160,9 @@ const Splash = ({loading, setLoading}) => {
   const [autologinPw, setAutologinPw] = useState(null);
   const [autologinKey, setAutologinKey] = useState(null);
 
-  const {loginPayload} = useSelector(({auth}) => ({
+  const {loginPayload, user} = useSelector(({auth}) => ({
     loginPayload: auth.loginPayload,
+    user: auth.user,
   }));
 
   const loadInitialData = async () => {
@@ -180,11 +182,16 @@ const Splash = ({loading, setLoading}) => {
           setAutologinKey(res);
         }
       });
-      dispatch(getUserInfo({userNo: loginPayload.userNo}));
     } catch (e) {
       console.log(e);
     }
   };
+
+  useEffect(() => {
+    if (user.userNo !== '') {
+      dispatch(getTNCInfo(user.mailId));
+    }
+  }, [user]);
 
   useEffect(() => {
     if (loginPayload) {

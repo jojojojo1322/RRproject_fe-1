@@ -428,6 +428,7 @@ const ResearchForm = (props) => {
             {/* 상단 인덱스 / 질문 내용 end */}
             {/* 해당 질문 option detail start */}
             <FlatList
+              bounces={false}
               style={{
                 height: '70%',
               }}

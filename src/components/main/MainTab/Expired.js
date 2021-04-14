@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import moment from 'moment';
@@ -19,11 +20,10 @@ import ProgressModal from '@factory/modal/ProgressModal';
 import {getExpiredSurveyList} from '@module/survey';
 import ResetStyle from '@style/ResetStyle';
 import MainStyle from '@style/MainStyle';
-import {useNavigation} from '@react-navigation/native';
 
 const SLIDER_HEIGHT = Dimensions.get('window').height;
 const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT / 2.5);
-const ITEM_HEIGHT_ANDROID = Math.round(SLIDER_HEIGHT / 2.2);
+const ITEM_HEIGHT_ANDROID = Math.round(SLIDER_HEIGHT / 1.6);
 const Expired = () => {
   const {t} = useTranslation();
   const dispatch = useDispatch();
@@ -72,26 +72,9 @@ const Expired = () => {
       );
     } else {
       return (
-        <View
-          style={[MainStyle.itemBox]}
-          onPress={() => {
-            item.surveyStatus === 'expired'
-              ? navigation.navigate('MainDetailExpired', {
-                  legacySurveyId: item.legacySurveyId,
-                  surveyName: item.surveyName,
-                })
-              : item.surveyStatus === 'completed'
-              ? navigation.navigate('MainDetailCompleted', {
-                  legacySurveyId: item.legacySurveyId,
-                  surveyName: item.surveyName,
-                })
-              : navigation.navigate('MainDetail', {
-                  legacySurveyId: item.legacySurveyId,
-                  surveyName: item.surveyName,
-                });
-          }}>
+        <View style={[MainStyle.itemBox, Platform.OS !== 'ios' && {flex: 1}]}>
           <View
-            opacity={item.surveyStatus === 'expired' ? 0.5 : 1.0}
+            opacity={0.5}
             style={{
               flex: 1,
             }}>
@@ -216,7 +199,6 @@ const Expired = () => {
                       {numberWithCommas(item.particRestrictions)}
                     </Text>
                   </View>
-
                   <View style={MainStyle.itemBoxBottomTextView}>
                     <Image
                       style={{
