@@ -767,7 +767,6 @@ const App = (props) => {
             drawerLabel: () => null,
             title: undefined,
             drawerIcon: () => null,
-
             swipeEnabled: false,
           })}
         />
