@@ -249,6 +249,7 @@ const ProfileCompleteLevel2 = (props) => {
             </Text>
           </View>
           <FlatList
+            bounces={false}
             style={{height: '80%'}}
             data={kycQuestion2}
             renderItem={({item}) => (

@@ -646,6 +646,7 @@ const ProfileIncompleteLevel2 = (props) => {
             </Text>
           </View>
           <FlatList
+            bounces={false}
             style={{marginTop: '10%', height: '70%'}}
             data={kycQuestion[nowIndex].answers}
             renderItem={({item}) => (

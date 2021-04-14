@@ -119,6 +119,7 @@ const MainAlert = (props) => {
           </View>
         </View>
         <FlatList
+          bounces={false}
           data={alertData}
           renderItem={renderItem}
           keyExtractor={(item, index) =>

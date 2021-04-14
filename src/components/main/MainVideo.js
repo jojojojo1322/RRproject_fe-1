@@ -246,6 +246,7 @@ const MainVideo = ({navigation, route}) => {
         style={[MainStyle.mainFlatlistView, {backgroundColor: '#fff'}]}>
         {/* <ScrollView style={{width: '100%'}}> */}
         <FlatList
+          bounces={false}
           data={advertisementData}
           renderItem={renderItem}
           keyExtractor={(item, index) =>
