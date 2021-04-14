@@ -13,14 +13,7 @@ import {useTranslation} from 'react-i18next';
 const BottomModal = ({modalVisible, setModalVisible, text}) => {
   const {t, i18n} = useTranslation();
   return modalVisible ? (
-    <Modal
-      animationType="fade"
-      transparent={true}
-      visible={modalVisible}
-      // onRequestClose={() => {
-      //   Alert.alert('Modal has been closed.');
-      // }}
-    >
+    <Modal animationType="fade" transparent={true} visible={modalVisible}>
       <TouchableWithoutFeedback
         activeOpacity={0.55}
         onPress={() => {

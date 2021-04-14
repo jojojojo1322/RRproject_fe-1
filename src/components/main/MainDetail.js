@@ -237,12 +237,6 @@ const MainDetail = (props) => {
                 {surveyDetail.sponsorName}
               </Text>
             </View>
-
-            {/* <TouchableOpacity>
-              <Image
-                source={require('@images/shareIcon.png')}
-              />
-            </TouchableOpacity> */}
           </View>
 
           <Text
@@ -327,21 +321,7 @@ const MainDetail = (props) => {
           <TouchableOpacity
             style={[ResetStyle.button, MainStyle.mainDetailNextButton]}
             onPress={async () => {
-              console.log('시작1');
-              console.log({
-                legacySurveyId: props.route.params?.legacySurveyId,
-                // legacySurveyId: '5f9835585e40b26b969fedb2',
-                surveyName: surveyDetail.surveyName,
-                // surveyName: 'COVID-19  Vaccine Survey',
-                sponsorName: surveyDetail.sponsorName,
-                // sponsorName: '5f9677c880c3164b4b1cc398',
-                surveyId: String(audience.surveyId),
-                sponsorUserNo: surveyDetail.sponsorUserNo,
-                advertiseUrl: surveyDetail.advertiseUrl,
-              });
-              console.log('시작1');
               if (audienceCheck === 0) {
-                console.log('시작2');
                 props.navigation.replace('ResearchForm', {
                   legacySurveyId: props.route.params?.legacySurveyId,
                   // legacySurveyId: '5f9835585e40b26b969fedb2',
@@ -358,13 +338,11 @@ const MainDetail = (props) => {
                   // surveyId: 78,
                 });
               } else if (audienceCheck === -1) {
-                console.log('시작3');
                 setModal2Visible(true);
               } else if (audienceCheck !== -1 && audienceCheck <= -2) {
-                console.log('시작4');
                 setModal3Visible(true);
               }
-              console.log('시작5');
+
               // audienceCheckHandle();
             }}>
             <Text

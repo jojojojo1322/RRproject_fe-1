@@ -49,10 +49,6 @@ const MainDetailCompleted = (props) => {
   const [sec, setSec] = useState(0);
 
   const [userNo, setUserNo] = useState('');
-  // let audienceCheck = '';
-  // const getSurveyDetailApi = () => {
-  //   axios.get(`${server}/survey/detail`);
-  // };
 
   const {language, user} = useSelector(({language, auth}) => ({
     language: language.language,
@@ -70,7 +66,6 @@ const MainDetailCompleted = (props) => {
         `${server}/survey/detail?deviceLanguageCode=${language}&legacySurveyId=${props.route.params?.legacySurveyId}&userNo=${user.userNo}`,
       )
       .then(async (response) => {
-        console.log(`surveyDetailApi Then >>`, response);
         setSurveyDetail(response.data.resSurvey);
         setUserNo(user.userNo);
 
@@ -82,9 +77,7 @@ const MainDetailCompleted = (props) => {
         setMin(Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60)));
         setSec(Math.ceil((gap % (1000 * 60)) / 1000));
       })
-      .catch((e) => {
-        console.log(`surveyDetailApi Error`, e);
-      });
+      .catch((e) => {});
     setModal4Visible(false);
   };
   const AudienceCheckApi = async (surveyId) => {
@@ -94,7 +87,6 @@ const MainDetailCompleted = (props) => {
         userNo: user.userNo,
       })
       .then(async (response) => {
-        console.log(`AudienceCheckApi Then >>`, response);
         setAudienceCheck(response.data.ret_val);
       })
       .catch((e) => {
@@ -107,7 +99,6 @@ const MainDetailCompleted = (props) => {
         `${server}/survey/audience/info?legacySurveyId=${props.route.params?.legacySurveyId}`,
       )
       .then(async (response) => {
-        console.log(`AudienceApi Then >>`, response);
         setAudience(response.data);
         AudienceCheckApi(response.data.surveyId);
         if (response.data.language === 'all') {
@@ -164,7 +155,6 @@ const MainDetailCompleted = (props) => {
 
         ageFix += `${ageMin}-${ageMax}`;
         setAudienceAge(ageFix);
-        console.log('response.data.dayOfBirth.split())= ', ageFix);
       })
       .catch((e) => {
         console.log(`AudienceApi Error`, e);
@@ -176,7 +166,6 @@ const MainDetailCompleted = (props) => {
   }, []);
   const audienceCheckHandle = async () => {
     // AudienceCheckApi();
-    console.log('audienceCheck', audienceCheck);
     if (audienceCheck === 0) {
       props.navigation.navigate('ResearchForm', {
         legacySurveyId: props.route.params?.legacySurveyId,
@@ -193,7 +182,6 @@ const MainDetailCompleted = (props) => {
   const confirmHandle = () => {
     props.navigation.navigate('ProfileMain');
   };
-  console.log('surveyDetailsurveyDetailsurveyDetail', surveyDetail);
   return (
     <SafeAreaView style={[ResetStyle.container]}>
       <ScrollView bounces={false}>
@@ -232,12 +220,6 @@ const MainDetailCompleted = (props) => {
                 {surveyDetail.sponsorName}
               </Text>
             </View>
-
-            {/* <TouchableOpacity>
-              <Image
-                source={require('@images/shareIcon.png')}
-              />
-            </TouchableOpacity> */}
           </View>
 
           <Text

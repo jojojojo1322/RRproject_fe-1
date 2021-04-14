@@ -22,37 +22,12 @@ const WalletSendModal = ({
   valuePlusTen,
 }) => {
   const {t, i18n} = useTranslation();
-  // const walletSendApi = async (amount, email, memo, password, to, type) => {
-  //   await axios
-  //     .post(`${server}/wallet/trans`, {
-  //       amount : value,
-  //       email : await AsyncStorage.getItem('email'),
-  //       memo : memo,
-  //       password : null,
-  //       to : address,
-  //       type : ""
-  //     })
-  //     .then((response) => {
-  //       console.log(response);
-  //     })
-  //     .catch((e) => {
-  //       console.log('error', e);
-  //     });
-  // };
 
   return modalVisible ? (
-    <Modal
-      animationType="fade"
-      transparent={true}
-      visible={modalVisible}
-      // onRequestClose={() => {
-      //   Alert.alert('Modal has been closed.');
-      // }}
-    >
+    <Modal animationType="fade" transparent={true} visible={modalVisible}>
       <View style={{flex: 1, position: 'relative'}}>
         {/* modal background */}
         <TouchableWithoutFeedback
-          // style={styles.centeredView}
           activeOpacity={0.55}
           onPress={() => {
             setModalVisible(!modalVisible);
@@ -62,10 +37,6 @@ const WalletSendModal = ({
 
         {/* modal view */}
         <View style={[ModalStyle.walletAllView]}>
-          {/* <View
-            //   style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            //   style={{flex: 1}}>
-            > */}
           <Text
             style={[
               ResetStyle.fontRegularK,

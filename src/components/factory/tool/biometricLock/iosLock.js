@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-// import {AlertIOS} from 'react-native';
 import FingerprintScanner from 'react-native-fingerprint-scanner';
 
 class IOSTouchID extends Component {
@@ -10,15 +9,9 @@ class IOSTouchID extends Component {
     })
       .then(() => {
         this.props.handlePopupDismissed();
-        // AlertIOS.alert('Authenticated successfully');
-        console.log('sucsess');
-        console.log('IOSsucsess');
       })
       .catch((error) => {
-        console.log('IOSfail');
         this.props.handlePopupDismissed();
-        // AlertIOS.alert(error.message);
-        console.log(error.message);
       });
   }
 

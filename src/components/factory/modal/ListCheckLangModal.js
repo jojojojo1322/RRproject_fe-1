@@ -28,11 +28,9 @@ import Reset from '../../resetPassword/Reset';
 import {useTranslation} from 'react-i18next';
 
 const window = Dimensions.get('window');
-// let DATA = DefineCountryList;
 
 const CountryList = (props) => {
   const [selectedId, setSelectedId] = useState(null);
-  const [refresh, setRefresh] = useState(false);
 
   let DATA = props.list;
   const renderItem = ({item}) => {
@@ -50,14 +48,7 @@ const CountryList = (props) => {
       />
     );
   };
-  console.log('props.searchTextprops.searchText', props.searchText);
-  console.log('props.searchTextprops.searchText', props.list);
   if (props.searchText !== '') {
-    // DATA = props.list.filter(
-    //   (data) => console.log(data),
-    //   data.nativeName.toLowerCase().indexOf(props.searchText.toLowerCase()) !==
-    //     -1,
-    // );
     DATA = props.list.filter(
       (data) =>
         data.nativeName
@@ -103,7 +94,6 @@ const Item = ({
   handleUnCheckedArray,
   searchText,
 }) => {
-  // CheckedArrObject = new SelectedCheckboxes();
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={[ModalStyle.lrcItemView]}>
@@ -142,7 +132,6 @@ const ListCheckLangModal = ({
   originalLang,
 }) => {
   let CheckedArrObject = new SelectedCheckboxes();
-  // console.log(CheckedArrObject.fetchArray().length);
   const [searchText, setSearchText] = useState('');
   const [checkedArray, setCheckedArray] = useState(originalLang);
   const {t, i18n} = useTranslation();
@@ -156,35 +145,26 @@ const ListCheckLangModal = ({
     if (
       _checkedArray.findIndex(
         (data) => data.value === Array[Array.length - 1].value,
-        // (data) => data.value === Array[0].value,
       ) === -1
     ) {
       _checkedArray = _checkedArray.concat(Array);
       setCheckedArray(_checkedArray);
-      console.log('PlusArrayLATE', _checkedArray);
     } else {
-      console.log('중복');
     }
   };
 
   const handleUnCheckedArray = async (value) => {
     let _checkedArray = checkedArray;
-
-    console.log('제거할떄 로직 타기전 _checkedArray', _checkedArray);
-    console.log('제거할떄 로직 타기전 Array[0].value', value);
     _checkedArray.splice(
       _checkedArray.findIndex((y) => y.value == value),
       1,
     );
     await setCheckedArray(_checkedArray);
-    console.log('MinusArrayLATE', _checkedArray);
   };
 
   const handleInputChange = (searchText) => {
     setSearchText(searchText);
   };
-
-  console.log('리스트체크랭>>>>>>>>>>>>>>>>>>>>>>>', checkedArray);
 
   return modalVisible ? (
     <KeyboardAwareScrollView
@@ -266,8 +246,6 @@ const ListCheckLangModal = ({
               />
             </TouchableOpacity>
           </View>
-          {/* <View
-              style={{paddingLeft: '10%', paddingRight: '10%', height: '70%'}}> */}
           <CountryList
             setLanguage={setLanguage}
             CheckedArrObject={CheckedArrObject}
@@ -279,17 +257,13 @@ const ListCheckLangModal = ({
             handleUnCheckedArray={handleUnCheckedArray}
             list={list}
           />
-          {/* </View> */}
           <TouchableOpacity
             style={[
               ResetStyle.button,
-
-              // {backgroundColor: '#c6c9cf', marginTop: 15},
               checkedArray == '' && {backgroundColor: '#e6e6e6'},
             ]}
             onPress={() => {
               if (checkedArray !== '') {
-                console.log('AKKKKAKAKAKAKAKAKAK');
                 setLanguage(checkedArray);
                 setModalVisible(!modalVisible);
               }

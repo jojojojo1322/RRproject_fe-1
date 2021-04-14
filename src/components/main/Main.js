@@ -65,11 +65,7 @@ const Main = ({navigation}) => {
                 await AsyncStorage.removeItem('deviceKey');
                 console.log('LOGOUT------');
               } catch (e) {}
-            }}
-            // onPress={() => {
-            //   navigation.navigate('Kyc');
-            // }}
-          >
+            }}>
             <Image
               style={{
                 width: Platform.OS === 'ios' ? 25 : 20,
@@ -91,8 +87,6 @@ const Main = ({navigation}) => {
             style={{
               paddingHorizontal: 5,
               paddingVertical: 5,
-              // width: Platform.OS === 'ios' ? 40 : 35,
-              // height: Platform.OS === 'ios' ? 40 : 35,
               alignItems: 'center',
               justifyContent: 'center',
             }}
@@ -135,12 +129,9 @@ const Main = ({navigation}) => {
               navigation.navigate('ProfileMain');
             }}
             style={{
-              // borderWidth: 1,
-              // borderColor: '#f00',
               flexDirection: 'column',
               alignItems: 'center',
               paddingLeft: '18%',
-              // width: '49.3%',
             }}>
             <Text style={[ResetStyle.fontRegularK, ResetStyle.fontDG]}>
               {t('main4')}
@@ -174,12 +165,9 @@ const Main = ({navigation}) => {
               navigation.navigate('WalletMain');
             }}
             style={{
-              // borderWidth: 1,
-              // borderColor: '#f00',
               flexDirection: 'column',
               alignItems: 'center',
               paddingRight: '22%',
-              // width: '49.3%',
             }}>
             <Text style={[ResetStyle.fontRegularK, ResetStyle.fontDG]}>
               {t('main6')}
@@ -219,7 +207,6 @@ const Main = ({navigation}) => {
                 : Dimensions.get('window').height < 750
                 ? 50
                 : 80,
-            // borderWidth: 1,
           },
           indicatorStyle: {
             width: '4%',

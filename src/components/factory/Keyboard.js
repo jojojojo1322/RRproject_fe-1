@@ -101,90 +101,6 @@ const Keyboard = () => {
   );
 };
 export default Keyboard;
-// export default class Keyboard extends Component {
-//   handlePass = async (value, e) => {};
-//   handlePassErase = (e) => {};
-//   render() {
-//     return (
-//       <>
-//         <View style={styles.keyboard}>
-//           <View style={styles.keyboardView}>
-//             <TouchableOpacity
-//               style={styles.keyboardDetail}
-//               onPress={this.handlePass.bind(this, '1')}>
-//               <Text style={styles.keyboardDetailText}>1</Text>
-//             </TouchableOpacity>
-//             <TouchableOpacity
-//               style={styles.keyboardDetail}
-//               onPress={this.handlePass.bind(this, '2')}>
-//               <Text style={styles.keyboardDetailText}>2</Text>
-//             </TouchableOpacity>
-//             <TouchableOpacity
-//               style={styles.keyboardDetail}
-//               onPress={this.handlePass.bind(this, '3')}>
-//               <Text style={styles.keyboardDetailText}>3</Text>
-//             </TouchableOpacity>
-//           </View>
-
-//           <View style={styles.keyboardView}>
-//             <TouchableOpacity
-//               style={styles.keyboardDetail}
-//               onPress={this.handlePass.bind(this, '4')}>
-//               <Text style={styles.keyboardDetailText}>4</Text>
-//             </TouchableOpacity>
-//             <TouchableOpacity
-//               style={styles.keyboardDetail}
-//               onPress={this.handlePass.bind(this, '5')}>
-//               <Text style={styles.keyboardDetailText}>5</Text>
-//             </TouchableOpacity>
-//             <TouchableOpacity
-//               style={styles.keyboardDetail}
-//               onPress={this.handlePass.bind(this, '6')}>
-//               <Text style={styles.keyboardDetailText}>6</Text>
-//             </TouchableOpacity>
-//           </View>
-
-//           <View style={styles.keyboardView}>
-//             <TouchableOpacity
-//               style={styles.keyboardDetail}
-//               onPress={this.handlePass.bind(this, '7')}>
-//               <Text style={styles.keyboardDetailText}>7</Text>
-//             </TouchableOpacity>
-//             <TouchableOpacity
-//               style={styles.keyboardDetail}
-//               onPress={this.handlePass.bind(this, '8')}>
-//               <Text style={styles.keyboardDetailText}>8</Text>
-//             </TouchableOpacity>
-//             <TouchableOpacity
-//               style={styles.keyboardDetail}
-//               onPress={this.handlePass.bind(this, '9')}>
-//               <Text style={styles.keyboardDetailText}>9</Text>
-//             </TouchableOpacity>
-//           </View>
-//           <View style={styles.keyboardView}>
-//             <TouchableOpacity
-//               style={[styles.keyboardDetail, {backgroundColor: '#f5f5f6'}]}>
-//               <Text style={styles.keyboardDetailText}></Text>
-//             </TouchableOpacity>
-//             <TouchableOpacity
-//               style={styles.keyboardDetail}
-//               onPress={this.handlePass.bind(this, '0')}>
-//               <Text style={styles.keyboardDetailText}>0</Text>
-//             </TouchableOpacity>
-//             <TouchableOpacity
-//               style={styles.keyboardCancelButtonDetail}
-//               onPress={this.handlePassErase}>
-//               <Image
-//                 style={styles.keyboardCancelButton}
-//                 source={require('@images/iconDelete.png')}
-//               />
-//             </TouchableOpacity>
-//           </View>
-//         </View>
-//       </>
-//     );
-//   }
-// }
 
 const styles = StyleSheet.create({
   container: {
@@ -264,15 +180,11 @@ const styles = StyleSheet.create({
   keyboardCancelButtonDetail: {
     flex: 1,
     height: 80,
-    // borderWidth: 1,
-    // borderStyle: 'solid',
-    // borderColor: '#4696ff',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#164895',
   },
   keyboardCancelButton: {
-    // color: '#fff',
     resizeMode: 'center',
   },
   textInputStyle: {

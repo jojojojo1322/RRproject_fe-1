@@ -38,7 +38,6 @@ const Expired = () => {
   );
 
   const [index, setIndex] = useState(0);
-  // const [loading, setLoading] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
 
   const renderItem = ({item}) => {

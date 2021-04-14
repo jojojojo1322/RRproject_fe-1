@@ -22,7 +22,6 @@ import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
 const Item = (data) => (
   <TouchableOpacity
     onPress={() => {
-      console.log('data', data.id);
       data.status === false && data.alertCheckApi(data.id);
       data.category === 'SURVEY'
         ? data.navigation.navigate('Main')
@@ -75,10 +74,7 @@ const MainAlert = (props) => {
   const {t, i18n} = useTranslation();
   const [alertData, setAlertData] = useState(props.route.params?.alertData);
 
-  useEffect(() => {
-    // console.log('MAINALERT', props.route.params?.alertData);
-    console.log('MAINALERT', alertData);
-  }, []);
+  useEffect(() => {}, []);
 
   const renderItem = ({item}) => (
     <Item

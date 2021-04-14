@@ -41,13 +41,7 @@ const Completed = () => {
   const [modal2Visible, setModal2Visible] = useState(false);
 
   const renderItem = ({item}) => {
-    // console.log('renderItem item', require("'" + item.categoryImg + "'"));
-
     let today = moment().tz('Asia/Seoul');
-
-    // setInterval(() => {
-    //   today = moment().tz('Asia/Seoul');
-    // }, 1000);
 
     const endTime = moment(item.endTime).tz('Asia/Seoul');
     var gap = endTime.diff(today);

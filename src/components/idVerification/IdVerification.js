@@ -85,32 +85,8 @@ const IdVerification = ({navigation}) => {
           device.WRITE_EXTERNAL_STORAGE,
         ]);
       }
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   };
-
-  // const SERVER_URL =
-  //   process.env.REACT_APP_API_SERVER_URL || 'http://15.165.203.69:8081/api';
-  // // process.env.REACT_APP_API_SERVER_URL || 'http://gobuyaladdin.com/api';
-  // const api = (contentType = 'application/json') => {
-  //   return axios.create({
-  //     baseURL: SERVER_URL,
-  //     headers: {
-  //       'Content-Type': contentType,
-  //       'Access-Control-Allow-Origin': '*',
-  //       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH',
-  //       'Access-Control-Allow-Headers':
-  //         'Origin,Accept,X-Requested-With,Content-Type,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization',
-  //       'buyaladdin-access-token':
-  //         '_wRKHTqzZCg45qdZwYqJFCR2pjtIwvelO7y5Jvwsw_w',
-  //     },
-  //     //쿠키 전송 관련 문제 발생 시 withCredentials옵션을 줘야합니다.
-  //     //withCredentials: true,
-  //   });
-  // };
-
-  // export default api;
 
   const passportApi = async () => {
     let formData = new FormData();
@@ -131,57 +107,15 @@ const IdVerification = ({navigation}) => {
       }),
     );
 
-    // axios
-    //   .post(`${server}/util/passport`, {
-    //     data: formData,
-    //     // },
-    //     // {
-    //     headers: {
-    //       'Content-Type': 'multipart/form-data',
-    //       Accept: '*/*',
-    //     },
-    //     // },
-    //     // {
-    //     _lowerCaseResponseHeaders: {
-    //       'access-control-allow-headers': 'x-auth-token, content-type',
-    //       'access-control-allow-methods': 'POST, GET, PUT, OPTIONS, DELETE',
-    //       'access-control-allow-origin': '*',
-    //       'access-control-max-age': '3600',
-    //       'content-type': 'multipart/form-data',
-    //     },
-    //   })
-    //
-    //
-
-    // instance()
-    //   .post('/util/passport', formData)
-    //
-    //
-    //
-
     axios({
       method: 'post',
       url: `${server}/util/passport`,
       data: formData,
-      // headers: {
-      //   'Content-Type': 'multipart/form-data',
-      //   Accept: '*/*',
-      // },
-      // _lowerCaseResponseHeaders: {
-      //   // 'access-control-allow-headers': 'x-auth-token, content-type',
-      //   // 'access-control-allow-methods': 'POST, GET, PUT, OPTIONS, DELETE',
-      //   // 'access-control-allow-origin': '*',
-      //   // 'access-control-max-age': '3600',
-      //   'content-type': 'multipart/form-data',
-      // },
     })
       .then((response) => {
-        console.log('passportApi THEN>>', response);
         setSuccessCheck(response.data.result);
       })
-      .catch((e) => {
-        console.log('passportApi ERROR>>', e);
-      });
+      .catch((e) => {});
   };
 
   useEffect(() => {
@@ -204,7 +138,6 @@ const IdVerification = ({navigation}) => {
             setLoading(true);
           } else {
             await requestMultiple(notGrantedArr).then((res) => {
-              console.log(res);
               const {DENIED, BLOCKED} = resultClassification(res);
 
               if (Platform.OS === 'ios') {
@@ -225,9 +158,7 @@ const IdVerification = ({navigation}) => {
         };
         reQuestion();
       });
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   };
 
   if (response === null) {
@@ -247,7 +178,6 @@ const IdVerification = ({navigation}) => {
             width: 260,
             height: 200,
             resizeMode: 'contain',
-            // borderWidth: 1,
           }}
           source={require('@images/passportIcon.png')}
         />
@@ -270,7 +200,6 @@ const IdVerification = ({navigation}) => {
             width: 260,
             height: 200,
             resizeMode: 'contain',
-            // borderWidth: 1,
           }}
           source={require('@images/passportIcon.png')}
         />
@@ -307,17 +236,12 @@ const IdVerification = ({navigation}) => {
             width: 260,
             height: 200,
             resizeMode: 'contain',
-            // borderWidth: 1,
           }}
           source={require('@images/passportIcon.png')}
         />
       </View>
     );
   }
-
-  useEffect(() => {
-    console.log('response>>>>>>>>>', response);
-  }, [response]);
 
   const handlePassportChange = (value) => {
     setPassportNo(value);
@@ -347,12 +271,7 @@ const IdVerification = ({navigation}) => {
     ) {
       setModal3Visible(!modal2Visible);
     } else {
-      console.log('passportNo', passportNo);
-      console.log('firstName', firstName);
-      console.log('lastName', lastName);
-      console.log('Response', response);
       passportApi();
-      // navigation.replace('IdVerificationInProgress');
     }
   };
 
@@ -432,8 +351,6 @@ const IdVerification = ({navigation}) => {
                     maxWidth: 200,
                   },
                   (response) => {
-                    // let data = response;
-                    // data = data.uri.split('content://', 'file:///');
                     setResponse(response);
                   },
                 );
@@ -463,8 +380,6 @@ const IdVerification = ({navigation}) => {
                     maxWidth: 200,
                   },
                   (response) => {
-                    // let data = response;
-                    // data = data.uri.split('content://', 'file:///');
                     setResponse(response);
                   },
                 );

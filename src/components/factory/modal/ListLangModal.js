@@ -11,14 +11,9 @@ import {
   FlatList,
   Dimensions,
 } from 'react-native';
-import {RoundCheckbox, SelectedCheckboxes} from '@factory/Roundcheck';
+import {SelectedCheckboxes} from '@factory/Roundcheck';
 import ResetStyle from '@style/ResetStyle';
 import ModalStyle from '@style/ModalStyle';
-// import {
-//   DefineCountryList,
-//   CountryListApi,
-// } from '@defined/DefineCountryList';
-import {CountryListApi, CLA} from '@defined/DefineCountryList';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useTranslation} from 'react-i18next';
 
@@ -28,7 +23,6 @@ const CountryList = (props) => {
   const [selectedId, setSelectedId] = useState(null);
   let [DATA, setDATA] = useState(props.DATA);
   const renderItem = ({item}) => {
-    // console.log('>>>>>>>>>', DATA);
     const backgroundColor = item.id === selectedId ? '#efefef' : '#FFF';
     return (
       <Item
@@ -51,15 +45,9 @@ const CountryList = (props) => {
             .toLowerCase()
             .indexOf(props.searchText.toLowerCase()) !== -1,
     );
-
-    // list.custName.toLowerCase().indexOf(searchName) > -1
   } else {
     DATA = DATA;
   }
-
-  //   languageCode: "aa"
-  //   englishName: "Afar"
-  //   nativeName: "Afar"
 
   return (
     <>
@@ -80,7 +68,6 @@ const CountryList = (props) => {
 
 const Item = ({item, onPress, style, handlePick}) => {
   CheckedArrObject = new SelectedCheckboxes();
-  console.log(item);
   return (
     <TouchableOpacity
       key={item.countryPhone}
@@ -88,10 +75,6 @@ const Item = ({item, onPress, style, handlePick}) => {
         handlePick(item.languageCode, item.englishName, item.nativeName);
       }}
       style={[ModalStyle.listModalItem]}>
-      {/* <Image
-          style={[ModalStyle.listModalImg, {marginTop: 2}]}
-          source={item.emojiFlag !== '' ? item.emojiFlag : ''}
-        /> */}
       <Text
         style={[
           ResetStyle.fontRegularK,
@@ -113,7 +96,6 @@ const ListLangModal = ({
 }) => {
   const {t, i18n} = useTranslation();
   const [searchText, setSearchText] = useState('');
-  const [pick, setPick] = useState('');
 
   const handleInputChange = (searchText) => {
     setSearchText(searchText);

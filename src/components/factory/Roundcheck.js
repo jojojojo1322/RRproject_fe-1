@@ -34,10 +34,6 @@ export class RoundCheckbox extends Component {
   }
 
   componentDidMount() {
-    // let a = [];
-    // a = this.props.checkedArray.filter(
-    //   (data) => data.value == this.props.value,
-    // );
     if (this.props.checked) {
       this.setState({checked: true}, () => {
         this.props.checkedObjArr.addItem({
@@ -51,28 +47,6 @@ export class RoundCheckbox extends Component {
         checked: false,
       });
     }
-    // if (this.props.typeName) {
-    //   let a = [];
-    //   a = this.props.checkedArray.filter(
-    //     (data) =>
-    //       data.kycOption == this.props.value &&
-    //       data.kycQuestion == this.props.keyValue,
-    //   );
-    //   if (a.length !== 0) {
-    //     console.log('다시체크됨다시체크됨다시체크됨다시체크됨다시체크됨');
-    //     this.setState({checked: true}, () => {
-    //       this.props.checkedObjArr.addItem({
-    //         key: this.props.keyValue,
-    //         value: this.props.value,
-    //         label: this.props.label,
-    //       });
-    //     });
-    //   } else {
-    //     this.setState({
-    //       checked: false,
-    //     });
-    //   }
-    // }
   }
   componentDidUpdate(preProps, preState) {
     if (preProps.checked != this.props.checked) {
@@ -96,29 +70,6 @@ export class RoundCheckbox extends Component {
         );
       }
     }
-    // if (preProps.checkedArray !== this.props.checkedArray) {
-    //   console.log('---DidUpdate----');
-    //   let a = [];
-    //   a = this.props.checkedArray.filter(
-    //     (data) =>
-    //       data.kycOption == this.props.value &&
-    //       data.kycQuestion == this.props.keyValue,
-    //   );
-    //   if (a.length !== 0) {
-    //     console.log('다시체크됨다시체크됨다시체크됨다시체크됨다시체크됨');
-    //     this.setState({checked: true}, () => {
-    //       this.props.checkedObjArr.addItem({
-    //         key: this.props.keyValue,
-    //         value: this.props.value,
-    //         label: this.props.label,
-    //       });
-    //     });
-    //   } else {
-    //     this.setState({
-    //       checked: false,
-    //     });
-    //   }
-    // }
   }
   stateSwitcher(key, label, value) {
     this.setState({checked: !this.state.checked}, () => {
@@ -139,38 +90,13 @@ export class RoundCheckbox extends Component {
           );
           let multiCnt = 0;
           this.props.checkedArray.map((data, index) => {
-            if (
-              String(data.kycQuestion) == String(key)
-              // String(data.kycOption).indexOf(value) !== -1
-            ) {
+            if (String(data.kycQuestion) == String(key)) {
               const num = data.kycOption.length;
-              // multiCnt = data.kycOption.length;
               multiCnt = num;
             }
           });
-          // if (
-          //   this.props.checkedArray.findIndex(
-          //     (data) => String(data.kycQuestion) === String(key),
-          //   ) !== -1
-          // ) {
-          //   multiCnt = this.props.checkedArray[
-          //     this.props.checkedArray.findIndex(
-          //       (data) => String(data.kycQuestion) === String(key),
-          //     )
-          //   ].kycOption.length;
-          // }
-          console.log('array><>>>>>>>>>', this.props.checkedArray);
-          //checkbox - 3개 초과 금지 처리 /
           if (this.props.typeName == 'checkbox') {
-            console.log('multiCnt', multiCnt);
             if (multiCnt >= 5) {
-              console.log('3개초과3개초과3개초과3개초과3개초과');
-              // this.props.handleQuestion(
-              //   key,
-              //   value,
-              //   'MINUS',
-              //   this.props.typeName,
-              // );
               this.props.setModalVisible(true);
               return false;
             }
@@ -217,12 +143,7 @@ export class RoundCheckbox extends Component {
           // 사용가능 언어 추가
           this.props.handleCheckedArray(this.props.checkedObjArr.fetchArray());
         }
-        // this.props.handleCheckedArray(this.props.checkedObjArr.fetchArray());
-        // console.log(this.props.checkedObjArr.fetchArray());
-        // console.log(this.props.checkedObjArr.fetchArray().length);
       } else {
-        // this.props.handleUnCheckedArray(key);
-
         // kyc 선택문항 - survey
         if (this.props.handleQuestion) {
           this.props.handleQuestion(key, value, 'MINUS', this.props.typeName);
@@ -254,16 +175,6 @@ export class RoundCheckbox extends Component {
     });
   }
   render() {
-    // let a = [];
-    // a = this.props.checkedArray.filter(
-    //   (data) => data.value == this.props.value,
-    // );
-
-    // // console.log(a);
-    // if (a.length !== 0) {
-    //   console.log('props.>>>>>', a);
-    //   console.log('체크됨체크됨체크됨체크됨체크됨');
-    // }
     return (
       <TouchableOpacity
         onPress={this.stateSwitcher.bind(
@@ -308,9 +219,6 @@ export class RoundCheckbox extends Component {
               </View>
             )}
           </View>
-          {/* <Text style={[styles.checkboxLabel, {color: this.props.labelColor}]}>
-            {this.props.label}
-          </Text> */}
         </View>
       </TouchableOpacity>
     );
@@ -318,7 +226,6 @@ export class RoundCheckbox extends Component {
 }
 
 RoundCheckbox.propTypes = {
-  // keyValue: PropTypes.number.isRequired,
   size: PropTypes.number,
   color: PropTypes.string,
   borderWidth: PropTypes.number,
@@ -350,13 +257,6 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === 'ios' ? 25 : 0,
   },
 
-  // showSelectedButton: {
-  //   padding: 20,
-  //   marginTop: 25,
-  //   alignSelf: 'stretch',
-  //   backgroundColor: '#5D52FF'
-  // },
-
   buttonText: {
     fontSize: 20,
     color: '#ffffff',
@@ -370,14 +270,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 100,
     backgroundColor: '#2B97FB',
-    // borderWidth: 1,
-    // borderColor: '#2B97FB',
   },
 
   checkboxTickImg: {
     width: '70%',
     height: '70%',
-    // tintColor: '#ffffff',
     resizeMode: 'contain',
   },
 

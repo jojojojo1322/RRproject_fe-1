@@ -46,17 +46,12 @@ const MainDetailExpired = (props) => {
     user: auth.user,
   }));
 
-  // let audienceCheck = '';
-  // const getSurveyDetailApi = () => {
-  //   axios.get(`${server}/survey/detail`);
-  // };
   const surveyDetailApi = async () => {
     await axios
       .get(
         `${server}/survey/detail?deviceLanguageCode=${language}&legacySurveyId=${props.route.params?.legacySurveyId}&userNo=${user.userNo}`,
       )
       .then(async (response) => {
-        console.log(`surveyDetailApi Then >>`, response);
         setSurveyDetail(response.data.resSurvey);
         setUserNo(user.userNo);
       })
@@ -71,7 +66,6 @@ const MainDetailExpired = (props) => {
         userNo: user.userNo,
       })
       .then(async (response) => {
-        console.log(`AudienceCheckApi Then >>`, response);
         setAudienceCheck(response.data.ret_val);
       })
       .catch((e) => {
@@ -84,7 +78,6 @@ const MainDetailExpired = (props) => {
         `${server}/survey/audience/info?legacySurveyId=${props.route.params?.legacySurveyId}`,
       )
       .then(async (response) => {
-        console.log(`AudienceApi Then >>`, response);
         setAudience(response.data);
         AudienceCheckApi(response.data.surveyId);
         if (response.data.language === 'all') {
@@ -141,48 +134,17 @@ const MainDetailExpired = (props) => {
 
         ageFix += `${ageMin}-${ageMax}`;
         setAudienceAge(ageFix);
-        console.log('response.data.dayOfBirth.split())= ', ageFix);
       })
       .catch((e) => {
         console.log(`AudienceApi Error`, e);
       });
   };
   useEffect(() => {
-    // CarrierInfo.allowsVOIP()
-    //   .then((result) => {
-    //     console.log('CarrierInfo>>then>>>>', result);
-    //   })
-    //   .catch((e) => {
-    //     console.log('error>>>>', e);
-    //   });
-    // CarrierInfo.carrierName()
-    //   .then((result) => {
-    //     console.log('CarrierName>>then>>>>', result);
-    //   })
-    //   .catch((e) => {
-    //     console.log('error>>>>', e);
-    //   });
-    // ////유심 체크 (끼어져 있는 유심이 공유심인지는 체크 불가)
-    // CarrierInfo.mobileNetworkCode()
-    //   .then((result) => {
-    //     console.log('mobileNetworkCode>>then>>>>', result);
-    //   })
-    //   .catch((e) => {
-    //     console.log('error>>>>', e);
-    //   });
-    // CarrierInfo.mobileNetworkOperator()
-    //   .then((result) => {
-    //     console.log('mobileNetworkOperator>>then>>>>', result);
-    //   })
-    //   .catch((e) => {
-    //     console.log('error>>>>', e);
-    //   });
     surveyDetailApi();
     AudienceApi();
   }, []);
   const audienceCheckHandle = async () => {
     // AudienceCheckApi();
-    console.log('audienceCheck', audienceCheck);
     if (audienceCheck === 0) {
       props.navigation.navigate('ResearchForm', {
         legacySurveyId: props.route.params?.legacySurveyId,
@@ -199,7 +161,6 @@ const MainDetailExpired = (props) => {
   const confirmHandle = () => {
     props.navigation.navigate('ProfileMain');
   };
-  console.log('surveyDetailsurveyDetailsurveyDetail', surveyDetail);
   return (
     <SafeAreaView style={[ResetStyle.container]}>
       <ScrollView bounces={false}>
@@ -238,12 +199,6 @@ const MainDetailExpired = (props) => {
                 {surveyDetail.sponsorName}
               </Text>
             </View>
-
-            {/* <TouchableOpacity>
-              <Image
-                source={require('@images/shareIcon.png')}
-              />
-            </TouchableOpacity> */}
           </View>
 
           <Text
