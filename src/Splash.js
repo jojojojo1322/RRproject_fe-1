@@ -29,6 +29,7 @@ import {getUserInfo, signIn} from '@module/auth';
 import {useDispatch, useSelector} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {getTNCInfo} from '@module/tnc';
+import {initializeResult} from '@module/auth';
 
 const Splash = ({loading, setLoading}) => {
   const {t, i18n} = useTranslation();
@@ -197,6 +198,8 @@ const Splash = ({loading, setLoading}) => {
     if (loginPayload) {
       if (loginPayload.status === true) {
         dispatch(getUserInfo({userNo: loginPayload.userNo}));
+      } else if (loginPayload.status === false) {
+        dispatch(initializeResult());
       }
     }
   }, [loginPayload]);

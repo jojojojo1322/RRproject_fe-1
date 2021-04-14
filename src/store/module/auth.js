@@ -18,9 +18,12 @@ const [SIGN_UP, SIGN_UP_SUCCESS, SIGN_UP_FAILURE] = createRequestActionTypes(
   'auth/SIGN_UP',
 );
 
+const [INITIALIZE_RESULT] = createRequestActionTypes('auth/INITIALIZE_RESULT');
+
 export const getUserInfo = createAction(INFO);
 export const signIn = createAction(SIGN_IN);
 export const signUp = createAction(SIGN_UP);
+export const initializeResult = createAction(INITIALIZE_RESULT);
 
 const getUserInfoSaga = createRequestSaga(INFO, authAPI.getUserInfo);
 const signInSaga = createRequestSaga(SIGN_IN, authAPI.login);
@@ -64,7 +67,6 @@ const initialState = {
     hasWallet: '',
   },
   authError: '',
-
   signupFail: null,
 };
 
@@ -111,6 +113,11 @@ const auth = createReducer(initialState, {
       ...state,
       signupResult: null,
       signupFail: error,
+    };
+  },
+  [INITIALIZE_RESULT]: () => {
+    return {
+      ...initialState,
     };
   },
 });

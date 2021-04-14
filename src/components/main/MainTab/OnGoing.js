@@ -60,10 +60,10 @@ const TimeBlock = ({originEndTime}) => {
   );
 };
 
-const SLIDER_HEIGHT = Dimensions.get('window').height;
-const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT / 2.5);
-const ITEM_HEIGHT_ANDROID = Math.round(SLIDER_HEIGHT / 1.6);
-const ITEM_HEIGHT_IOS_UNDER700 = Math.round(SLIDER_HEIGHT / 2.3);
+let SLIDER_HEIGHT = Dimensions.get('window').height;
+let ITEM_HEIGHT = Math.round(SLIDER_HEIGHT / 2.5);
+let ITEM_HEIGHT_ANDROID = Math.round(SLIDER_HEIGHT / 1.6);
+let ITEM_HEIGHT_IOS_UNDER700 = Math.round(SLIDER_HEIGHT / 2.3);
 const OnGoing = () => {
   const {t} = useTranslation();
   const dispatch = useDispatch();
@@ -317,6 +317,15 @@ const OnGoing = () => {
   };
 
   useEffect(() => {
+    if (SLIDER_HEIGHT === 0) {
+      SLIDER_HEIGHT = Dimensions.get('window').height;
+      ITEM_HEIGHT = Math.round(SLIDER_HEIGHT / 2.5);
+      ITEM_HEIGHT_ANDROID = Math.round(SLIDER_HEIGHT / 1.6);
+      ITEM_HEIGHT_IOS_UNDER700 = Math.round(SLIDER_HEIGHT / 2.3);
+    }
+  }, [SLIDER_HEIGHT]);
+
+  useEffect(() => {
     if (user.userNo !== '' && language) {
       dispatch(
         getOngoingSurveyList({
@@ -330,46 +339,50 @@ const OnGoing = () => {
 
   return (
     <View style={{flex: 1}}>
-      <Carousel
-        data={
-          ongoingSurveyList.length == 0 ? [{status: 'zero'}] : ongoingSurveyList
-        }
-        renderItem={renderItem}
-        sliderHeight={Platform.OS === 'ios' ? 500 : 500}
-        itemHeight={
-          Platform.OS === 'android'
-            ? ITEM_HEIGHT_ANDROID
-            : Dimensions.get('window').height < 750
-            ? ITEM_HEIGHT_IOS_UNDER700
-            : ITEM_HEIGHT
-        }
-        containerCustomStyle={{
-          flex: 1,
-          backgroundColor: '#fff',
-        }}
-        slideStyle={{
-          width: '100%',
-          paddingTop: 0,
-        }}
-        contentContainerCustomStyle={{
-          height:
+      {SLIDER_HEIGHT > 0 && (
+        <Carousel
+          data={
             ongoingSurveyList.length == 0
-              ? '100%'
-              : String(ongoingSurveyList.length * 95 + '%'),
-          paddingTop:
+              ? [{status: 'zero'}]
+              : ongoingSurveyList
+          }
+          renderItem={renderItem}
+          sliderHeight={Platform.OS === 'ios' ? 500 : 500}
+          itemHeight={
             Platform.OS === 'android'
-              ? '3%'
+              ? ITEM_HEIGHT_ANDROID
               : Dimensions.get('window').height < 750
-              ? '3%'
-              : 0, // tab navigator와의 간격
-        }}
-        inactiveSlideShift={0}
-        onSnapToItem={(index) => setIndex(index)}
-        scrollInterpolator={scrollInterpolator2}
-        slideInterpolatedStyle={animatedStyles2}
-        vertical={true}
-        layout={'stack'}
-      />
+              ? ITEM_HEIGHT_IOS_UNDER700
+              : ITEM_HEIGHT
+          }
+          containerCustomStyle={{
+            flex: 1,
+            backgroundColor: '#fff',
+          }}
+          slideStyle={{
+            width: '100%',
+            paddingTop: 0,
+          }}
+          contentContainerCustomStyle={{
+            height:
+              ongoingSurveyList.length == 0
+                ? '100%'
+                : String(ongoingSurveyList.length * 95 + '%'),
+            paddingTop:
+              Platform.OS === 'android'
+                ? '3%'
+                : Dimensions.get('window').height < 750
+                ? '3%'
+                : 0, // tab navigator와의 간격
+          }}
+          inactiveSlideShift={0}
+          onSnapToItem={(index) => setIndex(index)}
+          scrollInterpolator={scrollInterpolator2}
+          slideInterpolatedStyle={animatedStyles2}
+          vertical={true}
+          layout={'stack'}
+        />
+      )}
       <BottomModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}

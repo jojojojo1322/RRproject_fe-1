@@ -68,6 +68,7 @@ const CountryList = () => {
   return (
     <View style={styles.countryList}>
       <FlatList
+        bounces={false}
         data={DATA}
         renderItem={renderItem}
         keyExtractor={(item, index) =>

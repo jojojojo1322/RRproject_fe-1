@@ -134,6 +134,7 @@ const Login = ({navigation, history}) => {
       }),
     );
   };
+
   useEffect(() => {
     if (loginPayload) {
       if (loginPayload.status === true) {

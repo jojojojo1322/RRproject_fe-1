@@ -621,6 +621,7 @@ const ProfileAll = (props) => {
                   </TouchableOpacity>
                 </View>
                 <FlatList
+                  bounces={false}
                   // style={{height: '100%'}}
                   data={kycQuestion2}
                   renderItem={({item}) => (
@@ -680,6 +681,7 @@ const ProfileAll = (props) => {
                       </TouchableOpacity>
                     </View>
                     <FlatList
+                      bounces={false}
                       style={{marginBottom: '10%'}}
                       // data={questionDynamic.length === 5 && questionDynamic}
                       data={
