@@ -26,7 +26,11 @@ const TextConfirmCancelModal = ({
 }) => {
   const {t, i18n} = useTranslation();
   return modalVisible ? (
-    <Modal animationType="fade" transparent={true} visible={modalVisible}>
+    <Modal
+      animationType="fade"
+      transparent={true}
+      visible={modalVisible}
+      onRequestClose={() => cancelHandle()}>
       <View style={{flex: 1, position: 'relative'}}>
         {/* modal background */}
         <TouchableWithoutFeedback

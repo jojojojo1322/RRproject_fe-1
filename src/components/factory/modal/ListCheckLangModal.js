@@ -170,7 +170,11 @@ const ListCheckLangModal = ({
     <KeyboardAwareScrollView
       enableOnAndroid={true}
       contentContainerStyle={{flexGrow: 1}}>
-      <Modal animationType="fade" transparent={true} visible={modalVisible}>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(!modalVisible)}>
         {/* modal background */}
         <TouchableWithoutFeedback
           activeOpacity={0.55}
