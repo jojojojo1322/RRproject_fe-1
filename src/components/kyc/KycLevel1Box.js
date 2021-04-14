@@ -19,6 +19,8 @@ import ListModal from '@factory/modal/ListModal';
 import ListLangModal from '@factory/modal/ListLangModal';
 import ListCheckLangModal from '@factory/modal/ListCheckLangModal';
 
+import {getGlobalCountry} from '@repository/utilRepository';
+
 function isBirthday(dateStr) {
   if (dateStr === undefined) {
     return false;
@@ -133,8 +135,7 @@ const KycLevel1Box = ({navigation, route}) => {
 
   // Country Data Api
   const countryDataApi = async () => {
-    await axios
-      .get(`${server}/util/global/country`)
+    await getGlobalCountry()
       .then(async (response) => {
         // console.log('countryListList', response);
         // setCountry(response.data);
