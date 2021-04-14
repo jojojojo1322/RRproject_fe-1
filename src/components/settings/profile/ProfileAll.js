@@ -1,29 +1,23 @@
-import React, {Component, useState, useEffect} from 'react';
-
+import React, {useState, useEffect} from 'react';
 import {
-  StyleSheet,
   View,
   Text,
   ScrollView,
-  Button,
   TouchableOpacity,
-  Alert,
   Image,
   Platform,
   FlatList,
-  YellowBox,
 } from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
+import {useSelector} from 'react-redux';
+import axios from 'axios';
 
 import {server} from '@context/server';
-import axios from 'axios';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import ResetStyle from '@style/ResetStyle.js';
 import ProfileStyle from '@style/ProfileStyle.js';
 import TextConfirmCancelModal from '@factory/modal/TextConfirmCancelModal';
 import TextConfirmCancelVarModal from '@factory/modal/TextConfirmCancelVarModal';
-
-import {useTranslation} from 'react-i18next';
-import {useSelector} from 'react-redux';
 
 const levelMap = [
   {id: '3'},
@@ -50,6 +44,8 @@ const levelMap = [
 ];
 
 const ProfileAll = (props) => {
+  const {t} = useTranslation();
+
   const [question, setQuestion] = useState([]);
   const [question2, setQuestion2] = useState([]);
   const [questionDynamic, setQuestionDynamic] = useState([]);
@@ -79,13 +75,14 @@ const ProfileAll = (props) => {
   const [modal2Visible, setModal2Visible] = useState(false);
   const [modal3Visible, setModal3Visible] = useState(false);
 
+  const [kycLevel, setKycLevel] = useState(0);
+
   const {language, user} = useSelector(({language, auth}) => ({
     language: language.language,
     user: auth.user,
   }));
 
   const [levelCheck, setLevelCheck] = useState('');
-  const {t, i18n} = useTranslation();
 
   const kycQuestion2 = [
     {
@@ -211,60 +208,13 @@ const ProfileAll = (props) => {
     await axios
       .get(`${server}/kyc/1/${user.userNo}`)
       .then(async (response) => {
-        console.log(response.data.data);
-        // let fix = response.data.data;
-
-        // let fixQ = fix.language.split(',');
-        // let fixArr = '';
-
-        // fixQ.map((data) => {
-        //   lang.map((d) => {
-        //     if (data === d.languageCode) {
-        //       fixArr += `${d.nativeName},`;
-        //     }
-        //   });
-        // });
-        // fixArr = fixArr.substr(0, fixArr.length - 1);
-        // fix.language = fixArr;
-
         setQuestion([response.data.data]);
       })
       .catch((e) => {
         console.log('Error', e);
       });
   };
-  //   useEffect(() => {
-  //     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
-  // }, [])
-  useEffect(() => {
-    YellowBox.ignoreWarnings(['VirtualizedLists should never be nested']);
-    YellowBox.ignoreWarnings([
-      'Each child in a list should have a unique "key" prop.',
-    ]);
-    getCompleteKycApi();
 
-    // getLanguageApi();
-    if (props.route.params?.KycLevel >= 2) {
-      get2CompleteKycApi();
-    }
-    levelMap.map((data) => {
-      if (Number(data.id) <= Number(props.route.params?.KycLevel)) {
-        getDynamicCompleteKycApi(data.id);
-      }
-    });
-  }, []);
-  // const getLanguageApi = async () => {
-  //   await axios
-  //     .get(`${server}/util/global/languages`)
-  //     .then(async (response) => {
-  //       console.log('getLanguageApi THEN>>', response);
-
-  //       getCompleteKycApi(response.data);
-  //     })
-  //     .catch((e) => {
-  //       console.log('getLanguageApi ERROR>>', e);
-  //     });
-  // };
   const get2CompleteKycApi = async () => {
     await axios
       .get(`${server}/kyc/2/${user.userNo}`)
@@ -279,12 +229,8 @@ const ProfileAll = (props) => {
 
   const getDynamicCompleteKycApi = async (KycLevel) => {
     await axios
-      .get(
-        `${server}/kyc/${user.userNo}/${KycLevel}/${language}`,
-        // `${server}/user/user?userNo=210127104026300`,
-      )
+      .get(`${server}/kyc/${user.userNo}/${KycLevel}/${language}`)
       .then(async (response) => {
-        // console.log('getCompleteKycApi THEN>>>', response.data.data);
         let ARR1 = response.data.data.filter(
           (data) => data.kycQuestion === '1',
         );
@@ -404,25 +350,50 @@ const ProfileAll = (props) => {
         console.log('getCompleteKycApi ERROR>>>', e);
       });
   };
+
   const cancelHandle = () => {
     setModalVisible(false);
   };
+
   const confirmHandle = () => {
     props.navigation.navigate('Kyc', {
       KycLevel: 1,
       question: question,
     });
   };
+
   const confirm2Handle = () => {
     props.navigation.navigate('ProfileIncompleteLevel2', {
       KycLevel: 2,
     });
   };
+
   const confirm3Handle = (level) => {
     props.navigation.navigate('ProfileIncompleteDetail', {
       KycLevel: level,
     });
   };
+
+  useEffect(() => {
+    if (user) {
+      setKycLevel(user.userLevel);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    getCompleteKycApi();
+
+    if (kycLevel >= 2) {
+      get2CompleteKycApi();
+    }
+
+    levelMap.map((data) => {
+      if (Number(data.id) <= Number(kycLevel)) {
+        getDynamicCompleteKycApi(data.id);
+      }
+    });
+  }, [kycLevel]);
+
   const RenderItem = (item) => {
     let answerNo = 0;
     item.category === 'employmentStatus' &&
@@ -529,7 +500,7 @@ const ProfileAll = (props) => {
 
         {/* Level List */}
         <View style={{flexDirection: 'row'}}>
-          <ScrollView showsVerticalScrollIndicator={false}>
+          <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
             {/* Level List Item */}
             {/* {Object.keys(question).map((data, index) => { */}
             {question.map((data, index) => {
@@ -623,7 +594,7 @@ const ProfileAll = (props) => {
               );
             })}
             {/* level 2 start */}
-            {props.route.params?.KycLevel >= 2 && (
+            {kycLevel >= 2 && (
               <View>
                 <View
                   style={[ProfileStyle.kycAllLevelTitle, {marginTop: '10%'}]}>
@@ -644,6 +615,7 @@ const ProfileAll = (props) => {
                   </TouchableOpacity>
                 </View>
                 <FlatList
+                  bounces={false}
                   // style={{height: '100%'}}
                   data={kycQuestion2}
                   renderItem={({item}) => (
@@ -672,10 +644,10 @@ const ProfileAll = (props) => {
             )}
             {/* level 2 end */}
             {/* level Dynamic start */}
-            {/* {props.route.params?.KycLevel > 2 && */}
+            {/* {kycLevel > 2 && */}
 
             {levelMap.map((data, index) => {
-              if (Number(data.id) <= Number(props.route.params?.KycLevel)) {
+              if (Number(data.id) <= Number(kycLevel)) {
                 return (
                   <View key={index.toString()}>
                     <View
@@ -703,6 +675,7 @@ const ProfileAll = (props) => {
                       </TouchableOpacity>
                     </View>
                     <FlatList
+                      bounces={false}
                       style={{marginBottom: '10%'}}
                       // data={questionDynamic.length === 5 && questionDynamic}
                       data={
@@ -791,10 +764,10 @@ const ProfileAll = (props) => {
                 return false;
               }
             })}
-            {/* {[...Array(props.route.params?.KycLevel - 2)].map((n, index) => {
+            {/* {[...Array(kycLevel - 2)].map((n, index) => {
               console.log(
-                'props.route.params?.KycLevel',
-                props.route.params?.KycLevel,
+                'kycLevel',
+                kycLevel,
               );
 
               // getDynamicCompleteKycApi();
@@ -804,7 +777,7 @@ const ProfileAll = (props) => {
                   <View style={[ProfileStyle.kycAllLevelTitle]}>
                     <Text
                       style={[ResetStyle.fontRegularK, {fontWeight: '500'}]}>
-                      KYC LEVEL {props.route.params?.KycLevel}
+                      KYC LEVEL {kycLevel}
                     </Text>
                   </View>
                   <FlatList
@@ -840,7 +813,7 @@ const ProfileAll = (props) => {
           style={[ResetStyle.button]}
           onPress={() => {
             props.navigation.navigate('Kyc', {
-              KycLevel: props.route.params?.KycLevel,
+              KycLevel: kycLevel,
               question: question,
             });
           }}>

@@ -53,6 +53,7 @@ const CountryList = (props) => {
   return (
     <>
       <FlatList
+        bounces={false}
         data={DATA}
         renderItem={renderItem}
         keyExtractor={(item, index) =>

@@ -21,15 +21,15 @@ import {getCompletedSurveyList} from '@module/survey';
 import ResetStyle from '@style/ResetStyle';
 import MainStyle from '@style/MainStyle';
 
-const SLIDER_HEIGHT = Dimensions.get('window').height;
-const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT / 2.5);
-const ITEM_HEIGHT_ANDROID = Math.round(SLIDER_HEIGHT / 2.2);
+let SLIDER_HEIGHT = Dimensions.get('window').height;
+let ITEM_HEIGHT = Math.round(SLIDER_HEIGHT / 2.5);
+let ITEM_HEIGHT_ANDROID = Math.round(SLIDER_HEIGHT / 1.6);
 const Completed = () => {
   const {t} = useTranslation();
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const {user, completedSurveyList} = useSelector(
+  const {user, language, completedSurveyList} = useSelector(
     ({auth, language, survey}) => ({
       user: auth.user,
       language: language.language,
@@ -74,14 +74,7 @@ const Completed = () => {
       );
     } else {
       return (
-        <View
-          style={[MainStyle.itemBox]}
-          onPress={() => {
-            navigation.navigate('MainDetailCompleted', {
-              legacySurveyId: item.legacySurveyId,
-              surveyName: item.surveyName,
-            });
-          }}>
+        <View style={[MainStyle.itemBox, Platform.OS !== 'ios' && {flex: 1}]}>
           <View
             opacity={1.0}
             style={{
@@ -99,7 +92,6 @@ const Completed = () => {
                 source={{uri: item.categoryImg}}
               />
             )}
-
             <View
               style={{
                 position: 'absolute',
@@ -251,7 +243,6 @@ const Completed = () => {
                   onPress={() => {
                     navigation.navigate('MainDetailCompleted', {
                       legacySurveyId: item.legacySurveyId,
-                      // legacySurveyId: '5f91aad0ae28561b056e2f97',
                       surveyName: item.surveyName,
                     });
                   }}>
@@ -277,6 +268,14 @@ const Completed = () => {
   };
 
   useEffect(() => {
+    if (SLIDER_HEIGHT === 0) {
+      SLIDER_HEIGHT = Dimensions.get('window').height;
+      ITEM_HEIGHT = Math.round(SLIDER_HEIGHT / 2.5);
+      ITEM_HEIGHT_ANDROID = Math.round(SLIDER_HEIGHT / 1.6);
+    }
+  }, [SLIDER_HEIGHT]);
+
+  useEffect(() => {
     if (user.userNo !== '') {
       dispatch(getCompletedSurveyList(user.userNo));
     }
@@ -284,50 +283,53 @@ const Completed = () => {
 
   return (
     <View style={{flex: 1}}>
-      <Carousel
-        data={
-          completedSurveyList.length == 0
-            ? [{status: 'zero'}]
-            : completedSurveyList
-        }
-        renderItem={renderItem}
-        sliderHeight={Platform.OS === 'ios' ? 500 : 450}
-        itemHeight={
-          Platform.OS === 'android'
-            ? ITEM_HEIGHT_ANDROID
-            : Dimensions.get('window').height < 750
-            ? ITEM_HEIGHT_IOS_UNDER700
-            : ITEM_HEIGHT
-        }
-        containerCustomStyle={{
-          flex: 1,
-          backgroundColor: '#fff',
-        }}
-        slideStyle={{
-          width: '100%',
-          marginTop: 0,
-          paddingTop: 0,
-        }}
-        contentContainerCustomStyle={{
-          height:
+      {SLIDER_HEIGHT > 0 && (
+        <Carousel
+          data={
             completedSurveyList.length == 0
-              ? '100%'
-              : String(completedSurveyList.length * 95 + '%'),
-          paddingTop:
+              ? [{status: 'zero'}]
+              : completedSurveyList
+          }
+          renderItem={renderItem}
+          sliderHeight={Platform.OS === 'ios' ? 500 : 450}
+          itemHeight={
             Platform.OS === 'android'
-              ? '3%'
+              ? ITEM_HEIGHT_ANDROID
               : Dimensions.get('window').height < 750
-              ? '3%'
-              : 0, // tab navigator와의 간격
-        }}
-        inactiveSlideShift={0}
-        onSnapToItem={(index) => setIndex(index)}
-        scrollInterpolator={scrollInterpolator2}
-        slideInterpolatedStyle={animatedStyles2}
-        vertical={true}
-        layout={'stack'}
-        layoutCardOffset={0}
-      />
+              ? ITEM_HEIGHT_IOS_UNDER700
+              : ITEM_HEIGHT
+          }
+          containerCustomStyle={{
+            flex: 1,
+            backgroundColor: '#fff',
+          }}
+          slideStyle={{
+            width: '100%',
+            marginTop: 0,
+            paddingTop: 0,
+          }}
+          contentContainerCustomStyle={{
+            height:
+              completedSurveyList.length == 0
+                ? '100%'
+                : String(completedSurveyList.length * 95 + '%'),
+            paddingTop:
+              Platform.OS === 'android'
+                ? '3%'
+                : Dimensions.get('window').height < 750
+                ? '3%'
+                : 0, // tab navigator와의 간격
+          }}
+          inactiveSlideShift={0}
+          onSnapToItem={(index) => setIndex(index)}
+          scrollInterpolator={scrollInterpolator2}
+          slideInterpolatedStyle={animatedStyles2}
+          vertical={true}
+          layout={'stack'}
+          layoutCardOffset={0}
+        />
+      )}
+
       <ProgressModal
         modalVisible={modal2Visible}
         setModalVisible={setModal2Visible}

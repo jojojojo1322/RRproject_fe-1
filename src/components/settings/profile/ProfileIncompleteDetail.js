@@ -583,6 +583,7 @@ const ProfileIncompleteDetail = (props) => {
             </Text>
           </View>
           <FlatList
+            bounces={false}
             style={{
               marginTop: '10%',
               height: '70%',

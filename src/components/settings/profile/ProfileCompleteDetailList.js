@@ -92,7 +92,7 @@ const ProfileCompleteDetail = (props) => {
         </View>
 
         {/* Level List */}
-        <ScrollView>
+        <ScrollView bounces={false}>
           {/* Level List Item */}
           {question.map((data, index) => {
             let Arr = [];

@@ -61,6 +61,7 @@ const Item = ({item, onPress, style}) => (
 
 const Login = ({navigation, history}) => {
   const dispatch = useDispatch();
+  const {t} = useTranslation();
 
   const [ID, setID] = useState('');
   const [passWord, setPassWord] = useState('');
@@ -76,7 +77,10 @@ const Login = ({navigation, history}) => {
   const [hasWallet, setHasWallet] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [deviceCheck, setDeviceCheck] = useState(1);
-  const {t} = useTranslation();
+
+  const {loginPayload} = useSelector(({auth}) => ({
+    loginPayload: auth.loginPayload,
+  }));
 
   const handleBack = () => {
     history.goBack();
@@ -124,7 +128,7 @@ const Login = ({navigation, history}) => {
       .catch((e) => {});
   };
 
-  const handleSignIn = async () => {
+  const handleSignIn = () => {
     dispatch(
       signIn({
         deviceKey: DeviceInfo.getUniqueId(),
@@ -133,10 +137,6 @@ const Login = ({navigation, history}) => {
       }),
     );
   };
-
-  const {loginPayload} = useSelector(({auth}) => ({
-    loginPayload: auth.loginPayload,
-  }));
 
   useEffect(() => {
     if (loginPayload) {

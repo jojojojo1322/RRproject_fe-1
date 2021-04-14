@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   View,
   Text,
@@ -9,14 +9,15 @@ import {
   BackHandler,
   Platform,
 } from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
+
 import ResetStyle from '@style/ResetStyle.js';
 import WalletStyle from '@style/WalletStyle.js';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import axios from 'axios';
-import {server} from '@context/server';
 import ProgressModal from '@factory/modal/ProgressModal.js';
-import {useTranslation} from 'react-i18next';
-import {useSelector} from 'react-redux';
+import {getTNCInfo, getTNCHistory} from '@module/tnc';
 
 // 3자리수 콤마(,) + 소수점 이하는 콤마 안 생기게
 function numberWithCommas(num) {
@@ -27,77 +28,88 @@ function numberWithCommas(num) {
   );
 }
 
-const WalletMain = (props) => {
-  const {t, i18n} = useTranslation();
+const WalletMain = () => {
+  const {t} = useTranslation();
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+
   const URL = 'https://aladdin25.com/';
 
   const [masterKey, setMasterKey] = useState('');
-  const [modalVisible, setModalVisible] = useState(false);
-  // const TestArrayFix = TestArray[0].transactions;
+  const [modalVisible, setModalVisible] = useState(null);
   const [walletHistoryData, setWalletHistoryData] = useState([]);
-  const [walletData, setWalletData] = useState([]);
-  // const [refreshing, setRefreshing] = useState(false);
   const [total, setTotal] = useState(0);
 
-  const {user} = useSelector(({auth}) => ({
-    user: auth.user,
-  }));
+  const {user, tncInfo, tncHistory, infoLoading, historyLoading} = useSelector(
+    ({auth, tnc, loading}) => ({
+      user: auth.user,
+      tncInfo: tnc.tncInfo,
+      tncHistory: tnc.tncHistory,
+      infoLoading: loading['tnc/GET_TNC_INFO'],
+      historyLoading: loading['tnc/GET_TNC_HISTORY'],
+    }),
+  );
 
-  useEffect(() => {
-    getWalletApi();
-    postWalletHistoryApi();
-  }, []);
-
-  // Api for Total Valance
-  const getWalletApi = async () => {
+  const onInitialize = () => {
     setModalVisible(true);
-    await axios
-      .get(`${server}/wallet/${user.mailId}`)
-      .then((response) => {
-        setWalletData(response.data);
-        setTotal(Number(response.data.balance.replace(' TNC', '')));
-        console.log('wallet Data>>>>>', walletData);
-        setMasterKey(response.data.name);
-      })
-      .catch((e) => {
-        console.log('error', e);
-      });
-    setModalVisible(false);
-  };
-
-  // Api for Wallet history
-  const postWalletHistoryApi = async (email, from, limit) => {
-    setModalVisible(true);
-    await axios
-      .post(`${server}/wallet/history`, {
+    dispatch(getTNCInfo(user.mailId));
+    dispatch(
+      getTNCHistory({
         email: user.mailId,
         from: -1,
         limit: 3000,
-      })
-      .then((response) => {
-        console.log('wallet history >>>>>>', response.data.transactions);
-        setWalletHistoryData(response.data.transactions);
-        console.log('wallet history data >>>>>', walletHistoryData);
-      })
-      .catch((e) => {
-        console.log('error', e);
-      });
-    setModalVisible(false);
-  };
-
-  const handleRefresh = () => {
-    // setRefreshing(!refreshing);
-  };
-
-  const handleBackButtonClick = () => {
-    props.navigation.replace('Main');
-    return true;
+      }),
+    );
   };
 
   useEffect(() => {
-    console.log('실행');
-    BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+    onInitialize();
   }, []);
+
+  useEffect(() => {
+    if (tncInfo) {
+      setTotal(Number(tncInfo.balance.toString().replace(' TNC', '')));
+      setMasterKey(tncInfo.name);
+    }
+  }, [tncInfo]);
+
+  useEffect(() => {
+    if (tncHistory) {
+      setWalletHistoryData(tncHistory.transactions);
+    }
+  }, [tncHistory]);
+
+  useEffect(() => {
+    console.log(modalVisible, infoLoading, historyLoading);
+    if (modalVisible && !infoLoading && !historyLoading) {
+      setModalVisible(false);
+    }
+  }, [modalVisible, infoLoading, historyLoading]);
+
+  useFocusEffect(
+    useCallback(() => {
+      const handleBackButtonClick = () => {
+        navigation.replace('Main');
+        return true;
+      };
+
+      if (Platform.OS === 'android') {
+        BackHandler.addEventListener(
+          'hardwareBackPress',
+          handleBackButtonClick,
+        );
+      }
+
+      return () => {
+        if (Platform.OS === 'android') {
+          BackHandler.removeEventListener(
+            'hardwareBackPress',
+            handleBackButtonClick,
+          );
+        }
+      };
+    }, []),
+  );
 
   const Item = (data) => (
     <TouchableOpacity
@@ -166,7 +178,7 @@ const WalletMain = (props) => {
           {/* Top Logo */}
           <TouchableOpacity
             onPress={() => {
-              props.navigation.navigate('Main');
+              navigation.navigate('Main');
             }}>
             <View style={[WalletStyle.TopLogoView]}>
               <Image
@@ -197,7 +209,7 @@ const WalletMain = (props) => {
               justifyContent: 'center',
             }}
             onPress={() => {
-              props.navigation.openDrawer();
+              navigation.openDrawer();
             }}>
             <Image
               style={{
@@ -235,11 +247,7 @@ const WalletMain = (props) => {
               ]}>
               {t('walletMain1')}
             </Text>
-            <TouchableOpacity
-              onPress={() => {
-                getWalletApi();
-                postWalletHistoryApi();
-              }}>
+            <TouchableOpacity onPress={() => onInitialize()}>
               <Image
                 style={{
                   width: Platform.OS === 'ios' ? 30 : 25,
@@ -277,7 +285,7 @@ const WalletMain = (props) => {
             <TouchableOpacity
               style={[ResetStyle.buttonSmall, WalletStyle.myTncButton]}
               onPress={() => {
-                props.navigation.navigate('WalletSend', {
+                navigation.navigate('WalletSend', {
                   qrcode: 'e.data',
                   currentTnc: total,
                 });
@@ -299,7 +307,7 @@ const WalletMain = (props) => {
                 },
               ]}
               onPress={() => {
-                props.navigation.navigate('WalletReceive');
+                navigation.navigate('WalletReceive');
               }}>
               <Text style={[ResetStyle.fontRegularK, ResetStyle.fontWhite]}>
                 {t('walletMain4')}
@@ -318,10 +326,11 @@ const WalletMain = (props) => {
           {t('walletMain5')}
         </Text>
         <FlatList
+          bounces={false}
           data={walletHistoryData}
           renderItem={({item}) => (
             <Item
-              navigation={props.navigation}
+              navigation={navigation}
               index={item.index}
               timestamp={item.timestamp}
               status={item.status}
@@ -335,15 +344,10 @@ const WalletMain = (props) => {
               surveyName={item.content.surveyName}
             />
           )}
-          keyExtractor={(item, index) =>
-            // Number(item.level);
-            index.toString()
-          }
+          keyExtractor={(_, index) => index.toString()}
           contentContainerStyle={{
             justifyContent: 'flex-start',
           }}
-          // refreshControl={refreshing}
-          // onRefresh={handleRefresh}
         />
       </View>
       <ProgressModal

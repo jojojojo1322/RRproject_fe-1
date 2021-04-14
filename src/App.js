@@ -12,7 +12,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import CustomDrawerContent from '@defined/CustomDrawerContent';
-import {StyleSheet, ScrollView, View, Text} from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -107,8 +106,8 @@ const Drawer = createDrawerNavigator();
 
 export const AppMainStack = (props) => {
   const [login, setLogin] = useState(null);
-  const {loginPayload} = useSelector(({auth}) => ({
-    loginPayload: auth.loginPayload,
+  const {user} = useSelector(({auth}) => ({
+    user: auth.user,
   }));
 
   const test = async () => {
@@ -133,7 +132,7 @@ export const AppMainStack = (props) => {
 
   return (
     <Stack.Navigator
-      initialRouteName={loginPayload.userNo !== '' ? 'Main' : 'Initial2'}>
+      initialRouteName={user.userNo !== '' ? 'Main' : 'Initial2'}>
       {/* {login === null && props.route.params?.loginC === null ? (
         <Stack.Screen
           name="Initial2"
@@ -768,7 +767,6 @@ const App = (props) => {
             drawerLabel: () => null,
             title: undefined,
             drawerIcon: () => null,
-
             swipeEnabled: false,
           })}
         />

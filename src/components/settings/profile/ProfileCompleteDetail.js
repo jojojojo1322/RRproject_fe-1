@@ -224,6 +224,7 @@ const ProfileCompleteDetail = (props) => {
             </Text>
           </View>
           <FlatList
+            bounces={false}
             style={{height: '80%'}}
             data={question.length === 5 && question}
             renderItem={({item}) => (

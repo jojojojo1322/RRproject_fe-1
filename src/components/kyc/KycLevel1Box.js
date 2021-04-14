@@ -448,6 +448,7 @@ const KycLevel1Box = ({navigation, route}) => {
             성별 선택
           </Text>
           <FlatList
+            bounces={false}
             data={GenderData}
             renderItem={({item}) => (
               <GenderItem

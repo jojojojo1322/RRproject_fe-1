@@ -163,7 +163,7 @@ const MainDetailExpired = (props) => {
   };
   return (
     <SafeAreaView style={[ResetStyle.container]}>
-      <ScrollView>
+      <ScrollView bounces={false}>
         <View style={[MainStyle.mainDetailContainerInner]}>
           <TouchableOpacity
             style={{
