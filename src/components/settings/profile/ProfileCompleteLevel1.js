@@ -41,21 +41,6 @@ const ProfileCompleteLevel1 = (props) => {
     await kycLevel1({userNo: user.userNo})
       .then(async (response) => {
         console.log('getCompleteKycApi THEN>>', response.data.data);
-        // let fix = response.data.data;
-
-        // let fixQ = fix.language.split(',');
-        // let fixArr = '';
-
-        // fixQ.map((data) => {
-        //   lang.map((d) => {
-        //     if (data === d.languageCode) {
-        //       fixArr += `${d.nativeName},`;
-        //     }
-        //   });
-        // });
-        // fixArr = fixArr.substr(0, fixArr.length - 1);
-        // setFixLang(fixArr);
-        // fix.language = fixArr;
 
         setQuestion([response.data.data]);
       })
@@ -68,32 +53,6 @@ const ProfileCompleteLevel1 = (props) => {
     // getLanguageApi();
     getCompleteKycApi();
   }, []);
-
-  // useEffect(() => {
-  //   // console.log('lang', lang);
-  //   if (lang != '' && question != '') {
-  //     console.log('lang', lang);
-  //     console.log('question', question);
-  //     let fixQ = question[0].language.split(',');
-  //     let fixArr = '';
-  //     console.log('fixQ', fixQ);
-  //     fixQ.map((data) => {
-  //       lang.map((d) => {
-  //         console.log('data', data);
-  //         console.log('d.languageCode', d.languageCode);
-  //         if (data === d.languageCode) {
-  //           fixArr += `${d.nativeName},`;
-  //         }
-  //       });
-  //     });
-  //     fixArr = fixArr.substr(0, fixArr.length - 1);
-  //     setFixLang(fixArr);
-  //     question[0].language = fixArr;
-  //     console.log('fixArrfixArrfixArr', fixArr);
-
-  //     // question;
-  //   }
-  // }, [lang, question]);
 
   const cancelHandle = () => {
     setModalVisible(false);

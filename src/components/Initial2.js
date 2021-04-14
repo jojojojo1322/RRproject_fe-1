@@ -30,46 +30,17 @@ const window = Dimensions.get('window');
 
 const Initial2 = (props) => {
   const scrollX = new Animated.Value(0);
-  const [number, setNumber] = useState(1);
-  const [dimensions, setDimensions] = useState({window});
-  const [userLang, setUserLang] = useState('ko');
-  const [modalVisible, setModalVisible] = useState(false);
+
   const [modal2Visible, setModal2Visible] = useState(false);
-  const [imageIndex, setImageIndex] = useState(0);
 
   const [deviceCheck, setDeviceCheck] = useState(1);
 
   const {t, i18n} = useTranslation();
 
-  // state = {
-  //   number: 1,
-  // };
-  // state = {
-  //   dimensions: {
-  //     window,
-  //   },
-  //   userLang: 'ko',
-  // };
-
-  // const setModalVisible = (visible) => {
-  //   setState({modalVisible: visible});
-  // };
-  const handleBack = () => {
-    props.history.goBack();
-  };
-  const handleLoginRoute = (e) => {
-    console.log('/ >> /login');
-    props.history.push('/login');
-  };
-
   const onDimensionsChange = ({window}) => {
-    // setState({dimensions: {window}});
     setDimensions({window});
   };
 
-  // const componentDidMount() {
-  //   Dimensions.addEventListener('change', onDimensionsChange);
-  // }
   useEffect(() => {
     Dimensions.addEventListener('change', onDimensionsChange);
     YellowBox.ignoreWarnings(['Can']);
@@ -90,10 +61,6 @@ const Initial2 = (props) => {
       });
   };
 
-  // const componentWillUnmount() {
-  //   Dimensions.removeEventListener('change', onDimensionsChange);
-  //   // Dimenssion.get('screen').height;
-  // }
   useEffect(() => {
     console.log('initial 2 진입');
     if (deviceCheck === 0) {

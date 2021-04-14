@@ -38,7 +38,7 @@ export default function WalletSend({navigation, route}) {
   const [total, setTotal] = useState(0);
   const [value, setValue] = useState('');
   const [valuePlusTen, setValuePlusTen] = useState(0);
-  // const [fixValue, setFixValue] = useState(0);
+
   const [calculator, setCalulator] = useState('');
   const [address, setAddress] = useState('');
   const [memo, setMemo] = useState('');
