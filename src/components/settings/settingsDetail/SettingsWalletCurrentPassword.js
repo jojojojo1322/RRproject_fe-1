@@ -42,55 +42,6 @@ const SettingsWalletCurrentPassword = ({navigation, route}) => {
   const {user} = useSelector(({auth}) => ({
     user: auth.user,
   }));
-
-  // console.log('amount check >>>>>', amount);
-  // console.log('email check >>>>>', email);
-  // console.log('memo check >>>>>', memo);
-  // console.log('to check >>>>>', to);
-  // console.log('type check >>>>>', type);
-  // console.log('balance check >>>>>', balance);
-  // console.log('valuePlusTen check >>>>>', valuePlusTen);
-
-  // wallet password Api 부르기
-
-  //   const walletPasswordApi = async (password) => {
-  //     setModal4Visible(true);
-  //     console.log('check passed password', password);
-  //     await axios
-  //       .post(`${server}/wallet/trans`, {
-  //         amount: valuePlusTen,
-  //         email: email,
-  //         memo: memo,
-  //         password: password,
-  //         to: to,
-  //         type: type,
-  //       })
-  //       .then(async (response) => {
-  //         console.log('wallet send response check  >>>>>', response);
-  //         // await setStatusCheck(response.data.status);
-  //       })
-  //       .catch((e) => {
-  //         // setModal2Visible(!modal2Visible);
-  //         console.log(e);
-  //       });
-  //     setModal4Visible(false);
-  //   };
-
-  // function preModal3 (value){
-
-  //   const prevModal3Ref = useRef();
-  //   useEffect(() => {
-  //     prevModal3Ref.current = value;
-  //   });
-  //   return prevModal3Ref.current
-  // }
-
-  // useEffect(() => {
-  //   if (prevModal3Ref.current === true && modal3Visible === false) {
-  //     navigation.navigate('WalletSend');
-  //   }
-  // }, [modal3Visible]);
-
   const walletCurrentPasswordApi = async (password) => {
     setModal4Visible(true);
     console.log('check passed password', password);

@@ -16,20 +16,6 @@ import ResetStyle from '@style/ResetStyle.js';
 import AuthStyle from '@style/AuthStyle';
 import TextConfirmCancelModal from '@factory/modal/TextConfirmCancelModal';
 
-// class SelectedCheckboxes {
-//   constructor() {
-//     selectedCheckboxes = [];
-//   }
-
-//   addItem(option) {
-//     selectedCheckboxes.push(option);
-//   }
-
-//   fetchArray() {
-//     return selectedCheckboxes;
-//   }
-// }
-
 const AgreementTermsConditions = ({route}) => {
   const navigation = useNavigation();
   const {t} = useTranslation();

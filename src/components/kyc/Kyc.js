@@ -382,14 +382,13 @@ class Kyc extends Component {
 
   render() {
     const {t} = this.props;
-    // const {navigation} = this.props;
-    // const itemId = navigation.getParam('step');
+
     console.log('na>>>>', this.props.route.params?.step);
     console.log('na>>>>', this.state.step);
     console.log('gender>>', this.state.gender);
     console.log('maritalStatus>>', this.state.maritalStatus);
     console.log('birth>>', this.state.birth);
-    // console.log(itemId);
+
     return (
       <SafeAreaView style={ResetStyle.container}>
         <View style={ResetStyle.containerInner}>

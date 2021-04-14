@@ -92,31 +92,6 @@ const Login = ({navigation, history}) => {
     navigation.navigate('Kyc');
   };
 
-  // const loginApi = async (id, pass) => {
-  //   return await axios
-  //       // route.params?.loginSuccessAuth(response.data.userNo);
-  //       // let LOCK = await AsyncStorage.getItem('lock');
-
-  //       // if (LOCK === null) {
-  //       //   await AsyncStorage.setItem('lock', 'x,');
-  //       // }
-
-  //       // await AsyncStorage.setItem(
-  //       //   'authToken',
-  //       //   response.headers.authorization.slice(7, undefined),
-  //       // );
-  //       setLoginCheck(response.data.status);
-  //       setHasWallet(response.data.status);
-  //       return response.data;
-  //     })
-  //     .catch(async (error) => {
-  //       setLoginCheck(error.response.data.status);
-  //       setHasWallet(error.response.data.hasWallet);
-  //       setErrorMsg(error.response.data.msg);
-  //       return error.response.data;
-  //     });
-  // };
-
   const deviceKeyCheckApi = () => {
     axios
       .get(

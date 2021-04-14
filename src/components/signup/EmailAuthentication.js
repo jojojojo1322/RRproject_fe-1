@@ -141,24 +141,6 @@ const EmailAuthentication = ({route}) => {
         userPw: route.params?.password,
       }),
     );
-    // await axios
-    //   .post(`${server}/user/register`, {
-    //     deviceKey: route.params?.deviceKey,
-    //     inviteCode: '',
-    //     mailId: route.params?.email,
-    //     osType: osType,
-    //     phoneNum: route.params?.phoneNum,
-    //     userPw: route.params?.password,
-    //   })
-    //   .then(async (data) => {
-    //     console.log('thenuserRegistApi', data);
-    //     console.log('thenuserRegistApi', data.data.ret_val);
-    //     await AsyncStorage.setItem('userNo', data.data.userNo);
-    //     setReturnValue(data.data.ret_val);
-    //   })
-    //   .catch((error) => {
-    //     console.log('ERRORuserRegistApi', error);
-    //   });
   };
 
   const setAuthKeyData = async () => {
