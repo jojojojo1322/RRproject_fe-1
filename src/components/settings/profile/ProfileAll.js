@@ -18,6 +18,11 @@ import ResetStyle from '@style/ResetStyle.js';
 import ProfileStyle from '@style/ProfileStyle.js';
 import TextConfirmCancelModal from '@factory/modal/TextConfirmCancelModal';
 import TextConfirmCancelVarModal from '@factory/modal/TextConfirmCancelVarModal';
+import {
+  kycLevel1,
+  kycLevel2,
+  getAdvancedKycInfo,
+} from '@repository/kycRepository';
 
 const levelMap = [
   {id: '3'},
@@ -205,8 +210,7 @@ const ProfileAll = (props) => {
   ];
 
   const getCompleteKycApi = async (lang) => {
-    await axios
-      .get(`${server}/kyc/1/${user.userNo}`)
+    await kycLevel1({userNo: user.userNo})
       .then(async (response) => {
         setQuestion([response.data.data]);
       })
@@ -216,8 +220,7 @@ const ProfileAll = (props) => {
   };
 
   const get2CompleteKycApi = async () => {
-    await axios
-      .get(`${server}/kyc/2/${user.userNo}`)
+    await kycLevel2({userNo: user.userNo})
       .then(async (response) => {
         console.log(response.data.data);
         setQuestion2(response.data.data);
@@ -228,8 +231,11 @@ const ProfileAll = (props) => {
   };
 
   const getDynamicCompleteKycApi = async (KycLevel) => {
-    await axios
-      .get(`${server}/kyc/${user.userNo}/${KycLevel}/${language}`)
+    await getAdvancedKycInfo({
+      userNo: user.userNo,
+      KycLevel: KycLevel,
+      language: language,
+    })
       .then(async (response) => {
         let ARR1 = response.data.data.filter(
           (data) => data.kycQuestion === '1',

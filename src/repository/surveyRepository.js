@@ -10,10 +10,10 @@ export const getCompletedSurveyList = (userNo) =>
 
 export const getSurveyDetail = (param) =>
   api().get(
-    `/survey/detail?deviceLanguageCode=${param.language}&legacySurveyId=${legacySurveyId}&userNo=${userNo}`,
+    `/survey/detail?deviceLanguageCode=${param.language}&legacySurveyId=${param.legacySurveyId}&userNo=${param.userNo}`,
   );
 
-export const audienceCheck = (param) => {
+export const audienceCheckPost = (param) => {
   return api().post('/survey/audience', param);
 };
 

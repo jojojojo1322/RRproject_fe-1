@@ -18,6 +18,7 @@ import {useTranslation} from 'react-i18next';
 
 import {withTranslation} from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';
+import {emailReAuth} from '@repository/verifyRepository';
 
 const ResetEmail = ({navigation, route}) => {
   const [email, setEmail] = useState(route.params?.email);
@@ -33,10 +34,7 @@ const ResetEmail = ({navigation, route}) => {
   const {t} = useTranslation();
 
   const emailReAuthApi = (email) => {
-    axios
-      .post(`${server}/util/email/pw-auth`, {
-        email,
-      })
+    emailReAuth({email})
       .then(async (response) => {
         console.log('then', response);
         console.log('then', response.data);

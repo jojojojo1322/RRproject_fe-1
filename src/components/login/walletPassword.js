@@ -27,6 +27,8 @@ import {useTranslation} from 'react-i18next';
 import {withTranslation} from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';
 
+import {walletNew} from '@repository/walletRepository';
+
 const WalletPassword = ({route, navigation}) => {
   const [passArr, setPassArr] = useState([]);
   const [rePassArr, setRePassArr] = useState([]);
@@ -42,11 +44,10 @@ const WalletPassword = ({route, navigation}) => {
 
   const walletPasswordApi = async (walletPw) => {
     setModal4Visible(true);
-    await axios
-      .post(`${server}/wallet`, {
-        email: route.params?.email,
-        walletPw: walletPw,
-      })
+    await walletNew({
+      email: route.params?.email,
+      walletPw: walletPw,
+    })
       .then(async (response) => {
         setWalletCheck(response.data.status);
         setModal4Visible(false);
@@ -69,12 +70,11 @@ const WalletPassword = ({route, navigation}) => {
   };
 
   const walletTransApi = async () => {
-    await axios
-      .put(`${server}/wallet`, {
-        email: route.params?.email,
-        walletAddress: walletAddress,
-        walletPw: String(pass),
-      })
+    await walletUserUpdate({
+      email: route.params?.email,
+      walletAddress: walletAddress,
+      walletPw: String(pass),
+    })
       .then((response) => {
         setTransCheck(response.data.status);
       })

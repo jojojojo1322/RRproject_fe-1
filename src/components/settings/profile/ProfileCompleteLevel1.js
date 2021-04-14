@@ -21,6 +21,7 @@ import BottomModal from '@factory/modal/BottomModal';
 import TextConfirmCancelModal from '@factory/modal/TextConfirmCancelModal';
 import {useTranslation} from 'react-i18next';
 import {useSelector} from 'react-redux';
+import {kycLevel1} from '@repository/kycRepository';
 
 const ProfileCompleteLevel1 = (props) => {
   const {t, i18n} = useTranslation();
@@ -36,22 +37,8 @@ const ProfileCompleteLevel1 = (props) => {
     user: auth.user,
   }));
 
-  // const getLanguageApi = async () => {
-  //   await axios
-  //     .get(`${server}/util/global/languages`)
-  //     .then(async (response) => {
-  //       console.log('getLanguageApi THEN>>', response);
-  //       setLang(response.data);
-  //       getCompleteKycApi(response.data);
-  //     })
-  //     .catch((e) => {
-  //       console.log('getLanguageApi ERROR>>', e);
-  //     });
-  // };
-
   const getCompleteKycApi = async (lang) => {
-    await axios
-      .get(`${server}/kyc/1/${user.userNo}`)
+    await kycLevel1({userNo: user.userNo})
       .then(async (response) => {
         console.log('getCompleteKycApi THEN>>', response.data.data);
         // let fix = response.data.data;

@@ -21,6 +21,7 @@ import ProfileStyle from '@style/ProfileStyle.js';
 import TextConfirmCancelModal from '@factory/modal/TextConfirmCancelModal';
 import {useTranslation} from 'react-i18next';
 import {useSelector} from 'react-redux';
+import {kycLevel2} from '@repository/kycRepository';
 
 const ProfileCompleteLevel2 = (props) => {
   const {t, i18n} = useTranslation();
@@ -152,8 +153,7 @@ const ProfileCompleteLevel2 = (props) => {
   ];
 
   const getCompleteKycApi = async () => {
-    await axios
-      .get(`${server}/kyc/2/${user.userNo}`)
+    await kycLevel2({userNo: user.userNo})
       .then(async (response) => {
         console.log(response.data.data);
         setQuestion(response.data.data);

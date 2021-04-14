@@ -25,6 +25,11 @@ import Moment from 'react-moment';
 import moment from 'moment';
 import 'moment-timezone';
 import {useSelector} from 'react-redux';
+import {
+  getSurveyDetail,
+  audienceCheckPost,
+  audienceInfo,
+} from '@repository/surveyRepository';
 
 const MainDetailCompleted = (props) => {
   const {t, i18n} = useTranslation();
@@ -61,10 +66,11 @@ const MainDetailCompleted = (props) => {
   let gap = 0;
   const surveyDetailApi = async () => {
     setModal4Visible(true);
-    await axios
-      .get(
-        `${server}/survey/detail?deviceLanguageCode=${language}&legacySurveyId=${props.route.params?.legacySurveyId}&userNo=${user.userNo}`,
-      )
+    await getSurveyDetail({
+      language: language,
+      legacySurveyId: props.route.params?.legacySurveyId,
+      userNo: user.userNo,
+    })
       .then(async (response) => {
         setSurveyDetail(response.data.resSurvey);
         setUserNo(user.userNo);
@@ -80,12 +86,11 @@ const MainDetailCompleted = (props) => {
       .catch((e) => {});
     setModal4Visible(false);
   };
-  const AudienceCheckApi = async (surveyId) => {
-    axios
-      .post(`${server}/survey/audience`, {
-        surveyId: String(surveyId),
-        userNo: user.userNo,
-      })
+  const AudienceCheckApi = (surveyId) => {
+    audienceCheckPost({
+      surveyId: String(surveyId),
+      userNo: user.userNo,
+    })
       .then(async (response) => {
         setAudienceCheck(response.data.ret_val);
       })
@@ -94,10 +99,7 @@ const MainDetailCompleted = (props) => {
       });
   };
   const AudienceApi = async () => {
-    await axios
-      .get(
-        `${server}/survey/audience/info?legacySurveyId=${props.route.params?.legacySurveyId}`,
-      )
+    await audienceInfo({legacySurveyId: props.route.params?.legacySurveyId})
       .then(async (response) => {
         setAudience(response.data);
         AudienceCheckApi(response.data.surveyId);

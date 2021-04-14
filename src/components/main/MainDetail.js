@@ -26,6 +26,7 @@ import moment from 'moment';
 import 'moment-timezone';
 import Main from './Main.js';
 import {useSelector} from 'react-redux';
+import {getSurveyDetail, audienceCheckPost} from '@repository/surveyRepository';
 
 const MainDetail = (props) => {
   const {t, i18n} = useTranslation();
@@ -49,10 +50,6 @@ const MainDetail = (props) => {
   const [min, setMin] = useState(0);
   const [sec, setSec] = useState(0);
   const [userNo, setUserNo] = useState('');
-  // let audienceCheck = '';
-  // const getSurveyDetailApi = () => {
-  //   axios.get(`${server}/survey/detail`);
-  // };
 
   const {language, user} = useSelector(({language, auth}) => ({
     language: language.language,
@@ -66,10 +63,11 @@ const MainDetail = (props) => {
 
   const surveyDetailApi = async () => {
     setModal4Visible(true);
-    await axios
-      .get(
-        `${server}/survey/detail?deviceLanguageCode=${language}&legacySurveyId=${props.route.params?.legacySurveyId}&userNo=${user.userNo}`,
-      )
+    await getSurveyDetail({
+      language: language,
+      legacySurveyId: props.route.params?.legacySurveyId,
+      userNo: user.userNo,
+    })
       .then(async (response) => {
         console.log(`surveyDetailApi Then >>`, response);
         setSurveyDetail(response.data.resSurvey);
@@ -90,11 +88,10 @@ const MainDetail = (props) => {
   };
 
   const AudienceCheckApi = async (surveyId) => {
-    axios
-      .post(`${server}/survey/audience`, {
-        legacySurveyId: String(surveyId),
-        userNo: user.userNo,
-      })
+    await audienceCheckPost({
+      legacySurveyId: String(surveyId),
+      userNo: user.userNo,
+    })
       .then(async (response) => {
         console.log(`AudienceCheckApi Then >>`, response);
         setAudienceCheck(response.data.ret_val);
@@ -106,10 +103,7 @@ const MainDetail = (props) => {
 
   const AudienceApi = async () => {
     console.log('AudienceApi', props.route.params?.legacySurveyId);
-    await axios
-      .get(
-        `${server}/survey/audience/info?legacySurveyId=${props.route.params?.legacySurveyId}`,
-      )
+    await audienceInfo({legacySurveyId: props.route.params?.legacySurveyId})
       .then(async (response) => {
         console.log(`AudienceApi Then >>`, response);
         setAudience(response.data);
