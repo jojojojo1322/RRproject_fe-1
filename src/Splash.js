@@ -198,7 +198,7 @@ const Splash = ({loading, setLoading}) => {
     if (loginPayload) {
       if (loginPayload.status === true) {
         dispatch(getUserInfo({userNo: loginPayload.userNo}));
-      } else {
+      } else if (loginPayload.status === false) {
         dispatch(initializeResult());
       }
     }
