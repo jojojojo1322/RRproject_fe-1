@@ -3,8 +3,8 @@ import api from '@context/server';
 export const kycLevel1 = async (param) =>
   await api().get(`/kyc/1/${param.userNo}`);
 
-export const kycLevel1Update = async (data) => {
-  return await api().patch('/kyc/1', data);
+export const kycLevel1Update = async (param) => {
+  return await api().patch(`/kyc/1/${param.userNo}`);
 };
 
 export const kycLevel1Create = async (param) => {
