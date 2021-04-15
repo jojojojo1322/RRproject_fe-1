@@ -29,6 +29,8 @@ import hoistStatics from 'hoist-non-react-statics';
 
 import {walletNew} from '@repository/walletRepository';
 
+import {useDispatch, useSelector} from 'react-redux';
+
 const WalletPassword = ({route, navigation}) => {
   const [passArr, setPassArr] = useState([]);
   const [rePassArr, setRePassArr] = useState([]);
@@ -41,6 +43,7 @@ const WalletPassword = ({route, navigation}) => {
   const [walletCheck, setWalletCheck] = useState('');
   const [transCheck, setTransCheck] = useState('');
   const {t} = useTranslation();
+  const dispatch = useDispatch();
 
   const walletPasswordApi = async (walletPw) => {
     setModal4Visible(true);
