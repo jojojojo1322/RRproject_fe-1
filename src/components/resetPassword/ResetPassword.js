@@ -20,6 +20,7 @@ import {useTranslation} from 'react-i18next';
 import {withTranslation} from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {pwReSetting} from '@repository/authRepository';
 
 //비밀번호 유효성 체크
 function chkPW(password) {
@@ -90,10 +91,7 @@ const ResetPassword = ({navigation, route}) => {
   const pwReSettingApi = async (password) => {
     console.log('password', password);
     console.log('userno', route.params?.userNo);
-    return await axios
-      .patch(`${server}/user/${route.params?.userNo}`, {
-        userPw: password,
-      })
+    return await pwReSetting({userNo: route.params?.userNo, userPw: password})
       .then(async (response) => {
         console.log('then', response);
         console.log('then', response.data);

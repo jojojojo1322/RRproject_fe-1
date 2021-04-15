@@ -16,6 +16,8 @@ import Splash from './Splash';
 import {useTranslation} from 'react-i18next';
 import '@assets/i18n';
 
+import {appInfo} from '@repository/versionRepository';
+
 const Wrapper = () => {
   const {t, i18n} = useTranslation();
   //버전 체크를 위해선 false로 선언한다.
@@ -51,8 +53,7 @@ const Wrapper = () => {
   };
   const ApiCheckVersion = async () => {
     setLoading(true);
-    await axios
-      .get(`${server}/util/app-info`)
+    await appInfo()
       .then(async (response) => {
         console.log('current current current', current);
         console.log('response response response', response.data);

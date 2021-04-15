@@ -19,6 +19,7 @@ import ResetStyle from '@style/ResetStyle.js';
 import ProfileStyle from '@style/ProfileStyle.js';
 import {useTranslation} from 'react-i18next';
 import {useSelector} from 'react-redux';
+import {getAdvancedKycInfo} from '@repository/kycRepository';
 
 const ProfileCompleteDetail = (props) => {
   const {t, i18n} = useTranslation();
@@ -36,11 +37,11 @@ const ProfileCompleteDetail = (props) => {
   }));
 
   const getCompleteKycApi = async () => {
-    await axios
-      .get(
-        `${server}/kyc/${user.userNo}/${props.route.params?.KycLevel}/${language}`,
-        // `${server}/user/user?userNo=210127104026300`,
-      )
+    await getAdvancedKycInfo({
+      userNo: user.userNo,
+      KycLevel: props.route.params?.KycLevel,
+      language: language,
+    })
       .then(async (response) => {
         console.log('ProfileCompleteDetail THEN', response.data.data);
         setQuestion(response.data.data);

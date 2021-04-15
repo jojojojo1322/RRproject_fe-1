@@ -17,6 +17,7 @@ import BottomModal from '@factory/modal/BottomModal';
 import {useTranslation} from 'react-i18next';
 
 import {useSelector} from 'react-redux';
+import {emailReAuth, emailUserCheck} from '@repository/verifyRepository';
 
 const SettingsPersonalPasswordChange = ({navigation, route}) => {
   const [email, setEmail] = useState('');
@@ -37,11 +38,8 @@ const SettingsPersonalPasswordChange = ({navigation, route}) => {
     return re.test(email);
   };
 
-  const emailReAuthApi = (email) => {
-    axios
-      .post(`${server}/util/email/pw-auth`, {
-        email,
-      })
+  const emailReAuthApi = async (email) => {
+    await emailReAuth({email})
       .then(async (response) => {
         console.log('then', response);
         console.log('then', response.data);
@@ -57,10 +55,7 @@ const SettingsPersonalPasswordChange = ({navigation, route}) => {
       });
   };
   const emailUserCheckApi = async (email) => {
-    return await axios
-      .post(`${server}/user/duplicate/mailid`, {
-        mailId: email,
-      })
+    return await emailUserCheck({mailId: email})
       .then(async (response) => {
         console.log('then', response);
         console.log('then', response.data);

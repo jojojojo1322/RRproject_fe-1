@@ -20,6 +20,8 @@ import {useTranslation} from 'react-i18next';
 import {withTranslation} from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';
 
+import {pwReSetting} from '@repository/authRepository';
+
 //비밀번호 유효성 체크
 function chkPW(password) {
   var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
@@ -91,10 +93,7 @@ const SettingsPersonalResetPassword = ({navigation, route}) => {
   const pwReSettingApi = async (password) => {
     console.log('password', password);
     console.log('userno', route.params?.userNo);
-    await axios
-      .patch(`${server}/user/${route.params?.userNo}`, {
-        userPw: password,
-      })
+    await pwReSetting({userNo: route.params?.userNo, userPw: password})
       .then(async (response) => {
         console.log('then', response);
         console.log('then', response.data);

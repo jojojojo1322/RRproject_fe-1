@@ -1,10 +1,10 @@
 import React, {Component, useState} from 'react';
 import {server} from '@context/server';
 import axios from 'axios';
+import {getGlobalCountry} from '@repository/utilRepository';
 
 API = async () => {
-  await axios
-    .get(`${server}/util/global/country`)
+  await getGlobalCountry()
     .then(async (response) => {
       // console.log('countryListList', response);
       // setCountry(response.data);
@@ -16,8 +16,7 @@ API = async () => {
 };
 
 export const CountryListApi = async () => {
-  await axios
-    .get(`${server}/util/global/country`)
+  await getGlobalCountry()
     .then(async (response) => {
       console.log('2');
       // List = response;
@@ -41,9 +40,8 @@ export class CLA extends Component {
   val = () => {
     return this.state.DATA;
   };
-  static API = () => {
-    axios
-      .get(`${server}/util/global/country`)
+  static API = async () => {
+    await getGlobalCountry()
       .then((response) => {
         console.log('2');
         this.setState({

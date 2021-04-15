@@ -22,6 +22,12 @@ import BottomModal from '@factory/modal/BottomModal';
 import TextConfirmModal from '@factory/modal/TextConfirmModal';
 import {useTranslation} from 'react-i18next';
 
+import {
+  kycLevel2,
+  kycLevel2Create,
+  kycLevel2Update,
+} from '@repository/kycRepository';
+
 const ProfileIncompleteLevel2 = (props) => {
   const {t, i18n} = useTranslation();
   const kycQuestion = [
@@ -277,8 +283,7 @@ const ProfileIncompleteLevel2 = (props) => {
 
   // KYC level 2 get
   const getAdvancedKycApi = async () => {
-    await axios
-      .get(`${server}/kyc/2/${user.userNo}`)
+    await kycLevel2({userNo: user.userNo})
       .then(async (response) => {
         console.log('getAdvancedKycApi THEN>>', response);
         if (response.data.response.ret_val === 0) {
@@ -308,15 +313,14 @@ const ProfileIncompleteLevel2 = (props) => {
       netWorth: checkedArray[3].kycOption,
       investIn: checkedArray[4].kycOption,
     });
-    await axios
-      .post(`${server}/kyc/2`, {
-        employmentStatus: checkedArray[0].kycOption,
-        annualRevenue: checkedArray[1].kycOption,
-        ownProperties: checkedArray[2].kycOption,
-        netWorth: checkedArray[3].kycOption,
-        investIn: checkedArray[4].kycOption,
-        userNo: user.userNo,
-      })
+    await kycLevel2Create({
+      employmentStatus: checkedArray[0].kycOption,
+      annualRevenue: checkedArray[1].kycOption,
+      ownProperties: checkedArray[2].kycOption,
+      netWorth: checkedArray[3].kycOption,
+      investIn: checkedArray[4].kycOption,
+      userNo: user.userNo,
+    })
       .then(async (response) => {
         console.log('createAdvancedKycApi THEN>>', response);
         setSuccessCheck(response.data.ret_val);
@@ -334,15 +338,14 @@ const ProfileIncompleteLevel2 = (props) => {
       netWorth: checkedArray[3].kycOption,
       investIn: checkedArray[4].kycOption,
     });
-    await axios
-      .patch(`${server}/kyc/2/${user.userNo}`, {
-        employmentStatus: checkedArray[0].kycOption,
-        annualRevenue: checkedArray[1].kycOption,
-        ownProperties: checkedArray[2].kycOption,
-        netWorth: checkedArray[3].kycOption,
-        investIn: checkedArray[4].kycOption,
-        userNo: user.userNo,
-      })
+    await kycLevel2Update({
+      employmentStatus: checkedArray[0].kycOption,
+      annualRevenue: checkedArray[1].kycOption,
+      ownProperties: checkedArray[2].kycOption,
+      netWorth: checkedArray[3].kycOption,
+      investIn: checkedArray[4].kycOption,
+      userNo: user.userNo,
+    })
       .then(async (response) => {
         console.log('updateAdvancedKycApi THEN>>', response);
         setSuccessCheck(response.data.ret_val);

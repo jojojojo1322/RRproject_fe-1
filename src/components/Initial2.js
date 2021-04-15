@@ -23,6 +23,8 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
 import BottomModal from '@factory/modal/BottomModal';
 
+import {signUpDeviceKey} from '@repository/authRepository';
+
 const images = new Array('', '', '');
 const window = Dimensions.get('window');
 
@@ -47,12 +49,8 @@ const Initial2 = (props) => {
     };
   }, []);
 
-  const deviceKeyCheckApi = () => {
-    console.log('deviceKeyCheckApi DEVICE KEY>>', DeviceInfo.getUniqueId());
-    axios
-      .get(
-        `${server}/user/register/device-key?reqDeviceKey=${DeviceInfo.getUniqueId()}`,
-      )
+  const deviceKeyCheckApi = async () => {
+    await signUpDeviceKey({deviceKey: DeviceInfo.getUniqueId()})
       .then((response) => {
         console.log('deviceKeyCheckApi THEN>>', response);
         setDeviceCheck(response.data.ret_val);

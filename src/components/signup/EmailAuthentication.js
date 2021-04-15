@@ -25,6 +25,7 @@ import BottomModal from '@factory/modal/BottomModal';
 import TextConfirmModal from '@factory/modal/TextConfirmModal';
 import TextConfirmCancelModal from '@factory/modal/TextConfirmCancelModal';
 import {signUp} from '@module/auth';
+import {emailAuth, userEmailApprove} from '@repository/verifyRepository';
 
 const EmailAuthentication = ({route}) => {
   const navigation = useNavigation();
@@ -83,10 +84,9 @@ const EmailAuthentication = ({route}) => {
 
   const emailAuthApi = async (email) => {
     console.log('email', email);
-    await axios
-      .post(`${server}/util/email/auth`, {
-        email: email.replace(/(\s*)/g, ''),
-      })
+    await emailAuth({
+      email: email.replace(/(\s*)/g, ''),
+    })
       .then((data) => {
         console.log('then', data);
         console.log('then', data.data.ret_val);
@@ -99,11 +99,10 @@ const EmailAuthentication = ({route}) => {
 
   const userEmailApprove = async () => {
     try {
-      await axios
-        .post(`${server}/util/email/auth/approve`, {
-          authKey: passWord,
-          mailId: route.params?.email,
-        })
+      await userEmailApprove({
+        authKey: passWord,
+        mailId: route.params?.email,
+      })
         .then((data) => {
           console.log('THENuserEmailApprove', data);
           console.log('THENuserEmailApprove', data.data.ret_val);

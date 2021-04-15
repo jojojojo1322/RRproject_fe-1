@@ -21,6 +21,13 @@ import axios from 'axios';
 import BottomModal from '@factory/modal/BottomModal';
 import TextConfirmModal from '@factory/modal/TextConfirmModal';
 import {useTranslation} from 'react-i18next';
+import {
+  getAdvancedKycInfo,
+  getAdvancedKycOption,
+  getAdvancedKycQuestion,
+  createAdvancedKyc,
+  updateAdvancedKyc,
+} from '@repository/kycRepository';
 
 const ProfileIncompleteDetail = (props) => {
   const {t, i18n} = useTranslation();
@@ -68,10 +75,11 @@ const ProfileIncompleteDetail = (props) => {
 
   //해당 kyc질문 get check
   const getAdvancedKyGetApi = async () => {
-    await axios
-      .get(
-        `${server}/kyc/${user.userNo}/${props.route.params?.KycLevel}/${language}`,
-      )
+    await getAdvancedKycInfo({
+      userNo: user.userNo,
+      KycLevel: props.route.params?.KycLevel,
+      language: language,
+    })
       .then(async (response) => {
         if (response.data.data != '') {
           console.log('getAdvancedKyGetApi THEN', response.data.data);
@@ -115,8 +123,10 @@ const ProfileIncompleteDetail = (props) => {
   };
   //해당 kyc질문 api
   const getAdvancedKycQuestionListApi = async () => {
-    await axios
-      .get(`${server}/kyc/question/${props.route.params?.KycLevel}/${language}`)
+    await getAdvancedKycQuestion({
+      KycLevel: props.route.params?.KycLevel,
+      language: language,
+    })
       .then(async (response) => {
         setKycQuestion(response.data.data);
         setQuestionLength(response.data.data.length);
@@ -129,8 +139,10 @@ const ProfileIncompleteDetail = (props) => {
 
   //해당 kyc 각 질문당 문항 api
   const getAdvancedKycOptionListApi = async () => {
-    await axios
-      .get(`${server}/kyc/option/${props.route.params?.KycLevel}/${language}`)
+    await getAdvancedKycOption({
+      KycLevel: props.route.params?.KycLevel,
+      language: language,
+    })
       .then(async (response) => {
         setKycOption(response.data.data);
         setUserNo(user.userNo);
@@ -145,8 +157,7 @@ const ProfileIncompleteDetail = (props) => {
   //해당 Kyc Level create
   const createAdvancedKycApi = async () => {
     console.log('createAdvancedKycApi');
-    await axios
-      .post(`${server}/kyc`, checkedArray)
+    await createAdvancedKyc({checkedArray})
       .then(async (response) => {
         console.log('createAdvancedKycApi THEN>>', response);
         setSuccessCheck(response.data.ret_val);
@@ -158,11 +169,12 @@ const ProfileIncompleteDetail = (props) => {
   //해당 Kyc Level update
   const updateAdvancedKycApi = async () => {
     console.log('updateAdvancedKycApi');
-    await axios
-      .patch(
-        `${server}/kyc/${props.route.params?.KycLevel}/${user.userNo}`,
-        checkedArray,
-      )
+
+    await updateAdvancedKyc({
+      userNo: user.userNo,
+      KycLevel: props.route.params?.KycLevel,
+      ...checkedArray,
+    })
       .then(async (response) => {
         console.log('updateAdvancedKycApi THEN>>', response);
         setSuccessCheck(response.data.ret_val);

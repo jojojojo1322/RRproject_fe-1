@@ -18,6 +18,7 @@ import {useTranslation} from 'react-i18next';
 import ResetStyle from '@style/ResetStyle.js';
 import AuthStyle from '@style/AuthStyle.js';
 import TextConfirmCancelModal from '@factory/modal/TextConfirmCancelModal';
+import {emailUserCheck, emailAuth} from '@repository/verifyRepository';
 
 const SignUpPersonal = ({route}) => {
   const navigation = useNavigation();
@@ -53,10 +54,9 @@ const SignUpPersonal = ({route}) => {
 
   const emailCheckApi = async (email) => {
     console.log('email', email);
-    await axios
-      .post(`${server}/user/duplicate/mailid`, {
-        mailId: email,
-      })
+    await emailUserCheck({
+      mailId: email,
+    })
       .then((data) => {
         console.log('then', data);
         console.log('then', data.data.ret_val);
@@ -69,10 +69,9 @@ const SignUpPersonal = ({route}) => {
 
   const emailAuthApi = async (email) => {
     console.log('email', email);
-    await axios
-      .post(`${server}/util/email/auth`, {
-        email: email,
-      })
+    await emailAuth({
+      email: email,
+    })
       .then(async (data) => {
         console.log('then', data);
         console.log('then', data.data.ret_val);

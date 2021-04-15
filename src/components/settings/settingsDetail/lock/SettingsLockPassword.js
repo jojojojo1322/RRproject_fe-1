@@ -26,6 +26,8 @@ import {useTranslation} from 'react-i18next';
 import {withTranslation} from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';
 
+import {walletNew} from '@repository/walletRepository';
+
 const WalletPassword = ({navigation}) => {
   const [passArr, setPassArr] = useState([]);
   const [rePassArr, setRePassArr] = useState([]);
@@ -41,11 +43,10 @@ const WalletPassword = ({navigation}) => {
   const {t} = useTranslation();
 
   const walletPasswordApi = async (walletPw) => {
-    await axios
-      .post(`${server}/wallet`, {
-        userNo: user.userNo,
-        walletPw: walletPw,
-      })
+    await walletNew({
+      userNo: user.userNo,
+      walletPw: walletPw,
+    })
       .then((response) => {
         console.log(response);
 

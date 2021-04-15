@@ -17,6 +17,7 @@ import {useTranslation} from 'react-i18next';
 import {withTranslation} from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';
 import {useSelector} from 'react-redux';
+import {login, getUserInfo} from '@repository/authRepository';
 
 const SettingsPersonalPassword = ({route, navigation}) => {
   const [email, setEmail] = useState('');
@@ -43,12 +44,11 @@ const SettingsPersonalPassword = ({route, navigation}) => {
       email: user.mailId,
       password: password,
     });
-    axios
-      .post(`${server}/user/login`, {
-        deviceKey: DeviceInfo.getUniqueId(),
-        email: user.mailId,
-        password: password,
-      })
+    await login({
+      deviceKey: DeviceInfo.getUniqueId(),
+      email: user.mailId,
+      password: password,
+    })
       .then((response) => {
         console.log('loginApi THEN>>', response);
         userInfoApi();
@@ -59,8 +59,7 @@ const SettingsPersonalPassword = ({route, navigation}) => {
       });
   };
   const userInfoApi = async () => {
-    axios
-      .get(`${server}/user?userNo=${user.userNo}`)
+    await getUserInfo({userNo: user.userNo})
       .then((response) => {
         console.log('userInfoApi THEN>>', response);
         navigation.navigate('SettingsPersonal', {
