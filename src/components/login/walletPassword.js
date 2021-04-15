@@ -31,11 +31,12 @@ const WalletPassword = ({route, navigation}) => {
   const [pass, setPass] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
-  const [modal3Visible, setModal3Visible] = useState(false);
+  const [modal3Visible, setMoㄴdal3Visible] = useState(false);
   const [modal4Visible, setModal4Visible] = useState(false);
   const [walletAddress, setWalletAddress] = useState('');
   const [walletCheck, setWalletCheck] = useState('');
   const [transCheck, setTransCheck] = useState('');
+
   const {t} = useTranslation();
 
   const walletPasswordApi = async (walletPw) => {
