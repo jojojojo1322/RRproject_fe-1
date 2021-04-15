@@ -63,7 +63,7 @@ const Main = ({navigation}) => {
                 await AsyncStorage.removeItem('email');
                 await AsyncStorage.removeItem('password');
                 await AsyncStorage.removeItem('deviceKey');
-                console.log('LOGOUT------');
+                console.log('>>> LOGOUT <<<');
               } catch (e) {}
             }}>
             <Image

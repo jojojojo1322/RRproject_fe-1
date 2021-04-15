@@ -115,7 +115,7 @@ const DateBlock = ({
     } else {
       digit = nativeEvent.contentOffset.y / dHeight + digits[0];
     }
-    console.log(digit);
+
     if (Number.isInteger(digit)) {
       onChange(type, digit);
     } else {

@@ -1,23 +1,17 @@
-import React, {useState, Component} from 'react';
-import {
-  View,
-  Text,
-  Modal,
-  Image,
-  TextInput,
-  TouchableWithoutFeedback,
-} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text} from 'react-native';
+import {useTranslation} from 'react-i18next';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+
 import ResetStyle from '@style/ResetStyle.js';
 import DatePickerModal from '@factory/modal/DatePickerModal';
-import {useTranslation} from 'react-i18next';
 
 const KycSecond = (props) => {
-  console.log('>>>?>?>?>?>?>?', props);
+  const {t} = useTranslation();
+
   const [_date, _setDate] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
 
-  const {t, i18n} = useTranslation();
   return (
     <View style={{marginBottom: '40%'}}>
       <View>

@@ -136,13 +136,7 @@ const KycLevel1Box = ({navigation, route}) => {
     await axios
       .get(`${server}/util/global/country`)
       .then(async (response) => {
-        // console.log('countryListList', response);
-        // setCountry(response.data);
         setCountryData(response.data);
-        console.log(
-          'countryDataApi',
-          response.data.filter((data) => data.fullName === residenceCountry),
-        );
         if (
           response.data.filter((data) => data.countryCode === countryCd)
             .length === 1
@@ -162,10 +156,9 @@ const KycLevel1Box = ({navigation, route}) => {
             .fullName,
           countryCd,
         );
-        // return await response;
       })
       .catch(({e}) => {
-        console.log('error', e);
+        console.log('countryDataApi[error]: ', e);
       });
   };
 
@@ -174,13 +167,10 @@ const KycLevel1Box = ({navigation, route}) => {
     await axios
       .get(`${server}/util/global/cities?countryCode=${residenceCountryCd}`)
       .then(async (response) => {
-        console.log('cityDataApi THEN>>', response);
-        // setCountry(response.data);
         setCityData(response.data);
-        // return await response;
       })
       .catch((e) => {
-        console.log('cityDataApi ERROR>>', e);
+        console.log('cityDataApi[error]: ', e);
       });
   };
 
@@ -188,14 +178,10 @@ const KycLevel1Box = ({navigation, route}) => {
     await axios
       .get(`${server}/util/global/languages`)
       .then(async (response) => {
-        // console.log('countryListList', response);
-        // setCountry(response.data);
-        console.log('languageDataApi THEN>>', response);
         setLanguageData(response.data);
-        // return await response;
       })
       .catch((e) => {
-        console.log('languageDataApi ERROR>>', response);
+        console.log('languageDataApi[error]: ', e);
       });
   };
 
@@ -213,16 +199,10 @@ const KycLevel1Box = ({navigation, route}) => {
   //   [selected],
   // );
 
-  //   useEffect(() => {
-  //     console.log('gendergendergendergendergendergender>>>', gender);
-  //   }, [gender]);
-
   // single select flatlist 지우면 안됩니다
   const onSelect = (id, title) => {
-    console.log('gender', title);
     setSelected(id);
     setGender(title);
-    console.log('changed gender', title);
   };
 
   // Birthday Modal
@@ -258,10 +238,6 @@ const KycLevel1Box = ({navigation, route}) => {
   // setResidenceCountryCd
   const settingResidenceCountry = (country, cd) => {
     console.log(countryCd);
-    console.log(countryCd);
-    console.log(countryCd);
-    console.log(countryCd);
-    console.log(countryCd);
     setResidenceCountry(country);
     setResidenceCountryCd(cd);
     // props.setCountry(country, cd);
@@ -284,8 +260,6 @@ const KycLevel1Box = ({navigation, route}) => {
 
   const setLanguage = (vis) => {
     let visible = vis;
-    console.log(vis);
-    console.log(vis);
     console.log(vis);
     // // visible = visible.filter((item, index) => visible.indexOf(item) === index);
     // visible = visible.filter((item, i) => {
@@ -338,8 +312,8 @@ const KycLevel1Box = ({navigation, route}) => {
     languageDataApi();
     cityDataApi();
   }, []);
+
   useEffect(() => {
-    console.log('호출');
     cityDataApi();
   }, [residenceCountryCd]);
 

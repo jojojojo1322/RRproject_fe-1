@@ -1,6 +1,5 @@
-import React, {Component, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-  SafeAreaView,
   ScrollView,
   View,
   Text,
@@ -10,22 +9,23 @@ import {
   NativeModules,
   Platform,
 } from 'react-native';
-import ResetStyle from '@style/ResetStyle.js';
-import AuthStyle from '@style/AuthStyle.js';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import DeviceInfo from 'react-native-device-info';
-
-import {server} from '@context/server';
+import {useTranslation} from 'react-i18next';
 import axios from 'axios';
 
+import {server} from '@context/server';
 import getPermission from '@defined/getPermission';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
 import BottomModal from '@factory/modal/BottomModal';
+import ResetStyle from '@style/ResetStyle.js';
+import AuthStyle from '@style/AuthStyle.js';
 
 const images = new Array('', '', '');
 const window = Dimensions.get('window');
 
 const Initial = () => {
+  const {t} = useTranslation();
+
   const scrollX = new Animated.Value(0);
   const [number, setNumber] = useState(1);
   const [dimensions, setDimensions] = useState({window});
@@ -36,23 +36,17 @@ const Initial = () => {
 
   const [deviceCheck, setDeviceCheck] = useState(1);
 
-  const {t, i18n} = useTranslation();
   const handleBack = () => {
     props.history.goBack();
   };
   const handleLoginRoute = (e) => {
-    console.log('/ >> /login');
     props.history.push('/login');
   };
 
   const onDimensionsChange = ({window}) => {
-    // setState({dimensions: {window}});
     setDimensions({window});
   };
 
-  // const componentDidMount() {
-  //   Dimensions.addEventListener('change', onDimensionsChange);
-  // }
   useEffect(() => {
     Dimensions.addEventListener('change', onDimensionsChange);
     return () => {
@@ -72,9 +66,9 @@ const Initial = () => {
       })
       .catch((e) => {
         console.log('deviceKeyCheckApi ERROR>>', e);
-        console.log('deviceKeyCheckApi ERROR>>', e.response);
       });
   };
+
   useEffect(() => {
     console.log('initial 2 진입');
     if (deviceCheck === 0) {

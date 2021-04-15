@@ -1,23 +1,21 @@
 import React, {useState, useEffect} from 'react';
-import {Text, TouchableHighlight, View, Modal, Linking} from 'react-native';
+import {Linking} from 'react-native';
 import {Provider} from 'react-redux';
-import store from './store';
+import axios from 'axios';
+import RNExitApp from 'react-native-exit-app';
+import VersionCheck from 'react-native-version-check';
+import {useTranslation} from 'react-i18next';
 
 import {server} from '@context/server';
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-import VersionCheck from 'react-native-version-check';
 import UpdateModal from '@factory/modal/UpdateModal';
-import RNExitApp from 'react-native-exit-app';
-
-import App from './App';
-import Splash from './Splash';
-import {useTranslation} from 'react-i18next';
 import '@assets/i18n';
 
+import store from './store';
+import App from './App';
+import Splash from './Splash';
+
 const Wrapper = () => {
-  const {t, i18n} = useTranslation();
+  const {t} = useTranslation();
   //버전 체크를 위해선 false로 선언한다.
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
@@ -30,8 +28,6 @@ const Wrapper = () => {
 
   const [versionCheck, setVersionCheck] = useState('FALSE');
   const [walletActive, setWalletActive] = useState('FALSE');
-
-  const [loginC, setLoginC] = useState(null);
 
   const handleUpdateStore = () => {
     const GOOGLE_STORE = 'market://details?id=com.realresearch.survey';
@@ -46,16 +42,15 @@ const Wrapper = () => {
   const handleExitApp = () => {
     RNExitApp.exitApp();
   };
-  const userCheck = async () => {
-    setLoginC(await AsyncStorage.getItem('userNo'));
-  };
+
   const ApiCheckVersion = async () => {
     setLoading(true);
     await axios
       .get(`${server}/util/app-info`)
       .then(async (response) => {
-        console.log('current current current', current);
-        console.log('response response response', response.data);
+        console.log('Current Version: ', current);
+        console.log('AppInfo Version: ', response.data.version_check);
+        console.log('Wallet Active: ', response.data.wallet_active);
         setVersionCheck(response.data.version_check);
         setWalletActive(response.data.wallet_active);
         if (
@@ -66,7 +61,7 @@ const Wrapper = () => {
             : response.data.android_v)
         ) {
           //버전이 틀릴 시 업데이트 모달을 띄운다.
-          console.log('version false >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+          console.log('>>> Version FALSE <<<');
           setCheckVersion(false);
           // setNeedUpdate(true);
           setModalVisible(!modalVisible);
@@ -76,7 +71,7 @@ const Wrapper = () => {
             // wallet server down 서비스 점검중입니다 modal -> 확인 누르면 앱 다운
             setModal2Visible(!modal2Visible);
           } else {
-            console.log('version true >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+            console.log('>>> Version TRUE <<<');
             setModalVisible(false);
             setCheckVersion(true);
             setLoading(false);
@@ -97,48 +92,43 @@ const Wrapper = () => {
   // USIM Check
   // CarrierInfo.allowsVOIP()
   //   .then((result) => {
-  //     console.log('CarrierInfo>>then>>>>', result);
+  //     console.log('CarrierInfo[then]: ', result);
   //   })
   //   .catch((e) => {
-  //     console.log('error>>>>', e);
+  //     console.log('CarrierInfo[error]: ', e);
   //   });
   // CarrierInfo.carrierName()
   //   .then((result) => {
-  //     console.log('CarrierName>>then>>>>', result);
+  //     console.log('CarrierName[then]: ', result);
   //   })
   //   .catch((e) => {
-  //     console.log('error>>>>', e);
+  //     console.log('CarrierName[error]: ', e);
   //   });
   // ////유심 체크 (끼어져 있는 유심이 공유심인지는 체크 불가)
   // CarrierInfo.mobileNetworkCode()
   //   .then((result) => {
-  //     console.log('mobileNetworkCode>>then>>>>', result);
+  //     console.log('mobileNetworkCode[then]: ', result);
   //   })
   //   .catch((e) => {
-  //     console.log('error>>>>', e);
+  //     console.log('mobileNetworkCode[error]: ', e);
   //   });
   // CarrierInfo.mobileNetworkOperator()
   //   .then((result) => {
-  //     console.log('mobileNetworkOperator>>then>>>>', result);
+  //     console.log('mobileNetworkOperator[then]: ', result);
   //   })
   //   .catch((e) => {
-  //     console.log('error>>>>', e);
+  //     console.log('mobileNetworkOperator[error]: ', e);
   //   });
 
   useEffect(() => {
-    userCheck();
     // ApiCheckVersion();
     NonVersionCheckMode();
-
-    console.log('current current current', current);
-    console.log('version check check', versionCheck);
-    console.log('walletActive check check', walletActive);
   }, []);
 
   return (
     <Provider store={store}>
       {checkVersion && loading ? (
-        <App loginC={loginC} />
+        <App />
       ) : (
         <Splash loading={loading} setLoading={setLoading} />
       )}

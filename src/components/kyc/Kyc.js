@@ -99,8 +99,7 @@ class Kyc extends Component {
     await axios
       .get(`${server}/kyc/1/${await AsyncStorage.getItem('userNo')}`)
       .then((response) => {
-        console.log('kycGetApi THEN>>', response.data);
-        console.log(response.data.ret_val);
+        console.log('kycGetApi[then]: ', response.data);
         if (response.data.response.ret_val === 0) {
           this.setState({
             updateUserData: response.data.data,
@@ -125,7 +124,7 @@ class Kyc extends Component {
         }
       })
       .catch((e) => {
-        console.log('kycGetApi ERROR>>', e);
+        console.log('kycGetApi[error]: ', e);
       });
   };
 
@@ -150,20 +149,22 @@ class Kyc extends Component {
   setCountry = (country, cd, phone) => {
     this.setState({country: country, countryCd: cd});
   };
+
   setLanguage = (lang, langCd) => {
-    console.log('Language', lang);
     this.setState({languageCd: langCd, language: lang});
   };
+
   setResidenceCountry = (countryResidence, countryResidenceCd) => {
     this.setState({
       countryResidence: countryResidence,
       countryResidenceCd: countryResidenceCd,
     });
   };
+
   setResidenceCity = (visible) => {
-    console.log(visible);
     this.setState({countryCity: visible});
   };
+
   KycUpdateApi = async (
     birthday,
     country,
@@ -204,16 +205,16 @@ class Kyc extends Component {
         residentCountryCode: countryResidenceCd,
       })
       .then((response) => {
-        console.log('KycUpdateApi THEN>>>>', response);
-        console.log(response.data.ret_val);
+        console.log('KycUpdateApi[then]: ', response.data);
         this.setState({
           returnValue: response.data.ret_val,
         });
       })
       .catch((e) => {
-        console.log('KycUpdateApi Error>>>>', e);
+        console.log('KycUpdateApi[error]: ', e);
       });
   };
+
   KycInsertApi = async (
     birthday,
     country,
@@ -227,20 +228,17 @@ class Kyc extends Component {
     marriageStatus,
   ) => {
     const userNo = await AsyncStorage.getItem('userNo');
-    console.log('userNo', userNo);
     console.log({
       dateOfBirth: birthday,
       gender: gender,
       language: language,
       language: languageCd,
-
       nationality: country,
       nationalityCode: countryCd,
       relationShipStatus: marriageStatus,
       residentCity: countryCity,
       residentCountry: countryResidence,
       residentCountryCode: countryResidenceCd,
-
       userNo: userNo,
     });
     await axios
@@ -255,52 +253,50 @@ class Kyc extends Component {
         residentCity: countryCity,
         residentCountry: countryResidence,
         residentCountryCode: countryResidenceCd,
-
         userNo: userNo,
       })
       .then((response) => {
-        console.log(response);
-        console.log(response.data.ret_val);
+        console.log('KycInsertApi[then]: ', response);
         this.setState({
           returnValue: response.data.ret_val,
         });
       })
       .catch((e) => {
-        console.log(e);
+        console.log('KycInsertApi[error]: ', e);
       });
   };
 
   handleBirth = (value) => {
-    console.log(value);
     this.setState({
       birth: value,
     });
-    console.log('aaaaaaa');
   };
 
   handleGender = (value) => {
-    console.log(value);
     this.setState({
       gender: value,
     });
   };
+
   handleMarital = (value) => {
-    console.log(value);
     this.setState({
       maritalStatus: value,
     });
   };
+
   componentDidUpdate(preProps, preState) {
     if (preState.languageCd !== this.state.languageCd) {
-      console.log('trans~~~~~~~~~');
+      console.log('trans languageCd');
     }
+
     if (preState.updateCheck !== this.state.updateCheck) {
-      console.log('updateChecksdfk;anvk;abdjnsvk;djnsv');
+      console.log('trans updateCheck');
     }
+
     if (this.props.route.params?.question !== undefined) {
       if (this.state.updateCheck === false) {
         const {updateUserData} = this.state;
-        console.log('updateUSUSUSUSUSUSU', updateUserData);
+        console.log('updateUserData: ', updateUserData);
         this.setState({
           updateCheck: true,
           gender: updateUserData.gender,
@@ -316,7 +312,9 @@ class Kyc extends Component {
         });
       }
     }
-    console.log('this.state.birth', this.state.birth);
+
+    console.log('this.state.birth: ', this.state.birth);
+
     if (this.state.step === 2 && this.state.birth === undefined) {
       const {updateUserData} = this.state;
       this.setState({
@@ -359,9 +357,7 @@ class Kyc extends Component {
       });
     }
     if (preProps.route.params?.question !== this.props.route.params?.question) {
-      console.log(
-        'questionasldknjsavkjanbdfvkljbnvlkjednvquestionasldknjsavkjanbdfvkljbnvlkjednvquestionasldknjsavkjanbdfvkljbnvlkjednv;jcnvs;kLDcnv',
-      );
+      console.log('trans question');
     }
 
     console.log({
@@ -383,11 +379,11 @@ class Kyc extends Component {
   render() {
     const {t} = this.props;
 
-    console.log('na>>>>', this.props.route.params?.step);
-    console.log('na>>>>', this.state.step);
-    console.log('gender>>', this.state.gender);
-    console.log('maritalStatus>>', this.state.maritalStatus);
-    console.log('birth>>', this.state.birth);
+    console.log('params.step: ', this.props.route.params?.step);
+    console.log('state.step: ', this.state.step);
+    console.log('gender: ', this.state.gender);
+    console.log('maritalStatus: ', this.state.maritalStatus);
+    console.log('birth: ', this.state.birth);
 
     return (
       <SafeAreaView style={ResetStyle.container}>

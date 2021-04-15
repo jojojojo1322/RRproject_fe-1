@@ -1,4 +1,4 @@
-import React, {Component, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -7,7 +7,6 @@ import {
   Image,
   Animated,
   Dimensions,
-  NativeModules,
   Platform,
   YellowBox,
 } from 'react-native';
@@ -18,28 +17,27 @@ import DeviceInfo from 'react-native-device-info';
 import {server} from '@context/server';
 import axios from 'axios';
 
-import getPermission from '@defined/getPermission';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 import BottomModal from '@factory/modal/BottomModal';
 
 const images = new Array('', '', '');
-const window = Dimensions.get('window');
-
 const Initial2 = (props) => {
+  const {t} = useTranslation();
+
   const scrollX = new Animated.Value(0);
-
+  const windowWidth = Dimensions.get('window').width;
+  const windowHeight = Dimensions.get('window').height;
   const [modal2Visible, setModal2Visible] = useState(false);
-
   const [deviceCheck, setDeviceCheck] = useState(1);
-
-  const {t, i18n} = useTranslation();
 
   const onDimensionsChange = ({window}) => {
     setDimensions({window});
   };
 
   useEffect(() => {
+    console.log('DeviceKey: ', DeviceInfo.getUniqueId());
+
     Dimensions.addEventListener('change', onDimensionsChange);
     YellowBox.ignoreWarnings(['Can']);
     return () => {
@@ -48,53 +46,30 @@ const Initial2 = (props) => {
   }, []);
 
   const deviceKeyCheckApi = () => {
-    console.log('deviceKeyCheckApi DEVICE KEY>>', DeviceInfo.getUniqueId());
     axios
       .get(
         `${server}/user/register/device-key?reqDeviceKey=${DeviceInfo.getUniqueId()}`,
       )
       .then((response) => {
-        console.log('deviceKeyCheckApi THEN>>', response);
+        console.log('deviceKeyCheckApi[then]: ', response);
         setDeviceCheck(response.data.ret_val);
       })
       .catch((e) => {
-        'deviceKeyCheckApi ERROR>>', e;
-        console.log('deviceKeyCheckApi ERROR>>', e.response);
+        console.log('deviceKeyCheckApi[error]: ', e);
       });
   };
 
   useEffect(() => {
-    console.log('initial 2 진입');
     if (deviceCheck === 0) {
+      console.log('DeviceCheck PASS');
       setDeviceCheck(1);
       props.navigation.navigate('SignUp');
     } else if (deviceCheck !== 0 && deviceCheck !== 1) {
+      console.log('DeviceCheck FAIL');
       setModal2Visible(true);
     }
   }, [deviceCheck]);
 
-  console.log('>>>>', getPermission);
-  console.log(
-    '// deviceKey: DeviceInfo.getUniqueId()',
-    DeviceInfo.getUniqueId(),
-  );
-  ///
-
-  const deviceLanguage =
-    Platform.OS === 'ios'
-      ? NativeModules.SettingsManager.settings.AppleLocale ||
-        NativeModules.SettingsManager.settings.AppleLanguages[0] // iOS 13
-      : NativeModules.I18nManager.localeIdentifier;
-
-  console.log('platformOS>>>>>>>>>>', deviceLanguage); //en_US
-
-  ////
-  // const windowWidth = 800;
-  const windowWidth = Dimensions.get('window').width;
-  // const windowHeight = 1000;
-  const windowHeight = Dimensions.get('window').height;
-  console.log('windowHeight', windowHeight);
-  console.log('windowHeight', windowWidth);
   return (
     <SafeAreaView
       style={[
@@ -121,7 +96,7 @@ const Initial2 = (props) => {
             {useNativeDriver: false},
           )}
           scrollEventThrottle={1}>
-          {images.map((image, imageIndex) => {
+          {images.map((_, imageIndex) => {
             const opacity = scrollX.interpolate({
               inputRange: [
                 windowWidth * (imageIndex - 1),
@@ -154,7 +129,6 @@ const Initial2 = (props) => {
                     }
                     style={AuthStyle.initial2Image}
                   />
-                  {/* <Text style={[AuthStyle.initial2TextTitle]}> */}
                   <Text
                     style={[
                       ResetStyle.fontBoldK,
@@ -187,11 +161,7 @@ const Initial2 = (props) => {
                     <TouchableOpacity
                       style={[ResetStyle.button, {marginTop: 30}]}
                       activeOpacity={0.75}
-                      onPress={() => {
-                        // deviceKey: DeviceInfo.getUniqueId()
-                        // props.navigation.navigate('SignUp');
-                        deviceKeyCheckApi();
-                      }}>
+                      onPress={() => deviceKeyCheckApi()}>
                       <Text
                         style={[
                           ResetStyle.fontMediumK,

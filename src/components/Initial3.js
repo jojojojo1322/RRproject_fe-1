@@ -174,7 +174,6 @@ class Initial3 extends Component {
 
   setModal3Visible = (visible) => {
     this.setState({modal3Visible: visible});
-    console.log(visible);
   };
 
   setModal4Visible = (visible) => {

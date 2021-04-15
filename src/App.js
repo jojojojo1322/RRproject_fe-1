@@ -1,7 +1,10 @@
-import React, {Component, useEffect, useState} from 'react';
-import Orientation from 'react-native-orientation-locker';
-//언어추출
+import React, {useEffect} from 'react';
 import {NativeModules, Platform} from 'react-native';
+import {useSelector} from 'react-redux';
+import Orientation from 'react-native-orientation-locker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import RNRestart from 'react-native-restart';
+
 //파이어 베이스
 import firebase from '@react-native-firebase/app';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
@@ -12,8 +15,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import CustomDrawerContent from '@defined/CustomDrawerContent';
-
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Initial2 from '@components/Initial2';
 import Initial3 from '@components/Initial3';
@@ -94,74 +95,24 @@ import SettingsPersonalPhone from '@components/settings/settingsDetail/personal/
 import SettingsPersonalMasterPhone from '@components/settings/settingsDetail/personal/SettingsPersonalMasterPhone';
 import SettingsPersonalMasterKey from '@components/settings/settingsDetail/personal/SettingsPersonalMasterKey';
 
-import RNRestart from 'react-native-restart';
-
 import TestPage from './TestPage';
-import {useDispatch, useSelector} from 'react-redux';
-
 console.disableYellowBox = true;
-
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-export const AppMainStack = (props) => {
-  const [login, setLogin] = useState(null);
+export const AppMainStack = () => {
   const {user} = useSelector(({auth}) => ({
     user: auth.user,
   }));
 
-  const test = async () => {
-    try {
-      const result = await AsyncStorage.getItem('userNo');
-
-      console.log('login NEXT');
-      setLogin(result);
-    } catch (e) {
-      return e;
-    }
-  };
-  const loginSuccess = (userNo) => {
-    setLogin(userNo);
-  };
-
-  useEffect(() => {
-    test();
-  }, []);
-
-  //console.log('this.props.route.params?.login>?>?>', login);
-
   return (
     <Stack.Navigator
       initialRouteName={user.userNo !== '' ? 'Main' : 'Initial2'}>
-      {/* {login === null && props.route.params?.loginC === null ? (
-        <Stack.Screen
-          name="Initial2"
-          component={Initial2}
-          options={{
-            headerShown: false,
-
-            // title: this.props.route.params?.step,
-            // title: route.params?.name,
-          }}
-        />
-      ) : (
-        <Stack.Screen
-          name="Main"
-          component={Main}
-          options={{
-            headerShown: false,
-            gestureEnabled: false,
-          }}
-        />
-      )} */}
       <Stack.Screen
         name="Initial2"
         component={Initial2}
         options={{
           headerShown: false,
-
-          // title: this.props.route.params?.step,
-          // title: route.params?.name,
         }}
       />
       <Stack.Screen
@@ -178,10 +129,6 @@ export const AppMainStack = (props) => {
         options={{
           headerShown: false,
         }}
-        // initialParams={{
-        //   loginSuccess: props.route.params?.loginSuccess,
-        //   loginSuccessAuth: loginSuccess,
-        // }}
       />
       <Stack.Screen
         name="WalletPassword"
@@ -644,23 +591,7 @@ export const AppMainStack = (props) => {
   );
 };
 
-const App = (props) => {
-  const [login, setLogin] = useState(null);
-
-  const test = async () => {
-    try {
-      const result = await AsyncStorage.getItem('userNo');
-      if (result === null) {
-        console.log('login PREVVV');
-        setLogin(result);
-      } else {
-        console.log('login NEXT');
-        setLogin(result);
-      }
-    } catch (e) {
-      return e;
-    }
-  };
+const App = () => {
   // device Language AsyncStorage
   const deviceLanguageSet = async () => {
     var deviceLanguage =
@@ -684,13 +615,8 @@ const App = (props) => {
     await AsyncStorage.setItem('deviceLanguage', deviceLanguage);
   };
 
-  const loginSuccess = ({userNo}) => {
-    setLogin(userNo);
-    // RNRestart.Restart();
-  };
   useEffect(() => {
     deviceLanguageSet();
-    test();
     Orientation.lockToPortrait();
 
     // SplashScreen.hide();
@@ -733,20 +659,13 @@ const App = (props) => {
     // return () => {
     //   linkingListener();
     // };
-    console.log('link>>>>>>>>>>>', buildLink);
+    console.log('BuildLink: ', buildLink);
   }, []);
 
-  useEffect(() => {
-    test();
-  }, [login]);
-  // if (login !== null) {
   return (
     <NavigationContainer>
-      {/* <Main /> */}
       <Drawer.Navigator
-        drawerContent={(props) => (
-          <CustomDrawerContent {...props} login={login} />
-        )}
+        drawerContent={(props) => <CustomDrawerContent {...props} />}
         drawerPosition="right"
         drawerStyle={{
           width: '80%',
@@ -762,7 +681,6 @@ const App = (props) => {
         <Drawer.Screen
           name="초기"
           component={AppMainStack}
-          initialParams={{loginSuccess: loginSuccess, loginC: props.loginC}}
           options={() => ({
             drawerLabel: () => null,
             title: undefined,

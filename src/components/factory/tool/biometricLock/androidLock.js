@@ -41,7 +41,7 @@ class AndroidTouchId extends Component {
   };
 
   requiresLegacyAuthentication() {
-    console.log('Platform.Version', Platform.Version);
+    console.log('Platform.Version: ', Platform.Version);
     return Platform.Version < 23;
   }
 
@@ -100,7 +100,6 @@ class AndroidTouchId extends Component {
 
   render = () => {
     if (this.requiresLegacyAuthentication()) {
-      console.log('2323232');
       return this.renderLegacy();
     }
     return null;

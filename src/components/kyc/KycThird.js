@@ -89,7 +89,6 @@ class kycThird extends Component {
         `${server}/util/global/cities?countryCode=${this.state.residenceCountryCd}`,
       )
       .then(async (response) => {
-        console.log('countryListList', response);
         // setCountry(response.data);
         this.setState({
           cityData: response.data,
@@ -97,24 +96,17 @@ class kycThird extends Component {
         // return await response;
       })
       .catch(({e}) => {
-        console.log('error', e);
+        console.log('cityDataApi[error]: ', e);
       });
   };
   countryDataApi = async () => {
     await axios
       .get(`${server}/util/global/country`)
       .then(async (response) => {
-        // console.log('countryListList', response);
         // setCountry(response.data);
         this.setState({
           countryData: response.data,
         });
-        console.log(
-          'countryDataApi',
-          response.data.filter(
-            (data) => data.fullName === this.state.residenceCountry,
-          ),
-        );
         if (
           response.data.filter(
             (data) => data.countryCode === this.state.countryCd,
@@ -138,14 +130,13 @@ class kycThird extends Component {
         // return await response;
       })
       .catch(({e}) => {
-        console.log('error', e);
+        console.log('countryDataApi[error]: ', e);
       });
   };
   languageDataApi = async () => {
     await axios
       .get(`${server}/util/global/languages`)
       .then(async (response) => {
-        // console.log('countryListList', response);
         // setCountry(response.data);
         this.setState({
           languageData: response.data,
@@ -153,7 +144,7 @@ class kycThird extends Component {
         // return await response;
       })
       .catch(({e}) => {
-        console.log('error', e);
+        console.log('languageDataApi[error]: ', e);
       });
   };
 
@@ -224,7 +215,6 @@ class kycThird extends Component {
     }
     this.setState({language: Lang});
     // this.props.setLanguage(HighLang);
-    console.log({Lang: Lang, HighLangCode: HighLangCode});
     this.props.setLanguage(Lang, HighLangCode);
   };
   setResidenceCountry = (residenceCountry, residenceCountryCd) => {
@@ -235,13 +225,11 @@ class kycThird extends Component {
     this.props.setResidenceCountry(residenceCountry, residenceCountryCd);
   };
   setResidenceCity = (visible) => {
-    console.log(visible);
     this.setState({residenceCity: visible});
     this.props.setResidenceCity(visible);
   };
 
   handleBirth = (e) => {
-    console.log(e);
     this.props.handleBirth(e);
   };
   render() {
@@ -254,8 +242,6 @@ class kycThird extends Component {
       residenceCity: this.props.KresidenceCity,
       residenceCountry: this.props.KresidenceCountry,
     });
-    // console.log('this.state.cityData');
-    // console.log(this.state.cityData);
     return (
       <View>
         <View>

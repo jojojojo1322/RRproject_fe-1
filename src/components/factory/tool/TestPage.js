@@ -41,7 +41,8 @@ const CheckList = ({text}) => {
 };
 
 const IdVerification = ({navigation}) => {
-  const {t, i18n} = useTranslation();
+  const {t} = useTranslation();
+
   const [response, setResponse] = useState(null);
   const [passportNo, setPassportNo] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -58,26 +59,17 @@ const IdVerification = ({navigation}) => {
     },
     data: data._parts,
   });
+
   const passportUploadApi = async () => {
     await api
       .post('/util/passport')
       .then(async (response) => {
-        console.log(`passportUploadApi Then >>`, JSON.stringify(response.data));
+        console.log(`passportUploadApi[then]: `, JSON.stringify(response.data));
       })
       .catch((e) => {
-        console.log(`passportUploadApi Error`, e);
+        console.log(`passportUploadApi[error]: `, e);
       });
   };
-
-  useEffect(() => {
-    console.log('response>>>>>>>>>', response);
-  }, [response]);
-
-  useEffect(() => {
-    console.log('response>>>>>>>>>', passportNo);
-    console.log('firstName>>>>>>>>>', firstName);
-    console.log('lastName>>>>>>>>>', lastName);
-  }, [passportNo, lastName, firstName]);
 
   const handlePassportChange = (value) => {
     setPassportNo(value);
@@ -365,7 +357,7 @@ const IdVerification = ({navigation}) => {
               englishLastName: lastName,
             }),
           );
-          console.log('data =>>>>>>>>>>', data._parts);
+          console.log('data: ', data._parts);
         }}>
         <Text
           style={[

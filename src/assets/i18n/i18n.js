@@ -1,4 +1,3 @@
-import {NativeModules, Platform} from 'react-native';
 import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
 import * as RNLocalize from 'react-native-localize';
@@ -32,8 +31,6 @@ if (RNLocalize.getLocales()[0].languageTag.slice(0, 2) == 'en') {
 } else {
   deviceLanguage = 'en';
 }
-
-console.log(deviceLanguage);
 
 i18n.use(initReactI18next).init({
   resources,

@@ -83,16 +83,6 @@ const Splash = ({loading, setLoading}) => {
   };
 
   const handlePermission = async () => {
-    // if (Platform.OS === 'ios') {
-    //   //  for ios
-    //   console.log('ios true');
-    //   setLoading(true);
-    // } else {
-    //   // for android
-    //   console.log('android true');
-    //   setLoading(true);
-    // }
-
     try {
       const device =
         Platform.OS === 'ios' ? PERMISSIONS.IOS : PERMISSIONS.ANDROID;
@@ -106,7 +96,6 @@ const Splash = ({loading, setLoading}) => {
             setLoading(true);
           } else {
             await requestMultiple(notGrantedArr).then((res) => {
-              console.log(res);
               const {DENIED, BLOCKED} = resultClassification(res);
 
               if (Platform.OS === 'ios') {
