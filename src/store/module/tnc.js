@@ -60,6 +60,7 @@ const tnc = createReducer(initialState, {
   },
   [GET_TNC_INFO_FAILURE]: (state, {payload: error}) => ({
     ...state,
+    tncInfo: null,
     tncInfoError: error,
   }),
   [GET_TNC_HISTORY_SUCCESS]: (state, {payload: data}) => {

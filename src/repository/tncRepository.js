@@ -7,3 +7,13 @@ export const getTNCInfo = (mailId) => {
 export const getTNCHistory = (param) => {
   return api().post(`/wallet/history`, param);
 };
+
+//--------------------모듈 작업 안함
+
+export const walletReward = async (param) => {
+  return await api().post(`/wallet/trans/reward`, param);
+};
+
+export const walletTrans = async (param) => {
+  return await api().post(`/wallet/trans`, param);
+};

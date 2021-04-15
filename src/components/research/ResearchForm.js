@@ -29,6 +29,8 @@ import {
   getSurveyQuestion,
 } from '@repository/surveyRepository';
 
+import {walletReward} from '@repository/tncRepository';
+
 const ResearchForm = (props) => {
   const {t, i18n} = useTranslation();
 
@@ -98,12 +100,11 @@ const ResearchForm = (props) => {
   // survey Reward Api
   const postSurveyRewardApi = async () => {
     setModal4Visible(true);
-    axios
-      .post(`${server}/wallet/trans/reward`, {
-        language: language,
-        receiver: user.userNo,
-        surveyId: props.route.params?.surveyId,
-      })
+    await walletReward({
+      language: language,
+      receiver: user.userNo,
+      surveyId: props.route.params?.surveyId,
+    })
       .then(async (response) => {
         if (response.data.status === 'success') {
           props.navigation.navigate('MainVideoComplete');
