@@ -14,6 +14,8 @@ import store from './store';
 import App from './App';
 import Splash from './Splash';
 
+import {appInfo} from '@repository/versionRepository';
+
 const Wrapper = () => {
   const {t} = useTranslation();
   //버전 체크를 위해선 false로 선언한다.
@@ -45,8 +47,7 @@ const Wrapper = () => {
 
   const ApiCheckVersion = async () => {
     setLoading(true);
-    await axios
-      .get(`${server}/util/app-info`)
+    await appInfo()
       .then(async (response) => {
         console.log('Current Version: ', current);
         console.log('AppInfo Version: ', response.data.version_check);

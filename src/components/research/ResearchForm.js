@@ -23,6 +23,14 @@ import {useTranslation} from 'react-i18next';
 import ProgressModal from '@factory/modal/ProgressModal';
 import {useSelector} from 'react-redux';
 
+import {
+  sendSurveyAnswer,
+  getSurveyOption,
+  getSurveyQuestion,
+} from '@repository/surveyRepository';
+
+import {walletReward} from '@repository/tncRepository';
+
 const ResearchForm = (props) => {
   const {t, i18n} = useTranslation();
 
@@ -72,8 +80,7 @@ const ResearchForm = (props) => {
 
   // survey insert
   const postSurveyAnswerApi = async () => {
-    axios
-      .post(`${server}/survey/answer`, checkedArray)
+    await sendSurveyAnswer({checkedArray})
       .then((response) => {
         const ret = response.data.ret_val;
         setInsertSuccess(ret);
@@ -93,12 +100,11 @@ const ResearchForm = (props) => {
   // survey Reward Api
   const postSurveyRewardApi = async () => {
     setModal4Visible(true);
-    axios
-      .post(`${server}/wallet/trans/reward`, {
-        language: language,
-        receiver: user.userNo,
-        surveyId: props.route.params?.surveyId,
-      })
+    await walletReward({
+      language: language,
+      receiver: user.userNo,
+      surveyId: props.route.params?.surveyId,
+    })
       .then(async (response) => {
         if (response.data.status === 'success') {
           props.navigation.navigate('MainVideoComplete');
@@ -113,10 +119,10 @@ const ResearchForm = (props) => {
   };
   // survey question get
   const getSurveyQuestionApi = async () => {
-    axios
-      .get(
-        `${server}/survey/question?deviceLanguageCode=${language}&legacySurveyId=${props.route.params?.legacySurveyId}`,
-      )
+    await getSurveyQuestion({
+      language: language,
+      legacySurveyId: props.route.params?.legacySurveyId,
+    })
       .then(async (response) => {
         setSurvey(response.data.resQuestionBySurveyIdInfo);
         setSurveyLength(response.data.resQuestionBySurveyIdInfo.length);
@@ -133,10 +139,11 @@ const ResearchForm = (props) => {
   let surveyOptionArr = [];
 
   const getSurveyOptionApi = async (questionNum) => {
-    axios
-      .get(
-        `${server}/survey/question/options?deviceLanguageCode=${language}&legacySurveyId=${props.route.params?.legacySurveyId}&questionNum=${questionNum}`,
-      )
+    await getSurveyOption({
+      language: language,
+      legacySurveyId: props.route.params?.legacySurveyId,
+      questionNum: questionNum,
+    })
       .then((response) => {
         surveyOptionArr = surveyOptionArr.concat(response.data);
 

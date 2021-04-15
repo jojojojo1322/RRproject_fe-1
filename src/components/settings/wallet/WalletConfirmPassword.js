@@ -23,6 +23,7 @@ import {server} from '@context/server';
 import axios from 'axios';
 
 import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
+import {walletTrans} from '@repository/tncRepository';
 
 const WalletConfirmPassword = ({navigation, route}) => {
   const {t, i18n} = useTranslation();
@@ -56,15 +57,14 @@ const WalletConfirmPassword = ({navigation, route}) => {
   const walletPasswordApi = async (password) => {
     setModal4Visible(true);
     console.log('check passed password', password);
-    await axios
-      .post(`${server}/wallet/trans`, {
-        amount: valuePlusTen,
-        email: email,
-        memo: memo,
-        password: password,
-        to: to,
-        type: type,
-      })
+    await walletTrans({
+      amount: valuePlusTen,
+      email: email,
+      memo: memo,
+      password: password,
+      to: to,
+      type: type,
+    })
       .then(async (response) => {
         console.log('wallet send response check  >>>>>', response);
         // await setStatusCheck(response.data.status);

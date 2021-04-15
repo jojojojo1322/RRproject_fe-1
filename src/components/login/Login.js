@@ -36,7 +36,7 @@ import {useTranslation} from 'react-i18next';
 import {withTranslation} from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';
 
-import {getUserInfo, signIn} from '@module/auth';
+import {getUserInfo, signIn, signUpDeviceKey} from '@module/auth';
 
 const DATA = [
   {
@@ -93,10 +93,7 @@ const Login = ({navigation, history}) => {
   };
 
   const deviceKeyCheckApi = () => {
-    axios
-      .get(
-        `${server}/user/register/device-key?reqDeviceKey=${DeviceInfo.getUniqueId()}`,
-      )
+    signUpDeviceKey({deviceKey: DeviceInfo.getUniqueId()})
       .then((response) => {
         setDeviceCheck(response.data.ret_val);
       })

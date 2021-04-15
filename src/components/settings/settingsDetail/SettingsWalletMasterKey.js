@@ -17,6 +17,7 @@ import BottomModal from '@factory/modal/BottomModal';
 import {useTranslation} from 'react-i18next';
 import {withTranslation} from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';
+import {emailReAuth, emailUserCheck} from '@repository/verifyRepository';
 
 const SettingsWalletMasterKey = ({navigation}) => {
   const [email, setEmail] = useState('');
@@ -32,11 +33,8 @@ const SettingsWalletMasterKey = ({navigation}) => {
     return re.test(email);
   };
 
-  const passwordApi = (email) => {
-    axios
-      .post(`${server}/util/email/pw-auth`, {
-        email,
-      })
+  const passwordApi = async (email) => {
+    await emailReAuth({email})
       .then(async (response) => {
         console.log('then', response);
         console.log('then', response.data);
@@ -52,10 +50,7 @@ const SettingsWalletMasterKey = ({navigation}) => {
       });
   };
   const passwordUserCheckApi = async (email) => {
-    await axios
-      .post(`${server}/user/duplicate/mailid`, {
-        mailId: email,
-      })
+    await emailUserCheck({mailId: email})
       .then(async (response) => {
         console.log('then', response);
         console.log('then', response.data);

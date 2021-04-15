@@ -20,6 +20,8 @@ import BottomModal from '@factory/modal/BottomModal';
 import ResetStyle from '@style/ResetStyle.js';
 import AuthStyle from '@style/AuthStyle.js';
 
+import {signUpDeviceKey} from '@repository/authRepository';
+
 const images = new Array('', '', '');
 const window = Dimensions.get('window');
 
@@ -54,12 +56,8 @@ const Initial = () => {
     };
   }, []);
 
-  const deviceKeyCheckApi = () => {
-    console.log('deviceKeyCheckApi DEVICE KEY>>', DeviceInfo.getUniqueId());
-    axios
-      .get(
-        `${server}/user/register/device-key?reqDeviceKey=${DeviceInfo.getUniqueId()}`,
-      )
+  const deviceKeyCheckApi = async () => {
+    await signUpDeviceKey({deviceKey: DeviceInfo.getUniqueId()})
       .then((response) => {
         console.log('deviceKeyCheckApi THEN>>', response);
         setDeviceCheck(response.data.ret_val);

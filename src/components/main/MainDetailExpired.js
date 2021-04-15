@@ -23,6 +23,12 @@ import {useSelector} from 'react-redux';
 
 import Moment from 'react-moment';
 
+import {
+  getSurveyDetail,
+  audienceCheckPost,
+  audienceInfo,
+} from '@repository/surveyRepository';
+
 const MainDetailExpired = (props) => {
   const {t, i18n} = useTranslation();
   // audience detail modal
@@ -47,10 +53,11 @@ const MainDetailExpired = (props) => {
   }));
 
   const surveyDetailApi = async () => {
-    await axios
-      .get(
-        `${server}/survey/detail?deviceLanguageCode=${language}&legacySurveyId=${props.route.params?.legacySurveyId}&userNo=${user.userNo}`,
-      )
+    await getSurveyDetail({
+      language: language,
+      legacySurveyId: props.route.params?.legacySurveyId,
+      userNo: user.userNo,
+    })
       .then(async (response) => {
         setSurveyDetail(response.data.resSurvey);
         setUserNo(user.userNo);
@@ -60,11 +67,10 @@ const MainDetailExpired = (props) => {
       });
   };
   const AudienceCheckApi = async (surveyId) => {
-    axios
-      .post(`${server}/survey/audience`, {
-        surveyId: String(surveyId),
-        userNo: user.userNo,
-      })
+    await audienceCheckPost({
+      surveyId: String(surveyId),
+      userNo: user.userNo,
+    })
       .then(async (response) => {
         setAudienceCheck(response.data.ret_val);
       })
@@ -73,10 +79,9 @@ const MainDetailExpired = (props) => {
       });
   };
   const AudienceApi = async () => {
-    await axios
-      .get(
-        `${server}/survey/audience/info?legacySurveyId=${props.route.params?.legacySurveyId}`,
-      )
+    await audienceInfo({
+      legacySurveyId: props.route.params?.legacySurveyId,
+    })
       .then(async (response) => {
         setAudience(response.data);
         AudienceCheckApi(response.data.surveyId);

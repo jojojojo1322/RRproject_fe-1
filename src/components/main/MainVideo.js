@@ -22,6 +22,9 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useSelector} from 'react-redux';
 
+import {getAdvertisement} from '@repository/surveyRepository';
+import {walletReward} from '@repository/tncRepository';
+
 const MainVideo = ({navigation, route}) => {
   // Research Form 에서 넘어온 데이터
   const {legacySurveyId} = route ? route.params : '';
@@ -91,8 +94,7 @@ const MainVideo = ({navigation, route}) => {
   // Video Api
   const getVideoApi = async () => {
     setModalVisible(true);
-    axios
-      .get(`${server}/survey/advertisement?SponsorUserNo=${sponsorUserNo}`)
+    await getAdvertisement({sponsorUserNo: sponsorUserNo})
       .then((response) => {
         console.log('reponse Info >>>>', response.data.advertisementInfo);
         setAdvertisementData(response.data.advertisementInfo);
@@ -108,12 +110,11 @@ const MainVideo = ({navigation, route}) => {
     // setModal3Visible(true);
     console.log('reward 호출');
     setModalVisible(true);
-    axios
-      .post(`${server}/wallet/trans/reward`, {
-        language,
-        receiver: user.userNo,
-        surveyId: surveyId,
-      })
+    await walletReward({
+      language,
+      receiver: user.userNo,
+      surveyId: surveyId,
+    })
       .then((response) => {
         console.log('postRewardApi >>>>>>>>', response);
         if (response.data.status == 'success') {

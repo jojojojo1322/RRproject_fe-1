@@ -27,6 +27,11 @@ import {useTranslation} from 'react-i18next';
 import {withTranslation} from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';
 
+import {walletNew} from '@repository/walletRepository';
+
+import {useDispatch, useSelector} from 'react-redux';
+import {getTNCInfo} from '@module/tnc';
+
 const WalletPassword = ({route, navigation}) => {
   const [passArr, setPassArr] = useState([]);
   const [rePassArr, setRePassArr] = useState([]);
@@ -39,14 +44,19 @@ const WalletPassword = ({route, navigation}) => {
   const [walletCheck, setWalletCheck] = useState('');
   const [transCheck, setTransCheck] = useState('');
   const {t} = useTranslation();
+  const dispatch = useDispatch();
+
+  const {user, tncInfo} = useSelector(({auth, tnc}) => ({
+    user: auth.user,
+    tncInfo: tnc.tncInfo,
+  }));
 
   const walletPasswordApi = async (walletPw) => {
     setModal4Visible(true);
-    await axios
-      .post(`${server}/wallet`, {
-        email: route.params?.email,
-        walletPw: walletPw,
-      })
+    await walletNew({
+      email: route.params?.email,
+      walletPw: walletPw,
+    })
       .then(async (response) => {
         setWalletCheck(response.data.status);
         setModal4Visible(false);
@@ -59,22 +69,22 @@ const WalletPassword = ({route, navigation}) => {
     walletKeyApi();
   }, []);
 
-  const walletKeyApi = async () => {
-    await axios
-      .get(`${server}/wallet/${route.params?.email}`)
-      .then(async (response) => {
-        setWalletAddress(response.data.name);
-      })
-      .catch((e) => {});
+  const walletKeyApi = () => {
+    dispatch(getTNCInfo(user.mailId));
   };
 
+  useEffect(() => {
+    if (tncInfo) {
+      setWalletAddress(response.data.name);
+    }
+  }, [tncInfo]);
+
   const walletTransApi = async () => {
-    await axios
-      .put(`${server}/wallet`, {
-        email: route.params?.email,
-        walletAddress: walletAddress,
-        walletPw: String(pass),
-      })
+    await walletUserUpdate({
+      email: route.params?.email,
+      walletAddress: walletAddress,
+      walletPw: String(pass),
+    })
       .then((response) => {
         setTransCheck(response.data.status);
       })

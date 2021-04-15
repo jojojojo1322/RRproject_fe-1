@@ -17,6 +17,7 @@ import CountDown from '@factory/CountDown';
 import {useTranslation} from 'react-i18next';
 import {withTranslation} from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';
+import {emailReAuth} from '@repository/verifyRepository';
 
 const SettingsPersonalEmail = ({navigation, route}) => {
   const [email, setEmail] = useState(route.params?.email);
@@ -42,11 +43,8 @@ const SettingsPersonalEmail = ({navigation, route}) => {
     });
     // console.log(this.validate(this.state.email));
   };
-  const emailReAuthApi = (email) => {
-    axios
-      .post(`${server}/util/email/pw-auth`, {
-        email,
-      })
+  const emailReAuthApi = async (email) => {
+    await emailReAuth({email})
       .then(async (response) => {
         console.log('then', response);
         console.log('then', response.data);
