@@ -11,12 +11,15 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import QRCode from '@defined/QR/QRCode';
 import axios from 'axios';
 import {server} from '@context/server';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
 
+import {getTNCInfo} from '@module/tnc';
+
 const WalletReceive = (props) => {
   const {t, i18n} = useTranslation();
+  const dispatch = useDispatch();
 
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
@@ -25,8 +28,10 @@ const WalletReceive = (props) => {
   const [walletData, setWalletData] = useState([]);
   const [masterKey, setMasterKey] = useState('');
 
-  const {user} = useSelector(({auth}) => ({
+  const {user, tncInfo, infoLoading} = useSelector(({auth, tnc}) => ({
     user: auth.user,
+    tncInfo: tnc.tncInfo,
+    infoLoading: loading['tnc/GET_TNC_INFO'],
   }));
 
   useEffect(() => {
@@ -36,25 +41,29 @@ const WalletReceive = (props) => {
   }, []);
 
   // const getWalletAddressApi = async (email) => {
-  const getWalletAddressApi = async () => {
-    setModal4Visible(true);
-    await axios
-      .get(`${server}/wallet/${user.mailId}`)
-      .then((response) => {
+  const getWalletAddressApi = () => {
+    dispatch(getTNCInfo(user.mailId));
+  };
+
+  useEffect(() => {
+    if (tncInfo) {
+      if (tncInfo.status === 'fail') {
+        setModal3Visible(!modal3Visible);
+      } else {
         console.log('getWalletAddressApi>>>>>', response.data);
         setWalletData(response.data);
         console.log('walletData>>>>>', walletData);
         setMasterKey(response.data.name);
-        if (response.data.status === 'fail') {
-          setModal3Visible(!modal3Visible);
-        }
-      })
-      .catch((e) => {
-        console.log('error', e);
-        setModal3Visible(!modal3Visible);
-      });
-    setModal4Visible(false);
-  };
+      }
+    }
+  }, [tncInfo]);
+
+  useEffect(() => {
+    console.log(modal4Visible, infoLoading);
+    if (modal4Visible && !infoLoading) {
+      setModal4Visible(false);
+    }
+  }, [modal4Visible, infoLoading]);
 
   console.log('walletData', walletData);
 

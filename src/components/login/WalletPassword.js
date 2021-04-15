@@ -29,6 +29,9 @@ import hoistStatics from 'hoist-non-react-statics';
 
 import {walletNew} from '@repository/walletRepository';
 
+import {useDispatch, useSelector} from 'react-redux';
+import {getTNCInfo} from '@module/tnc';
+
 const WalletPassword = ({route, navigation}) => {
   const [passArr, setPassArr] = useState([]);
   const [rePassArr, setRePassArr] = useState([]);
@@ -41,6 +44,12 @@ const WalletPassword = ({route, navigation}) => {
   const [walletCheck, setWalletCheck] = useState('');
   const [transCheck, setTransCheck] = useState('');
   const {t} = useTranslation();
+  const dispatch = useDispatch();
+
+  const {user, tncInfo} = useSelector(({auth, tnc}) => ({
+    user: auth.user,
+    tncInfo: tnc.tncInfo,
+  }));
 
   const walletPasswordApi = async (walletPw) => {
     setModal4Visible(true);
@@ -60,14 +69,15 @@ const WalletPassword = ({route, navigation}) => {
     walletKeyApi();
   }, []);
 
-  const walletKeyApi = async () => {
-    await axios
-      .get(`${server}/wallet/${route.params?.email}`)
-      .then(async (response) => {
-        setWalletAddress(response.data.name);
-      })
-      .catch((e) => {});
+  const walletKeyApi = () => {
+    dispatch(getTNCInfo(user.mailId));
   };
+
+  useEffect(() => {
+    if (tncInfo) {
+      setWalletAddress(response.data.name);
+    }
+  }, [tncInfo]);
 
   const walletTransApi = async () => {
     await walletUserUpdate({

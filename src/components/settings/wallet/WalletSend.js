@@ -16,7 +16,8 @@ import BottomModal from '@factory/modal/BottomModal';
 import axios from 'axios';
 import {server} from '@context/server';
 import {useTranslation, initReactI18next, useSSR} from 'react-i18next';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {getTNCInfo} from '@module/tnc';
 
 // 3자리수 콤마(,) + 소수점 이하는 콤마 안 생기게
 function numberWithCommas(num) {
@@ -46,9 +47,11 @@ export default function WalletSend({navigation, route}) {
   const [transfee, setTransfee] = useState(transactionfee);
   const [walletData, setWalletData] = useState([]);
   const [calculatedValue, setCalculatedValue] = useState(total);
+  const dispatch = useDispatch();
 
-  const {user} = useSelector(({auth}) => ({
+  const {user, tncInfo} = useSelector(({auth, tnc}) => ({
     user: auth.user,
+    tncInfo: tnc.tncInfo,
   }));
 
   const {t, i18n} = useTranslation();
@@ -135,21 +138,20 @@ export default function WalletSend({navigation, route}) {
   };
 
   // Call wallet Data Api
-  const walletDataApi = async () => {
-    await axios
-      .get(`${server}/wallet/${user.mailId}`)
-      .then((response) => {
-        // 보유한 Total value TNC
-        setTotal(Number(response.data.balance.replace(' TNC', '')));
-        // setTotal(Number(1000.123412));
-        console.log('how much balance', total);
-        // Wallet Data 전체 값
-        setWalletData(response.data);
-      })
-      .catch((e) => {
-        console.log('error', e);
-      });
+  const walletDataApi = () => {
+    dispatch(getTNCInfo(user.mailId));
   };
+
+  useEffect(() => {
+    if (tncInfo) {
+      // 보유한 Total value TNC
+      setTotal(Number(response.data.balance.replace(' TNC', '')));
+      // setTotal(Number(1000.123412));
+      console.log('how much balance', total);
+      // Wallet Data 전체 값
+      setWalletData(response.data);
+    }
+  }, [tncInfo]);
 
   useEffect(() => {
     console.log('calculator value check >>>>>>>>>>>>>>>>>>>>>>>>', calculator);
