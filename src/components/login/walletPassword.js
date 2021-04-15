@@ -24,8 +24,6 @@ import axios from 'axios';
 import AuthStyle from '@style/AuthStyle';
 
 import {useTranslation} from 'react-i18next';
-import {withTranslation} from 'react-i18next';
-import hoistStatics from 'hoist-non-react-statics';
 
 const WalletPassword = ({route, navigation}) => {
   const [passArr, setPassArr] = useState([]);
@@ -83,7 +81,7 @@ const WalletPassword = ({route, navigation}) => {
 
   const handlePass = async (value, e) => {
     let _passArr = passArr.slice();
-    let _rePassArr = rePassArr.slice();
+
     let test = '';
     if (_passArr.length <= 4) {
       setPassArr(_passArr.concat({id: _passArr.length, value}));
@@ -95,12 +93,14 @@ const WalletPassword = ({route, navigation}) => {
         _passArr.map((data) => {
           test += data.value;
         });
-
+        test += value;
         setPass(test);
       } else if (pass != '') {
         _passArr.map((data) => {
           test += data.value;
         });
+        test += value;
+
         if (test != pass) {
           // 1차 2차비밀번호 틀릴시 모달
           setModalVisible(true);
